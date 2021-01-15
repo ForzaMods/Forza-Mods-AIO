@@ -17,7 +17,6 @@ namespace Forza_Mods_AIO
 
         public MainWindow()
         {
-
             InitializeComponent();
         }
 
@@ -25,6 +24,7 @@ namespace Forza_Mods_AIO
         {
 
         }
+
         //dragging functionality
         private bool dragging = false;
         private Point dragCursorPoint;
@@ -134,6 +134,74 @@ namespace Forza_Mods_AIO
             Tab_6Speedhack.Show();
         }
 
+        private void BTN_TabInfo_MouseEnter(object sender, EventArgs e)
+        {
+            if (Tab_1Info.Visible==false)
+                //Panel_Info.BackColor = Color.FromArgb(93, 93, 100);
+                //Panel_Info.BackColor = Color.FromArgb(80, 2, 96);
+                //Panel_Info.BackColor = Color.FromArgb(113, 113, 120);
+                Panel_Info.BackColor = Color.FromArgb(93, 93, 100);
+        }
 
+        private void BTN_TabInfo_MouseLeave(object sender, EventArgs e)
+        {
+            if (Tab_1Info.Visible == false)
+            Panel_Info.BackColor = Color.FromArgb(28, 28, 28);
+        }
+        private void BTN_TabAddCars_MouseEnter(object sender, EventArgs e)
+        {
+            if (Tab_2AddCars.Visible == false)
+                Panel_AddCars.BackColor = Color.FromArgb(93, 93, 100);
+        }
+
+        private void BTN_TabAddCars_MouseLeave(object sender, EventArgs e)
+        {
+            if (Tab_2AddCars.Visible == false)
+                Panel_AddCars.BackColor = Color.FromArgb(28, 28, 28);
+        }
+        private void BTN_TabStatsEditor_MouseEnter(object sender, EventArgs e)
+        {
+            if (Tab_3StatsEditor.Visible == false)
+                Panel_StatsEditor.BackColor = Color.FromArgb(93, 93, 100);
+        }
+
+        private void BTN_TabStatsEditor_MouseLeave(object sender, EventArgs e)
+        {
+            if (Tab_3StatsEditor.Visible == false)
+                Panel_StatsEditor.BackColor = Color.FromArgb(28, 28, 28);
+        }
+        private void BTN_TabSaveswap_MouseEnter(object sender, EventArgs e)
+        {
+            if (Tab_4Saveswap.Visible == false)
+                Panel_Saveswap.BackColor = Color.FromArgb(93, 93, 100);
+        }
+
+        private void BTN_TabSaveswap_MouseLeave(object sender, EventArgs e)
+        {
+            if (Tab_4Saveswap.Visible == false)
+                Panel_Saveswap.BackColor = Color.FromArgb(28, 28, 28);
+        }
+        private void BTN_TabLiveTuning_MouseEnter(object sender, EventArgs e)
+        {
+            if (Tab_5LiveTuning.Visible == false)
+                Panel_LiveTuning.BackColor = Color.FromArgb(93, 93, 100);
+        }
+
+        private void BTN_TabLiveTuning_MouseLeave(object sender, EventArgs e)
+        {
+            if (Tab_5LiveTuning.Visible == false)
+                Panel_LiveTuning.BackColor = Color.FromArgb(28, 28, 28);
+        }
+        private void BTN_TabSpeedhack_MouseEnter(object sender, EventArgs e)
+        {
+            if (Tab_6Speedhack.Visible == false)
+                Panel_Speedhack.BackColor = Color.FromArgb(93, 93, 100);
+        }
+
+        private void BTN_TabSpeedhack_MouseLeave(object sender, EventArgs e)
+        {
+            if (Tab_6Speedhack.Visible == false)
+                Panel_Speedhack.BackColor = Color.FromArgb(28, 28, 28);
+        }
     }
 }

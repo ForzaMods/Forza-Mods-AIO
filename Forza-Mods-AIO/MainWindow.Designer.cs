@@ -29,7 +29,6 @@ namespace Forza_Mods_AIO
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.TopPanel = new System.Windows.Forms.Panel();
             this.LBL_Title = new System.Windows.Forms.Label();
             this.BTN_TabInfo = new System.Windows.Forms.Button();
@@ -48,6 +47,7 @@ namespace Forza_Mods_AIO
             this.label1 = new System.Windows.Forms.Label();
             this.LBL_Attached = new System.Windows.Forms.Label();
             this.Tab_1Info = new System.Windows.Forms.Panel();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.Tab_2AddCars = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.Tab_4Saveswap = new System.Windows.Forms.Panel();
@@ -58,7 +58,6 @@ namespace Forza_Mods_AIO
             this.label5 = new System.Windows.Forms.Label();
             this.Tab_6Speedhack = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.TopPanel.SuspendLayout();
             this.Tab_1Info.SuspendLayout();
             this.Tab_2AddCars.SuspendLayout();
@@ -72,7 +71,7 @@ namespace Forza_Mods_AIO
             // 
             this.TopPanel.BackColor = System.Drawing.Color.Black;
             this.TopPanel.Controls.Add(this.LBL_Title);
-            this.TopPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TopPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.TopPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.TopPanel.Location = new System.Drawing.Point(0, 0);
             this.TopPanel.Margin = new System.Windows.Forms.Padding(0);
@@ -88,7 +87,7 @@ namespace Forza_Mods_AIO
             this.LBL_Title.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.LBL_Title.AutoSize = true;
             this.LBL_Title.BackColor = System.Drawing.Color.Transparent;
-            this.LBL_Title.Font = new System.Drawing.Font("Open Sans", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LBL_Title.Font = new System.Drawing.Font("Open Sans", 16F);
             this.LBL_Title.ForeColor = System.Drawing.Color.White;
             this.LBL_Title.Location = new System.Drawing.Point(389, 0);
             this.LBL_Title.Margin = new System.Windows.Forms.Padding(0);
@@ -107,7 +106,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabInfo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
             this.BTN_TabInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TabInfo.Font = new System.Drawing.Font("Open Sans", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BTN_TabInfo.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_TabInfo.ForeColor = System.Drawing.Color.White;
             this.BTN_TabInfo.Location = new System.Drawing.Point(0, 35);
             this.BTN_TabInfo.Margin = new System.Windows.Forms.Padding(0);
@@ -117,6 +116,8 @@ namespace Forza_Mods_AIO
             this.BTN_TabInfo.Text = "Tool Information";
             this.BTN_TabInfo.UseVisualStyleBackColor = false;
             this.BTN_TabInfo.Click += new System.EventHandler(this.BTN_TabInfo_Click);
+            this.BTN_TabInfo.MouseEnter += new System.EventHandler(this.BTN_TabInfo_MouseEnter);
+            this.BTN_TabInfo.MouseLeave += new System.EventHandler(this.BTN_TabInfo_MouseLeave);
             // 
             // BTN_TabAddCars
             // 
@@ -125,7 +126,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabAddCars.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabAddCars.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
             this.BTN_TabAddCars.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TabAddCars.Font = new System.Drawing.Font("Open Sans", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BTN_TabAddCars.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_TabAddCars.ForeColor = System.Drawing.Color.White;
             this.BTN_TabAddCars.Location = new System.Drawing.Point(172, 35);
             this.BTN_TabAddCars.Margin = new System.Windows.Forms.Padding(0);
@@ -135,6 +136,8 @@ namespace Forza_Mods_AIO
             this.BTN_TabAddCars.Text = "Add Cars";
             this.BTN_TabAddCars.UseVisualStyleBackColor = false;
             this.BTN_TabAddCars.Click += new System.EventHandler(this.BTN_TabAddCars_Click);
+            this.BTN_TabAddCars.MouseEnter += new System.EventHandler(this.BTN_TabAddCars_MouseEnter);
+            this.BTN_TabAddCars.MouseLeave += new System.EventHandler(this.BTN_TabAddCars_MouseLeave);
             // 
             // BTN_TabLiveTuning
             // 
@@ -143,7 +146,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabLiveTuning.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabLiveTuning.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
             this.BTN_TabLiveTuning.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TabLiveTuning.Font = new System.Drawing.Font("Open Sans", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BTN_TabLiveTuning.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_TabLiveTuning.ForeColor = System.Drawing.Color.White;
             this.BTN_TabLiveTuning.Location = new System.Drawing.Point(670, 35);
             this.BTN_TabLiveTuning.Margin = new System.Windows.Forms.Padding(0);
@@ -153,6 +156,8 @@ namespace Forza_Mods_AIO
             this.BTN_TabLiveTuning.Text = "Live Tuning";
             this.BTN_TabLiveTuning.UseVisualStyleBackColor = false;
             this.BTN_TabLiveTuning.Click += new System.EventHandler(this.BTN_TabLiveTuning_Click);
+            this.BTN_TabLiveTuning.MouseEnter += new System.EventHandler(this.BTN_TabLiveTuning_MouseEnter);
+            this.BTN_TabLiveTuning.MouseLeave += new System.EventHandler(this.BTN_TabLiveTuning_MouseLeave);
             // 
             // BTN_TabSaveswap
             // 
@@ -161,7 +166,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabSaveswap.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabSaveswap.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
             this.BTN_TabSaveswap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TabSaveswap.Font = new System.Drawing.Font("Open Sans", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BTN_TabSaveswap.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_TabSaveswap.ForeColor = System.Drawing.Color.White;
             this.BTN_TabSaveswap.Location = new System.Drawing.Point(504, 35);
             this.BTN_TabSaveswap.Margin = new System.Windows.Forms.Padding(0);
@@ -171,6 +176,8 @@ namespace Forza_Mods_AIO
             this.BTN_TabSaveswap.Text = "Saveswapper";
             this.BTN_TabSaveswap.UseVisualStyleBackColor = false;
             this.BTN_TabSaveswap.Click += new System.EventHandler(this.BTN_TabSaveswap_Click);
+            this.BTN_TabSaveswap.MouseEnter += new System.EventHandler(this.BTN_TabSaveswap_MouseEnter);
+            this.BTN_TabSaveswap.MouseLeave += new System.EventHandler(this.BTN_TabSaveswap_MouseLeave);
             // 
             // BTN_TabStatsEditor
             // 
@@ -179,7 +186,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabStatsEditor.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabStatsEditor.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
             this.BTN_TabStatsEditor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TabStatsEditor.Font = new System.Drawing.Font("Open Sans", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BTN_TabStatsEditor.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_TabStatsEditor.ForeColor = System.Drawing.Color.White;
             this.BTN_TabStatsEditor.Location = new System.Drawing.Point(338, 35);
             this.BTN_TabStatsEditor.Margin = new System.Windows.Forms.Padding(0);
@@ -189,6 +196,8 @@ namespace Forza_Mods_AIO
             this.BTN_TabStatsEditor.Text = "Stats Editor";
             this.BTN_TabStatsEditor.UseVisualStyleBackColor = false;
             this.BTN_TabStatsEditor.Click += new System.EventHandler(this.BTN_TabStatsEditor_Click);
+            this.BTN_TabStatsEditor.MouseEnter += new System.EventHandler(this.BTN_TabStatsEditor_MouseEnter);
+            this.BTN_TabStatsEditor.MouseLeave += new System.EventHandler(this.BTN_TabStatsEditor_MouseLeave);
             // 
             // BTN_TabSpeedhack
             // 
@@ -197,7 +206,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabSpeedhack.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabSpeedhack.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
             this.BTN_TabSpeedhack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TabSpeedhack.Font = new System.Drawing.Font("Open Sans", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BTN_TabSpeedhack.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_TabSpeedhack.ForeColor = System.Drawing.Color.White;
             this.BTN_TabSpeedhack.Location = new System.Drawing.Point(836, 35);
             this.BTN_TabSpeedhack.Margin = new System.Windows.Forms.Padding(0);
@@ -207,6 +216,8 @@ namespace Forza_Mods_AIO
             this.BTN_TabSpeedhack.Text = "Speedhack";
             this.BTN_TabSpeedhack.UseVisualStyleBackColor = false;
             this.BTN_TabSpeedhack.Click += new System.EventHandler(this.BTN_TabSpeedhack_Click);
+            this.BTN_TabSpeedhack.MouseEnter += new System.EventHandler(this.BTN_TabSpeedhack_MouseEnter);
+            this.BTN_TabSpeedhack.MouseLeave += new System.EventHandler(this.BTN_TabSpeedhack_MouseLeave);
             // 
             // BTN_Close
             // 
@@ -214,7 +225,7 @@ namespace Forza_Mods_AIO
             this.BTN_Close.FlatAppearance.BorderSize = 0;
             this.BTN_Close.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.BTN_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_Close.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.BTN_Close.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Bold);
             this.BTN_Close.ForeColor = System.Drawing.Color.Red;
             this.BTN_Close.Location = new System.Drawing.Point(965, 0);
             this.BTN_Close.Margin = new System.Windows.Forms.Padding(0);
@@ -282,7 +293,7 @@ namespace Forza_Mods_AIO
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Font = new System.Drawing.Font("Open Sans", 9F);
             this.label1.Location = new System.Drawing.Point(359, 2);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 17);
@@ -292,7 +303,7 @@ namespace Forza_Mods_AIO
             // LBL_Attached
             // 
             this.LBL_Attached.AutoSize = true;
-            this.LBL_Attached.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LBL_Attached.Font = new System.Drawing.Font("Open Sans", 9F);
             this.LBL_Attached.ForeColor = System.Drawing.Color.Red;
             this.LBL_Attached.Location = new System.Drawing.Point(12, 2);
             this.LBL_Attached.Name = "LBL_Attached";
@@ -313,6 +324,18 @@ namespace Forza_Mods_AIO
             this.Tab_1Info.Size = new System.Drawing.Size(1000, 445);
             this.Tab_1Info.TabIndex = 14;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox1.Font = new System.Drawing.Font("Open Sans", 13F);
+            this.richTextBox1.ForeColor = System.Drawing.Color.White;
+            this.richTextBox1.Location = new System.Drawing.Point(455, 53);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(512, 337);
+            this.richTextBox1.TabIndex = 14;
+            this.richTextBox1.Text = "";
+            // 
             // Tab_2AddCars
             // 
             this.Tab_2AddCars.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -329,7 +352,7 @@ namespace Forza_Mods_AIO
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(465, 4);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(76, 15);
+            this.label6.Size = new System.Drawing.Size(72, 13);
             this.label6.TabIndex = 0;
             this.label6.Text = "Add Cars Tab";
             // 
@@ -349,7 +372,7 @@ namespace Forza_Mods_AIO
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(438, -1);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 15);
+            this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Saveswapping Tab";
             // 
@@ -369,7 +392,7 @@ namespace Forza_Mods_AIO
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(379, -1);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 15);
+            this.label3.Size = new System.Drawing.Size(85, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "Live Tuning Tab";
             // 
@@ -389,7 +412,7 @@ namespace Forza_Mods_AIO
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(389, -1);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(93, 15);
+            this.label5.Size = new System.Drawing.Size(88, 13);
             this.label5.TabIndex = 0;
             this.label5.Text = "Stats Editing Tab";
             // 
@@ -412,23 +435,13 @@ namespace Forza_Mods_AIO
             this.label2.TabIndex = 0;
             this.label2.Text = "Speedhack Tab";
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Font = new System.Drawing.Font("Open Sans", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.richTextBox1.ForeColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(455, 53);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(512, 337);
-            this.richTextBox1.TabIndex = 14;
-            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
-            // 
             // MainWindow
             // 
+            this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(2065, 1460);
+            this.ClientSize = new System.Drawing.Size(1000, 500);
+            this.ControlBox = false;
             this.Controls.Add(this.Tab_3StatsEditor);
             this.Controls.Add(this.Tab_4Saveswap);
             this.Controls.Add(this.Tab_6Speedhack);
@@ -451,8 +464,10 @@ namespace Forza_Mods_AIO
             this.Controls.Add(this.Tab_2AddCars);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainWindow";
-            this.Text = "Form1";
+            this.Text = "Forza Mods AIO";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();
