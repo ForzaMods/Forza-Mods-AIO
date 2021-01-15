@@ -29,6 +29,7 @@ namespace Forza_Mods_AIO
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.TopPanel = new System.Windows.Forms.Panel();
             this.LBL_Title = new System.Windows.Forms.Label();
             this.BTN_TabInfo = new System.Windows.Forms.Button();
@@ -44,12 +45,10 @@ namespace Forza_Mods_AIO
             this.Panel_AddCars = new System.Windows.Forms.Panel();
             this.Panel_Saveswap = new System.Windows.Forms.Panel();
             this.Panel_LiveTuning = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.LBL_Attached = new System.Windows.Forms.Label();
             this.Tab_1Info = new System.Windows.Forms.Panel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.TXT_InfoTab = new System.Windows.Forms.RichTextBox();
             this.Tab_2AddCars = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
             this.Tab_4Saveswap = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.Tab_5LiveTuning = new System.Windows.Forms.Panel();
@@ -58,6 +57,14 @@ namespace Forza_Mods_AIO
             this.label5 = new System.Windows.Forms.Label();
             this.Tab_6Speedhack = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.TB_ACManualID = new System.Windows.Forms.CheckBox();
+            this.BTN_ACAddCar = new System.Windows.Forms.Button();
+            this.LST_ACCarSelect = new System.Windows.Forms.ListBox();
+            this.LSTBOX_ACSortSelect = new System.Windows.Forms.ComboBox();
+            this.LBL_ACSortingMethod = new System.Windows.Forms.Label();
+            this.LSTBOX_ACListSelect = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.TXT_ACGuide = new System.Windows.Forms.RichTextBox();
             this.TopPanel.SuspendLayout();
             this.Tab_1Info.SuspendLayout();
             this.Tab_2AddCars.SuspendLayout();
@@ -113,6 +120,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabInfo.Name = "BTN_TabInfo";
             this.BTN_TabInfo.Size = new System.Drawing.Size(172, 30);
             this.BTN_TabInfo.TabIndex = 1;
+            this.BTN_TabInfo.TabStop = false;
             this.BTN_TabInfo.Text = "Tool Information";
             this.BTN_TabInfo.UseVisualStyleBackColor = false;
             this.BTN_TabInfo.Click += new System.EventHandler(this.BTN_TabInfo_Click);
@@ -133,6 +141,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabAddCars.Name = "BTN_TabAddCars";
             this.BTN_TabAddCars.Size = new System.Drawing.Size(166, 30);
             this.BTN_TabAddCars.TabIndex = 2;
+            this.BTN_TabAddCars.TabStop = false;
             this.BTN_TabAddCars.Text = "Add Cars";
             this.BTN_TabAddCars.UseVisualStyleBackColor = false;
             this.BTN_TabAddCars.Click += new System.EventHandler(this.BTN_TabAddCars_Click);
@@ -153,6 +162,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabLiveTuning.Name = "BTN_TabLiveTuning";
             this.BTN_TabLiveTuning.Size = new System.Drawing.Size(166, 30);
             this.BTN_TabLiveTuning.TabIndex = 3;
+            this.BTN_TabLiveTuning.TabStop = false;
             this.BTN_TabLiveTuning.Text = "Live Tuning";
             this.BTN_TabLiveTuning.UseVisualStyleBackColor = false;
             this.BTN_TabLiveTuning.Click += new System.EventHandler(this.BTN_TabLiveTuning_Click);
@@ -173,6 +183,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabSaveswap.Name = "BTN_TabSaveswap";
             this.BTN_TabSaveswap.Size = new System.Drawing.Size(166, 30);
             this.BTN_TabSaveswap.TabIndex = 4;
+            this.BTN_TabSaveswap.TabStop = false;
             this.BTN_TabSaveswap.Text = "Saveswapper";
             this.BTN_TabSaveswap.UseVisualStyleBackColor = false;
             this.BTN_TabSaveswap.Click += new System.EventHandler(this.BTN_TabSaveswap_Click);
@@ -193,6 +204,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabStatsEditor.Name = "BTN_TabStatsEditor";
             this.BTN_TabStatsEditor.Size = new System.Drawing.Size(166, 30);
             this.BTN_TabStatsEditor.TabIndex = 5;
+            this.BTN_TabStatsEditor.TabStop = false;
             this.BTN_TabStatsEditor.Text = "Stats Editor";
             this.BTN_TabStatsEditor.UseVisualStyleBackColor = false;
             this.BTN_TabStatsEditor.Click += new System.EventHandler(this.BTN_TabStatsEditor_Click);
@@ -213,6 +225,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabSpeedhack.Name = "BTN_TabSpeedhack";
             this.BTN_TabSpeedhack.Size = new System.Drawing.Size(164, 30);
             this.BTN_TabSpeedhack.TabIndex = 6;
+            this.BTN_TabSpeedhack.TabStop = false;
             this.BTN_TabSpeedhack.Text = "Speedhack";
             this.BTN_TabSpeedhack.UseVisualStyleBackColor = false;
             this.BTN_TabSpeedhack.Click += new System.EventHandler(this.BTN_TabSpeedhack_Click);
@@ -232,6 +245,7 @@ namespace Forza_Mods_AIO
             this.BTN_Close.Name = "BTN_Close";
             this.BTN_Close.Size = new System.Drawing.Size(35, 35);
             this.BTN_Close.TabIndex = 7;
+            this.BTN_Close.TabStop = false;
             this.BTN_Close.Text = "X";
             this.BTN_Close.UseVisualStyleBackColor = false;
             this.BTN_Close.Click += new System.EventHandler(this.BTN_Close_Click);
@@ -290,24 +304,15 @@ namespace Forza_Mods_AIO
             this.Panel_LiveTuning.Size = new System.Drawing.Size(166, 5);
             this.Panel_LiveTuning.TabIndex = 11;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Open Sans", 9F);
-            this.label1.Location = new System.Drawing.Point(359, 2);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 17);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Information Tab";
-            // 
             // LBL_Attached
             // 
             this.LBL_Attached.AutoSize = true;
-            this.LBL_Attached.Font = new System.Drawing.Font("Open Sans", 9F);
+            this.LBL_Attached.Font = new System.Drawing.Font("Open Sans", 12F);
             this.LBL_Attached.ForeColor = System.Drawing.Color.Red;
-            this.LBL_Attached.Location = new System.Drawing.Point(12, 2);
+            this.LBL_Attached.Location = new System.Drawing.Point(3, 3);
+            this.LBL_Attached.Margin = new System.Windows.Forms.Padding(3);
             this.LBL_Attached.Name = "LBL_Attached";
-            this.LBL_Attached.Size = new System.Drawing.Size(120, 17);
+            this.LBL_Attached.Size = new System.Drawing.Size(163, 22);
             this.LBL_Attached.TabIndex = 13;
             this.LBL_Attached.Text = "Not Attached to FH4";
             // 
@@ -315,46 +320,47 @@ namespace Forza_Mods_AIO
             // 
             this.Tab_1Info.AutoScroll = true;
             this.Tab_1Info.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Tab_1Info.Controls.Add(this.richTextBox1);
+            this.Tab_1Info.Controls.Add(this.TXT_InfoTab);
             this.Tab_1Info.Controls.Add(this.LBL_Attached);
-            this.Tab_1Info.Controls.Add(this.label1);
             this.Tab_1Info.Location = new System.Drawing.Point(9, 80);
             this.Tab_1Info.Margin = new System.Windows.Forms.Padding(0);
             this.Tab_1Info.Name = "Tab_1Info";
             this.Tab_1Info.Size = new System.Drawing.Size(1000, 445);
             this.Tab_1Info.TabIndex = 14;
             // 
-            // richTextBox1
+            // TXT_InfoTab
             // 
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Font = new System.Drawing.Font("Open Sans", 13F);
-            this.richTextBox1.ForeColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(455, 53);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(512, 337);
-            this.richTextBox1.TabIndex = 14;
-            this.richTextBox1.Text = "";
+            this.TXT_InfoTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.TXT_InfoTab.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TXT_InfoTab.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TXT_InfoTab.Font = new System.Drawing.Font("Open Sans", 13F);
+            this.TXT_InfoTab.ForeColor = System.Drawing.Color.White;
+            this.TXT_InfoTab.Location = new System.Drawing.Point(0, 74);
+            this.TXT_InfoTab.Margin = new System.Windows.Forms.Padding(0);
+            this.TXT_InfoTab.Name = "TXT_InfoTab";
+            this.TXT_InfoTab.ReadOnly = true;
+            this.TXT_InfoTab.Size = new System.Drawing.Size(998, 369);
+            this.TXT_InfoTab.TabIndex = 14;
+            this.TXT_InfoTab.TabStop = false;
+            this.TXT_InfoTab.Text = resources.GetString("TXT_InfoTab.Text");
             // 
             // Tab_2AddCars
             // 
             this.Tab_2AddCars.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Tab_2AddCars.Controls.Add(this.label6);
+            this.Tab_2AddCars.Controls.Add(this.TXT_ACGuide);
+            this.Tab_2AddCars.Controls.Add(this.label1);
+            this.Tab_2AddCars.Controls.Add(this.LSTBOX_ACListSelect);
+            this.Tab_2AddCars.Controls.Add(this.LBL_ACSortingMethod);
+            this.Tab_2AddCars.Controls.Add(this.LSTBOX_ACSortSelect);
+            this.Tab_2AddCars.Controls.Add(this.LST_ACCarSelect);
+            this.Tab_2AddCars.Controls.Add(this.BTN_ACAddCar);
+            this.Tab_2AddCars.Controls.Add(this.TB_ACManualID);
             this.Tab_2AddCars.Location = new System.Drawing.Point(1036, 80);
             this.Tab_2AddCars.Margin = new System.Windows.Forms.Padding(0);
             this.Tab_2AddCars.Name = "Tab_2AddCars";
             this.Tab_2AddCars.Size = new System.Drawing.Size(1000, 445);
             this.Tab_2AddCars.TabIndex = 14;
             this.Tab_2AddCars.Visible = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(465, 4);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Add Cars Tab";
             // 
             // Tab_4Saveswap
             // 
@@ -435,12 +441,136 @@ namespace Forza_Mods_AIO
             this.label2.TabIndex = 0;
             this.label2.Text = "Speedhack Tab";
             // 
+            // TB_ACManualID
+            // 
+            this.TB_ACManualID.AutoSize = true;
+            this.TB_ACManualID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TB_ACManualID.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TB_ACManualID.Location = new System.Drawing.Point(751, 346);
+            this.TB_ACManualID.Name = "TB_ACManualID";
+            this.TB_ACManualID.Size = new System.Drawing.Size(145, 23);
+            this.TB_ACManualID.TabIndex = 1;
+            this.TB_ACManualID.Text = "Manually Input ID";
+            this.TB_ACManualID.UseVisualStyleBackColor = true;
+            // 
+            // BTN_ACAddCar
+            // 
+            this.BTN_ACAddCar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.BTN_ACAddCar.FlatAppearance.BorderSize = 0;
+            this.BTN_ACAddCar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
+            this.BTN_ACAddCar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.BTN_ACAddCar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_ACAddCar.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.BTN_ACAddCar.ForeColor = System.Drawing.Color.White;
+            this.BTN_ACAddCar.Location = new System.Drawing.Point(746, 372);
+            this.BTN_ACAddCar.Margin = new System.Windows.Forms.Padding(0);
+            this.BTN_ACAddCar.Name = "BTN_ACAddCar";
+            this.BTN_ACAddCar.Size = new System.Drawing.Size(150, 50);
+            this.BTN_ACAddCar.TabIndex = 16;
+            this.BTN_ACAddCar.TabStop = false;
+            this.BTN_ACAddCar.Text = "Add Car";
+            this.BTN_ACAddCar.UseVisualStyleBackColor = false;
+            // 
+            // LST_ACCarSelect
+            // 
+            this.LST_ACCarSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.LST_ACCarSelect.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.LST_ACCarSelect.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LST_ACCarSelect.ForeColor = System.Drawing.Color.White;
+            this.LST_ACCarSelect.FormattingEnabled = true;
+            this.LST_ACCarSelect.ItemHeight = 18;
+            this.LST_ACCarSelect.Items.AddRange(new object[] {
+            "car 1",
+            "car 2",
+            "car 3",
+            "car 4",
+            "car 5",
+            "car 6"});
+            this.LST_ACCarSelect.Location = new System.Drawing.Point(308, 0);
+            this.LST_ACCarSelect.Name = "LST_ACCarSelect";
+            this.LST_ACCarSelect.Size = new System.Drawing.Size(340, 432);
+            this.LST_ACCarSelect.TabIndex = 17;
+            // 
+            // LSTBOX_ACSortSelect
+            // 
+            this.LSTBOX_ACSortSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.LSTBOX_ACSortSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LSTBOX_ACSortSelect.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LSTBOX_ACSortSelect.ForeColor = System.Drawing.Color.White;
+            this.LSTBOX_ACSortSelect.FormattingEnabled = true;
+            this.LSTBOX_ACSortSelect.Items.AddRange(new object[] {
+            "item 1",
+            "item 2",
+            "item 3",
+            "item 4",
+            "item 5",
+            "item 6"});
+            this.LSTBOX_ACSortSelect.Location = new System.Drawing.Point(3, 39);
+            this.LSTBOX_ACSortSelect.Name = "LSTBOX_ACSortSelect";
+            this.LSTBOX_ACSortSelect.Size = new System.Drawing.Size(299, 26);
+            this.LSTBOX_ACSortSelect.TabIndex = 18;
+            // 
+            // LBL_ACSortingMethod
+            // 
+            this.LBL_ACSortingMethod.AutoSize = true;
+            this.LBL_ACSortingMethod.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBL_ACSortingMethod.Location = new System.Drawing.Point(10, 17);
+            this.LBL_ACSortingMethod.Name = "LBL_ACSortingMethod";
+            this.LBL_ACSortingMethod.Size = new System.Drawing.Size(113, 19);
+            this.LBL_ACSortingMethod.TabIndex = 19;
+            this.LBL_ACSortingMethod.Text = "Sorting Method";
+            // 
+            // LSTBOX_ACListSelect
+            // 
+            this.LSTBOX_ACListSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.LSTBOX_ACListSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LSTBOX_ACListSelect.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LSTBOX_ACListSelect.ForeColor = System.Drawing.Color.White;
+            this.LSTBOX_ACListSelect.FormattingEnabled = true;
+            this.LSTBOX_ACListSelect.Items.AddRange(new object[] {
+            "item 1",
+            "item 2",
+            "item 3",
+            "item 4",
+            "item 5",
+            "item 6"});
+            this.LSTBOX_ACListSelect.Location = new System.Drawing.Point(3, 112);
+            this.LSTBOX_ACListSelect.Name = "LSTBOX_ACListSelect";
+            this.LSTBOX_ACListSelect.Size = new System.Drawing.Size(299, 26);
+            this.LSTBOX_ACListSelect.TabIndex = 20;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(10, 90);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(129, 19);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "Displayed Car List";
+            // 
+            // TXT_ACGuide
+            // 
+            this.TXT_ACGuide.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.TXT_ACGuide.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TXT_ACGuide.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TXT_ACGuide.Font = new System.Drawing.Font("Open Sans", 13F);
+            this.TXT_ACGuide.ForeColor = System.Drawing.Color.White;
+            this.TXT_ACGuide.Location = new System.Drawing.Point(651, -1);
+            this.TXT_ACGuide.Margin = new System.Windows.Forms.Padding(0);
+            this.TXT_ACGuide.Name = "TXT_ACGuide";
+            this.TXT_ACGuide.ReadOnly = true;
+            this.TXT_ACGuide.Size = new System.Drawing.Size(347, 344);
+            this.TXT_ACGuide.TabIndex = 15;
+            this.TXT_ACGuide.TabStop = false;
+            this.TXT_ACGuide.Text = "Maybe put a how to use guide here or something idk\n";
+            // 
             // MainWindow
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(1000, 500);
+            this.ClientSize = new System.Drawing.Size(2096, 1460);
             this.ControlBox = false;
             this.Controls.Add(this.Tab_3StatsEditor);
             this.Controls.Add(this.Tab_4Saveswap);
@@ -503,11 +633,9 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Panel Panel_AddCars;
         private System.Windows.Forms.Panel Panel_Saveswap;
         private System.Windows.Forms.Panel Panel_LiveTuning;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label LBL_Attached;
         private System.Windows.Forms.Panel Tab_1Info;
         private System.Windows.Forms.Panel Tab_2AddCars;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel Tab_4Saveswap;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel Tab_5LiveTuning;
@@ -516,7 +644,15 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel Tab_6Speedhack;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox TXT_InfoTab;
+        private System.Windows.Forms.ListBox LST_ACCarSelect;
+        private System.Windows.Forms.Button BTN_ACAddCar;
+        private System.Windows.Forms.CheckBox TB_ACManualID;
+        private System.Windows.Forms.ComboBox LSTBOX_ACSortSelect;
+        private System.Windows.Forms.Label LBL_ACSortingMethod;
+        private System.Windows.Forms.ComboBox LSTBOX_ACListSelect;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RichTextBox TXT_ACGuide;
     }
 }
 
