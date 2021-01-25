@@ -49,6 +49,8 @@ namespace Forza_Mods_AIO
             this.Tab_1Info = new System.Windows.Forms.Panel();
             this.TXT_InfoTab = new System.Windows.Forms.RichTextBox();
             this.Tab_2AddCars = new System.Windows.Forms.Panel();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.TB_ACAutoshow = new System.Windows.Forms.CheckBox();
             this.TXT_ACGuide = new System.Windows.Forms.RichTextBox();
             this.LBL_ACCarList = new System.Windows.Forms.Label();
             this.LSTBOX_ACListSelect = new System.Windows.Forms.ComboBox();
@@ -59,54 +61,60 @@ namespace Forza_Mods_AIO
             this.TB_ACManualID = new System.Windows.Forms.CheckBox();
             this.Tab_4Saveswap = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.Tab_5LiveTuning = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.Tab_3StatsEditor = new System.Windows.Forms.Panel();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.Tab_6Speedhack = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.TB_SHWallNoClip = new System.Windows.Forms.CheckBox();
-            this.TB_SHCarNoClip = new System.Windows.Forms.CheckBox();
-            this.LBL_SHNoClip = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.LBL_SHNoClip = new System.Windows.Forms.Label();
+            this.TB_SHCarNoClip = new System.Windows.Forms.CheckBox();
+            this.TB_SHWallNoClip = new System.Windows.Forms.CheckBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.InitialBGworker = new System.ComponentModel.BackgroundWorker();
             this.TopPanel.SuspendLayout();
             this.Tab_1Info.SuspendLayout();
             this.Tab_2AddCars.SuspendLayout();
@@ -114,15 +122,14 @@ namespace Forza_Mods_AIO
             this.Tab_5LiveTuning.SuspendLayout();
             this.Tab_3StatsEditor.SuspendLayout();
             this.Tab_6Speedhack.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.panel7.SuspendLayout();
-            this.panel8.SuspendLayout();
-            this.panel9.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // TopPanel
@@ -398,6 +405,8 @@ namespace Forza_Mods_AIO
             // Tab_2AddCars
             // 
             this.Tab_2AddCars.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Tab_2AddCars.Controls.Add(this.checkBox8);
+            this.Tab_2AddCars.Controls.Add(this.TB_ACAutoshow);
             this.Tab_2AddCars.Controls.Add(this.TXT_ACGuide);
             this.Tab_2AddCars.Controls.Add(this.LBL_ACCarList);
             this.Tab_2AddCars.Controls.Add(this.LSTBOX_ACListSelect);
@@ -413,6 +422,31 @@ namespace Forza_Mods_AIO
             this.Tab_2AddCars.TabIndex = 14;
             this.Tab_2AddCars.Visible = false;
             // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox8.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox8.Location = new System.Drawing.Point(12, 409);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(133, 23);
+            this.checkBox8.TabIndex = 23;
+            this.checkBox8.Text = "Remove All Cars";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
+            // TB_ACAutoshow
+            // 
+            this.TB_ACAutoshow.AutoSize = true;
+            this.TB_ACAutoshow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TB_ACAutoshow.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TB_ACAutoshow.Location = new System.Drawing.Point(12, 372);
+            this.TB_ACAutoshow.Name = "TB_ACAutoshow";
+            this.TB_ACAutoshow.Size = new System.Drawing.Size(180, 23);
+            this.TB_ACAutoshow.TabIndex = 22;
+            this.TB_ACAutoshow.Text = "Change Autoshow Cars";
+            this.TB_ACAutoshow.UseVisualStyleBackColor = true;
+            this.TB_ACAutoshow.CheckStateChanged += new System.EventHandler(this.TB_ACAutoshow_CheckStateChanged);
+            // 
             // TXT_ACGuide
             // 
             this.TXT_ACGuide.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
@@ -427,7 +461,8 @@ namespace Forza_Mods_AIO
             this.TXT_ACGuide.Size = new System.Drawing.Size(347, 344);
             this.TXT_ACGuide.TabIndex = 15;
             this.TXT_ACGuide.TabStop = false;
-            this.TXT_ACGuide.Text = "Maybe put a how to use guide here or something idk\n";
+            this.TXT_ACGuide.Text = "Maybe put a how to use guide here or something idk\n\n\n\n\nI would recommend using th" +
+    "e Change Autoshow Cars toggle as it is more stable and easier to use\n";
             // 
             // LBL_ACCarList
             // 
@@ -557,6 +592,35 @@ namespace Forza_Mods_AIO
             this.label4.TabIndex = 0;
             this.label4.Text = "Saveswapping Tab";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox1.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.ForeColor = System.Drawing.Color.White;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "item 1",
+            "item 2",
+            "item 3",
+            "item 4",
+            "item 5",
+            "item 6"});
+            this.comboBox1.Location = new System.Drawing.Point(3, 70);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(236, 26);
+            this.comboBox1.TabIndex = 22;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(63, 46);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(125, 19);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Teleport Location";
+            // 
             // Tab_5LiveTuning
             // 
             this.Tab_5LiveTuning.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -580,6 +644,7 @@ namespace Forza_Mods_AIO
             // Tab_3StatsEditor
             // 
             this.Tab_3StatsEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Tab_3StatsEditor.Controls.Add(this.richTextBox2);
             this.Tab_3StatsEditor.Controls.Add(this.label5);
             this.Tab_3StatsEditor.Location = new System.Drawing.Point(9, 535);
             this.Tab_3StatsEditor.Margin = new System.Windows.Forms.Padding(0);
@@ -587,6 +652,22 @@ namespace Forza_Mods_AIO
             this.Tab_3StatsEditor.Size = new System.Drawing.Size(1000, 445);
             this.Tab_3StatsEditor.TabIndex = 15;
             this.Tab_3StatsEditor.Visible = false;
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox2.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.richTextBox2.Font = new System.Drawing.Font("Open Sans", 15F);
+            this.richTextBox2.ForeColor = System.Drawing.Color.White;
+            this.richTextBox2.Location = new System.Drawing.Point(137, 83);
+            this.richTextBox2.Margin = new System.Windows.Forms.Padding(0);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.ReadOnly = true;
+            this.richTextBox2.Size = new System.Drawing.Size(666, 218);
+            this.richTextBox2.TabIndex = 22;
+            this.richTextBox2.TabStop = false;
+            this.richTextBox2.Text = "Will be added soon its actually kinda complicated and annoying to code";
             // 
             // label5
             // 
@@ -600,6 +681,7 @@ namespace Forza_Mods_AIO
             // Tab_6Speedhack
             // 
             this.Tab_6Speedhack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Tab_6Speedhack.Controls.Add(this.panel7);
             this.Tab_6Speedhack.Controls.Add(this.panel9);
             this.Tab_6Speedhack.Controls.Add(this.panel1);
             this.Tab_6Speedhack.Controls.Add(this.panel2);
@@ -607,14 +689,74 @@ namespace Forza_Mods_AIO
             this.Tab_6Speedhack.Controls.Add(this.panel4);
             this.Tab_6Speedhack.Controls.Add(this.panel6);
             this.Tab_6Speedhack.Controls.Add(this.panel5);
-            this.Tab_6Speedhack.Controls.Add(this.panel7);
-            this.Tab_6Speedhack.Controls.Add(this.panel8);
             this.Tab_6Speedhack.Location = new System.Drawing.Point(1036, 989);
             this.Tab_6Speedhack.Margin = new System.Windows.Forms.Padding(0);
             this.Tab_6Speedhack.Name = "Tab_6Speedhack";
             this.Tab_6Speedhack.Size = new System.Drawing.Size(1000, 445);
             this.Tab_6Speedhack.TabIndex = 15;
             this.Tab_6Speedhack.Visible = false;
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel7.Controls.Add(this.checkBox6);
+            this.panel7.Controls.Add(this.richTextBox1);
+            this.panel7.Controls.Add(this.comboBox1);
+            this.panel7.Controls.Add(this.label11);
+            this.panel7.Controls.Add(this.label10);
+            this.panel7.Location = new System.Drawing.Point(746, 12);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(242, 421);
+            this.panel7.TabIndex = 4;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox6.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox6.Location = new System.Drawing.Point(34, 164);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(174, 23);
+            this.checkBox6.TabIndex = 36;
+            this.checkBox6.Text = "Possibly checkpoint tp";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox1.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.richTextBox1.Font = new System.Drawing.Font("Open Sans", 13F);
+            this.richTextBox1.ForeColor = System.Drawing.Color.White;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 252);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(242, 166);
+            this.richTextBox1.TabIndex = 22;
+            this.richTextBox1.TabStop = false;
+            this.richTextBox1.Text = "how to use guide or something ";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(53, 8);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(144, 27);
+            this.label11.TabIndex = 36;
+            this.label11.Text = "Miscellaneous";
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel9.Controls.Add(this.label2);
+            this.panel9.Controls.Add(this.label13);
+            this.panel9.Controls.Add(this.label14);
+            this.panel9.Location = new System.Drawing.Point(12, 100);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(190, 105);
+            this.panel9.TabIndex = 2;
             // 
             // label2
             // 
@@ -626,211 +768,15 @@ namespace Forza_Mods_AIO
             this.label2.TabIndex = 34;
             this.label2.Text = "Control Keys";
             // 
-            // checkBox3
+            // label13
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox3.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox3.Location = new System.Drawing.Point(69, 40);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(76, 23);
-            this.checkBox3.TabIndex = 33;
-            this.checkBox3.Text = "Velocity";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox2.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(213, 40);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(108, 23);
-            this.checkBox2.TabIndex = 32;
-            this.checkBox2.Text = "Wheelspeed";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox1.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(411, 42);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(99, 23);
-            this.checkBox1.TabIndex = 31;
-            this.checkBox1.Text = "Turn assist";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(75, 135);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(58, 19);
-            this.label31.TabIndex = 30;
-            this.label31.Text = "Boost 3";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(75, 175);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(91, 19);
-            this.label30.TabIndex = 29;
-            this.label30.Text = "Boost over 3";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(75, 95);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(58, 19);
-            this.label29.TabIndex = 28;
-            this.label29.Text = "Boost 2";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(75, 55);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(58, 19);
-            this.label28.TabIndex = 27;
-            this.label28.Text = "Boost 1";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(65, 137);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(72, 19);
-            this.label27.TabIndex = 26;
-            this.label27.Text = "Interval 3";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(65, 177);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(105, 19);
-            this.label26.TabIndex = 25;
-            this.label26.Text = "Interval over 3";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(65, 97);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(72, 19);
-            this.label25.TabIndex = 24;
-            this.label25.Text = "Interval 2";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(65, 57);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(72, 19);
-            this.label24.TabIndex = 23;
-            this.label24.Text = "Interval 1";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(54, 177);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(42, 19);
-            this.label23.TabIndex = 22;
-            this.label23.Text = "Limit";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(54, 97);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(63, 19);
-            this.label22.TabIndex = 21;
-            this.label22.Text = "Speed 2";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(54, 137);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(63, 19);
-            this.label21.TabIndex = 20;
-            this.label21.Text = "Speed 3";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(54, 57);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(63, 19);
-            this.label20.TabIndex = 19;
-            this.label20.Text = "Speed 1";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(339, 66);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(144, 19);
-            this.label19.TabIndex = 18;
-            this.label19.Text = "Turn assist strength";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(192, 66);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(118, 19);
-            this.label18.TabIndex = 17;
-            this.label18.Text = "Turn assist ratio";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(20, 66);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(138, 19);
-            this.label17.TabIndex = 16;
-            this.label17.Text = "Turn assist interval";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(87, 80);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(56, 19);
-            this.label16.TabIndex = 15;
-            this.label16.Text = "Gravity";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(87, 49);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(49, 19);
-            this.label15.TabIndex = 14;
-            this.label15.Text = "Weird";
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(49, 36);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(73, 19);
+            this.label13.TabIndex = 12;
+            this.label13.Text = "Keyboard";
             // 
             // label14
             // 
@@ -842,55 +788,16 @@ namespace Forza_Mods_AIO
             this.label14.TabIndex = 13;
             this.label14.Text = "Controller";
             // 
-            // label13
+            // panel1
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(49, 36);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(73, 19);
-            this.label13.TabIndex = 12;
-            this.label13.Text = "Keyboard";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(58, 39);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(75, 19);
-            this.label12.TabIndex = 11;
-            this.label12.Text = "Multiplier";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(8, 15);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(163, 27);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "Speed Strengths";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(13, 17);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(154, 27);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "Speed Intervals";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(23, 17);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(115, 27);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Speed Vars";
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.label15);
+            this.panel1.Controls.Add(this.label16);
+            this.panel1.Location = new System.Drawing.Point(12, 297);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(190, 136);
+            this.panel1.TabIndex = 1;
             // 
             // label8
             // 
@@ -902,15 +809,35 @@ namespace Forza_Mods_AIO
             this.label8.TabIndex = 7;
             this.label8.Text = "Dont know";
             // 
-            // label7
+            // label15
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(178, 16);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(177, 27);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Wheelspeed Hack";
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(87, 49);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(49, 19);
+            this.label15.TabIndex = 14;
+            this.label15.Text = "Weird";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(87, 80);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(56, 19);
+            this.label16.TabIndex = 15;
+            this.label16.Text = "Gravity";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.label12);
+            this.panel2.Location = new System.Drawing.Point(12, 211);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(190, 80);
+            this.panel2.TabIndex = 2;
             // 
             // label6
             // 
@@ -922,27 +849,36 @@ namespace Forza_Mods_AIO
             this.label6.TabIndex = 5;
             this.label6.Text = "Velocity Speed";
             // 
-            // label1
+            // label12
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(225, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 27);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Toggles";
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(58, 39);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(75, 19);
+            this.label12.TabIndex = 11;
+            this.label12.Text = "Multiplier";
             // 
-            // TB_SHWallNoClip
+            // panel3
             // 
-            this.TB_SHWallNoClip.AutoSize = true;
-            this.TB_SHWallNoClip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TB_SHWallNoClip.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_SHWallNoClip.Location = new System.Drawing.Point(71, 38);
-            this.TB_SHWallNoClip.Name = "TB_SHWallNoClip";
-            this.TB_SHWallNoClip.Size = new System.Drawing.Size(54, 23);
-            this.TB_SHWallNoClip.TabIndex = 3;
-            this.TB_SHWallNoClip.Text = "Wall";
-            this.TB_SHWallNoClip.UseVisualStyleBackColor = true;
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel3.Controls.Add(this.LBL_SHNoClip);
+            this.panel3.Controls.Add(this.TB_SHCarNoClip);
+            this.panel3.Controls.Add(this.TB_SHWallNoClip);
+            this.panel3.Location = new System.Drawing.Point(12, 12);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(190, 82);
+            this.panel3.TabIndex = 2;
+            // 
+            // LBL_SHNoClip
+            // 
+            this.LBL_SHNoClip.AutoSize = true;
+            this.LBL_SHNoClip.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBL_SHNoClip.Location = new System.Drawing.Point(55, 8);
+            this.LBL_SHNoClip.Name = "LBL_SHNoClip";
+            this.LBL_SHNoClip.Size = new System.Drawing.Size(80, 27);
+            this.LBL_SHNoClip.TabIndex = 1;
+            this.LBL_SHNoClip.Text = "No-Clip";
             // 
             // TB_SHCarNoClip
             // 
@@ -956,62 +892,252 @@ namespace Forza_Mods_AIO
             this.TB_SHCarNoClip.Text = "Car";
             this.TB_SHCarNoClip.UseVisualStyleBackColor = true;
             // 
-            // LBL_SHNoClip
+            // TB_SHWallNoClip
             // 
-            this.LBL_SHNoClip.AutoSize = true;
-            this.LBL_SHNoClip.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_SHNoClip.Location = new System.Drawing.Point(55, 8);
-            this.LBL_SHNoClip.Name = "LBL_SHNoClip";
-            this.LBL_SHNoClip.Size = new System.Drawing.Size(80, 27);
-            this.LBL_SHNoClip.TabIndex = 1;
-            this.LBL_SHNoClip.Text = "No-Clip";
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.label15);
-            this.panel1.Controls.Add(this.label16);
-            this.panel1.Location = new System.Drawing.Point(14, 297);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(190, 133);
-            this.panel1.TabIndex = 1;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.label12);
-            this.panel2.Location = new System.Drawing.Point(14, 211);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(190, 80);
-            this.panel2.TabIndex = 2;
-
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel3.Controls.Add(this.LBL_SHNoClip);
-            this.panel3.Controls.Add(this.TB_SHCarNoClip);
-            this.panel3.Controls.Add(this.TB_SHWallNoClip);
-            this.panel3.Location = new System.Drawing.Point(15, 12);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(190, 82);
-            this.panel3.TabIndex = 2;
-
+            this.TB_SHWallNoClip.AutoSize = true;
+            this.TB_SHWallNoClip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TB_SHWallNoClip.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TB_SHWallNoClip.Location = new System.Drawing.Point(71, 38);
+            this.TB_SHWallNoClip.Name = "TB_SHWallNoClip";
+            this.TB_SHWallNoClip.Size = new System.Drawing.Size(54, 23);
+            this.TB_SHWallNoClip.TabIndex = 3;
+            this.TB_SHWallNoClip.Text = "Wall";
+            this.TB_SHWallNoClip.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel4.Controls.Add(this.checkBox5);
+            this.panel4.Controls.Add(this.checkBox4);
             this.panel4.Controls.Add(this.label1);
             this.panel4.Controls.Add(this.checkBox1);
             this.panel4.Controls.Add(this.checkBox2);
             this.panel4.Controls.Add(this.checkBox3);
-            this.panel4.Location = new System.Drawing.Point(211, 12);
+            this.panel4.Location = new System.Drawing.Point(208, 12);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(532, 82);
+            this.panel4.Size = new System.Drawing.Size(532, 111);
             this.panel4.TabIndex = 2;
-
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox5.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox5.Location = new System.Drawing.Point(311, 71);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(126, 23);
+            this.checkBox5.TabIndex = 35;
+            this.checkBox5.Text = "Stop all wheels";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox4.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox4.Location = new System.Drawing.Point(98, 71);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(107, 23);
+            this.checkBox4.TabIndex = 34;
+            this.checkBox4.Text = "Super break";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(225, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 27);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Toggles";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox1.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(384, 42);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(99, 23);
+            this.checkBox1.TabIndex = 31;
+            this.checkBox1.Text = "Turn assist";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox2.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox2.Location = new System.Drawing.Point(210, 42);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(108, 23);
+            this.checkBox2.TabIndex = 32;
+            this.checkBox2.Text = "Wheelspeed";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox3.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox3.Location = new System.Drawing.Point(41, 42);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(76, 23);
+            this.checkBox3.TabIndex = 33;
+            this.checkBox3.Text = "Velocity";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel6.Controls.Add(this.label9);
+            this.panel6.Controls.Add(this.label28);
+            this.panel6.Controls.Add(this.label29);
+            this.panel6.Controls.Add(this.label24);
+            this.panel6.Controls.Add(this.label30);
+            this.panel6.Controls.Add(this.label31);
+            this.panel6.Controls.Add(this.label25);
+            this.panel6.Controls.Add(this.label20);
+            this.panel6.Controls.Add(this.label26);
+            this.panel6.Controls.Add(this.label21);
+            this.panel6.Controls.Add(this.label27);
+            this.panel6.Controls.Add(this.label22);
+            this.panel6.Controls.Add(this.label23);
+            this.panel6.Location = new System.Drawing.Point(208, 211);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(532, 222);
+            this.panel6.TabIndex = 2;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(160, 9);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(177, 27);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "Wheelspeed Hack";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(405, 57);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(58, 19);
+            this.label28.TabIndex = 27;
+            this.label28.Text = "Boost 1";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(405, 97);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(58, 19);
+            this.label29.TabIndex = 28;
+            this.label29.Text = "Boost 2";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(206, 57);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(72, 19);
+            this.label24.TabIndex = 23;
+            this.label24.Text = "Interval 1";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(405, 177);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(91, 19);
+            this.label30.TabIndex = 29;
+            this.label30.Text = "Boost over 3";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(405, 137);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(58, 19);
+            this.label31.TabIndex = 30;
+            this.label31.Text = "Boost 3";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(206, 97);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(72, 19);
+            this.label25.TabIndex = 24;
+            this.label25.Text = "Interval 2";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(54, 57);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(63, 19);
+            this.label20.TabIndex = 19;
+            this.label20.Text = "Speed 1";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(206, 177);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(105, 19);
+            this.label26.TabIndex = 25;
+            this.label26.Text = "Interval over 3";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(54, 137);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(63, 19);
+            this.label21.TabIndex = 20;
+            this.label21.Text = "Speed 3";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(206, 137);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(72, 19);
+            this.label27.TabIndex = 26;
+            this.label27.Text = "Interval 3";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(54, 97);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(63, 19);
+            this.label22.TabIndex = 21;
+            this.label22.Text = "Speed 2";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(54, 177);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(42, 19);
+            this.label23.TabIndex = 22;
+            this.label23.Text = "Limit";
             // 
             // panel5
             // 
@@ -1020,63 +1146,57 @@ namespace Forza_Mods_AIO
             this.panel5.Controls.Add(this.label17);
             this.panel5.Controls.Add(this.label18);
             this.panel5.Controls.Add(this.label19);
-            this.panel5.Location = new System.Drawing.Point(211, 100);
+            this.panel5.Location = new System.Drawing.Point(208, 129);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(532, 105);
+            this.panel5.Size = new System.Drawing.Size(532, 76);
             this.panel5.TabIndex = 2;
             // 
-            // panel6
+            // label7
             // 
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel6.Controls.Add(this.label9);
-            this.panel6.Controls.Add(this.label20);
-            this.panel6.Controls.Add(this.label21);
-            this.panel6.Controls.Add(this.label22);
-            this.panel6.Controls.Add(this.label23);
-            this.panel6.Location = new System.Drawing.Point(211, 211);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(161, 219);
-            this.panel6.TabIndex = 2;
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(203, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(115, 27);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Turn Assist";
             // 
-            // panel7
+            // label17
             // 
-            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel7.Controls.Add(this.label10);
-            this.panel7.Controls.Add(this.label24);
-            this.panel7.Controls.Add(this.label25);
-            this.panel7.Controls.Add(this.label26);
-            this.panel7.Controls.Add(this.label27);
-            this.panel7.Location = new System.Drawing.Point(563, 211);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(180, 219);
-            this.panel7.TabIndex = 2;
-
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(20, 44);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(138, 19);
+            this.label17.TabIndex = 16;
+            this.label17.Text = "Turn assist interval";
             // 
-            // panel8
+            // label18
             // 
-            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel8.Controls.Add(this.label11);
-            this.panel8.Controls.Add(this.label28);
-            this.panel8.Controls.Add(this.label29);
-            this.panel8.Controls.Add(this.label30);
-            this.panel8.Controls.Add(this.label31);
-            this.panel8.Location = new System.Drawing.Point(378, 211);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(179, 219);
-            this.panel8.TabIndex = 2;
-
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(193, 44);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(118, 19);
+            this.label18.TabIndex = 17;
+            this.label18.Text = "Turn assist ratio";
             // 
-            // panel9
+            // label19
             // 
-            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel9.Controls.Add(this.label2);
-            this.panel9.Controls.Add(this.label13);
-            this.panel9.Controls.Add(this.label14);
-            this.panel9.Location = new System.Drawing.Point(15, 100);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(190, 105);
-            this.panel9.TabIndex = 2;
-
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(339, 44);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(144, 19);
+            this.label19.TabIndex = 18;
+            this.label19.Text = "Turn assist strength";
+            // 
+            // InitialBGworker
+            // 
+            this.InitialBGworker.WorkerReportsProgress = true;
+            this.InitialBGworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.InitialBGworker_DoWork);
+            this.InitialBGworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.InitialBGworker_ProgressChanged);
+            this.InitialBGworker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.InitialBGworker_RunWorkerCompleted);
             // 
             // MainWindow
             // 
@@ -1107,11 +1227,13 @@ namespace Forza_Mods_AIO
             this.Controls.Add(this.Tab_2AddCars);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainWindow";
             this.Text = "Forza Mods AIO";
             this.Load += new System.EventHandler(this.MainWindow_Load);
+            this.Shown += new System.EventHandler(this.MainWindow_Shown);
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();
             this.Tab_1Info.ResumeLayout(false);
@@ -1125,6 +1247,10 @@ namespace Forza_Mods_AIO
             this.Tab_3StatsEditor.ResumeLayout(false);
             this.Tab_3StatsEditor.PerformLayout();
             this.Tab_6Speedhack.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -1133,16 +1259,10 @@ namespace Forza_Mods_AIO
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            this.panel8.ResumeLayout(false);
-            this.panel8.PerformLayout();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1207,9 +1327,6 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -1223,9 +1340,20 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.ComponentModel.BackgroundWorker InitialBGworker;
+        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.CheckBox TB_ACAutoshow;
     }
 }
 

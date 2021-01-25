@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using Memory;
 
@@ -14,6 +15,7 @@ namespace Forza_Mods_AIO
     public partial class MainWindow : Form
     {
         Mem m = new Mem();
+        bool IsAttached = false;
 
         public MainWindow()
         {
@@ -137,9 +139,6 @@ namespace Forza_Mods_AIO
         private void BTN_TabInfo_MouseEnter(object sender, EventArgs e)
         {
             if (Tab_1Info.Visible==false)
-                //Panel_Info.BackColor = Color.FromArgb(93, 93, 100);
-                //Panel_Info.BackColor = Color.FromArgb(80, 2, 96);
-                //Panel_Info.BackColor = Color.FromArgb(113, 113, 120);
                 Panel_Info.BackColor = Color.FromArgb(93, 93, 100);
         }
 
@@ -204,5 +203,58 @@ namespace Forza_Mods_AIO
                 Panel_Speedhack.BackColor = Color.FromArgb(28, 28, 28);
         }
 
+        private void InitialBGworker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                if(!m.OpenProcess("ForzaHorizon4"))
+                {
+                    IsAttached = false;
+                    InitialBGworker.ReportProgress(0);
+                    Thread.Sleep(1000);
+                    continue;
+                }
+                IsAttached = true;
+                Thread.Sleep(1000);
+                InitialBGworker.ReportProgress(0);
+            }
+        }
+
+        private void MainWindow_Shown(object sender, EventArgs e)
+        {
+            InitialBGworker.RunWorkerAsync();
+
+        }
+
+        private void InitialBGworker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            if (IsAttached)
+            {
+                LBL_Attached.Text = "Attached to FH4";
+                LBL_Attached.ForeColor = Color.Green;
+            }
+            else
+            {
+                LBL_Attached.Text = "Not Attached to FH4";
+                LBL_Attached.ForeColor = Color.Red;
+            }
+        }
+
+        private void InitialBGworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            InitialBGworker.RunWorkerAsync();
+        }
+
+        private void TB_ACAutoshow_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (TB_ACAutoshow.Checked == false)
+            {
+                m.WriteMemory("base+4C4B7EC","string","0");
+            }
+            else
+            {
+                m.WriteMemory("base+4C4B7EC", "string", "1");
+            }
+        }
     }
 }
