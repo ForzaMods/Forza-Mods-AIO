@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GlobalLowLevelHooks</name>
+    </assembly>
+    <members>
+        <member name="T:GlobalLowLevelHooks.KeyboardHook">
+            <summary>
+            Class for intercepting low level keyboard hooks
+            </summary>
+        </member>
+        <member name="F:GlobalLowLevelHooks.KeyboardHook.WM_KEYDOWN">
+            <summary>
+            Low-Level function declarations
+            </summary>
+        </member>
+        <member name="F:GlobalLowLevelHooks.KeyboardHook.hookID">
+            <summary>
+            Hook ID
+            </summary>
+        </member>
+        <member name="M:GlobalLowLevelHooks.KeyboardHook.Install">
+            <summary>
+            Install low level keyboard hook
+            </summary>
+        </member>
+        <member name="M:GlobalLowLevelHooks.KeyboardHook.Uninstall">
+            <summary>
+            Remove low level keyboard hook
+            </summary>
+        </member>
+        <member name="M:GlobalLowLevelHooks.KeyboardHook.SetHook(GlobalLowLevelHooks.KeyboardHook.KeyboardHookHandler)">
+            <summary>
+            Registers hook with Windows API
+            </summary>
+            <param name="proc">Callback function</param>
+            <returns>Hook ID</returns>
+        </member>
+        <member name="M:GlobalLowLevelHooks.KeyboardHook.HookFunc(System.Int32,System.IntPtr,System.IntPtr)">
+            <summary>
+            Default hook call, which analyses pressed keys
+            </summary>
+        </member>
+        <member name="M:GlobalLowLevelHooks.KeyboardHook.Finalize">
+            <summary>
+            Destructor. Unhook current hook
+            </summary>
+        </member>
+        <member name="T:GlobalLowLevelHooks.KeyboardHook.VKeys">
+            <summary>
+            Virtual Keys
+            </summary>
+        </member>
+        <member name="T:GlobalLowLevelHooks.KeyboardHook.KeyboardHookHandler">
+            <summary>
+            Internal callback processing function
+            </summary>
+        </member>
+        <member name="T:GlobalLowLevelHooks.KeyboardHook.KeyboardHookCallback">
+            <summary>
+            Function that will be called when defined events occur
+            </summary>
+            <param name="key">VKeys</param>
+        </member>
+        <member name="T:GlobalLowLevelHooks.MouseHook">
+            <summary>
+            Class for intercepting low level Windows mouse hooks.
+            </summary>
+        </member>
+        <member name="F:GlobalLowLevelHooks.MouseHook.hookID">
+            <summary>
+            Low level mouse hook's ID
+            </summary>
+        </member>
+        <member name="M:GlobalLowLevelHooks.MouseHook.Install">
+            <summary>
+            Install low level mouse hook
+            </summary>
+            <param name="mouseHookCallbackFunc">Callback function</param>
+        </member>
+        <member name="M:GlobalLowLevelHooks.MouseHook.Uninstall">
+            <summary>
+            Remove low level mouse hook
+            </summary>
+        </member>
+        <member name="M:GlobalLowLevelHooks.MouseHook.Finalize">
+            <summary>
+            Destructor. Unhook current hook
+            </summary>
+        </member>
+        <member name="M:GlobalLowLevelHooks.MouseHook.SetHook(GlobalLowLevelHooks.MouseHook.MouseHookHandler)">
+            <summary>
+            Sets hook and assigns its ID for tracking
+            </summary>
+            <param name="proc">Internal callback function</param>
+            <returns>Hook ID</returns>
+        </member>
+        <member name="M:GlobalLowLevelHooks.MouseHook.HookFunc(System.Int32,System.IntPtr,System.IntPtr)">
+            <summary>
+            Callback function
+            </summary>
+        </member>
+        <member name="T:GlobalLowLevelHooks.MouseHook.MouseHookHandler">
+            <summary>
+            Internal callback processing function
+            </summary>
+        </member>
+        <member name="T:GlobalLowLevelHooks.MouseHook.MouseHookCallback">
+            <summary>
+            Function to be called when defined even occurs
+            </summary>
+            <param name="mouseStruct">MSLLHOOKSTRUCT mouse structure</param>
+        </member>
+    </members>
+</doc>
