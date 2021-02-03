@@ -602,12 +602,21 @@ namespace Forza_Mods_AIO
         {
             while (true)
             {
-                Addresses();
-                if(!m.OpenProcess("ForzaHorizon4") || (BaseAddr == "1DD0") || (BaseAddr == null))
+                 Addresses();
+                if(!m.OpenProcess("ForzaHorizon4"))
                 {
-                    AoBscan();
                     IsAttached = false;
                     InitialBGworker.ReportProgress(0);
+                    Thread.Sleep(1000);
+                    continue;
+                }
+                if(BaseAddr == "1DD0" || (BaseAddr == null)
+                    || (Car1Addr == "6A") || (Car1Addr == null)
+                    || (Car2Addr == "-19B") || (Car2Addr == null)
+                    || (Wall1Addr == "191") || (Wall1Addr == null)
+                    || (Wall2Addr == "-1BE") || (Wall2Addr == null))
+                {
+                    AoBscan();
                     Thread.Sleep(1000);
                     continue;
                 }
@@ -625,6 +634,7 @@ namespace Forza_Mods_AIO
         {
             while (true)
             {
+                Thread.Sleep(500);
                 if (IsAttached == false && Tab_1Info.Visible == false)
                 {
                    ClearColours();
