@@ -56,13 +56,13 @@ namespace Forza_Mods_AIO
         float z;
         int cycles;
 
-
         public MainWindow()
         {
             InitializeComponent();
             keyboardHook.Install();
             keyboardHook.KeyDown += new KeyboardHook.KeyboardHookCallback(keyboardHook_KeyDown);
             keyboardHook.KeyUp += new KeyboardHook.KeyboardHookCallback(keyboardHook_KeyUp);
+            CheckForIllegalCrossThreadCalls = false;
         }
         private void MainWindow_Load(object sender, EventArgs e)
         {
@@ -622,9 +622,16 @@ namespace Forza_Mods_AIO
         }
         private void CheckAttachedworker_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (IsAttached == false && Tab_1Info.Visible == false)
+            while (true)
             {
-                Tab_1Info.Show();
+                if (IsAttached == false && Tab_1Info.Visible == false)
+                {
+                   ClearColours();
+                   BTN_TabInfo.BackColor = Color.FromArgb(45, 45, 48);
+                   Panel_Info.BackColor = Color.FromArgb(150, 11, 166);
+                   ClearTabItems();
+                   Tab_1Info.Show();
+                }
             }
         }
         private void InitialBGworker_ProgressChanged(object sender, ProgressChangedEventArgs e)
