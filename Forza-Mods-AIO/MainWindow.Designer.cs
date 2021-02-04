@@ -69,7 +69,6 @@ namespace Forza_Mods_AIO
             this.TB_SHWallNoClip = new System.Windows.Forms.CheckBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.TPButton = new System.Windows.Forms.Button();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -83,6 +82,7 @@ namespace Forza_Mods_AIO
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.VelMultBox = new System.Windows.Forms.NumericUpDown();
             this.VelMultBar = new System.Windows.Forms.TrackBar();
             this.label6 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -94,6 +94,18 @@ namespace Forza_Mods_AIO
             this.WheelSpeedButton = new System.Windows.Forms.CheckBox();
             this.VelHackButton = new System.Windows.Forms.CheckBox();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.LimitBox = new System.Windows.Forms.NumericUpDown();
+            this.Speed3Box = new System.Windows.Forms.NumericUpDown();
+            this.Speed2Box = new System.Windows.Forms.NumericUpDown();
+            this.Interval4Box = new System.Windows.Forms.NumericUpDown();
+            this.Interval3Box = new System.Windows.Forms.NumericUpDown();
+            this.Interval2Box = new System.Windows.Forms.NumericUpDown();
+            this.Boost4Box = new System.Windows.Forms.NumericUpDown();
+            this.Boost3Box = new System.Windows.Forms.NumericUpDown();
+            this.Boost2Box = new System.Windows.Forms.NumericUpDown();
+            this.Boost1Box = new System.Windows.Forms.NumericUpDown();
+            this.Interval1Box = new System.Windows.Forms.NumericUpDown();
+            this.Speed1Box = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
@@ -108,6 +120,9 @@ namespace Forza_Mods_AIO
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.RatioBox = new System.Windows.Forms.NumericUpDown();
+            this.TurnStrenghtBox = new System.Windows.Forms.NumericUpDown();
+            this.TurnIntervalBox = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -124,22 +139,8 @@ namespace Forza_Mods_AIO
             this.TurnAssistworker = new System.ComponentModel.BackgroundWorker();
             this.NoClipworker = new System.ComponentModel.BackgroundWorker();
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
-            this.Speed1Box = new System.Windows.Forms.NumericUpDown();
-            this.Speed2Box = new System.Windows.Forms.NumericUpDown();
-            this.Speed3Box = new System.Windows.Forms.NumericUpDown();
-            this.LimitBox = new System.Windows.Forms.NumericUpDown();
-            this.Interval1Box = new System.Windows.Forms.NumericUpDown();
-            this.Interval2Box = new System.Windows.Forms.NumericUpDown();
-            this.Interval3Box = new System.Windows.Forms.NumericUpDown();
-            this.Interval4Box = new System.Windows.Forms.NumericUpDown();
-            this.Boost1Box = new System.Windows.Forms.NumericUpDown();
-            this.Boost2Box = new System.Windows.Forms.NumericUpDown();
-            this.Boost3Box = new System.Windows.Forms.NumericUpDown();
-            this.Boost4Box = new System.Windows.Forms.NumericUpDown();
-            this.TurnIntervalBox = new System.Windows.Forms.NumericUpDown();
-            this.RatioBox = new System.Windows.Forms.NumericUpDown();
-            this.TurnStrenghtBox = new System.Windows.Forms.NumericUpDown();
-            this.VelMultBox = new System.Windows.Forms.NumericUpDown();
+            this.CheckPointTPworker = new System.ComponentModel.BackgroundWorker();
+            this.CheckpointBox = new System.Windows.Forms.CheckBox();
             this.TopPanel.SuspendLayout();
             this.Tab_1Info.SuspendLayout();
             this.Tab_2AddCars.SuspendLayout();
@@ -150,28 +151,28 @@ namespace Forza_Mods_AIO
             this.panel9.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBar)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.Tab_5LiveTuning.SuspendLayout();
-            this.Tab_3StatsEditor.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Speed1Box)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Speed2Box)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Speed3Box)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LimitBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Interval1Box)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Interval2Box)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Interval3Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Speed3Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Speed2Box)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Interval4Box)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Boost1Box)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Boost2Box)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Boost3Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval3Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval2Box)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Boost4Box)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost3Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost2Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost1Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval1Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Speed1Box)).BeginInit();
+            this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnStrenghtBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).BeginInit();
+            this.Tab_5LiveTuning.SuspendLayout();
+            this.Tab_3StatsEditor.SuspendLayout();
             this.SuspendLayout();
             // 
             // TopPanel
@@ -722,8 +723,8 @@ namespace Forza_Mods_AIO
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel7.Controls.Add(this.CheckpointBox);
             this.panel7.Controls.Add(this.TPButton);
-            this.panel7.Controls.Add(this.checkBox6);
             this.panel7.Controls.Add(this.richTextBox1);
             this.panel7.Controls.Add(this.comboBox1);
             this.panel7.Controls.Add(this.label11);
@@ -742,18 +743,6 @@ namespace Forza_Mods_AIO
             this.TPButton.Text = "Go";
             this.TPButton.UseVisualStyleBackColor = true;
             this.TPButton.Click += new System.EventHandler(this.TPButton_Click);
-            // 
-            // checkBox6
-            // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox6.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox6.Location = new System.Drawing.Point(34, 164);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(174, 23);
-            this.checkBox6.TabIndex = 36;
-            this.checkBox6.Text = "Possibly checkpoint tp";
-            this.checkBox6.UseVisualStyleBackColor = true;
             // 
             // richTextBox1
             // 
@@ -902,6 +891,14 @@ namespace Forza_Mods_AIO
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(190, 80);
             this.panel2.TabIndex = 2;
+            // 
+            // VelMultBox
+            // 
+            this.VelMultBox.DecimalPlaces = 5;
+            this.VelMultBox.Location = new System.Drawing.Point(89, 34);
+            this.VelMultBox.Name = "VelMultBox";
+            this.VelMultBox.Size = new System.Drawing.Size(68, 20);
+            this.VelMultBox.TabIndex = 32;
             // 
             // VelMultBar
             // 
@@ -1056,6 +1053,94 @@ namespace Forza_Mods_AIO
             this.panel6.Size = new System.Drawing.Size(532, 222);
             this.panel6.TabIndex = 2;
             // 
+            // LimitBox
+            // 
+            this.LimitBox.DecimalPlaces = 5;
+            this.LimitBox.Location = new System.Drawing.Point(71, 178);
+            this.LimitBox.Name = "LimitBox";
+            this.LimitBox.Size = new System.Drawing.Size(68, 20);
+            this.LimitBox.TabIndex = 31;
+            // 
+            // Speed3Box
+            // 
+            this.Speed3Box.DecimalPlaces = 5;
+            this.Speed3Box.Location = new System.Drawing.Point(71, 138);
+            this.Speed3Box.Name = "Speed3Box";
+            this.Speed3Box.Size = new System.Drawing.Size(68, 20);
+            this.Speed3Box.TabIndex = 31;
+            // 
+            // Speed2Box
+            // 
+            this.Speed2Box.DecimalPlaces = 5;
+            this.Speed2Box.Location = new System.Drawing.Point(71, 98);
+            this.Speed2Box.Name = "Speed2Box";
+            this.Speed2Box.Size = new System.Drawing.Size(68, 20);
+            this.Speed2Box.TabIndex = 31;
+            // 
+            // Interval4Box
+            // 
+            this.Interval4Box.Location = new System.Drawing.Point(250, 178);
+            this.Interval4Box.Name = "Interval4Box";
+            this.Interval4Box.Size = new System.Drawing.Size(68, 20);
+            this.Interval4Box.TabIndex = 31;
+            // 
+            // Interval3Box
+            // 
+            this.Interval3Box.Location = new System.Drawing.Point(250, 138);
+            this.Interval3Box.Name = "Interval3Box";
+            this.Interval3Box.Size = new System.Drawing.Size(68, 20);
+            this.Interval3Box.TabIndex = 31;
+            // 
+            // Interval2Box
+            // 
+            this.Interval2Box.Location = new System.Drawing.Point(250, 98);
+            this.Interval2Box.Name = "Interval2Box";
+            this.Interval2Box.Size = new System.Drawing.Size(68, 20);
+            this.Interval2Box.TabIndex = 31;
+            // 
+            // Boost4Box
+            // 
+            this.Boost4Box.Location = new System.Drawing.Point(433, 178);
+            this.Boost4Box.Name = "Boost4Box";
+            this.Boost4Box.Size = new System.Drawing.Size(68, 20);
+            this.Boost4Box.TabIndex = 31;
+            // 
+            // Boost3Box
+            // 
+            this.Boost3Box.Location = new System.Drawing.Point(433, 138);
+            this.Boost3Box.Name = "Boost3Box";
+            this.Boost3Box.Size = new System.Drawing.Size(68, 20);
+            this.Boost3Box.TabIndex = 31;
+            // 
+            // Boost2Box
+            // 
+            this.Boost2Box.Location = new System.Drawing.Point(433, 98);
+            this.Boost2Box.Name = "Boost2Box";
+            this.Boost2Box.Size = new System.Drawing.Size(68, 20);
+            this.Boost2Box.TabIndex = 31;
+            // 
+            // Boost1Box
+            // 
+            this.Boost1Box.Location = new System.Drawing.Point(433, 58);
+            this.Boost1Box.Name = "Boost1Box";
+            this.Boost1Box.Size = new System.Drawing.Size(68, 20);
+            this.Boost1Box.TabIndex = 31;
+            // 
+            // Interval1Box
+            // 
+            this.Interval1Box.Location = new System.Drawing.Point(250, 58);
+            this.Interval1Box.Name = "Interval1Box";
+            this.Interval1Box.Size = new System.Drawing.Size(68, 20);
+            this.Interval1Box.TabIndex = 31;
+            // 
+            // Speed1Box
+            // 
+            this.Speed1Box.DecimalPlaces = 5;
+            this.Speed1Box.Location = new System.Drawing.Point(71, 58);
+            this.Speed1Box.Name = "Speed1Box";
+            this.Speed1Box.Size = new System.Drawing.Size(68, 20);
+            this.Speed1Box.TabIndex = 31;
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -1201,6 +1286,28 @@ namespace Forza_Mods_AIO
             this.panel5.Size = new System.Drawing.Size(532, 76);
             this.panel5.TabIndex = 2;
             // 
+            // RatioBox
+            // 
+            this.RatioBox.DecimalPlaces = 5;
+            this.RatioBox.Location = new System.Drawing.Point(290, 44);
+            this.RatioBox.Name = "RatioBox";
+            this.RatioBox.Size = new System.Drawing.Size(63, 20);
+            this.RatioBox.TabIndex = 31;
+            // 
+            // TurnStrenghtBox
+            // 
+            this.TurnStrenghtBox.Location = new System.Drawing.Point(490, 45);
+            this.TurnStrenghtBox.Name = "TurnStrenghtBox";
+            this.TurnStrenghtBox.Size = new System.Drawing.Size(37, 20);
+            this.TurnStrenghtBox.TabIndex = 31;
+            // 
+            // TurnIntervalBox
+            // 
+            this.TurnIntervalBox.Location = new System.Drawing.Point(139, 44);
+            this.TurnIntervalBox.Name = "TurnIntervalBox";
+            this.TurnIntervalBox.Size = new System.Drawing.Size(36, 20);
+            this.TurnIntervalBox.TabIndex = 31;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -1334,123 +1441,21 @@ namespace Forza_Mods_AIO
             // 
             this.CheckAttachedworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckAttachedworker_DoWork);
             // 
-            // Speed1Box
+            // CheckPointTPworker
             // 
-            this.Speed1Box.DecimalPlaces = 5;
-            this.Speed1Box.Location = new System.Drawing.Point(71, 58);
-            this.Speed1Box.Name = "Speed1Box";
-            this.Speed1Box.Size = new System.Drawing.Size(68, 20);
-            this.Speed1Box.TabIndex = 31;
+            this.CheckPointTPworker.WorkerSupportsCancellation = true;
+            this.CheckPointTPworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckPointTPworker_DoWork);
             // 
-            // Speed2Box
+            // CheckpointBox
             // 
-            this.Speed2Box.DecimalPlaces = 5;
-            this.Speed2Box.Location = new System.Drawing.Point(71, 98);
-            this.Speed2Box.Name = "Speed2Box";
-            this.Speed2Box.Size = new System.Drawing.Size(68, 20);
-            this.Speed2Box.TabIndex = 31;
-            // 
-            // Speed3Box
-            // 
-            this.Speed3Box.DecimalPlaces = 5;
-            this.Speed3Box.Location = new System.Drawing.Point(71, 138);
-            this.Speed3Box.Name = "Speed3Box";
-            this.Speed3Box.Size = new System.Drawing.Size(68, 20);
-            this.Speed3Box.TabIndex = 31;
-            // 
-            // LimitBox
-            // 
-            this.LimitBox.DecimalPlaces = 5;
-            this.LimitBox.Location = new System.Drawing.Point(71, 178);
-            this.LimitBox.Name = "LimitBox";
-            this.LimitBox.Size = new System.Drawing.Size(68, 20);
-            this.LimitBox.TabIndex = 31;
-            // 
-            // Interval1Box
-            // 
-            this.Interval1Box.Location = new System.Drawing.Point(250, 58);
-            this.Interval1Box.Name = "Interval1Box";
-            this.Interval1Box.Size = new System.Drawing.Size(68, 20);
-            this.Interval1Box.TabIndex = 31;
-            // 
-            // Interval2Box
-            // 
-            this.Interval2Box.Location = new System.Drawing.Point(250, 98);
-            this.Interval2Box.Name = "Interval2Box";
-            this.Interval2Box.Size = new System.Drawing.Size(68, 20);
-            this.Interval2Box.TabIndex = 31;
-            // 
-            // Interval3Box
-            // 
-            this.Interval3Box.Location = new System.Drawing.Point(250, 138);
-            this.Interval3Box.Name = "Interval3Box";
-            this.Interval3Box.Size = new System.Drawing.Size(68, 20);
-            this.Interval3Box.TabIndex = 31;
-            // 
-            // Interval4Box
-            // 
-            this.Interval4Box.Location = new System.Drawing.Point(250, 178);
-            this.Interval4Box.Name = "Interval4Box";
-            this.Interval4Box.Size = new System.Drawing.Size(68, 20);
-            this.Interval4Box.TabIndex = 31;
-            // 
-            // Boost1Box
-            // 
-            this.Boost1Box.Location = new System.Drawing.Point(433, 58);
-            this.Boost1Box.Name = "Boost1Box";
-            this.Boost1Box.Size = new System.Drawing.Size(68, 20);
-            this.Boost1Box.TabIndex = 31;
-            // 
-            // Boost2Box
-            // 
-            this.Boost2Box.Location = new System.Drawing.Point(433, 98);
-            this.Boost2Box.Name = "Boost2Box";
-            this.Boost2Box.Size = new System.Drawing.Size(68, 20);
-            this.Boost2Box.TabIndex = 31;
-            // 
-            // Boost3Box
-            // 
-            this.Boost3Box.Location = new System.Drawing.Point(433, 138);
-            this.Boost3Box.Name = "Boost3Box";
-            this.Boost3Box.Size = new System.Drawing.Size(68, 20);
-            this.Boost3Box.TabIndex = 31;
-            // 
-            // Boost4Box
-            // 
-            this.Boost4Box.Location = new System.Drawing.Point(433, 178);
-            this.Boost4Box.Name = "Boost4Box";
-            this.Boost4Box.Size = new System.Drawing.Size(68, 20);
-            this.Boost4Box.TabIndex = 31;
-            // 
-            // TurnIntervalBox
-            // 
-            this.TurnIntervalBox.Location = new System.Drawing.Point(139, 44);
-            this.TurnIntervalBox.Name = "TurnIntervalBox";
-            this.TurnIntervalBox.Size = new System.Drawing.Size(36, 20);
-            this.TurnIntervalBox.TabIndex = 31;
-            // 
-            // RatioBox
-            // 
-            this.RatioBox.DecimalPlaces = 5;
-            this.RatioBox.Location = new System.Drawing.Point(290, 44);
-            this.RatioBox.Name = "RatioBox";
-            this.RatioBox.Size = new System.Drawing.Size(63, 20);
-            this.RatioBox.TabIndex = 31;
-            // 
-            // TurnStrenghtBox
-            // 
-            this.TurnStrenghtBox.Location = new System.Drawing.Point(490, 45);
-            this.TurnStrenghtBox.Name = "TurnStrenghtBox";
-            this.TurnStrenghtBox.Size = new System.Drawing.Size(37, 20);
-            this.TurnStrenghtBox.TabIndex = 31;
-            // 
-            // VelMultBox
-            // 
-            this.VelMultBox.DecimalPlaces = 5;
-            this.VelMultBox.Location = new System.Drawing.Point(89, 34);
-            this.VelMultBox.Name = "VelMultBox";
-            this.VelMultBox.Size = new System.Drawing.Size(68, 20);
-            this.VelMultBox.TabIndex = 32;
+            this.CheckpointBox.AutoSize = true;
+            this.CheckpointBox.Location = new System.Drawing.Point(78, 131);
+            this.CheckpointBox.Name = "CheckpointBox";
+            this.CheckpointBox.Size = new System.Drawing.Size(91, 17);
+            this.CheckpointBox.TabIndex = 38;
+            this.CheckpointBox.Text = "Auto win race";
+            this.CheckpointBox.UseVisualStyleBackColor = true;
+            this.CheckpointBox.CheckedChanged += new System.EventHandler(this.CheckpointBox_CheckedChanged);
             // 
             // MainWindow
             // 
@@ -1508,33 +1513,33 @@ namespace Forza_Mods_AIO
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBar)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LimitBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Speed3Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Speed2Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval4Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval3Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval2Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost4Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost3Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost2Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost1Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval1Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Speed1Box)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnStrenghtBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).EndInit();
             this.Tab_5LiveTuning.ResumeLayout(false);
             this.Tab_5LiveTuning.PerformLayout();
             this.Tab_3StatsEditor.ResumeLayout(false);
             this.Tab_3StatsEditor.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Speed1Box)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Speed2Box)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Speed3Box)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LimitBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Interval1Box)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Interval2Box)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Interval3Box)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Interval4Box)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Boost1Box)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Boost2Box)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Boost3Box)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Boost4Box)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TurnStrenghtBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1621,7 +1626,6 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.ComponentModel.BackgroundWorker InitialBGworker;
         private System.ComponentModel.BackgroundWorker Breakworker;
@@ -1630,6 +1634,7 @@ namespace Forza_Mods_AIO
         private System.ComponentModel.BackgroundWorker TurnAssistworker;
         private System.ComponentModel.BackgroundWorker NoClipworker;
         private System.ComponentModel.BackgroundWorker CheckAttachedworker;
+        private System.ComponentModel.BackgroundWorker CheckPointTPworker;
         private System.Windows.Forms.CheckBox checkBox8;
         private System.Windows.Forms.CheckBox TB_ACAutoshow;
         private System.Windows.Forms.Button TPButton;
@@ -1651,6 +1656,7 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.NumericUpDown RatioBox;
         private System.Windows.Forms.NumericUpDown TurnStrenghtBox;
         private System.Windows.Forms.NumericUpDown TurnIntervalBox;
+        private System.Windows.Forms.CheckBox CheckpointBox;
     }
 }
 
