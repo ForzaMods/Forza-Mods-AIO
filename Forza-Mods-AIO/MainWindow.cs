@@ -31,29 +31,21 @@ namespace Forza_Mods_AIO
         bool TurnAssistRightStart = false;
         bool NoClipToggle = false;
         string BaseAddr;
-        string Car1Addr;
-        string Car2Addr;
-        string Wall1Addr;
-        string Wall2Addr;
-        string FrontLeftAddr;
-        string FrontRightAddr;
-        string BackLeftAddr;
-        string BackRightAddr;
+        string Car1Addr;        string Car2Addr;
+        string Wall1Addr;       string Wall2Addr;
+        string FrontLeftAddr;   string FrontRightAddr;  string BackLeftAddr;    string BackRightAddr;
         string OnGroundAddr;
-        string xVelocityAddr;
-        string yVelocityAddr;
-        string zVelocityAddr;
-        string xAddr;
-        string yAddr;
-        string zAddr;
+        string xVelocityAddr;   string yVelocityAddr;   string zVelocityAddr;
+        string xAddr;           string yAddr;           string zAddr;
         string YawAddr;
         string GasAddr;
-        float xVelocityVal;
-        float yVelocityVal;
-        float zVelocityVal;
-        float x;
-        float y;
-        float z;
+        float xVelocityVal;     float yVelocityVal;     float zVelocityVal;
+        float x;                float y;                float z;
+        float BoostSpeed1;      float BoostSpeed2;      float BoostSpeed3;      float BoostLim;
+        float TurnRatio;        float TurnStrength;
+        float VelMult;
+        int times1;             int times2;             int times3;             int times4;
+        int BoostInterval1;     int BoostInterval2;     int BoostInterval3;     int BoostInterval4; int TurnInterval;
         int cycles;
 
 
@@ -266,8 +258,8 @@ namespace Forza_Mods_AIO
             while (VelHackStart)
             {
                 cycles++;
-                xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)1.04;
-                zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)1.04;
+                xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)VelMult;
+                zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)VelMult;
                 y = m.ReadFloat(yAddr);
                 if (cycles % 2 == 0)
                 {
@@ -295,29 +287,41 @@ namespace Forza_Mods_AIO
             {
                 m.WriteMemory(GasAddr, "float", "1");
                 float boost = (float)Math.Ceiling(m.ReadFloat(FrontLeftAddr));
-                if(boost < 100)
+                if (boost < BoostSpeed1)
                 {
-                    boost++;
-                    Thread.Sleep(20);
+                    for (int i = 0; i < times1; i++)
+                    {
+                        boost++;
+                    }
+                    Thread.Sleep(BoostInterval1);
                 }
-                else if (boost < 200)
+                else if (boost < BoostSpeed2)
                 {
-                    boost++;
-                    Thread.Sleep(15);
+                    for (int i = 0; i < times2; i++)
+                    {
+                        boost++;
+                    }
+                    Thread.Sleep(BoostInterval2);
                 }
-                else if (boost < 300)
+                else if (boost < BoostSpeed3)
                 {
-                    boost++;
-                    Thread.Sleep(10);
+                    for (int i = 0; i < times3; i++)
+                    {
+                        boost++;
+                    }
+                    Thread.Sleep(BoostInterval3);
                 }
                 else
                 {
-                    boost++;
-                    Thread.Sleep(5);
+                    for (int i = 0; i < times4; i++)
+                    {
+                        boost++;
+                    }
+                    Thread.Sleep(BoostInterval4);
                 }
-                if (boost >= 1000)
+                if (boost >= BoostLim)
                 {
-                    boost = 1000;
+                    boost = BoostLim;
                 }
                 m.WriteMemory(FrontLeftAddr, "float", boost.ToString());
                 m.WriteMemory(FrontRightAddr, "float", boost.ToString());
@@ -344,19 +348,18 @@ namespace Forza_Mods_AIO
                 float FrontRight = m.ReadFloat(FrontRightAddr);
                 float BackLeft = m.ReadFloat(BackLeftAddr);
                 float BackRight = m.ReadFloat(BackRightAddr);
-                if ((float)Math.Abs(FrontRight - FrontLeft) < (FrontRight / 5) && (float)Math.Abs(BackRight - FrontLeft) < (BackRight / 5))
+                if ((float)Math.Abs(FrontRight - FrontLeft) < (FrontRight / TurnRatio) && (float)Math.Abs(BackRight - FrontLeft) < (BackRight / TurnRatio))
                 {
-                    FrontLeft = FrontLeft - 15;
-                    BackLeft = BackLeft - 15;
-                    FrontRight = FrontRight + 15;
-                    BackRight = BackRight + 15;
-                    Thread.Sleep(15);
+                    FrontLeft = FrontLeft - TurnStrength;
+                    BackLeft = BackLeft - TurnStrength;
+                    FrontRight = FrontRight + TurnStrength;
+                    BackRight = BackRight + TurnStrength;
+                    Thread.Sleep(TurnInterval);
                 }
                 m.WriteMemory(FrontLeftAddr, "float", FrontLeft.ToString());
                 m.WriteMemory(FrontRightAddr, "float", FrontRight.ToString());
                 m.WriteMemory(BackLeftAddr, "float", BackLeft.ToString());
                 m.WriteMemory(BackRightAddr, "float", BackRight.ToString());
-                Thread.Sleep(15);
             }
         }
         public void TurnAssistRight()
@@ -367,13 +370,13 @@ namespace Forza_Mods_AIO
                 float FrontRight = m.ReadFloat(FrontRightAddr);
                 float BackLeft = m.ReadFloat(BackLeftAddr);
                 float BackRight = m.ReadFloat(BackRightAddr);
-                if ((float)Math.Abs(FrontLeft - FrontRight) < (FrontLeft / 5) && (float)Math.Abs(BackLeft - FrontRight) < (BackLeft / 5))
+                if ((float)Math.Abs(FrontLeft - FrontRight) < (FrontLeft / TurnRatio) && (float)Math.Abs(BackLeft - FrontRight) < (BackLeft / TurnRatio))
                 {
-                    FrontRight = FrontRight - 15;
-                    BackRight = BackRight - 15;
-                    FrontLeft = FrontLeft + 15;
-                    BackLeft = BackLeft + 15;
-                    Thread.Sleep(15);
+                    FrontRight = FrontRight - TurnStrength;
+                    BackRight = BackRight - TurnStrength;
+                    FrontLeft = FrontLeft + TurnStrength;
+                    BackLeft = BackLeft + TurnStrength;
+                    Thread.Sleep(TurnInterval);
                 }
                 m.WriteMemory(FrontLeftAddr, "float", FrontLeft.ToString());
                 m.WriteMemory(FrontRightAddr, "float", FrontRight.ToString());

@@ -31,6 +31,7 @@ namespace Forza_Mods_AIO
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.TopPanel = new System.Windows.Forms.Panel();
+            this.BTN_MIN = new System.Windows.Forms.Button();
             this.LBL_Title = new System.Windows.Forms.Label();
             this.BTN_TabInfo = new System.Windows.Forms.Button();
             this.BTN_TabAddCars = new System.Windows.Forms.Button();
@@ -82,6 +83,7 @@ namespace Forza_Mods_AIO
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.VelMultBar = new System.Windows.Forms.TrackBar();
             this.label6 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -122,7 +124,22 @@ namespace Forza_Mods_AIO
             this.TurnAssistworker = new System.ComponentModel.BackgroundWorker();
             this.NoClipworker = new System.ComponentModel.BackgroundWorker();
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
-            this.BTN_MIN = new System.Windows.Forms.Button();
+            this.Speed1Box = new System.Windows.Forms.NumericUpDown();
+            this.Speed2Box = new System.Windows.Forms.NumericUpDown();
+            this.Speed3Box = new System.Windows.Forms.NumericUpDown();
+            this.LimitBox = new System.Windows.Forms.NumericUpDown();
+            this.Interval1Box = new System.Windows.Forms.NumericUpDown();
+            this.Interval2Box = new System.Windows.Forms.NumericUpDown();
+            this.Interval3Box = new System.Windows.Forms.NumericUpDown();
+            this.Interval4Box = new System.Windows.Forms.NumericUpDown();
+            this.Boost1Box = new System.Windows.Forms.NumericUpDown();
+            this.Boost2Box = new System.Windows.Forms.NumericUpDown();
+            this.Boost3Box = new System.Windows.Forms.NumericUpDown();
+            this.Boost4Box = new System.Windows.Forms.NumericUpDown();
+            this.TurnIntervalBox = new System.Windows.Forms.NumericUpDown();
+            this.RatioBox = new System.Windows.Forms.NumericUpDown();
+            this.TurnStrenghtBox = new System.Windows.Forms.NumericUpDown();
+            this.VelMultBox = new System.Windows.Forms.NumericUpDown();
             this.TopPanel.SuspendLayout();
             this.Tab_1Info.SuspendLayout();
             this.Tab_2AddCars.SuspendLayout();
@@ -133,11 +150,28 @@ namespace Forza_Mods_AIO
             this.panel9.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VelMultBar)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
             this.Tab_5LiveTuning.SuspendLayout();
             this.Tab_3StatsEditor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Speed1Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Speed2Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Speed3Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LimitBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval1Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval2Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval3Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval4Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost1Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost2Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost3Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost4Box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnStrenghtBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).BeginInit();
             this.SuspendLayout();
             // 
             // TopPanel
@@ -155,6 +189,24 @@ namespace Forza_Mods_AIO
             this.TopPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseDown);
             this.TopPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseMove);
             this.TopPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseUp);
+            // 
+            // BTN_MIN
+            // 
+            this.BTN_MIN.BackColor = System.Drawing.Color.Black;
+            this.BTN_MIN.FlatAppearance.BorderSize = 0;
+            this.BTN_MIN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.BTN_MIN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_MIN.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Bold);
+            this.BTN_MIN.ForeColor = System.Drawing.Color.Coral;
+            this.BTN_MIN.Location = new System.Drawing.Point(930, 0);
+            this.BTN_MIN.Margin = new System.Windows.Forms.Padding(0);
+            this.BTN_MIN.Name = "BTN_MIN";
+            this.BTN_MIN.Size = new System.Drawing.Size(35, 35);
+            this.BTN_MIN.TabIndex = 16;
+            this.BTN_MIN.TabStop = false;
+            this.BTN_MIN.Text = "___";
+            this.BTN_MIN.UseVisualStyleBackColor = false;
+            this.BTN_MIN.Click += new System.EventHandler(this.BTN_MIN_Click);
             // 
             // LBL_Title
             // 
@@ -842,6 +894,8 @@ namespace Forza_Mods_AIO
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel2.Controls.Add(this.VelMultBox);
+            this.panel2.Controls.Add(this.VelMultBar);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.label12);
             this.panel2.Location = new System.Drawing.Point(12, 211);
@@ -849,11 +903,21 @@ namespace Forza_Mods_AIO
             this.panel2.Size = new System.Drawing.Size(190, 80);
             this.panel2.TabIndex = 2;
             // 
+            // VelMultBar
+            // 
+            this.VelMultBar.LargeChange = 20;
+            this.VelMultBar.Location = new System.Drawing.Point(3, 57);
+            this.VelMultBar.Maximum = 1;
+            this.VelMultBar.Name = "VelMultBar";
+            this.VelMultBar.Size = new System.Drawing.Size(187, 45);
+            this.VelMultBar.SmallChange = 5;
+            this.VelMultBar.TabIndex = 32;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(22, 9);
+            this.label6.Location = new System.Drawing.Point(22, 3);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(146, 27);
             this.label6.TabIndex = 5;
@@ -863,7 +927,7 @@ namespace Forza_Mods_AIO
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(58, 39);
+            this.label12.Location = new System.Drawing.Point(8, 33);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(75, 19);
             this.label12.TabIndex = 11;
@@ -962,6 +1026,18 @@ namespace Forza_Mods_AIO
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel6.Controls.Add(this.LimitBox);
+            this.panel6.Controls.Add(this.Speed3Box);
+            this.panel6.Controls.Add(this.Speed2Box);
+            this.panel6.Controls.Add(this.Interval4Box);
+            this.panel6.Controls.Add(this.Interval3Box);
+            this.panel6.Controls.Add(this.Interval2Box);
+            this.panel6.Controls.Add(this.Boost4Box);
+            this.panel6.Controls.Add(this.Boost3Box);
+            this.panel6.Controls.Add(this.Boost2Box);
+            this.panel6.Controls.Add(this.Boost1Box);
+            this.panel6.Controls.Add(this.Interval1Box);
+            this.panel6.Controls.Add(this.Speed1Box);
             this.panel6.Controls.Add(this.label9);
             this.panel6.Controls.Add(this.label28);
             this.panel6.Controls.Add(this.label29);
@@ -984,7 +1060,7 @@ namespace Forza_Mods_AIO
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(160, 9);
+            this.label9.Location = new System.Drawing.Point(160, 3);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(177, 27);
             this.label9.TabIndex = 19;
@@ -994,7 +1070,7 @@ namespace Forza_Mods_AIO
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(405, 57);
+            this.label28.Location = new System.Drawing.Point(358, 57);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(58, 19);
             this.label28.TabIndex = 27;
@@ -1004,7 +1080,7 @@ namespace Forza_Mods_AIO
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(405, 97);
+            this.label29.Location = new System.Drawing.Point(358, 97);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(58, 19);
             this.label29.TabIndex = 28;
@@ -1014,7 +1090,7 @@ namespace Forza_Mods_AIO
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(206, 57);
+            this.label24.Location = new System.Drawing.Point(169, 57);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(72, 19);
             this.label24.TabIndex = 23;
@@ -1024,17 +1100,17 @@ namespace Forza_Mods_AIO
             // 
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(405, 177);
+            this.label30.Location = new System.Drawing.Point(357, 177);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(91, 19);
+            this.label30.Size = new System.Drawing.Size(70, 19);
             this.label30.TabIndex = 29;
-            this.label30.Text = "Boost over 3";
+            this.label30.Text = "Boost > 3";
             // 
             // label31
             // 
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(405, 137);
+            this.label31.Location = new System.Drawing.Point(358, 137);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(58, 19);
             this.label31.TabIndex = 30;
@@ -1044,7 +1120,7 @@ namespace Forza_Mods_AIO
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(206, 97);
+            this.label25.Location = new System.Drawing.Point(169, 97);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(72, 19);
             this.label25.TabIndex = 24;
@@ -1054,7 +1130,7 @@ namespace Forza_Mods_AIO
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(54, 57);
+            this.label20.Location = new System.Drawing.Point(2, 57);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(63, 19);
             this.label20.TabIndex = 19;
@@ -1064,17 +1140,17 @@ namespace Forza_Mods_AIO
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(206, 177);
+            this.label26.Location = new System.Drawing.Point(169, 177);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(105, 19);
+            this.label26.Size = new System.Drawing.Size(84, 19);
             this.label26.TabIndex = 25;
-            this.label26.Text = "Interval over 3";
+            this.label26.Text = "Interval > 3";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(54, 137);
+            this.label21.Location = new System.Drawing.Point(3, 137);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(63, 19);
             this.label21.TabIndex = 20;
@@ -1084,7 +1160,7 @@ namespace Forza_Mods_AIO
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(206, 137);
+            this.label27.Location = new System.Drawing.Point(169, 137);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(72, 19);
             this.label27.TabIndex = 26;
@@ -1094,7 +1170,7 @@ namespace Forza_Mods_AIO
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(54, 97);
+            this.label22.Location = new System.Drawing.Point(2, 97);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(63, 19);
             this.label22.TabIndex = 21;
@@ -1104,7 +1180,7 @@ namespace Forza_Mods_AIO
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(54, 177);
+            this.label23.Location = new System.Drawing.Point(5, 177);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(42, 19);
             this.label23.TabIndex = 22;
@@ -1113,6 +1189,9 @@ namespace Forza_Mods_AIO
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel5.Controls.Add(this.RatioBox);
+            this.panel5.Controls.Add(this.TurnStrenghtBox);
+            this.panel5.Controls.Add(this.TurnIntervalBox);
             this.panel5.Controls.Add(this.label7);
             this.panel5.Controls.Add(this.label17);
             this.panel5.Controls.Add(this.label18);
@@ -1136,7 +1215,7 @@ namespace Forza_Mods_AIO
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(20, 44);
+            this.label17.Location = new System.Drawing.Point(4, 44);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(138, 19);
             this.label17.TabIndex = 16;
@@ -1146,7 +1225,7 @@ namespace Forza_Mods_AIO
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(193, 44);
+            this.label18.Location = new System.Drawing.Point(175, 44);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(118, 19);
             this.label18.TabIndex = 17;
@@ -1156,7 +1235,7 @@ namespace Forza_Mods_AIO
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(339, 44);
+            this.label19.Location = new System.Drawing.Point(350, 44);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(144, 19);
             this.label19.TabIndex = 18;
@@ -1255,22 +1334,123 @@ namespace Forza_Mods_AIO
             // 
             this.CheckAttachedworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckAttachedworker_DoWork);
             // 
-            // BTN_MIN
+            // Speed1Box
             // 
-            this.BTN_MIN.BackColor = System.Drawing.Color.Black;
-            this.BTN_MIN.FlatAppearance.BorderSize = 0;
-            this.BTN_MIN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.BTN_MIN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MIN.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Bold);
-            this.BTN_MIN.ForeColor = System.Drawing.Color.Coral;
-            this.BTN_MIN.Location = new System.Drawing.Point(930, 0);
-            this.BTN_MIN.Margin = new System.Windows.Forms.Padding(0);
-            this.BTN_MIN.Name = "BTN_MIN";
-            this.BTN_MIN.Size = new System.Drawing.Size(35, 35);
-            this.BTN_MIN.TabIndex = 16;
-            this.BTN_MIN.TabStop = false;
-            this.BTN_MIN.Text = "___";
-            this.BTN_MIN.UseVisualStyleBackColor = false;
+            this.Speed1Box.DecimalPlaces = 5;
+            this.Speed1Box.Location = new System.Drawing.Point(71, 58);
+            this.Speed1Box.Name = "Speed1Box";
+            this.Speed1Box.Size = new System.Drawing.Size(68, 20);
+            this.Speed1Box.TabIndex = 31;
+            // 
+            // Speed2Box
+            // 
+            this.Speed2Box.DecimalPlaces = 5;
+            this.Speed2Box.Location = new System.Drawing.Point(71, 98);
+            this.Speed2Box.Name = "Speed2Box";
+            this.Speed2Box.Size = new System.Drawing.Size(68, 20);
+            this.Speed2Box.TabIndex = 31;
+            // 
+            // Speed3Box
+            // 
+            this.Speed3Box.DecimalPlaces = 5;
+            this.Speed3Box.Location = new System.Drawing.Point(71, 138);
+            this.Speed3Box.Name = "Speed3Box";
+            this.Speed3Box.Size = new System.Drawing.Size(68, 20);
+            this.Speed3Box.TabIndex = 31;
+            // 
+            // LimitBox
+            // 
+            this.LimitBox.DecimalPlaces = 5;
+            this.LimitBox.Location = new System.Drawing.Point(71, 178);
+            this.LimitBox.Name = "LimitBox";
+            this.LimitBox.Size = new System.Drawing.Size(68, 20);
+            this.LimitBox.TabIndex = 31;
+            // 
+            // Interval1Box
+            // 
+            this.Interval1Box.Location = new System.Drawing.Point(250, 58);
+            this.Interval1Box.Name = "Interval1Box";
+            this.Interval1Box.Size = new System.Drawing.Size(68, 20);
+            this.Interval1Box.TabIndex = 31;
+            // 
+            // Interval2Box
+            // 
+            this.Interval2Box.Location = new System.Drawing.Point(250, 98);
+            this.Interval2Box.Name = "Interval2Box";
+            this.Interval2Box.Size = new System.Drawing.Size(68, 20);
+            this.Interval2Box.TabIndex = 31;
+            // 
+            // Interval3Box
+            // 
+            this.Interval3Box.Location = new System.Drawing.Point(250, 138);
+            this.Interval3Box.Name = "Interval3Box";
+            this.Interval3Box.Size = new System.Drawing.Size(68, 20);
+            this.Interval3Box.TabIndex = 31;
+            // 
+            // Interval4Box
+            // 
+            this.Interval4Box.Location = new System.Drawing.Point(250, 178);
+            this.Interval4Box.Name = "Interval4Box";
+            this.Interval4Box.Size = new System.Drawing.Size(68, 20);
+            this.Interval4Box.TabIndex = 31;
+            // 
+            // Boost1Box
+            // 
+            this.Boost1Box.Location = new System.Drawing.Point(433, 58);
+            this.Boost1Box.Name = "Boost1Box";
+            this.Boost1Box.Size = new System.Drawing.Size(68, 20);
+            this.Boost1Box.TabIndex = 31;
+            // 
+            // Boost2Box
+            // 
+            this.Boost2Box.Location = new System.Drawing.Point(433, 98);
+            this.Boost2Box.Name = "Boost2Box";
+            this.Boost2Box.Size = new System.Drawing.Size(68, 20);
+            this.Boost2Box.TabIndex = 31;
+            // 
+            // Boost3Box
+            // 
+            this.Boost3Box.Location = new System.Drawing.Point(433, 138);
+            this.Boost3Box.Name = "Boost3Box";
+            this.Boost3Box.Size = new System.Drawing.Size(68, 20);
+            this.Boost3Box.TabIndex = 31;
+            // 
+            // Boost4Box
+            // 
+            this.Boost4Box.Location = new System.Drawing.Point(433, 178);
+            this.Boost4Box.Name = "Boost4Box";
+            this.Boost4Box.Size = new System.Drawing.Size(68, 20);
+            this.Boost4Box.TabIndex = 31;
+            // 
+            // TurnIntervalBox
+            // 
+            this.TurnIntervalBox.Location = new System.Drawing.Point(139, 44);
+            this.TurnIntervalBox.Name = "TurnIntervalBox";
+            this.TurnIntervalBox.Size = new System.Drawing.Size(36, 20);
+            this.TurnIntervalBox.TabIndex = 31;
+            // 
+            // RatioBox
+            // 
+            this.RatioBox.DecimalPlaces = 5;
+            this.RatioBox.Location = new System.Drawing.Point(290, 44);
+            this.RatioBox.Name = "RatioBox";
+            this.RatioBox.Size = new System.Drawing.Size(63, 20);
+            this.RatioBox.TabIndex = 31;
+            // 
+            // TurnStrenghtBox
+            // 
+            this.TurnStrenghtBox.Location = new System.Drawing.Point(490, 45);
+            this.TurnStrenghtBox.Name = "TurnStrenghtBox";
+            this.TurnStrenghtBox.Size = new System.Drawing.Size(37, 20);
+            this.TurnStrenghtBox.TabIndex = 31;
+            // 
+            // VelMultBox
+            // 
+            this.VelMultBox.DecimalPlaces = 5;
+            this.VelMultBox.Location = new System.Drawing.Point(89, 34);
+            this.VelMultBox.Name = "VelMultBox";
+            this.VelMultBox.Size = new System.Drawing.Size(68, 20);
+            this.VelMultBox.TabIndex = 32;
             // 
             // MainWindow
             // 
@@ -1328,6 +1508,7 @@ namespace Forza_Mods_AIO
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VelMultBar)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -1338,6 +1519,22 @@ namespace Forza_Mods_AIO
             this.Tab_5LiveTuning.PerformLayout();
             this.Tab_3StatsEditor.ResumeLayout(false);
             this.Tab_3StatsEditor.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Speed1Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Speed2Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Speed3Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LimitBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval1Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval2Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval3Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Interval4Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost1Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost2Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost3Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Boost4Box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnStrenghtBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1437,6 +1634,23 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.CheckBox TB_ACAutoshow;
         private System.Windows.Forms.Button TPButton;
         private System.Windows.Forms.Button BTN_MIN;
+        private System.Windows.Forms.TrackBar VelMultBar;
+        private System.Windows.Forms.NumericUpDown Speed1Box;
+        private System.Windows.Forms.NumericUpDown VelMultBox;
+        private System.Windows.Forms.NumericUpDown LimitBox;
+        private System.Windows.Forms.NumericUpDown Speed3Box;
+        private System.Windows.Forms.NumericUpDown Speed2Box;
+        private System.Windows.Forms.NumericUpDown Interval4Box;
+        private System.Windows.Forms.NumericUpDown Interval3Box;
+        private System.Windows.Forms.NumericUpDown Interval2Box;
+        private System.Windows.Forms.NumericUpDown Boost4Box;
+        private System.Windows.Forms.NumericUpDown Boost3Box;
+        private System.Windows.Forms.NumericUpDown Boost2Box;
+        private System.Windows.Forms.NumericUpDown Boost1Box;
+        private System.Windows.Forms.NumericUpDown Interval1Box;
+        private System.Windows.Forms.NumericUpDown RatioBox;
+        private System.Windows.Forms.NumericUpDown TurnStrenghtBox;
+        private System.Windows.Forms.NumericUpDown TurnIntervalBox;
     }
 }
 
