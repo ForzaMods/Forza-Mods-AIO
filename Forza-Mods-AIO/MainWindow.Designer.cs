@@ -1271,6 +1271,7 @@ namespace Forza_Mods_AIO
             this.BTN_MIN.TabStop = false;
             this.BTN_MIN.Text = "___";
             this.BTN_MIN.UseVisualStyleBackColor = false;
+            this.BTN_MIN.Click += new System.EventHandler(this.BTN_MIN_Click);
             // 
             // MainWindow
             // 
