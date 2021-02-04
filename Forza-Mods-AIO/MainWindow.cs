@@ -30,17 +30,20 @@ namespace Forza_Mods_AIO
         bool TurnAssistLeftStart = false;
         bool TurnAssistRightStart = false;
         bool NoClipToggle = false;
-        string BaseAddr;
+        bool CheckPointTPToggle = false;
+        string BaseAddr;        string Base2Addr;       string Base3Addr;
         string Car1Addr;        string Car2Addr;
         string Wall1Addr;       string Wall2Addr;
         string FrontLeftAddr;   string FrontRightAddr;  string BackLeftAddr;    string BackRightAddr;
-        string OnGroundAddr;
+        string OnGroundAddr;    string InRaceAddr;
         string xVelocityAddr;   string yVelocityAddr;   string zVelocityAddr;
         string xAddr;           string yAddr;           string zAddr;
-        string YawAddr;
+        string CheckPointxAddr; string CheckPointyAddr; string CheckPointzAddr;
+        string YawAddr;         string RollAddr;        string PitchAddr;      string yAngVelAddr;
         string GasAddr;
         float xVelocityVal;     float yVelocityVal;     float zVelocityVal;
         float x;                float y;                float z;
+        float CheckPointx;      float CheckPointy;      float CheckPointz;
         float BoostSpeed1;      float BoostSpeed2;      float BoostSpeed3;      float BoostLim;
         float TurnRatio;        float TurnStrength;
         float VelMult;
@@ -176,16 +179,21 @@ namespace Forza_Mods_AIO
             string Wall2 = "0F 28 ?? 0F C6 C1 ?? 0F 28 ?? 0F C6 CB ?? 41 0F ?? ?? F3 0F ?? ?? 41 0F ?? ?? 0F C6 C0 ?? 0F C6 E4";
 
             long BaseAddrLong = (await m.AoBScan(Base, false, true)).FirstOrDefault() + 7632;
+            long Base2AddrLong = (await m.AoBScan(Base, false, true)).FirstOrDefault() + 12144;
+            long Base3AddrLong = (await m.AoBScan(Base, false, true)).FirstOrDefault() - 3328;
             long Car1AddrLong = (await m.AoBScan(Car1, false, true)).FirstOrDefault() + 106;
             long Car2AddrLong = (await m.AoBScan(Car2, false, true)).FirstOrDefault() - 411;
             long Wall1AddrLong = (await m.AoBScan(Wall1, false, true)).FirstOrDefault() + 401;
             long Wall2AddrLong = (await m.AoBScan(Wall2, false, true)).FirstOrDefault() - 446;
 
             BaseAddr = BaseAddrLong.ToString("X");
+            Base2Addr = Base2AddrLong.ToString("X");
+            Base3Addr = Base3AddrLong.ToString("X");
             Car1Addr = Car1AddrLong.ToString("X");
             Car2Addr = Car2AddrLong.ToString("X");
             Wall1Addr = Wall1AddrLong.ToString("X");
             Wall2Addr = Wall2AddrLong.ToString("X");
+            Thread.Sleep(50);
         }
         public void Addresses()
         {
@@ -194,21 +202,29 @@ namespace Forza_Mods_AIO
             BackLeftAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0xD38,0xC");
             BackRightAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0xD30,0xC");
             OnGroundAddr = (BaseAddr + ",0x550,0x260,0x258,0x4B0,0x640,0x368,0x10C");
+            InRaceAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x230");
             xVelocityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x540");
             yVelocityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x53C");
             zVelocityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x538");
+            CheckPointxAddr = (Base3Addr + ",0x618,0x2F8,0xE0,0x198,0xA8,0x168,0x118,0xAA0");
+            CheckPointyAddr = (Base3Addr + ",0x618,0x2F8,0xE0,0x198,0xA8,0x168,0x118,0xAA4");
+            CheckPointzAddr = (Base3Addr + ",0x618,0x2F8,0xE0,0x198,0xA8,0x168,0x118,0xAA8");
+            yAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x51C");
+            zAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x518");
             xAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x520");
             yAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x51C");
             zAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x518");
             YawAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x3FC");
+            RollAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x418");
+            PitchAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x410");
+            yAngVelAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x52C");
             GasAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0xD18,-0x53C");
         }
         //end of setup
         //break hack methods + BGworker
         public void Breakworker_DoWork(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker worker = (BackgroundWorker)sender;
-            while(BreakToggle)
+            while (BreakToggle)
             {
                 SuperBreak();
             }
@@ -247,8 +263,7 @@ namespace Forza_Mods_AIO
         //speed hack methods + BGworkers
         public void VelHackworker_DoWork(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker worker = (BackgroundWorker)sender;
-            while(VelHackToggle)
+            while (VelHackToggle)
             {
                 SpeedHackVel();
             }
@@ -275,7 +290,6 @@ namespace Forza_Mods_AIO
         }
         public void SpeedHackworker_DoWork(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker worker = (BackgroundWorker)sender;
             while (SpeedHackToggle)
             {
                 SpeedHack();
@@ -333,7 +347,6 @@ namespace Forza_Mods_AIO
         //Turn assist methods + workers
         public void TurnAssistworker_DoWork(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker worker = (BackgroundWorker)sender;
             while (TurnAssistToggle)
             {
                 TurnAssistLeft();
@@ -385,11 +398,37 @@ namespace Forza_Mods_AIO
             }
         }
         //end of turn assists
+        public void CheckPointTPworker_DoWork(object sender, DoWorkEventArgs e)
+        {   
+            while (CheckPointTPToggle)
+            {
+                float InRace = m.ReadFloat(InRaceAddr);
+                cycles = 0;
+                if (InRace == 1)
+                {
+                    Thread.Sleep(3750);
+                    while (InRace == 1)
+                    {
+                        InRace = m.ReadFloat(InRaceAddr);
+                        CheckPointTP();
+                    }
+                    m.UnfreezeValue(yAngVelAddr);
+                }
+            }
+        }
+        public void CheckPointTP()
+        {
+            Thread.Sleep(25);
+            //CheckPointx = m.ReadFloat(CheckPointxAddr);     CheckPointy = m.ReadFloat(CheckPointyAddr);     CheckPointz = m.ReadFloat(CheckPointzAddr);
+            m.WriteMemory(xAddr, "float", (m.ReadFloat(CheckPointxAddr)).ToString());
+            m.WriteMemory(yAddr, "float", (m.ReadFloat(CheckPointyAddr)+ 4).ToString());
+            m.WriteMemory(zAddr, "float", (m.ReadFloat(CheckPointzAddr)).ToString());
+            m.FreezeValue(yAngVelAddr, "float", "100");
+        }
         //NoClip handler
         public void NoClipworker_DoWork(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker worker = (BackgroundWorker)sender;
-            while(NoClipToggle)
+            while (NoClipToggle)
             {
                 Noclip();
             }
@@ -637,7 +676,7 @@ namespace Forza_Mods_AIO
         {
             while (true)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(50);
                 if (IsAttached == false && Tab_1Info.Visible == false)
                 {
                    ClearColours();
@@ -823,10 +862,24 @@ namespace Forza_Mods_AIO
             m.WriteMemory(yAddr, "float", y.ToString());
             m.WriteMemory(zAddr, "float", z.ToString());
         }
-
         private void BTN_MIN_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void CheckpointBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckpointBox.Checked == false)
+            {
+                CheckPointTPToggle = false;
+                CheckPointTPworker.CancelAsync();
+                m.UnfreezeValue(yAngVelAddr);
+            }
+            else
+            {
+                CheckPointTPToggle = true;
+                CheckPointTPworker.RunWorkerAsync();
+            }
         }
         //end of teleports
     }
