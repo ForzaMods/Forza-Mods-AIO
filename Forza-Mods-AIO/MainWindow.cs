@@ -56,6 +56,7 @@ namespace Forza_Mods_AIO
         float z;
         int cycles;
 
+
         public MainWindow()
         {
             InitializeComponent();
@@ -226,15 +227,15 @@ namespace Forza_Mods_AIO
             {
                 xVelocityVal = Math.Abs(m.ReadFloat(xVelocityAddr));
                 zVelocityVal = Math.Abs(m.ReadFloat(zVelocityAddr));
-                if (xVelocityVal < 10 || xVelocityVal < 10)
+                if (xVelocityVal < 5 || xVelocityVal < 5)
                 {
                     xVelocityVal = 0;
                     zVelocityVal = 0;
                 }
                 else
                 {
-                    xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)0.9995;
-                    zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)0.9995;
+                    xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)0.98;
+                    zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)0.98;
                 }
 
                 m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
@@ -268,7 +269,7 @@ namespace Forza_Mods_AIO
                 xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)1.04;
                 zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)1.04;
                 y = m.ReadFloat(yAddr);
-                if (cycles % 5 == 0)
+                if (cycles % 2 == 0)
                 {
                     y = m.ReadFloat(yAddr) - (float)0.01;
                     cycles = 0;
@@ -601,12 +602,21 @@ namespace Forza_Mods_AIO
         {
             while (true)
             {
-                Addresses();
-                if(!m.OpenProcess("ForzaHorizon4") || (BaseAddr == "1DD0") || (BaseAddr == null))
+                 Addresses();
+                if(!m.OpenProcess("ForzaHorizon4"))
                 {
-                    AoBscan();
                     IsAttached = false;
                     InitialBGworker.ReportProgress(0);
+                    Thread.Sleep(1000);
+                    continue;
+                }
+                if(BaseAddr == "1DD0" || (BaseAddr == null)
+                    || (Car1Addr == "6A") || (Car1Addr == null)
+                    || (Car2Addr == "-19B") || (Car2Addr == null)
+                    || (Wall1Addr == "191") || (Wall1Addr == null)
+                    || (Wall2Addr == "-1BE") || (Wall2Addr == null))
+                {
+                    AoBscan();
                     Thread.Sleep(1000);
                     continue;
                 }
@@ -624,6 +634,7 @@ namespace Forza_Mods_AIO
         {
             while (true)
             {
+                Thread.Sleep(100);
                 if (IsAttached == false && Tab_1Info.Visible == false)
                 {
                    ClearColours();
@@ -808,6 +819,11 @@ namespace Forza_Mods_AIO
             m.WriteMemory(xAddr, "float", x.ToString());
             m.WriteMemory(yAddr, "float", y.ToString());
             m.WriteMemory(zAddr, "float", z.ToString());
+        }
+
+        private void BTN_MIN_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
         //end of teleports
     }

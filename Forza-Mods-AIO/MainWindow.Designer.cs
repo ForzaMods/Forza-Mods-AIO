@@ -122,6 +122,7 @@ namespace Forza_Mods_AIO
             this.TurnAssistworker = new System.ComponentModel.BackgroundWorker();
             this.NoClipworker = new System.ComponentModel.BackgroundWorker();
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
+            this.BTN_MIN = new System.Windows.Forms.Button();
             this.TopPanel.SuspendLayout();
             this.Tab_1Info.SuspendLayout();
             this.Tab_2AddCars.SuspendLayout();
@@ -142,6 +143,7 @@ namespace Forza_Mods_AIO
             // TopPanel
             // 
             this.TopPanel.BackColor = System.Drawing.Color.Black;
+            this.TopPanel.Controls.Add(this.BTN_MIN);
             this.TopPanel.Controls.Add(this.LBL_Title);
             this.TopPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.TopPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
@@ -1253,6 +1255,23 @@ namespace Forza_Mods_AIO
             // 
             this.CheckAttachedworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckAttachedworker_DoWork);
             // 
+            // BTN_MIN
+            // 
+            this.BTN_MIN.BackColor = System.Drawing.Color.Black;
+            this.BTN_MIN.FlatAppearance.BorderSize = 0;
+            this.BTN_MIN.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.BTN_MIN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_MIN.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Bold);
+            this.BTN_MIN.ForeColor = System.Drawing.Color.Coral;
+            this.BTN_MIN.Location = new System.Drawing.Point(930, 0);
+            this.BTN_MIN.Margin = new System.Windows.Forms.Padding(0);
+            this.BTN_MIN.Name = "BTN_MIN";
+            this.BTN_MIN.Size = new System.Drawing.Size(35, 35);
+            this.BTN_MIN.TabIndex = 16;
+            this.BTN_MIN.TabStop = false;
+            this.BTN_MIN.Text = "___";
+            this.BTN_MIN.UseVisualStyleBackColor = false;
+            // 
             // MainWindow
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
@@ -1417,6 +1436,7 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.CheckBox checkBox8;
         private System.Windows.Forms.CheckBox TB_ACAutoshow;
         private System.Windows.Forms.Button TPButton;
+        private System.Windows.Forms.Button BTN_MIN;
     }
 }
 
