@@ -68,9 +68,10 @@ namespace Forza_Mods_AIO
             this.TB_SHCarNoClip = new System.Windows.Forms.CheckBox();
             this.TB_SHWallNoClip = new System.Windows.Forms.CheckBox();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.CheckpointBox = new System.Windows.Forms.CheckBox();
             this.TPButton = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.LST_TeleportLocation = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
@@ -121,7 +122,7 @@ namespace Forza_Mods_AIO
             this.label23 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.RatioBox = new System.Windows.Forms.NumericUpDown();
-            this.TurnStrenghtBox = new System.Windows.Forms.NumericUpDown();
+            this.TurnStrengthBox = new System.Windows.Forms.NumericUpDown();
             this.TurnIntervalBox = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -140,7 +141,6 @@ namespace Forza_Mods_AIO
             this.NoClipworker = new System.ComponentModel.BackgroundWorker();
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
             this.CheckPointTPworker = new System.ComponentModel.BackgroundWorker();
-            this.CheckpointBox = new System.Windows.Forms.CheckBox();
             this.TopPanel.SuspendLayout();
             this.Tab_1Info.SuspendLayout();
             this.Tab_2AddCars.SuspendLayout();
@@ -169,7 +169,7 @@ namespace Forza_Mods_AIO
             ((System.ComponentModel.ISupportInitialize)(this.Speed1Box)).BeginInit();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TurnStrenghtBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnStrengthBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).BeginInit();
             this.Tab_5LiveTuning.SuspendLayout();
             this.Tab_3StatsEditor.SuspendLayout();
@@ -665,7 +665,7 @@ namespace Forza_Mods_AIO
             this.Tab_6Speedhack.Controls.Add(this.panel4);
             this.Tab_6Speedhack.Controls.Add(this.panel6);
             this.Tab_6Speedhack.Controls.Add(this.panel5);
-            this.Tab_6Speedhack.Location = new System.Drawing.Point(105, 79);
+            this.Tab_6Speedhack.Location = new System.Drawing.Point(105, 70);
             this.Tab_6Speedhack.Margin = new System.Windows.Forms.Padding(0);
             this.Tab_6Speedhack.Name = "Tab_6Speedhack";
             this.Tab_6Speedhack.Size = new System.Drawing.Size(1000, 445);
@@ -726,13 +726,24 @@ namespace Forza_Mods_AIO
             this.panel7.Controls.Add(this.CheckpointBox);
             this.panel7.Controls.Add(this.TPButton);
             this.panel7.Controls.Add(this.richTextBox1);
-            this.panel7.Controls.Add(this.comboBox1);
+            this.panel7.Controls.Add(this.LST_TeleportLocation);
             this.panel7.Controls.Add(this.label11);
             this.panel7.Controls.Add(this.label10);
             this.panel7.Location = new System.Drawing.Point(746, 12);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(242, 421);
             this.panel7.TabIndex = 4;
+            // 
+            // CheckpointBox
+            // 
+            this.CheckpointBox.AutoSize = true;
+            this.CheckpointBox.Location = new System.Drawing.Point(78, 131);
+            this.CheckpointBox.Name = "CheckpointBox";
+            this.CheckpointBox.Size = new System.Drawing.Size(91, 17);
+            this.CheckpointBox.TabIndex = 38;
+            this.CheckpointBox.Text = "Auto win race";
+            this.CheckpointBox.UseVisualStyleBackColor = true;
+            this.CheckpointBox.CheckedChanged += new System.EventHandler(this.CheckpointBox_CheckedChanged);
             // 
             // TPButton
             // 
@@ -760,23 +771,23 @@ namespace Forza_Mods_AIO
             this.richTextBox1.TabStop = false;
             this.richTextBox1.Text = "how to use guide or something ";
             // 
-            // comboBox1
+            // LST_TeleportLocation
             // 
-            this.comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.ForeColor = System.Drawing.Color.White;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.LST_TeleportLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.LST_TeleportLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LST_TeleportLocation.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LST_TeleportLocation.ForeColor = System.Drawing.Color.White;
+            this.LST_TeleportLocation.FormattingEnabled = true;
+            this.LST_TeleportLocation.Items.AddRange(new object[] {
             "Festival",
             "Start of Motorway",
             "Broadway",
             "Greendale Airstrip"});
-            this.comboBox1.Location = new System.Drawing.Point(3, 70);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(236, 26);
-            this.comboBox1.TabIndex = 22;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.LST_TeleportLocation.Location = new System.Drawing.Point(3, 70);
+            this.LST_TeleportLocation.Name = "LST_TeleportLocation";
+            this.LST_TeleportLocation.Size = new System.Drawing.Size(236, 26);
+            this.LST_TeleportLocation.TabIndex = 22;
+            this.LST_TeleportLocation.SelectedIndexChanged += new System.EventHandler(this.LST_TeleportLocation_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -894,21 +905,34 @@ namespace Forza_Mods_AIO
             // 
             // VelMultBox
             // 
+            this.VelMultBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.VelMultBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.VelMultBox.DecimalPlaces = 5;
+            this.VelMultBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VelMultBox.ForeColor = System.Drawing.Color.White;
             this.VelMultBox.Location = new System.Drawing.Point(89, 34);
+            this.VelMultBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.VelMultBox.Name = "VelMultBox";
-            this.VelMultBox.Size = new System.Drawing.Size(68, 20);
+            this.VelMultBox.Size = new System.Drawing.Size(68, 22);
             this.VelMultBox.TabIndex = 32;
+            this.VelMultBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.VelMultBox.ValueChanged += new System.EventHandler(this.VelMultBox_ValueChanged);
             // 
             // VelMultBar
             // 
             this.VelMultBar.LargeChange = 20;
             this.VelMultBar.Location = new System.Drawing.Point(3, 57);
-            this.VelMultBar.Maximum = 1;
+            this.VelMultBar.Maximum = 9999;
             this.VelMultBar.Name = "VelMultBar";
             this.VelMultBar.Size = new System.Drawing.Size(187, 45);
             this.VelMultBar.SmallChange = 5;
             this.VelMultBar.TabIndex = 32;
+            this.VelMultBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.VelMultBar.Scroll += new System.EventHandler(this.VelMultBar_Scroll);
             // 
             // label6
             // 
@@ -1055,91 +1079,223 @@ namespace Forza_Mods_AIO
             // 
             // LimitBox
             // 
+            this.LimitBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.LimitBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.LimitBox.DecimalPlaces = 5;
+            this.LimitBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LimitBox.ForeColor = System.Drawing.Color.White;
             this.LimitBox.Location = new System.Drawing.Point(71, 178);
+            this.LimitBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.LimitBox.Name = "LimitBox";
-            this.LimitBox.Size = new System.Drawing.Size(68, 20);
+            this.LimitBox.Size = new System.Drawing.Size(70, 22);
             this.LimitBox.TabIndex = 31;
+            this.LimitBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LimitBox.ValueChanged += new System.EventHandler(this.LimitBox_ValueChanged);
             // 
             // Speed3Box
             // 
+            this.Speed3Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.Speed3Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Speed3Box.DecimalPlaces = 5;
+            this.Speed3Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Speed3Box.ForeColor = System.Drawing.Color.White;
             this.Speed3Box.Location = new System.Drawing.Point(71, 138);
+            this.Speed3Box.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.Speed3Box.Name = "Speed3Box";
-            this.Speed3Box.Size = new System.Drawing.Size(68, 20);
+            this.Speed3Box.Size = new System.Drawing.Size(70, 22);
             this.Speed3Box.TabIndex = 31;
+            this.Speed3Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Speed3Box.ValueChanged += new System.EventHandler(this.Speed3Box_ValueChanged);
             // 
             // Speed2Box
             // 
+            this.Speed2Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.Speed2Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Speed2Box.DecimalPlaces = 5;
+            this.Speed2Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Speed2Box.ForeColor = System.Drawing.Color.White;
             this.Speed2Box.Location = new System.Drawing.Point(71, 98);
+            this.Speed2Box.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.Speed2Box.Name = "Speed2Box";
-            this.Speed2Box.Size = new System.Drawing.Size(68, 20);
+            this.Speed2Box.Size = new System.Drawing.Size(70, 22);
             this.Speed2Box.TabIndex = 31;
+            this.Speed2Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Speed2Box.ValueChanged += new System.EventHandler(this.Speed2Box_ValueChanged);
             // 
             // Interval4Box
             // 
+            this.Interval4Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.Interval4Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Interval4Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Interval4Box.ForeColor = System.Drawing.Color.White;
             this.Interval4Box.Location = new System.Drawing.Point(250, 178);
+            this.Interval4Box.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.Interval4Box.Name = "Interval4Box";
-            this.Interval4Box.Size = new System.Drawing.Size(68, 20);
+            this.Interval4Box.Size = new System.Drawing.Size(70, 22);
             this.Interval4Box.TabIndex = 31;
+            this.Interval4Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Interval4Box.ValueChanged += new System.EventHandler(this.Interval4Box_ValueChanged);
             // 
             // Interval3Box
             // 
+            this.Interval3Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.Interval3Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Interval3Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Interval3Box.ForeColor = System.Drawing.Color.White;
             this.Interval3Box.Location = new System.Drawing.Point(250, 138);
+            this.Interval3Box.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.Interval3Box.Name = "Interval3Box";
-            this.Interval3Box.Size = new System.Drawing.Size(68, 20);
+            this.Interval3Box.Size = new System.Drawing.Size(70, 22);
             this.Interval3Box.TabIndex = 31;
+            this.Interval3Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Interval3Box.ValueChanged += new System.EventHandler(this.Interval3Box_ValueChanged);
             // 
             // Interval2Box
             // 
+            this.Interval2Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.Interval2Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Interval2Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Interval2Box.ForeColor = System.Drawing.Color.White;
             this.Interval2Box.Location = new System.Drawing.Point(250, 98);
+            this.Interval2Box.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.Interval2Box.Name = "Interval2Box";
-            this.Interval2Box.Size = new System.Drawing.Size(68, 20);
+            this.Interval2Box.Size = new System.Drawing.Size(70, 22);
             this.Interval2Box.TabIndex = 31;
+            this.Interval2Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Interval2Box.ValueChanged += new System.EventHandler(this.Interval2Box_ValueChanged);
             // 
             // Boost4Box
             // 
+            this.Boost4Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.Boost4Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Boost4Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Boost4Box.ForeColor = System.Drawing.Color.White;
             this.Boost4Box.Location = new System.Drawing.Point(433, 178);
+            this.Boost4Box.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.Boost4Box.Name = "Boost4Box";
-            this.Boost4Box.Size = new System.Drawing.Size(68, 20);
+            this.Boost4Box.Size = new System.Drawing.Size(70, 22);
             this.Boost4Box.TabIndex = 31;
+            this.Boost4Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Boost4Box.ValueChanged += new System.EventHandler(this.Boost4Box_ValueChanged);
             // 
             // Boost3Box
             // 
+            this.Boost3Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.Boost3Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Boost3Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Boost3Box.ForeColor = System.Drawing.Color.White;
             this.Boost3Box.Location = new System.Drawing.Point(433, 138);
+            this.Boost3Box.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.Boost3Box.Name = "Boost3Box";
-            this.Boost3Box.Size = new System.Drawing.Size(68, 20);
+            this.Boost3Box.Size = new System.Drawing.Size(70, 22);
             this.Boost3Box.TabIndex = 31;
+            this.Boost3Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Boost3Box.ValueChanged += new System.EventHandler(this.Boost3Box_ValueChanged);
             // 
             // Boost2Box
             // 
+            this.Boost2Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.Boost2Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Boost2Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Boost2Box.ForeColor = System.Drawing.Color.White;
             this.Boost2Box.Location = new System.Drawing.Point(433, 98);
+            this.Boost2Box.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.Boost2Box.Name = "Boost2Box";
-            this.Boost2Box.Size = new System.Drawing.Size(68, 20);
+            this.Boost2Box.Size = new System.Drawing.Size(70, 22);
             this.Boost2Box.TabIndex = 31;
+            this.Boost2Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Boost2Box.ValueChanged += new System.EventHandler(this.Boost2Box_ValueChanged);
             // 
             // Boost1Box
             // 
+            this.Boost1Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.Boost1Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Boost1Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Boost1Box.ForeColor = System.Drawing.Color.White;
             this.Boost1Box.Location = new System.Drawing.Point(433, 58);
+            this.Boost1Box.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.Boost1Box.Name = "Boost1Box";
-            this.Boost1Box.Size = new System.Drawing.Size(68, 20);
+            this.Boost1Box.Size = new System.Drawing.Size(70, 22);
             this.Boost1Box.TabIndex = 31;
+            this.Boost1Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Boost1Box.ValueChanged += new System.EventHandler(this.Boost1Box_ValueChanged);
             // 
             // Interval1Box
             // 
+            this.Interval1Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.Interval1Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Interval1Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Interval1Box.ForeColor = System.Drawing.Color.White;
             this.Interval1Box.Location = new System.Drawing.Point(250, 58);
+            this.Interval1Box.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.Interval1Box.Name = "Interval1Box";
-            this.Interval1Box.Size = new System.Drawing.Size(68, 20);
+            this.Interval1Box.Size = new System.Drawing.Size(70, 22);
             this.Interval1Box.TabIndex = 31;
+            this.Interval1Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Interval1Box.ValueChanged += new System.EventHandler(this.Interval1Box_ValueChanged);
             // 
             // Speed1Box
             // 
+            this.Speed1Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.Speed1Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Speed1Box.DecimalPlaces = 5;
+            this.Speed1Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Speed1Box.ForeColor = System.Drawing.Color.White;
             this.Speed1Box.Location = new System.Drawing.Point(71, 58);
+            this.Speed1Box.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.Speed1Box.Name = "Speed1Box";
-            this.Speed1Box.Size = new System.Drawing.Size(68, 20);
+            this.Speed1Box.Size = new System.Drawing.Size(70, 22);
             this.Speed1Box.TabIndex = 31;
+            this.Speed1Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Speed1Box.ValueChanged += new System.EventHandler(this.Speed1Box_ValueChanged);
             // 
             // label9
             // 
@@ -1185,7 +1341,7 @@ namespace Forza_Mods_AIO
             // 
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(357, 177);
+            this.label30.Location = new System.Drawing.Point(346, 177);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(70, 19);
             this.label30.TabIndex = 29;
@@ -1225,7 +1381,7 @@ namespace Forza_Mods_AIO
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(169, 177);
+            this.label26.Location = new System.Drawing.Point(157, 178);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(84, 19);
             this.label26.TabIndex = 25;
@@ -1275,7 +1431,7 @@ namespace Forza_Mods_AIO
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             this.panel5.Controls.Add(this.RatioBox);
-            this.panel5.Controls.Add(this.TurnStrenghtBox);
+            this.panel5.Controls.Add(this.TurnStrengthBox);
             this.panel5.Controls.Add(this.TurnIntervalBox);
             this.panel5.Controls.Add(this.label7);
             this.panel5.Controls.Add(this.label17);
@@ -1288,25 +1444,58 @@ namespace Forza_Mods_AIO
             // 
             // RatioBox
             // 
+            this.RatioBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.RatioBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RatioBox.DecimalPlaces = 5;
-            this.RatioBox.Location = new System.Drawing.Point(290, 44);
+            this.RatioBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RatioBox.ForeColor = System.Drawing.Color.White;
+            this.RatioBox.Location = new System.Drawing.Point(266, 44);
+            this.RatioBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.RatioBox.Name = "RatioBox";
-            this.RatioBox.Size = new System.Drawing.Size(63, 20);
+            this.RatioBox.Size = new System.Drawing.Size(70, 22);
             this.RatioBox.TabIndex = 31;
+            this.RatioBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.RatioBox.ValueChanged += new System.EventHandler(this.RatioBox_ValueChanged);
             // 
-            // TurnStrenghtBox
+            // TurnStrengthBox
             // 
-            this.TurnStrenghtBox.Location = new System.Drawing.Point(490, 45);
-            this.TurnStrenghtBox.Name = "TurnStrenghtBox";
-            this.TurnStrenghtBox.Size = new System.Drawing.Size(37, 20);
-            this.TurnStrenghtBox.TabIndex = 31;
+            this.TurnStrengthBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.TurnStrengthBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TurnStrengthBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TurnStrengthBox.ForeColor = System.Drawing.Color.White;
+            this.TurnStrengthBox.Location = new System.Drawing.Point(443, 42);
+            this.TurnStrengthBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.TurnStrengthBox.Name = "TurnStrengthBox";
+            this.TurnStrengthBox.Size = new System.Drawing.Size(70, 22);
+            this.TurnStrengthBox.TabIndex = 31;
+            this.TurnStrengthBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TurnStrengthBox.ValueChanged += new System.EventHandler(this.TurnStrengthBox_ValueChanged);
             // 
             // TurnIntervalBox
             // 
-            this.TurnIntervalBox.Location = new System.Drawing.Point(139, 44);
+            this.TurnIntervalBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.TurnIntervalBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TurnIntervalBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TurnIntervalBox.ForeColor = System.Drawing.Color.White;
+            this.TurnIntervalBox.Location = new System.Drawing.Point(86, 44);
+            this.TurnIntervalBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.TurnIntervalBox.Name = "TurnIntervalBox";
-            this.TurnIntervalBox.Size = new System.Drawing.Size(36, 20);
+            this.TurnIntervalBox.Size = new System.Drawing.Size(70, 22);
             this.TurnIntervalBox.TabIndex = 31;
+            this.TurnIntervalBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TurnIntervalBox.ValueChanged += new System.EventHandler(this.TurnIntervalBox_ValueChanged);
             // 
             // label7
             // 
@@ -1322,31 +1511,31 @@ namespace Forza_Mods_AIO
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(4, 44);
+            this.label17.Location = new System.Drawing.Point(20, 44);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(138, 19);
+            this.label17.Size = new System.Drawing.Size(60, 19);
             this.label17.TabIndex = 16;
-            this.label17.Text = "Turn assist interval";
+            this.label17.Text = "Interval";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(175, 44);
+            this.label18.Location = new System.Drawing.Point(217, 45);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(118, 19);
+            this.label18.Size = new System.Drawing.Size(43, 19);
             this.label18.TabIndex = 17;
-            this.label18.Text = "Turn assist ratio";
+            this.label18.Text = "Ratio";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(350, 44);
+            this.label19.Location = new System.Drawing.Point(370, 43);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(144, 19);
+            this.label19.Size = new System.Drawing.Size(67, 19);
             this.label19.TabIndex = 18;
-            this.label19.Text = "Turn assist strength";
+            this.label19.Text = "Strength";
             // 
             // Tab_5LiveTuning
             // 
@@ -1446,17 +1635,6 @@ namespace Forza_Mods_AIO
             this.CheckPointTPworker.WorkerSupportsCancellation = true;
             this.CheckPointTPworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckPointTPworker_DoWork);
             // 
-            // CheckpointBox
-            // 
-            this.CheckpointBox.AutoSize = true;
-            this.CheckpointBox.Location = new System.Drawing.Point(78, 131);
-            this.CheckpointBox.Name = "CheckpointBox";
-            this.CheckpointBox.Size = new System.Drawing.Size(91, 17);
-            this.CheckpointBox.TabIndex = 38;
-            this.CheckpointBox.Text = "Auto win race";
-            this.CheckpointBox.UseVisualStyleBackColor = true;
-            this.CheckpointBox.CheckedChanged += new System.EventHandler(this.CheckpointBox_CheckedChanged);
-            // 
             // MainWindow
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
@@ -1534,7 +1712,7 @@ namespace Forza_Mods_AIO
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TurnStrenghtBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnStrengthBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).EndInit();
             this.Tab_5LiveTuning.ResumeLayout(false);
             this.Tab_5LiveTuning.PerformLayout();
@@ -1621,7 +1799,7 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.CheckBox StopAllWheelsButton;
         private System.Windows.Forms.CheckBox SuperBreakButton;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox LST_TeleportLocation;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label label11;
@@ -1654,9 +1832,9 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.NumericUpDown Boost1Box;
         private System.Windows.Forms.NumericUpDown Interval1Box;
         private System.Windows.Forms.NumericUpDown RatioBox;
-        private System.Windows.Forms.NumericUpDown TurnStrenghtBox;
-        private System.Windows.Forms.NumericUpDown TurnIntervalBox;
+        private System.Windows.Forms.NumericUpDown TurnStrengthBox;
         private System.Windows.Forms.CheckBox CheckpointBox;
+        private System.Windows.Forms.NumericUpDown TurnIntervalBox;
     }
 }
 

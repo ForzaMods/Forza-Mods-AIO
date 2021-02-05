@@ -50,11 +50,11 @@ namespace Forza_Mods_AIO
         float xVelocityVal;     float yVelocityVal;     float zVelocityVal;
         float x;                float y;                float z;
         float CheckPointx;      float CheckPointy;      float CheckPointz;
-        float BoostSpeed1;      float BoostSpeed2;      float BoostSpeed3;      float BoostLim;
+        float BoostSpeed1;      float BoostSpeed2;      float BoostSpeed3;      float BoostLim; //speed
         float TurnRatio;        float TurnStrength;
         float VelMult;
-        int times1;             int times2;             int times3;             int times4;
-        int BoostInterval1;     int BoostInterval2;     int BoostInterval3;     int BoostInterval4; int TurnInterval;
+        int times1;             int times2;             int times3;             int times4; //boost
+        int BoostInterval1;     int BoostInterval2;     int BoostInterval3;     int BoostInterval4; /*interval*/ int TurnInterval;
         int cycles;
 
 
@@ -512,6 +512,21 @@ namespace Forza_Mods_AIO
             Tab_5LiveTuning.Hide();
             Tab_6Speedhack.Hide();
         }
+        private void DisableButtons()
+        {
+            BTN_TabAddCars.Enabled = false;
+            BTN_TabStatsEditor.Enabled = false;
+            BTN_TabLiveTuning.Enabled = false;
+            BTN_TabSpeedhack.Enabled = false;
+
+        }
+        private void EnableButtons()
+        {
+            BTN_TabAddCars.Enabled = true;
+            BTN_TabStatsEditor.Enabled = true;
+            BTN_TabLiveTuning.Enabled = true;
+            BTN_TabSpeedhack.Enabled = true;
+        }
         private void BTN_Close_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -557,18 +572,12 @@ namespace Forza_Mods_AIO
         }
         private void BTN_TabSaveswap_Click(object sender, EventArgs e)
         {
-            if (IsAttached)
-            {
                 ClearColours();
                 BTN_TabSaveswap.BackColor = Color.FromArgb(45, 45, 48);
                 Panel_Saveswap.BackColor = Color.FromArgb(150, 11, 166);
                 ClearTabItems();
-                Tab_4Saveswap.Show();
-            }
-            else
-            {
-                ;
-            }
+            Tab_4Saveswap.Show();
+
         }
         private void BTN_TabLiveTuning_Click(object sender, EventArgs e)
         {
@@ -594,6 +603,7 @@ namespace Forza_Mods_AIO
                 Panel_Speedhack.BackColor = Color.FromArgb(150, 11, 166);
                 ClearTabItems();
                 Tab_6Speedhack.Show();
+                SetSpeedhackVal();
             }
             else
             {
@@ -698,7 +708,7 @@ namespace Forza_Mods_AIO
             while (true)
             {
                 Thread.Sleep(50);
-                if (IsAttached == false && Tab_1Info.Visible == false)
+                if (IsAttached == false && Tab_1Info.Visible == false && Tab_4Saveswap.Visible == false)
                 {
                    ClearColours();
                    BTN_TabInfo.BackColor = Color.FromArgb(45, 45, 48);
@@ -714,11 +724,13 @@ namespace Forza_Mods_AIO
             {
                 LBL_Attached.Text = "Attached to FH4";
                 LBL_Attached.ForeColor = Color.Green;
+                EnableButtons();
             }
             else
             {
                 LBL_Attached.Text = "Not Attached to FH4";
                 LBL_Attached.ForeColor = Color.Red;
+                DisableButtons();
             }
         }
         private void InitialBGworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -849,28 +861,28 @@ namespace Forza_Mods_AIO
         }
         //end of turn assist
         //teleports
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void LST_TeleportLocation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBox1.Text == "Festival")
+            if(LST_TeleportLocation.Text == "Festival")
             {
                 x = (float)-2753.350098;
                 y = (float)349.7218018;
                 z = (float)-4357.629883;
             }
-            if (comboBox1.Text == "Start of Motorway")
+            if (LST_TeleportLocation.Text == "Start of Motorway")
             {
                 x = (float)2657.887451;
                 y = (float)270.7128906;
                 z = (float)-4353.087402;
             }
-            if (comboBox1.Text == "Broadway")
+            if (LST_TeleportLocation.Text == "Broadway")
             {
                 x = (float)-237.2871857;
                 y = (float)239.5045471;
                 z = (float)-5816.858398;
             }
 
-            if (comboBox1.Text == "Greendale Airstrip")
+            if (LST_TeleportLocation.Text == "Greendale Airstrip")
             {
                 x = (float)3409.570068;
                 y = (float)159.2418976;
@@ -903,5 +915,109 @@ namespace Forza_Mods_AIO
             }
         }
         //end of teleports
+        private void SetSpeedhackVal()
+        {
+            TurnIntervalBox.Value = Convert.ToDecimal(TurnInterval);
+            RatioBox.Value = Convert.ToDecimal(TurnRatio);
+            TurnStrengthBox.Value = Convert.ToDecimal(TurnStrength);
+            VelMultBar.Value = Convert.ToInt32(VelMult);
+            VelMultBox.Value = Convert.ToDecimal(VelMult);
+            Speed1Box.Value = Convert.ToDecimal(BoostSpeed1);
+            Speed2Box.Value = Convert.ToDecimal(BoostSpeed2);
+            Speed3Box.Value = Convert.ToDecimal(BoostSpeed3);
+            LimitBox.Value = Convert.ToDecimal(BoostLim);
+            Interval1Box.Value = Convert.ToDecimal(BoostInterval1);
+            Interval2Box.Value = Convert.ToDecimal(BoostInterval2);
+            Interval3Box.Value = Convert.ToDecimal(BoostInterval3);
+            Interval4Box.Value = Convert.ToDecimal(BoostInterval4);
+            Boost1Box.Value = Convert.ToDecimal(times1);
+            Boost2Box.Value = Convert.ToDecimal(times2);
+            Boost3Box.Value = Convert.ToDecimal(times3);
+            Boost4Box.Value = Convert.ToDecimal(times4);
+        }
+        private void TurnIntervalBox_ValueChanged(object sender, EventArgs e)
+        {
+            TurnInterval = Decimal.ToInt32(TurnIntervalBox.Value);
+        }
+        private void RatioBox_ValueChanged(object sender, EventArgs e)
+        {
+            TurnRatio = Decimal.ToSingle(RatioBox.Value);
+        }
+
+        private void TurnStrengthBox_ValueChanged(object sender, EventArgs e)
+        {
+            TurnStrength = Decimal.ToSingle(TurnStrengthBox.Value);
+        }
+        private void Speed1Box_ValueChanged(object sender, EventArgs e)
+        {
+            BoostSpeed1 = Decimal.ToSingle(Speed1Box.Value);
+        }
+
+        private void Speed2Box_ValueChanged(object sender, EventArgs e)
+        {
+            BoostSpeed2 = Decimal.ToSingle(Speed2Box.Value);
+        }
+
+        private void Speed3Box_ValueChanged(object sender, EventArgs e)
+        {
+            BoostSpeed3 = Decimal.ToSingle(Speed3Box.Value);
+        }
+
+        private void LimitBox_ValueChanged(object sender, EventArgs e)
+        {
+            BoostLim = Decimal.ToSingle(LimitBox.Value);
+        }
+
+        private void Interval1Box_ValueChanged(object sender, EventArgs e)
+        {
+            BoostInterval1 = Decimal.ToInt32(Interval1Box.Value);
+        }
+
+        private void Interval2Box_ValueChanged(object sender, EventArgs e)
+        {
+            BoostInterval2 = Decimal.ToInt32(Interval2Box.Value);
+        }
+
+        private void Interval3Box_ValueChanged(object sender, EventArgs e)
+        {
+            BoostInterval3 = Decimal.ToInt32(Interval3Box.Value);
+        }
+
+        private void Interval4Box_ValueChanged(object sender, EventArgs e)
+        {
+            BoostInterval4 = Decimal.ToInt32(Interval4Box.Value);
+        }
+
+        private void Boost1Box_ValueChanged(object sender, EventArgs e)
+        {
+            times1 = Decimal.ToInt32(Boost1Box.Value);
+        }
+
+        private void Boost2Box_ValueChanged(object sender, EventArgs e)
+        {
+            times2 = Decimal.ToInt32(Boost2Box.Value);
+        }
+
+        private void Boost3Box_ValueChanged(object sender, EventArgs e)
+        {
+            times3 = Decimal.ToInt32(Boost3Box.Value);
+        }
+
+        private void Boost4Box_ValueChanged(object sender, EventArgs e)
+        {
+            times4 = Decimal.ToInt32(Boost4Box.Value);
+        }
+
+        private void VelMultBar_Scroll(object sender, EventArgs e)
+        {
+            VelMultBox.Value = Convert.ToDecimal(VelMultBar.Value);
+            VelMult = Decimal.ToSingle(VelMultBar.Value);
+        }
+
+        private void VelMultBox_ValueChanged(object sender, EventArgs e)
+        {
+            VelMultBar.Value = Decimal.ToInt32(VelMultBox.Value);
+            VelMult = Decimal.ToSingle(VelMultBox.Value);
+        }
     }
 }
