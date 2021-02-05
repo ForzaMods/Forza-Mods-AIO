@@ -180,7 +180,7 @@ namespace Forza_Mods_AIO
             this.TopPanel.BackColor = System.Drawing.Color.Black;
             this.TopPanel.Controls.Add(this.BTN_MIN);
             this.TopPanel.Controls.Add(this.LBL_Title);
-            this.TopPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.TopPanel.Font = new System.Drawing.Font("Open Sans", 8.25F);
             this.TopPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.TopPanel.Location = new System.Drawing.Point(0, 0);
             this.TopPanel.Margin = new System.Windows.Forms.Padding(0);
@@ -650,7 +650,7 @@ namespace Forza_Mods_AIO
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(438, -1);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 13);
+            this.label4.Size = new System.Drawing.Size(103, 15);
             this.label4.TabIndex = 0;
             this.label4.Text = "Saveswapping Tab";
             // 
@@ -1560,7 +1560,7 @@ namespace Forza_Mods_AIO
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(379, -1);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 13);
+            this.label3.Size = new System.Drawing.Size(89, 15);
             this.label3.TabIndex = 0;
             this.label3.Text = "Live Tuning Tab";
             // 
@@ -1597,7 +1597,7 @@ namespace Forza_Mods_AIO
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(389, -1);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(88, 13);
+            this.label5.Size = new System.Drawing.Size(93, 15);
             this.label5.TabIndex = 0;
             this.label5.Text = "Stats Editing Tab";
             // 
@@ -1670,6 +1670,7 @@ namespace Forza_Mods_AIO
             this.Controls.Add(this.Tab_5LiveTuning);
             this.Controls.Add(this.Tab_2AddCars);
             this.Controls.Add(this.Tab_4Saveswap);
+            this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
