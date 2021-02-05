@@ -31,6 +31,12 @@ namespace Forza_Mods_AIO
         bool TurnAssistRightStart = false;
         bool NoClipToggle = false;
         bool CheckPointTPToggle = false;
+        long BaseAddrLong;      long Base2AddrLong; long Base3AddrLong; long Car1AddrLong; long Car2AddrLong; long Wall1AddrLong; long Wall2AddrLong;
+        string Base = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
+        string Car1 = "48 89 ?? ?? ?? 44 8B ?? 48 89 ?? ?? ?? BA";
+        string Car2 = "0F 28 ?? 41 0F ?? ?? ?? 0F C6 D6 ?? 41 0F";
+        string Wall1 = "F3 0F ?? ?? ?? 0F 59 ?? 0F C6 ED ?? 0F C6 F6";
+        string Wall2 = "0F 28 ?? 0F C6 C1 ?? 0F 28 ?? 0F C6 CB ?? 41 0F ?? ?? F3 0F ?? ?? 41 0F ?? ?? 0F C6 C0 ?? 0F C6 E4";
         string BaseAddr;        string Base2Addr;       string Base3Addr;
         string Car1Addr;        string Car2Addr;
         string Wall1Addr;       string Wall2Addr;
@@ -172,28 +178,41 @@ namespace Forza_Mods_AIO
         //setup
         public async void AoBscan()
         {
-            string Base = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
-            string Car1 = "48 89 ?? ?? ?? 44 8B ?? 48 89 ?? ?? ?? BA";
-            string Car2 = "0F 28 ?? 41 0F ?? ?? ?? 0F C6 D6 ?? 41 0F";
-            string Wall1 = "F3 0F ?? ?? ?? 0F 59 ?? 0F C6 ED ?? 0F C6 F6";
-            string Wall2 = "0F 28 ?? 0F C6 C1 ?? 0F 28 ?? 0F C6 CB ?? 41 0F ?? ?? F3 0F ?? ?? 41 0F ?? ?? 0F C6 C0 ?? 0F C6 E4";
-
-            long BaseAddrLong = (await m.AoBScan(Base, false, true)).FirstOrDefault() + 7632;
-            long Base2AddrLong = (await m.AoBScan(Base, false, true)).FirstOrDefault() + 12144;
-            long Base3AddrLong = (await m.AoBScan(Base, false, true)).FirstOrDefault() - 3328;
-            long Car1AddrLong = (await m.AoBScan(Car1, false, true)).FirstOrDefault() + 106;
-            long Car2AddrLong = (await m.AoBScan(Car2, false, true)).FirstOrDefault() - 411;
-            long Wall1AddrLong = (await m.AoBScan(Wall1, false, true)).FirstOrDefault() + 401;
-            long Wall2AddrLong = (await m.AoBScan(Wall2, false, true)).FirstOrDefault() - 446;
-
-            BaseAddr = BaseAddrLong.ToString("X");
-            Base2Addr = Base2AddrLong.ToString("X");
-            Base3Addr = Base3AddrLong.ToString("X");
-            Car1Addr = Car1AddrLong.ToString("X");
-            Car2Addr = Car2AddrLong.ToString("X");
-            Wall1Addr = Wall1AddrLong.ToString("X");
-            Wall2Addr = Wall2AddrLong.ToString("X");
-            Thread.Sleep(50);
+            if (BaseAddr == "1DD0" || BaseAddr == null)
+            {
+                BaseAddr = BaseAddrLong.ToString("X");
+                BaseAddrLong = (await m.AoBScan(Base, false, true)).FirstOrDefault() + 7632;
+            }
+            if (Base2Addr == "2F70" || Base2Addr == null)
+            {
+                Base2Addr = Base2AddrLong.ToString("X");
+                Base2AddrLong = (await m.AoBScan(Base, false, true)).FirstOrDefault() + 12144;
+            }
+            if (Base3Addr == "-D00" || Base3Addr == null)
+            {
+                Base3Addr = Base3AddrLong.ToString("X");
+                Base3AddrLong = (await m.AoBScan(Base, false, true)).FirstOrDefault() - 3328;
+            }
+            if (Car1Addr == "6A" || Car1Addr == null)
+            {
+                Car1Addr = Car1AddrLong.ToString("X");
+                Car1AddrLong = (await m.AoBScan(Car1, false, true)).FirstOrDefault() + 106;
+            }
+            if (Car2Addr == "-19B" || Car2Addr == null)
+            {
+                Car2Addr = Car2AddrLong.ToString("X");
+                Car2AddrLong = (await m.AoBScan(Car2, false, true)).FirstOrDefault() - 411;
+            }
+            if (Wall1Addr == "191" || Wall1Addr == null)
+            {
+                Wall1Addr = Wall1AddrLong.ToString("X");
+                Wall1AddrLong = (await m.AoBScan(Wall1, false, true)).FirstOrDefault() + 401;
+            }
+            if (Wall2Addr == "-1BE" || Wall2Addr == null)
+            {
+                Wall2Addr = Wall2AddrLong.ToString("X");
+                Wall2AddrLong = (await m.AoBScan(Wall2, false, true)).FirstOrDefault() - 446;
+            }
         }
         public void Addresses()
         {
@@ -398,12 +417,12 @@ namespace Forza_Mods_AIO
             }
         }
         //end of turn assists
+        //teleport "script"
         public void CheckPointTPworker_DoWork(object sender, DoWorkEventArgs e)
         {   
             while (CheckPointTPToggle)
             {
                 float InRace = m.ReadFloat(InRaceAddr);
-                cycles = 0;
                 if (InRace == 1)
                 {
                     Thread.Sleep(3750);
@@ -425,6 +444,7 @@ namespace Forza_Mods_AIO
             m.WriteMemory(zAddr, "float", (m.ReadFloat(CheckPointzAddr)).ToString());
             m.FreezeValue(yAngVelAddr, "float", "100");
         }
+        //end of teleport "script"
         //NoClip handler
         public void NoClipworker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -644,7 +664,7 @@ namespace Forza_Mods_AIO
         {
             while (true)
             {
-                 Addresses();
+                Addresses();
                 if(!m.OpenProcess("ForzaHorizon4"))
                 {
                     IsAttached = false;
@@ -652,14 +672,15 @@ namespace Forza_Mods_AIO
                     Thread.Sleep(1000);
                     continue;
                 }
-                if(BaseAddr == "1DD0" || (BaseAddr == null)
+                if (BaseAddr == "1DD0" || (BaseAddr == null)
+                    || (Base2Addr == "2F70") || (Base2Addr == null)
+                    || (Base3Addr == "-D00") || (Base3Addr == null)
                     || (Car1Addr == "6A") || (Car1Addr == null)
                     || (Car2Addr == "-19B") || (Car2Addr == null)
                     || (Wall1Addr == "191") || (Wall1Addr == null)
                     || (Wall2Addr == "-1BE") || (Wall2Addr == null))
                 {
                     AoBscan();
-                    Thread.Sleep(1000);
                     continue;
                 }
                 IsAttached = true;
