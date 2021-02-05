@@ -737,9 +737,12 @@ namespace Forza_Mods_AIO
             // CheckpointBox
             // 
             this.CheckpointBox.AutoSize = true;
-            this.CheckpointBox.Location = new System.Drawing.Point(78, 131);
+            this.CheckpointBox.FlatAppearance.BorderSize = 0;
+            this.CheckpointBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CheckpointBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckpointBox.Location = new System.Drawing.Point(64, 142);
             this.CheckpointBox.Name = "CheckpointBox";
-            this.CheckpointBox.Size = new System.Drawing.Size(91, 17);
+            this.CheckpointBox.Size = new System.Drawing.Size(117, 23);
             this.CheckpointBox.TabIndex = 38;
             this.CheckpointBox.Text = "Auto win race";
             this.CheckpointBox.UseVisualStyleBackColor = true;
@@ -747,12 +750,16 @@ namespace Forza_Mods_AIO
             // 
             // TPButton
             // 
+            this.TPButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.TPButton.FlatAppearance.BorderSize = 0;
+            this.TPButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TPButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TPButton.Location = new System.Drawing.Point(85, 102);
             this.TPButton.Name = "TPButton";
-            this.TPButton.Size = new System.Drawing.Size(75, 23);
+            this.TPButton.Size = new System.Drawing.Size(75, 34);
             this.TPButton.TabIndex = 37;
             this.TPButton.Text = "Go";
-            this.TPButton.UseVisualStyleBackColor = true;
+            this.TPButton.UseVisualStyleBackColor = false;
             this.TPButton.Click += new System.EventHandler(this.TPButton_Click);
             // 
             // richTextBox1
