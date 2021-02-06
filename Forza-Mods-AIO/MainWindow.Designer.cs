@@ -144,6 +144,7 @@ namespace Forza_Mods_AIO
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
             this.CheckPointTPworker = new System.ComponentModel.BackgroundWorker();
             this.Mainworker = new System.ComponentModel.BackgroundWorker();
+            this.AOBScanProgress = new System.Windows.Forms.ProgressBar();
             this.TopPanel.SuspendLayout();
             this.Tab_1Info.SuspendLayout();
             this.Tab_2AddCars.SuspendLayout();
@@ -253,6 +254,7 @@ namespace Forza_Mods_AIO
             // BTN_TabAddCars
             // 
             this.BTN_TabAddCars.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_TabAddCars.Enabled = false;
             this.BTN_TabAddCars.FlatAppearance.BorderSize = 0;
             this.BTN_TabAddCars.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabAddCars.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -274,6 +276,7 @@ namespace Forza_Mods_AIO
             // BTN_TabLiveTuning
             // 
             this.BTN_TabLiveTuning.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_TabLiveTuning.Enabled = false;
             this.BTN_TabLiveTuning.FlatAppearance.BorderSize = 0;
             this.BTN_TabLiveTuning.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabLiveTuning.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -316,6 +319,7 @@ namespace Forza_Mods_AIO
             // BTN_TabStatsEditor
             // 
             this.BTN_TabStatsEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_TabStatsEditor.Enabled = false;
             this.BTN_TabStatsEditor.FlatAppearance.BorderSize = 0;
             this.BTN_TabStatsEditor.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabStatsEditor.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -337,6 +341,7 @@ namespace Forza_Mods_AIO
             // BTN_TabSpeedhack
             // 
             this.BTN_TabSpeedhack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_TabSpeedhack.Enabled = false;
             this.BTN_TabSpeedhack.FlatAppearance.BorderSize = 0;
             this.BTN_TabSpeedhack.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabSpeedhack.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -443,6 +448,7 @@ namespace Forza_Mods_AIO
             // 
             this.Tab_1Info.AutoScroll = true;
             this.Tab_1Info.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Tab_1Info.Controls.Add(this.AOBScanProgress);
             this.Tab_1Info.Controls.Add(this.TXT_InfoTab);
             this.Tab_1Info.Controls.Add(this.LBL_Attached);
             this.Tab_1Info.Location = new System.Drawing.Point(9, 80);
@@ -668,7 +674,7 @@ namespace Forza_Mods_AIO
             this.Tab_6Speedhack.Controls.Add(this.panel4);
             this.Tab_6Speedhack.Controls.Add(this.panel6);
             this.Tab_6Speedhack.Controls.Add(this.panel5);
-            this.Tab_6Speedhack.Location = new System.Drawing.Point(105, 70);
+            this.Tab_6Speedhack.Location = new System.Drawing.Point(1022, 58);
             this.Tab_6Speedhack.Margin = new System.Windows.Forms.Padding(0);
             this.Tab_6Speedhack.Name = "Tab_6Speedhack";
             this.Tab_6Speedhack.Size = new System.Drawing.Size(1000, 445);
@@ -1637,38 +1643,7 @@ namespace Forza_Mods_AIO
             this.InitialBGworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.InitialBGworker_DoWork);
             this.InitialBGworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.InitialBGworker_ProgressChanged);
             this.InitialBGworker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.InitialBGworker_RunWorkerCompleted);
-            /*// 
-            // Breakworker
             // 
-            this.Breakworker.WorkerSupportsCancellation = true;
-            this.Breakworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Breakworker_DoWork);
-            // 
-            // VelHackworker
-            // 
-            this.VelHackworker.WorkerSupportsCancellation = true;
-            this.VelHackworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.VelHackworker_DoWork);
-            // 
-            // SpeedHackworker
-            // 
-            this.SpeedHackworker.WorkerSupportsCancellation = true;
-            this.SpeedHackworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SpeedHackworker_DoWork);
-            // 
-            // TurnAssistworker
-            // 
-            this.TurnAssistworker.WorkerSupportsCancellation = true;
-            this.TurnAssistworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.TurnAssistworker_DoWork);
-            // 
-            // NoClipworker
-            // 
-            this.NoClipworker.WorkerSupportsCancellation = true;
-            this.NoClipworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.NoClipworker_DoWork);
-            */
-            // 
-            // Mainworker
-            // 
-            this.Mainworker.WorkerSupportsCancellation = true;
-            this.Mainworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Mainworker_DoWork);
-            //
             // CheckAttachedworker
             // 
             this.CheckAttachedworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckAttachedworker_DoWork);
@@ -1678,13 +1653,26 @@ namespace Forza_Mods_AIO
             this.CheckPointTPworker.WorkerSupportsCancellation = true;
             this.CheckPointTPworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckPointTPworker_DoWork);
             // 
+            // Mainworker
+            // 
+            this.Mainworker.WorkerSupportsCancellation = true;
+            this.Mainworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Mainworker_DoWork);
+            // 
+            // AOBScanProgress
+            // 
+            this.AOBScanProgress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.AOBScanProgress.Location = new System.Drawing.Point(7, 28);
+            this.AOBScanProgress.Name = "AOBScanProgress";
+            this.AOBScanProgress.Size = new System.Drawing.Size(159, 23);
+            this.AOBScanProgress.TabIndex = 15;
+            // 
             // MainWindow
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(1940, 1100);
+            this.ClientSize = new System.Drawing.Size(1924, 1084);
             this.ControlBox = false;
             this.Controls.Add(this.Tab_6Speedhack);
             this.Controls.Add(this.Tab_3StatsEditor);
@@ -1882,6 +1870,7 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.NumericUpDown TurnIntervalBox;
         private System.Windows.Forms.Button LoadSHDefault;
         private System.Windows.Forms.Button SaveSHDefault;
+        private System.Windows.Forms.ProgressBar AOBScanProgress;
     }
 }
 
