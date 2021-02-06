@@ -143,6 +143,7 @@ namespace Forza_Mods_AIO
             this.NoClipworker = new System.ComponentModel.BackgroundWorker();
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
             this.CheckPointTPworker = new System.ComponentModel.BackgroundWorker();
+            this.Mainworker = new System.ComponentModel.BackgroundWorker();
             this.TopPanel.SuspendLayout();
             this.Tab_1Info.SuspendLayout();
             this.Tab_2AddCars.SuspendLayout();
@@ -1636,7 +1637,7 @@ namespace Forza_Mods_AIO
             this.InitialBGworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.InitialBGworker_DoWork);
             this.InitialBGworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.InitialBGworker_ProgressChanged);
             this.InitialBGworker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.InitialBGworker_RunWorkerCompleted);
-            // 
+            /*// 
             // Breakworker
             // 
             this.Breakworker.WorkerSupportsCancellation = true;
@@ -1661,7 +1662,13 @@ namespace Forza_Mods_AIO
             // 
             this.NoClipworker.WorkerSupportsCancellation = true;
             this.NoClipworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.NoClipworker_DoWork);
+            */
             // 
+            // Mainworker
+            // 
+            this.Mainworker.WorkerSupportsCancellation = true;
+            this.Mainworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Mainworker_DoWork);
+            //
             // CheckAttachedworker
             // 
             this.CheckAttachedworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckAttachedworker_DoWork);
@@ -1850,6 +1857,7 @@ namespace Forza_Mods_AIO
         private System.ComponentModel.BackgroundWorker NoClipworker;
         private System.ComponentModel.BackgroundWorker CheckAttachedworker;
         private System.ComponentModel.BackgroundWorker CheckPointTPworker;
+        private System.ComponentModel.BackgroundWorker Mainworker;
         private System.Windows.Forms.CheckBox checkBox8;
         private System.Windows.Forms.CheckBox TB_ACAutoshow;
         private System.Windows.Forms.Button TPButton;
