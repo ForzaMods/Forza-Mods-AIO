@@ -11,6 +11,8 @@ using System.Threading;
 using System.Windows.Forms;
 using Memory;
 using GlobalLowLevelHooks;
+using IniParser;
+using IniParser.Model;
 
 namespace Forza_Mods_AIO
 {
@@ -31,6 +33,7 @@ namespace Forza_Mods_AIO
         bool TurnAssistRightStart = false;
         bool NoClipToggle = false;
         bool CheckPointTPToggle = false;
+        bool done = false;
         long BaseAddrLong;      long Base2AddrLong; long Base3AddrLong; long Car1AddrLong; long Car2AddrLong; long Wall1AddrLong; long Wall2AddrLong;
         string Base = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
         string Car1 = "48 89 ?? ?? ?? 44 8B ?? 48 89 ?? ?? ?? BA";
@@ -178,40 +181,57 @@ namespace Forza_Mods_AIO
         //setup
         public async void AoBscan()
         {
-            if (BaseAddr == "1DD0" || BaseAddr == null)
+            if (done == false)
             {
-                BaseAddr = BaseAddrLong.ToString("X");
-                BaseAddrLong = (await m.AoBScan(Base, false, true)).FirstOrDefault() + 7632;
-            }
-            if (Base2Addr == "2F70" || Base2Addr == null)
-            {
-                Base2Addr = Base2AddrLong.ToString("X");
-                Base2AddrLong = (await m.AoBScan(Base, false, true)).FirstOrDefault() + 12144;
-            }
-            if (Base3Addr == "-D00" || Base3Addr == null)
-            {
-                Base3Addr = Base3AddrLong.ToString("X");
-                Base3AddrLong = (await m.AoBScan(Base, false, true)).FirstOrDefault() - 3328;
-            }
-            if (Car1Addr == "6A" || Car1Addr == null)
-            {
-                Car1Addr = Car1AddrLong.ToString("X");
-                Car1AddrLong = (await m.AoBScan(Car1, false, true)).FirstOrDefault() + 106;
-            }
-            if (Car2Addr == "-19B" || Car2Addr == null)
-            {
-                Car2Addr = Car2AddrLong.ToString("X");
-                Car2AddrLong = (await m.AoBScan(Car2, false, true)).FirstOrDefault() - 411;
-            }
-            if (Wall1Addr == "191" || Wall1Addr == null)
-            {
-                Wall1Addr = Wall1AddrLong.ToString("X");
-                Wall1AddrLong = (await m.AoBScan(Wall1, false, true)).FirstOrDefault() + 401;
-            }
-            if (Wall2Addr == "-1BE" || Wall2Addr == null)
-            {
-                Wall2Addr = Wall2AddrLong.ToString("X");
-                Wall2AddrLong = (await m.AoBScan(Wall2, false, true)).FirstOrDefault() - 446;
+                if (BaseAddr == "1DD0" || (BaseAddr == null)
+                    || (Base2Addr == "2F70") || (Base2Addr == null)
+                    || (Base3Addr == "-D00") || (Base3Addr == null)
+                    || (Car1Addr == "6A") || (Car1Addr == null)
+                    || (Car2Addr == "-19B") || (Car2Addr == null)
+                    || (Wall1Addr == "191") || (Wall1Addr == null)
+                    || (Wall2Addr == "-1BE") || (Wall2Addr == null))
+                {
+                    cycles++;
+                    if (cycles == 1)//(BaseAddr == "1DD0" || BaseAddr == null || BaseAddr == "0")
+                    {
+                        BaseAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFFFFFFFFF, Base, false, true)).FirstOrDefault() + 7632;
+                        BaseAddr = BaseAddrLong.ToString("X");
+                    }
+                    else if (cycles == 2)//(Base2Addr == "2F70" || Base2Addr == null || Base2Addr == "0")
+                    {
+                        Base2AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFFFFFFFFF, Base, false, true)).FirstOrDefault() + 12144;
+                        Base2Addr = Base2AddrLong.ToString("X");
+                    }
+                    else if (cycles == 3)//(Base3Addr == "-D00" || Base3Addr == null || Base3Addr == "0")
+                    {
+                        Base3AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFFFFFFFFF, Base, false, true)).FirstOrDefault() - 3328;
+                        Base3Addr = Base3AddrLong.ToString("X");
+                    }
+                    else if (cycles == 4)//(Car1Addr == "6A" || Car1Addr == null || Car1Addr == "0")
+                    {
+                        Car1AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFFFFFFFFF, Car1, false, true)).FirstOrDefault() + 106;
+                        Car1Addr = Car1AddrLong.ToString("X");
+                    }
+                    else if (cycles == 5)//(Car2Addr == "-19B" || Car2Addr == null || Car2Addr == "0")
+                    {
+                        Car2AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFFFFFFFFF, Car2, false, true)).FirstOrDefault() - 411;
+                        Car2Addr = Car2AddrLong.ToString("X");
+                    }
+                    else if (cycles == 6)//(Wall1Addr == "191" || Wall1Addr == null || Wall1Addr == "0")
+                    {
+                        Wall1AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFFFFFFFFF, Wall1, false, true)).FirstOrDefault() + 401;
+                        Wall1Addr = Wall1AddrLong.ToString("X");
+                    }
+                    else if (cycles == 7)//(Wall2Addr == "-1BE" || Wall2Addr == null || Wall2Addr == "0")
+                    {
+                        Wall2AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFFFFFFFFF, Wall2, false, true)).FirstOrDefault() - 446;
+                        Wall2Addr = Wall2AddrLong.ToString("X");
+                    }
+                }
+                else
+                {
+                    done = true;
+                }
             }
         }
         public void Addresses()
@@ -252,23 +272,24 @@ namespace Forza_Mods_AIO
         {
             while (BreakStart)
             {
-                xVelocityVal = Math.Abs(m.ReadFloat(xVelocityAddr));
-                zVelocityVal = Math.Abs(m.ReadFloat(zVelocityAddr));
-                if (xVelocityVal < 5 || xVelocityVal < 5)
-                {
-                    xVelocityVal = 0;
-                    zVelocityVal = 0;
-                }
-                else
-                {
-                    xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)0.98;
-                    zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)0.98;
-                }
+                //xVelocityVal = Math.Abs(m.ReadFloat(xVelocityAddr));
+                //zVelocityVal = Math.Abs(m.ReadFloat(zVelocityAddr));
+                //if (xVelocityVal < 1 || xVelocityVal < 1)
+                //{
+                //    xVelocityVal = 0;
+                //    zVelocityVal = 0;
+                //}
+                //else
+                //{
+                    xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)0.75;
+                    zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)0.75;
+                //}
 
                 m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
-                m.WriteMemory(yVelocityAddr, "float", "0");
+                //m.WriteMemory(yVelocityAddr, "float", "0");
                 m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
                 m.WriteMemory(YawAddr, "float", "0");
+                Thread.Sleep(50);
             }
         }
         public void StopAllWheels()
@@ -603,7 +624,9 @@ namespace Forza_Mods_AIO
                 Panel_Speedhack.BackColor = Color.FromArgb(150, 11, 166);
                 ClearTabItems();
                 Tab_6Speedhack.Show();
+                ReadSpeedDefaultValues();
                 SetSpeedhackVal();
+                SHReset();
             }
             else
             {
@@ -682,6 +705,7 @@ namespace Forza_Mods_AIO
                     Thread.Sleep(1000);
                     continue;
                 }
+                /*
                 if (BaseAddr == "1DD0" || (BaseAddr == null)
                     || (Base2Addr == "2F70") || (Base2Addr == null)
                     || (Base3Addr == "-D00") || (Base3Addr == null)
@@ -691,11 +715,18 @@ namespace Forza_Mods_AIO
                     || (Wall2Addr == "-1BE") || (Wall2Addr == null))
                 {
                     AoBscan();
+                    Thread.Sleep(1000);
                     continue;
                 }
-                IsAttached = true;
-                Thread.Sleep(1000);
-                InitialBGworker.ReportProgress(0);
+                */
+                //Thread.Sleep(750);
+                AoBscan();
+                if (done == true)
+                {
+                    IsAttached = true;
+                    //Thread.Sleep(1000);
+                    InitialBGworker.ReportProgress(0);
+                }
             }
         }
         private void MainWindow_Shown(object sender, EventArgs e)
@@ -722,9 +753,13 @@ namespace Forza_Mods_AIO
         {
             if (IsAttached)
             {
-                LBL_Attached.Text = "Attached to FH4";
-                LBL_Attached.ForeColor = Color.Green;
-                EnableButtons();
+                //AoBscan();
+                //if(done == true)
+                //{
+                    LBL_Attached.Text = "Attached to FH4";
+                    LBL_Attached.ForeColor = Color.Green;
+                    EnableButtons();
+                //}
             }
             else
             {
@@ -1010,14 +1045,101 @@ namespace Forza_Mods_AIO
 
         private void VelMultBar_Scroll(object sender, EventArgs e)
         {
-            VelMultBox.Value = Convert.ToDecimal(VelMultBar.Value);
-            VelMult = Decimal.ToSingle(VelMultBar.Value);
+            VelMultBox.Value = Convert.ToDecimal(VelMultBar.Value) / 100;
+            VelMult = Decimal.ToSingle(VelMultBox.Value);
         }
 
         private void VelMultBox_ValueChanged(object sender, EventArgs e)
         {
-            VelMultBar.Value = Decimal.ToInt32(VelMultBox.Value);
+            VelMultBar.Value = Decimal.ToInt32(VelMultBox.Value * 100);
             VelMult = Decimal.ToSingle(VelMultBox.Value);
+        }
+
+        private void SHReset()
+        {
+            TurnIntervalBox.Value = TurnInterval;
+            RatioBox.Value = Convert.ToDecimal(TurnRatio);
+            TurnStrengthBox.Value = Convert.ToDecimal(TurnStrength);
+            Speed1Box.Value = Convert.ToDecimal(BoostSpeed1);
+            Speed2Box.Value = Convert.ToDecimal(BoostSpeed1);
+            Speed3Box.Value = Convert.ToDecimal(BoostSpeed1);
+            LimitBox.Value = Convert.ToDecimal(BoostLim);
+            Interval1Box.Value = Convert.ToDecimal(BoostInterval1);
+            Interval2Box.Value = Convert.ToDecimal(BoostInterval2);
+            Interval3Box.Value = Convert.ToDecimal(BoostInterval3);
+            Interval4Box.Value = Convert.ToDecimal(BoostInterval4);
+            Boost1Box.Value = Convert.ToDecimal(times1);
+            Boost2Box.Value = Convert.ToDecimal(times2);
+            Boost3Box.Value = Convert.ToDecimal(times3);
+            Boost4Box.Value = Convert.ToDecimal(times4);
+            VelMultBox.Value = Convert.ToDecimal(VelMult);
+            VelMultBar.Value = (Convert.ToInt32(VelMult) * 100);
+        }
+        public void ReadSpeedDefaultValues()
+        {
+            var SpeedHackparser = new FileIniDataParser();
+            IniData SpeedHack = SpeedHackparser.ReadFile("SpeedHackDefault.ini");
+            string CarNoClipStr = SpeedHack["No-Clip"]["Car"]; TB_SHCarNoClip.Checked = bool.Parse(CarNoClipStr);
+            string WallNoClipStr = SpeedHack["No-Clip"]["Wall"]; TB_SHWallNoClip.Checked = bool.Parse(WallNoClipStr);
+            string VelocityToggleStr = SpeedHack["Velocity"]["On"]; VelHackButton.Checked = bool.Parse(VelocityToggleStr);
+            string VelocityMultStr = SpeedHack["Velocity"]["Multiplication"]; VelMult = float.Parse(VelocityMultStr);
+            string SpeedHackToggleStr = SpeedHack["SpeedHack"]["On"]; WheelSpeedButton.Checked = bool.Parse(SpeedHackToggleStr);
+            string Speed1Str = SpeedHack["SpeedHack"]["Speed 1"]; BoostSpeed1 = float.Parse(Speed1Str);
+            string Speed2Str = SpeedHack["SpeedHack"]["Speed 2"]; BoostSpeed2 = float.Parse(Speed2Str);
+            string Speed3Str = SpeedHack["SpeedHack"]["Speed 3"]; BoostSpeed3 = float.Parse(Speed3Str);
+            string LimitStr = SpeedHack["SpeedHack"]["Limit"]; BoostLim = float.Parse(LimitStr);
+            string Interval1Str = SpeedHack["SpeedHack"]["Interval up to speed 1"]; BoostInterval1 = Int32.Parse(Interval1Str);
+            string Interval2Str = SpeedHack["SpeedHack"]["Interval up to speed 2"]; BoostInterval2 = Int32.Parse(Interval2Str);
+            string Interval3Str = SpeedHack["SpeedHack"]["Interval up to speed 3"]; BoostInterval3 = Int32.Parse(Interval3Str);
+            string Interval4Str = SpeedHack["SpeedHack"]["Interval above speed 3"]; BoostInterval4 = Int32.Parse(Interval4Str);
+            string Boost1Str = SpeedHack["SpeedHack"]["Boost up to speed 1"]; times1 = Int32.Parse(Boost1Str);
+            string Boost2Str = SpeedHack["SpeedHack"]["Boost up to speed 2"]; times2 = Int32.Parse(Boost2Str);
+            string Boost3Str = SpeedHack["SpeedHack"]["Boost up to speed 3"]; times3 = Int32.Parse(Boost3Str);
+            string Boost4Str = SpeedHack["SpeedHack"]["Boost above speed 3"]; times4 = Int32.Parse(Boost4Str);
+            string SuperBreakStr = SpeedHack["Break"]["Superbreak on"]; SuperBreakButton.Checked = bool.Parse(SuperBreakStr);
+            string StopWheelsStr = SpeedHack["Break"]["Stop all wheels on"]; StopAllWheelsButton.Checked = bool.Parse(StopWheelsStr);
+            string TurnToggleStr = SpeedHack["Turn assist"]["On"]; WheelSpeedButton.Checked = bool.Parse(TurnToggleStr);
+            string TurnStrengthStr = SpeedHack["Turn assist"]["Strength"]; BoostSpeed1 = float.Parse(TurnStrengthStr);
+            string TurnRatioStr = SpeedHack["Turn assist"]["Ratio"]; TurnRatio = float.Parse(TurnRatioStr);
+            string TurnIntervalStr = SpeedHack["Turn assist"]["Interval"]; TurnInterval = Int32.Parse(TurnIntervalStr);
+        }
+        public void WriteSpeedDefaultValues()
+        {
+            var SpeedHackparser = new FileIniDataParser();
+            IniData SpeedHack = new IniData();
+            SpeedHack["No-Clip"]["Car"] = TB_SHCarNoClip.Checked.ToString();
+            SpeedHack["No-Clip"]["Wall"] = TB_SHWallNoClip.Checked.ToString();
+            SpeedHack["Velocity"]["On"] = VelHackButton.Checked.ToString();
+            SpeedHack["Velocity"]["Multiplication"] = VelMult.ToString();
+            SpeedHack["SpeedHack"]["On"] = WheelSpeedButton.Checked.ToString();
+            SpeedHack["SpeedHack"]["Speed 1"] = BoostSpeed1.ToString();
+            SpeedHack["SpeedHack"]["Speed 2"] = BoostSpeed2.ToString();
+            SpeedHack["SpeedHack"]["Speed 3"] = BoostSpeed3.ToString();
+            SpeedHack["SpeedHack"]["Limit"] = BoostLim.ToString();
+            SpeedHack["SpeedHack"]["Interval up to speed 1"] = BoostInterval1.ToString();
+            SpeedHack["SpeedHack"]["Interval up to speed 2"] = BoostInterval2.ToString();
+            SpeedHack["SpeedHack"]["Interval up to speed 3"] = BoostInterval3.ToString();
+            SpeedHack["SpeedHack"]["Interval above speed 3"] = BoostInterval4.ToString();
+            SpeedHack["SpeedHack"]["Boost up to speed 1"] = times1.ToString();
+            SpeedHack["SpeedHack"]["Boost up to speed 2"] = times2.ToString();
+            SpeedHack["SpeedHack"]["Boost up to speed 3"] = times3.ToString();
+            SpeedHack["SpeedHack"]["Boost above speed 3"] = times4.ToString();
+            SpeedHack["Break"]["Superbreak on"] = SuperBreakButton.Checked.ToString();
+            SpeedHack["Break"]["Stop all wheels on"] = StopAllWheelsButton.Checked.ToString();
+            SpeedHack["Turn assist"]["On"] = WheelSpeedButton.Checked.ToString();
+            SpeedHack["Turn assist"]["Strength"] = BoostSpeed1.ToString();
+            SpeedHack["Turn assist"]["Ratio"] = TurnRatio.ToString();
+            SpeedHack["Turn assist"]["Interval"] = TurnInterval.ToString();
+            SpeedHackparser.WriteFile("SpeedHackDefault.ini", SpeedHack);
+        }
+        private void SaveSHDefault_Click(object sender, EventArgs e)
+        {
+            WriteSpeedDefaultValues();
+        }
+        private void LoadSHDefault_Click(object sender, EventArgs e)
+        {
+            ReadSpeedDefaultValues();
+            SHReset();
         }
     }
 }
