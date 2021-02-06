@@ -183,13 +183,13 @@ namespace Forza_Mods_AIO
         {
             if (done == false)
             {
-                if (BaseAddr == "1DD0" || (BaseAddr == null)
-                    || (Base2Addr == "2F70") || (Base2Addr == null)
-                    || (Base3Addr == "-D00") || (Base3Addr == null)
-                    || (Car1Addr == "6A") || (Car1Addr == null)
-                    || (Car2Addr == "-19B") || (Car2Addr == null)
-                    || (Wall1Addr == "191") || (Wall1Addr == null)
-                    || (Wall2Addr == "-1BE") || (Wall2Addr == null))
+                if (BaseAddr == "1DD0" || BaseAddr == null || BaseAddr == "0"
+                    || Base2Addr == "2F70" || Base2Addr == null || Base2Addr == "0"
+                    || Base3Addr == "-D00" || Base3Addr == null || Base3Addr == "0"
+                    || Car1Addr == "6A" || Car1Addr == null || Car1Addr == "0"
+                    || Car2Addr == "-19B" || Car2Addr == null || Car2Addr == "0"
+                    || Wall1Addr == "191" || Wall1Addr == null || Wall1Addr == "0"
+                    || Wall2Addr == "-1BE" || Wall2Addr == null || Wall2Addr == "0")
                 {
                     cycles++;
                     if (cycles == 1)//(BaseAddr == "1DD0" || BaseAddr == null || BaseAddr == "0")
@@ -706,13 +706,13 @@ namespace Forza_Mods_AIO
                     continue;
                 }
                 /*
-                if (BaseAddr == "1DD0" || (BaseAddr == null)
-                    || (Base2Addr == "2F70") || (Base2Addr == null)
-                    || (Base3Addr == "-D00") || (Base3Addr == null)
-                    || (Car1Addr == "6A") || (Car1Addr == null)
-                    || (Car2Addr == "-19B") || (Car2Addr == null)
-                    || (Wall1Addr == "191") || (Wall1Addr == null)
-                    || (Wall2Addr == "-1BE") || (Wall2Addr == null))
+                if (BaseAddr == "1DD0" || BaseAddr == null || BaseAddr == "0"
+                    || Base2Addr == "2F70" || Base2Addr == null || Base2Addr == "0"
+                    || Base3Addr == "-D00" || Base3Addr == null || Base3Addr == "0"
+                    || Car1Addr == "6A" || Car1Addr == null || Car1Addr == "0"
+                    || Car2Addr == "-19B" || Car2Addr == null || Car2Addr == "0"
+                    || Wall1Addr == "191" || Wall1Addr == null || Wall1Addr == "0"
+                    || Wall2Addr == "-1BE" || Wall2Addr == null || Wall2Addr == "0")
                 {
                     AoBscan();
                     Thread.Sleep(1000);
