@@ -48,6 +48,7 @@ namespace Forza_Mods_AIO
             this.Panel_LiveTuning = new System.Windows.Forms.Panel();
             this.LBL_Attached = new System.Windows.Forms.Label();
             this.Tab_1Info = new System.Windows.Forms.Panel();
+            this.AOBScanProgress = new System.Windows.Forms.ProgressBar();
             this.TXT_InfoTab = new System.Windows.Forms.RichTextBox();
             this.Tab_2AddCars = new System.Windows.Forms.Panel();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
@@ -144,7 +145,6 @@ namespace Forza_Mods_AIO
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
             this.CheckPointTPworker = new System.ComponentModel.BackgroundWorker();
             this.Mainworker = new System.ComponentModel.BackgroundWorker();
-            this.AOBScanProgress = new System.Windows.Forms.ProgressBar();
             this.TopPanel.SuspendLayout();
             this.Tab_1Info.SuspendLayout();
             this.Tab_2AddCars.SuspendLayout();
@@ -457,6 +457,14 @@ namespace Forza_Mods_AIO
             this.Tab_1Info.Size = new System.Drawing.Size(1000, 445);
             this.Tab_1Info.TabIndex = 14;
             // 
+            // AOBScanProgress
+            // 
+            this.AOBScanProgress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.AOBScanProgress.Location = new System.Drawing.Point(7, 28);
+            this.AOBScanProgress.Name = "AOBScanProgress";
+            this.AOBScanProgress.Size = new System.Drawing.Size(159, 23);
+            this.AOBScanProgress.TabIndex = 15;
+            // 
             // TXT_InfoTab
             // 
             this.TXT_InfoTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
@@ -496,11 +504,10 @@ namespace Forza_Mods_AIO
             // checkBox8
             // 
             this.checkBox8.AutoSize = true;
-            this.checkBox8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBox8.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox8.Location = new System.Drawing.Point(12, 409);
             this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(133, 23);
+            this.checkBox8.Size = new System.Drawing.Size(136, 23);
             this.checkBox8.TabIndex = 23;
             this.checkBox8.Text = "Remove All Cars";
             this.checkBox8.UseVisualStyleBackColor = true;
@@ -508,11 +515,10 @@ namespace Forza_Mods_AIO
             // TB_ACAutoshow
             // 
             this.TB_ACAutoshow.AutoSize = true;
-            this.TB_ACAutoshow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TB_ACAutoshow.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TB_ACAutoshow.Location = new System.Drawing.Point(12, 372);
             this.TB_ACAutoshow.Name = "TB_ACAutoshow";
-            this.TB_ACAutoshow.Size = new System.Drawing.Size(180, 23);
+            this.TB_ACAutoshow.Size = new System.Drawing.Size(183, 23);
             this.TB_ACAutoshow.TabIndex = 22;
             this.TB_ACAutoshow.Text = "Change Autoshow Cars";
             this.TB_ACAutoshow.UseVisualStyleBackColor = true;
@@ -634,11 +640,10 @@ namespace Forza_Mods_AIO
             // TB_ACManualID
             // 
             this.TB_ACManualID.AutoSize = true;
-            this.TB_ACManualID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TB_ACManualID.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TB_ACManualID.Location = new System.Drawing.Point(751, 346);
             this.TB_ACManualID.Name = "TB_ACManualID";
-            this.TB_ACManualID.Size = new System.Drawing.Size(145, 23);
+            this.TB_ACManualID.Size = new System.Drawing.Size(148, 23);
             this.TB_ACManualID.TabIndex = 1;
             this.TB_ACManualID.Text = "Manually Input ID";
             this.TB_ACManualID.UseVisualStyleBackColor = true;
@@ -674,7 +679,7 @@ namespace Forza_Mods_AIO
             this.Tab_6Speedhack.Controls.Add(this.panel4);
             this.Tab_6Speedhack.Controls.Add(this.panel6);
             this.Tab_6Speedhack.Controls.Add(this.panel5);
-            this.Tab_6Speedhack.Location = new System.Drawing.Point(1022, 58);
+            this.Tab_6Speedhack.Location = new System.Drawing.Point(185, 70);
             this.Tab_6Speedhack.Margin = new System.Windows.Forms.Padding(0);
             this.Tab_6Speedhack.Name = "Tab_6Speedhack";
             this.Tab_6Speedhack.Size = new System.Drawing.Size(1000, 445);
@@ -706,11 +711,10 @@ namespace Forza_Mods_AIO
             // TB_SHCarNoClip
             // 
             this.TB_SHCarNoClip.AutoSize = true;
-            this.TB_SHCarNoClip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TB_SHCarNoClip.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TB_SHCarNoClip.Location = new System.Drawing.Point(17, 38);
             this.TB_SHCarNoClip.Name = "TB_SHCarNoClip";
-            this.TB_SHCarNoClip.Size = new System.Drawing.Size(48, 23);
+            this.TB_SHCarNoClip.Size = new System.Drawing.Size(51, 23);
             this.TB_SHCarNoClip.TabIndex = 2;
             this.TB_SHCarNoClip.Text = "Car";
             this.TB_SHCarNoClip.UseVisualStyleBackColor = true;
@@ -719,11 +723,10 @@ namespace Forza_Mods_AIO
             // TB_SHWallNoClip
             // 
             this.TB_SHWallNoClip.AutoSize = true;
-            this.TB_SHWallNoClip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TB_SHWallNoClip.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TB_SHWallNoClip.Location = new System.Drawing.Point(71, 38);
             this.TB_SHWallNoClip.Name = "TB_SHWallNoClip";
-            this.TB_SHWallNoClip.Size = new System.Drawing.Size(54, 23);
+            this.TB_SHWallNoClip.Size = new System.Drawing.Size(57, 23);
             this.TB_SHWallNoClip.TabIndex = 3;
             this.TB_SHWallNoClip.Text = "Wall";
             this.TB_SHWallNoClip.UseVisualStyleBackColor = true;
@@ -749,11 +752,10 @@ namespace Forza_Mods_AIO
             // 
             this.CheckpointBox.AutoSize = true;
             this.CheckpointBox.FlatAppearance.BorderSize = 0;
-            this.CheckpointBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CheckpointBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CheckpointBox.Location = new System.Drawing.Point(64, 142);
             this.CheckpointBox.Name = "CheckpointBox";
-            this.CheckpointBox.Size = new System.Drawing.Size(117, 23);
+            this.CheckpointBox.Size = new System.Drawing.Size(120, 23);
             this.CheckpointBox.TabIndex = 38;
             this.CheckpointBox.Text = "Auto win race";
             this.CheckpointBox.UseVisualStyleBackColor = true;
@@ -764,10 +766,10 @@ namespace Forza_Mods_AIO
             this.LoadSHDefault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.LoadSHDefault.FlatAppearance.BorderSize = 0;
             this.LoadSHDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LoadSHDefault.Font = new System.Drawing.Font("Open Sans", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadSHDefault.Location = new System.Drawing.Point(128, 376);
+            this.LoadSHDefault.Font = new System.Drawing.Font("Open Sans", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadSHDefault.Location = new System.Drawing.Point(128, 365);
             this.LoadSHDefault.Name = "LoadSHDefault";
-            this.LoadSHDefault.Size = new System.Drawing.Size(101, 34);
+            this.LoadSHDefault.Size = new System.Drawing.Size(101, 45);
             this.LoadSHDefault.TabIndex = 37;
             this.LoadSHDefault.Text = "Load default";
             this.LoadSHDefault.UseVisualStyleBackColor = false;
@@ -778,10 +780,10 @@ namespace Forza_Mods_AIO
             this.SaveSHDefault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.SaveSHDefault.FlatAppearance.BorderSize = 0;
             this.SaveSHDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveSHDefault.Font = new System.Drawing.Font("Open Sans", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveSHDefault.Location = new System.Drawing.Point(12, 376);
+            this.SaveSHDefault.Font = new System.Drawing.Font("Open Sans", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveSHDefault.Location = new System.Drawing.Point(12, 365);
             this.SaveSHDefault.Name = "SaveSHDefault";
-            this.SaveSHDefault.Size = new System.Drawing.Size(101, 34);
+            this.SaveSHDefault.Size = new System.Drawing.Size(101, 45);
             this.SaveSHDefault.TabIndex = 37;
             this.SaveSHDefault.Text = "Save as default";
             this.SaveSHDefault.UseVisualStyleBackColor = false;
@@ -808,11 +810,11 @@ namespace Forza_Mods_AIO
             this.richTextBox1.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.richTextBox1.Font = new System.Drawing.Font("Open Sans", 13F);
             this.richTextBox1.ForeColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 252);
+            this.richTextBox1.Location = new System.Drawing.Point(0, 199);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(242, 166);
+            this.richTextBox1.Size = new System.Drawing.Size(242, 160);
             this.richTextBox1.TabIndex = 22;
             this.richTextBox1.TabStop = false;
             this.richTextBox1.Text = "how to use guide or something ";
@@ -1019,11 +1021,10 @@ namespace Forza_Mods_AIO
             // StopAllWheelsButton
             // 
             this.StopAllWheelsButton.AutoSize = true;
-            this.StopAllWheelsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StopAllWheelsButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StopAllWheelsButton.Location = new System.Drawing.Point(311, 71);
             this.StopAllWheelsButton.Name = "StopAllWheelsButton";
-            this.StopAllWheelsButton.Size = new System.Drawing.Size(126, 23);
+            this.StopAllWheelsButton.Size = new System.Drawing.Size(129, 23);
             this.StopAllWheelsButton.TabIndex = 35;
             this.StopAllWheelsButton.Text = "Stop all wheels";
             this.StopAllWheelsButton.UseVisualStyleBackColor = true;
@@ -1032,11 +1033,10 @@ namespace Forza_Mods_AIO
             // SuperBreakButton
             // 
             this.SuperBreakButton.AutoSize = true;
-            this.SuperBreakButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SuperBreakButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SuperBreakButton.Location = new System.Drawing.Point(98, 71);
             this.SuperBreakButton.Name = "SuperBreakButton";
-            this.SuperBreakButton.Size = new System.Drawing.Size(107, 23);
+            this.SuperBreakButton.Size = new System.Drawing.Size(110, 23);
             this.SuperBreakButton.TabIndex = 34;
             this.SuperBreakButton.Text = "Super break";
             this.SuperBreakButton.UseVisualStyleBackColor = true;
@@ -1055,11 +1055,10 @@ namespace Forza_Mods_AIO
             // TurnAssistButton
             // 
             this.TurnAssistButton.AutoSize = true;
-            this.TurnAssistButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TurnAssistButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TurnAssistButton.Location = new System.Drawing.Point(384, 42);
             this.TurnAssistButton.Name = "TurnAssistButton";
-            this.TurnAssistButton.Size = new System.Drawing.Size(99, 23);
+            this.TurnAssistButton.Size = new System.Drawing.Size(102, 23);
             this.TurnAssistButton.TabIndex = 31;
             this.TurnAssistButton.Text = "Turn assist";
             this.TurnAssistButton.UseVisualStyleBackColor = true;
@@ -1068,11 +1067,10 @@ namespace Forza_Mods_AIO
             // WheelSpeedButton
             // 
             this.WheelSpeedButton.AutoSize = true;
-            this.WheelSpeedButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.WheelSpeedButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WheelSpeedButton.Location = new System.Drawing.Point(210, 42);
             this.WheelSpeedButton.Name = "WheelSpeedButton";
-            this.WheelSpeedButton.Size = new System.Drawing.Size(108, 23);
+            this.WheelSpeedButton.Size = new System.Drawing.Size(111, 23);
             this.WheelSpeedButton.TabIndex = 32;
             this.WheelSpeedButton.Text = "Wheelspeed";
             this.WheelSpeedButton.UseVisualStyleBackColor = true;
@@ -1081,11 +1079,10 @@ namespace Forza_Mods_AIO
             // VelHackButton
             // 
             this.VelHackButton.AutoSize = true;
-            this.VelHackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.VelHackButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VelHackButton.Location = new System.Drawing.Point(41, 42);
             this.VelHackButton.Name = "VelHackButton";
-            this.VelHackButton.Size = new System.Drawing.Size(76, 23);
+            this.VelHackButton.Size = new System.Drawing.Size(79, 23);
             this.VelHackButton.TabIndex = 33;
             this.VelHackButton.Text = "Velocity";
             this.VelHackButton.UseVisualStyleBackColor = true;
@@ -1657,14 +1654,6 @@ namespace Forza_Mods_AIO
             // 
             this.Mainworker.WorkerSupportsCancellation = true;
             this.Mainworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Mainworker_DoWork);
-            // 
-            // AOBScanProgress
-            // 
-            this.AOBScanProgress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.AOBScanProgress.Location = new System.Drawing.Point(7, 28);
-            this.AOBScanProgress.Name = "AOBScanProgress";
-            this.AOBScanProgress.Size = new System.Drawing.Size(159, 23);
-            this.AOBScanProgress.TabIndex = 15;
             // 
             // MainWindow
             // 
