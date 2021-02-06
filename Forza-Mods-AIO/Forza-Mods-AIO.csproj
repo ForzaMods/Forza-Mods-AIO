@@ -116,6 +116,9 @@
     <Reference Include="GlobalLowLevelHooks">
       <HintPath>Resources\Global Hooks\GlobalLowLevelHooks.dll</HintPath>
     </Reference>
+    <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
+      <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
+    </Reference>
     <Reference Include="Memory, Version=1.2.21.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\Memory.dll.x64.1.2.21\lib\netstandard2.0\Memory.dll</HintPath>
     </Reference>

@@ -69,6 +69,8 @@ namespace Forza_Mods_AIO
             this.TB_SHWallNoClip = new System.Windows.Forms.CheckBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.CheckpointBox = new System.Windows.Forms.CheckBox();
+            this.LoadSHDefault = new System.Windows.Forms.Button();
+            this.SaveSHDefault = new System.Windows.Forms.Button();
             this.TPButton = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.LST_TeleportLocation = new System.Windows.Forms.ComboBox();
@@ -724,6 +726,8 @@ namespace Forza_Mods_AIO
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             this.panel7.Controls.Add(this.CheckpointBox);
+            this.panel7.Controls.Add(this.LoadSHDefault);
+            this.panel7.Controls.Add(this.SaveSHDefault);
             this.panel7.Controls.Add(this.TPButton);
             this.panel7.Controls.Add(this.richTextBox1);
             this.panel7.Controls.Add(this.LST_TeleportLocation);
@@ -747,6 +751,34 @@ namespace Forza_Mods_AIO
             this.CheckpointBox.Text = "Auto win race";
             this.CheckpointBox.UseVisualStyleBackColor = true;
             this.CheckpointBox.CheckedChanged += new System.EventHandler(this.CheckpointBox_CheckedChanged);
+            // 
+            // LoadSHDefault
+            // 
+            this.LoadSHDefault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.LoadSHDefault.FlatAppearance.BorderSize = 0;
+            this.LoadSHDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LoadSHDefault.Font = new System.Drawing.Font("Open Sans", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadSHDefault.Location = new System.Drawing.Point(128, 376);
+            this.LoadSHDefault.Name = "LoadSHDefault";
+            this.LoadSHDefault.Size = new System.Drawing.Size(101, 34);
+            this.LoadSHDefault.TabIndex = 37;
+            this.LoadSHDefault.Text = "Load default";
+            this.LoadSHDefault.UseVisualStyleBackColor = false;
+            this.LoadSHDefault.Click += new System.EventHandler(this.LoadSHDefault_Click);
+            // 
+            // SaveSHDefault
+            // 
+            this.SaveSHDefault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.SaveSHDefault.FlatAppearance.BorderSize = 0;
+            this.SaveSHDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveSHDefault.Font = new System.Drawing.Font("Open Sans", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveSHDefault.Location = new System.Drawing.Point(12, 376);
+            this.SaveSHDefault.Name = "SaveSHDefault";
+            this.SaveSHDefault.Size = new System.Drawing.Size(101, 34);
+            this.SaveSHDefault.TabIndex = 37;
+            this.SaveSHDefault.Text = "Save as default";
+            this.SaveSHDefault.UseVisualStyleBackColor = false;
+            this.SaveSHDefault.Click += new System.EventHandler(this.SaveSHDefault_Click);
             // 
             // TPButton
             // 
@@ -933,11 +965,12 @@ namespace Forza_Mods_AIO
             // 
             this.VelMultBar.LargeChange = 20;
             this.VelMultBar.Location = new System.Drawing.Point(3, 57);
-            this.VelMultBar.Maximum = 9999;
+            this.VelMultBar.Maximum = 200;
             this.VelMultBar.Name = "VelMultBar";
             this.VelMultBar.Size = new System.Drawing.Size(187, 45);
             this.VelMultBar.SmallChange = 5;
             this.VelMultBar.TabIndex = 32;
+            this.VelMultBar.TickFrequency = 10;
             this.VelMultBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.VelMultBar.Scroll += new System.EventHandler(this.VelMultBar_Scroll);
             // 
@@ -1088,7 +1121,6 @@ namespace Forza_Mods_AIO
             // 
             this.LimitBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.LimitBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.LimitBox.DecimalPlaces = 5;
             this.LimitBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LimitBox.ForeColor = System.Drawing.Color.White;
             this.LimitBox.Location = new System.Drawing.Point(71, 178);
@@ -1107,7 +1139,6 @@ namespace Forza_Mods_AIO
             // 
             this.Speed3Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.Speed3Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Speed3Box.DecimalPlaces = 5;
             this.Speed3Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Speed3Box.ForeColor = System.Drawing.Color.White;
             this.Speed3Box.Location = new System.Drawing.Point(71, 138);
@@ -1126,7 +1157,6 @@ namespace Forza_Mods_AIO
             // 
             this.Speed2Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.Speed2Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Speed2Box.DecimalPlaces = 5;
             this.Speed2Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Speed2Box.ForeColor = System.Drawing.Color.White;
             this.Speed2Box.Location = new System.Drawing.Point(71, 98);
@@ -1289,7 +1319,6 @@ namespace Forza_Mods_AIO
             // 
             this.Speed1Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.Speed1Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Speed1Box.DecimalPlaces = 5;
             this.Speed1Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Speed1Box.ForeColor = System.Drawing.Color.White;
             this.Speed1Box.Location = new System.Drawing.Point(71, 58);
@@ -1453,7 +1482,7 @@ namespace Forza_Mods_AIO
             // 
             this.RatioBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.RatioBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.RatioBox.DecimalPlaces = 5;
+            this.RatioBox.DecimalPlaces = 2;
             this.RatioBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RatioBox.ForeColor = System.Drawing.Color.White;
             this.RatioBox.Location = new System.Drawing.Point(266, 44);
@@ -1843,6 +1872,8 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.NumericUpDown TurnStrengthBox;
         private System.Windows.Forms.CheckBox CheckpointBox;
         private System.Windows.Forms.NumericUpDown TurnIntervalBox;
+        private System.Windows.Forms.Button LoadSHDefault;
+        private System.Windows.Forms.Button SaveSHDefault;
     }
 }
 
