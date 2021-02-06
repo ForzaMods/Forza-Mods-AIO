@@ -61,7 +61,7 @@ namespace Forza_Mods_AIO
         float VelMult;
         int times1;             int times2;             int times3;             int times4; //boost
         int BoostInterval1;     int BoostInterval2;     int BoostInterval3;     int BoostInterval4; /*interval*/ int TurnInterval;
-        int cycles;
+        int Velcycles; int NoClipcycles;
 
 
         public MainWindow()
@@ -332,14 +332,14 @@ namespace Forza_Mods_AIO
         {
             if (VelHackStart)
             {
-                cycles++;
+                Velcycles++;
                 xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)VelMult;
                 zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)VelMult;
                 y = m.ReadFloat(yAddr);
-                if (cycles % 2 == 0)
+                if (Velcycles % 2 == 0)
                 {
                     y = m.ReadFloat(yAddr) - (float)0.01;
-                    cycles = 0;
+                    Velcycles = 0;
                 }
 
                 m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
@@ -408,7 +408,7 @@ namespace Forza_Mods_AIO
         //end of speed hacks
         public void Mainworker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (start == true)
+            while (start)
             {
                 if(NoClipToggle == true)
                 {
@@ -436,6 +436,7 @@ namespace Forza_Mods_AIO
                     e.Cancel = true;
                     start = false;
                 }
+                Thread.Sleep(1);
             }
         }
         //Turn assist methods + workers
@@ -510,6 +511,7 @@ namespace Forza_Mods_AIO
                     }
                     m.UnfreezeValue(yAngVelAddr);
                 }
+                Thread.Sleep(1);
             }
         }
         public void CheckPointTP()
@@ -541,8 +543,8 @@ namespace Forza_Mods_AIO
             float OnGround = m.ReadFloat(OnGroundAddr);
             if (OnGround == 0)
             {
-                cycles++;
-                if (cycles % 10 == 0)
+                NoClipcycles++;
+                if (NoClipcycles % 10 == 0)
                 {
                     OnGround = m.ReadFloat(OnGroundAddr);
                     if (OnGround == 0)
@@ -550,17 +552,17 @@ namespace Forza_Mods_AIO
                         m.WriteBytes(Wall1Addr, Jmp1before);
                         m.WriteBytes(Wall2Addr, Jmp2before);
                     }
-                    cycles = 0;
+                    NoClipcycles = 0;
                 }
             }
             if (OnGround == 1)
             {
-                cycles++;
-                if (cycles % 10 == 0)
+                NoClipcycles++;
+                if (NoClipcycles % 10 == 0)
                 {
                     m.WriteBytes(Wall1Addr, Jmp1);
                     m.WriteBytes(Wall2Addr, Jmp2);
-                    cycles = 0;
+                    NoClipcycles = 0;
                 }
             }
         }
@@ -786,9 +788,10 @@ namespace Forza_Mods_AIO
         {
             while (true)
             {
-                Thread.Sleep(50);
+                Thread.Sleep(1);
                 if (IsAttached == false && Tab_1Info.Visible == false && Tab_4Saveswap.Visible == false)
                 {
+                   done = false;
                    ClearColours();
                    BTN_TabInfo.BackColor = Color.FromArgb(45, 45, 48);
                    Panel_Info.BackColor = Color.FromArgb(150, 11, 166);
