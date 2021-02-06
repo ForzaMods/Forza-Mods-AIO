@@ -194,36 +194,43 @@ namespace Forza_Mods_AIO
                 {
                     BaseAddrLong = (long)Sigscan.FindPattern(Base, out lTime) + 7632;
                     BaseAddr = BaseAddrLong.ToString("X");
+                    AOBScanProgress.Value = 14;
                 }
                 else if (Base2Addr == "2F70" || Base2Addr == null || Base2Addr == "0")
                 {
                     Base2AddrLong = (long)Sigscan.FindPattern(Base, out lTime) + 12144;
                     Base2Addr = Base2AddrLong.ToString("X");
+                    AOBScanProgress.Value = 28;
                 }
                 else if (Base3Addr == "-D00" || Base3Addr == null || Base3Addr == "0")
                 {
                     Base3AddrLong = (long)Sigscan.FindPattern(Base, out lTime) - 3328;
                     Base3Addr = Base3AddrLong.ToString("X");
+                    AOBScanProgress.Value = 42;
                 }
                 else if (Car1Addr == "6A" || Car1Addr == null || Car1Addr == "0")
                 {
                     Car1AddrLong = (long)Sigscan.FindPattern(Car1, out lTime) + 106;
                     Car1Addr = Car1AddrLong.ToString("X");
+                    AOBScanProgress.Value = 58;
                 }
                 else if (Car2Addr == "-19B" || Car2Addr == null || Car2Addr == "0")
                 {
                     Car2AddrLong = (long)Sigscan.FindPattern(Car2, out lTime) - 411;
                     Car2Addr = Car2AddrLong.ToString("X");
+                    AOBScanProgress.Value = 72;
                 }
                 else if (Wall1Addr == "191" || Wall1Addr == null || Wall1Addr == "0")
                 {
                     Wall1AddrLong = (long)Sigscan.FindPattern(Wall1, out lTime) + 401;
                     Wall1Addr = Wall1AddrLong.ToString("X");
+                    AOBScanProgress.Value = 86;
                 }
                 else if (Wall2Addr == "-1BE" || Wall2Addr == null || Wall2Addr == "0")
                 {
                     Wall2AddrLong = (long)Sigscan.FindPattern(Wall2, out lTime) - 446;
                     Wall2Addr = Wall2AddrLong.ToString("X");
+                    AOBScanProgress.Value = 100;
                 }
                 if (BaseAddr == "1DD0" || BaseAddr == null || BaseAddr == "0"
                     || Base2Addr == "2F70" || Base2Addr == null || Base2Addr == "0"
@@ -800,6 +807,8 @@ namespace Forza_Mods_AIO
                     LBL_Attached.Text = "Attached to FH4";
                     LBL_Attached.ForeColor = Color.Green;
                     EnableButtons();
+                    AOBScanProgress.Hide();
+                    
                 }
             }
             else
@@ -807,6 +816,7 @@ namespace Forza_Mods_AIO
                 LBL_Attached.Text = "Not Attached to FH4";
                 LBL_Attached.ForeColor = Color.Red;
                 DisableButtons();
+                AOBScanProgress.Value = 0; AOBScanProgress.Show(); 
             }
         }
         private void InitialBGworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
