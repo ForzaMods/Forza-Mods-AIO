@@ -51,7 +51,7 @@ namespace Forza_Mods_AIO
             this.AOBScanProgress = new System.Windows.Forms.ProgressBar();
             this.TXT_InfoTab = new System.Windows.Forms.RichTextBox();
             this.Tab_2AddCars = new System.Windows.Forms.Panel();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.TB_RemoveCars = new System.Windows.Forms.CheckBox();
             this.TB_ACAutoshow = new System.Windows.Forms.CheckBox();
             this.TXT_ACGuide = new System.Windows.Forms.RichTextBox();
             this.LBL_ACCarList = new System.Windows.Forms.Label();
@@ -137,11 +137,6 @@ namespace Forza_Mods_AIO
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.InitialBGworker = new System.ComponentModel.BackgroundWorker();
-            this.Breakworker = new System.ComponentModel.BackgroundWorker();
-            this.VelHackworker = new System.ComponentModel.BackgroundWorker();
-            this.SpeedHackworker = new System.ComponentModel.BackgroundWorker();
-            this.TurnAssistworker = new System.ComponentModel.BackgroundWorker();
-            this.NoClipworker = new System.ComponentModel.BackgroundWorker();
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
             this.CheckPointTPworker = new System.ComponentModel.BackgroundWorker();
             this.Mainworker = new System.ComponentModel.BackgroundWorker();
@@ -451,7 +446,7 @@ namespace Forza_Mods_AIO
             this.Tab_1Info.Controls.Add(this.AOBScanProgress);
             this.Tab_1Info.Controls.Add(this.TXT_InfoTab);
             this.Tab_1Info.Controls.Add(this.LBL_Attached);
-            this.Tab_1Info.Location = new System.Drawing.Point(9, 80);
+            this.Tab_1Info.Location = new System.Drawing.Point(0, 70);
             this.Tab_1Info.Margin = new System.Windows.Forms.Padding(0);
             this.Tab_1Info.Name = "Tab_1Info";
             this.Tab_1Info.Size = new System.Drawing.Size(1000, 445);
@@ -484,7 +479,7 @@ namespace Forza_Mods_AIO
             // Tab_2AddCars
             // 
             this.Tab_2AddCars.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Tab_2AddCars.Controls.Add(this.checkBox8);
+            this.Tab_2AddCars.Controls.Add(this.TB_RemoveCars);
             this.Tab_2AddCars.Controls.Add(this.TB_ACAutoshow);
             this.Tab_2AddCars.Controls.Add(this.TXT_ACGuide);
             this.Tab_2AddCars.Controls.Add(this.LBL_ACCarList);
@@ -494,23 +489,24 @@ namespace Forza_Mods_AIO
             this.Tab_2AddCars.Controls.Add(this.LST_ACCarSelect);
             this.Tab_2AddCars.Controls.Add(this.BTN_ACAddCar);
             this.Tab_2AddCars.Controls.Add(this.TB_ACManualID);
-            this.Tab_2AddCars.Location = new System.Drawing.Point(1036, 80);
+            this.Tab_2AddCars.Location = new System.Drawing.Point(0, 70);
             this.Tab_2AddCars.Margin = new System.Windows.Forms.Padding(0);
             this.Tab_2AddCars.Name = "Tab_2AddCars";
             this.Tab_2AddCars.Size = new System.Drawing.Size(1000, 445);
             this.Tab_2AddCars.TabIndex = 14;
             this.Tab_2AddCars.Visible = false;
             // 
-            // checkBox8
+            // TB_RemoveCars
             // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox8.Location = new System.Drawing.Point(12, 409);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(136, 23);
-            this.checkBox8.TabIndex = 23;
-            this.checkBox8.Text = "Remove All Cars";
-            this.checkBox8.UseVisualStyleBackColor = true;
+            this.TB_RemoveCars.AutoSize = true;
+            this.TB_RemoveCars.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TB_RemoveCars.Location = new System.Drawing.Point(12, 409);
+            this.TB_RemoveCars.Name = "TB_RemoveCars";
+            this.TB_RemoveCars.Size = new System.Drawing.Size(136, 23);
+            this.TB_RemoveCars.TabIndex = 23;
+            this.TB_RemoveCars.Text = "Remove All Cars";
+            this.TB_RemoveCars.UseVisualStyleBackColor = true;
+            this.TB_RemoveCars.CheckedChanged += new System.EventHandler(this.TB_RemoveCars_CheckedChanged);
             // 
             // TB_ACAutoshow
             // 
@@ -652,7 +648,7 @@ namespace Forza_Mods_AIO
             // 
             this.Tab_4Saveswap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Tab_4Saveswap.Controls.Add(this.label4);
-            this.Tab_4Saveswap.Location = new System.Drawing.Point(1036, 535);
+            this.Tab_4Saveswap.Location = new System.Drawing.Point(0, 70);
             this.Tab_4Saveswap.Margin = new System.Windows.Forms.Padding(0);
             this.Tab_4Saveswap.Name = "Tab_4Saveswap";
             this.Tab_4Saveswap.Size = new System.Drawing.Size(1000, 445);
@@ -679,7 +675,7 @@ namespace Forza_Mods_AIO
             this.Tab_6Speedhack.Controls.Add(this.panel4);
             this.Tab_6Speedhack.Controls.Add(this.panel6);
             this.Tab_6Speedhack.Controls.Add(this.panel5);
-            this.Tab_6Speedhack.Location = new System.Drawing.Point(185, 70);
+            this.Tab_6Speedhack.Location = new System.Drawing.Point(0, 70);
             this.Tab_6Speedhack.Margin = new System.Windows.Forms.Padding(0);
             this.Tab_6Speedhack.Name = "Tab_6Speedhack";
             this.Tab_6Speedhack.Size = new System.Drawing.Size(1000, 445);
@@ -958,9 +954,19 @@ namespace Forza_Mods_AIO
             this.VelMultBox.DecimalPlaces = 5;
             this.VelMultBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VelMultBox.ForeColor = System.Drawing.Color.White;
+            this.VelMultBox.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            196608});
             this.VelMultBox.Location = new System.Drawing.Point(89, 34);
             this.VelMultBox.Maximum = new decimal(new int[] {
-            9999,
+            2,
+            0,
+            0,
+            0});
+            this.VelMultBox.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
@@ -968,6 +974,11 @@ namespace Forza_Mods_AIO
             this.VelMultBox.Size = new System.Drawing.Size(68, 22);
             this.VelMultBox.TabIndex = 32;
             this.VelMultBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.VelMultBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.VelMultBox.ValueChanged += new System.EventHandler(this.VelMultBox_ValueChanged);
             // 
             // VelMultBar
@@ -975,12 +986,14 @@ namespace Forza_Mods_AIO
             this.VelMultBar.LargeChange = 20;
             this.VelMultBar.Location = new System.Drawing.Point(3, 57);
             this.VelMultBar.Maximum = 200;
+            this.VelMultBar.Minimum = 100;
             this.VelMultBar.Name = "VelMultBar";
             this.VelMultBar.Size = new System.Drawing.Size(187, 45);
             this.VelMultBar.SmallChange = 5;
             this.VelMultBar.TabIndex = 32;
             this.VelMultBar.TickFrequency = 10;
             this.VelMultBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.VelMultBar.Value = 100;
             this.VelMultBar.Scroll += new System.EventHandler(this.VelMultBar_Scroll);
             // 
             // label6
@@ -1581,7 +1594,7 @@ namespace Forza_Mods_AIO
             // 
             this.Tab_5LiveTuning.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Tab_5LiveTuning.Controls.Add(this.label3);
-            this.Tab_5LiveTuning.Location = new System.Drawing.Point(9, 989);
+            this.Tab_5LiveTuning.Location = new System.Drawing.Point(0, 70);
             this.Tab_5LiveTuning.Margin = new System.Windows.Forms.Padding(0);
             this.Tab_5LiveTuning.Name = "Tab_5LiveTuning";
             this.Tab_5LiveTuning.Size = new System.Drawing.Size(1000, 445);
@@ -1602,7 +1615,7 @@ namespace Forza_Mods_AIO
             this.Tab_3StatsEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Tab_3StatsEditor.Controls.Add(this.richTextBox2);
             this.Tab_3StatsEditor.Controls.Add(this.label5);
-            this.Tab_3StatsEditor.Location = new System.Drawing.Point(9, 535);
+            this.Tab_3StatsEditor.Location = new System.Drawing.Point(0, 70);
             this.Tab_3StatsEditor.Margin = new System.Windows.Forms.Padding(0);
             this.Tab_3StatsEditor.Name = "Tab_3StatsEditor";
             this.Tab_3StatsEditor.Size = new System.Drawing.Size(1000, 445);
@@ -1661,7 +1674,7 @@ namespace Forza_Mods_AIO
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(1924, 1084);
+            this.ClientSize = new System.Drawing.Size(1000, 515);
             this.ControlBox = false;
             this.Controls.Add(this.Tab_6Speedhack);
             this.Controls.Add(this.Tab_3StatsEditor);
@@ -1827,15 +1840,10 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.ComponentModel.BackgroundWorker InitialBGworker;
-        private System.ComponentModel.BackgroundWorker Breakworker;
-        private System.ComponentModel.BackgroundWorker VelHackworker;
-        private System.ComponentModel.BackgroundWorker SpeedHackworker;
-        private System.ComponentModel.BackgroundWorker TurnAssistworker;
-        private System.ComponentModel.BackgroundWorker NoClipworker;
         private System.ComponentModel.BackgroundWorker CheckAttachedworker;
         private System.ComponentModel.BackgroundWorker CheckPointTPworker;
         private System.ComponentModel.BackgroundWorker Mainworker;
-        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.CheckBox TB_RemoveCars;
         private System.Windows.Forms.CheckBox TB_ACAutoshow;
         private System.Windows.Forms.Button TPButton;
         private System.Windows.Forms.Button BTN_MIN;
