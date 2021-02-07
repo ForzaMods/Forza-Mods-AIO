@@ -33,7 +33,8 @@ namespace Forza_Mods_AIO
         bool TurnAssistToggle = false;
         bool TurnAssistLeftStart = false;
         bool TurnAssistRightStart = false;
-        bool NoClipToggle = false;
+        bool WallNoClipToggle = false;
+        bool CarNoClipToggle = false;
         bool CheckPointTPToggle = false;
         bool done = false;
         bool start = false;
@@ -47,7 +48,7 @@ namespace Forza_Mods_AIO
         string Car1Addr;        string Car2Addr;
         string Wall1Addr;       string Wall2Addr;
         string FrontLeftAddr;   string FrontRightAddr;  string BackLeftAddr;    string BackRightAddr;
-        string OnGroundAddr;    string InRaceAddr;
+        string OnGroundAddr;    string InRaceAddr;      string PastStartAddr;
         string xVelocityAddr;   string yVelocityAddr;   string zVelocityAddr;
         string xAddr;           string yAddr;           string zAddr;
         string CheckPointxAddr; string CheckPointyAddr; string CheckPointzAddr;
@@ -57,11 +58,11 @@ namespace Forza_Mods_AIO
         float x;                float y;                float z;
         float CheckPointx;      float CheckPointy;      float CheckPointz;
         float BoostSpeed1;      float BoostSpeed2;      float BoostSpeed3;      float BoostLim; //speed
-        float TurnRatio;        float TurnStrength;
+        float TurnRatio;        float TurnStrength;     public float boost;
         float VelMult;
         int times1;             int times2;             int times3;             int times4; //boost
         int BoostInterval1;     int BoostInterval2;     int BoostInterval3;     int BoostInterval4; /*interval*/ int TurnInterval;
-        int Velcycles; int NoClipcycles;
+        int Velcycles;          int NoClipcycles;
 
 
         public MainWindow()
@@ -122,7 +123,11 @@ namespace Forza_Mods_AIO
                 }
                 if(SpeedHackToggle)
                 {
-                    SpeedHackStart = true;
+                    if(SpeedHackStart == false)
+                    {
+                        boost = (float)Math.Ceiling(m.ReadFloat(FrontLeftAddr));
+                        SpeedHackStart = true;
+                    }
                 }
             }
             if (key == KeyboardHook.VKeys.KEY_A)
@@ -189,61 +194,62 @@ namespace Forza_Mods_AIO
             Sigscan.SelectModule(TargetProcess.MainModule);
             if (done == false)
             {
+                AOBScanProgress.Show();
                 long lTime;
                 if (BaseAddr == "1DD0" || BaseAddr == null || BaseAddr == "0")
                 {
                     BaseAddrLong = (long)Sigscan.FindPattern(Base, out lTime) + 7632;
                     BaseAddr = BaseAddrLong.ToString("X");
-                    AOBScanProgress.Value = 14;
                 }
                 else if (Base2Addr == "2F70" || Base2Addr == null || Base2Addr == "0")
                 {
+                    AOBScanProgress.Value = 14;
                     Base2AddrLong = (long)Sigscan.FindPattern(Base, out lTime) + 12144;
                     Base2Addr = Base2AddrLong.ToString("X");
-                    AOBScanProgress.Value = 28;
                 }
-                else if (Base3Addr == "-D00" || Base3Addr == null || Base3Addr == "0")
+                else if (Base3Addr == "FFFFFFFFFFFFF300" || Base3Addr == null || Base3Addr == "0")
                 {
+                    AOBScanProgress.Value = 28;
                     Base3AddrLong = (long)Sigscan.FindPattern(Base, out lTime) - 3328;
                     Base3Addr = Base3AddrLong.ToString("X");
-                    AOBScanProgress.Value = 42;
                 }
                 else if (Car1Addr == "6A" || Car1Addr == null || Car1Addr == "0")
                 {
+                    AOBScanProgress.Value = 42;
                     Car1AddrLong = (long)Sigscan.FindPattern(Car1, out lTime) + 106;
                     Car1Addr = Car1AddrLong.ToString("X");
-                    AOBScanProgress.Value = 58;
                 }
-                else if (Car2Addr == "-19B" || Car2Addr == null || Car2Addr == "0")
+                else if (Car2Addr == "FFFFFFFFFFFFFE65" || Car2Addr == null || Car2Addr == "0")
                 {
+                    AOBScanProgress.Value = 58;
                     Car2AddrLong = (long)Sigscan.FindPattern(Car2, out lTime) - 411;
                     Car2Addr = Car2AddrLong.ToString("X");
-                    AOBScanProgress.Value = 72;
                 }
                 else if (Wall1Addr == "191" || Wall1Addr == null || Wall1Addr == "0")
                 {
+                    AOBScanProgress.Value = 72;
                     Wall1AddrLong = (long)Sigscan.FindPattern(Wall1, out lTime) + 401;
                     Wall1Addr = Wall1AddrLong.ToString("X");
-                    AOBScanProgress.Value = 86;
                 }
-                else if (Wall2Addr == "-1BE" || Wall2Addr == null || Wall2Addr == "0")
+                else if (Wall2Addr == "FFFFFFFFFFFFFE42" || Wall2Addr == null || Wall2Addr == "0")
                 {
+                    AOBScanProgress.Value = 86;
                     Wall2AddrLong = (long)Sigscan.FindPattern(Wall2, out lTime) - 446;
                     Wall2Addr = Wall2AddrLong.ToString("X");
-                    AOBScanProgress.Value = 100;
                 }
                 if (BaseAddr == "1DD0" || BaseAddr == null || BaseAddr == "0"
                     || Base2Addr == "2F70" || Base2Addr == null || Base2Addr == "0"
-                    || Base3Addr == "-D00" || Base3Addr == null || Base3Addr == "0"
+                    || Base3Addr == "FFFFFFFFFFFFF300" || Base3Addr == null || Base3Addr == "0"
                     || Car1Addr == "6A" || Car1Addr == null || Car1Addr == "0"
-                    || Car2Addr == "-19B" || Car2Addr == null || Car2Addr == "0"
+                    || Car2Addr == "FFFFFFFFFFFFFE65" || Car2Addr == null || Car2Addr == "0"
                     || Wall1Addr == "191" || Wall1Addr == null || Wall1Addr == "0"
-                    || Wall2Addr == "-1BE" || Wall2Addr == null || Wall2Addr == "0")
+                    || Wall2Addr == "FFFFFFFFFFFFFE42" || Wall2Addr == null || Wall2Addr == "0")
                 {
                     ;
                 }
                 else
                 {
+                    AOBScanProgress.Value = 100;
                     Addresses();
                     done = true;
                     ReadSpeedDefaultValues();
@@ -274,37 +280,65 @@ namespace Forza_Mods_AIO
             PitchAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x410");
             yAngVelAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x52C");
             GasAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0xD18,-0x53C");
+            PastStartAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x5C");
         }
         //end of setup
-        //break hack methods + BGworker
-        /*
-        public void Breakworker_DoWork(object sender, DoWorkEventArgs e)
+        public void Mainworker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (BreakToggle)
+            while (start)
             {
-                SuperBreak();
+                if (m.ReadFloat(PastStartAddr) == 1)
+                {
+                    if (WallNoClipToggle)
+                    {
+                        Noclip();
+                    }
+                    if (CarNoClipToggle)
+                    {
+                        var Jmp3 = new byte[6] { 0xE9, 0xB6, 0x01, 0x00, 0x00, 0x90 };
+                        var Jmp4 = new byte[6] { 0xE9, 0x3B, 0x03, 0x00, 0x00, 0x90 };
+                        for (int i = 0; i < 10; i++)
+                        {
+                            m.WriteBytes(Car1Addr, Jmp3);
+                            m.WriteBytes(Car2Addr, Jmp4);
+                        }
+                        CarNoClipToggle = false;
+                    }
+                    if (VelHackToggle)
+                    {
+                        SpeedHackVel();
+                    }
+                    if (SpeedHackToggle)
+                    {
+                        SpeedHack();
+                    }
+                    if (TurnAssistToggle)
+                    {
+                        TurnAssistLeft();
+                        TurnAssistRight();
+                    }
+                    if (BreakToggle)
+                    {
+                        SuperBreak();
+                    }
+                    if (Mainworker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        start = false;
+                    }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
             }
         }
-        */
+        //break hack methods
         public void SuperBreak()
         {
             if (BreakStart)
             {
-                //xVelocityVal = Math.Abs(m.ReadFloat(xVelocityAddr));
-                //zVelocityVal = Math.Abs(m.ReadFloat(zVelocityAddr));
-                //if (xVelocityVal < 1 || xVelocityVal < 1)
-                //{
-                //    xVelocityVal = 0;
-                //    zVelocityVal = 0;
-                //}
-                //else
-                //{
-                    xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)0.75;
-                    zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)0.75;
-                //}
-
+                xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)0.60;
+                zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)0.60;
                 m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
-                //m.WriteMemory(yVelocityAddr, "float", "0");
                 m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
                 m.WriteMemory(YawAddr, "float", "0");
                 Thread.Sleep(50);
@@ -318,51 +352,25 @@ namespace Forza_Mods_AIO
             m.WriteMemory(BackRightAddr, "float", "0");
         }
         //end of break hacks
-        //speed hack methods + BGworkers
-        /*
-        public void VelHackworker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (VelHackToggle)
-            {
-                SpeedHackVel();
-            }
-        }
-        */
+        //speed hack methods
         public void SpeedHackVel()
         {
             if (VelHackStart)
             {
-                Velcycles++;
                 xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)VelMult;
                 zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)VelMult;
-                y = m.ReadFloat(yAddr);
-                if (Velcycles % 2 == 0)
-                {
-                    y = m.ReadFloat(yAddr) - (float)0.01;
-                    Velcycles = 0;
-                }
-
+                y = m.ReadFloat(yAddr) - (float)0.02;
                 m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
                 m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
                 m.WriteMemory(yAddr, "float", y.ToString());
                 Thread.Sleep(50);
             }
         }
-        /*
-        public void SpeedHackworker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (SpeedHackToggle)
-            {
-                SpeedHack();
-            }
-        }
-        */
         public void SpeedHack()
         {
             if (SpeedHackStart)
             {
                 m.WriteMemory(GasAddr, "float", "1");
-                float boost = (float)Math.Ceiling(m.ReadFloat(FrontLeftAddr));
                 if (boost < BoostSpeed1)
                 {
                     for (int i = 0; i < times1; i++)
@@ -406,50 +414,7 @@ namespace Forza_Mods_AIO
             }
         }
         //end of speed hacks
-        public void Mainworker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (start)
-            {
-                if(NoClipToggle == true)
-                {
-                    Noclip();
-                }
-                if (VelHackToggle == true)
-                {
-                    SpeedHackVel();
-                }
-                if (SpeedHackToggle == true)
-                {
-                    SpeedHack();
-                }
-                if (TurnAssistToggle == true)
-                {
-                    TurnAssistLeft();
-                    TurnAssistRight();
-                }
-                if (BreakToggle == true)
-                {
-                    SuperBreak();
-                }
-                if(Mainworker.CancellationPending == true)
-                {
-                    e.Cancel = true;
-                    start = false;
-                }
-                Thread.Sleep(1);
-            }
-        }
-        //Turn assist methods + workers
-        /*
-        public void TurnAssistworker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (TurnAssistToggle)
-            {
-                TurnAssistLeft();
-                TurnAssistRight();
-            }
-        }
-        */
+        //Turn assist methods
         public void TurnAssistLeft()
         {
             if(TurnAssistLeftStart)
@@ -517,23 +482,13 @@ namespace Forza_Mods_AIO
         public void CheckPointTP()
         {
             Thread.Sleep(25);
-            //CheckPointx = m.ReadFloat(CheckPointxAddr);     CheckPointy = m.ReadFloat(CheckPointyAddr);     CheckPointz = m.ReadFloat(CheckPointzAddr);
             m.WriteMemory(xAddr, "float", (m.ReadFloat(CheckPointxAddr)).ToString());
             m.WriteMemory(yAddr, "float", (m.ReadFloat(CheckPointyAddr)+ 4).ToString());
             m.WriteMemory(zAddr, "float", (m.ReadFloat(CheckPointzAddr)).ToString());
             m.FreezeValue(yAngVelAddr, "float", "100");
         }
         //end of teleport "script"
-        //NoClip handler
-        /*
-        public void NoClipworker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (NoClipToggle)
-            {
-                Noclip();
-            }
-        }
-        */
+        //noclip
         public void Noclip()
         {
             var Jmp1 = new byte[6] { 0xE9, 0x2A, 0x02, 0x00, 0x00, 0x90 };
@@ -699,7 +654,7 @@ namespace Forza_Mods_AIO
         private void BTN_TabInfo_MouseLeave(object sender, EventArgs e)
         {
             if (Tab_1Info.Visible == false)
-            Panel_Info.BackColor = Color.FromArgb(28, 28, 28);
+                Panel_Info.BackColor = Color.FromArgb(28, 28, 28);
         }
         private void BTN_TabAddCars_MouseEnter(object sender, EventArgs e)
         {
@@ -751,6 +706,7 @@ namespace Forza_Mods_AIO
             if (Tab_6Speedhack.Visible == false)
                 Panel_Speedhack.BackColor = Color.FromArgb(28, 28, 28);
         }
+        //startup
         private void InitialBGworker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
@@ -765,22 +721,20 @@ namespace Forza_Mods_AIO
                 if (done == false)
                 {
                     DisableButtons();
-                }
-                AoBscan();
-                if (done == false)
-                {
-                    DisableButtons();
+                    AoBscan();
                 }
                 else
                 {
                     IsAttached = true;
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                     InitialBGworker.ReportProgress(0);
                 }
+                Thread.Sleep(1);
             }
         }
         private void MainWindow_Shown(object sender, EventArgs e)
         {
+            AOBScanProgress.Hide();
             InitialBGworker.RunWorkerAsync();
             CheckAttachedworker.RunWorkerAsync();
         }
@@ -804,14 +758,12 @@ namespace Forza_Mods_AIO
         {
             if (IsAttached)
             {
-                //AoBscan();
                 if (done == true)
                 {
                     LBL_Attached.Text = "Attached to FH4";
                     LBL_Attached.ForeColor = Color.Green;
                     EnableButtons();
                     AOBScanProgress.Hide();
-                    
                 }
             }
             else
@@ -819,7 +771,6 @@ namespace Forza_Mods_AIO
                 LBL_Attached.Text = "Not Attached to FH4";
                 LBL_Attached.ForeColor = Color.Red;
                 DisableButtons();
-                AOBScanProgress.Value = 0; AOBScanProgress.Show(); 
             }
         }
         private void InitialBGworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -837,6 +788,19 @@ namespace Forza_Mods_AIO
                 m.WriteMemory("base+4C4B7EC", "string", "1");
             }
         }
+        private void TB_RemoveCars_CheckedChanged(object sender, EventArgs e)
+        {
+            if (TB_RemoveCars.Checked == false)
+            {
+                m.WriteMemory("base+4C91934", "string", "t");
+                m.WriteMemory("base+4C238ED", "string", "n");
+            }
+            else
+            {
+                m.WriteMemory("base+4C91934", "string", "6");
+                m.WriteMemory("base+4C238ED", "string", "9");
+            }
+        }
         private void Tab_6Speedhack_Paint(object sender, PaintEventArgs e)
         {
 
@@ -845,13 +809,12 @@ namespace Forza_Mods_AIO
         {
 
         }
+        //end of startup
         //noclip buttons
         private void TB_SHCarNoClip_CheckedChanged(object sender, EventArgs e)
         {
             var Jmp3before = new byte[6] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 };
             var Jmp4before = new byte[6] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00 };
-            var Jmp3 = new byte[6] { 0xE9, 0xB6, 0x01, 0x00, 0x00, 0x90 };
-            var Jmp4 = new byte[6] { 0xE9, 0x3B, 0x03, 0x00, 0x00, 0x90 };
 
             if (TB_SHCarNoClip.Checked == false)
             {
@@ -860,8 +823,12 @@ namespace Forza_Mods_AIO
             }
             else
             {
-                m.WriteBytes(Car1Addr, Jmp3);
-                m.WriteBytes(Car2Addr, Jmp4);
+                CarNoClipToggle = true;
+                start = true;
+                if (Mainworker.IsBusy == false)
+                {
+                    Mainworker.RunWorkerAsync();
+                }
             }
         }
         private void TB_SHWallNoClip_CheckedChanged(object sender, EventArgs e)
@@ -870,12 +837,12 @@ namespace Forza_Mods_AIO
             var Jmp2before = new byte[6] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 };
             if (TB_SHWallNoClip.Checked == false)
             {
-                NoClipToggle = false;
+                WallNoClipToggle = false;
                 if (TurnAssistToggle == false
                 && SpeedHackToggle == false
                 && VelHackToggle == false
                 && BreakToggle == false
-                && NoClipToggle == false)
+                && WallNoClipToggle == false)
                 {
                     Mainworker.CancelAsync();
                 }
@@ -885,7 +852,7 @@ namespace Forza_Mods_AIO
             }
             else
             {
-                NoClipToggle = true;
+                WallNoClipToggle = true;
                 start = true;
                 //NoClipworker.RunWorkerAsync();
                 if (Mainworker.IsBusy == false)
@@ -905,7 +872,7 @@ namespace Forza_Mods_AIO
                 && SpeedHackToggle == false
                 && VelHackToggle == false
                 && BreakToggle == false
-                && NoClipToggle == false)
+                && WallNoClipToggle == false)
                 {
                     Mainworker.CancelAsync();
                 }
@@ -942,7 +909,7 @@ namespace Forza_Mods_AIO
                 && SpeedHackToggle == false
                 && VelHackToggle == false
                 && BreakToggle == false
-                && NoClipToggle == false)
+                && WallNoClipToggle == false)
                 {
                     Mainworker.CancelAsync();
                 }
@@ -968,7 +935,7 @@ namespace Forza_Mods_AIO
                 && SpeedHackToggle == false
                 && VelHackToggle == false
                 && BreakToggle == false
-                && NoClipToggle == false)
+                && WallNoClipToggle == false)
                 {
                     Mainworker.CancelAsync();
                 }
@@ -996,7 +963,7 @@ namespace Forza_Mods_AIO
                 && SpeedHackToggle == false
                 && VelHackToggle == false
                 && BreakToggle == false
-                && NoClipToggle == false)
+                && WallNoClipToggle == false)
                 {
                     Mainworker.CancelAsync();
                 }
@@ -1049,11 +1016,6 @@ namespace Forza_Mods_AIO
             m.WriteMemory(yAddr, "float", y.ToString());
             m.WriteMemory(zAddr, "float", z.ToString());
         }
-        private void BTN_MIN_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
         private void CheckpointBox_CheckedChanged(object sender, EventArgs e)
         {
             if (CheckpointBox.Checked == false)
@@ -1069,6 +1031,10 @@ namespace Forza_Mods_AIO
             }
         }
         //end of teleports
+        private void BTN_MIN_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
         private void SetSpeedhackVal()
         {
             TurnIntervalBox.Value = Convert.ToDecimal(TurnInterval);
@@ -1180,8 +1146,8 @@ namespace Forza_Mods_AIO
             RatioBox.Value = Convert.ToDecimal(TurnRatio);
             TurnStrengthBox.Value = Convert.ToDecimal(TurnStrength);
             Speed1Box.Value = Convert.ToDecimal(BoostSpeed1);
-            Speed2Box.Value = Convert.ToDecimal(BoostSpeed1);
-            Speed3Box.Value = Convert.ToDecimal(BoostSpeed1);
+            Speed2Box.Value = Convert.ToDecimal(BoostSpeed2);
+            Speed3Box.Value = Convert.ToDecimal(BoostSpeed3);
             LimitBox.Value = Convert.ToDecimal(BoostLim);
             Interval1Box.Value = Convert.ToDecimal(BoostInterval1);
             Interval2Box.Value = Convert.ToDecimal(BoostInterval2);
@@ -1221,8 +1187,8 @@ namespace Forza_Mods_AIO
                 string Boost4Str = SpeedHack["SpeedHack"]["Boost above speed 3"]; times4 = Int32.Parse(Boost4Str);
                 string SuperBreakStr = SpeedHack["Break"]["Superbreak on"]; SuperBreakButton.Checked = bool.Parse(SuperBreakStr);
                 string StopWheelsStr = SpeedHack["Break"]["Stop all wheels on"]; StopAllWheelsButton.Checked = bool.Parse(StopWheelsStr);
-                string TurnToggleStr = SpeedHack["Turn assist"]["On"]; WheelSpeedButton.Checked = bool.Parse(TurnToggleStr);
-                string TurnStrengthStr = SpeedHack["Turn assist"]["Strength"]; BoostSpeed1 = float.Parse(TurnStrengthStr);
+                string TurnToggleStr = SpeedHack["Turn assist"]["On"]; TurnAssistButton.Checked = bool.Parse(TurnToggleStr);
+                string TurnStrengthStr = SpeedHack["Turn assist"]["Strength"]; TurnStrength = float.Parse(TurnStrengthStr);
                 string TurnRatioStr = SpeedHack["Turn assist"]["Ratio"]; TurnRatio = float.Parse(TurnRatioStr);
                 string TurnIntervalStr = SpeedHack["Turn assist"]["Interval"]; TurnInterval = Int32.Parse(TurnIntervalStr);
             }
@@ -1255,11 +1221,11 @@ namespace Forza_Mods_AIO
             SpeedHack["SpeedHack"]["Boost above speed 3"] = times4.ToString();
             SpeedHack["Break"]["Superbreak on"] = SuperBreakButton.Checked.ToString();
             SpeedHack["Break"]["Stop all wheels on"] = StopAllWheelsButton.Checked.ToString();
-            SpeedHack["Turn assist"]["On"] = WheelSpeedButton.Checked.ToString();
-            SpeedHack["Turn assist"]["Strength"] = BoostSpeed1.ToString();
+            SpeedHack["Turn assist"]["On"] = TurnAssistButton.Checked.ToString();
+            SpeedHack["Turn assist"]["Strength"] = TurnStrength.ToString();
             SpeedHack["Turn assist"]["Ratio"] = TurnRatio.ToString();
             SpeedHack["Turn assist"]["Interval"] = TurnInterval.ToString();
-            SpeedHackparser.SaveFile("SpeedHackDefault.ini", SpeedHack);
+            SpeedHackparser.WriteFile("SpeedHackDefault.ini", SpeedHack);
         }
         public void CreateSHini()
         {
@@ -1268,7 +1234,7 @@ namespace Forza_Mods_AIO
             SpeedHack["No-Clip"]["Car"] = "false";
             SpeedHack["No-Clip"]["Wall"] = "false";
             SpeedHack["Velocity"]["On"] = "false";
-            SpeedHack["Velocity"]["Multiplication"] = "0";
+            SpeedHack["Velocity"]["Multiplication"] = "1";
             SpeedHack["SpeedHack"]["On"] = "false";
             SpeedHack["SpeedHack"]["Speed 1"] = "0";
             SpeedHack["SpeedHack"]["Speed 2"] = "0";
