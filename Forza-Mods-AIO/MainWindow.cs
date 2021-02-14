@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,31 +39,42 @@ namespace Forza_Mods_AIO
         bool CheckPointTPToggle = false;
         bool done = false;
         bool start = false;
-        long BaseAddrLong;      long Base2AddrLong; long Base3AddrLong; long Car1AddrLong; long Car2AddrLong; long Wall1AddrLong; long Wall2AddrLong;
+        bool FovIncreaseStart = false; bool FovDecreaseStart = false;
+        long BaseAddrLong;      long Base2AddrLong;     long Base3AddrLong;     long Car1AddrLong;  long Car2AddrLong;  long Wall1AddrLong;     long Wall2AddrLong;     long FOVnopOutAddrLong;     long FOVnopInAddrLong;
+        long FirstPersonAddrLong;    long DashAddrLong; long FrontAddrLong;     long LowAddrLong;   long BonnetAddrLong;
         string Base = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
         string Car1 = "48 89 ? ? ? 44 8B ? 48 89 ? ? ? BA";
         string Car2 = "0F 28 ? 41 0F ? ? ? 0F C6 D6 ? 41 0F";
         string Wall1 = "F3 0F ? ? ? 0F 59 ? 0F C6 ED ? 0F C6 F6";
         string Wall2 = "0F 28 ? 0F C6 C1 ? 0F 28 ? 0F C6 CB ? 41 0F ? ? F3 0F ? ? 41 0F ? ? 0F C6 C0 ? 0F C6 E4";
+        string FOVOutsig = "4C 8D ? ? ? 0F 29 ? ? ? F3 0F";
+        string FOVInsig = "48 81 EC ? ? ? ? 48 8B ? E8 ? ? ? ? 48 8B ? ? 48 8B";
+        string FirstPerson = "80 00 80 82 43";
+        string Dash = "3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 01 ?? 00 00 00 00 00 00 00 00 A0 40";
+        string Low = "80 CD CC 4C 3E CD CC CC 3E 9A 99 19 3F 00 00 80 3F";
+        string Bonnet = "00 80 3E 63 B8 1E 3F 00 00 80 3F";
+        string Front = "80 3E 7B 14 2E 3F 00 00 80 3F";
         string BaseAddr;        string Base2Addr;       string Base3Addr;
-        string Car1Addr;        string Car2Addr;
+        string Car1Addr;        string Car2Addr;        string FOVnopOutAddr;   string FOVnopInAddr;
         string Wall1Addr;       string Wall2Addr;
         string FrontLeftAddr;   string FrontRightAddr;  string BackLeftAddr;    string BackRightAddr;
         string OnGroundAddr;    string InRaceAddr;      string PastStartAddr;
-        string xVelocityAddr;   string yVelocityAddr;   string zVelocityAddr;
+        string xVelocityAddr;   string yVelocityAddr;   string zVelocityAddr;   
         string xAddr;           string yAddr;           string zAddr;
         string CheckPointxAddr; string CheckPointyAddr; string CheckPointzAddr;
         string YawAddr;         string RollAddr;        string PitchAddr;      string yAngVelAddr;
-        string GasAddr;
+        string GasAddr;         string FOVHighAddr;     string FOVInAddr;      string FirstPersonAddr;           string DashAddr;           string FrontAddr;          string BonnetAddr;          string LowAddr;          string LowCompare;
         float xVelocityVal;     float yVelocityVal;     float zVelocityVal;
         float x;                float y;                float z;
         float CheckPointx;      float CheckPointy;      float CheckPointz;
         float BoostSpeed1;      float BoostSpeed2;      float BoostSpeed3;      float BoostLim; //speed
         float TurnRatio;        float TurnStrength;     public float boost;
-        float VelMult;
+        float VelMult;          float FOVVal;
+        int IncreaseCycles = 0; int DecreaseCycles = 0;
         int times1;             int times2;             int times3;             int times4; //boost
         int BoostInterval1;     int BoostInterval2;     int BoostInterval3;     int BoostInterval4; /*interval*/ int TurnInterval;
         int Velcycles;          int NoClipcycles;
+        int cycles = 0;
 
 
         public MainWindow()
@@ -77,6 +89,7 @@ namespace Forza_Mods_AIO
         {
 
         }
+
         //dragging functionality
         private bool dragging = false;
         private Point dragCursorPoint;
@@ -144,6 +157,20 @@ namespace Forza_Mods_AIO
                     TurnAssistRightStart = true;
                 }
             }
+            if (key == KeyboardHook.VKeys.NUMPAD6)
+            {
+                if(FOV.Checked)
+                {
+                    FovIncreaseStart = true;
+                }
+            }
+            if (key == KeyboardHook.VKeys.NUMPAD4)
+            {
+                if (FOV.Checked)
+                {
+                    FovDecreaseStart = true;
+                }
+            }
         }
         private void keyboardHook_KeyUp(KeyboardHook.VKeys key)
         {
@@ -184,6 +211,16 @@ namespace Forza_Mods_AIO
                     TurnAssistRightStart = false;
                 }
             }
+            if (key == KeyboardHook.VKeys.NUMPAD6)
+            {
+                FovIncreaseStart = false;
+                IncreaseCycles = 0;
+            }
+            if (key == KeyboardHook.VKeys.NUMPAD4)
+            {
+                FovDecreaseStart = false;
+                DecreaseCycles = 0;
+            }
         }
         //end of hooks
         //setup
@@ -192,6 +229,7 @@ namespace Forza_Mods_AIO
             var TargetProcess = Process.GetProcessesByName("ForzaHorizon4")[0];
             SigScanSharp Sigscan = new SigScanSharp(TargetProcess.Handle);
             Sigscan.SelectModule(TargetProcess.MainModule);
+
             if (done == false)
             {
                 AOBScanProgress.Show();
@@ -203,39 +241,51 @@ namespace Forza_Mods_AIO
                 }
                 else if (Base2Addr == "2F70" || Base2Addr == null || Base2Addr == "0")
                 {
-                    AOBScanProgress.Value = 14;
+                    AOBScanProgress.Value = 13;
                     Base2AddrLong = (long)Sigscan.FindPattern(Base, out lTime) + 12144;
                     Base2Addr = Base2AddrLong.ToString("X");
                 }
                 else if (Base3Addr == "FFFFFFFFFFFFF300" || Base3Addr == null || Base3Addr == "0")
                 {
-                    AOBScanProgress.Value = 28;
+                    AOBScanProgress.Value = 25;
                     Base3AddrLong = (long)Sigscan.FindPattern(Base, out lTime) - 3328;
                     Base3Addr = Base3AddrLong.ToString("X");
                 }
                 else if (Car1Addr == "6A" || Car1Addr == null || Car1Addr == "0")
                 {
-                    AOBScanProgress.Value = 42;
+                    AOBScanProgress.Value = 38;
                     Car1AddrLong = (long)Sigscan.FindPattern(Car1, out lTime) + 106;
                     Car1Addr = Car1AddrLong.ToString("X");
                 }
                 else if (Car2Addr == "FFFFFFFFFFFFFE65" || Car2Addr == null || Car2Addr == "0")
                 {
-                    AOBScanProgress.Value = 58;
+                    AOBScanProgress.Value = 50;
                     Car2AddrLong = (long)Sigscan.FindPattern(Car2, out lTime) - 411;
                     Car2Addr = Car2AddrLong.ToString("X");
                 }
                 else if (Wall1Addr == "191" || Wall1Addr == null || Wall1Addr == "0")
                 {
-                    AOBScanProgress.Value = 72;
+                    AOBScanProgress.Value = 63;
                     Wall1AddrLong = (long)Sigscan.FindPattern(Wall1, out lTime) + 401;
                     Wall1Addr = Wall1AddrLong.ToString("X");
                 }
                 else if (Wall2Addr == "FFFFFFFFFFFFFE42" || Wall2Addr == null || Wall2Addr == "0")
                 {
-                    AOBScanProgress.Value = 86;
+                    AOBScanProgress.Value = 75;
                     Wall2AddrLong = (long)Sigscan.FindPattern(Wall2, out lTime) - 446;
                     Wall2Addr = Wall2AddrLong.ToString("X");
+                }
+                else if (FOVnopOutAddr == "7B" || FOVnopOutAddr == null || FOVnopOutAddr == "0")
+                {
+                    AOBScanProgress.Value = 80;
+                    FOVnopOutAddrLong = (long)Sigscan.FindPattern(FOVOutsig, out lTime) + 123;
+                    FOVnopOutAddr = FOVnopOutAddrLong.ToString("X");
+                }
+                else if (FOVnopInAddr == "567" || FOVnopInAddr == null || FOVnopInAddr == "0")
+                {
+                    AOBScanProgress.Value = 85;
+                    FOVnopInAddrLong = (long)Sigscan.FindPattern(FOVInsig, out lTime) + 1383;
+                    FOVnopInAddr = FOVnopInAddrLong.ToString("X");
                 }
                 if (BaseAddr == "1DD0" || BaseAddr == null || BaseAddr == "0"
                     || Base2Addr == "2F70" || Base2Addr == null || Base2Addr == "0"
@@ -243,17 +293,22 @@ namespace Forza_Mods_AIO
                     || Car1Addr == "6A" || Car1Addr == null || Car1Addr == "0"
                     || Car2Addr == "FFFFFFFFFFFFFE65" || Car2Addr == null || Car2Addr == "0"
                     || Wall1Addr == "191" || Wall1Addr == null || Wall1Addr == "0"
-                    || Wall2Addr == "FFFFFFFFFFFFFE42" || Wall2Addr == null || Wall2Addr == "0")
+                    || Wall2Addr == "FFFFFFFFFFFFFE42" || Wall2Addr == null || Wall2Addr == "0"
+                    || FOVnopInAddr == "567" || FOVnopInAddr == null || FOVnopInAddr == "0"
+                    || FOVnopOutAddr == "7B" || FOVnopOutAddr == null || FOVnopOutAddr == "0")
                 {
                     ;
                 }
                 else
                 {
+                    FOVScan_BTN.Show(); FOVScan_bar.Hide(); FOV.Hide();
                     AOBScanProgress.Value = 100;
+
                     Addresses();
-                    done = true;
                     ReadSpeedDefaultValues();
+                    done = true;
                 }
+                Thread.Sleep(1);
             }
         }
         public void Addresses()
@@ -281,6 +336,7 @@ namespace Forza_Mods_AIO
             yAngVelAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x52C");
             GasAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0xD18,-0x53C");
             PastStartAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x5C");
+            FOVHighAddr = (BaseAddr + ",0x568,0x270,0x258,0xB8,0x348,0x70,0x5B0");
         }
         //end of setup
         public void Mainworker_DoWork(object sender, DoWorkEventArgs e)
@@ -321,6 +377,14 @@ namespace Forza_Mods_AIO
                     {
                         SuperBreak();
                     }
+                    if (FovIncreaseStart)
+                    {
+                        FOVIncrease();
+                    }
+                    if (FovDecreaseStart)
+                    {
+                        FOVdecrease();
+                    }
                     if (Mainworker.CancellationPending)
                     {
                         e.Cancel = true;
@@ -336,9 +400,10 @@ namespace Forza_Mods_AIO
         {
             if (BreakStart)
             {
-                xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)0.60;
-                zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)0.60;
+                xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)0.50;
+                zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)0.50;
                 m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
+                m.WriteMemory(yVelocityAddr, "float", "0");
                 m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
                 m.WriteMemory(YawAddr, "float", "0");
                 Thread.Sleep(50);
@@ -564,6 +629,13 @@ namespace Forza_Mods_AIO
         }
         private void BTN_Close_Click(object sender, EventArgs e)
         {
+            if(FOV.Checked == true)
+            {
+                var nopoutbefore = new byte[4] { 0x0F, 0x11, 0x43, 0x10 };
+                var nopinbefore = new byte[4] { 0x0F, 0x11, 0x73, 0x10 };
+                m.WriteBytes(FOVnopOutAddr, nopoutbefore);
+                m.WriteBytes(FOVnopInAddr, nopinbefore);
+            }
             this.Close();
         }
         private void BTN_TabInfo_Click(object sender, EventArgs e)
@@ -711,7 +783,8 @@ namespace Forza_Mods_AIO
         {
             while (true)
             {
-                if(!m.OpenProcess("ForzaHorizon4"))
+                Thread.Sleep(1);
+                if (!m.OpenProcess("ForzaHorizon4"))
                 {
                     IsAttached = false;
                     InitialBGworker.ReportProgress(0);
@@ -729,7 +802,6 @@ namespace Forza_Mods_AIO
                     Thread.Sleep(500);
                     InitialBGworker.ReportProgress(0);
                 }
-                Thread.Sleep(1);
             }
         }
         private void MainWindow_Shown(object sender, EventArgs e)
@@ -745,12 +817,16 @@ namespace Forza_Mods_AIO
                 Thread.Sleep(1);
                 if (IsAttached == false && Tab_1Info.Visible == false && Tab_4Saveswap.Visible == false)
                 {
-                   done = false;
-                   ClearColours();
-                   BTN_TabInfo.BackColor = Color.FromArgb(45, 45, 48);
-                   Panel_Info.BackColor = Color.FromArgb(150, 11, 166);
-                   ClearTabItems();
-                   Tab_1Info.Show();
+                    FrontAddr = "0"; DashAddr = "0"; LowAddr = "0"; BonnetAddr = "0"; FirstPersonAddr = "0";
+                    FrontAddrLong = 0; DashAddrLong = 0; LowAddrLong = 0; BonnetAddrLong = 0; FirstPersonAddrLong = 0;
+                    cycles = 0;
+                    FOVScan_BTN.Show(); FOVScan_bar.Hide(); FOV.Hide();
+                    done = false;
+                    ClearColours();
+                    BTN_TabInfo.BackColor = Color.FromArgb(45, 45, 48);
+                    Panel_Info.BackColor = Color.FromArgb(150, 11, 166);
+                    ClearTabItems();
+                    Tab_1Info.Show();
                 }
             }
         }
@@ -1159,6 +1235,7 @@ namespace Forza_Mods_AIO
             Boost4Box.Value = Convert.ToDecimal(times4);
             VelMultBox.Value = Convert.ToDecimal(VelMult);
             VelMultBar.Value = (Convert.ToInt32(VelMult) * 100);
+            FOVVal = (float)FOVBar.Value / 100;
         }
         public void ReadSpeedDefaultValues()
         {
@@ -1264,6 +1341,157 @@ namespace Forza_Mods_AIO
         {
             ReadSpeedDefaultValues();
             SHReset();
+        }
+        private void FOVBar_Scroll(object sender, EventArgs e)
+        {
+            //FOVBar.Value = FOVBar.Value / 100;
+            FOVVal = (float)FOVBar.Value / 100;
+            if (FOV.Checked == true)
+            {
+                FOV.Checked = false;
+                FOV.Checked = true;
+            }
+            SHReset();
+        }
+        private async  void FOVScan_BTN_Click(object sender, EventArgs e)
+        {
+            string FOVHigh = m.GetCode(FOVHighAddr).ToString();
+            FOVScan_BTN.Hide();
+            FOVScan_bar.Show();
+            bool scan = true;
+            cycles = 0;
+            while (scan)
+            {
+                Thread.Sleep(1);
+                if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null || FirstPersonAddr == "0")
+                {
+                    if (cycles < 1)
+                    {
+                        cycles++;
+                        FirstPersonAddrLong = (await m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, FirstPerson, true, true)).FirstOrDefault() - 75;
+                    }
+                    FirstPersonAddr = FirstPersonAddrLong.ToString("X");
+                }
+                else if (DashAddr == "FFFFFFFFFFFFFF45" || DashAddr == null || DashAddr == "0")
+                {
+                    FOVScan_bar.Value = 20;
+                    if (cycles < 2)
+                    {
+                        cycles++;
+                        DashAddrLong = (await m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Dash, true, true)).FirstOrDefault() - 187;
+                    }
+                    DashAddr = DashAddrLong.ToString("X");
+                }
+                else if (FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0")
+                {
+                    FOVScan_bar.Value = 40;
+                    if (cycles < 3)
+                    {
+                        cycles++;
+                        FrontAddrLong = (await m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Front, true, true)).FirstOrDefault() - 190;
+                    }
+                    FrontAddr = FrontAddrLong.ToString("X");
+                }
+                else if (LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0")
+                {
+                    FOVScan_bar.Value = 60;
+                    if (cycles < 4)
+                    {
+                        cycles++;
+                        LowAddrLong = (await m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).FirstOrDefault() - 183;
+                    }
+                    LowCompare = LowAddrLong.ToString();
+                    if (LowCompare == m.GetCode(FOVHighAddr).ToString())
+                    {
+                        LowAddrLong = (await m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).LastOrDefault() - 183;
+                    }
+                    LowAddr = LowAddrLong.ToString("X");
+                }
+                else if (BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || DashAddr == "0")
+                {
+                    FOVScan_bar.Value = 80;
+                    if (cycles < 5)
+                    {
+                        cycles++;
+                        BonnetAddrLong = (await m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Bonnet, true, true)).FirstOrDefault() - 189;
+                    }
+                    BonnetAddr = BonnetAddrLong.ToString("X");
+                }
+                if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null
+                    || FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0"
+                    || LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0"
+                    || BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || BonnetAddr == "0"
+                    || FirstPersonAddr == "0" || DashAddr == null || DashAddr == "0")
+                {
+                    ;
+                }
+                else
+                {
+                    FOVScan_bar.Value = 100;
+                    Thread.Sleep(1000);
+                    FOVScan_bar.Hide();
+                    //FOVScan_BTN.Enabled = false;
+                    FOV.Show();//FOV.Enabled = true;
+                    scan = false;
+                }
+            }
+        }
+        private void FOV_CheckedChanged(object sender, EventArgs e)
+        {
+            var nopoutbefore = new byte[4] { 0x0F, 0x11, 0x43, 0x10 };
+            var nopinbefore = new byte[4] { 0x0F, 0x11, 0x73, 0x10 };
+            var nop = new byte[4] { 0x90, 0x90, 0x90, 0x90 };
+            SHReset();
+            if (FOV.Checked == false)
+            {
+                m.WriteBytes(FOVnopOutAddr, nopoutbefore);
+                m.WriteBytes(FOVnopInAddr, nopinbefore);
+                m.UnfreezeValue(FOVHighAddr);
+                m.UnfreezeValue(FirstPersonAddr);
+                m.UnfreezeValue(DashAddr);
+                m.UnfreezeValue(LowAddr);
+                m.UnfreezeValue(BonnetAddr);
+                m.UnfreezeValue(FrontAddr);
+            }
+            else
+            {
+                m.WriteBytes(FOVnopOutAddr, nop);
+                m.WriteBytes(FOVnopInAddr, nop);
+                m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
+                m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
+                m.FreezeValue(DashAddr, "float", FOVVal.ToString());
+                m.FreezeValue(LowAddr, "float", FOVVal.ToString());
+                m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
+                m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
+            }
+        }
+        private void FOVIncrease()
+        {
+            IncreaseCycles++;
+            if (FOVBar.Value > 149)
+                FOVBar.Value = 149;
+            FOVBar.Value = FOVBar.Value + 1;
+            FOVVal = (float)FOVBar.Value / 100;
+            m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
+            m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
+            m.FreezeValue(DashAddr, "float", FOVVal.ToString());
+            m.FreezeValue(LowAddr, "float", FOVVal.ToString());
+            m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
+            m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
+        }
+        private void FOVdecrease()
+        {
+            DecreaseCycles++;
+            if (FOVBar.Value < -94)
+                FOVBar.Value = -94;
+            FOVBar.Value = FOVBar.Value - 1;
+            FOVVal = (float)FOVBar.Value / 100;
+            m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
+            m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
+            m.FreezeValue(DashAddr, "float", FOVVal.ToString());
+            m.FreezeValue(LowAddr, "float", FOVVal.ToString());
+            m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
+            m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
         }
     }
 }

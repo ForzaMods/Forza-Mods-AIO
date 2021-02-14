@@ -69,9 +69,14 @@ namespace Forza_Mods_AIO
             this.TB_SHCarNoClip = new System.Windows.Forms.CheckBox();
             this.TB_SHWallNoClip = new System.Windows.Forms.CheckBox();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.label32 = new System.Windows.Forms.Label();
+            this.FOVScan_bar = new System.Windows.Forms.ProgressBar();
+            this.FOV = new System.Windows.Forms.CheckBox();
+            this.FOVBar = new System.Windows.Forms.TrackBar();
             this.CheckpointBox = new System.Windows.Forms.CheckBox();
             this.LoadSHDefault = new System.Windows.Forms.Button();
             this.SaveSHDefault = new System.Windows.Forms.Button();
+            this.FOVScan_BTN = new System.Windows.Forms.Button();
             this.TPButton = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.LST_TeleportLocation = new System.Windows.Forms.ComboBox();
@@ -147,6 +152,7 @@ namespace Forza_Mods_AIO
             this.Tab_6Speedhack.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FOVBar)).BeginInit();
             this.panel9.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -731,9 +737,14 @@ namespace Forza_Mods_AIO
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel7.Controls.Add(this.label32);
+            this.panel7.Controls.Add(this.FOVScan_bar);
+            this.panel7.Controls.Add(this.FOV);
+            this.panel7.Controls.Add(this.FOVBar);
             this.panel7.Controls.Add(this.CheckpointBox);
             this.panel7.Controls.Add(this.LoadSHDefault);
             this.panel7.Controls.Add(this.SaveSHDefault);
+            this.panel7.Controls.Add(this.FOVScan_BTN);
             this.panel7.Controls.Add(this.TPButton);
             this.panel7.Controls.Add(this.richTextBox1);
             this.panel7.Controls.Add(this.LST_TeleportLocation);
@@ -743,6 +754,48 @@ namespace Forza_Mods_AIO
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(242, 421);
             this.panel7.TabIndex = 4;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(9, 334);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(227, 15);
+            this.label32.TabIndex = 40;
+            this.label32.Text = "Scan after you have gone through all cams";
+            // 
+            // FOVScan_bar
+            // 
+            this.FOVScan_bar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.FOVScan_bar.Location = new System.Drawing.Point(47, 285);
+            this.FOVScan_bar.Name = "FOVScan_bar";
+            this.FOVScan_bar.Size = new System.Drawing.Size(159, 23);
+            this.FOVScan_bar.TabIndex = 15;
+            // 
+            // FOV
+            // 
+            this.FOV.AutoSize = true;
+            this.FOV.Location = new System.Drawing.Point(105, 289);
+            this.FOV.Name = "FOV";
+            this.FOV.Size = new System.Drawing.Size(48, 19);
+            this.FOV.TabIndex = 39;
+            this.FOV.Text = "FOV";
+            this.FOV.UseVisualStyleBackColor = true;
+            this.FOV.CheckedChanged += new System.EventHandler(this.FOV_CheckedChanged);
+            // 
+            // FOVBar
+            // 
+            this.FOVBar.LargeChange = 20;
+            this.FOVBar.Location = new System.Drawing.Point(31, 314);
+            this.FOVBar.Maximum = 150;
+            this.FOVBar.Minimum = -95;
+            this.FOVBar.Name = "FOVBar";
+            this.FOVBar.Size = new System.Drawing.Size(187, 45);
+            this.FOVBar.SmallChange = 5;
+            this.FOVBar.TabIndex = 32;
+            this.FOVBar.TickFrequency = 10;
+            this.FOVBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.FOVBar.Scroll += new System.EventHandler(this.FOVBar_Scroll);
             // 
             // CheckpointBox
             // 
@@ -784,6 +837,20 @@ namespace Forza_Mods_AIO
             this.SaveSHDefault.Text = "Save as default";
             this.SaveSHDefault.UseVisualStyleBackColor = false;
             this.SaveSHDefault.Click += new System.EventHandler(this.SaveSHDefault_Click);
+            // 
+            // FOVScan_BTN
+            // 
+            this.FOVScan_BTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.FOVScan_BTN.FlatAppearance.BorderSize = 0;
+            this.FOVScan_BTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FOVScan_BTN.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FOVScan_BTN.Location = new System.Drawing.Point(47, 280);
+            this.FOVScan_BTN.Name = "FOVScan_BTN";
+            this.FOVScan_BTN.Size = new System.Drawing.Size(159, 34);
+            this.FOVScan_BTN.TabIndex = 37;
+            this.FOVScan_BTN.Text = "Scan";
+            this.FOVScan_BTN.UseVisualStyleBackColor = false;
+            this.FOVScan_BTN.Click += new System.EventHandler(this.FOVScan_BTN_Click);
             // 
             // TPButton
             // 
@@ -1719,6 +1786,7 @@ namespace Forza_Mods_AIO
             this.panel3.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FOVBar)).EndInit();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -1868,6 +1936,11 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Button LoadSHDefault;
         private System.Windows.Forms.Button SaveSHDefault;
         private System.Windows.Forms.ProgressBar AOBScanProgress;
+        private System.Windows.Forms.CheckBox FOV;
+        private System.Windows.Forms.TrackBar FOVBar;
+        private System.Windows.Forms.Button FOVScan_BTN;
+        private System.Windows.Forms.ProgressBar FOVScan_bar;
+        private System.Windows.Forms.Label label32;
     }
 }
 
