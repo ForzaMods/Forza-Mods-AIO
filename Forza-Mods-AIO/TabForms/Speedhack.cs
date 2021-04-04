@@ -74,7 +74,6 @@ namespace Forza_Mods_AIO.TabForms
         int BoostInterval1; int BoostInterval2; int BoostInterval3; int BoostInterval4; /*interval*/ int TurnInterval;
         int Velcycles; int NoClipcycles;
         public static int cycles = 0;
-        Mem m = new Mem();
         KeyboardHook keyboardHook = new KeyboardHook();
         public Speedhack()
         {
@@ -108,7 +107,7 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     if (SpeedHackStart == false)
                     {
-                        boost = (float)Math.Ceiling(m.ReadFloat(FrontLeftAddr));
+                        boost = (float)Math.Ceiling(ToolInfo.m.ReadFloat(FrontLeftAddr));
                         SpeedHackStart = true;
                     }
                 }
@@ -224,7 +223,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             while (start)
             {
-                if (m.ReadFloat(PastStartAddr) == 1)
+                if (ToolInfo.m.ReadFloat(PastStartAddr) == 1)
                 {
                     if (WallNoClipToggle)
                     {
@@ -236,8 +235,8 @@ namespace Forza_Mods_AIO.TabForms
                         var Jmp4 = new byte[6] { 0xE9, 0x3B, 0x03, 0x00, 0x00, 0x90 };
                         for (int i = 0; i < 10; i++)
                         {
-                            m.WriteBytes(Car1Addr, Jmp3);
-                            m.WriteBytes(Car2Addr, Jmp4);
+                            ToolInfo.m.WriteBytes(Car1Addr, Jmp3);
+                            ToolInfo.m.WriteBytes(Car2Addr, Jmp4);
                         }
                         CarNoClipToggle = false;
                     }
@@ -281,21 +280,21 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (BreakStart)
             {
-                xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)0.50;
-                zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)0.50;
-                m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
-                m.WriteMemory(yVelocityAddr, "float", "0");
-                m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
-                m.WriteMemory(YawAddr, "float", "0");
+                xVelocityVal = ToolInfo.m.ReadFloat(xVelocityAddr) * (float)0.50;
+                zVelocityVal = ToolInfo.m.ReadFloat(zVelocityAddr) * (float)0.50;
+                ToolInfo.m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
+                ToolInfo.m.WriteMemory(yVelocityAddr, "float", "0");
+                ToolInfo.m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
+                ToolInfo.m.WriteMemory(YawAddr, "float", "0");
                 Thread.Sleep(50);
             }
         }
         public void StopAllWheels()
         {
-            m.WriteMemory(FrontLeftAddr, "float", "0");
-            m.WriteMemory(FrontRightAddr, "float", "0");
-            m.WriteMemory(BackLeftAddr, "float", "0");
-            m.WriteMemory(BackRightAddr, "float", "0");
+            ToolInfo.m.WriteMemory(FrontLeftAddr, "float", "0");
+            ToolInfo.m.WriteMemory(FrontRightAddr, "float", "0");
+            ToolInfo.m.WriteMemory(BackLeftAddr, "float", "0");
+            ToolInfo.m.WriteMemory(BackRightAddr, "float", "0");
         }
         //end of break hacks
         //speed hack methods
@@ -303,12 +302,12 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (VelHackStart)
             {
-                xVelocityVal = m.ReadFloat(xVelocityAddr) * (float)VelMult;
-                zVelocityVal = m.ReadFloat(zVelocityAddr) * (float)VelMult;
-                y = m.ReadFloat(yAddr) - (float)0.02;
-                m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
-                m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
-                m.WriteMemory(yAddr, "float", y.ToString());
+                xVelocityVal = ToolInfo.m.ReadFloat(xVelocityAddr) * (float)VelMult;
+                zVelocityVal = ToolInfo.m.ReadFloat(zVelocityAddr) * (float)VelMult;
+                y = ToolInfo.m.ReadFloat(yAddr) - (float)0.02;
+                ToolInfo.m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
+                ToolInfo.m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
+                ToolInfo.m.WriteMemory(yAddr, "float", y.ToString());
                 Thread.Sleep(50);
             }
         }
@@ -316,7 +315,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (SpeedHackStart)
             {
-                m.WriteMemory(GasAddr, "float", "1");
+                ToolInfo.m.WriteMemory(GasAddr, "float", "1");
                 if (boost < BoostSpeed1)
                 {
                     for (int i = 0; i < times1; i++)
@@ -353,10 +352,10 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     boost = BoostLim;
                 }
-                m.WriteMemory(FrontLeftAddr, "float", boost.ToString());
-                m.WriteMemory(FrontRightAddr, "float", boost.ToString());
-                m.WriteMemory(BackLeftAddr, "float", boost.ToString());
-                m.WriteMemory(BackRightAddr, "float", boost.ToString());
+                ToolInfo.m.WriteMemory(FrontLeftAddr, "float", boost.ToString());
+                ToolInfo.m.WriteMemory(FrontRightAddr, "float", boost.ToString());
+                ToolInfo.m.WriteMemory(BackLeftAddr, "float", boost.ToString());
+                ToolInfo.m.WriteMemory(BackRightAddr, "float", boost.ToString());
             }
         }
         //end of speed hacks
@@ -365,10 +364,10 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (TurnAssistLeftStart)
             {
-                float FrontLeft = m.ReadFloat(FrontLeftAddr);
-                float FrontRight = m.ReadFloat(FrontRightAddr);
-                float BackLeft = m.ReadFloat(BackLeftAddr);
-                float BackRight = m.ReadFloat(BackRightAddr);
+                float FrontLeft = ToolInfo.m.ReadFloat(FrontLeftAddr);
+                float FrontRight = ToolInfo.m.ReadFloat(FrontRightAddr);
+                float BackLeft = ToolInfo.m.ReadFloat(BackLeftAddr);
+                float BackRight = ToolInfo.m.ReadFloat(BackRightAddr);
                 if ((float)Math.Abs(FrontRight - FrontLeft) < (FrontRight / TurnRatio) && (float)Math.Abs(BackRight - FrontLeft) < (BackRight / TurnRatio))
                 {
                     FrontLeft = FrontLeft - TurnStrength;
@@ -377,20 +376,20 @@ namespace Forza_Mods_AIO.TabForms
                     BackRight = BackRight + TurnStrength;
                     Thread.Sleep(TurnInterval);
                 }
-                m.WriteMemory(FrontLeftAddr, "float", FrontLeft.ToString());
-                m.WriteMemory(FrontRightAddr, "float", FrontRight.ToString());
-                m.WriteMemory(BackLeftAddr, "float", BackLeft.ToString());
-                m.WriteMemory(BackRightAddr, "float", BackRight.ToString());
+                ToolInfo.m.WriteMemory(FrontLeftAddr, "float", FrontLeft.ToString());
+                ToolInfo.m.WriteMemory(FrontRightAddr, "float", FrontRight.ToString());
+                ToolInfo.m.WriteMemory(BackLeftAddr, "float", BackLeft.ToString());
+                ToolInfo.m.WriteMemory(BackRightAddr, "float", BackRight.ToString());
             }
         }
         public void TurnAssistRight()
         {
             if (TurnAssistRightStart)
             {
-                float FrontLeft = m.ReadFloat(FrontLeftAddr);
-                float FrontRight = m.ReadFloat(FrontRightAddr);
-                float BackLeft = m.ReadFloat(BackLeftAddr);
-                float BackRight = m.ReadFloat(BackRightAddr);
+                float FrontLeft = ToolInfo.m.ReadFloat(FrontLeftAddr);
+                float FrontRight = ToolInfo.m.ReadFloat(FrontRightAddr);
+                float BackLeft = ToolInfo.m.ReadFloat(BackLeftAddr);
+                float BackRight = ToolInfo.m.ReadFloat(BackRightAddr);
                 if ((float)Math.Abs(FrontLeft - FrontRight) < (FrontLeft / TurnRatio) && (float)Math.Abs(BackLeft - FrontRight) < (BackLeft / TurnRatio))
                 {
                     FrontRight = FrontRight - TurnStrength;
@@ -399,10 +398,10 @@ namespace Forza_Mods_AIO.TabForms
                     BackLeft = BackLeft + TurnStrength;
                     Thread.Sleep(TurnInterval);
                 }
-                m.WriteMemory(FrontLeftAddr, "float", FrontLeft.ToString());
-                m.WriteMemory(FrontRightAddr, "float", FrontRight.ToString());
-                m.WriteMemory(BackLeftAddr, "float", BackLeft.ToString());
-                m.WriteMemory(BackRightAddr, "float", BackRight.ToString());
+                ToolInfo.m.WriteMemory(FrontLeftAddr, "float", FrontLeft.ToString());
+                ToolInfo.m.WriteMemory(FrontRightAddr, "float", FrontRight.ToString());
+                ToolInfo.m.WriteMemory(BackLeftAddr, "float", BackLeft.ToString());
+                ToolInfo.m.WriteMemory(BackRightAddr, "float", BackRight.ToString());
             }
         }
         //end of turn assists
@@ -411,16 +410,16 @@ namespace Forza_Mods_AIO.TabForms
         {
             while (CheckPointTPToggle)
             {
-                float InRace = m.ReadFloat(InRaceAddr);
+                float InRace = ToolInfo.m.ReadFloat(InRaceAddr);
                 if (InRace == 1)
                 {
                     Thread.Sleep(3750);
                     while (InRace == 1)
                     {
-                        InRace = m.ReadFloat(InRaceAddr);
+                        InRace = ToolInfo.m.ReadFloat(InRaceAddr);
                         CheckPointTP();
                     }
-                    m.UnfreezeValue(yAngVelAddr);
+                    ToolInfo.m.UnfreezeValue(yAngVelAddr);
                 }
                 Thread.Sleep(1);
             }
@@ -428,10 +427,10 @@ namespace Forza_Mods_AIO.TabForms
         public void CheckPointTP()
         {
             Thread.Sleep(25);
-            m.WriteMemory(xAddr, "float", (m.ReadFloat(CheckPointxAddr)).ToString());
-            m.WriteMemory(yAddr, "float", (m.ReadFloat(CheckPointyAddr) + 4).ToString());
-            m.WriteMemory(zAddr, "float", (m.ReadFloat(CheckPointzAddr)).ToString());
-            m.FreezeValue(yAngVelAddr, "float", "100");
+            ToolInfo.m.WriteMemory(xAddr, "float", (ToolInfo.m.ReadFloat(CheckPointxAddr)).ToString());
+            ToolInfo.m.WriteMemory(yAddr, "float", (ToolInfo.m.ReadFloat(CheckPointyAddr) + 4).ToString());
+            ToolInfo.m.WriteMemory(zAddr, "float", (ToolInfo.m.ReadFloat(CheckPointzAddr)).ToString());
+            ToolInfo.m.FreezeValue(yAngVelAddr, "float", "100");
         }
         //end of teleport "script"
         //noclip
@@ -441,17 +440,17 @@ namespace Forza_Mods_AIO.TabForms
             var Jmp2 = new byte[6] { 0xE9, 0x2B, 0x02, 0x00, 0x00, 0x90 };
             var Jmp1before = new byte[6] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 };
             var Jmp2before = new byte[6] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 };
-            float OnGround = m.ReadFloat(OnGroundAddr);
+            float OnGround = ToolInfo.m.ReadFloat(OnGroundAddr);
             if (OnGround == 0)
             {
                 NoClipcycles++;
                 if (NoClipcycles % 10 == 0)
                 {
-                    OnGround = m.ReadFloat(OnGroundAddr);
+                    OnGround = ToolInfo.m.ReadFloat(OnGroundAddr);
                     if (OnGround == 0)
                     {
-                        m.WriteBytes(Wall1Addr, Jmp1before);
-                        m.WriteBytes(Wall2Addr, Jmp2before);
+                        ToolInfo.m.WriteBytes(Wall1Addr, Jmp1before);
+                        ToolInfo.m.WriteBytes(Wall2Addr, Jmp2before);
                     }
                     NoClipcycles = 0;
                 }
@@ -461,8 +460,8 @@ namespace Forza_Mods_AIO.TabForms
                 NoClipcycles++;
                 if (NoClipcycles % 10 == 0)
                 {
-                    m.WriteBytes(Wall1Addr, Jmp1);
-                    m.WriteBytes(Wall2Addr, Jmp2);
+                    ToolInfo.m.WriteBytes(Wall1Addr, Jmp1);
+                    ToolInfo.m.WriteBytes(Wall2Addr, Jmp2);
                     NoClipcycles = 0;
                 }
             }
@@ -474,8 +473,8 @@ namespace Forza_Mods_AIO.TabForms
 
             if (TB_SHCarNoClip.Checked == false)
             {
-                m.WriteBytes(Car1Addr, Jmp3before);
-                m.WriteBytes(Car2Addr, Jmp4before);
+                ToolInfo.m.WriteBytes(Car1Addr, Jmp3before);
+                ToolInfo.m.WriteBytes(Car2Addr, Jmp4before);
             }
             else
             {
@@ -503,8 +502,8 @@ namespace Forza_Mods_AIO.TabForms
                     Mainworker.CancelAsync();
                 }
                 //NoClipworker.CancelAsync();
-                m.WriteBytes(Wall1Addr, Jmp1before);
-                m.WriteBytes(Wall2Addr, Jmp2before);
+                ToolInfo.m.WriteBytes(Wall1Addr, Jmp1before);
+                ToolInfo.m.WriteBytes(Wall2Addr, Jmp2before);
             }
             else
             {
@@ -668,9 +667,9 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void TPButton_Click(object sender, EventArgs e)
         {
-            m.WriteMemory(xAddr, "float", x.ToString());
-            m.WriteMemory(yAddr, "float", y.ToString());
-            m.WriteMemory(zAddr, "float", z.ToString());
+            ToolInfo.m.WriteMemory(xAddr, "float", x.ToString());
+            ToolInfo.m.WriteMemory(yAddr, "float", y.ToString());
+            ToolInfo.m.WriteMemory(zAddr, "float", z.ToString());
         }
         private void CheckpointBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -678,7 +677,7 @@ namespace Forza_Mods_AIO.TabForms
             {
                 CheckPointTPToggle = false;
                 CheckPointTPworker.CancelAsync();
-                m.UnfreezeValue(yAngVelAddr);
+                ToolInfo.m.UnfreezeValue(yAngVelAddr);
             }
             else
             {
@@ -935,7 +934,7 @@ namespace Forza_Mods_AIO.TabForms
         }
         private async void FOVScan_BTN_Click(object sender, EventArgs e)
         {
-            string FOVHigh = m.GetCode(FOVHighAddr).ToString();
+            string FOVHigh = ToolInfo.m.GetCode(FOVHighAddr).ToString();
             FOVScan_BTN.Hide();
             FOVScan_bar.Show();
             bool scan = true;
@@ -948,7 +947,7 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 1)
                     {
                         cycles++;
-                        FirstPersonAddrLong = (await m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, FirstPerson, true, true)).FirstOrDefault() - 75;
+                        FirstPersonAddrLong = (await ToolInfo.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, FirstPerson, true, true)).FirstOrDefault() - 75;
                     }
                     FirstPersonAddr = FirstPersonAddrLong.ToString("X");
                 }
@@ -958,7 +957,7 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 2)
                     {
                         cycles++;
-                        DashAddrLong = (await m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Dash, true, true)).FirstOrDefault() - 187;
+                        DashAddrLong = (await ToolInfo.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Dash, true, true)).FirstOrDefault() - 187;
                     }
                     DashAddr = DashAddrLong.ToString("X");
                 }
@@ -968,7 +967,7 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 3)
                     {
                         cycles++;
-                        FrontAddrLong = (await m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Front, true, true)).FirstOrDefault() - 190;
+                        FrontAddrLong = (await ToolInfo.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Front, true, true)).FirstOrDefault() - 190;
                     }
                     FrontAddr = FrontAddrLong.ToString("X");
                 }
@@ -978,12 +977,12 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 4)
                     {
                         cycles++;
-                        LowAddrLong = (await m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).FirstOrDefault() - 183;
+                        LowAddrLong = (await ToolInfo.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).FirstOrDefault() - 183;
                     }
                     LowCompare = LowAddrLong.ToString();
-                    if (LowCompare == m.GetCode(FOVHighAddr).ToString())
+                    if (LowCompare == ToolInfo.m.GetCode(FOVHighAddr).ToString())
                     {
-                        LowAddrLong = (await m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).LastOrDefault() - 183;
+                        LowAddrLong = (await ToolInfo.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).LastOrDefault() - 183;
                     }
                     LowAddr = LowAddrLong.ToString("X");
                 }
@@ -993,7 +992,7 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 5)
                     {
                         cycles++;
-                        BonnetAddrLong = (await m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Bonnet, true, true)).FirstOrDefault() - 189;
+                        BonnetAddrLong = (await ToolInfo.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Bonnet, true, true)).FirstOrDefault() - 189;
                     }
                     BonnetAddr = BonnetAddrLong.ToString("X");
                 }
@@ -1024,25 +1023,25 @@ namespace Forza_Mods_AIO.TabForms
             SHReset();
             if (FOV.Checked == false)
             {
-                m.WriteBytes(FOVnopOutAddr, nopoutbefore);
-                m.WriteBytes(FOVnopInAddr, nopinbefore);
-                m.UnfreezeValue(FOVHighAddr);
-                m.UnfreezeValue(FirstPersonAddr);
-                m.UnfreezeValue(DashAddr);
-                m.UnfreezeValue(LowAddr);
-                m.UnfreezeValue(BonnetAddr);
-                m.UnfreezeValue(FrontAddr);
+                ToolInfo.m.WriteBytes(FOVnopOutAddr, nopoutbefore);
+                ToolInfo.m.WriteBytes(FOVnopInAddr, nopinbefore);
+                ToolInfo.m.UnfreezeValue(FOVHighAddr);
+                ToolInfo.m.UnfreezeValue(FirstPersonAddr);
+                ToolInfo.m.UnfreezeValue(DashAddr);
+                ToolInfo.m.UnfreezeValue(LowAddr);
+                ToolInfo.m.UnfreezeValue(BonnetAddr);
+                ToolInfo.m.UnfreezeValue(FrontAddr);
             }
             else
             {
-                m.WriteBytes(FOVnopOutAddr, nop);
-                m.WriteBytes(FOVnopInAddr, nop);
-                m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
-                m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
-                m.FreezeValue(DashAddr, "float", FOVVal.ToString());
-                m.FreezeValue(LowAddr, "float", FOVVal.ToString());
-                m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
-                m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
+                ToolInfo.m.WriteBytes(FOVnopOutAddr, nop);
+                ToolInfo.m.WriteBytes(FOVnopInAddr, nop);
+                ToolInfo.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
+                ToolInfo.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
+                ToolInfo.m.FreezeValue(DashAddr, "float", FOVVal.ToString());
+                ToolInfo.m.FreezeValue(LowAddr, "float", FOVVal.ToString());
+                ToolInfo.m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
+                ToolInfo.m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
             }
         }
         private void FOVIncrease()
@@ -1052,12 +1051,12 @@ namespace Forza_Mods_AIO.TabForms
                 FOVBar.Value = 149;
             FOVBar.Value = FOVBar.Value + 1;
             FOVVal = (float)FOVBar.Value / 100;
-            m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
-            m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
-            m.FreezeValue(DashAddr, "float", FOVVal.ToString());
-            m.FreezeValue(LowAddr, "float", FOVVal.ToString());
-            m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
-            m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
+            ToolInfo.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
+            ToolInfo.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
+            ToolInfo.m.FreezeValue(DashAddr, "float", FOVVal.ToString());
+            ToolInfo.m.FreezeValue(LowAddr, "float", FOVVal.ToString());
+            ToolInfo.m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
+            ToolInfo.m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
         }
         private void FOVdecrease()
         {
@@ -1066,12 +1065,12 @@ namespace Forza_Mods_AIO.TabForms
                 FOVBar.Value = -94;
             FOVBar.Value = FOVBar.Value - 1;
             FOVVal = (float)FOVBar.Value / 100;
-            m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
-            m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
-            m.FreezeValue(DashAddr, "float", FOVVal.ToString());
-            m.FreezeValue(LowAddr, "float", FOVVal.ToString());
-            m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
-            m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
+            ToolInfo.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
+            ToolInfo.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
+            ToolInfo.m.FreezeValue(DashAddr, "float", FOVVal.ToString());
+            ToolInfo.m.FreezeValue(LowAddr, "float", FOVVal.ToString());
+            ToolInfo.m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
+            ToolInfo.m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
         }
     }
 }
