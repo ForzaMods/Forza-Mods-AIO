@@ -47,6 +47,8 @@ namespace Forza_Mods_AIO
             this.Panel_Saveswap = new System.Windows.Forms.Panel();
             this.Panel_LiveTuning = new System.Windows.Forms.Panel();
             this.TabHolder = new System.Windows.Forms.Panel();
+            this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
+            this.InitialBGworker = new System.ComponentModel.BackgroundWorker();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -307,6 +309,17 @@ namespace Forza_Mods_AIO
             this.TabHolder.Size = new System.Drawing.Size(1000, 445);
             this.TabHolder.TabIndex = 15;
             // 
+            // InitialBGworker
+            // 
+            this.InitialBGworker.WorkerReportsProgress = true;
+            this.InitialBGworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.InitialBGworker_DoWork);
+            this.InitialBGworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.InitialBGworker_ProgressChanged);
+            this.InitialBGworker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.InitialBGworker_RunWorkerCompleted);
+            // 
+            // CheckAttachedworker
+            // 
+            this.CheckAttachedworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckAttachedworker_DoWork);
+            // 
             // MainWindow
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
@@ -364,6 +377,8 @@ namespace Forza_Mods_AIO
         public System.Windows.Forms.Panel Panel_LiveTuning;
         public System.Windows.Forms.Button BTN_MIN;
         public System.Windows.Forms.Panel TabHolder;
+        public System.ComponentModel.BackgroundWorker CheckAttachedworker;
+        public System.ComponentModel.BackgroundWorker InitialBGworker;
     }
 }
 

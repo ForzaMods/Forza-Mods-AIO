@@ -52,6 +52,12 @@ namespace Forza_Mods_AIO.TabForms
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.GravitySet = new System.Windows.Forms.Button();
+            this.WeirdSet = new System.Windows.Forms.Button();
+            this.GravityPull = new System.Windows.Forms.Button();
+            this.WeirdPull = new System.Windows.Forms.Button();
+            this.GravityBox = new System.Windows.Forms.NumericUpDown();
+            this.WeirdBox = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -108,6 +114,8 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.FOVBar)).BeginInit();
             this.panel9.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GravityBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WeirdBox)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBar)).BeginInit();
@@ -251,7 +259,6 @@ namespace Forza_Mods_AIO.TabForms
             this.CheckpointBox.Text = "Auto win race";
             this.CheckpointBox.UseVisualStyleBackColor = true;
             this.CheckpointBox.CheckedChanged += new System.EventHandler(this.CheckpointBox_CheckedChanged);
-
             // 
             // LoadSHDefault
             // 
@@ -407,6 +414,12 @@ namespace Forza_Mods_AIO.TabForms
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel1.Controls.Add(this.GravitySet);
+            this.panel1.Controls.Add(this.WeirdSet);
+            this.panel1.Controls.Add(this.GravityPull);
+            this.panel1.Controls.Add(this.WeirdPull);
+            this.panel1.Controls.Add(this.GravityBox);
+            this.panel1.Controls.Add(this.WeirdBox);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.label16);
@@ -414,6 +427,86 @@ namespace Forza_Mods_AIO.TabForms
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(190, 136);
             this.panel1.TabIndex = 5;
+            // 
+            // GravitySet
+            // 
+            this.GravitySet.Location = new System.Drawing.Point(142, 99);
+            this.GravitySet.Name = "GravitySet";
+            this.GravitySet.Size = new System.Drawing.Size(35, 23);
+            this.GravitySet.TabIndex = 17;
+            this.GravitySet.Text = "Set";
+            this.GravitySet.UseVisualStyleBackColor = true;
+            this.GravitySet.Click += new System.EventHandler(this.GravitySet_Click);
+            // 
+            // WeirdSet
+            // 
+            this.WeirdSet.Location = new System.Drawing.Point(142, 55);
+            this.WeirdSet.Name = "WeirdSet";
+            this.WeirdSet.Size = new System.Drawing.Size(35, 23);
+            this.WeirdSet.TabIndex = 17;
+            this.WeirdSet.Text = "Set";
+            this.WeirdSet.UseVisualStyleBackColor = true;
+            this.WeirdSet.Click += new System.EventHandler(this.WeirdSet_Click);
+            // 
+            // GravityPull
+            // 
+            this.GravityPull.Location = new System.Drawing.Point(101, 99);
+            this.GravityPull.Name = "GravityPull";
+            this.GravityPull.Size = new System.Drawing.Size(35, 23);
+            this.GravityPull.TabIndex = 17;
+            this.GravityPull.Text = "Pull";
+            this.GravityPull.UseVisualStyleBackColor = true;
+            this.GravityPull.Click += new System.EventHandler(this.GravityPull_Click);
+            // 
+            // WeirdPull
+            // 
+            this.WeirdPull.Location = new System.Drawing.Point(101, 55);
+            this.WeirdPull.Name = "WeirdPull";
+            this.WeirdPull.Size = new System.Drawing.Size(35, 23);
+            this.WeirdPull.TabIndex = 17;
+            this.WeirdPull.Text = "Pull";
+            this.WeirdPull.UseVisualStyleBackColor = true;
+            this.WeirdPull.Click += new System.EventHandler(this.WeirdPull_Click);
+            // 
+            // GravityBox
+            // 
+            this.GravityBox.DecimalPlaces = 2;
+            this.GravityBox.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            262144});
+            this.GravityBox.Location = new System.Drawing.Point(3, 99);
+            this.GravityBox.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.GravityBox.Name = "GravityBox";
+            this.GravityBox.Size = new System.Drawing.Size(92, 22);
+            this.GravityBox.TabIndex = 16;
+            this.GravityBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GravityBox.ValueChanged += new System.EventHandler(this.GravityBox_ValueChanged);
+            // 
+            // WeirdBox
+            // 
+            this.WeirdBox.DecimalPlaces = 2;
+            this.WeirdBox.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            262144});
+            this.WeirdBox.Location = new System.Drawing.Point(3, 55);
+            this.WeirdBox.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.WeirdBox.Name = "WeirdBox";
+            this.WeirdBox.Size = new System.Drawing.Size(92, 22);
+            this.WeirdBox.TabIndex = 16;
+            this.WeirdBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.WeirdBox.ValueChanged += new System.EventHandler(this.WeirdBox_ValueChanged);
             // 
             // label8
             // 
@@ -429,7 +522,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(87, 49);
+            this.label15.Location = new System.Drawing.Point(67, 36);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(49, 19);
             this.label15.TabIndex = 14;
@@ -439,7 +532,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(87, 80);
+            this.label16.Location = new System.Drawing.Point(65, 77);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(56, 19);
             this.label16.TabIndex = 15;
@@ -1137,6 +1230,8 @@ namespace Forza_Mods_AIO.TabForms
             this.panel9.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GravityBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WeirdBox)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).EndInit();
@@ -1242,5 +1337,11 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Label label19;
         private System.ComponentModel.BackgroundWorker Mainworker;
         private System.ComponentModel.BackgroundWorker CheckPointTPworker;
+        private System.Windows.Forms.NumericUpDown GravityBox;
+        private System.Windows.Forms.NumericUpDown WeirdBox;
+        private System.Windows.Forms.Button GravitySet;
+        private System.Windows.Forms.Button WeirdSet;
+        private System.Windows.Forms.Button GravityPull;
+        private System.Windows.Forms.Button WeirdPull;
     }
 }

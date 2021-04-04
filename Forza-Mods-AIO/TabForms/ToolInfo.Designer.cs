@@ -35,6 +35,12 @@ namespace Forza_Mods_AIO
             this.LBL_Attached = new System.Windows.Forms.Label();
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
             this.InitialBGworker = new System.ComponentModel.BackgroundWorker();
+            this.DraffsYT = new System.Windows.Forms.Label();
+            this.UCPost = new System.Windows.Forms.Label();
+            this.Discord = new System.Windows.Forms.Label();
+            this.DraffsYTLink = new System.Windows.Forms.Label();
+            this.UCPostLink = new System.Windows.Forms.Label();
+            this.DiscordLink = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // AOBScanProgress
@@ -56,7 +62,7 @@ namespace Forza_Mods_AIO
             this.TXT_InfoTab.Margin = new System.Windows.Forms.Padding(0);
             this.TXT_InfoTab.Name = "TXT_InfoTab";
             this.TXT_InfoTab.ReadOnly = true;
-            this.TXT_InfoTab.Size = new System.Drawing.Size(998, 369);
+            this.TXT_InfoTab.Size = new System.Drawing.Size(998, 195);
             this.TXT_InfoTab.TabIndex = 17;
             this.TXT_InfoTab.TabStop = false;
             this.TXT_InfoTab.Text = resources.GetString("TXT_InfoTab.Text");
@@ -73,11 +79,74 @@ namespace Forza_Mods_AIO
             this.LBL_Attached.TabIndex = 16;
             this.LBL_Attached.Text = "Not Attached to FH4";
             // 
-            // InitialBGworker
+            // DraffsYT
             // 
-            this.InitialBGworker.WorkerReportsProgress = true;
-            this.InitialBGworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.InitialBGworker_DoWork);
-            this.InitialBGworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.InitialBGworker_ProgressChanged);
+            this.DraffsYT.AutoSize = true;
+            this.DraffsYT.Font = new System.Drawing.Font("Open Sans", 13F);
+            this.DraffsYT.Location = new System.Drawing.Point(-3, 282);
+            this.DraffsYT.Name = "DraffsYT";
+            this.DraffsYT.Size = new System.Drawing.Size(141, 24);
+            this.DraffsYT.TabIndex = 19;
+            this.DraffsYT.Text = "Draffs Youtube:";
+            // 
+            // UCPost
+            // 
+            this.UCPost.AutoSize = true;
+            this.UCPost.Font = new System.Drawing.Font("Open Sans", 13F);
+            this.UCPost.Location = new System.Drawing.Point(-3, 306);
+            this.UCPost.Name = "UCPost";
+            this.UCPost.Size = new System.Drawing.Size(299, 24);
+            this.UCPost.TabIndex = 19;
+            this.UCPost.Text = "Weebthans UnknownCheats post: ";
+            // 
+            // Discord
+            // 
+            this.Discord.AutoSize = true;
+            this.Discord.Font = new System.Drawing.Font("Open Sans", 13F);
+            this.Discord.Location = new System.Drawing.Point(-3, 330);
+            this.Discord.Name = "Discord";
+            this.Discord.Size = new System.Drawing.Size(182, 24);
+            this.Discord.TabIndex = 19;
+            this.Discord.Text = "Forza Mods Discord:";
+            // 
+            // DraffsYTLink
+            // 
+            this.DraffsYTLink.AutoSize = true;
+            this.DraffsYTLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DraffsYTLink.Font = new System.Drawing.Font("Open Sans", 13F);
+            this.DraffsYTLink.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.DraffsYTLink.Location = new System.Drawing.Point(133, 282);
+            this.DraffsYTLink.Name = "DraffsYTLink";
+            this.DraffsYTLink.Size = new System.Drawing.Size(556, 24);
+            this.DraffsYTLink.TabIndex = 19;
+            this.DraffsYTLink.Text = "https://www.youtube.com/channel/UCwQ8XprkEbBJ3UaBYT_F8jA\r\n";
+            this.DraffsYTLink.Click += new System.EventHandler(this.DraffsYTLink_Click);
+            // 
+            // UCPostLink
+            // 
+            this.UCPostLink.AutoSize = true;
+            this.UCPostLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.UCPostLink.Font = new System.Drawing.Font("Open Sans", 13F);
+            this.UCPostLink.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.UCPostLink.Location = new System.Drawing.Point(285, 306);
+            this.UCPostLink.Name = "UCPostLink";
+            this.UCPostLink.Size = new System.Drawing.Size(703, 24);
+            this.UCPostLink.TabIndex = 19;
+            this.UCPostLink.Text = "https://www.unknowncheats.me/forum/other-games/415227-fh4-speed-hack.html";
+            this.UCPostLink.Click += new System.EventHandler(this.UCPostLink_Click);
+            // 
+            // DiscordLink
+            // 
+            this.DiscordLink.AutoSize = true;
+            this.DiscordLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DiscordLink.Font = new System.Drawing.Font("Open Sans", 13F);
+            this.DiscordLink.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.DiscordLink.Location = new System.Drawing.Point(174, 330);
+            this.DiscordLink.Name = "DiscordLink";
+            this.DiscordLink.Size = new System.Drawing.Size(284, 24);
+            this.DiscordLink.TabIndex = 19;
+            this.DiscordLink.Text = "https://discord.gg/PQNxeYWUy9";
+            this.DiscordLink.Click += new System.EventHandler(this.DiscordLink_Click);
             // 
             // ToolInfo
             // 
@@ -85,6 +154,12 @@ namespace Forza_Mods_AIO
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.UCPostLink);
+            this.Controls.Add(this.Discord);
+            this.Controls.Add(this.UCPost);
+            this.Controls.Add(this.DiscordLink);
+            this.Controls.Add(this.DraffsYTLink);
+            this.Controls.Add(this.DraffsYT);
             this.Controls.Add(this.AOBScanProgress);
             this.Controls.Add(this.TXT_InfoTab);
             this.Controls.Add(this.LBL_Attached);
@@ -93,28 +168,23 @@ namespace Forza_Mods_AIO
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ToolInfo";
             this.Text = "ToolInfo";
-            this.Load += new System.EventHandler(this.ToolInfo_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
-            // 
-            // InitialBGworker
-            // 
-            this.InitialBGworker.WorkerReportsProgress = true;
-            this.InitialBGworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.InitialBGworker_DoWork);
-            this.InitialBGworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.InitialBGworker_ProgressChanged);
-            this.InitialBGworker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.InitialBGworker_RunWorkerCompleted);
-            // 
-            // CheckAttachedworker
-            // 
-            this.CheckAttachedworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckAttachedworker_DoWork);
+
         }
 
         #endregion
 
-        private System.Windows.Forms.ProgressBar AOBScanProgress;
-        private System.Windows.Forms.RichTextBox TXT_InfoTab;
-        private System.Windows.Forms.Label LBL_Attached;
-        private System.ComponentModel.BackgroundWorker CheckAttachedworker;
-        private System.ComponentModel.BackgroundWorker InitialBGworker;
+        public System.Windows.Forms.ProgressBar AOBScanProgress;
+        public System.Windows.Forms.RichTextBox TXT_InfoTab;
+        public System.Windows.Forms.Label LBL_Attached;
+        public System.ComponentModel.BackgroundWorker CheckAttachedworker;
+        public System.ComponentModel.BackgroundWorker InitialBGworker;
+        private System.Windows.Forms.Label DraffsYT;
+        private System.Windows.Forms.Label UCPost;
+        private System.Windows.Forms.Label Discord;
+        private System.Windows.Forms.Label DraffsYTLink;
+        private System.Windows.Forms.Label UCPostLink;
+        private System.Windows.Forms.Label DiscordLink;
     }
 }
