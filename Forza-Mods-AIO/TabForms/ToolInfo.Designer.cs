@@ -96,7 +96,17 @@ namespace Forza_Mods_AIO
             this.Load += new System.EventHandler(this.ToolInfo_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
-
+            // 
+            // InitialBGworker
+            // 
+            this.InitialBGworker.WorkerReportsProgress = true;
+            this.InitialBGworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.InitialBGworker_DoWork);
+            this.InitialBGworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.InitialBGworker_ProgressChanged);
+            this.InitialBGworker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.InitialBGworker_RunWorkerCompleted);
+            // 
+            // CheckAttachedworker
+            // 
+            this.CheckAttachedworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckAttachedworker_DoWork);
         }
 
         #endregion
