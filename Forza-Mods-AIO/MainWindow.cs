@@ -65,10 +65,10 @@ namespace Forza_Mods_AIO
         }
         //end of dragging functionality
 
-        
+
 
         //used to clear all the colours before setting accent and highlight for the tab
-        private void ClearColours()
+        public void ClearColours()
         {
             BTN_TabInfo.BackColor = Color.FromArgb(28, 28, 28);
             Panel_Info.BackColor = Color.FromArgb(28, 28, 28);
@@ -83,7 +83,7 @@ namespace Forza_Mods_AIO
             BTN_TabSpeedhack.BackColor = Color.FromArgb(28, 28, 28);
             Panel_Speedhack.BackColor = Color.FromArgb(28, 28, 28);
         }
-        private void ClearTabItems()
+        public void ClearTabItems()
         {
             ToolInfo.Visible = false;
             AddCars.Visible = false;
@@ -110,6 +110,10 @@ namespace Forza_Mods_AIO
         private void BTN_Close_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private void BTN_MIN_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
         private void BTN_TabInfo_Click(object sender, EventArgs e)
         {
@@ -257,6 +261,5 @@ namespace Forza_Mods_AIO
             if (Speedhack.Visible == false)
                 Panel_Speedhack.BackColor = Color.FromArgb(28, 28, 28);
         }
-
     }
 }

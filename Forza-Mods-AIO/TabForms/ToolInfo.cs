@@ -15,6 +15,8 @@ namespace Forza_Mods_AIO
             InitializeComponent();
         }
         public static Mem m = new Mem();
+        public static MainWindow main = new MainWindow();
+        public static Speedhack s = new Speedhack();
         private void InitialBGworker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
@@ -23,13 +25,14 @@ namespace Forza_Mods_AIO
                 if (!m.OpenProcess("ForzaHorizon4"))
                 {
                     Speedhack.IsAttached = false;
+                    AOBScanProgress.Hide();
                     InitialBGworker.ReportProgress(0);
                     Thread.Sleep(1000);
                     continue;
                 }
                 if (Speedhack.done == false)
                 {
-                    //MainWindow.DisableButtons();
+                    main.DisableButtons();
                     AoBscan();
                 }
                 else
@@ -62,7 +65,7 @@ namespace Forza_Mods_AIO
                 {
                     LBL_Attached.Text = "Attached to FH4";
                     LBL_Attached.ForeColor = Color.Green;
-                    //MainWindow.EnableButtons();
+                    main.EnableButtons();
                     AOBScanProgress.Hide();
                 }
             }
@@ -70,7 +73,7 @@ namespace Forza_Mods_AIO
             {
                 LBL_Attached.Text = "Not Attached to FH4";
                 LBL_Attached.ForeColor = Color.Red;
-                //MainWindow.DisableButtons();
+                main.DisableButtons();
             }
         }
         private void InitialBGworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -154,6 +157,7 @@ namespace Forza_Mods_AIO
                 }
                 else
                 {
+                    s.FOVScan_BTN.Show(); s.FOVScan_bar.Hide(); s.FOV.Hide();
                     AOBScanProgress.Value = 100;
                     Speedhack.Addresses();
                     Speedhack.done = true;

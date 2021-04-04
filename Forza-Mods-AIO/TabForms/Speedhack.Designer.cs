@@ -162,6 +162,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TB_SHCarNoClip.TabIndex = 2;
             this.TB_SHCarNoClip.Text = "Car";
             this.TB_SHCarNoClip.UseVisualStyleBackColor = true;
+            this.TB_SHCarNoClip.CheckedChanged += new System.EventHandler(this.TB_SHCarNoClip_CheckedChanged);
             // 
             // TB_SHWallNoClip
             // 
@@ -173,6 +174,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TB_SHWallNoClip.TabIndex = 3;
             this.TB_SHWallNoClip.Text = "Wall";
             this.TB_SHWallNoClip.UseVisualStyleBackColor = true;
+            this.TB_SHWallNoClip.CheckedChanged += new System.EventHandler(this.TB_SHWallNoClip_CheckedChanged);
             // 
             // panel7
             // 
@@ -221,6 +223,7 @@ namespace Forza_Mods_AIO.TabForms
             this.FOV.TabIndex = 39;
             this.FOV.Text = "FOV";
             this.FOV.UseVisualStyleBackColor = true;
+            this.FOV.CheckedChanged += new System.EventHandler(this.FOV_CheckedChanged);
             // 
             // FOVBar
             // 
@@ -234,6 +237,7 @@ namespace Forza_Mods_AIO.TabForms
             this.FOVBar.TabIndex = 32;
             this.FOVBar.TickFrequency = 10;
             this.FOVBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.FOVBar.Scroll += new System.EventHandler(this.FOVBar_Scroll);
             // 
             // CheckpointBox
             // 
@@ -246,6 +250,8 @@ namespace Forza_Mods_AIO.TabForms
             this.CheckpointBox.TabIndex = 38;
             this.CheckpointBox.Text = "Auto win race";
             this.CheckpointBox.UseVisualStyleBackColor = true;
+            this.CheckpointBox.CheckedChanged += new System.EventHandler(this.CheckpointBox_CheckedChanged);
+
             // 
             // LoadSHDefault
             // 
@@ -259,6 +265,7 @@ namespace Forza_Mods_AIO.TabForms
             this.LoadSHDefault.TabIndex = 37;
             this.LoadSHDefault.Text = "Load default";
             this.LoadSHDefault.UseVisualStyleBackColor = false;
+            this.LoadSHDefault.Click += new System.EventHandler(this.LoadSHDefault_Click);
             // 
             // SaveSHDefault
             // 
@@ -272,6 +279,7 @@ namespace Forza_Mods_AIO.TabForms
             this.SaveSHDefault.TabIndex = 37;
             this.SaveSHDefault.Text = "Save as default";
             this.SaveSHDefault.UseVisualStyleBackColor = false;
+            this.SaveSHDefault.Click += new System.EventHandler(this.SaveSHDefault_Click);
             // 
             // FOVScan_BTN
             // 
@@ -285,6 +293,7 @@ namespace Forza_Mods_AIO.TabForms
             this.FOVScan_BTN.TabIndex = 37;
             this.FOVScan_BTN.Text = "Scan";
             this.FOVScan_BTN.UseVisualStyleBackColor = false;
+            this.FOVScan_BTN.Click += new System.EventHandler(this.FOVScan_BTN_Click);
             // 
             // TPButton
             // 
@@ -298,6 +307,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TPButton.TabIndex = 37;
             this.TPButton.Text = "Go";
             this.TPButton.UseVisualStyleBackColor = false;
+            this.TPButton.Click += new System.EventHandler(this.TPButton_Click);
             // 
             // richTextBox1
             // 
@@ -331,6 +341,7 @@ namespace Forza_Mods_AIO.TabForms
             this.LST_TeleportLocation.Name = "LST_TeleportLocation";
             this.LST_TeleportLocation.Size = new System.Drawing.Size(236, 26);
             this.LST_TeleportLocation.TabIndex = 22;
+            this.LST_TeleportLocation.SelectedIndexChanged += new System.EventHandler(this.LST_TeleportLocation_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -478,6 +489,7 @@ namespace Forza_Mods_AIO.TabForms
             0,
             0,
             0});
+            this.VelMultBox.ValueChanged += new System.EventHandler(this.VelMultBox_ValueChanged);
             // 
             // VelMultBar
             // 
@@ -492,6 +504,7 @@ namespace Forza_Mods_AIO.TabForms
             this.VelMultBar.TickFrequency = 10;
             this.VelMultBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.VelMultBar.Value = 100;
+            this.VelMultBar.Scroll += new System.EventHandler(this.VelMultBar_Scroll);
             // 
             // label6
             // 
@@ -537,6 +550,7 @@ namespace Forza_Mods_AIO.TabForms
             this.StopAllWheelsButton.TabIndex = 35;
             this.StopAllWheelsButton.Text = "Stop all wheels";
             this.StopAllWheelsButton.UseVisualStyleBackColor = true;
+            this.StopAllWheelsButton.CheckedChanged += new System.EventHandler(this.StopAllWheelsButton_CheckedChanged);
             // 
             // SuperBreakButton
             // 
@@ -548,6 +562,7 @@ namespace Forza_Mods_AIO.TabForms
             this.SuperBreakButton.TabIndex = 34;
             this.SuperBreakButton.Text = "Super break";
             this.SuperBreakButton.UseVisualStyleBackColor = true;
+            this.SuperBreakButton.CheckedChanged += new System.EventHandler(this.SuperBreakButton_CheckedChanged);
             // 
             // label1
             // 
@@ -569,6 +584,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TurnAssistButton.TabIndex = 31;
             this.TurnAssistButton.Text = "Turn assist";
             this.TurnAssistButton.UseVisualStyleBackColor = true;
+            this.TurnAssistButton.CheckedChanged += new System.EventHandler(this.TurnAssistButton_CheckedChanged);
             // 
             // WheelSpeedButton
             // 
@@ -580,6 +596,7 @@ namespace Forza_Mods_AIO.TabForms
             this.WheelSpeedButton.TabIndex = 32;
             this.WheelSpeedButton.Text = "Wheelspeed";
             this.WheelSpeedButton.UseVisualStyleBackColor = true;
+            this.WheelSpeedButton.CheckedChanged += new System.EventHandler(this.WheelSpeedButton_CheckedChanged);
             // 
             // VelHackButton
             // 
@@ -591,6 +608,7 @@ namespace Forza_Mods_AIO.TabForms
             this.VelHackButton.TabIndex = 33;
             this.VelHackButton.Text = "Velocity";
             this.VelHackButton.UseVisualStyleBackColor = true;
+            this.VelHackButton.CheckedChanged += new System.EventHandler(this.VelHackButton_CheckedChanged);
             // 
             // panel6
             // 
@@ -641,6 +659,7 @@ namespace Forza_Mods_AIO.TabForms
             this.LimitBox.Size = new System.Drawing.Size(70, 22);
             this.LimitBox.TabIndex = 31;
             this.LimitBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LimitBox.ValueChanged += new System.EventHandler(this.LimitBox_ValueChanged);
             // 
             // Speed3Box
             // 
@@ -658,6 +677,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Speed3Box.Size = new System.Drawing.Size(70, 22);
             this.Speed3Box.TabIndex = 31;
             this.Speed3Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Speed3Box.ValueChanged += new System.EventHandler(this.Speed3Box_ValueChanged);
             // 
             // Speed2Box
             // 
@@ -675,6 +695,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Speed2Box.Size = new System.Drawing.Size(70, 22);
             this.Speed2Box.TabIndex = 31;
             this.Speed2Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Speed2Box.ValueChanged += new System.EventHandler(this.Speed2Box_ValueChanged);
             // 
             // Interval4Box
             // 
@@ -692,6 +713,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Interval4Box.Size = new System.Drawing.Size(70, 22);
             this.Interval4Box.TabIndex = 31;
             this.Interval4Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Interval4Box.ValueChanged += new System.EventHandler(this.Interval4Box_ValueChanged);
             // 
             // Interval3Box
             // 
@@ -709,6 +731,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Interval3Box.Size = new System.Drawing.Size(70, 22);
             this.Interval3Box.TabIndex = 31;
             this.Interval3Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Interval3Box.ValueChanged += new System.EventHandler(this.Interval3Box_ValueChanged);
             // 
             // Interval2Box
             // 
@@ -726,6 +749,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Interval2Box.Size = new System.Drawing.Size(70, 22);
             this.Interval2Box.TabIndex = 31;
             this.Interval2Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Interval2Box.ValueChanged += new System.EventHandler(this.Interval2Box_ValueChanged);
             // 
             // Boost4Box
             // 
@@ -743,6 +767,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Boost4Box.Size = new System.Drawing.Size(70, 22);
             this.Boost4Box.TabIndex = 31;
             this.Boost4Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Boost4Box.ValueChanged += new System.EventHandler(this.Boost4Box_ValueChanged);
             // 
             // Boost3Box
             // 
@@ -760,6 +785,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Boost3Box.Size = new System.Drawing.Size(70, 22);
             this.Boost3Box.TabIndex = 31;
             this.Boost3Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Boost3Box.ValueChanged += new System.EventHandler(this.Boost3Box_ValueChanged);
             // 
             // Boost2Box
             // 
@@ -777,6 +803,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Boost2Box.Size = new System.Drawing.Size(70, 22);
             this.Boost2Box.TabIndex = 31;
             this.Boost2Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Boost2Box.ValueChanged += new System.EventHandler(this.Boost2Box_ValueChanged);
             // 
             // Boost1Box
             // 
@@ -794,6 +821,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Boost1Box.Size = new System.Drawing.Size(70, 22);
             this.Boost1Box.TabIndex = 31;
             this.Boost1Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Boost1Box.ValueChanged += new System.EventHandler(this.Boost1Box_ValueChanged);
             // 
             // Interval1Box
             // 
@@ -811,6 +839,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Interval1Box.Size = new System.Drawing.Size(70, 22);
             this.Interval1Box.TabIndex = 31;
             this.Interval1Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Interval1Box.ValueChanged += new System.EventHandler(this.Interval1Box_ValueChanged);
             // 
             // Speed1Box
             // 
@@ -828,6 +857,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Speed1Box.Size = new System.Drawing.Size(70, 22);
             this.Speed1Box.TabIndex = 31;
             this.Speed1Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Speed1Box.ValueChanged += new System.EventHandler(this.Speed1Box_ValueChanged);
             // 
             // label9
             // 
@@ -991,6 +1021,7 @@ namespace Forza_Mods_AIO.TabForms
             this.RatioBox.Size = new System.Drawing.Size(70, 22);
             this.RatioBox.TabIndex = 31;
             this.RatioBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.RatioBox.ValueChanged += new System.EventHandler(this.RatioBox_ValueChanged);
             // 
             // TurnStrengthBox
             // 
@@ -1008,6 +1039,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TurnStrengthBox.Size = new System.Drawing.Size(70, 22);
             this.TurnStrengthBox.TabIndex = 31;
             this.TurnStrengthBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TurnStrengthBox.ValueChanged += new System.EventHandler(this.TurnStrengthBox_ValueChanged);
             // 
             // TurnIntervalBox
             // 
@@ -1025,6 +1057,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TurnIntervalBox.Size = new System.Drawing.Size(70, 22);
             this.TurnIntervalBox.TabIndex = 31;
             this.TurnIntervalBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TurnIntervalBox.ValueChanged += new System.EventHandler(this.TurnIntervalBox_ValueChanged);
             // 
             // label7
             // 
@@ -1069,10 +1102,12 @@ namespace Forza_Mods_AIO.TabForms
             // Mainworker
             // 
             this.Mainworker.WorkerSupportsCancellation = true;
+            this.Mainworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Mainworker_DoWork);
             // 
             // CheckPointTPworker
             // 
             this.CheckPointTPworker.WorkerSupportsCancellation = true;
+            this.CheckPointTPworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckPointTPworker_DoWork);
             // 
             // Speedhack
             // 
@@ -1139,13 +1174,13 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.CheckBox TB_SHWallNoClip;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.ProgressBar FOVScan_bar;
-        private System.Windows.Forms.CheckBox FOV;
+        public System.Windows.Forms.ProgressBar FOVScan_bar;
+        public System.Windows.Forms.CheckBox FOV;
         private System.Windows.Forms.TrackBar FOVBar;
         private System.Windows.Forms.CheckBox CheckpointBox;
         private System.Windows.Forms.Button LoadSHDefault;
         private System.Windows.Forms.Button SaveSHDefault;
-        private System.Windows.Forms.Button FOVScan_BTN;
+        public System.Windows.Forms.Button FOVScan_BTN;
         private System.Windows.Forms.Button TPButton;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.ComboBox LST_TeleportLocation;

@@ -686,10 +686,7 @@ namespace Forza_Mods_AIO.TabForms
             }
         }
         //end of teleports
-        private void BTN_MIN_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
+
         private void SetSpeedhackVal()
         {
             TurnIntervalBox.Value = Convert.ToDecimal(TurnInterval);
