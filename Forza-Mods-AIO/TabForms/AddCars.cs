@@ -26,29 +26,29 @@ namespace Forza_Mods_AIO
         {
             InitializeComponent();
         }
-        Mem m = new Mem();
+        
         private void TB_ACAutoshow_CheckStateChanged(object sender, EventArgs e)
         {
             if (TB_ACAutoshow.Checked == false)
             {
-                m.WriteMemory("base+4C4B7EC", "string", "0");
+                ToolInfo.m.WriteMemory("base+4C75A6C", "string", "0");
             }
-            else
+            else if (TB_ACAutoshow.Checked == true)
             {
-                m.WriteMemory("base+4C4B7EC", "string", "1");
+                ToolInfo.m.WriteMemory("base+4C75A6C", "string", "1");
             }
         }
         private void TB_RemoveCars_CheckedChanged(object sender, EventArgs e)
         {
             if (TB_RemoveCars.Checked == false)
             {
-                m.WriteMemory("base+4C91934", "string", "t");
-                m.WriteMemory("base+4C238ED", "string", "n");
+                ToolInfo.m.WriteMemory("base+4C91934", "string", "t");
+                ToolInfo.m.WriteMemory("base+4C238ED", "string", "n");
             }
             else
             {
-                m.WriteMemory("base+4C91934", "string", "6");
-                m.WriteMemory("base+4C238ED", "string", "9");
+                ToolInfo.m.WriteMemory("base+4C91934", "string", "6");
+                ToolInfo.m.WriteMemory("base+4C238ED", "string", "9");
             }
         }
 

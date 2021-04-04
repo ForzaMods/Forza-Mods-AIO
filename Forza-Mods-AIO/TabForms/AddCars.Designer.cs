@@ -51,6 +51,7 @@ namespace Forza_Mods_AIO
             this.TB_RemoveCars.TabIndex = 33;
             this.TB_RemoveCars.Text = "Remove All Cars";
             this.TB_RemoveCars.UseVisualStyleBackColor = true;
+            this.TB_RemoveCars.CheckedChanged += new System.EventHandler(this.TB_RemoveCars_CheckedChanged);
             // 
             // TB_ACAutoshow
             // 
@@ -62,6 +63,7 @@ namespace Forza_Mods_AIO
             this.TB_ACAutoshow.TabIndex = 32;
             this.TB_ACAutoshow.Text = "Change Autoshow Cars";
             this.TB_ACAutoshow.UseVisualStyleBackColor = true;
+            this.TB_ACAutoshow.CheckStateChanged += new System.EventHandler(this.TB_ACAutoshow_CheckStateChanged);
             // 
             // TXT_ACGuide
             // 

@@ -14,7 +14,7 @@ namespace Forza_Mods_AIO
         {
             InitializeComponent();
         }
-        Mem m = new Mem();
+        public static Mem m = new Mem();
         private void InitialBGworker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
