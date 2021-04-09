@@ -139,15 +139,15 @@ namespace Forza_Mods_AIO
             {
                 ToolInfo.AOBScanProgress.Show();
                 long lTime;
-                if (Speedhack.BaseAddr == "1DD0" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0")
+                if (Speedhack.BaseAddr == "29A0" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0")
                 {
-                    Speedhack.BaseAddrLong = (long)Sigscan.FindPattern(Speedhack.Base, out lTime) + 7632;
+                    Speedhack.BaseAddrLong = (long)Sigscan.FindPattern(Speedhack.Base, out lTime) + 10656;
                     Speedhack.BaseAddr = Speedhack.BaseAddrLong.ToString("X");
                 }
-                else if (Speedhack.Base2Addr == "2F70" || Speedhack.Base2Addr == null || Speedhack.Base2Addr == "0")
+                else if (Speedhack.Base2Addr == "3B40" || Speedhack.Base2Addr == null || Speedhack.Base2Addr == "0")
                 {
                     ToolInfo.AOBScanProgress.Value = 13;
-                    Speedhack.Base2AddrLong = (long)Sigscan.FindPattern(Speedhack.Base, out lTime) + 12144;
+                    Speedhack.Base2AddrLong = (long)Sigscan.FindPattern(Speedhack.Base, out lTime) + 15168;
                     Speedhack.Base2Addr = Speedhack.Base2AddrLong.ToString("X");
                 }
                 else if (Speedhack.Base3Addr == "FFFFFFFFFFFFF300" || Speedhack.Base3Addr == null || Speedhack.Base3Addr == "0")
@@ -192,8 +192,8 @@ namespace Forza_Mods_AIO
                     Speedhack.FOVnopInAddrLong = (long)Sigscan.FindPattern(Speedhack.FOVInsig, out lTime) + 1383;
                     Speedhack.FOVnopInAddr = Speedhack.FOVnopInAddrLong.ToString("X");
                 }
-                if (Speedhack.BaseAddr == "1DD0" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0"
-                    || Speedhack.Base2Addr == "2F70" || Speedhack.Base2Addr == null || Speedhack.Base2Addr == "0"
+                if (Speedhack.BaseAddr == "29A0" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0"
+                    || Speedhack.Base2Addr == "3B40" || Speedhack.Base2Addr == null || Speedhack.Base2Addr == "0"
                     || Speedhack.Base3Addr == "FFFFFFFFFFFFF300" || Speedhack.Base3Addr == null || Speedhack.Base3Addr == "0"
                     || Speedhack.Car1Addr == "6A" || Speedhack.Car1Addr == null || Speedhack.Car1Addr == "0"
                     || Speedhack.Car2Addr == "FFFFFFFFFFFFFE65" || Speedhack.Car2Addr == null || Speedhack.Car2Addr == "0"
@@ -341,7 +341,7 @@ namespace Forza_Mods_AIO
                 BTN_TabSpeedhack.BackColor = Color.FromArgb(45, 45, 48);
                 Panel_Speedhack.BackColor = Color.FromArgb(150, 11, 166);
                 ClearTabItems();
-                this.TabHolder.Controls.Add(Speedhack);
+                TabHolder.Controls.Add(Speedhack);
                 Speedhack.Visible = true;
                 //SetSpeedhackVal();
                 Speedhack.SHReset();
