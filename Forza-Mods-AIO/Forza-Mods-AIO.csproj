@@ -169,6 +169,24 @@
     <Compile Include="TabForms\LiveTuning.Designer.cs">
       <DependentUpon>LiveTuning.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabForms\LiveTuningForms\Alignment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForms\LiveTuningForms\Alignment.designer.cs">
+      <DependentUpon>Alignment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabForms\LiveTuningForms\Gears.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForms\LiveTuningForms\Gears.designer.cs">
+      <DependentUpon>Gears.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabForms\LiveTuningForms\Tyres.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForms\LiveTuningForms\Tyres.designer.cs">
+      <DependentUpon>Tyres.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabForms\Saveswapper.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,6 +229,15 @@
     </Compile>
     <EmbeddedResource Include="TabForms\LiveTuning.resx">
       <DependentUpon>LiveTuning.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabForms\LiveTuningForms\Alignment.resx">
+      <DependentUpon>Alignment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabForms\LiveTuningForms\Gears.resx">
+      <DependentUpon>Gears.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabForms\LiveTuningForms\Tyres.resx">
+      <DependentUpon>Tyres.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabForms\Saveswapper.resx">
       <DependentUpon>Saveswapper.cs</DependentUpon>
