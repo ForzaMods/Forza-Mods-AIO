@@ -29,7 +29,7 @@ namespace Forza_Mods_AIO
         Saveswapper Saveswapper = new Saveswapper() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         LiveTuning LiveTuning = new LiveTuning() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         Speedhack Speedhack = new Speedhack() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-       
+
         public MainWindow()
         {
             InitializeComponent();
@@ -208,7 +208,8 @@ namespace Forza_Mods_AIO
                 {
                     Speedhack.FOVScan_BTN.Show(); Speedhack.FOVScan_bar.Hide(); Speedhack.FOV.Hide();
                     ToolInfo.AOBScanProgress.Value = 100;
-                    
+
+                    LiveTuning.Addresses();
                     Speedhack.Addresses();
                     Speedhack.ReadSpeedDefaultValues();
                     Speedhack.done = true;
@@ -327,6 +328,10 @@ namespace Forza_Mods_AIO
                 ClearTabItems();
                 this.TabHolder.Controls.Add(LiveTuning);
                 LiveTuning.Visible = true;
+                TabForms.LiveTuningForms.Tyres.t.TyreRefresh();
+                TabForms.LiveTuningForms.Gears.g.GearsRefresh();
+                TabForms.LiveTuningForms.Alignment.a.CamberRefresh();
+                TabForms.LiveTuningForms.Alignment.a.ToeRefresh();
             }
             else
             {
