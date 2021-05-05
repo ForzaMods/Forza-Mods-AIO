@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,9 +16,15 @@ using GlobalLowLevelHooks;
 using IniParser;
 using IniParser.Model;
 using Forza_Mods_AIO.TabForms;
+using Reloaded.Assembler;
+using Reloaded.Assembler.Definitions;
+using Binarysharp.MemoryManagement;
+using Binarysharp.MemoryManagement.Native;
+using System.Runtime.InteropServices;
 
 namespace Forza_Mods_AIO.TabForms
 {
+
     public partial class Speedhack : Form
     {
         KeyboardHook keyboardHook = new KeyboardHook();
@@ -40,7 +45,8 @@ namespace Forza_Mods_AIO.TabForms
         public static bool done = false;
         public static bool start = false;
         bool FovIncreaseStart = false; bool FovDecreaseStart = false;
-        public static long BaseAddrLong; public static long Base2AddrLong; public static long Base3AddrLong; public static long Car1AddrLong; public static long Car2AddrLong; public static long Wall1AddrLong; public static long Wall2AddrLong; public static long FOVnopOutAddrLong; public static long FOVnopInAddrLong;
+        public static long TimeNOPAddrLong;
+        public static long BaseAddrLong; public static long Base2AddrLong; public static long Base3AddrLong; public static long Base4AddrLong; public static long Car1AddrLong; public static long Car2AddrLong; public static long Wall1AddrLong; public static long Wall2AddrLong; public static long FOVnopOutAddrLong; public static long FOVnopInAddrLong;
         public static long FirstPersonAddrLong; public static long DashAddrLong; public static long FrontAddrLong; public static long LowAddrLong; public static long BonnetAddrLong;
         public static string Base = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
         public static string Car1 = "48 89 ? ? ? 44 8B ? 48 89 ? ? ? BA";
@@ -49,14 +55,17 @@ namespace Forza_Mods_AIO.TabForms
         public static string Wall2 = "0F 28 ? 0F C6 C1 ? 0F 28 ? 0F C6 CB ? 41 0F ? ? F3 0F ? ? 41 0F ? ? 0F C6 C0 ? 0F C6 E4";
         public static string FOVOutsig = "4C 8D ? ? ? 0F 29 ? ? ? F3 0F";
         public static string FOVInsig = "48 81 EC ? ? ? ? 48 8B ? E8 ? ? ? ? 48 8B ? ? 48 8B";
+        public static string Timesig = "F2 0F 11 43 08 48 83";
         public static string FirstPerson = "80 00 80 82 43";
         public static string Dash = "3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 01 ?? 00 00 00 00 00 00 00 00 A0 40";
         public static string Low = "80 CD CC 4C 3E CD CC CC 3E 9A 99 19 3F 00 00 80 3F";
         public static string Bonnet = "00 80 3E 63 B8 1E 3F 00 00 80 3F";
-        public static string Front = "A0 41 01 00 8C 42 00 00 11 43 00 00 3E 43 00 00 00 80 00 00 00 80 00 00 80 3E 7B 14 2E 3F";
+        //public static string Front = "A0 41 01 00 8C 42 00 00 11 43 00 00 3E 43 00 00 00 80 00 00 00 80 00 00 80 3E 7B 14 2E 3F";
+        public static string Front = "80 3E 7B 14 2E 3F 00 00 80 3F";
         public static string GravityAddr; public static string WeirdAddr;
-        public static string BaseAddr; public static string Base2Addr; public static string Base3Addr;
+        public static string BaseAddr; public static string Base2Addr; public static string Base3Addr; public static string Base4Addr;
         public static string Car1Addr; public static string Car2Addr; public static string FOVnopOutAddr; public static string FOVnopInAddr;
+        public static string TimeNOPAddr; public static string TimeAddr;
         public static string Wall1Addr; public static string Wall2Addr;
         public static string FrontLeftAddr; public static string FrontRightAddr; public static string BackLeftAddr; public static string BackRightAddr;
         public static string OnGroundAddr; public static string InRaceAddr; public static string PastStartAddr;
@@ -65,18 +74,34 @@ namespace Forza_Mods_AIO.TabForms
         public static string CheckPointxAddr; public static string CheckPointyAddr; public static string CheckPointzAddr;
         public static string YawAddr; public static string RollAddr; public static string PitchAddr; public static string yAngVelAddr;
         public static string GasAddr; public static string FOVHighAddr; public static string FOVInAddr; public static string FirstPersonAddr; public static string DashAddr; public static string FrontAddr; public static string BonnetAddr; public static string LowAddr; public static string LowCompare;
+        public static IntPtr InjectAddress;
+        public static string TimeAddrAddr;
+        public static string allocationstring;
         float xVelocityVal; float yVelocityVal; float zVelocityVal;
         float x; float y; float z;
         float CheckPointx; float CheckPointy; float CheckPointz;
         float BoostSpeed1; float BoostSpeed2; float BoostSpeed3; float BoostLim; //speed
         float TurnRatio; float TurnStrength; public float boost;
         float VelMult = 1; float FOVVal;
+        public int StorageAddress;
         int IncreaseCycles = 0; int DecreaseCycles = 0;
         int times1; int times2; int times3; int times4; //boost
         int BoostInterval1; int BoostInterval2; int BoostInterval3; int BoostInterval4; /*interval*/ int TurnInterval;
         int Velcycles; int NoClipcycles;
         float WeirdVal; float NewWeirdVal; float GravityVal; float NewGravityVal;
+        long ScanStartAddr;
+        long ScanEndAddr;
         public static int cycles = 0;
+        private readonly static Dictionary<char, byte> hexmap = new Dictionary<char, byte>()
+        {
+            { 'a', 0xA },{ 'b', 0xB },{ 'c', 0xC },{ 'd', 0xD },
+            { 'e', 0xE },{ 'f', 0xF },{ 'A', 0xA },{ 'B', 0xB },
+            { 'C', 0xC },{ 'D', 0xD },{ 'E', 0xE },{ 'F', 0xF },
+            { '0', 0x0 },{ '1', 0x1 },{ '2', 0x2 },{ '3', 0x3 },
+            { '4', 0x4 },{ '5', 0x5 },{ '6', 0x6 },{ '7', 0x7 },
+            { '8', 0x8 },{ '9', 0x9 }
+        };
+
         public Speedhack()
         {
             InitializeComponent();
@@ -441,6 +466,189 @@ namespace Forza_Mods_AIO.TabForms
             MainWindow.m.FreezeValue(yAngVelAddr, "float", "100");
         }
         //end of teleport "script"
+
+        private void TimeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            var NOP = new byte[5] { 0x90, 0x90, 0x90, 0x90, 0x90};
+            var NOPBefore = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08};
+            if (TimeCheckBox.Checked)
+            {
+                MainWindow.m.WriteBytes(TimeNOPAddr, NOP);
+            }
+            else
+            {
+                MainWindow.m.WriteBytes(TimeNOPAddr, NOPBefore);
+            }
+        }
+        private void TimeBack_Click(object sender, EventArgs e)
+        {
+            if (TimeCheckBox.Checked)
+            {
+                double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
+                string TimeVal = (TimeValDouble - 1000).ToString();
+                MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
+            }
+        }
+        private void TimeForward_Click(object sender, EventArgs e)
+        {
+            if (TimeCheckBox.Checked)
+            {
+                double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
+                TimeValDouble = TimeValDouble + 1000;
+                string TimeVal = TimeValDouble.ToString();
+                MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
+            }
+        }
+
+        private void Test_Click(object sender, EventArgs e)
+        {
+            /*
+            var TimeJump = new byte[5] { 0xE9, 0xBE, 0xFE, 0x0D, 0xFC };                                                        //
+            var TimeCode1 = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08 };                                                       //
+            var TimeCode2 = new byte[7] { 0x48, 0x89, 0x1D, 0xF4, 0x07, 0x00, 0x00 };                                           //
+            var TimeCode3 = new byte[5] { 0xE9, 0x32, 0x01, 0xF2, 0x03 };                                                       //
+            string addr1 = "7FF7802C0000";                                                                                      //
+            string addr2 = "7FF7802C0005";                                                                                      //
+            string addr3 = "7FF7802C000B";                                                                                      //
+            string TimeAddr = "7FF780290800";                                                                                   // First none-library attempt, complete shit
+            MainWindow.m.WriteBytes(addr1, TimeCode1);                                                                          //
+            MainWindow.m.WriteBytes(addr2, TimeCode2);                                                                          //
+            MainWindow.m.WriteBytes(addr3, TimeCode3);                                                                          //
+            MainWindow.m.WriteBytes(TimeNOPAddr, TimeJump);                                                                     //
+            long TimeAddrLong = MainWindow.m.ReadLong(TimeAddr);                                                                //
+            MessageBox.Show(TimeAddrLong.ToString("X"));                                                                        //
+            */                                                                                                                  //
+
+            /*                                                                                                                  //
+            var assembler = new Assembler();                                                                                    //
+            //var TimeJump = new byte[5] { 0xE9, 0x94, 0x40, 0xF5, 0x03 };                                                      //
+            var TimeJumpBefore = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08 };                                                  //
+            var allocation = sharp.Memory.Allocate(2046, MemoryProtectionFlags.ReadWrite);                                      //
+            allocationstring = allocation.ToString();                                                                           //
+            string[] mnemonics = new[]                                                                                          //
+            {                                                                                                                   //    
+                "mov rax, 0x7FF73431941D6",                                                                                     // This one would be amazing if it worked on x64, which it doesnt - using MemorySharp
+                "jmp rax"                                                                                                       //
+            };                                                                                                                  //
+            byte[] TimeJump = assembler.Assemble(mnemonics);                                                                    //
+            TimeAddrAddr = "0x" + ((long)InjectAddress + 19).ToString("X");                                                     //
+            MainWindow.m.WriteBytes(TimeNOPAddr, TimeJump);                                                                     //
+            string TimeAddr = MainWindow.m.ReadLong(TimeAddrAddr).ToString("X");                                                //
+            MessageBox.Show(TimeAddr);                                                                                          //
+            MainWindow.m.WriteBytes(TimeNOPAddr, TimeJumpBefore);                                                               //
+            */                                                                                                                  //
+
+            /*                                                                                                                  //
+            byte[] code = new byte[12] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x89, 0x1D, 0x37, 0x18, 0xEA, 0x07 };              //
+            UIntPtr CodeCaveAddr = MainWindow.m.CreateCodeCave(TimeNOPAddr, code, 5, 100);                                      // Some random memory library that didnt work properly
+            long CodeCaveLongAddr = (long)CodeCaveAddr;                                                                         //
+            MessageBox.Show(CodeCaveLongAddr.ToString("X"));                                                                    //
+            */
+
+
+            // -- Cool string to bytes converter i found that doesnt actually change the value to bytes equivalent, just splits it up into bytes for write function -- //
+            static byte[] StringToBytes(string hex)
+            {
+                if (string.IsNullOrWhiteSpace(hex))
+                    throw new ArgumentException("Hex cannot be null/empty/whitespace");
+
+                if (hex.Length % 2 != 0)
+                    throw new FormatException("Hex must have an even number of characters");
+
+                bool startsWithHexStart = hex.StartsWith("0x", StringComparison.OrdinalIgnoreCase);
+
+                if (startsWithHexStart && hex.Length == 2)
+                    throw new ArgumentException("There are no characters in the hex string");
+
+
+                int startIndex = startsWithHexStart ? 2 : 0;
+
+                byte[] bytesArr = new byte[(hex.Length - startIndex) / 2];
+
+                char left;
+                char right;
+
+                try
+                {
+                    int x = 0;
+                    for (int i = startIndex; i < hex.Length; i += 2, x++)
+                    {
+                        left = hex[i];
+                        right = hex[i + 1];
+                        bytesArr[x] = (byte)((hexmap[left] << 4) | hexmap[right]);
+                    }
+                    return bytesArr;
+                }
+                catch (KeyNotFoundException)
+                {
+                    throw new FormatException("Hex string has non-hex character");
+                }
+            }
+
+            // -- basically to have the Address of the actual start as bytes for the jump back -- //
+            static byte[] longToByteArray(long data)
+            {
+                return new byte[] {
+                (byte)((data >> 56) & 0xff),
+                (byte)((data >> 48) & 0xff),
+                (byte)((data >> 40) & 0xff),
+                (byte)((data >> 32) & 0xff),
+                (byte)((data >> 24) & 0xff),
+                (byte)((data >> 16) & 0xff),
+                (byte)((data >> 8 ) & 0xff),
+                (byte)((data >> 0) & 0xff),
+                };
+            }
+
+            // -- imports the VirtualAllocEx for creating the codecave -- //
+            [DllImport("kernel32.dll", ExactSpelling = true, SetLastError = true)]
+            static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
+
+            const int PROCESS_CREATE_THREAD = 0x0002;
+            const int PROCESS_QUERY_INFORMATION = 0x0400;
+            const int PROCESS_VM_OPERATION = 0x0008;
+            const int PROCESS_VM_WRITE = 0x0020;
+            const int PROCESS_VM_READ = 0x0010;
+
+            const uint MEM_COMMIT = 0x00001000;
+            const uint MEM_RESERVE = 0x00002000;
+            const uint PAGE_READWRITE = 0x4;
+
+            // -- imports the VirtualFreeEx for freeing the codecave -- //
+            [DllImport("kernel32.dll", ExactSpelling = true, SetLastError = true)]
+            static extern IntPtr VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint dwFreeType);
+
+            const uint MEM_DECOMMIT = 0x00004000;
+            const uint MEM_RELEASE = 0x00008000;
+
+            // -- creates codecave -- //
+            IntPtr CodeCave = VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, IntPtr.Zero, 0x256, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE); // returns the pointer to the allocated memory
+            string CodeCaveAddrString = ((long)CodeCave).ToString("X"); // converts the pointer to hex string ready for easy conversion to bytes
+            byte[] CodeCaveAddr = StringToBytes("0" + CodeCaveAddrString); // converts said string to bytes - "0" there to make the bit count even as ther is 15 bits to the address
+            Array.Reverse(CodeCaveAddr); // makes it little-endian, what assembly uses
+
+            byte[] TimeJumpBefore = new byte[12] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x83, 0xC4, 0x40, 0x5B, 0xC3, 0xCC }; // bytes at the time adding code
+            string TimeJumpCodeString = "48B8" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "0000" + "FFE0"; // basically code that puts the codecave address in rax and jumps to it
+            byte[] TimeJumpCode = StringToBytes(TimeJumpCodeString); // converting the easily managable string to bytes
+
+            string TimeAddrAddrString = ((long)CodeCave + 37).ToString("X"); // sets where i want the TimeAddr (rbx) to be "dumped" to, just an offset thats within the codecave
+            byte[] TimeAddrAddr = StringToBytes("00000" + TimeAddrAddrString); // adding seamingly neccesary 0's to not confuse the assembly, without them, the opcodes would fuck up
+            Array.Reverse(TimeAddrAddr); // again, endianess
+
+            byte[] TimeNOPAddrBytes = longToByteArray(TimeNOPAddrLong + 12); // jump back address, where i jumped from + the amount of bits that were replaced
+            Array.Reverse(TimeNOPAddrBytes); // again, endianess
+            string InsideCaveCodeString = "48B8" + BitConverter.ToString(TimeAddrAddr).Replace("-", String.Empty) + "488918F20F1143084883C4405BC3CC48B8" + BitConverter.ToString(TimeNOPAddrBytes).Replace("-", String.Empty) + "FFE0"; // custom asm in code cave - breakpoint to find the code cave address and look inside in cheat engine
+            byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString); // converting the easily managable string to bytes again
+
+            MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode); // write the bytes inside codecave before jumping to it
+            MainWindow.m.WriteBytes(TimeNOPAddr, TimeJumpCode); // write code to jump to codecave
+            byte[] TimeAddrBytes = MainWindow.m.ReadBytes(((long)CodeCave + 37).ToString("X"), 6); // read the dumped address (although, if u look in cheat engine, nothing gets "dumped" there, so either, register didnt get carried over, or it never gets jumped to)
+            Array.Reverse(TimeAddrBytes); // makes it big-endian, basically readable as a normal address
+            TimeAddr = BitConverter.ToString(TimeAddrBytes).Replace("-", String.Empty); // convert to address, not actual time address as 8 needs to be added o
+            MainWindow.m.WriteBytes(TimeNOPAddr, TimeJumpBefore); // replace jump bytes, so if it day work, less chance of crash
+            VirtualFreeEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, CodeCave, 0, MEM_DECOMMIT); // free memory, think it might need to be MEM_RELEASE as atm, the allocated memory just stays
+            MessageBox.Show(TimeAddr); // show "found" address, which currently is always 0000000000
+        }
 
         //noclip
         public void Noclip()
@@ -940,7 +1148,6 @@ namespace Forza_Mods_AIO.TabForms
         }
         private async void FOVScan_BTN_Click(object sender, EventArgs e)
         {
-            string FOVHigh = MainWindow.m.GetCode(FOVHighAddr).ToString();
             FOVScan_BTN.Hide();
             FOVScan_bar.Show();
             bool scan = true;
@@ -956,6 +1163,8 @@ namespace Forza_Mods_AIO.TabForms
                         FirstPersonAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, FirstPerson, true, true)).FirstOrDefault() - 75;
                     }
                     FirstPersonAddr = FirstPersonAddrLong.ToString("X");
+                    ScanStartAddr = FirstPersonAddrLong - 600000000;
+                    ScanEndAddr = FirstPersonAddrLong + 600000000;
                 }
                 else if (DashAddr == "FFFFFFFFFFFFFF45" || DashAddr == null || DashAddr == "0")
                 {
@@ -963,10 +1172,12 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 2)
                     {
                         cycles++;
-                        DashAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Dash, true, true)).FirstOrDefault() - 187;
+                        //DashAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Dash, true, true)).FirstOrDefault() - 187;
+                        DashAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Dash, true, true)).FirstOrDefault() - 187;
                     }
                     DashAddr = DashAddrLong.ToString("X");
                 }
+                /*
                 else if (FrontAddr == "FFFFFFFFFFFFFF5A" || FrontAddr == null || FrontAddr == "0")
                 {
                     FOVScan_bar.Value = 40;
@@ -977,18 +1188,33 @@ namespace Forza_Mods_AIO.TabForms
                     }
                     FrontAddr = FrontAddrLong.ToString("X");
                 }
+                */
+                else if (FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0")
+                {
+                    FOVScan_bar.Value = 40;
+                    if (cycles < 3)
+                    {
+                        cycles++;
+                        //FrontAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Front, true, true)).FirstOrDefault() - 190;
+                        FrontAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Front, true, true)).FirstOrDefault() - 190;
+                    }
+                    FrontAddr = FrontAddrLong.ToString("X");
+                }
                 else if (LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0")
                 {
                     FOVScan_bar.Value = 60;
                     if (cycles < 4)
                     {
                         cycles++;
-                        LowAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).FirstOrDefault() - 183;
+                        //LowAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).FirstOrDefault() - 183;
+                        LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).FirstOrDefault() - 183;
+
                     }
                     LowCompare = LowAddrLong.ToString();
                     if (LowCompare == MainWindow.m.GetCode(FOVHighAddr).ToString())
                     {
-                        LowAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).LastOrDefault() - 183;
+                        //LowAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).LastOrDefault() - 183;
+                        LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).LastOrDefault() - 183;
                     }
                     LowAddr = LowAddrLong.ToString("X");
                 }
@@ -998,12 +1224,14 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 5)
                     {
                         cycles++;
-                        BonnetAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Bonnet, true, true)).FirstOrDefault() - 189;
+                        //BonnetAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Bonnet, true, true)).FirstOrDefault() - 189;
+                        BonnetAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Bonnet, true, true)).FirstOrDefault() - 189;
                     }
                     BonnetAddr = BonnetAddrLong.ToString("X");
                 }
                 if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null
-                    || FrontAddr == "FFFFFFFFFFFFFF5A" || FrontAddr == null || FrontAddr == "0"
+                    //|| FrontAddr == "FFFFFFFFFFFFFF5A" || FrontAddr == null || FrontAddr == "0"
+                    || FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0"
                     || LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0"
                     || BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || BonnetAddr == "0"
                     || FirstPersonAddr == "0" || DashAddr == null || DashAddr == "0")

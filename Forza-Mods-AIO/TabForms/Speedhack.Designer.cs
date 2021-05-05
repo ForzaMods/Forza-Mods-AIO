@@ -38,12 +38,14 @@ namespace Forza_Mods_AIO.TabForms
             this.FOVScan_bar = new System.Windows.Forms.ProgressBar();
             this.FOV = new System.Windows.Forms.CheckBox();
             this.FOVBar = new System.Windows.Forms.TrackBar();
+            this.TimeCheckBox = new System.Windows.Forms.CheckBox();
             this.CheckpointBox = new System.Windows.Forms.CheckBox();
             this.LoadSHDefault = new System.Windows.Forms.Button();
             this.SaveSHDefault = new System.Windows.Forms.Button();
             this.FOVScan_BTN = new System.Windows.Forms.Button();
+            this.TimeForward = new System.Windows.Forms.Button();
+            this.TimeBack = new System.Windows.Forms.Button();
             this.TPButton = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.LST_TeleportLocation = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -109,6 +111,7 @@ namespace Forza_Mods_AIO.TabForms
             this.label19 = new System.Windows.Forms.Label();
             this.Mainworker = new System.ComponentModel.BackgroundWorker();
             this.CheckPointTPworker = new System.ComponentModel.BackgroundWorker();
+            this.test = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FOVBar)).BeginInit();
@@ -191,12 +194,15 @@ namespace Forza_Mods_AIO.TabForms
             this.panel7.Controls.Add(this.FOVScan_bar);
             this.panel7.Controls.Add(this.FOV);
             this.panel7.Controls.Add(this.FOVBar);
+            this.panel7.Controls.Add(this.TimeCheckBox);
             this.panel7.Controls.Add(this.CheckpointBox);
             this.panel7.Controls.Add(this.LoadSHDefault);
             this.panel7.Controls.Add(this.SaveSHDefault);
             this.panel7.Controls.Add(this.FOVScan_BTN);
+            this.panel7.Controls.Add(this.test);
+            this.panel7.Controls.Add(this.TimeForward);
+            this.panel7.Controls.Add(this.TimeBack);
             this.panel7.Controls.Add(this.TPButton);
-            this.panel7.Controls.Add(this.richTextBox1);
             this.panel7.Controls.Add(this.LST_TeleportLocation);
             this.panel7.Controls.Add(this.label11);
             this.panel7.Controls.Add(this.label10);
@@ -246,6 +252,19 @@ namespace Forza_Mods_AIO.TabForms
             this.FOVBar.TickFrequency = 10;
             this.FOVBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.FOVBar.Scroll += new System.EventHandler(this.FOVBar_Scroll);
+            // 
+            // TimeCheckBox
+            // 
+            this.TimeCheckBox.AutoSize = true;
+            this.TimeCheckBox.FlatAppearance.BorderSize = 0;
+            this.TimeCheckBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeCheckBox.Location = new System.Drawing.Point(64, 171);
+            this.TimeCheckBox.Name = "TimeCheckBox";
+            this.TimeCheckBox.Size = new System.Drawing.Size(116, 23);
+            this.TimeCheckBox.TabIndex = 38;
+            this.TimeCheckBox.Text = "Manual Time";
+            this.TimeCheckBox.UseVisualStyleBackColor = true;
+            this.TimeCheckBox.CheckedChanged += new System.EventHandler(this.TimeCheckBox_CheckedChanged);
             // 
             // CheckpointBox
             // 
@@ -302,6 +321,34 @@ namespace Forza_Mods_AIO.TabForms
             this.FOVScan_BTN.UseVisualStyleBackColor = false;
             this.FOVScan_BTN.Click += new System.EventHandler(this.FOVScan_BTN_Click);
             // 
+            // TimeForward
+            // 
+            this.TimeForward.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.TimeForward.FlatAppearance.BorderSize = 0;
+            this.TimeForward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TimeForward.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeForward.Location = new System.Drawing.Point(122, 195);
+            this.TimeForward.Name = "TimeForward";
+            this.TimeForward.Size = new System.Drawing.Size(75, 34);
+            this.TimeForward.TabIndex = 37;
+            this.TimeForward.Text = "Forward";
+            this.TimeForward.UseVisualStyleBackColor = false;
+            this.TimeForward.Click += new System.EventHandler(this.TimeForward_Click);
+            // 
+            // TimeBack
+            // 
+            this.TimeBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.TimeBack.FlatAppearance.BorderSize = 0;
+            this.TimeBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TimeBack.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeBack.Location = new System.Drawing.Point(31, 195);
+            this.TimeBack.Name = "TimeBack";
+            this.TimeBack.Size = new System.Drawing.Size(75, 34);
+            this.TimeBack.TabIndex = 37;
+            this.TimeBack.Text = "Back";
+            this.TimeBack.UseVisualStyleBackColor = false;
+            this.TimeBack.Click += new System.EventHandler(this.TimeBack_Click);
+            // 
             // TPButton
             // 
             this.TPButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
@@ -315,22 +362,6 @@ namespace Forza_Mods_AIO.TabForms
             this.TPButton.Text = "Go";
             this.TPButton.UseVisualStyleBackColor = false;
             this.TPButton.Click += new System.EventHandler(this.TPButton_Click);
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.richTextBox1.Font = new System.Drawing.Font("Open Sans", 13F);
-            this.richTextBox1.ForeColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 199);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(242, 160);
-            this.richTextBox1.TabIndex = 22;
-            this.richTextBox1.TabStop = false;
-            this.richTextBox1.Text = "how to use guide or something ";
             // 
             // LST_TeleportLocation
             // 
@@ -1202,6 +1233,20 @@ namespace Forza_Mods_AIO.TabForms
             this.CheckPointTPworker.WorkerSupportsCancellation = true;
             this.CheckPointTPworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckPointTPworker_DoWork);
             // 
+            // test
+            // 
+            this.test.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.test.FlatAppearance.BorderSize = 0;
+            this.test.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.test.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.test.Location = new System.Drawing.Point(78, 235);
+            this.test.Name = "test";
+            this.test.Size = new System.Drawing.Size(75, 34);
+            this.test.TabIndex = 37;
+            this.test.Text = "test";
+            this.test.UseVisualStyleBackColor = false;
+            this.test.Click += new System.EventHandler(this.Test_Click);
+            // 
             // Speedhack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -1277,7 +1322,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Button SaveSHDefault;
         public System.Windows.Forms.Button FOVScan_BTN;
         private System.Windows.Forms.Button TPButton;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.ComboBox LST_TeleportLocation;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
@@ -1343,5 +1387,9 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Button WeirdSet;
         private System.Windows.Forms.Button GravityPull;
         private System.Windows.Forms.Button WeirdPull;
+        private System.Windows.Forms.CheckBox TimeCheckBox;
+        private System.Windows.Forms.Button TimeForward;
+        private System.Windows.Forms.Button TimeBack;
+        private System.Windows.Forms.Button test;
     }
 }
