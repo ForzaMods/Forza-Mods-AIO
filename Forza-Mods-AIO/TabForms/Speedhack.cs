@@ -17,13 +17,13 @@ using IniParser;
 using IniParser.Model;
 using Forza_Mods_AIO.TabForms;
 using System.Runtime.InteropServices;
+using SharpDX.XInput;
 
 namespace Forza_Mods_AIO.TabForms
 {
 
     public partial class Speedhack : Form
     {
-        KeyboardHook keyboardHook = new KeyboardHook();
         public static bool IsAttached = false;
         bool BreakToggle = false;
         bool StopToggle = false;
@@ -59,6 +59,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string Bonnet = "00 80 3E 63 B8 1E 3F 00 00 80 3F";
         //public static string Front = "A0 41 01 00 8C 42 00 00 11 43 00 00 3E 43 00 00 00 80 00 00 00 80 00 00 80 3E 7B 14 2E 3F";
         public static string Front = "80 3E 7B 14 2E 3F 00 00 80 3F";
+        public static string KBKeyString = "LShiftKey"; public static string XBKeyString = "LeftShoulder";
         public static string GravityAddr; public static string WeirdAddr;
         public static string BaseAddr; public static string Base2Addr; public static string Base3Addr; public static string Base4Addr;
         public static string Car1Addr; public static string Car2Addr; public static string FOVnopOutAddr; public static string FOVnopInAddr;
@@ -77,18 +78,19 @@ namespace Forza_Mods_AIO.TabForms
         float xVelocityVal; float yVelocityVal; float zVelocityVal;
         float x; float y; float z;
         float CheckPointx; float CheckPointy; float CheckPointz;
-        float BoostSpeed1; float BoostSpeed2; float BoostSpeed3; float BoostLim; //speed
+        float BoostSpeed1; float BoostSpeed2; float BoostSpeed3; float BoostLim;
         float TurnRatio; float TurnStrength; public float boost;
         float VelMult = 1; float FOVVal;
         public int StorageAddress;
         int IncreaseCycles = 0; int DecreaseCycles = 0;
-        int times1; int times2; int times3; int times4; //boost
-        int BoostInterval1; int BoostInterval2; int BoostInterval3; int BoostInterval4; /*interval*/ int TurnInterval;
+        int times1; int times2; int times3; int times4;
+        int BoostInterval1; int BoostInterval2; int BoostInterval3; int BoostInterval4; int TurnInterval;
         int Velcycles; int NoClipcycles;
         float WeirdVal; float NewWeirdVal; float GravityVal; float NewGravityVal;
         long ScanStartAddr;
         long ScanEndAddr;
         public static int cycles = 0;
+        Controller controller = null;
         private readonly static Dictionary<char, byte> hexmap = new Dictionary<char, byte>()
         {
             { 'a', 0xA },{ 'b', 0xB },{ 'c', 0xC },{ 'd', 0xD },
@@ -99,137 +101,18 @@ namespace Forza_Mods_AIO.TabForms
             { '8', 0x8 },{ '9', 0x9 }
         };
 
+        [DllImport("user32.dll")]
+        static extern short GetAsyncKeyState(Keys vKey);
+        [DllImport("User32.dll")]
+        private static extern short GetAsyncKeyState(Int32 vKey);
+
         public Speedhack()
         {
             InitializeComponent();
-            keyboardHook.Install();
-            keyboardHook.KeyDown += new KeyboardHook.KeyboardHookCallback(keyboardHook_KeyDown);
-            keyboardHook.KeyUp += new KeyboardHook.KeyboardHookCallback(keyboardHook_KeyUp);
             CheckForIllegalCrossThreadCalls = false;
-        }
-        private void keyboardHook_KeyDown(KeyboardHook.VKeys key)
-        {
-            key.ToString();
-            Debug.WriteLine("KeyDown:" + key);
-            if (key == KeyboardHook.VKeys.SPACE)
-            {
-                if (BreakToggle)
-                {
-                    BreakStart = true;
-                }
-                if (StopToggle)
-                {
-                    StopAllWheels();
-                }
-            }
-            if (key == KeyboardHook.VKeys.LSHIFT || key == KeyboardHook.VKeys.RIGHT || key == KeyboardHook.VKeys.LEFT)
-            {
-                if (VelHackToggle)
-                {
-                    VelHackStart = true;
-                }
-                if (SpeedHackToggle)
-                {
-                    if (SpeedHackStart == false)
-                    {
-                        boost = (float)Math.Ceiling(MainWindow.m.ReadFloat(FrontLeftAddr));
-                        SpeedHackStart = true;
-                    }
-                }
-            }
-            if (key == KeyboardHook.VKeys.KEY_A)
-            {
-                if (TurnAssistToggle)
-                {
-                    TurnAssistLeftStart = true;
-                }
-            }
-            if (key == KeyboardHook.VKeys.KEY_D)
-            {
-                if (TurnAssistToggle)
-                {
-                    TurnAssistRightStart = true;
-                }
-            }
-            if (key == KeyboardHook.VKeys.NUMPAD6 || key == KeyboardHook.VKeys.RIGHT)
-            {
-                if (FOV.Checked)
-                {
-                    FovIncreaseStart = true;
-                }
-                if (TimeToggle)
-                {
-                    TimeForwardStart = true;
-                }
-            }
-            if (key == KeyboardHook.VKeys.NUMPAD4 || key == KeyboardHook.VKeys.LEFT)
-            {
-                if (FOV.Checked)
-                {
-                    FovDecreaseStart = true;
-                }
-                if (TimeToggle)
-                {
-                    TimeBackStart = true;
-                }
-            }
-        }
-        private void keyboardHook_KeyUp(KeyboardHook.VKeys key)
-        {
-            key.ToString();
-            Debug.WriteLine("KeyUP:" + key);
-            if (key == KeyboardHook.VKeys.SPACE)
-            {
-                if (BreakToggle)
-                {
-                    BreakStart = false;
-                }
-                if (StopToggle)
-                {
-                    StopAllWheels();
-                }
-            }
-            if (key == KeyboardHook.VKeys.LSHIFT)
-            {
-                if (VelHackToggle)
-                {
-                    VelHackStart = false;
-                }
-                if (SpeedHackToggle)
-                {
-                    SpeedHackStart = false;
-                }
-            }
-            if (key == KeyboardHook.VKeys.KEY_A)
-            {
-                if (TurnAssistToggle)
-                {
-                    TurnAssistLeftStart = false;
-                }
-            }
-            if (key == KeyboardHook.VKeys.KEY_D)
-            {
-                if (TurnAssistToggle)
-                {
-                    TurnAssistRightStart = false;
-                }
-            }
-            if (key == KeyboardHook.VKeys.NUMPAD6 || key == KeyboardHook.VKeys.RIGHT)
-            {
-                FovIncreaseStart = false;
-                if (TimeToggle)
-                {
-                    TimeForwardStart = false;
-                }
-            }
-            if (key == KeyboardHook.VKeys.NUMPAD4 || key == KeyboardHook.VKeys.LEFT)
-            {
-                FovDecreaseStart = false;
-                if (TimeToggle)
-                {
-                    TimeBackStart = false;
-                }
-            }
+            ControllerWorker.RunWorkerAsync();
+            KBChange.Text = KBKeyString;
+            XBChange.Text = XBKeyString;
         }
         public static void Addresses()
         {
@@ -263,14 +146,68 @@ namespace Forza_Mods_AIO.TabForms
         //end of setup
 
         //BG Workers
+        public void ControllerWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var controllers = new[] { new Controller(UserIndex.One), new Controller(UserIndex.Two), new Controller(UserIndex.Three), new Controller(UserIndex.Four) };
+            while(true)
+            {
+                foreach (var selectControler in controllers)
+                {
+                    if (selectControler.IsConnected)
+                    {
+                        controller = selectControler;
+                        break;
+                    }
+                }
+                if (controller == null)
+                {
+                    XBChange.Enabled = false;
+                    Debug.WriteLine("No XInput controller installed");
+                }
+                else
+                {
+                    try
+                    {
+                        Debug.WriteLine("Found a XInput controller available");
+                        var previousState = controller.GetState();
+                        while (controller.IsConnected)
+                        {
+                            XBChange.Enabled = true;
+                            var state = controller.GetState();
+                            if (previousState.PacketNumber != state.PacketNumber)
+                                Debug.WriteLine(state.Gamepad);
+                            Thread.Sleep(10);
+                            previousState = state;
+                        }
+                    }
+                    catch
+                    {
+                        controller = null;
+                    }
+                }
+                Thread.Sleep(10);
+            }
+        }
         public void VelHackWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (Velstart)
             {
+                Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBKeyString);
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
                 {
-                    if (VelHackToggle)
+                    if (controller.IsConnected)
+                    {
+                        var XBState = controller.GetState();
+                        if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
+                        || XBState.Gamepad.Buttons.ToString().Contains(XBKeyString)
+                        || XBKeyString == "LeftTrigger" && Convert.ToInt64(XBState.Gamepad.LeftTrigger) >= 235
+                        || XBKeyString == "RightTrigger" && Convert.ToInt64(XBState.Gamepad.RightTrigger) >= 235)
+                        {
+                            SpeedHackVel();
+                        }
+                    }
+                    else if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue)
                     {
                         SpeedHackVel();
                     }
@@ -320,10 +257,24 @@ namespace Forza_Mods_AIO.TabForms
         {
             while (Speedstart)
             {
+                Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBKeyString);
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                boost = MainWindow.m.ReadFloat(FrontLeftAddr);
                 if (PastStart == 1)
                 {
-                    if (SpeedHackToggle)
+                    if (controller.IsConnected)
+                    {
+                        var XBState = controller.GetState();
+                        while (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
+                        || XBState.Gamepad.Buttons.ToString().Contains(XBKeyString)
+                        || XBKeyString == "LeftTrigger" && Convert.ToInt64(XBState.Gamepad.LeftTrigger) >= 235
+                        || XBKeyString == "RightTrigger" && Convert.ToInt64(XBState.Gamepad.RightTrigger) >= 235)
+                        {
+                            XBState = controller.GetState();
+                            SpeedHack();
+                        }
+                    }
+                    else while (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue)
                     {
                         SpeedHack();
                     }
@@ -344,9 +295,24 @@ namespace Forza_Mods_AIO.TabForms
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
                 {
-                    if (TurnAssistToggle)
+                    if (controller.IsConnected)
+                    {
+                        var XBState = controller.GetState();
+                        if (GetAsyncKeyState(Keys.A) is 1 or Int16.MinValue || Convert.ToInt64(XBState.Gamepad.LeftThumbX) <= -17000)
+                        {
+                            TurnAssistLeft();
+                        }
+                        if (GetAsyncKeyState(Keys.D) is 1 or Int16.MinValue || Convert.ToInt64(XBState.Gamepad.LeftThumbX) >= 17000)
+                        {
+                            TurnAssistRight();
+                        }
+                    }
+                    else if (GetAsyncKeyState(Keys.A) is 1 or Int16.MinValue)
                     {
                         TurnAssistLeft();
+                    }
+                    else if (GetAsyncKeyState(Keys.D) is 1 or Int16.MinValue)
+                    {
                         TurnAssistRight();
                     }
                     if (TurnWorker.CancellationPending)
@@ -366,11 +332,11 @@ namespace Forza_Mods_AIO.TabForms
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
                 {
-                    if (FovIncreaseStart)
+                    if (GetAsyncKeyState(Keys.NumPad6) is 1 or Int16.MinValue)
                     {
                         FOVIncrease();
                     }
-                    if (FovDecreaseStart)
+                    if (GetAsyncKeyState(Keys.NumPad4) is 1 or Int16.MinValue)
                     {
                         FOVdecrease();
                     }
@@ -391,7 +357,15 @@ namespace Forza_Mods_AIO.TabForms
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
                 {
-                    if (BreakToggle)
+                    if (controller.IsConnected)
+                    {
+                        var XBState = controller.GetState();
+                        if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue || XBState.Gamepad.Buttons.ToString().Contains("A"))
+                        {
+                            SuperBreak();
+                        }
+                    }
+                    else if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue)
                     {
                         SuperBreak();
                     }
@@ -412,9 +386,12 @@ namespace Forza_Mods_AIO.TabForms
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
                 {
-                    if (TimeToggle)
+                    if (GetAsyncKeyState(Keys.NumPad6) is 1 or Int16.MinValue || (GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && GetAsyncKeyState(Keys.Right) is 1 or Int16.MinValue))
                     {
                         TimeForward();
+                    }
+                    if (GetAsyncKeyState(Keys.NumPad4) is 1 or Int16.MinValue || (GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && GetAsyncKeyState(Keys.Left) is 1 or Int16.MinValue))
+                    {
                         TimeBack();
                     }
                     if (TimeWorker.CancellationPending)
@@ -432,16 +409,13 @@ namespace Forza_Mods_AIO.TabForms
         //break hack methods
         public void SuperBreak()
         {
-            if (BreakStart)
-            {
-                xVelocityVal = MainWindow.m.ReadFloat(xVelocityAddr) * (float)0.50;
-                zVelocityVal = MainWindow.m.ReadFloat(zVelocityAddr) * (float)0.50;
-                MainWindow.m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
-                MainWindow.m.WriteMemory(yVelocityAddr, "float", "0");
-                MainWindow.m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
-                MainWindow.m.WriteMemory(YawAddr, "float", "0");
-                Thread.Sleep(50);
-            }
+            xVelocityVal = MainWindow.m.ReadFloat(xVelocityAddr) * (float)0.50;
+            zVelocityVal = MainWindow.m.ReadFloat(zVelocityAddr) * (float)0.50;
+            MainWindow.m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
+            MainWindow.m.WriteMemory(yVelocityAddr, "float", "0");
+            MainWindow.m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
+            MainWindow.m.WriteMemory(YawAddr, "float", "0");
+            Thread.Sleep(50);
         }
         public void StopAllWheels()
         {
@@ -455,110 +429,98 @@ namespace Forza_Mods_AIO.TabForms
         //speed hack methods
         public void SpeedHackVel()
         {
-            if (VelHackStart)
-            {
-                xVelocityVal = MainWindow.m.ReadFloat(xVelocityAddr) * (float)VelMult;
-                zVelocityVal = MainWindow.m.ReadFloat(zVelocityAddr) * (float)VelMult;
-                y = MainWindow.m.ReadFloat(yAddr) - (float)0.02;
-                MainWindow.m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
-                MainWindow.m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
-                MainWindow.m.WriteMemory(yAddr, "float", y.ToString());
-                Thread.Sleep(50);
-            }
+            xVelocityVal = MainWindow.m.ReadFloat(xVelocityAddr) * (float)VelMult;
+            zVelocityVal = MainWindow.m.ReadFloat(zVelocityAddr) * (float)VelMult;
+            y = MainWindow.m.ReadFloat(yAddr) - (float)0.02;
+            MainWindow.m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
+            MainWindow.m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
+            MainWindow.m.WriteMemory(yAddr, "float", y.ToString());
+            Thread.Sleep(50);
         }
         public void SpeedHack()
         {
-            if (SpeedHackStart)
+            MainWindow.m.WriteMemory(GasAddr, "float", "1");
+            if (boost < BoostSpeed1)
             {
-                MainWindow.m.WriteMemory(GasAddr, "float", "1");
-                if (boost < BoostSpeed1)
+                for (int i = 0; i < times1; i++)
                 {
-                    for (int i = 0; i < times1; i++)
-                    {
-                        boost++;
-                    }
-                    Thread.Sleep(BoostInterval1);
+                    boost++;
                 }
-                else if (boost < BoostSpeed2)
-                {
-                    for (int i = 0; i < times2; i++)
-                    {
-                        boost++;
-                    }
-                    Thread.Sleep(BoostInterval2);
-                }
-                else if (boost < BoostSpeed3)
-                {
-                    for (int i = 0; i < times3; i++)
-                    {
-                        boost++;
-                    }
-                    Thread.Sleep(BoostInterval3);
-                }
-                else
-                {
-                    for (int i = 0; i < times4; i++)
-                    {
-                        boost++;
-                    }
-                    Thread.Sleep(BoostInterval4);
-                }
-                if (boost >= BoostLim)
-                {
-                    boost = BoostLim;
-                }
-                MainWindow.m.WriteMemory(FrontLeftAddr, "float", boost.ToString());
-                MainWindow.m.WriteMemory(FrontRightAddr, "float", boost.ToString());
-                MainWindow.m.WriteMemory(BackLeftAddr, "float", boost.ToString());
-                MainWindow.m.WriteMemory(BackRightAddr, "float", boost.ToString());
+                Thread.Sleep(BoostInterval1);
             }
+            else if (boost < BoostSpeed2)
+            {
+                for (int i = 0; i < times2; i++)
+                {
+                    boost++;
+                }
+                Thread.Sleep(BoostInterval2);
+            }
+            else if (boost < BoostSpeed3)
+            {
+                for (int i = 0; i < times3; i++)
+                {
+                    boost++;
+                }
+                Thread.Sleep(BoostInterval3);
+            }
+            else
+            {
+                for (int i = 0; i < times4; i++)
+                {
+                    boost++;
+                }
+                Thread.Sleep(BoostInterval4);
+            }
+            if (boost >= BoostLim)
+            {
+                boost = BoostLim;
+            }
+            MainWindow.m.WriteMemory(FrontLeftAddr, "float", boost.ToString());
+            MainWindow.m.WriteMemory(FrontRightAddr, "float", boost.ToString());
+            MainWindow.m.WriteMemory(BackLeftAddr, "float", boost.ToString());
+            MainWindow.m.WriteMemory(BackRightAddr, "float", boost.ToString());
         }
         //end of speed hacks
 
         //Turn assist methods
         public void TurnAssistLeft()
         {
-            if (TurnAssistLeftStart)
+            float FrontLeft = MainWindow.m.ReadFloat(FrontLeftAddr);
+            float FrontRight = MainWindow.m.ReadFloat(FrontRightAddr);
+            float BackLeft = MainWindow.m.ReadFloat(BackLeftAddr);
+            float BackRight = MainWindow.m.ReadFloat(BackRightAddr);
+            if ((float)Math.Abs(FrontRight - FrontLeft) < (FrontRight / TurnRatio) && (float)Math.Abs(BackRight - FrontLeft) < (BackRight / TurnRatio))
             {
-                float FrontLeft = MainWindow.m.ReadFloat(FrontLeftAddr);
-                float FrontRight = MainWindow.m.ReadFloat(FrontRightAddr);
-                float BackLeft = MainWindow.m.ReadFloat(BackLeftAddr);
-                float BackRight = MainWindow.m.ReadFloat(BackRightAddr);
-                if ((float)Math.Abs(FrontRight - FrontLeft) < (FrontRight / TurnRatio) && (float)Math.Abs(BackRight - FrontLeft) < (BackRight / TurnRatio))
-                {
-                    FrontLeft = FrontLeft - TurnStrength;
-                    BackLeft = BackLeft - TurnStrength;
-                    FrontRight = FrontRight + TurnStrength;
-                    BackRight = BackRight + TurnStrength;
-                    Thread.Sleep(TurnInterval);
-                }
-                MainWindow.m.WriteMemory(FrontLeftAddr, "float", FrontLeft.ToString());
-                MainWindow.m.WriteMemory(FrontRightAddr, "float", FrontRight.ToString());
-                MainWindow.m.WriteMemory(BackLeftAddr, "float", BackLeft.ToString());
-                MainWindow.m.WriteMemory(BackRightAddr, "float", BackRight.ToString());
+                FrontLeft = FrontLeft - TurnStrength;
+                BackLeft = BackLeft - TurnStrength;
+                FrontRight = FrontRight + TurnStrength;
+                BackRight = BackRight + TurnStrength;
+                Thread.Sleep(TurnInterval);
             }
+            MainWindow.m.WriteMemory(FrontLeftAddr, "float", FrontLeft.ToString());
+            MainWindow.m.WriteMemory(FrontRightAddr, "float", FrontRight.ToString());
+            MainWindow.m.WriteMemory(BackLeftAddr, "float", BackLeft.ToString());
+            MainWindow.m.WriteMemory(BackRightAddr, "float", BackRight.ToString());
         }
         public void TurnAssistRight()
         {
-            if (TurnAssistRightStart)
+            float FrontLeft = MainWindow.m.ReadFloat(FrontLeftAddr);
+            float FrontRight = MainWindow.m.ReadFloat(FrontRightAddr);
+            float BackLeft = MainWindow.m.ReadFloat(BackLeftAddr);
+            float BackRight = MainWindow.m.ReadFloat(BackRightAddr);
+            if ((float)Math.Abs(FrontLeft - FrontRight) < (FrontLeft / TurnRatio) && (float)Math.Abs(BackLeft - FrontRight) < (BackLeft / TurnRatio))
             {
-                float FrontLeft = MainWindow.m.ReadFloat(FrontLeftAddr);
-                float FrontRight = MainWindow.m.ReadFloat(FrontRightAddr);
-                float BackLeft = MainWindow.m.ReadFloat(BackLeftAddr);
-                float BackRight = MainWindow.m.ReadFloat(BackRightAddr);
-                if ((float)Math.Abs(FrontLeft - FrontRight) < (FrontLeft / TurnRatio) && (float)Math.Abs(BackLeft - FrontRight) < (BackLeft / TurnRatio))
-                {
-                    FrontRight = FrontRight - TurnStrength;
-                    BackRight = BackRight - TurnStrength;
-                    FrontLeft = FrontLeft + TurnStrength;
-                    BackLeft = BackLeft + TurnStrength;
-                    Thread.Sleep(TurnInterval);
-                }
-                MainWindow.m.WriteMemory(FrontLeftAddr, "float", FrontLeft.ToString());
-                MainWindow.m.WriteMemory(FrontRightAddr, "float", FrontRight.ToString());
-                MainWindow.m.WriteMemory(BackLeftAddr, "float", BackLeft.ToString());
-                MainWindow.m.WriteMemory(BackRightAddr, "float", BackRight.ToString());
+                FrontRight = FrontRight - TurnStrength;
+                BackRight = BackRight - TurnStrength;
+                FrontLeft = FrontLeft + TurnStrength;
+                BackLeft = BackLeft + TurnStrength;
+                Thread.Sleep(TurnInterval);
             }
+            MainWindow.m.WriteMemory(FrontLeftAddr, "float", FrontLeft.ToString());
+            MainWindow.m.WriteMemory(FrontRightAddr, "float", FrontRight.ToString());
+            MainWindow.m.WriteMemory(BackLeftAddr, "float", BackLeft.ToString());
+            MainWindow.m.WriteMemory(BackRightAddr, "float", BackRight.ToString());
         }
         //end of turn assists
 
@@ -691,7 +653,14 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void TimeBack()
         {
-            if(TimeBackStart)
+            if(GetAsyncKeyState(Keys.LControlKey) is 1 or Int16.MinValue)
+            {
+                Thread.Sleep(250);
+                double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
+                string TimeVal = (TimeValDouble - 10000).ToString();
+                MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
+            }
+            else
             {
                 Thread.Sleep(75);
                 double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
@@ -701,7 +670,14 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void TimeForward()
         {
-            if (TimeForwardStart)
+            if (GetAsyncKeyState(Keys.LControlKey) is 1 or Int16.MinValue)
+            {
+                Thread.Sleep(250);
+                double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
+                string TimeVal = (TimeValDouble + 10000).ToString();
+                MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
+            }
+            else
             {
                 Thread.Sleep(75);
                 double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
@@ -804,7 +780,6 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     NoClipWorker.CancelAsync();
                 }
-                //NoClipworker.CancelAsync();
                 MainWindow.m.WriteBytes(Wall1Addr, Jmp1before);
                 MainWindow.m.WriteBytes(Wall2Addr, Jmp2before);
             }
@@ -812,7 +787,6 @@ namespace Forza_Mods_AIO.TabForms
             {
                 WallNoClipToggle = true;
                 NCstart = true;
-                //NoClipworker.RunWorkerAsync();
                 if (NoClipWorker.IsBusy == false)
                 {
                     NoClipWorker.RunWorkerAsync();
@@ -820,6 +794,85 @@ namespace Forza_Mods_AIO.TabForms
             }
         }
         //end of noclip
+
+        //key change buttons
+        private void KBChange_MouseEnter(object sender, EventArgs e)
+        {
+            KBChange.Text = "Change";
+        }
+        private void KBChange_MouseLeave(object sender, EventArgs e)
+        {
+            KBChange.Text = KBKeyString;
+        }
+
+        private void KBChange_Click(object sender, EventArgs e)
+        {
+            bool done = false;
+            while (!done)
+            {
+                string keyBuffer = string.Empty;
+                foreach (System.Int32 i in Enum.GetValues(typeof(Keys)))
+                {
+                    int x = GetAsyncKeyState(i);
+                    if ((x == 1) || (x == Int16.MinValue))
+                    {
+                        if (i != 0 && i != 1 && i != 2 && i != 3 && i != 4 && i != 12)
+                        {
+                            keyBuffer += Enum.GetName(typeof(Keys), i);
+                        }
+                    }
+                }
+                if (keyBuffer != "" && keyBuffer != "Clear")
+                {
+                    KBChange.Text = keyBuffer;
+                    KBKeyString = keyBuffer;
+                    done = true;
+                }
+                Thread.Sleep(1);
+            }
+        }
+        private void XBChange_MouseEnter(object sender, EventArgs e)
+        {
+            XBChange.Text = "Change";
+        }
+        private void XBChange_MouseLeave(object sender, EventArgs e)
+        {
+            XBChange.Text = XBKeyString;
+        }
+
+        private void XBChange_Click(object sender, EventArgs e)
+        {
+            XBChange.Text = "Press the button\n you want";
+            bool done = false;
+            while (!done)
+            {
+                string keyBuffer = string.Empty;
+                var State = controller.GetState();
+                string ControllerButtonstate = State.Gamepad.Buttons.ToString();
+                long ControllerRTstate = Convert.ToInt64(State.Gamepad.RightTrigger);
+                long ControllerLTstate = Convert.ToInt64(State.Gamepad.LeftTrigger);
+                if (ControllerButtonstate != "None")
+                {
+                    XBChange.Text = ControllerButtonstate;
+                    XBKeyString = ControllerButtonstate;
+                    done = true;
+                }
+                if (ControllerRTstate > 240)
+                {
+                    XBChange.Text = "RightTrigger";
+                    XBKeyString = "RightTrigger";
+                    done = true;
+                }
+                if (ControllerLTstate > 240)
+                {
+                    XBChange.Text = "LeftTrigger";
+                    XBKeyString = "LeftTrigger";
+                    done = true;
+                }
+                Thread.Sleep(1);
+            }
+        }
+        // end of change key buttons
 
         //speedhack buttons
         private void SuperBreakButton_CheckedChanged(object sender, EventArgs e)
@@ -831,17 +884,15 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     SuperBreakWorker.CancelAsync();
                 }
-                //Breakworker.CancelAsync();
             }
             else
             {
                 BreakToggle = true;
                 Breakstart = true;
-                //if (SuperBreakWorker.IsBusy == false)
-                //{
+                if (SuperBreakWorker.IsBusy == false)
+                {
                     SuperBreakWorker.RunWorkerAsync();
-                //}
-                //Breakworker.RunWorkerAsync();
+                }
             }
         }
         private void StopAllWheelsButton_CheckedChanged(object sender, EventArgs e)

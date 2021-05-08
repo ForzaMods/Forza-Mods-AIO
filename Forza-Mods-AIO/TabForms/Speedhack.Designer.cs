@@ -29,6 +29,7 @@ namespace Forza_Mods_AIO.TabForms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel3 = new System.Windows.Forms.Panel();
             this.LBL_SHNoClip = new System.Windows.Forms.Label();
             this.TB_SHCarNoClip = new System.Windows.Forms.CheckBox();
@@ -45,12 +46,14 @@ namespace Forza_Mods_AIO.TabForms
             this.FOVScan_BTN = new System.Windows.Forms.Button();
             this.TPButton = new System.Windows.Forms.Button();
             this.LST_TeleportLocation = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.LBL_Misc = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.XBChange = new System.Windows.Forms.Button();
+            this.KBChange = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.GravitySet = new System.Windows.Forms.Button();
             this.WeirdSet = new System.Windows.Forms.Button();
@@ -69,11 +72,12 @@ namespace Forza_Mods_AIO.TabForms
             this.panel4 = new System.Windows.Forms.Panel();
             this.StopAllWheelsButton = new System.Windows.Forms.CheckBox();
             this.SuperBreakButton = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.LBL_Toggles = new System.Windows.Forms.Label();
             this.TurnAssistButton = new System.Windows.Forms.CheckBox();
             this.WheelSpeedButton = new System.Windows.Forms.CheckBox();
             this.VelHackButton = new System.Windows.Forms.CheckBox();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.LimitBox = new System.Windows.Forms.NumericUpDown();
             this.Speed3Box = new System.Windows.Forms.NumericUpDown();
             this.Speed2Box = new System.Windows.Forms.NumericUpDown();
@@ -86,7 +90,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Boost1Box = new System.Windows.Forms.NumericUpDown();
             this.Interval1Box = new System.Windows.Forms.NumericUpDown();
             this.Speed1Box = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
+            this.LBL_Wheelspeed = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -103,7 +107,7 @@ namespace Forza_Mods_AIO.TabForms
             this.RatioBox = new System.Windows.Forms.NumericUpDown();
             this.TurnStrengthBox = new System.Windows.Forms.NumericUpDown();
             this.TurnIntervalBox = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
+            this.LBL_Turn = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -115,6 +119,8 @@ namespace Forza_Mods_AIO.TabForms
             this.SuperBreakWorker = new System.ComponentModel.BackgroundWorker();
             this.TimeWorker = new System.ComponentModel.BackgroundWorker();
             this.CheckPointTPworker = new System.ComponentModel.BackgroundWorker();
+            this.ControllerWorker = new System.ComponentModel.BackgroundWorker();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FOVBar)).BeginInit();
@@ -204,7 +210,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel7.Controls.Add(this.FOVScan_BTN);
             this.panel7.Controls.Add(this.TPButton);
             this.panel7.Controls.Add(this.LST_TeleportLocation);
-            this.panel7.Controls.Add(this.label11);
+            this.panel7.Controls.Add(this.LBL_Misc);
             this.panel7.Controls.Add(this.label10);
             this.panel7.Location = new System.Drawing.Point(746, 12);
             this.panel7.Name = "panel7";
@@ -353,15 +359,15 @@ namespace Forza_Mods_AIO.TabForms
             this.LST_TeleportLocation.TabIndex = 22;
             this.LST_TeleportLocation.SelectedIndexChanged += new System.EventHandler(this.LST_TeleportLocation_SelectedIndexChanged);
             // 
-            // label11
+            // LBL_Misc
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(53, 8);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(144, 27);
-            this.label11.TabIndex = 36;
-            this.label11.Text = "Miscellaneous";
+            this.LBL_Misc.AutoSize = true;
+            this.LBL_Misc.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBL_Misc.Location = new System.Drawing.Point(53, 8);
+            this.LBL_Misc.Name = "LBL_Misc";
+            this.LBL_Misc.Size = new System.Drawing.Size(144, 27);
+            this.LBL_Misc.TabIndex = 36;
+            this.LBL_Misc.Text = "Miscellaneous";
             // 
             // label10
             // 
@@ -379,6 +385,8 @@ namespace Forza_Mods_AIO.TabForms
             this.panel9.Controls.Add(this.label2);
             this.panel9.Controls.Add(this.label13);
             this.panel9.Controls.Add(this.label14);
+            this.panel9.Controls.Add(this.XBChange);
+            this.panel9.Controls.Add(this.KBChange);
             this.panel9.Location = new System.Drawing.Point(12, 100);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(190, 105);
@@ -398,7 +406,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(49, 36);
+            this.label13.Location = new System.Drawing.Point(-1, 36);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(73, 19);
             this.label13.TabIndex = 12;
@@ -408,11 +416,41 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(49, 76);
+            this.label14.Location = new System.Drawing.Point(0, 76);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(76, 19);
             this.label14.TabIndex = 13;
             this.label14.Text = "Controller";
+            // 
+            // XBChange
+            // 
+            this.XBChange.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.XBChange.FlatAppearance.BorderSize = 0;
+            this.XBChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.XBChange.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.XBChange.Location = new System.Drawing.Point(78, 71);
+            this.XBChange.Name = "XBChange";
+            this.XBChange.Size = new System.Drawing.Size(97, 27);
+            this.XBChange.TabIndex = 37;
+            this.XBChange.UseVisualStyleBackColor = false;
+            this.XBChange.Click += new System.EventHandler(this.XBChange_Click);
+            this.XBChange.MouseEnter += new System.EventHandler(this.XBChange_MouseEnter);
+            this.XBChange.MouseLeave += new System.EventHandler(this.XBChange_MouseLeave);
+            // 
+            // KBChange
+            // 
+            this.KBChange.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.KBChange.FlatAppearance.BorderSize = 0;
+            this.KBChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.KBChange.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KBChange.Location = new System.Drawing.Point(78, 36);
+            this.KBChange.Name = "KBChange";
+            this.KBChange.Size = new System.Drawing.Size(97, 27);
+            this.KBChange.TabIndex = 37;
+            this.KBChange.UseVisualStyleBackColor = false;
+            this.KBChange.Click += new System.EventHandler(this.KBChange_Click);
+            this.KBChange.MouseEnter += new System.EventHandler(this.KBChange_MouseEnter);
+            this.KBChange.MouseLeave += new System.EventHandler(this.KBChange_MouseLeave);
             // 
             // panel1
             // 
@@ -622,7 +660,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             this.panel4.Controls.Add(this.StopAllWheelsButton);
             this.panel4.Controls.Add(this.SuperBreakButton);
-            this.panel4.Controls.Add(this.label1);
+            this.panel4.Controls.Add(this.LBL_Toggles);
             this.panel4.Controls.Add(this.TurnAssistButton);
             this.panel4.Controls.Add(this.WheelSpeedButton);
             this.panel4.Controls.Add(this.VelHackButton);
@@ -655,15 +693,15 @@ namespace Forza_Mods_AIO.TabForms
             this.SuperBreakButton.UseVisualStyleBackColor = true;
             this.SuperBreakButton.CheckedChanged += new System.EventHandler(this.SuperBreakButton_CheckedChanged);
             // 
-            // label1
+            // LBL_Toggles
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(225, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 27);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Toggles";
+            this.LBL_Toggles.AutoSize = true;
+            this.LBL_Toggles.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBL_Toggles.Location = new System.Drawing.Point(225, 10);
+            this.LBL_Toggles.Name = "LBL_Toggles";
+            this.LBL_Toggles.Size = new System.Drawing.Size(83, 27);
+            this.LBL_Toggles.TabIndex = 4;
+            this.LBL_Toggles.Text = "Toggles";
             // 
             // TurnAssistButton
             // 
@@ -704,6 +742,7 @@ namespace Forza_Mods_AIO.TabForms
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel6.Controls.Add(this.label3);
             this.panel6.Controls.Add(this.LimitBox);
             this.panel6.Controls.Add(this.Speed3Box);
             this.panel6.Controls.Add(this.Speed2Box);
@@ -716,7 +755,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel6.Controls.Add(this.Boost1Box);
             this.panel6.Controls.Add(this.Interval1Box);
             this.panel6.Controls.Add(this.Speed1Box);
-            this.panel6.Controls.Add(this.label9);
+            this.panel6.Controls.Add(this.LBL_Wheelspeed);
             this.panel6.Controls.Add(this.label28);
             this.panel6.Controls.Add(this.label29);
             this.panel6.Controls.Add(this.label24);
@@ -733,6 +772,15 @@ namespace Forza_Mods_AIO.TabForms
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(532, 222);
             this.panel6.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(42, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 15);
+            this.label3.TabIndex = 32;
+            this.label3.Text = "label3";
             // 
             // LimitBox
             // 
@@ -950,15 +998,15 @@ namespace Forza_Mods_AIO.TabForms
             this.Speed1Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Speed1Box.ValueChanged += new System.EventHandler(this.Speed1Box_ValueChanged);
             // 
-            // label9
+            // LBL_Wheelspeed
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(160, 3);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(177, 27);
-            this.label9.TabIndex = 19;
-            this.label9.Text = "Wheelspeed Hack";
+            this.LBL_Wheelspeed.AutoSize = true;
+            this.LBL_Wheelspeed.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBL_Wheelspeed.Location = new System.Drawing.Point(177, 3);
+            this.LBL_Wheelspeed.Name = "LBL_Wheelspeed";
+            this.LBL_Wheelspeed.Size = new System.Drawing.Size(177, 27);
+            this.LBL_Wheelspeed.TabIndex = 19;
+            this.LBL_Wheelspeed.Text = "Wheelspeed Hack";
             // 
             // label28
             // 
@@ -1086,7 +1134,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel5.Controls.Add(this.RatioBox);
             this.panel5.Controls.Add(this.TurnStrengthBox);
             this.panel5.Controls.Add(this.TurnIntervalBox);
-            this.panel5.Controls.Add(this.label7);
+            this.panel5.Controls.Add(this.LBL_Turn);
             this.panel5.Controls.Add(this.label17);
             this.panel5.Controls.Add(this.label18);
             this.panel5.Controls.Add(this.label19);
@@ -1150,15 +1198,15 @@ namespace Forza_Mods_AIO.TabForms
             this.TurnIntervalBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.TurnIntervalBox.ValueChanged += new System.EventHandler(this.TurnIntervalBox_ValueChanged);
             // 
-            // label7
+            // LBL_Turn
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(203, 7);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(115, 27);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Turn Assist";
+            this.LBL_Turn.AutoSize = true;
+            this.LBL_Turn.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBL_Turn.Location = new System.Drawing.Point(205, 4);
+            this.LBL_Turn.Name = "LBL_Turn";
+            this.LBL_Turn.Size = new System.Drawing.Size(115, 27);
+            this.LBL_Turn.TabIndex = 6;
+            this.LBL_Turn.Text = "Turn Assist";
             // 
             // label17
             // 
@@ -1224,6 +1272,11 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.TimeWorker.WorkerSupportsCancellation = true;
             this.TimeWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.TimeWorker_DoWork);
+            // 
+            // ControllerWorker
+            // 
+            this.ControllerWorker.WorkerSupportsCancellation = true;
+            this.ControllerWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ControllerWorker_DoWork);
             // 
             // Speedhack
             // 
@@ -1301,7 +1354,7 @@ namespace Forza_Mods_AIO.TabForms
         public System.Windows.Forms.Button FOVScan_BTN;
         private System.Windows.Forms.Button TPButton;
         private System.Windows.Forms.ComboBox LST_TeleportLocation;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label LBL_Misc;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label label2;
@@ -1319,7 +1372,7 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.CheckBox StopAllWheelsButton;
         private System.Windows.Forms.CheckBox SuperBreakButton;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LBL_Toggles;
         private System.Windows.Forms.CheckBox TurnAssistButton;
         private System.Windows.Forms.CheckBox WheelSpeedButton;
         private System.Windows.Forms.CheckBox VelHackButton;
@@ -1336,7 +1389,7 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.NumericUpDown Boost1Box;
         private System.Windows.Forms.NumericUpDown Interval1Box;
         private System.Windows.Forms.NumericUpDown Speed1Box;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label LBL_Wheelspeed;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label24;
@@ -1353,7 +1406,7 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.NumericUpDown RatioBox;
         private System.Windows.Forms.NumericUpDown TurnStrengthBox;
         private System.Windows.Forms.NumericUpDown TurnIntervalBox;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label LBL_Turn;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
@@ -1365,6 +1418,7 @@ namespace Forza_Mods_AIO.TabForms
         private System.ComponentModel.BackgroundWorker SuperBreakWorker;
         private System.ComponentModel.BackgroundWorker TimeWorker;
         private System.ComponentModel.BackgroundWorker CheckPointTPworker;
+        private System.ComponentModel.BackgroundWorker ControllerWorker;
         private System.Windows.Forms.NumericUpDown GravityBox;
         private System.Windows.Forms.NumericUpDown WeirdBox;
         private System.Windows.Forms.Button GravitySet;
@@ -1372,5 +1426,9 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Button GravityPull;
         private System.Windows.Forms.Button WeirdPull;
         private System.Windows.Forms.CheckBox TimeCheckBox;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button KBChange;
+        private System.Windows.Forms.Button XBChange;
     }
 }
