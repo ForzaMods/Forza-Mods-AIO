@@ -8,14 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Forza_Mods_AIO
+namespace Forza_Mods_AIO.TabForms
 {
-    public partial class Form1 : Form
+    public partial class StatsEditor : Form
     {
-        public Form1()
+        public StatsEditor()
         {
             InitializeComponent();
         }
 
+        private void StatsEditor_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
