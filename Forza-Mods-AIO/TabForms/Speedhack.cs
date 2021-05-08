@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,9 +16,11 @@ using GlobalLowLevelHooks;
 using IniParser;
 using IniParser.Model;
 using Forza_Mods_AIO.TabForms;
+using System.Runtime.InteropServices;
 
 namespace Forza_Mods_AIO.TabForms
 {
+
     public partial class Speedhack : Form
     {
         KeyboardHook keyboardHook = new KeyboardHook();
@@ -38,9 +39,11 @@ namespace Forza_Mods_AIO.TabForms
         bool CarNoClipToggle = false;
         bool CheckPointTPToggle = false;
         public static bool done = false;
-        public static bool start = false;
+        public static bool Velstart = false; public static bool NCstart = false; public static bool FOVstart = false; public static bool Timestart = false; public static bool Breakstart = false; public static bool Speedstart = false; public static bool Turnstart = false;
         bool FovIncreaseStart = false; bool FovDecreaseStart = false;
-        public static long BaseAddrLong; public static long Base2AddrLong; public static long Base3AddrLong; public static long Car1AddrLong; public static long Car2AddrLong; public static long Wall1AddrLong; public static long Wall2AddrLong; public static long FOVnopOutAddrLong; public static long FOVnopInAddrLong;
+        bool TimeToggle = false;  bool TimeForwardStart = false; bool TimeBackStart = false;
+        public static long TimeNOPAddrLong;
+        public static long BaseAddrLong; public static long Base2AddrLong; public static long Base3AddrLong; public static long Base4AddrLong; public static long Car1AddrLong; public static long Car2AddrLong; public static long Wall1AddrLong; public static long Wall2AddrLong; public static long FOVnopOutAddrLong; public static long FOVnopInAddrLong;
         public static long FirstPersonAddrLong; public static long DashAddrLong; public static long FrontAddrLong; public static long LowAddrLong; public static long BonnetAddrLong;
         public static string Base = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
         public static string Car1 = "48 89 ? ? ? 44 8B ? 48 89 ? ? ? BA";
@@ -49,14 +52,17 @@ namespace Forza_Mods_AIO.TabForms
         public static string Wall2 = "0F 28 ? 0F C6 C1 ? 0F 28 ? 0F C6 CB ? 41 0F ? ? F3 0F ? ? 41 0F ? ? 0F C6 C0 ? 0F C6 E4";
         public static string FOVOutsig = "4C 8D ? ? ? 0F 29 ? ? ? F3 0F";
         public static string FOVInsig = "48 81 EC ? ? ? ? 48 8B ? E8 ? ? ? ? 48 8B ? ? 48 8B";
+        public static string Timesig = "F2 0F 11 43 08 48 83";
         public static string FirstPerson = "80 00 80 82 43";
         public static string Dash = "3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 01 ?? 00 00 00 00 00 00 00 00 A0 40";
         public static string Low = "80 CD CC 4C 3E CD CC CC 3E 9A 99 19 3F 00 00 80 3F";
         public static string Bonnet = "00 80 3E 63 B8 1E 3F 00 00 80 3F";
-        public static string Front = "A0 41 01 00 8C 42 00 00 11 43 00 00 3E 43 00 00 00 80 00 00 00 80 00 00 80 3E 7B 14 2E 3F";
+        //public static string Front = "A0 41 01 00 8C 42 00 00 11 43 00 00 3E 43 00 00 00 80 00 00 00 80 00 00 80 3E 7B 14 2E 3F";
+        public static string Front = "80 3E 7B 14 2E 3F 00 00 80 3F";
         public static string GravityAddr; public static string WeirdAddr;
-        public static string BaseAddr; public static string Base2Addr; public static string Base3Addr;
+        public static string BaseAddr; public static string Base2Addr; public static string Base3Addr; public static string Base4Addr;
         public static string Car1Addr; public static string Car2Addr; public static string FOVnopOutAddr; public static string FOVnopInAddr;
+        public static string TimeNOPAddr; public static string TimeAddr;
         public static string Wall1Addr; public static string Wall2Addr;
         public static string FrontLeftAddr; public static string FrontRightAddr; public static string BackLeftAddr; public static string BackRightAddr;
         public static string OnGroundAddr; public static string InRaceAddr; public static string PastStartAddr;
@@ -65,18 +71,34 @@ namespace Forza_Mods_AIO.TabForms
         public static string CheckPointxAddr; public static string CheckPointyAddr; public static string CheckPointzAddr;
         public static string YawAddr; public static string RollAddr; public static string PitchAddr; public static string yAngVelAddr;
         public static string GasAddr; public static string FOVHighAddr; public static string FOVInAddr; public static string FirstPersonAddr; public static string DashAddr; public static string FrontAddr; public static string BonnetAddr; public static string LowAddr; public static string LowCompare;
+        public static IntPtr InjectAddress;
+        public static string TimeAddrAddr;
+        public static string allocationstring;
         float xVelocityVal; float yVelocityVal; float zVelocityVal;
         float x; float y; float z;
         float CheckPointx; float CheckPointy; float CheckPointz;
         float BoostSpeed1; float BoostSpeed2; float BoostSpeed3; float BoostLim; //speed
         float TurnRatio; float TurnStrength; public float boost;
         float VelMult = 1; float FOVVal;
+        public int StorageAddress;
         int IncreaseCycles = 0; int DecreaseCycles = 0;
         int times1; int times2; int times3; int times4; //boost
         int BoostInterval1; int BoostInterval2; int BoostInterval3; int BoostInterval4; /*interval*/ int TurnInterval;
         int Velcycles; int NoClipcycles;
         float WeirdVal; float NewWeirdVal; float GravityVal; float NewGravityVal;
+        long ScanStartAddr;
+        long ScanEndAddr;
         public static int cycles = 0;
+        private readonly static Dictionary<char, byte> hexmap = new Dictionary<char, byte>()
+        {
+            { 'a', 0xA },{ 'b', 0xB },{ 'c', 0xC },{ 'd', 0xD },
+            { 'e', 0xE },{ 'f', 0xF },{ 'A', 0xA },{ 'B', 0xB },
+            { 'C', 0xC },{ 'D', 0xD },{ 'E', 0xE },{ 'F', 0xF },
+            { '0', 0x0 },{ '1', 0x1 },{ '2', 0x2 },{ '3', 0x3 },
+            { '4', 0x4 },{ '5', 0x5 },{ '6', 0x6 },{ '7', 0x7 },
+            { '8', 0x8 },{ '9', 0x9 }
+        };
+
         public Speedhack()
         {
             InitializeComponent();
@@ -134,12 +156,20 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     FovIncreaseStart = true;
                 }
+                if (TimeCheckBox.Checked)
+                {
+                    TimeForwardStart = true;
+                }
             }
             if (key == KeyboardHook.VKeys.NUMPAD4)
             {
                 if (FOV.Checked)
                 {
                     FovDecreaseStart = true;
+                }
+                if (TimeCheckBox.Checked)
+                {
+                    TimeBackStart = true;
                 }
             }
         }
@@ -185,11 +215,13 @@ namespace Forza_Mods_AIO.TabForms
             if (key == KeyboardHook.VKeys.NUMPAD6)
             {
                 FovIncreaseStart = false;
+                TimeForwardStart = false;
                 IncreaseCycles = 0;
             }
             if (key == KeyboardHook.VKeys.NUMPAD4)
             {
                 FovDecreaseStart = false;
+                TimeBackStart = false;
                 DecreaseCycles = 0;
             }
         }
@@ -223,9 +255,32 @@ namespace Forza_Mods_AIO.TabForms
             GravityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x558");
         }
         //end of setup
-        public void Mainworker_DoWork(object sender, DoWorkEventArgs e)
+
+        //BG Workers
+        public void VelHackWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (start)
+            while (Velstart)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
+                    if (VelHackToggle)
+                    {
+                        SpeedHackVel();
+                    }
+                    if (VelHackWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        Velstart = false;
+                    }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        public void NoClipWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (NCstart)
             {
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
@@ -245,23 +300,66 @@ namespace Forza_Mods_AIO.TabForms
                         }
                         CarNoClipToggle = false;
                     }
-                    if (VelHackToggle)
+                    if (NoClipWorker.CancellationPending)
                     {
-                        SpeedHackVel();
+                        e.Cancel = true;
+                        NCstart = false;
                     }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        public void SpeedHackWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (Speedstart)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
                     if (SpeedHackToggle)
                     {
                         SpeedHack();
                     }
+                    if (SpeedHackWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        Speedstart = false;
+                    }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        public void TurnWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (Turnstart)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
                     if (TurnAssistToggle)
                     {
                         TurnAssistLeft();
                         TurnAssistRight();
                     }
-                    if (BreakToggle)
+                    if (TurnWorker.CancellationPending)
                     {
-                        SuperBreak();
+                        e.Cancel = true;
+                        Turnstart = false;
                     }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        public void FOVWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (FOVstart)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
                     if (FovIncreaseStart)
                     {
                         FOVIncrease();
@@ -270,16 +368,64 @@ namespace Forza_Mods_AIO.TabForms
                     {
                         FOVdecrease();
                     }
-                    if (Mainworker.CancellationPending)
+                    if (FOVWorker.CancellationPending)
                     {
                         e.Cancel = true;
-                        start = false;
+                        FOVstart = false;
                     }
                     Thread.Sleep(1);
                 }
                 Thread.Sleep(1);
             }
         }
+        public void SuperBreakWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (Breakstart)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
+                    if (BreakToggle)
+                    {
+                        SuperBreak();
+                    }
+                    if (SuperBreakWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        Breakstart = false;
+                    }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        public void TimeWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (Timestart)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
+                    if (TimeForwardStart)
+                    {
+                        TimeForward();
+                    }
+                    if (TimeBackStart)
+                    {
+                        TimeBack();
+                    }
+                    if (TimeWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        Timestart = false;
+                    }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        //end of BG Workers
+
         //break hack methods
         public void SuperBreak()
         {
@@ -413,6 +559,146 @@ namespace Forza_Mods_AIO.TabForms
         }
         //end of turn assists
 
+        //Time
+        public void GetTimeAddr()
+        {
+            static byte[] StringToBytes(string hex)
+            {
+                if (string.IsNullOrWhiteSpace(hex))
+                    throw new ArgumentException("Hex cannot be null/empty/whitespace");
+
+                if (hex.Length % 2 != 0)
+                    throw new FormatException("Hex must have an even number of characters");
+
+                bool startsWithHexStart = hex.StartsWith("0x", StringComparison.OrdinalIgnoreCase);
+
+                if (startsWithHexStart && hex.Length == 2)
+                    throw new ArgumentException("There are no characters in the hex string");
+
+
+                int startIndex = startsWithHexStart ? 2 : 0;
+
+                byte[] bytesArr = new byte[(hex.Length - startIndex) / 2];
+
+                char left;
+                char right;
+
+                try
+                {
+                    int x = 0;
+                    for (int i = startIndex; i < hex.Length; i += 2, x++)
+                    {
+                        left = hex[i];
+                        right = hex[i + 1];
+                        bytesArr[x] = (byte)((hexmap[left] << 4) | hexmap[right]);
+                    }
+                    return bytesArr;
+                }
+                catch (KeyNotFoundException)
+                {
+                    throw new FormatException("Hex string has non-hex character");
+                }
+            }
+
+            static byte[] longToByteArray(long data)
+            {
+                return new byte[] {
+                (byte)((data >> 56) & 0xff),
+                (byte)((data >> 48) & 0xff),
+                (byte)((data >> 40) & 0xff),
+                (byte)((data >> 32) & 0xff),
+                (byte)((data >> 24) & 0xff),
+                (byte)((data >> 16) & 0xff),
+                (byte)((data >> 8 ) & 0xff),
+                (byte)((data >> 0) & 0xff),
+                };
+            }
+
+            [DllImport("kernel32.dll", ExactSpelling = true, SetLastError = true)]
+            static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
+
+            const int PROCESS_CREATE_THREAD = 0x0002;
+            const int PROCESS_QUERY_INFORMATION = 0x0400;
+            const int PROCESS_VM_OPERATION = 0x0008;
+            const int PROCESS_VM_WRITE = 0x0020;
+            const int PROCESS_VM_READ = 0x0010;
+
+            const uint MEM_COMMIT = 0x00001000;
+            const uint MEM_RESERVE = 0x00002000;
+            const uint PAGE_READWRITE = 0x4;
+            const uint PAGE_EXECUTE_READWRITE = 0x40;
+
+            [DllImport("kernel32.dll", ExactSpelling = true, SetLastError = true)]
+            static extern IntPtr VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint dwFreeType);
+
+            const uint MEM_DECOMMIT = 0x00004000;
+            const uint MEM_RELEASE = 0x00008000;
+
+            IntPtr CodeCave = VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, IntPtr.Zero, 0x256, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE); // returns the pointer to the allocated memory
+            string CodeCaveAddrString = ((long)CodeCave).ToString("X"); // converts the pointer to hex string ready for easy conversion to bytes
+            byte[] CodeCaveAddr = StringToBytes("0" + CodeCaveAddrString); // converts said string to bytes - "0" there to make the bit count even as ther is 15 bits to the address
+            Array.Reverse(CodeCaveAddr); // makes it little-endian, what assembly uses
+
+            byte[] TimeJumpBefore = new byte[12] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x83, 0xC4, 0x40, 0x5B, 0xC3, 0xCC }; // bytes at the time adding code
+            string TimeJumpCodeString = "48B8" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "0000" + "FFE0"; // basically code that puts the codecave address in rax and jumps to it
+            byte[] TimeJumpCode = StringToBytes(TimeJumpCodeString); // converting the easily managable string to bytes
+
+            string TimeAddrAddrString = ((long)CodeCave + 37).ToString("X"); // sets where i want the TimeAddr (rbx) to be "dumped" to, just an offset thats within the codecave
+            byte[] TimeAddrAddr = StringToBytes("00000" + TimeAddrAddrString); // adding seamingly neccesary 0's to not confuse the assembly, without them, the opcodes would fuck up
+            Array.Reverse(TimeAddrAddr); // again, endianess
+
+            byte[] TimeNOPAddrBytes = longToByteArray(TimeNOPAddrLong + 12); // jump back address, where i jumped from + the amount of bits that were replaced
+            Array.Reverse(TimeNOPAddrBytes); // again, endianess
+            string InsideCaveCodeString = "48B8" + BitConverter.ToString(TimeAddrAddr).Replace("-", String.Empty) + "488918F20F1143084883C4405BC3CC48B8" + BitConverter.ToString(TimeNOPAddrBytes).Replace("-", String.Empty) + "FFE0"; // custom asm in code cave - breakpoint to find the code cave address and look inside in cheat engine
+            byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString); // converting the easily managable string to bytes again
+
+            MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode); // write the bytes inside codecave before jumping to it
+            MainWindow.m.WriteBytes(TimeNOPAddr, TimeJumpCode); // write code to jump to codecave
+            Thread.Sleep(25); Thread.Sleep(25);
+            TimeAddr = (MainWindow.m.ReadLong(TimeAddrAddrString) + 8).ToString("X");// get address from dumped memory
+            MainWindow.m.WriteBytes(TimeNOPAddr, TimeJumpBefore); // replace jump bytes, so if it day work, less chance of crash
+            VirtualFreeEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, CodeCave, 0, MEM_DECOMMIT); // free memory, think it might need to be MEM_RELEASE as atm, the allocated memory just stays
+        }
+        private void TimeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            var NOP = new byte[5] { 0x90, 0x90, 0x90, 0x90, 0x90 };
+            var NOPBefore = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08 };
+            if (TimeCheckBox.Checked == false)
+            {
+                MainWindow.m.WriteBytes(TimeNOPAddr, NOPBefore);
+                TimeToggle = false;
+                if (TimeToggle == false)
+                {
+                    TimeWorker.CancelAsync();
+                }
+            }
+            else
+            {
+                MainWindow.m.WriteBytes(TimeNOPAddr, NOP);
+                TimeToggle = true;
+                Timestart = true;
+                if (TimeWorker.IsBusy == false)
+                {
+                    TimeWorker.RunWorkerAsync();
+                }
+            }
+        }
+        private void TimeBack()
+        {
+            Thread.Sleep(75);
+            double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
+            string TimeVal = (TimeValDouble - 100).ToString();
+            MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
+        }
+        private void TimeForward()
+        {
+            Thread.Sleep(75);
+            double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
+            string TimeVal = (TimeValDouble + 100).ToString();
+            MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
+        }
+        //end of time
+
         //teleport "script"
         public void CheckPointTPworker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -488,10 +774,10 @@ namespace Forza_Mods_AIO.TabForms
             else
             {
                 CarNoClipToggle = true;
-                start = true;
-                if (Mainworker.IsBusy == false)
+                NCstart = true;
+                if (NoClipWorker.IsBusy == false)
                 {
-                    Mainworker.RunWorkerAsync();
+                    NoClipWorker.RunWorkerAsync();
                 }
             }
         }
@@ -502,13 +788,9 @@ namespace Forza_Mods_AIO.TabForms
             if (TB_SHWallNoClip.Checked == false)
             {
                 WallNoClipToggle = false;
-                if (TurnAssistToggle == false
-                && SpeedHackToggle == false
-                && VelHackToggle == false
-                && BreakToggle == false
-                && WallNoClipToggle == false)
+                if (WallNoClipToggle == false)
                 {
-                    Mainworker.CancelAsync();
+                    NoClipWorker.CancelAsync();
                 }
                 //NoClipworker.CancelAsync();
                 MainWindow.m.WriteBytes(Wall1Addr, Jmp1before);
@@ -517,39 +799,36 @@ namespace Forza_Mods_AIO.TabForms
             else
             {
                 WallNoClipToggle = true;
-                start = true;
+                NCstart = true;
                 //NoClipworker.RunWorkerAsync();
-                if (Mainworker.IsBusy == false)
+                if (NoClipWorker.IsBusy == false)
                 {
-                    Mainworker.RunWorkerAsync();
+                    NoClipWorker.RunWorkerAsync();
                 }
             }
         }
         //end of noclip
+
         //speedhack buttons
         private void SuperBreakButton_CheckedChanged(object sender, EventArgs e)
         {
             if (SuperBreakButton.Checked == false)
             {
                 BreakToggle = false;
-                if (TurnAssistToggle == false
-                && SpeedHackToggle == false
-                && VelHackToggle == false
-                && BreakToggle == false
-                && WallNoClipToggle == false)
+                if (BreakToggle == false)
                 {
-                    Mainworker.CancelAsync();
+                    SuperBreakWorker.CancelAsync();
                 }
                 //Breakworker.CancelAsync();
             }
             else
             {
                 BreakToggle = true;
-                start = true;
-                if (Mainworker.IsBusy == false)
-                {
-                    Mainworker.RunWorkerAsync();
-                }
+                Breakstart = true;
+                //if (SuperBreakWorker.IsBusy == false)
+                //{
+                    SuperBreakWorker.RunWorkerAsync();
+                //}
                 //Breakworker.RunWorkerAsync();
             }
         }
@@ -569,25 +848,19 @@ namespace Forza_Mods_AIO.TabForms
             if (VelHackButton.Checked == false)
             {
                 VelHackToggle = false;
-                if (TurnAssistToggle == false
-                && SpeedHackToggle == false
-                && VelHackToggle == false
-                && BreakToggle == false
-                && WallNoClipToggle == false)
+                if (VelHackToggle == false)
                 {
-                    Mainworker.CancelAsync();
+                    VelHackWorker.CancelAsync();
                 }
-                //VelHackworker.CancelAsync();
             }
             else
             {
                 VelHackToggle = true;
-                start = true;
-                if (Mainworker.IsBusy == false)
+                Velstart = true;
+                if (VelHackWorker.IsBusy == false)
                 {
-                    Mainworker.RunWorkerAsync();
+                    VelHackWorker.RunWorkerAsync();
                 }
-                //VelHackworker.RunWorkerAsync();
             }
         }
         private void WheelSpeedButton_CheckedChanged(object sender, EventArgs e)
@@ -595,56 +868,46 @@ namespace Forza_Mods_AIO.TabForms
             if (WheelSpeedButton.Checked == false)
             {
                 SpeedHackToggle = false;
-                if (TurnAssistToggle == false
-                && SpeedHackToggle == false
-                && VelHackToggle == false
-                && BreakToggle == false
-                && WallNoClipToggle == false)
+                if (SpeedHackToggle == false)
                 {
-                    Mainworker.CancelAsync();
+                    SpeedHackWorker.CancelAsync();
                 }
-                //SpeedHackworker.CancelAsync();
             }
             else
             {
                 SpeedHackToggle = true;
-                start = true;
-                if (Mainworker.IsBusy == false)
+                Speedstart = true;
+                if (SpeedHackWorker.IsBusy == false)
                 {
-                    Mainworker.RunWorkerAsync();
+                    SpeedHackWorker.RunWorkerAsync();
                 }
-                //SpeedHackworker.RunWorkerAsync();
             }
         }
         //end of speedhack stuff
+
         //turnassist button
         private void TurnAssistButton_CheckedChanged(object sender, EventArgs e)
         {
             if (TurnAssistButton.Checked == false)
             {
                 TurnAssistToggle = false;
-                if (TurnAssistToggle == false
-                && SpeedHackToggle == false
-                && VelHackToggle == false
-                && BreakToggle == false
-                && WallNoClipToggle == false)
+                if (TurnAssistToggle == false)
                 {
-                    Mainworker.CancelAsync();
+                    TurnWorker.CancelAsync();
                 }
-                //TurnAssistworker.CancelAsync();
             }
             else
             {
                 TurnAssistToggle = true;
-                start = true;
-                if (Mainworker.IsBusy == false)
+                Turnstart = true;
+                if (TurnWorker.IsBusy == false)
                 {
-                    Mainworker.RunWorkerAsync();
+                    TurnWorker.RunWorkerAsync();
                 }
-                //TurnAssistworker.RunWorkerAsync();
             }
         }
         //end of turn assist
+
         //teleports
         private void LST_TeleportLocation_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -940,7 +1203,8 @@ namespace Forza_Mods_AIO.TabForms
         }
         private async void FOVScan_BTN_Click(object sender, EventArgs e)
         {
-            string FOVHigh = MainWindow.m.GetCode(FOVHighAddr).ToString();
+            ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2100000000;
+            ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 2100000000;
             FOVScan_BTN.Hide();
             FOVScan_bar.Show();
             bool scan = true;
@@ -953,7 +1217,7 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 1)
                     {
                         cycles++;
-                        FirstPersonAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, FirstPerson, true, true)).FirstOrDefault() - 75;
+                        FirstPersonAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, FirstPerson, true, true)).FirstOrDefault() - 75;
                     }
                     FirstPersonAddr = FirstPersonAddrLong.ToString("X");
                 }
@@ -963,17 +1227,17 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 2)
                     {
                         cycles++;
-                        DashAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Dash, true, true)).FirstOrDefault() - 187;
+                        DashAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Dash, true, true)).FirstOrDefault() - 187;
                     }
                     DashAddr = DashAddrLong.ToString("X");
                 }
-                else if (FrontAddr == "FFFFFFFFFFFFFF5A" || FrontAddr == null || FrontAddr == "0")
+                else if (FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0")
                 {
                     FOVScan_bar.Value = 40;
                     if (cycles < 3)
                     {
                         cycles++;
-                        FrontAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Front, true, true)).FirstOrDefault() - 166;
+                        FrontAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Front, true, true)).FirstOrDefault() - 190;
                     }
                     FrontAddr = FrontAddrLong.ToString("X");
                 }
@@ -983,12 +1247,13 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 4)
                     {
                         cycles++;
-                        LowAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).FirstOrDefault() - 183;
+                        LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).FirstOrDefault() - 183;
+
                     }
                     LowCompare = LowAddrLong.ToString();
                     if (LowCompare == MainWindow.m.GetCode(FOVHighAddr).ToString())
                     {
-                        LowAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).LastOrDefault() - 183;
+                        LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).LastOrDefault() - 183;
                     }
                     LowAddr = LowAddrLong.ToString("X");
                 }
@@ -998,12 +1263,12 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 5)
                     {
                         cycles++;
-                        BonnetAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Bonnet, true, true)).FirstOrDefault() - 189;
+                        BonnetAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Bonnet, true, true)).FirstOrDefault() - 189;
                     }
                     BonnetAddr = BonnetAddrLong.ToString("X");
                 }
                 if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null
-                    || FrontAddr == "FFFFFFFFFFFFFF5A" || FrontAddr == null || FrontAddr == "0"
+                    || FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0"
                     || LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0"
                     || BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || BonnetAddr == "0"
                     || FirstPersonAddr == "0" || DashAddr == null || DashAddr == "0")
