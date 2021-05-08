@@ -136,4 +136,7 @@ Creator- @Ariza
 
 Special thanks to @Major Colaman  for the original save</value>
   </data>
+  <metadata name="GamertagResolve.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>27, 15</value>
+  </metadata>
 </root>
