@@ -20,7 +20,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             InitializeComponent();
         }
-
+        List<string> gamertags = new List<string>();
 
             string Get(string uri)
         {
@@ -35,7 +35,7 @@ namespace Forza_Mods_AIO.TabForms
             request.Headers.Add("x-xbl-market", "GB");
             request.Headers.Add("X-XblCorrelationId", "c6c515ec-dcae-47da-b16a-01306ac67028");
             request.Headers.Add("Accept-Language", "en-GB, en");
-            request.Headers.Add("Authorization", "XBL3.0 x=12686054406395589293;eyJlbmMiOiJBMTI4Q0JDK0hTMjU2IiwiYWxnIjoiUlNBLU9BRVAiLCJjdHkiOiJKV1QiLCJ6aXAiOiJERUYiLCJ4NXQiOiIxZlVBejExYmtpWklFaE5KSVZnSDFTdTVzX2cifQ.ewrISRuItJduj2z6RGdZ8SPpmv21qmQDCPWy-GVIrysDIalAt5fuEqntmhDeB4bXc0R1CpOAg9w4GAtGuWUs11V3g-izEmUN0cg3DpR7ogJ9nSZ_bhxSMDij1kFxUON5AbTkNg7P6ui4fIr38HClv2CmZnbKX_xR5rEUbrdLiCQ.wxo76Mi_TAZ10zdvv-uHvQ.WQi2wRfJyS-9HE3HEVoYvHVY1M9sFu6CsISEe074jTz2XanLFWvBJXQNGoipvfscS8D0Y-UR_UGXLs1o5BFj93KJ51ViYyzkf9cVPIaYkeHEDkvRtsZJac8dYJ4f0Rj7XmX2BljEb5FTgK4Zp3aUdLmkqJ_HVm1nF-iT6xt9xuARBhF6Q4N148jK03JMbpwcK5WDIhHml6EXZWEm276a07enS28A1HJJFmaDLHuECOz6uig4fuWf4CkD7QuorlQkov0x88WizwSaUnls3yLXU1X4xpmUoPPX1bE7AkoyTx3i1kZ6pG5_GRd_FaIc3vGRB5TpxJ1fznSKnFDkQ6JdJ8S2P3VC3sZYgte4n3IOUIUd4V5xhr-eJnCRkrqB-PR3_FqoR-6-ZtYNvkG3YmD-xQfhGKliRW6kI6fWASxaHAWQOBE4rQjD8YZjAAZaZkio-r4MYyXVG-lracyAgCgkk8JKv2S2hZh0Hut0zgRGHF2-uCiXF2ERtbbpAG8jpbhVnTlgpa0zxm2eySIMCBMXaB3ewH78suA4M5ihw-Tsc6vfEJTj638rFlCdsDcm9tODz51XK0_nbRUPqeZ_QcoTmUlb6JwBygXN9lqV2zeVeAOKhd7qEKoiEVo9w7qMUu_ALHsxlyAGvh3JfL3qAw4r36ooksx9IKGV5LsHISibNZ3QPDDGxIk_S64KLu3J2dE7vbB60qsBF_ARczntgxkJXPoMRnUCTyFUNKD9eUXEfQokSx2TLPLAqpDn3U0826qUIrhziuwDzbbFroVZq6Owk79oPTqJueASy3tgGwps0YU3KtO7KOLlPhbJIYT-aPAaz9t0SQMqwBiCY6U5Ov3Fsdx1yruq7chJhSmgLw_pwSJxX0oh3V9lJ3fkLE0bCNf1myNejLh0BcjlcUMFFshKC8JIN33nu9MeCHUqcjeT3W2zJBOsQUegoTc4lIBuZ0hF2dJ9_h7llepjauS-od7_l8l-6CHOqy22BgcVtmoAG08-FF0HlJoBMI1bjNAkjeIuHi9Bp7qC0d9iWY-dnR7VdE9p_Xj9WrqUoArC07Idy5S_jgm_6qD3ba8y4bE8NeA-PWZbfr7qPPmErWQCkHqKqagg9tgvjPfShqZ_WnHL_-5_5PGHxzvdpAndIFRjdoFUpRStYP6JwFphULby57X_Ey7GUfliDtQtq14GQ0yw721eIqPyxPeye_4hmGEFVKB0rPwrmrMH_ZFiX56WMhkFaTak05NkD-TTuQNlCyUitTcIdSE-3VuBqPhGEg6pPY_ENyDjxuBS1a6M0oJb3xYph0yP6ErvLiIMMue0fpBhipD7NCtR6KB1kbIP871nZj0CrK-LSYXlU-5FiJLmibKG1z0ZMjqFnLmemRQP5ZzAEVt_sLwzOFp0FdFU3GAUkDW4P6zV2dv1JCzElZPVpS-9bnIK1dDgWTFCiqUE3DYfB7Z6CrQ6OBc9fJhmIjBImiB8r1IWPBVrcDgY7fB8WfTd_trRgTy16uvRp8bsqi_-yQm01Vasat022nyLinKKcG8zHCcYjFnAXZKFXjVv6HCkvGe85hiHZHQ1WLOIe0IhANMyDrsJ7wd3STd_P1Ndo7VXWCInZaKS1HagtzYr8TI1HOVZMNhvxhGkrKbEDBT6dCtYYSEgDqr-0sUVb9iNYhrtsNBXSj3ou7i6ix_wz0Pv0kCX1qZa4d54aT_LrOXDOrZ-KOaEojbmORW5vaL4rMl10MDGOXgPyVNLO3raZgfG6stWPXDZLfCUC2JP8-Ef1kBkELTn5wuEs7P9kCqDXkkBdJLr3j2ICXBfMab0ZtQmZ5m814ohWJCJ3ymniKAOOlFE1n985Trrhq7v46irkQ9l3kH7bH_4vOZhdPHM2WHdoiPp4VrczHPK2poEmZwTIgLUZSxDMKPxmDCEUAneccec0KDOLfpMuLHFv2eJ6EdkYew-9_ya0f7kjxREiLi5ZHM.Z8A00fvFzm0hBwkiefy4dCGvJcKTbYwhkyOJvFp3aGc");
+            request.Headers.Add("Authorization", "XBL3.0 x=9822328712758899513;eyJlbmMiOiJBMTI4Q0JDK0hTMjU2IiwiYWxnIjoiUlNBLU9BRVAiLCJjdHkiOiJKV1QiLCJ6aXAiOiJERUYiLCJ4NXQiOiIxZlVBejExYmtpWklFaE5KSVZnSDFTdTVzX2cifQ.XLt5MrjGvYhqEE2-o8fOw0FBsIpe-nVY9y2jiJaKD9IuhHneZ5AhAMZgDPpjsY2y4MdjI7eBdsJrAWd1ap8tXizfRTff5P6CS3FjIG1IkSotmf25jMSYcRxZv8H2ceHmmooOnS0IQNBCf9uufzuNrYAD_E1IlAT-z4SkDjshoUo.dxH5e9EzOztcP1ovFe7RDQ.Hmpsus-MVNbTC6BOdigeFxMINBM4Fqv3gD5Z-GDZga9XlBxMs-QFxXJDJGyBET_4VM3kj6L21Rff1Zx4VcmKaVQ8Wysa2mhtAcqTDik2ltIaaEwfgo61oGqjh12iVrT5t15EY3vdE3htDhFt-dr96Xa_rubbqe4ZQyZ1ARLHt7KfPNTwHbxQv_6Sdus8x8rcowxvw2euog5nkWrhTPZlBrVeW8-BRMTsx63RdQ28nWsTRv7D-NrQRAJcsP9cPe4RmFdxFDdGPN4hU3QLvAMss8QwSk7Q7Ye_6fxy20IuKCwu4HIE0StUxbtZSTLjs3mlps6blugI2xfzm81JX0-Ny-oW3bDa8OHfMEess-2hL2dXZXjTBh8VgkuYw0fvMbeEun_QlhPgmO8iebYg0y6HHRXPQdWEGwCtW-3zpQX9t7xw4SiCNlxWgUe_KwPlkLzQhquUuFDItSVXfc96zdEgG9B4rSTnDEy5udEvNUW7EjG0bYbvencvR0HEBrp9Z85wyz6xocVsuvR94GLHB9wgdvpxj6XGG88xCqRtFJBKse9xGjQ6deW1KQj3PdxeaOT9EipWtcqah1PiBZ5h8lUDEwrs5VJNDSCFX4x5mmTRCqjU7RxCgNMNTHYbThEZ4EO4Qs4RD5LPfdRNzfUtYzJTEZpXULNqWLPnZEvMKZtkZ51_4M3G08HpXUYqfS9mHElhgEs0ATeyRrDbi9MhreCAvVXNR03ofTn9m_2YJF4wh6Oq2VZlcp-3SKR9brUh3WmFXhaV-5O23OPmjqE3SnC65gtZyNYY-sA57kOhRbQDtNsKyIi9EnUrOmIx2kIpfzxcNvUDjaRX-wlbhibTs1Dv0QkGt-Yk_XVNelaEzejP4cKNciMCLPumkz7C6bDj-S1GJAVf0R0sRFmIr-qU6G6H5gbMHNy5Z9pTKRERm6PdoylYWjJW_CG2-YqhYcFeaVQ853YW43kcQOEHoUqgQ6ZImU7tLQoNChy4Mx89slS4KzRe5zpx0d9miDj7FTR8gp7gNXmo232WFFQ9VKFRqenw3URv0l2rw4KiWcDEEbcFdc_N3uD5aavT_Q3crFUkEy8dmDj4L_l3KayRr5hU00PTEjEQjfhHz-WdGac7Zm2FFoSRZU_u3ILf0HSmQUNXFchrpm8HLTGfyAkoCthtnj46VSFRSy7eId0MgVMf0-TukcB9SvD33vh7j89QOSVkwslORPfZOI5VUHKMtFnggXEyOK-8yMUbVxRZZthgzhBW7EeIQcMGuihB-e0O2DsaTWJxg0Vr0p7ezo67UXppcDT9Yz7fElQgkrsVDdi9N8c7xPaQA4SyEh9Q_36JvSoO05j1IWiTsTo73Ruk3Cc-ldHIfhk4Isft0AmXtWPYmlWHQiMePdcUItxCNaXb9j9EPrK_-QubnQHWiqoX-dkAMXe4bOb4guEQWddRjhYDOhaP_Riv496qVxgl57OTsyZk0ZqoU-9ixzNrA0Y-dNv1bVq3a8C-LGAGuBC_gWnPULYqmEKu7eCywWw0-STlXhQSVg2-Q53IaoiAKErj5azODIqld3ZUAgCJfPOUOXZdZp0sEPC4nzdw_c6ufpW2oxMcX9eiJqY5mdTDNU5Z1ja88PUVHXYP1-5YLWHPAMcQTRdvX8PnDnnhBq2qorUDvjhwbY-He3_Goy1LWBXCrW47O-0PTqLJqRKqYaFsLVncvBiqQROZMFuG_1Bi6OeeLuBQ9vjuhFt1nhFkNz_6ZoLirGWB4qFTuYwxm--T-XQfRFcVzWyxavXGeRbp50gE3KAaIl_9u_S6dzsZHIpNxKyqTU5DPZGp-MeLrj5wfKRtbA8O_IHaUJ6rskqy5ZxFV7safAXZOFlNVRtpY0zG_0nY0f3e4oZ8oa1e1ZjctH8RpVfaKK6U554k6aXnYcfsH2zuIxXWCePjIHJxs6dKhlWoxalAjA.owfY1zPvS9eCVoVkyzXAKRxZzZz2uQ_rO5DFPEMRmSY");
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             using (Stream stream = response.GetResponseStream())
@@ -52,17 +52,18 @@ namespace Forza_Mods_AIO.TabForms
             //System.Diagnostics.Process.Start(path);
             var dirinfo = new DirectoryInfo(path);
             var acclist = dirinfo.EnumerateDirectories("*");
-            //
-            //MessageBox.Show( ;
+            //var result = (dynamic)JObject.Parse(Get("https://peoplehub.xboxlive.com/users/me/people/xuids(2535411285854551)"));
+            //MessageBox.Show(result.people[0].ToString());
+
+
             foreach (var dir in acclist)
             {
                 if (dir.Name != "t")
                 {
                     var result = (dynamic)JObject.Parse(Get("https://peoplehub.xboxlive.com/users/me/people/xuids("+ Int64.Parse(dir.Name.Substring(0, 16), System.Globalization.NumberStyles.HexNumber) +")"));
-                    LST_Accounts.Items.Add(result.people[0].gamertag.ToString());
+                    gamertags.Add(result.people[0].gamertag.ToString());
                 }
                 
-                    //LST_Accounts.Items.Add("last played: " + dir.LastWriteTime);
 
             }
                 
