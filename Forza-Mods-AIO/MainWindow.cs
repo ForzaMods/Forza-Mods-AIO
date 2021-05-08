@@ -35,7 +35,6 @@ namespace Forza_Mods_AIO
             InitializeComponent();
             this.TabHolder.Controls.Add(ToolInfo);
             ToolInfo.Visible = true;
-
         }
         private void MainWindow_Load(object sender, EventArgs e)
         {
