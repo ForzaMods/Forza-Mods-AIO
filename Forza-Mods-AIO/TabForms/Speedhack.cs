@@ -18,6 +18,7 @@ using IniParser.Model;
 using Forza_Mods_AIO.TabForms;
 using System.Runtime.InteropServices;
 using SharpDX.XInput;
+using SharpDX.DirectInput;
 
 namespace Forza_Mods_AIO.TabForms
 {
@@ -91,6 +92,7 @@ namespace Forza_Mods_AIO.TabForms
         long ScanEndAddr;
         public static int cycles = 0;
         Controller controller = null;
+        Joystick joystick = null;
         private readonly static Dictionary<char, byte> hexmap = new Dictionary<char, byte>()
         {
             { 'a', 0xA },{ 'b', 0xB },{ 'c', 0xC },{ 'd', 0xD },
@@ -99,6 +101,13 @@ namespace Forza_Mods_AIO.TabForms
             { '0', 0x0 },{ '1', 0x1 },{ '2', 0x2 },{ '3', 0x3 },
             { '4', 0x4 },{ '5', 0x5 },{ '6', 0x6 },{ '7', 0x7 },
             { '8', 0x8 },{ '9', 0x9 }
+        };
+        private readonly static Dictionary<int, string> DInputmap = new Dictionary<int, string>()
+        {
+            { 0, "Square" },{ 1, "Circle" },{ 2, "X" },{ 3, "Triangle" },
+            { 4, "LeftBumper" },{ 5, "RightBumper" },{ 6, "LeftTrigger" },{ 7, "RightTrigger" },
+            { 8, "Share" },{ 9, "Options" },{ 10, "LeftStick" },{ 11, "RightStick" },
+            { 12, "PS" },{ 13, "Touchpad" },
         };
 
         [DllImport("user32.dll")]
@@ -148,8 +157,12 @@ namespace Forza_Mods_AIO.TabForms
         //BG Workers
         public void ControllerWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            int count = 0;
+            int countfound = 0;
             var controllers = new[] { new Controller(UserIndex.One), new Controller(UserIndex.Two), new Controller(UserIndex.Three), new Controller(UserIndex.Four) };
-            while(true)
+            var directInput = new DirectInput();
+            var joystickGuid = Guid.Empty;
+            while (true)
             {
                 foreach (var selectControler in controllers)
                 {
@@ -162,12 +175,38 @@ namespace Forza_Mods_AIO.TabForms
                 if (controller == null)
                 {
                     XBChange.Enabled = false;
-                    Debug.WriteLine("No XInput controller installed");
+                    if(count == 0)
+                        Debug.WriteLine("No XInput controller installed");
+                    count++;
+                    Thread.Sleep(10);
+                    try
+                    {
+                        foreach (var deviceInstance in directInput.GetDevices(SharpDX.DirectInput.DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices))
+                            joystickGuid = deviceInstance.InstanceGuid;
+                        while (joystickGuid != Guid.Empty)
+                        {
+                            XBChange.Enabled = true;
+                            joystick = new Joystick(directInput, joystickGuid);
+                            joystick.Properties.BufferSize = 128;
+                            joystick.Acquire();
+
+                            joystick.Poll();
+                            var datas = joystick.GetBufferedData();
+                            foreach (var state in datas)
+                                Debug.WriteLine(state);
+                            Thread.Sleep(10);
+                        }
+                    }
+                    catch
+                    {
+                        joystickGuid = Guid.Empty;
+                    }
                 }
                 else
                 {
                     try
                     {
+                        count = 0;
                         Debug.WriteLine("Found a XInput controller available");
                         var previousState = controller.GetState();
                         while (controller.IsConnected)
@@ -196,13 +235,22 @@ namespace Forza_Mods_AIO.TabForms
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
                 {
-                    if (controller.IsConnected)
+                    if (controller != null)
                     {
                         var XBState = controller.GetState();
                         if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
                         || XBState.Gamepad.Buttons.ToString().Contains(XBKeyString)
                         || XBKeyString == "LeftTrigger" && Convert.ToInt64(XBState.Gamepad.LeftTrigger) >= 235
                         || XBKeyString == "RightTrigger" && Convert.ToInt64(XBState.Gamepad.RightTrigger) >= 235)
+                        {
+                            SpeedHackVel();
+                        }
+                    }
+                    else if (joystick != null)
+                    {
+                        var datas = joystick.GetCurrentState();
+                        bool[] ControllerButtonstate = datas.Buttons;
+                        if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key])
                         {
                             SpeedHackVel();
                         }
@@ -262,7 +310,7 @@ namespace Forza_Mods_AIO.TabForms
                 boost = MainWindow.m.ReadFloat(FrontLeftAddr);
                 if (PastStart == 1)
                 {
-                    if (controller.IsConnected)
+                    if (controller != null)
                     {
                         var XBState = controller.GetState();
                         while (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
@@ -271,6 +319,17 @@ namespace Forza_Mods_AIO.TabForms
                         || XBKeyString == "RightTrigger" && Convert.ToInt64(XBState.Gamepad.RightTrigger) >= 235)
                         {
                             XBState = controller.GetState();
+                            SpeedHack();
+                        }
+                    }
+                    else if (joystick != null)
+                    {
+                        var datas = joystick.GetCurrentState();
+                        bool[] ControllerButtonstate = datas.Buttons;
+                        while (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key])
+                        {
+                            datas = joystick.GetCurrentState();
+                            ControllerButtonstate = datas.Buttons;
                             SpeedHack();
                         }
                     }
@@ -295,7 +354,7 @@ namespace Forza_Mods_AIO.TabForms
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
                 {
-                    if (controller.IsConnected)
+                    if (controller != null)
                     {
                         var XBState = controller.GetState();
                         if (GetAsyncKeyState(Keys.A) is 1 or Int16.MinValue || Convert.ToInt64(XBState.Gamepad.LeftThumbX) <= -17000)
@@ -357,7 +416,7 @@ namespace Forza_Mods_AIO.TabForms
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
                 {
-                    if (controller.IsConnected)
+                    if (controller != null)
                     {
                         var XBState = controller.GetState();
                         if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue || XBState.Gamepad.Buttons.ToString().Contains("A"))
@@ -386,11 +445,13 @@ namespace Forza_Mods_AIO.TabForms
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
                 {
-                    if (GetAsyncKeyState(Keys.NumPad6) is 1 or Int16.MinValue || (GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && GetAsyncKeyState(Keys.Right) is 1 or Int16.MinValue))
+                    if (GetAsyncKeyState(Keys.NumPad6) is 1 or Int16.MinValue
+                        || (GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && GetAsyncKeyState(Keys.Right) is 1 or Int16.MinValue))
                     {
                         TimeForward();
                     }
-                    if (GetAsyncKeyState(Keys.NumPad4) is 1 or Int16.MinValue || (GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && GetAsyncKeyState(Keys.Left) is 1 or Int16.MinValue))
+                    if (GetAsyncKeyState(Keys.NumPad4) is 1 or Int16.MinValue
+                        || (GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && GetAsyncKeyState(Keys.Left) is 1 or Int16.MinValue))
                     {
                         TimeBack();
                     }
@@ -824,6 +885,12 @@ namespace Forza_Mods_AIO.TabForms
                 }
                 if (keyBuffer != "" && keyBuffer != "Clear")
                 {
+                    if (keyBuffer == "ShiftKeyLShiftKey")
+                        keyBuffer = "LShiftKey";
+                    if (keyBuffer == "ControlKeyLControlKey")
+                        keyBuffer = "LControlKey";
+                    if (keyBuffer == "AltKeyLAltKey")
+                        keyBuffer = "LAltKey";
                     KBChange.Text = keyBuffer;
                     KBKeyString = keyBuffer;
                     done = true;
@@ -842,34 +909,60 @@ namespace Forza_Mods_AIO.TabForms
 
         private void XBChange_Click(object sender, EventArgs e)
         {
-            XBChange.Text = "Press the button\n you want";
-            bool done = false;
-            while (!done)
+            if(controller !=null)
             {
-                string keyBuffer = string.Empty;
-                var State = controller.GetState();
-                string ControllerButtonstate = State.Gamepad.Buttons.ToString();
-                long ControllerRTstate = Convert.ToInt64(State.Gamepad.RightTrigger);
-                long ControllerLTstate = Convert.ToInt64(State.Gamepad.LeftTrigger);
-                if (ControllerButtonstate != "None")
+                XBChange.Text = "Press the button\n you want";
+                bool done = false;
+                while (!done)
                 {
-                    XBChange.Text = ControllerButtonstate;
-                    XBKeyString = ControllerButtonstate;
-                    done = true;
+                    var State = controller.GetState();
+                    string ControllerButtonstate = State.Gamepad.Buttons.ToString();
+                    long ControllerRTstate = Convert.ToInt64(State.Gamepad.RightTrigger);
+                    long ControllerLTstate = Convert.ToInt64(State.Gamepad.LeftTrigger);
+                    if (ControllerButtonstate != "None")
+                    {
+                        XBChange.Text = ControllerButtonstate;
+                        XBKeyString = ControllerButtonstate;
+                        done = true;
+                    }
+                    if (ControllerRTstate > 240)
+                    {
+                        XBChange.Text = "RightTrigger";
+                        XBKeyString = "RightTrigger";
+                        done = true;
+                    }
+                    if (ControllerLTstate > 240)
+                    {
+                        XBChange.Text = "LeftTrigger";
+                        XBKeyString = "LeftTrigger";
+                        done = true;
+                    }
+                    Thread.Sleep(1);
                 }
-                if (ControllerRTstate > 240)
+            }
+            else if(joystick != null)
+            {
+                while (!done)
                 {
-                    XBChange.Text = "RightTrigger";
-                    XBKeyString = "RightTrigger";
-                    done = true;
+                    var datas = joystick.GetCurrentState();
+                    bool[] ControllerButtonstate = datas.Buttons;
+                    List<int> indices = new List<int>();
+                    for (int i = 0; i < ControllerButtonstate.Length; ++i)
+                    {
+                        if (ControllerButtonstate[i])
+                        {
+                            indices.Add(i);
+                        }
+                    }
+                    if (indices.Count == 1)
+                    {
+                        int XBButtonIndex = indices[0];
+                        XBKeyString = DInputmap[XBButtonIndex];
+                        XBChange.Text = XBKeyString;
+                        done = true;
+                    }
+                    indices = null;
                 }
-                if (ControllerLTstate > 240)
-                {
-                    XBChange.Text = "LeftTrigger";
-                    XBKeyString = "LeftTrigger";
-                    done = true;
-                }
-                Thread.Sleep(1);
             }
         }
         // end of change key buttons
