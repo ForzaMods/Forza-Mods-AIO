@@ -224,6 +224,7 @@ namespace Forza_Mods_AIO
                     ToolInfo.AOBScanProgress.Value = 100;
                     LiveTuning.Addresses();
                     Speedhack.Addresses();
+                    Speedhack.GetTimeAddr();
                     Speedhack.ReadSpeedDefaultValues();
                     Speedhack.done = true;
                 }
