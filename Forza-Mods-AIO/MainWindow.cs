@@ -224,7 +224,6 @@ namespace Forza_Mods_AIO
                     ToolInfo.AOBScanProgress.Value = 100;
                     LiveTuning.Addresses();
                     Speedhack.Addresses();
-                    Speedhack.GetTimeAddr();
                     Speedhack.ReadSpeedDefaultValues();
                     Speedhack.done = true;
                 }
@@ -379,7 +378,7 @@ namespace Forza_Mods_AIO
                 ClearTabItems();
                 TabHolder.Controls.Add(Speedhack);
                 Speedhack.Visible = true;
-                //SetSpeedhackVal();
+                Speedhack.ReadSpeedDefaultValues();
                 Speedhack.SHReset();
             }
             else

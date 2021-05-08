@@ -474,11 +474,6 @@ namespace Forza_Mods_AIO.TabForms
             // GravityBox
             // 
             this.GravityBox.DecimalPlaces = 2;
-            this.GravityBox.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            262144});
             this.GravityBox.Location = new System.Drawing.Point(3, 99);
             this.GravityBox.Minimum = new decimal(new int[] {
             100,
@@ -493,18 +488,18 @@ namespace Forza_Mods_AIO.TabForms
             // 
             // WeirdBox
             // 
-            this.WeirdBox.DecimalPlaces = 2;
+            this.WeirdBox.DecimalPlaces = 8;
             this.WeirdBox.Increment = new decimal(new int[] {
             1,
             0,
             0,
-            262144});
+            131072});
             this.WeirdBox.Location = new System.Drawing.Point(3, 55);
-            this.WeirdBox.Minimum = new decimal(new int[] {
-            100,
+            this.WeirdBox.Maximum = new decimal(new int[] {
+            1,
             0,
             0,
-            -2147483648});
+            0});
             this.WeirdBox.Name = "WeirdBox";
             this.WeirdBox.Size = new System.Drawing.Size(92, 22);
             this.WeirdBox.TabIndex = 16;
@@ -1224,7 +1219,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.SuperBreakWorker.WorkerSupportsCancellation = true;
             this.SuperBreakWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SuperBreakWorker_DoWork);
-            //
+            // 
             // TimeWorker
             // 
             this.TimeWorker.WorkerSupportsCancellation = true;
