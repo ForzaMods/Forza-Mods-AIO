@@ -16,10 +16,6 @@ using GlobalLowLevelHooks;
 using IniParser;
 using IniParser.Model;
 using Forza_Mods_AIO.TabForms;
-using Reloaded.Assembler;
-using Reloaded.Assembler.Definitions;
-using Binarysharp.MemoryManagement;
-using Binarysharp.MemoryManagement.Native;
 using System.Runtime.InteropServices;
 
 namespace Forza_Mods_AIO.TabForms
@@ -43,8 +39,9 @@ namespace Forza_Mods_AIO.TabForms
         bool CarNoClipToggle = false;
         bool CheckPointTPToggle = false;
         public static bool done = false;
-        public static bool start = false;
+        public static bool Velstart = false; public static bool NCstart = false; public static bool FOVstart = false; public static bool Timestart = false; public static bool Breakstart = false; public static bool Speedstart = false; public static bool Turnstart = false;
         bool FovIncreaseStart = false; bool FovDecreaseStart = false;
+        bool TimeToggle = false;  bool TimeForwardStart = false; bool TimeBackStart = false;
         public static long TimeNOPAddrLong;
         public static long BaseAddrLong; public static long Base2AddrLong; public static long Base3AddrLong; public static long Base4AddrLong; public static long Car1AddrLong; public static long Car2AddrLong; public static long Wall1AddrLong; public static long Wall2AddrLong; public static long FOVnopOutAddrLong; public static long FOVnopInAddrLong;
         public static long FirstPersonAddrLong; public static long DashAddrLong; public static long FrontAddrLong; public static long LowAddrLong; public static long BonnetAddrLong;
@@ -159,12 +156,20 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     FovIncreaseStart = true;
                 }
+                if (TimeCheckBox.Checked)
+                {
+                    TimeForwardStart = true;
+                }
             }
             if (key == KeyboardHook.VKeys.NUMPAD4)
             {
                 if (FOV.Checked)
                 {
                     FovDecreaseStart = true;
+                }
+                if (TimeCheckBox.Checked)
+                {
+                    TimeBackStart = true;
                 }
             }
         }
@@ -210,11 +215,13 @@ namespace Forza_Mods_AIO.TabForms
             if (key == KeyboardHook.VKeys.NUMPAD6)
             {
                 FovIncreaseStart = false;
+                TimeForwardStart = false;
                 IncreaseCycles = 0;
             }
             if (key == KeyboardHook.VKeys.NUMPAD4)
             {
                 FovDecreaseStart = false;
+                TimeBackStart = false;
                 DecreaseCycles = 0;
             }
         }
@@ -248,9 +255,32 @@ namespace Forza_Mods_AIO.TabForms
             GravityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x558");
         }
         //end of setup
-        public void Mainworker_DoWork(object sender, DoWorkEventArgs e)
+
+        //BG Workers
+        public void VelHackWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (start)
+            while (Velstart)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
+                    if (VelHackToggle)
+                    {
+                        SpeedHackVel();
+                    }
+                    if (VelHackWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        Velstart = false;
+                    }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        public void NoClipWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (NCstart)
             {
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
@@ -270,23 +300,66 @@ namespace Forza_Mods_AIO.TabForms
                         }
                         CarNoClipToggle = false;
                     }
-                    if (VelHackToggle)
+                    if (NoClipWorker.CancellationPending)
                     {
-                        SpeedHackVel();
+                        e.Cancel = true;
+                        NCstart = false;
                     }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        public void SpeedHackWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (Speedstart)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
                     if (SpeedHackToggle)
                     {
                         SpeedHack();
                     }
+                    if (SpeedHackWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        Speedstart = false;
+                    }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        public void TurnWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (Turnstart)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
                     if (TurnAssistToggle)
                     {
                         TurnAssistLeft();
                         TurnAssistRight();
                     }
-                    if (BreakToggle)
+                    if (TurnWorker.CancellationPending)
                     {
-                        SuperBreak();
+                        e.Cancel = true;
+                        Turnstart = false;
                     }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        public void FOVWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (FOVstart)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
                     if (FovIncreaseStart)
                     {
                         FOVIncrease();
@@ -295,16 +368,64 @@ namespace Forza_Mods_AIO.TabForms
                     {
                         FOVdecrease();
                     }
-                    if (Mainworker.CancellationPending)
+                    if (FOVWorker.CancellationPending)
                     {
                         e.Cancel = true;
-                        start = false;
+                        FOVstart = false;
                     }
                     Thread.Sleep(1);
                 }
                 Thread.Sleep(1);
             }
         }
+        public void SuperBreakWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (Breakstart)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
+                    if (BreakToggle)
+                    {
+                        SuperBreak();
+                    }
+                    if (SuperBreakWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        Breakstart = false;
+                    }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        public void TimeWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (Timestart)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
+                    if (TimeForwardStart)
+                    {
+                        TimeForward();
+                    }
+                    if (TimeBackStart)
+                    {
+                        TimeBack();
+                    }
+                    if (TimeWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        Timestart = false;
+                    }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        //end of BG Workers
+
         //break hack methods
         public void SuperBreak()
         {
@@ -438,115 +559,9 @@ namespace Forza_Mods_AIO.TabForms
         }
         //end of turn assists
 
-        //teleport "script"
-        public void CheckPointTPworker_DoWork(object sender, DoWorkEventArgs e)
+        //Time
+        public void GetTimeAddr()
         {
-            while (CheckPointTPToggle)
-            {
-                float InRace = MainWindow.m.ReadFloat(InRaceAddr);
-                if (InRace == 1)
-                {
-                    Thread.Sleep(3750);
-                    while (InRace == 1)
-                    {
-                        InRace = MainWindow.m.ReadFloat(InRaceAddr);
-                        CheckPointTP();
-                    }
-                    MainWindow.m.UnfreezeValue(yAngVelAddr);
-                }
-                Thread.Sleep(1);
-            }
-        }
-        public void CheckPointTP()
-        {
-            Thread.Sleep(25);
-            MainWindow.m.WriteMemory(xAddr, "float", (MainWindow.m.ReadFloat(CheckPointxAddr)).ToString());
-            MainWindow.m.WriteMemory(yAddr, "float", (MainWindow.m.ReadFloat(CheckPointyAddr) + 4).ToString());
-            MainWindow.m.WriteMemory(zAddr, "float", (MainWindow.m.ReadFloat(CheckPointzAddr)).ToString());
-            MainWindow.m.FreezeValue(yAngVelAddr, "float", "100");
-        }
-        //end of teleport "script"
-
-        private void TimeCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            var NOP = new byte[5] { 0x90, 0x90, 0x90, 0x90, 0x90};
-            var NOPBefore = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08};
-            if (TimeCheckBox.Checked)
-            {
-                MainWindow.m.WriteBytes(TimeNOPAddr, NOP);
-            }
-            else
-            {
-                MainWindow.m.WriteBytes(TimeNOPAddr, NOPBefore);
-            }
-        }
-        private void TimeBack_Click(object sender, EventArgs e)
-        {
-            if (TimeCheckBox.Checked)
-            {
-                double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
-                string TimeVal = (TimeValDouble - 1000).ToString();
-                MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
-            }
-        }
-        private void TimeForward_Click(object sender, EventArgs e)
-        {
-            if (TimeCheckBox.Checked)
-            {
-                double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
-                TimeValDouble = TimeValDouble + 1000;
-                string TimeVal = TimeValDouble.ToString();
-                MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
-            }
-        }
-
-        private void Test_Click(object sender, EventArgs e)
-        {
-            /*
-            var TimeJump = new byte[5] { 0xE9, 0xBE, 0xFE, 0x0D, 0xFC };                                                        //
-            var TimeCode1 = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08 };                                                       //
-            var TimeCode2 = new byte[7] { 0x48, 0x89, 0x1D, 0xF4, 0x07, 0x00, 0x00 };                                           //
-            var TimeCode3 = new byte[5] { 0xE9, 0x32, 0x01, 0xF2, 0x03 };                                                       //
-            string addr1 = "7FF7802C0000";                                                                                      //
-            string addr2 = "7FF7802C0005";                                                                                      //
-            string addr3 = "7FF7802C000B";                                                                                      //
-            string TimeAddr = "7FF780290800";                                                                                   // First none-library attempt, complete shit
-            MainWindow.m.WriteBytes(addr1, TimeCode1);                                                                          //
-            MainWindow.m.WriteBytes(addr2, TimeCode2);                                                                          //
-            MainWindow.m.WriteBytes(addr3, TimeCode3);                                                                          //
-            MainWindow.m.WriteBytes(TimeNOPAddr, TimeJump);                                                                     //
-            long TimeAddrLong = MainWindow.m.ReadLong(TimeAddr);                                                                //
-            MessageBox.Show(TimeAddrLong.ToString("X"));                                                                        //
-            */                                                                                                                  //
-
-            /*                                                                                                                  //
-            var assembler = new Assembler();                                                                                    //
-            //var TimeJump = new byte[5] { 0xE9, 0x94, 0x40, 0xF5, 0x03 };                                                      //
-            var TimeJumpBefore = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08 };                                                  //
-            var allocation = sharp.Memory.Allocate(2046, MemoryProtectionFlags.ReadWrite);                                      //
-            allocationstring = allocation.ToString();                                                                           //
-            string[] mnemonics = new[]                                                                                          //
-            {                                                                                                                   //    
-                "mov rax, 0x7FF73431941D6",                                                                                     // This one would be amazing if it worked on x64, which it doesnt - using MemorySharp
-                "jmp rax"                                                                                                       //
-            };                                                                                                                  //
-            byte[] TimeJump = assembler.Assemble(mnemonics);                                                                    //
-            TimeAddrAddr = "0x" + ((long)InjectAddress + 19).ToString("X");                                                     //
-            MainWindow.m.WriteBytes(TimeNOPAddr, TimeJump);                                                                     //
-            string TimeAddr = MainWindow.m.ReadLong(TimeAddrAddr).ToString("X");                                                //
-            MessageBox.Show(TimeAddr);                                                                                          //
-            MainWindow.m.WriteBytes(TimeNOPAddr, TimeJumpBefore);                                                               //
-            */                                                                                                                  //
-
-            /*                                                                                                                  //
-            byte[] code = new byte[12] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x89, 0x1D, 0x37, 0x18, 0xEA, 0x07 };              //
-            UIntPtr CodeCaveAddr = MainWindow.m.CreateCodeCave(TimeNOPAddr, code, 5, 100);                                      // Some random memory library that didnt work properly
-            long CodeCaveLongAddr = (long)CodeCaveAddr;                                                                         //
-            MessageBox.Show(CodeCaveLongAddr.ToString("X"));                                                                    //
-            */
-
-
-            // -- Cool string to bytes converter i found that doesnt actually change the value to bytes equivalent, just splits it up into bytes for write function -- //
             static byte[] StringToBytes(string hex)
             {
                 if (string.IsNullOrWhiteSpace(hex))
@@ -585,7 +600,6 @@ namespace Forza_Mods_AIO.TabForms
                 }
             }
 
-            // -- basically to have the Address of the actual start as bytes for the jump back -- //
             static byte[] longToByteArray(long data)
             {
                 return new byte[] {
@@ -600,7 +614,6 @@ namespace Forza_Mods_AIO.TabForms
                 };
             }
 
-            // -- imports the VirtualAllocEx for creating the codecave -- //
             [DllImport("kernel32.dll", ExactSpelling = true, SetLastError = true)]
             static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
 
@@ -613,16 +626,15 @@ namespace Forza_Mods_AIO.TabForms
             const uint MEM_COMMIT = 0x00001000;
             const uint MEM_RESERVE = 0x00002000;
             const uint PAGE_READWRITE = 0x4;
+            const uint PAGE_EXECUTE_READWRITE = 0x40;
 
-            // -- imports the VirtualFreeEx for freeing the codecave -- //
             [DllImport("kernel32.dll", ExactSpelling = true, SetLastError = true)]
             static extern IntPtr VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint dwFreeType);
 
             const uint MEM_DECOMMIT = 0x00004000;
             const uint MEM_RELEASE = 0x00008000;
 
-            // -- creates codecave -- //
-            IntPtr CodeCave = VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, IntPtr.Zero, 0x256, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE); // returns the pointer to the allocated memory
+            IntPtr CodeCave = VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, IntPtr.Zero, 0x256, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE); // returns the pointer to the allocated memory
             string CodeCaveAddrString = ((long)CodeCave).ToString("X"); // converts the pointer to hex string ready for easy conversion to bytes
             byte[] CodeCaveAddr = StringToBytes("0" + CodeCaveAddrString); // converts said string to bytes - "0" there to make the bit count even as ther is 15 bits to the address
             Array.Reverse(CodeCaveAddr); // makes it little-endian, what assembly uses
@@ -642,13 +654,79 @@ namespace Forza_Mods_AIO.TabForms
 
             MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode); // write the bytes inside codecave before jumping to it
             MainWindow.m.WriteBytes(TimeNOPAddr, TimeJumpCode); // write code to jump to codecave
-            byte[] TimeAddrBytes = MainWindow.m.ReadBytes(((long)CodeCave + 37).ToString("X"), 6); // read the dumped address (although, if u look in cheat engine, nothing gets "dumped" there, so either, register didnt get carried over, or it never gets jumped to)
-            Array.Reverse(TimeAddrBytes); // makes it big-endian, basically readable as a normal address
-            TimeAddr = BitConverter.ToString(TimeAddrBytes).Replace("-", String.Empty); // convert to address, not actual time address as 8 needs to be added o
+            Thread.Sleep(25); Thread.Sleep(25);
+            TimeAddr = (MainWindow.m.ReadLong(TimeAddrAddrString) + 8).ToString("X");// get address from dumped memory
             MainWindow.m.WriteBytes(TimeNOPAddr, TimeJumpBefore); // replace jump bytes, so if it day work, less chance of crash
             VirtualFreeEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, CodeCave, 0, MEM_DECOMMIT); // free memory, think it might need to be MEM_RELEASE as atm, the allocated memory just stays
-            MessageBox.Show(TimeAddr); // show "found" address, which currently is always 0000000000
         }
+        private void TimeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            var NOP = new byte[5] { 0x90, 0x90, 0x90, 0x90, 0x90 };
+            var NOPBefore = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08 };
+            if (TimeCheckBox.Checked == false)
+            {
+                MainWindow.m.WriteBytes(TimeNOPAddr, NOPBefore);
+                TimeToggle = false;
+                if (TimeToggle == false)
+                {
+                    TimeWorker.CancelAsync();
+                }
+            }
+            else
+            {
+                MainWindow.m.WriteBytes(TimeNOPAddr, NOP);
+                TimeToggle = true;
+                Timestart = true;
+                if (TimeWorker.IsBusy == false)
+                {
+                    TimeWorker.RunWorkerAsync();
+                }
+            }
+        }
+        private void TimeBack()
+        {
+            Thread.Sleep(75);
+            double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
+            string TimeVal = (TimeValDouble - 100).ToString();
+            MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
+        }
+        private void TimeForward()
+        {
+            Thread.Sleep(75);
+            double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
+            string TimeVal = (TimeValDouble + 100).ToString();
+            MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
+        }
+        //end of time
+
+        //teleport "script"
+        public void CheckPointTPworker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (CheckPointTPToggle)
+            {
+                float InRace = MainWindow.m.ReadFloat(InRaceAddr);
+                if (InRace == 1)
+                {
+                    Thread.Sleep(3750);
+                    while (InRace == 1)
+                    {
+                        InRace = MainWindow.m.ReadFloat(InRaceAddr);
+                        CheckPointTP();
+                    }
+                    MainWindow.m.UnfreezeValue(yAngVelAddr);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        public void CheckPointTP()
+        {
+            Thread.Sleep(25);
+            MainWindow.m.WriteMemory(xAddr, "float", (MainWindow.m.ReadFloat(CheckPointxAddr)).ToString());
+            MainWindow.m.WriteMemory(yAddr, "float", (MainWindow.m.ReadFloat(CheckPointyAddr) + 4).ToString());
+            MainWindow.m.WriteMemory(zAddr, "float", (MainWindow.m.ReadFloat(CheckPointzAddr)).ToString());
+            MainWindow.m.FreezeValue(yAngVelAddr, "float", "100");
+        }
+        //end of teleport "script"
 
         //noclip
         public void Noclip()
@@ -696,10 +774,10 @@ namespace Forza_Mods_AIO.TabForms
             else
             {
                 CarNoClipToggle = true;
-                start = true;
-                if (Mainworker.IsBusy == false)
+                NCstart = true;
+                if (NoClipWorker.IsBusy == false)
                 {
-                    Mainworker.RunWorkerAsync();
+                    NoClipWorker.RunWorkerAsync();
                 }
             }
         }
@@ -710,13 +788,9 @@ namespace Forza_Mods_AIO.TabForms
             if (TB_SHWallNoClip.Checked == false)
             {
                 WallNoClipToggle = false;
-                if (TurnAssistToggle == false
-                && SpeedHackToggle == false
-                && VelHackToggle == false
-                && BreakToggle == false
-                && WallNoClipToggle == false)
+                if (WallNoClipToggle == false)
                 {
-                    Mainworker.CancelAsync();
+                    NoClipWorker.CancelAsync();
                 }
                 //NoClipworker.CancelAsync();
                 MainWindow.m.WriteBytes(Wall1Addr, Jmp1before);
@@ -725,39 +799,36 @@ namespace Forza_Mods_AIO.TabForms
             else
             {
                 WallNoClipToggle = true;
-                start = true;
+                NCstart = true;
                 //NoClipworker.RunWorkerAsync();
-                if (Mainworker.IsBusy == false)
+                if (NoClipWorker.IsBusy == false)
                 {
-                    Mainworker.RunWorkerAsync();
+                    NoClipWorker.RunWorkerAsync();
                 }
             }
         }
         //end of noclip
+
         //speedhack buttons
         private void SuperBreakButton_CheckedChanged(object sender, EventArgs e)
         {
             if (SuperBreakButton.Checked == false)
             {
                 BreakToggle = false;
-                if (TurnAssistToggle == false
-                && SpeedHackToggle == false
-                && VelHackToggle == false
-                && BreakToggle == false
-                && WallNoClipToggle == false)
+                if (BreakToggle == false)
                 {
-                    Mainworker.CancelAsync();
+                    SuperBreakWorker.CancelAsync();
                 }
                 //Breakworker.CancelAsync();
             }
             else
             {
                 BreakToggle = true;
-                start = true;
-                if (Mainworker.IsBusy == false)
-                {
-                    Mainworker.RunWorkerAsync();
-                }
+                Breakstart = true;
+                //if (SuperBreakWorker.IsBusy == false)
+                //{
+                    SuperBreakWorker.RunWorkerAsync();
+                //}
                 //Breakworker.RunWorkerAsync();
             }
         }
@@ -777,25 +848,19 @@ namespace Forza_Mods_AIO.TabForms
             if (VelHackButton.Checked == false)
             {
                 VelHackToggle = false;
-                if (TurnAssistToggle == false
-                && SpeedHackToggle == false
-                && VelHackToggle == false
-                && BreakToggle == false
-                && WallNoClipToggle == false)
+                if (VelHackToggle == false)
                 {
-                    Mainworker.CancelAsync();
+                    VelHackWorker.CancelAsync();
                 }
-                //VelHackworker.CancelAsync();
             }
             else
             {
                 VelHackToggle = true;
-                start = true;
-                if (Mainworker.IsBusy == false)
+                Velstart = true;
+                if (VelHackWorker.IsBusy == false)
                 {
-                    Mainworker.RunWorkerAsync();
+                    VelHackWorker.RunWorkerAsync();
                 }
-                //VelHackworker.RunWorkerAsync();
             }
         }
         private void WheelSpeedButton_CheckedChanged(object sender, EventArgs e)
@@ -803,56 +868,46 @@ namespace Forza_Mods_AIO.TabForms
             if (WheelSpeedButton.Checked == false)
             {
                 SpeedHackToggle = false;
-                if (TurnAssistToggle == false
-                && SpeedHackToggle == false
-                && VelHackToggle == false
-                && BreakToggle == false
-                && WallNoClipToggle == false)
+                if (SpeedHackToggle == false)
                 {
-                    Mainworker.CancelAsync();
+                    SpeedHackWorker.CancelAsync();
                 }
-                //SpeedHackworker.CancelAsync();
             }
             else
             {
                 SpeedHackToggle = true;
-                start = true;
-                if (Mainworker.IsBusy == false)
+                Speedstart = true;
+                if (SpeedHackWorker.IsBusy == false)
                 {
-                    Mainworker.RunWorkerAsync();
+                    SpeedHackWorker.RunWorkerAsync();
                 }
-                //SpeedHackworker.RunWorkerAsync();
             }
         }
         //end of speedhack stuff
+
         //turnassist button
         private void TurnAssistButton_CheckedChanged(object sender, EventArgs e)
         {
             if (TurnAssistButton.Checked == false)
             {
                 TurnAssistToggle = false;
-                if (TurnAssistToggle == false
-                && SpeedHackToggle == false
-                && VelHackToggle == false
-                && BreakToggle == false
-                && WallNoClipToggle == false)
+                if (TurnAssistToggle == false)
                 {
-                    Mainworker.CancelAsync();
+                    TurnWorker.CancelAsync();
                 }
-                //TurnAssistworker.CancelAsync();
             }
             else
             {
                 TurnAssistToggle = true;
-                start = true;
-                if (Mainworker.IsBusy == false)
+                Turnstart = true;
+                if (TurnWorker.IsBusy == false)
                 {
-                    Mainworker.RunWorkerAsync();
+                    TurnWorker.RunWorkerAsync();
                 }
-                //TurnAssistworker.RunWorkerAsync();
             }
         }
         //end of turn assist
+
         //teleports
         private void LST_TeleportLocation_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1148,6 +1203,8 @@ namespace Forza_Mods_AIO.TabForms
         }
         private async void FOVScan_BTN_Click(object sender, EventArgs e)
         {
+            ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2100000000;
+            ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 2100000000;
             FOVScan_BTN.Hide();
             FOVScan_bar.Show();
             bool scan = true;
@@ -1160,11 +1217,9 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 1)
                     {
                         cycles++;
-                        FirstPersonAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, FirstPerson, true, true)).FirstOrDefault() - 75;
+                        FirstPersonAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, FirstPerson, true, true)).FirstOrDefault() - 75;
                     }
                     FirstPersonAddr = FirstPersonAddrLong.ToString("X");
-                    ScanStartAddr = FirstPersonAddrLong - 600000000;
-                    ScanEndAddr = FirstPersonAddrLong + 600000000;
                 }
                 else if (DashAddr == "FFFFFFFFFFFFFF45" || DashAddr == null || DashAddr == "0")
                 {
@@ -1172,30 +1227,16 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 2)
                     {
                         cycles++;
-                        //DashAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Dash, true, true)).FirstOrDefault() - 187;
                         DashAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Dash, true, true)).FirstOrDefault() - 187;
                     }
                     DashAddr = DashAddrLong.ToString("X");
                 }
-                /*
-                else if (FrontAddr == "FFFFFFFFFFFFFF5A" || FrontAddr == null || FrontAddr == "0")
-                {
-                    FOVScan_bar.Value = 40;
-                    if (cycles < 3)
-                    {
-                        cycles++;
-                        FrontAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Front, true, true)).FirstOrDefault() - 166;
-                    }
-                    FrontAddr = FrontAddrLong.ToString("X");
-                }
-                */
                 else if (FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0")
                 {
                     FOVScan_bar.Value = 40;
                     if (cycles < 3)
                     {
                         cycles++;
-                        //FrontAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Front, true, true)).FirstOrDefault() - 190;
                         FrontAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Front, true, true)).FirstOrDefault() - 190;
                     }
                     FrontAddr = FrontAddrLong.ToString("X");
@@ -1206,14 +1247,12 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 4)
                     {
                         cycles++;
-                        //LowAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).FirstOrDefault() - 183;
                         LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).FirstOrDefault() - 183;
 
                     }
                     LowCompare = LowAddrLong.ToString();
                     if (LowCompare == MainWindow.m.GetCode(FOVHighAddr).ToString())
                     {
-                        //LowAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Low, true, true)).LastOrDefault() - 183;
                         LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).LastOrDefault() - 183;
                     }
                     LowAddr = LowAddrLong.ToString("X");
@@ -1224,13 +1263,11 @@ namespace Forza_Mods_AIO.TabForms
                     if (cycles < 5)
                     {
                         cycles++;
-                        //BonnetAddrLong = (await MainWindow.m.AoBScan(0x10000000000, 0x2FFFFFFFFFF, Bonnet, true, true)).FirstOrDefault() - 189;
                         BonnetAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Bonnet, true, true)).FirstOrDefault() - 189;
                     }
                     BonnetAddr = BonnetAddrLong.ToString("X");
                 }
                 if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null
-                    //|| FrontAddr == "FFFFFFFFFFFFFF5A" || FrontAddr == null || FrontAddr == "0"
                     || FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0"
                     || LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0"
                     || BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || BonnetAddr == "0"

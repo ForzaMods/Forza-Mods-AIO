@@ -43,8 +43,6 @@ namespace Forza_Mods_AIO.TabForms
             this.LoadSHDefault = new System.Windows.Forms.Button();
             this.SaveSHDefault = new System.Windows.Forms.Button();
             this.FOVScan_BTN = new System.Windows.Forms.Button();
-            this.TimeForward = new System.Windows.Forms.Button();
-            this.TimeBack = new System.Windows.Forms.Button();
             this.TPButton = new System.Windows.Forms.Button();
             this.LST_TeleportLocation = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -109,9 +107,14 @@ namespace Forza_Mods_AIO.TabForms
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.Mainworker = new System.ComponentModel.BackgroundWorker();
+            this.VelHackWorker = new System.ComponentModel.BackgroundWorker();
+            this.NoClipWorker = new System.ComponentModel.BackgroundWorker();
+            this.SpeedHackWorker = new System.ComponentModel.BackgroundWorker();
+            this.TurnWorker = new System.ComponentModel.BackgroundWorker();
+            this.FOVWorker = new System.ComponentModel.BackgroundWorker();
+            this.SuperBreakWorker = new System.ComponentModel.BackgroundWorker();
+            this.TimeWorker = new System.ComponentModel.BackgroundWorker();
             this.CheckPointTPworker = new System.ComponentModel.BackgroundWorker();
-            this.test = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FOVBar)).BeginInit();
@@ -199,9 +202,6 @@ namespace Forza_Mods_AIO.TabForms
             this.panel7.Controls.Add(this.LoadSHDefault);
             this.panel7.Controls.Add(this.SaveSHDefault);
             this.panel7.Controls.Add(this.FOVScan_BTN);
-            this.panel7.Controls.Add(this.test);
-            this.panel7.Controls.Add(this.TimeForward);
-            this.panel7.Controls.Add(this.TimeBack);
             this.panel7.Controls.Add(this.TPButton);
             this.panel7.Controls.Add(this.LST_TeleportLocation);
             this.panel7.Controls.Add(this.label11);
@@ -320,34 +320,6 @@ namespace Forza_Mods_AIO.TabForms
             this.FOVScan_BTN.Text = "Scan";
             this.FOVScan_BTN.UseVisualStyleBackColor = false;
             this.FOVScan_BTN.Click += new System.EventHandler(this.FOVScan_BTN_Click);
-            // 
-            // TimeForward
-            // 
-            this.TimeForward.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.TimeForward.FlatAppearance.BorderSize = 0;
-            this.TimeForward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TimeForward.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeForward.Location = new System.Drawing.Point(122, 195);
-            this.TimeForward.Name = "TimeForward";
-            this.TimeForward.Size = new System.Drawing.Size(75, 34);
-            this.TimeForward.TabIndex = 37;
-            this.TimeForward.Text = "Forward";
-            this.TimeForward.UseVisualStyleBackColor = false;
-            this.TimeForward.Click += new System.EventHandler(this.TimeForward_Click);
-            // 
-            // TimeBack
-            // 
-            this.TimeBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.TimeBack.FlatAppearance.BorderSize = 0;
-            this.TimeBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TimeBack.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeBack.Location = new System.Drawing.Point(31, 195);
-            this.TimeBack.Name = "TimeBack";
-            this.TimeBack.Size = new System.Drawing.Size(75, 34);
-            this.TimeBack.TabIndex = 37;
-            this.TimeBack.Text = "Back";
-            this.TimeBack.UseVisualStyleBackColor = false;
-            this.TimeBack.Click += new System.EventHandler(this.TimeBack_Click);
             // 
             // TPButton
             // 
@@ -1223,29 +1195,40 @@ namespace Forza_Mods_AIO.TabForms
             this.label19.TabIndex = 18;
             this.label19.Text = "Strength";
             // 
-            // Mainworker
+            // VelHackWorker
             // 
-            this.Mainworker.WorkerSupportsCancellation = true;
-            this.Mainworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Mainworker_DoWork);
+            this.VelHackWorker.WorkerSupportsCancellation = true;
+            this.VelHackWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.VelHackWorker_DoWork);
             // 
-            // CheckPointTPworker
+            // NoClipWorker
             // 
-            this.CheckPointTPworker.WorkerSupportsCancellation = true;
-            this.CheckPointTPworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckPointTPworker_DoWork);
+            this.NoClipWorker.WorkerSupportsCancellation = true;
+            this.NoClipWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.NoClipWorker_DoWork);
             // 
-            // test
+            // SpeedHackWorker
             // 
-            this.test.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.test.FlatAppearance.BorderSize = 0;
-            this.test.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.test.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.test.Location = new System.Drawing.Point(78, 235);
-            this.test.Name = "test";
-            this.test.Size = new System.Drawing.Size(75, 34);
-            this.test.TabIndex = 37;
-            this.test.Text = "test";
-            this.test.UseVisualStyleBackColor = false;
-            this.test.Click += new System.EventHandler(this.Test_Click);
+            this.SpeedHackWorker.WorkerSupportsCancellation = true;
+            this.SpeedHackWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SpeedHackWorker_DoWork);
+            // 
+            // TurnWorker
+            // 
+            this.TurnWorker.WorkerSupportsCancellation = true;
+            this.TurnWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.TurnWorker_DoWork);
+            // 
+            // FOVWorker
+            // 
+            this.FOVWorker.WorkerSupportsCancellation = true;
+            this.FOVWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.FOVWorker_DoWork);
+            // 
+            // SuperBreakWorker
+            // 
+            this.SuperBreakWorker.WorkerSupportsCancellation = true;
+            this.SuperBreakWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SuperBreakWorker_DoWork);
+            //
+            // TimeWorker
+            // 
+            this.TimeWorker.WorkerSupportsCancellation = true;
+            this.TimeWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.TimeWorker_DoWork);
             // 
             // Speedhack
             // 
@@ -1379,7 +1362,13 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
-        private System.ComponentModel.BackgroundWorker Mainworker;
+        private System.ComponentModel.BackgroundWorker VelHackWorker;
+        private System.ComponentModel.BackgroundWorker NoClipWorker;
+        private System.ComponentModel.BackgroundWorker SpeedHackWorker;
+        private System.ComponentModel.BackgroundWorker TurnWorker;
+        private System.ComponentModel.BackgroundWorker FOVWorker;
+        private System.ComponentModel.BackgroundWorker SuperBreakWorker;
+        private System.ComponentModel.BackgroundWorker TimeWorker;
         private System.ComponentModel.BackgroundWorker CheckPointTPworker;
         private System.Windows.Forms.NumericUpDown GravityBox;
         private System.Windows.Forms.NumericUpDown WeirdBox;
@@ -1388,8 +1377,5 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Button GravityPull;
         private System.Windows.Forms.Button WeirdPull;
         private System.Windows.Forms.CheckBox TimeCheckBox;
-        private System.Windows.Forms.Button TimeForward;
-        private System.Windows.Forms.Button TimeBack;
-        private System.Windows.Forms.Button test;
     }
 }
