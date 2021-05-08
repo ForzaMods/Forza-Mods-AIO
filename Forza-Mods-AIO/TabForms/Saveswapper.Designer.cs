@@ -39,6 +39,7 @@ namespace Forza_Mods_AIO.TabForms
             this.BTN_SwapSave = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.LBL_ACSortingMethod = new System.Windows.Forms.Label();
+            this.GamertagResolve = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // Radio_MS
@@ -211,5 +212,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Button BTN_SwapSave;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label LBL_ACSortingMethod;
+        private System.ComponentModel.BackgroundWorker GamertagResolve;
     }
 }
