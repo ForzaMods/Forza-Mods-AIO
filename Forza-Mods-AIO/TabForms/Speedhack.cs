@@ -110,6 +110,7 @@ namespace Forza_Mods_AIO.TabForms
         private void keyboardHook_KeyDown(KeyboardHook.VKeys key)
         {
             key.ToString();
+            Debug.WriteLine("KeyDown:" + key);
             if (key == KeyboardHook.VKeys.SPACE)
             {
                 if (BreakToggle)
@@ -121,7 +122,7 @@ namespace Forza_Mods_AIO.TabForms
                     StopAllWheels();
                 }
             }
-            if (key == KeyboardHook.VKeys.LSHIFT)
+            if (key == KeyboardHook.VKeys.LSHIFT || key == KeyboardHook.VKeys.RIGHT || key == KeyboardHook.VKeys.LEFT)
             {
                 if (VelHackToggle)
                 {
@@ -150,24 +151,24 @@ namespace Forza_Mods_AIO.TabForms
                     TurnAssistRightStart = true;
                 }
             }
-            if (key == KeyboardHook.VKeys.NUMPAD6)
+            if (key == KeyboardHook.VKeys.NUMPAD6 || key == KeyboardHook.VKeys.RIGHT)
             {
                 if (FOV.Checked)
                 {
                     FovIncreaseStart = true;
                 }
-                if (TimeCheckBox.Checked)
+                if (TimeToggle)
                 {
                     TimeForwardStart = true;
                 }
             }
-            if (key == KeyboardHook.VKeys.NUMPAD4)
+            if (key == KeyboardHook.VKeys.NUMPAD4 || key == KeyboardHook.VKeys.LEFT)
             {
                 if (FOV.Checked)
                 {
                     FovDecreaseStart = true;
                 }
-                if (TimeCheckBox.Checked)
+                if (TimeToggle)
                 {
                     TimeBackStart = true;
                 }
@@ -176,6 +177,7 @@ namespace Forza_Mods_AIO.TabForms
         private void keyboardHook_KeyUp(KeyboardHook.VKeys key)
         {
             key.ToString();
+            Debug.WriteLine("KeyUP:" + key);
             if (key == KeyboardHook.VKeys.SPACE)
             {
                 if (BreakToggle)
@@ -212,17 +214,21 @@ namespace Forza_Mods_AIO.TabForms
                     TurnAssistRightStart = false;
                 }
             }
-            if (key == KeyboardHook.VKeys.NUMPAD6)
+            if (key == KeyboardHook.VKeys.NUMPAD6 || key == KeyboardHook.VKeys.RIGHT)
             {
                 FovIncreaseStart = false;
-                TimeForwardStart = false;
-                IncreaseCycles = 0;
+                if (TimeToggle)
+                {
+                    TimeForwardStart = false;
+                }
             }
-            if (key == KeyboardHook.VKeys.NUMPAD4)
+            if (key == KeyboardHook.VKeys.NUMPAD4 || key == KeyboardHook.VKeys.LEFT)
             {
                 FovDecreaseStart = false;
-                TimeBackStart = false;
-                DecreaseCycles = 0;
+                if (TimeToggle)
+                {
+                    TimeBackStart = false;
+                }
             }
         }
         public static void Addresses()
@@ -406,12 +412,9 @@ namespace Forza_Mods_AIO.TabForms
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
                 {
-                    if (TimeForwardStart)
+                    if (TimeToggle)
                     {
                         TimeForward();
-                    }
-                    if (TimeBackStart)
-                    {
                         TimeBack();
                     }
                     if (TimeWorker.CancellationPending)
@@ -661,6 +664,9 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void TimeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
+            float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+            if (TimeAddr == null && PastStart == 1)
+                GetTimeAddr();
             var NOP = new byte[5] { 0x90, 0x90, 0x90, 0x90, 0x90 };
             var NOPBefore = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08 };
             if (TimeCheckBox.Checked == false)
@@ -685,17 +691,23 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void TimeBack()
         {
-            Thread.Sleep(75);
-            double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
-            string TimeVal = (TimeValDouble - 100).ToString();
-            MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
+            if(TimeBackStart)
+            {
+                Thread.Sleep(75);
+                double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
+                string TimeVal = (TimeValDouble - 100).ToString();
+                MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
+            }
         }
         private void TimeForward()
         {
-            Thread.Sleep(75);
-            double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
-            string TimeVal = (TimeValDouble + 100).ToString();
-            MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
+            if (TimeForwardStart)
+            {
+                Thread.Sleep(75);
+                double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
+                string TimeVal = (TimeValDouble + 100).ToString();
+                MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
+            }
         }
         //end of time
 
@@ -1082,7 +1094,7 @@ namespace Forza_Mods_AIO.TabForms
             Boost3Box.Value = Convert.ToDecimal(times3);
             Boost4Box.Value = Convert.ToDecimal(times4);
             VelMultBox.Value = Convert.ToDecimal(VelMult);
-            VelMultBar.Value = (Convert.ToInt32(VelMult) * 100);
+            VelMultBar.Value = Decimal.ToInt32(VelMultBox.Value * 100);
             FOVVal = (float)FOVBar.Value / 100;
         }
         public void ReadSpeedDefaultValues()
@@ -1345,7 +1357,7 @@ namespace Forza_Mods_AIO.TabForms
         }
         public void WeirdPullVal()
         {
-            WeirdVal = MainWindow.m.ReadFloat(WeirdAddr);
+            WeirdVal = MainWindow.m.ReadFloat(WeirdAddr, round: false);
             WeirdBox.Value = (decimal)WeirdVal;
             NewWeirdVal = WeirdVal;
         }
