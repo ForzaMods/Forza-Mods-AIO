@@ -3,23 +3,35 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forza-Mods-AIO", "Forza-Mods-AIO\Forza-Mods-AIO.csproj", "{65FB82D7-E9EB-4426-B91F-6C045EDBB157}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forza-Mods-AIO", "Forza-Mods-AIO\Forza-Mods-AIO.csproj", "{74089466-B248-4A71-B0FB-4075EC169A96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{65FB82D7-E9EB-4426-B91F-6C045EDBB157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65FB82D7-E9EB-4426-B91F-6C045EDBB157}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65FB82D7-E9EB-4426-B91F-6C045EDBB157}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65FB82D7-E9EB-4426-B91F-6C045EDBB157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74089466-B248-4A71-B0FB-4075EC169A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74089466-B248-4A71-B0FB-4075EC169A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74089466-B248-4A71-B0FB-4075EC169A96}.Debug|x64.ActiveCfg = Debug|x64
+		{74089466-B248-4A71-B0FB-4075EC169A96}.Debug|x64.Build.0 = Debug|x64
+		{74089466-B248-4A71-B0FB-4075EC169A96}.Debug|x86.ActiveCfg = Debug|x86
+		{74089466-B248-4A71-B0FB-4075EC169A96}.Debug|x86.Build.0 = Debug|x86
+		{74089466-B248-4A71-B0FB-4075EC169A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74089466-B248-4A71-B0FB-4075EC169A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74089466-B248-4A71-B0FB-4075EC169A96}.Release|x64.ActiveCfg = Release|x64
+		{74089466-B248-4A71-B0FB-4075EC169A96}.Release|x64.Build.0 = Release|x64
+		{74089466-B248-4A71-B0FB-4075EC169A96}.Release|x86.ActiveCfg = Release|x86
+		{74089466-B248-4A71-B0FB-4075EC169A96}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {546BE96F-15D0-4CFB-A124-654760478707}
+		SolutionGuid = {00A6595A-D08F-4BF7-A810-4F29EDF87D77}
 	EndGlobalSection
 EndGlobal
