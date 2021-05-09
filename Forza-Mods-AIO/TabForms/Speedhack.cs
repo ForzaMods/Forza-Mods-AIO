@@ -93,6 +93,7 @@ namespace Forza_Mods_AIO.TabForms
         public static int cycles = 0;
         Controller controller = null;
         Joystick joystick = null;
+        Guid joystickGuid = Guid.Empty;
         private readonly static Dictionary<char, byte> hexmap = new Dictionary<char, byte>()
         {
             { 'a', 0xA },{ 'b', 0xB },{ 'c', 0xC },{ 'd', 0xD },
@@ -161,7 +162,7 @@ namespace Forza_Mods_AIO.TabForms
             int countfound = 0;
             var controllers = new[] { new Controller(UserIndex.One), new Controller(UserIndex.Two), new Controller(UserIndex.Three), new Controller(UserIndex.Four) };
             var directInput = new DirectInput();
-            var joystickGuid = Guid.Empty;
+
             while (true)
             {
                 foreach (var selectControler in controllers)
@@ -189,7 +190,6 @@ namespace Forza_Mods_AIO.TabForms
                             joystick = new Joystick(directInput, joystickGuid);
                             joystick.Properties.BufferSize = 128;
                             joystick.Acquire();
-
                             joystick.Poll();
                             var datas = joystick.GetBufferedData();
                             foreach (var state in datas)
@@ -246,12 +246,15 @@ namespace Forza_Mods_AIO.TabForms
                             SpeedHackVel();
                         }
                     }
-                    else if (joystick != null)
+                    else if (joystickGuid != Guid.Empty)
                     {
                         var datas = joystick.GetCurrentState();
                         bool[] ControllerButtonstate = datas.Buttons;
+                        int test = DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key;
                         if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key])
                         {
+                            datas = joystick.GetCurrentState();
+                            ControllerButtonstate = datas.Buttons;
                             SpeedHackVel();
                         }
                     }
@@ -305,6 +308,8 @@ namespace Forza_Mods_AIO.TabForms
         {
             while (Speedstart)
             {
+                joystick.Acquire();
+                joystick.Poll();
                 Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBKeyString);
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 boost = MainWindow.m.ReadFloat(FrontLeftAddr);
@@ -322,10 +327,13 @@ namespace Forza_Mods_AIO.TabForms
                             SpeedHack();
                         }
                     }
-                    else if (joystick != null)
+                    else if (joystickGuid != Guid.Empty)
                     {
+                        joystick.Acquire();
+                        joystick.Poll();
                         var datas = joystick.GetCurrentState();
                         bool[] ControllerButtonstate = datas.Buttons;
+                        int test = DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key;
                         while (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key])
                         {
                             datas = joystick.GetCurrentState();
@@ -909,10 +917,11 @@ namespace Forza_Mods_AIO.TabForms
 
         private void XBChange_Click(object sender, EventArgs e)
         {
-            if(controller !=null)
+            bool done = false;
+            if (controller !=null)
             {
                 XBChange.Text = "Press the button\n you want";
-                bool done = false;
+                
                 while (!done)
                 {
                     var State = controller.GetState();
@@ -940,28 +949,40 @@ namespace Forza_Mods_AIO.TabForms
                     Thread.Sleep(1);
                 }
             }
-            else if(joystick != null)
+            else if(joystickGuid != Guid.Empty)
             {
                 while (!done)
                 {
-                    var datas = joystick.GetCurrentState();
-                    bool[] ControllerButtonstate = datas.Buttons;
-                    List<int> indices = new List<int>();
-                    for (int i = 0; i < ControllerButtonstate.Length; ++i)
+                    try
                     {
-                        if (ControllerButtonstate[i])
+                        joystick.Poll();
+                        var datas = joystick.GetCurrentState();
+                        bool[] ControllerButtonstate = datas.Buttons;
+                        List<int> indices = new List<int>();
+                        for (int i = 0; i < ControllerButtonstate.Length; ++i)
                         {
-                            indices.Add(i);
+                            if (ControllerButtonstate[i])
+                            {
+                                indices.Add(i);
+                            }
                         }
+                        if (indices.Count == 1)
+                        {
+                            int XBButtonIndex = indices[0];
+                            XBKeyString = DInputmap[XBButtonIndex];
+                            XBChange.Text = XBKeyString;
+                            done = true;
+                        }
+                        indices = null;
+                        Thread.Sleep(1);
                     }
-                    if (indices.Count == 1)
+                    catch
                     {
-                        int XBButtonIndex = indices[0];
-                        XBKeyString = DInputmap[XBButtonIndex];
-                        XBChange.Text = XBKeyString;
-                        done = true;
+                        joystick.Acquire();
+                        Thread.Sleep(1);
                     }
-                    indices = null;
+                    Thread.Sleep(1);
+                    
                 }
             }
         }
@@ -1540,5 +1561,6 @@ namespace Forza_Mods_AIO.TabForms
         {
             NewGravityVal = (float)GravityBox.Value;
         }
+
     }
 }
