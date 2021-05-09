@@ -38,8 +38,10 @@ namespace Forza_Mods_AIO.TabForms
             this.TXT_ACGuide = new System.Windows.Forms.RichTextBox();
             this.BTN_SwapSave = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.LBL_ACSortingMethod = new System.Windows.Forms.Label();
+            this.LBL_Account = new System.Windows.Forms.Label();
             this.GamertagResolve = new System.ComponentModel.BackgroundWorker();
+            this.HiddenRadio = new System.Windows.Forms.RadioButton();
+            this.GamebarAttach = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // Radio_MS
@@ -50,9 +52,9 @@ namespace Forza_Mods_AIO.TabForms
             this.Radio_MS.Name = "Radio_MS";
             this.Radio_MS.Size = new System.Drawing.Size(129, 23);
             this.Radio_MS.TabIndex = 28;
-            this.Radio_MS.TabStop = true;
             this.Radio_MS.Text = "Microsoft Store";
             this.Radio_MS.UseVisualStyleBackColor = true;
+            this.Radio_MS.CheckedChanged += new System.EventHandler(this.Radio_MS_CheckedChanged);
             // 
             // Radio_Steam
             // 
@@ -62,7 +64,6 @@ namespace Forza_Mods_AIO.TabForms
             this.Radio_Steam.Name = "Radio_Steam";
             this.Radio_Steam.Size = new System.Drawing.Size(69, 23);
             this.Radio_Steam.TabIndex = 29;
-            this.Radio_Steam.TabStop = true;
             this.Radio_Steam.Text = "Steam";
             this.Radio_Steam.UseVisualStyleBackColor = true;
             // 
@@ -165,17 +166,39 @@ namespace Forza_Mods_AIO.TabForms
             this.button1.TabStop = false;
             this.button1.Text = "Backup Save";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // LBL_ACSortingMethod
+            // LBL_Account
             // 
-            this.LBL_ACSortingMethod.AutoSize = true;
-            this.LBL_ACSortingMethod.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_ACSortingMethod.Location = new System.Drawing.Point(12, 278);
-            this.LBL_ACSortingMethod.Name = "LBL_ACSortingMethod";
-            this.LBL_ACSortingMethod.Size = new System.Drawing.Size(116, 19);
-            this.LBL_ACSortingMethod.TabIndex = 36;
-            this.LBL_ACSortingMethod.Text = "Choose Account";
+            this.LBL_Account.AutoSize = true;
+            this.LBL_Account.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBL_Account.Location = new System.Drawing.Point(12, 278);
+            this.LBL_Account.Name = "LBL_Account";
+            this.LBL_Account.Size = new System.Drawing.Size(116, 19);
+            this.LBL_Account.TabIndex = 36;
+            this.LBL_Account.Text = "Choose Account";
+            // 
+            // GamertagResolve
+            // 
+            this.GamertagResolve.DoWork += new System.ComponentModel.DoWorkEventHandler(this.GamertagResolve_DoWork);
+            this.GamertagResolve.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.GamertagResolve_RunWorkerCompleted);
+            // 
+            // HiddenRadio
+            // 
+            this.HiddenRadio.AutoSize = true;
+            this.HiddenRadio.Checked = true;
+            this.HiddenRadio.Font = new System.Drawing.Font("Open Sans", 1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HiddenRadio.Location = new System.Drawing.Point(731, 319);
+            this.HiddenRadio.Name = "HiddenRadio";
+            this.HiddenRadio.Size = new System.Drawing.Size(21, 13);
+            this.HiddenRadio.TabIndex = 37;
+            this.HiddenRadio.TabStop = true;
+            this.HiddenRadio.Text = " ";
+            this.HiddenRadio.UseVisualStyleBackColor = true;
+            // 
+            // GamebarAttach
+            // 
+            this.GamebarAttach.DoWork += new System.ComponentModel.DoWorkEventHandler(this.GamebarAttach_DoWork);
+            this.GamebarAttach.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.GamebarAttach_RunWorkerCompleted);
             // 
             // Saveswapper
             // 
@@ -183,7 +206,7 @@ namespace Forza_Mods_AIO.TabForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
-            this.Controls.Add(this.LBL_ACSortingMethod);
+            this.Controls.Add(this.LBL_Account);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.TXT_ACGuide);
             this.Controls.Add(this.TB_ACAutoshow);
@@ -192,6 +215,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Controls.Add(this.Radio_Steam);
             this.Controls.Add(this.Radio_MS);
             this.Controls.Add(this.BTN_SwapSave);
+            this.Controls.Add(this.HiddenRadio);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -211,7 +235,9 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.RichTextBox TXT_ACGuide;
         private System.Windows.Forms.Button BTN_SwapSave;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label LBL_ACSortingMethod;
+        private System.Windows.Forms.Label LBL_Account;
         private System.ComponentModel.BackgroundWorker GamertagResolve;
+        private System.Windows.Forms.RadioButton HiddenRadio;
+        private System.ComponentModel.BackgroundWorker GamebarAttach;
     }
 }
