@@ -105,10 +105,9 @@ namespace Forza_Mods_AIO.TabForms
         };
         private readonly static Dictionary<int, string> DInputmap = new Dictionary<int, string>()
         {
-            { 0, "Square" },{ 1, "Circle" },{ 2, "X" },{ 3, "Triangle" },
-            { 4, "LeftBumper" },{ 5, "RightBumper" },{ 6, "LeftTrigger" },{ 7, "RightTrigger" },
-            { 8, "Share" },{ 9, "Options" },{ 10, "LeftStick" },{ 11, "RightStick" },
-            { 12, "PS" },{ 13, "Touchpad" },
+            { 0, "X" },{ 1, "Circle" },{ 2, "Square" },{ 3, "Triangle" },
+            { 4, "LeftShoulder" },{ 5, "RightShoulder" },{ 6, "Select" },{ 7, "Start" },
+            { 8, "LeftStick" },{ 9, "RightStick" }
         };
 
         [DllImport("user32.dll")]
@@ -123,6 +122,10 @@ namespace Forza_Mods_AIO.TabForms
             ControllerWorker.RunWorkerAsync();
             KBChange.Text = KBKeyString;
             XBChange.Text = XBKeyString;
+        }
+        private void SpeedHack_Load(object sender, EventArgs e)
+        {
+            MainWindow Main = new MainWindow();
         }
         public static void Addresses()
         {
@@ -159,7 +162,6 @@ namespace Forza_Mods_AIO.TabForms
         public void ControllerWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             int count = 0;
-            int countfound = 0;
             var controllers = new[] { new Controller(UserIndex.One), new Controller(UserIndex.Two), new Controller(UserIndex.Three), new Controller(UserIndex.Four) };
             var directInput = new DirectInput();
 
@@ -184,17 +186,20 @@ namespace Forza_Mods_AIO.TabForms
                     {
                         foreach (var deviceInstance in directInput.GetDevices(SharpDX.DirectInput.DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices))
                             joystickGuid = deviceInstance.InstanceGuid;
-                        while (joystickGuid != Guid.Empty)
+                        if (joystickGuid != Guid.Empty)
                         {
                             XBChange.Enabled = true;
                             joystick = new Joystick(directInput, joystickGuid);
                             joystick.Properties.BufferSize = 128;
                             joystick.Acquire();
                             joystick.Poll();
-                            var datas = joystick.GetBufferedData();
-                            foreach (var state in datas)
-                                Debug.WriteLine(state);
-                            Thread.Sleep(10);
+                            var datas = joystick.GetCurrentState().Buttons;
+                            var LastDatas = datas;
+                            while (directInput.IsDeviceAttached(joystickGuid))
+                            {
+                                datas = joystick.GetCurrentState().Buttons;
+                                Thread.Sleep(10);
+                            }
                         }
                     }
                     catch
@@ -251,10 +256,15 @@ namespace Forza_Mods_AIO.TabForms
                         var datas = joystick.GetCurrentState();
                         bool[] ControllerButtonstate = datas.Buttons;
                         int test = DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key;
-                        if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key])
+                        if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
+                            || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key]
+                            || XBKeyString == "LeftTrigger" && datas.Z > 50000
+                            || XBKeyString == "RightTrigger" && datas.Z < 20000
+                            || XBKeyString == "DpadUp" && datas.PointOfViewControllers[0] == 0
+                            || XBKeyString == "DpadRight" && datas.PointOfViewControllers[0] == 90000
+                            || XBKeyString == "DpadDown" && datas.PointOfViewControllers[0] == 18000
+                            || XBKeyString == "DpadLeft" && datas.PointOfViewControllers[0] == 27000)
                         {
-                            datas = joystick.GetCurrentState();
-                            ControllerButtonstate = datas.Buttons;
                             SpeedHackVel();
                         }
                     }
@@ -329,15 +339,18 @@ namespace Forza_Mods_AIO.TabForms
                     }
                     else if (joystickGuid != Guid.Empty)
                     {
-                        joystick.Acquire();
-                        joystick.Poll();
                         var datas = joystick.GetCurrentState();
                         bool[] ControllerButtonstate = datas.Buttons;
                         int test = DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key;
-                        while (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key])
+                        if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
+                            || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key]
+                            || XBKeyString == "LeftTrigger" && datas.Z > 50000
+                            || XBKeyString == "RightTrigger" && datas.Z < 20000
+                            || XBKeyString == "UpDpad" && datas.PointOfViewControllers[0] == 0
+                            || XBKeyString == "RightDpad" && datas.PointOfViewControllers[0] == 90000
+                            || XBKeyString == "DownDpad" && datas.PointOfViewControllers[0] == 18000
+                            || XBKeyString == "LeftDpad" && datas.PointOfViewControllers[0] == 27000)
                         {
-                            datas = joystick.GetCurrentState();
-                            ControllerButtonstate = datas.Buttons;
                             SpeedHack();
                         }
                     }
@@ -428,6 +441,16 @@ namespace Forza_Mods_AIO.TabForms
                     {
                         var XBState = controller.GetState();
                         if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue || XBState.Gamepad.Buttons.ToString().Contains("A"))
+                        {
+                            SuperBreak();
+                        }
+                    }
+                    else if (joystickGuid != Guid.Empty)
+                    {
+                        var datas = joystick.GetCurrentState();
+                        bool[] ControllerButtonstate = datas.Buttons;
+                        int test = DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key;
+                        if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue || ControllerButtonstate[0])
                         {
                             SuperBreak();
                         }
@@ -955,12 +978,17 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     try
                     {
-                        joystick.Poll();
                         var datas = joystick.GetCurrentState();
                         bool[] ControllerButtonstate = datas.Buttons;
                         List<int> indices = new List<int>();
-                        for (int i = 0; i < ControllerButtonstate.Length; ++i)
+                        for (int i = 0; i < 9; ++i)
                         {
+                            if (datas.Z > 50000) { XBKeyString = "LeftTrigger"; done = true; }
+                            if (datas.Z < 20000) { XBKeyString = "RightTrigger"; done = true; }
+                            if (datas.PointOfViewControllers[0] == 0) { XBKeyString = "DpadUp"; done = true; }
+                            if (datas.PointOfViewControllers[0] == 9000) { XBKeyString = "DpadRight"; done = true; }
+                            if (datas.PointOfViewControllers[0] == 18000) { XBKeyString = "DpadDown"; done = true; }
+                            if (datas.PointOfViewControllers[0] == 27000) { XBKeyString = "DpadLeft"; done = true; }
                             if (ControllerButtonstate[i])
                             {
                                 indices.Add(i);
@@ -969,16 +997,19 @@ namespace Forza_Mods_AIO.TabForms
                         if (indices.Count == 1)
                         {
                             int XBButtonIndex = indices[0];
-                            XBKeyString = DInputmap[XBButtonIndex];
-                            XBChange.Text = XBKeyString;
-                            done = true;
+                            if(XBButtonIndex <= 9)
+                            {
+                                XBKeyString = DInputmap[XBButtonIndex];
+                                XBChange.Text = XBKeyString;
+                                done = true;
+                            }
                         }
                         indices = null;
                         Thread.Sleep(1);
                     }
                     catch
                     {
-                        joystick.Acquire();
+                        //joystick.Acquire();
                         Thread.Sleep(1);
                     }
                     Thread.Sleep(1);

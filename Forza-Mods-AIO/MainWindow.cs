@@ -17,28 +17,58 @@ using GlobalLowLevelHooks;
 using IniParser;
 using IniParser.Model;
 using Forza_Mods_AIO.TabForms;
+using DiscordRPC;
 
 namespace Forza_Mods_AIO
 {
     public partial class MainWindow : Form
     {
         public static Mem m = new Mem();
+        public static MainWindow Main;
+        public DiscordRpcClient client;
+        public DiscordRpcClient RPCclient = new DiscordRpcClient("841090098837323818");
         ToolInfo ToolInfo = new ToolInfo() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         AddCars AddCars = new AddCars() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         StatsEditor StatsEditor = new StatsEditor() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         Saveswapper Saveswapper = new Saveswapper() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         LiveTuning LiveTuning = new LiveTuning() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         Speedhack Speedhack = new Speedhack() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public bool IsRPCInitialized = false;
 
         public MainWindow()
         {
             InitializeComponent();
             this.TabHolder.Controls.Add(ToolInfo);
             ToolInfo.Visible = true;
+            RPCclient.Initialize();
+            DiscordRPC.Button[] Buttons = new DiscordRPC.Button[]
+            {
+                new DiscordRPC.Button() { Label = "Discord Link", Url = "https://discord.gg/N3m6E5V1" },
+                //new DiscordRPC.Button() { Label = "Download", Url = "" }
+            };
+            RPCclient.SetPresence(new RichPresence()
+            {
+                Buttons = Buttons,
+                Details = "Reading Info",
+                State = "Being Epic",
+                Timestamps = Timestamps.Now,
+                Assets = new Assets()
+                {
+                    LargeImageKey = "aio2",
+                    LargeImageText = "Forza Mods AIO",
+                    SmallImageKey = "home",
+                    SmallImageText = "reading info"
+                }
+            });
         }
         private void MainWindow_Load(object sender, EventArgs e)
         {
             InitialBGworker.RunWorkerAsync();
+            if(RPCclient.IsInitialized)
+            {
+                RPCclient.UpdateDetails("On info screen");
+                RPCclient.UpdateSmallAsset("home", "Info");
+            }
         }
 
         //dragging functionality
@@ -303,6 +333,8 @@ namespace Forza_Mods_AIO
             ClearTabItems();
             this.TabHolder.Controls.Add(ToolInfo);
             ToolInfo.Visible = true;
+            RPCclient.UpdateDetails("Reading Info");
+            RPCclient.UpdateSmallAsset("home", "reading info");
         }
         private void BTN_TabAddCars_Click(object sender, EventArgs e)
         {
@@ -315,6 +347,8 @@ namespace Forza_Mods_AIO
                 ClearTabItems();
                 this.TabHolder.Controls.Add(AddCars);
                 AddCars.Visible = true;
+                RPCclient.UpdateDetails("Adding Cars");
+                RPCclient.UpdateSmallAsset("car", "adding cars");
             }
             else
             {
@@ -331,6 +365,8 @@ namespace Forza_Mods_AIO
                 ClearTabItems();
                 this.TabHolder.Controls.Add(StatsEditor);
                 StatsEditor.Visible = true;
+                RPCclient.UpdateDetails("Editing Stats");
+                RPCclient.UpdateSmallAsset("stats", "editing stats");
             }
             else
             {
@@ -339,12 +375,14 @@ namespace Forza_Mods_AIO
         }
         private void BTN_TabSaveswap_Click(object sender, EventArgs e)
         {
-                ClearColours();
-                BTN_TabSaveswap.BackColor = Color.FromArgb(45, 45, 48);
-                Panel_Saveswap.BackColor = Color.FromArgb(150, 11, 166);
-                ClearTabItems();
-                this.TabHolder.Controls.Add(Saveswapper);
-                Saveswapper.Visible = true;
+            ClearColours();
+            BTN_TabSaveswap.BackColor = Color.FromArgb(45, 45, 48);
+            Panel_Saveswap.BackColor = Color.FromArgb(150, 11, 166);
+            ClearTabItems();
+            this.TabHolder.Controls.Add(Saveswapper);
+            Saveswapper.Visible = true;
+            RPCclient.UpdateDetails("Save Swapping (For Free)");
+            RPCclient.UpdateSmallAsset("save", "save swapping");
 
         }
         private void BTN_TabLiveTuning_Click(object sender, EventArgs e)
@@ -361,6 +399,8 @@ namespace Forza_Mods_AIO
                 TabForms.LiveTuningForms.Gears.g.GearsRefresh();
                 TabForms.LiveTuningForms.Alignment.a.CamberRefresh();
                 TabForms.LiveTuningForms.Alignment.a.ToeRefresh();
+                RPCclient.UpdateDetails("Live Tuning");
+                RPCclient.UpdateSmallAsset("tuning", "tuning");
             }
             else
             {
@@ -379,6 +419,8 @@ namespace Forza_Mods_AIO
                 Speedhack.Visible = true;
                 Speedhack.ReadSpeedDefaultValues();
                 Speedhack.SHReset();
+                RPCclient.UpdateDetails("Vroooming");
+                RPCclient.UpdateSmallAsset("speed", "Vroom");
             }
             else
             {
