@@ -1334,7 +1334,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.TurnStrengthBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).EndInit();
             this.ResumeLayout(false);
-
+            this.Load += new System.EventHandler(this.SpeedHack_Load);
         }
 
         #endregion
