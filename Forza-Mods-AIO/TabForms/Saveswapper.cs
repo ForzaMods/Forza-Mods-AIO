@@ -78,13 +78,8 @@ namespace Forza_Mods_AIO.TabForms
 
             if (Radio_MS.Checked)
             {
-                GamebarAttach.RunWorkerAsync();
-                //FindMSSave();
-                while (!attached)
-                {
-                    Thread.Sleep(100);
-                }
-                GamertagResolve.RunWorkerAsync();
+
+
             }
 
             else if (Radio_Steam.Checked)
@@ -132,27 +127,66 @@ namespace Forza_Mods_AIO.TabForms
             }
             else if (dircount <=0)
             {
-                //add fallback to local file names and time accessed
+                //idk man some shit went wrong if there are no files
             }
             else
             {
-                var scan1 = (await sm.AoBScan("41 75 74 68 6F 72 69 7A 61 74 69 6F 6E 58 42 4C 33 2E 30 20 78 3D", true, true)).FirstOrDefault();
-                var scan2 = (await sm.AoBScan(scan1 + 1500, scan1 + 4000, "43 6F 6E 74 65 6E 74 2D 4C 65 6E 67 74 68 31 31 37", true, true)).FirstOrDefault();
-                var length = scan2 - scan1;
-                length -= 93;
-                var address = (scan1 + 13).ToString("X");
-                string auth = Encoding.ASCII.GetString(sm.ReadBytes(address, length));
-
-                foreach (var dir in acclist)
+                if (!attached)
                 {
-                    if (dir.Name != "t")
+                    LST_Accounts.Items.Clear();
+                    dircount = 0;
+                    foreach (var dir in acclist)
                     {
-                        var response = (dynamic)JObject.Parse(Get("https://peoplehub.xboxlive.com/users/me/people/xuids(" + Int64.Parse(dir.Name.Substring(0, 16), System.Globalization.NumberStyles.HexNumber) + ")", auth));
-                        LST_Accounts.Items.Add(response.people[0].gamertag.ToString());
+                        if (dir.Name != "t")
+                        {
+                            dircount++;
+                            LST_Accounts.Items.Add(dircount + ": Last Played " + dir.LastWriteTime);
+                        }
+                    }
+                }
+                else
+                {
+                    var scan1 = (await sm.AoBScan("41 75 74 68 6F 72 69 7A 61 74 69 6F 6E 58 42 4C 33 2E 30 20 78 3D", true, true)).FirstOrDefault();
+                    var scan2 = (await sm.AoBScan("43 6F 6E 74 65 6E 74 2D 4C 65 6E 67 74 68 31 31 37", true, true)).FirstOrDefault();
+                    var length = scan2 - scan1;
+                    length -= 93;
+                    var address = (scan1 + 13).ToString("X");
+                    string auth = Encoding.ASCII.GetString(sm.ReadBytes(address, length));
+                    LST_Accounts.Items.Clear();
+                    foreach (var dir in acclist)
+                    {
+                        if (dir.Name != "t")
+                        {
+                            try
+                            {
+                                var response = (dynamic)JObject.Parse(Get("https://peoplehub.xboxlive.com/users/me/people/xuids(" + Int64.Parse(dir.Name.Substring(0, 16), System.Globalization.NumberStyles.HexNumber) + ")", auth));
+                                LST_Accounts.Items.Add(response.people[0].gamertag.ToString());
+                            }
+                            catch (Exception a)
+                            {
+                                MessageBox.Show(a.ToString());
+                                return;
+                            }
+
+                        }
                     }
                 }
             }
         }
 
+        private void Saveswapper_Load(object sender, EventArgs e)
+        {
+            GamebarAttach.RunWorkerAsync();
+        }
+
+        private void Radio_MS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Radio_MS.Checked)
+            {
+
+                GamertagResolve.RunWorkerAsync();
+            }
+            
+        }
     }
 }
