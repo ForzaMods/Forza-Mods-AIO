@@ -164,7 +164,16 @@ namespace Forza_Mods_AIO.TabForms
                             }
                             catch (Exception a)
                             {
-                                MessageBox.Show(a.ToString());
+                                LST_Accounts.Items.Clear();
+                                dircount = 0;
+                                foreach (var dir2 in acclist)
+                                {
+                                    if (dir2.Name != "t")
+                                    {
+                                        dircount++;
+                                        LST_Accounts.Items.Add(dircount + ": Last Played " + dir2.LastWriteTime);
+                                    }
+                                }
                                 return;
                             }
 
