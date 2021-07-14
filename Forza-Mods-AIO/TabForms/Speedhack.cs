@@ -19,12 +19,14 @@ using Forza_Mods_AIO.TabForms;
 using System.Runtime.InteropServices;
 using SharpDX.XInput;
 using SharpDX.DirectInput;
+using System.Globalization;
 
 namespace Forza_Mods_AIO.TabForms
 {
 
     public partial class Speedhack : Form
     {
+        assembly a = new assembly();
         public static bool IsAttached = false;
         bool BreakToggle = false;
         bool StopToggle = false;
@@ -43,7 +45,7 @@ namespace Forza_Mods_AIO.TabForms
         public static bool Velstart = false; public static bool NCstart = false; public static bool FOVstart = false; public static bool Timestart = false; public static bool Breakstart = false; public static bool Speedstart = false; public static bool Turnstart = false;
         bool FovIncreaseStart = false; bool FovDecreaseStart = false;
         bool TimeToggle = false;  bool TimeForwardStart = false; bool TimeBackStart = false;
-        public static long TimeNOPAddrLong;
+        public static long TimeNOPAddrLong; public static long CheckPointxASMAddrLong;
         public static long BaseAddrLong; public static long Base2AddrLong; public static long Base3AddrLong; public static long Base4AddrLong; public static long Car1AddrLong; public static long Car2AddrLong; public static long Wall1AddrLong; public static long Wall2AddrLong; public static long FOVnopOutAddrLong; public static long FOVnopInAddrLong;
         public static long FirstPersonAddrLong; public static long DashAddrLong; public static long FrontAddrLong; public static long LowAddrLong; public static long BonnetAddrLong;
         public static string Base = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
@@ -53,7 +55,8 @@ namespace Forza_Mods_AIO.TabForms
         public static string Wall2 = "0F 28 ? 0F C6 C1 ? 0F 28 ? 0F C6 CB ? 41 0F ? ? F3 0F ? ? 41 0F ? ? 0F C6 C0 ? 0F C6 E4";
         public static string FOVOutsig = "4C 8D ? ? ? 0F 29 ? ? ? F3 0F";
         public static string FOVInsig = "48 81 EC ? ? ? ? 48 8B ? E8 ? ? ? ? 48 8B ? ? 48 8B";
-        public static string Timesig = "F2 0F 11 43 08 48 83";
+        public static string Timesig = "20 F2 0F 11 43 08 48 83";
+        public static string CheckPointxASMsig = "0F 28 ? ? ? ? ? 48 8B ? 0F 28 ? ? ? ? ? 0F 29 ? 0F 28 ? ? ? ? ? 0F 29 ? ? 0F 28 ? ? ? ? ? 0F 29 ? ? 0F 29 ? ? C3 CC 48 8B ? 55";
         public static string FirstPerson = "80 00 80 82 43";
         public static string Dash = "3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 01 ?? 00 00 00 00 00 00 00 00 A0 40";
         public static string Low = "80 CD CC 4C 3E CD CC CC 3E 9A 99 19 3F 00 00 80 3F";
@@ -70,9 +73,12 @@ namespace Forza_Mods_AIO.TabForms
         public static string OnGroundAddr; public static string InRaceAddr; public static string PastStartAddr;
         public static string xVelocityAddr; public static string yVelocityAddr; public static string zVelocityAddr;
         public static string xAddr; public static string yAddr; public static string zAddr;
-        public static string CheckPointxAddr; public static string CheckPointyAddr; public static string CheckPointzAddr;
+        public static string CheckPointxAddr; public static string CheckPointyAddr; public static string CheckPointzAddr; public static string CheckPointxASMAddr;
         public static string YawAddr; public static string RollAddr; public static string PitchAddr; public static string yAngVelAddr;
         public static string GasAddr; public static string FOVHighAddr; public static string FOVInAddr; public static string FirstPersonAddr; public static string DashAddr; public static string FrontAddr; public static string BonnetAddr; public static string LowAddr; public static string LowCompare;
+        public string CheckPointBaseAddr = null;
+        public IntPtr CCBA = (IntPtr)0; public IntPtr CCBA2 = (IntPtr)0;
+        public IntPtr CodeCave = (IntPtr)0; public IntPtr CodeCave2 = (IntPtr)0;
         public static IntPtr InjectAddress;
         public static string TimeAddrAddr;
         public static string allocationstring;
@@ -94,15 +100,6 @@ namespace Forza_Mods_AIO.TabForms
         Controller controller = null;
         Joystick joystick = null;
         Guid joystickGuid = Guid.Empty;
-        private readonly static Dictionary<char, byte> hexmap = new Dictionary<char, byte>()
-        {
-            { 'a', 0xA },{ 'b', 0xB },{ 'c', 0xC },{ 'd', 0xD },
-            { 'e', 0xE },{ 'f', 0xF },{ 'A', 0xA },{ 'B', 0xB },
-            { 'C', 0xC },{ 'D', 0xD },{ 'E', 0xE },{ 'F', 0xF },
-            { '0', 0x0 },{ '1', 0x1 },{ '2', 0x2 },{ '3', 0x3 },
-            { '4', 0x4 },{ '5', 0x5 },{ '6', 0x6 },{ '7', 0x7 },
-            { '8', 0x8 },{ '9', 0x9 }
-        };
         private readonly static Dictionary<int, string> DInputmap = new Dictionary<int, string>()
         {
             { 0, "X" },{ 1, "Circle" },{ 2, "Square" },{ 3, "Triangle" },
@@ -318,8 +315,6 @@ namespace Forza_Mods_AIO.TabForms
         {
             while (Speedstart)
             {
-                joystick.Acquire();
-                joystick.Poll();
                 Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBKeyString);
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 boost = MainWindow.m.ReadFloat(FrontLeftAddr);
@@ -477,12 +472,12 @@ namespace Forza_Mods_AIO.TabForms
                 if (PastStart == 1)
                 {
                     if (GetAsyncKeyState(Keys.NumPad6) is 1 or Int16.MinValue
-                        || (GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && GetAsyncKeyState(Keys.Right) is 1 or Int16.MinValue))
+                        || (GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && (GetAsyncKeyState(Keys.Right) is 1 or Int16.MinValue)))
                     {
                         TimeForward();
                     }
                     if (GetAsyncKeyState(Keys.NumPad4) is 1 or Int16.MinValue
-                        || (GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && GetAsyncKeyState(Keys.Left) is 1 or Int16.MinValue))
+                        || ((GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue) && (GetAsyncKeyState(Keys.Left) is 1 or Int16.MinValue)))
                     {
                         TimeBack();
                     }
@@ -617,110 +612,10 @@ namespace Forza_Mods_AIO.TabForms
         //end of turn assists
 
         //Time
-        public void GetTimeAddr()
-        {
-            static byte[] StringToBytes(string hex)
-            {
-                if (string.IsNullOrWhiteSpace(hex))
-                    throw new ArgumentException("Hex cannot be null/empty/whitespace");
-
-                if (hex.Length % 2 != 0)
-                    throw new FormatException("Hex must have an even number of characters");
-
-                bool startsWithHexStart = hex.StartsWith("0x", StringComparison.OrdinalIgnoreCase);
-
-                if (startsWithHexStart && hex.Length == 2)
-                    throw new ArgumentException("There are no characters in the hex string");
-
-
-                int startIndex = startsWithHexStart ? 2 : 0;
-
-                byte[] bytesArr = new byte[(hex.Length - startIndex) / 2];
-
-                char left;
-                char right;
-
-                try
-                {
-                    int x = 0;
-                    for (int i = startIndex; i < hex.Length; i += 2, x++)
-                    {
-                        left = hex[i];
-                        right = hex[i + 1];
-                        bytesArr[x] = (byte)((hexmap[left] << 4) | hexmap[right]);
-                    }
-                    return bytesArr;
-                }
-                catch (KeyNotFoundException)
-                {
-                    throw new FormatException("Hex string has non-hex character");
-                }
-            }
-
-            static byte[] longToByteArray(long data)
-            {
-                return new byte[] {
-                (byte)((data >> 56) & 0xff),
-                (byte)((data >> 48) & 0xff),
-                (byte)((data >> 40) & 0xff),
-                (byte)((data >> 32) & 0xff),
-                (byte)((data >> 24) & 0xff),
-                (byte)((data >> 16) & 0xff),
-                (byte)((data >> 8 ) & 0xff),
-                (byte)((data >> 0) & 0xff),
-                };
-            }
-
-            [DllImport("kernel32.dll", ExactSpelling = true, SetLastError = true)]
-            static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
-
-            const int PROCESS_CREATE_THREAD = 0x0002;
-            const int PROCESS_QUERY_INFORMATION = 0x0400;
-            const int PROCESS_VM_OPERATION = 0x0008;
-            const int PROCESS_VM_WRITE = 0x0020;
-            const int PROCESS_VM_READ = 0x0010;
-
-            const uint MEM_COMMIT = 0x00001000;
-            const uint MEM_RESERVE = 0x00002000;
-            const uint PAGE_READWRITE = 0x4;
-            const uint PAGE_EXECUTE_READWRITE = 0x40;
-
-            [DllImport("kernel32.dll", ExactSpelling = true, SetLastError = true)]
-            static extern IntPtr VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint dwFreeType);
-
-            const uint MEM_DECOMMIT = 0x00004000;
-            const uint MEM_RELEASE = 0x00008000;
-
-            IntPtr CodeCave = VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, IntPtr.Zero, 0x256, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE); // returns the pointer to the allocated memory
-            string CodeCaveAddrString = ((long)CodeCave).ToString("X"); // converts the pointer to hex string ready for easy conversion to bytes
-            byte[] CodeCaveAddr = StringToBytes("0" + CodeCaveAddrString); // converts said string to bytes - "0" there to make the bit count even as ther is 15 bits to the address
-            Array.Reverse(CodeCaveAddr); // makes it little-endian, what assembly uses
-
-            byte[] TimeJumpBefore = new byte[12] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x83, 0xC4, 0x40, 0x5B, 0xC3, 0xCC }; // bytes at the time adding code
-            string TimeJumpCodeString = "48B8" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "0000" + "FFE0"; // basically code that puts the codecave address in rax and jumps to it
-            byte[] TimeJumpCode = StringToBytes(TimeJumpCodeString); // converting the easily managable string to bytes
-
-            string TimeAddrAddrString = ((long)CodeCave + 37).ToString("X"); // sets where i want the TimeAddr (rbx) to be "dumped" to, just an offset thats within the codecave
-            byte[] TimeAddrAddr = StringToBytes("00000" + TimeAddrAddrString); // adding seamingly neccesary 0's to not confuse the assembly, without them, the opcodes would fuck up
-            Array.Reverse(TimeAddrAddr); // again, endianess
-
-            byte[] TimeNOPAddrBytes = longToByteArray(TimeNOPAddrLong + 12); // jump back address, where i jumped from + the amount of bits that were replaced
-            Array.Reverse(TimeNOPAddrBytes); // again, endianess
-            string InsideCaveCodeString = "48B8" + BitConverter.ToString(TimeAddrAddr).Replace("-", String.Empty) + "488918F20F1143084883C4405BC3CC48B8" + BitConverter.ToString(TimeNOPAddrBytes).Replace("-", String.Empty) + "FFE0"; // custom asm in code cave - breakpoint to find the code cave address and look inside in cheat engine
-            byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString); // converting the easily managable string to bytes again
-
-            MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode); // write the bytes inside codecave before jumping to it
-            MainWindow.m.WriteBytes(TimeNOPAddr, TimeJumpCode); // write code to jump to codecave
-            Thread.Sleep(25); Thread.Sleep(25);
-            TimeAddr = (MainWindow.m.ReadLong(TimeAddrAddrString) + 8).ToString("X");// get address from dumped memory
-            MainWindow.m.WriteBytes(TimeNOPAddr, TimeJumpBefore); // replace jump bytes, so if it day work, less chance of crash
-            VirtualFreeEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, CodeCave, 0, MEM_DECOMMIT); // free memory, think it might need to be MEM_RELEASE as atm, the allocated memory just stays
-        }
         private void TimeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
-            if (TimeAddr == null && PastStart == 1)
-                GetTimeAddr();
+            a.GetTimeAddr(CodeCave2);
             var NOP = new byte[5] { 0x90, 0x90, 0x90, 0x90, 0x90 };
             var NOPBefore = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08 };
             if (TimeCheckBox.Checked == false)
@@ -790,10 +685,19 @@ namespace Forza_Mods_AIO.TabForms
                     Thread.Sleep(3750);
                     while (InRace == 1)
                     {
+                        a.GetCheckXAddr(CodeCave, out CheckPointBaseAddr);
+                        CheckPointxAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 608).ToString("X");
+                        CheckPointyAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 612).ToString("X");
+                        CheckPointzAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 616).ToString("X");
                         InRace = MainWindow.m.ReadFloat(InRaceAddr);
                         CheckPointTP();
                     }
                     MainWindow.m.UnfreezeValue(yAngVelAddr);
+                }
+                if (CheckPointTPworker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    CheckPointTPToggle = false;
                 }
                 Thread.Sleep(1);
             }
@@ -944,7 +848,6 @@ namespace Forza_Mods_AIO.TabForms
             if (controller !=null)
             {
                 XBChange.Text = "Press the button\n you want";
-                
                 while (!done)
                 {
                     var State = controller.GetState();
@@ -1013,7 +916,6 @@ namespace Forza_Mods_AIO.TabForms
                         Thread.Sleep(1);
                     }
                     Thread.Sleep(1);
-                    
                 }
             }
         }
@@ -1153,11 +1055,13 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void CheckpointBox_CheckedChanged(object sender, EventArgs e)
         {
+            byte[] original = new byte[7]{ 0x0F, 0x28, 0x81, 0x30, 0x02, 0x00, 0x00 };
             if (CheckpointBox.Checked == false)
             {
                 CheckPointTPToggle = false;
                 CheckPointTPworker.CancelAsync();
                 MainWindow.m.UnfreezeValue(yAngVelAddr);
+                MainWindow.m.WriteBytes(CheckPointxASMAddr, original);
             }
             else
             {
@@ -1274,6 +1178,8 @@ namespace Forza_Mods_AIO.TabForms
 
         public void SHReset()
         {
+            KBChange.Text = KBKeyString;
+            XBChange.Text = XBKeyString;
             TurnIntervalBox.Value = TurnInterval;
             RatioBox.Value = Convert.ToDecimal(TurnRatio);
             TurnStrengthBox.Value = Convert.ToDecimal(TurnStrength);
@@ -1301,6 +1207,8 @@ namespace Forza_Mods_AIO.TabForms
             {
                 var SpeedHackparser = new FileIniDataParser();
                 IniData SpeedHack = SpeedHackparser.ReadFile("SpeedHackDefault.ini");
+                string KBString = SpeedHack["Keys"]["Keyboard"]; KBKeyString = KBString;
+                string XBString = SpeedHack["Keys"]["Controller"]; XBKeyString = XBString;
                 string CarNoClipStr = SpeedHack["No-Clip"]["Car"]; TB_SHCarNoClip.Checked = bool.Parse(CarNoClipStr);
                 string WallNoClipStr = SpeedHack["No-Clip"]["Wall"]; TB_SHWallNoClip.Checked = bool.Parse(WallNoClipStr);
                 string VelocityToggleStr = SpeedHack["Velocity"]["On"]; VelHackButton.Checked = bool.Parse(VelocityToggleStr);
@@ -1335,6 +1243,8 @@ namespace Forza_Mods_AIO.TabForms
         {
             var SpeedHackparser = new FileIniDataParser();
             IniData SpeedHack = new IniData();
+            SpeedHack["Keys"]["Keyboard"] = KBKeyString;
+            SpeedHack["Keys"]["Controller"] = XBKeyString;
             SpeedHack["No-Clip"]["Car"] = TB_SHCarNoClip.Checked.ToString();
             SpeedHack["No-Clip"]["Wall"] = TB_SHWallNoClip.Checked.ToString();
             SpeedHack["Velocity"]["On"] = VelHackButton.Checked.ToString();
@@ -1364,6 +1274,8 @@ namespace Forza_Mods_AIO.TabForms
         {
             var SpeedHackparser = new FileIniDataParser();
             IniData SpeedHack = new IniData();
+            SpeedHack["Keys"]["Keyboard"] = "LShiftKey";
+            SpeedHack["Keys"]["Controller"] = "LeftShoulder";
             SpeedHack["No-Clip"]["Car"] = "false";
             SpeedHack["No-Clip"]["Wall"] = "false";
             SpeedHack["Velocity"]["On"] = "false";
@@ -1411,8 +1323,8 @@ namespace Forza_Mods_AIO.TabForms
         }
         private async void FOVScan_BTN_Click(object sender, EventArgs e)
         {
-            ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2100000000;
-            ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 2100000000;
+            ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;
+            ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 2000000000;
             FOVScan_BTN.Hide();
             FOVScan_bar.Show();
             bool scan = true;
@@ -1422,42 +1334,25 @@ namespace Forza_Mods_AIO.TabForms
                 Thread.Sleep(1);
                 if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null || FirstPersonAddr == "0")
                 {
-                    if (cycles < 1)
-                    {
-                        cycles++;
-                        FirstPersonAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, FirstPerson, true, true)).FirstOrDefault() - 75;
-                    }
+                    FirstPersonAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, FirstPerson, true, true)).FirstOrDefault() - 75;
                     FirstPersonAddr = FirstPersonAddrLong.ToString("X");
                 }
                 else if (DashAddr == "FFFFFFFFFFFFFF45" || DashAddr == null || DashAddr == "0")
                 {
                     FOVScan_bar.Value = 20;
-                    if (cycles < 2)
-                    {
-                        cycles++;
-                        DashAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Dash, true, true)).FirstOrDefault() - 187;
-                    }
+                    DashAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Dash, true, true)).FirstOrDefault() - 187;
                     DashAddr = DashAddrLong.ToString("X");
                 }
                 else if (FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0")
                 {
                     FOVScan_bar.Value = 40;
-                    if (cycles < 3)
-                    {
-                        cycles++;
-                        FrontAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Front, true, true)).FirstOrDefault() - 190;
-                    }
+                    FrontAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Front, true, true)).FirstOrDefault() - 190;
                     FrontAddr = FrontAddrLong.ToString("X");
                 }
                 else if (LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0")
                 {
                     FOVScan_bar.Value = 60;
-                    if (cycles < 4)
-                    {
-                        cycles++;
-                        LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).FirstOrDefault() - 183;
-
-                    }
+                    LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).FirstOrDefault() - 183;
                     LowCompare = LowAddrLong.ToString();
                     if (LowCompare == MainWindow.m.GetCode(FOVHighAddr).ToString())
                     {
@@ -1468,11 +1363,7 @@ namespace Forza_Mods_AIO.TabForms
                 else if (BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || DashAddr == "0")
                 {
                     FOVScan_bar.Value = 80;
-                    if (cycles < 5)
-                    {
-                        cycles++;
-                        BonnetAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Bonnet, true, true)).FirstOrDefault() - 189;
-                    }
+                    BonnetAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Bonnet, true, true)).FirstOrDefault() - 189;
                     BonnetAddr = BonnetAddrLong.ToString("X");
                 }
                 if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null
@@ -1575,22 +1466,26 @@ namespace Forza_Mods_AIO.TabForms
 
         private void GravityPull_Click(object sender, EventArgs e)
         {
-            GravityPullVal();
+            if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
+                GravityPullVal();
         }
 
         private void GravitySet_Click(object sender, EventArgs e)
         {
-            MainWindow.m.WriteMemory(GravityAddr, "float", NewGravityVal.ToString());
+            if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
+                MainWindow.m.WriteMemory(GravityAddr, "float", NewGravityVal.ToString());
         }
 
         private void WeirdBox_ValueChanged(object sender, EventArgs e)
         {
-            NewWeirdVal = (float)WeirdBox.Value;
+            if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
+                NewWeirdVal = (float)WeirdBox.Value;
         }
 
         private void GravityBox_ValueChanged(object sender, EventArgs e)
         {
-            NewGravityVal = (float)GravityBox.Value;
+            if(MainWindow.m.ReadFloat(PastStartAddr) == 1)
+                NewGravityVal = (float)GravityBox.Value;
         }
 
     }

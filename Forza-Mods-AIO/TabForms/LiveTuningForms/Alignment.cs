@@ -21,6 +21,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
         public static float NegFrontToeVal;
         public static float RearToeVal;
         public static float NegRearToeVal;
+        public static bool refresh = false;
         public Alignment()
         {
             InitializeComponent();
@@ -29,14 +30,14 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
         public void SetCamber()
         {
             #region Front Left
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber1Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber2Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber3Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber4Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber5Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber6Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber7Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber8Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber1Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber2Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber3Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber4Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber5Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber6Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber7Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber8Addr, "float", FrontCamberVal.ToString());
             MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber9Addr, "float", FrontCamberVal.ToString());
             MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber10Addr, "float", FrontCamberVal.ToString());
             MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber11Addr, "float", FrontCamberVal.ToString());
@@ -47,14 +48,14 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber16Addr, "float", FrontCamberVal.ToString());
             MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber17Addr, "float", FrontCamberVal.ToString());
             MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber18Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber19Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber20Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber21Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber22Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber23Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber24Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber25Addr, "float", FrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber26Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber19Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber20Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber21Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber22Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber23Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber24Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber25Addr, "float", FrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontLeftCamber26Addr, "float", FrontCamberVal.ToString());
             #endregion
             #region Rear Left
             MainWindow.m.WriteMemory(LiveTuning.RearLeftCamber1Addr, "float", RearCamberVal.ToString());
@@ -91,14 +92,14 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             MainWindow.m.WriteMemory(LiveTuning.RearLeftCamber32Addr, "float", RearCamberVal.ToString());
             #endregion
             #region Front Right
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber1Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber2Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber3Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber4Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber5Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber6Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber7Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber8Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber1Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber2Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber3Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber4Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber5Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber6Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber7Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber8Addr, "float", NegFrontCamberVal.ToString());
             MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber9Addr, "float", NegFrontCamberVal.ToString());
             MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber10Addr, "float", NegFrontCamberVal.ToString());
             MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber11Addr, "float", NegFrontCamberVal.ToString());
@@ -109,14 +110,14 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber16Addr, "float", NegFrontCamberVal.ToString());
             MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber17Addr, "float", NegFrontCamberVal.ToString());
             MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber18Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber19Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber20Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber21Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber22Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber23Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber24Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber25Addr, "float", NegFrontCamberVal.ToString());
-            MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber26Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber19Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber20Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber21Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber22Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber23Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber24Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber25Addr, "float", NegFrontCamberVal.ToString());
+            //MainWindow.m.WriteMemory(LiveTuning.FrontRightCamber26Addr, "float", NegFrontCamberVal.ToString());
             #endregion
             #region Rear Right
             MainWindow.m.WriteMemory(LiveTuning.RearRightCamber1Addr, "float", NegRearCamberVal.ToString());
@@ -225,72 +226,98 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
         }
         public void CamberRefresh()
         {
-            FrontCamberVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.FrontLeftCamber1Addr) + 0.02725616843) * 114.60233013789604449450136702072); FrontCamberNUD.Value = Convert.ToDecimal(FrontCamberVal); FrontCamberBar.Value = Convert.ToInt32(FrontCamberVal * 10);
-            RearCamberVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.RearLeftCamber1Addr) + 0.01430380344) * 114.60389582695653381140516563262); RearCamberNUD.Value = Convert.ToDecimal(RearCamberVal); RearCamberBar.Value = Convert.ToInt32(RearCamberVal * 10);
+            refresh = true;
+            FrontCamberVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.FrontLeftCamber1Addr, round: false) + 0.02725616843) * 114.60233013789604449450136702072); FrontCamberNUD.Value = Convert.ToDecimal(FrontCamberVal); FrontCamberBar.Value = Convert.ToInt32(FrontCamberVal * 10);
+            RearCamberVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.RearLeftCamber1Addr, round: false) + 0.01430380344) * 114.60389582695653381140516563262); RearCamberNUD.Value = Convert.ToDecimal(RearCamberVal); RearCamberBar.Value = Convert.ToInt32(RearCamberVal * 10);
+            refresh = false;
         }
         public void ToeRefresh()
         {
-            FrontToeVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.FrontLeftToeAddr) + 0.00000001481075884) * 57.295776347772800370292061126347); FrontToeNUD.Value = Convert.ToDecimal(FrontToeVal); FrontToeBar.Value = Convert.ToInt32(FrontToeVal * 10);
-            RearToeVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.RearRightToeAddr1) + 0.000002134096121) * 114.61758396931828138337574705036); RearToeNUD.Value = Convert.ToDecimal(RearToeVal); RearToeBar.Value = Convert.ToInt32(RearToeVal * 10);
+            refresh = true;
+            FrontToeVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.FrontLeftToeAddr, round: false) + 0.00000001481075884) * 57.295776347772800370292061126347); FrontToeNUD.Value = Convert.ToDecimal(FrontToeVal); FrontToeBar.Value = Convert.ToInt32(FrontToeVal * 10);
+            RearToeVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.RearRightToeAddr1, round: false) + 0.000002134096121) * 114.61758396931828138337574705036); RearToeNUD.Value = Convert.ToDecimal(RearToeVal); RearToeBar.Value = Convert.ToInt32(RearToeVal * 10);
+            refresh = false;
         }
         private void FrontCamberBar_Scroll(object sender, EventArgs e)
         {
-            FrontCamberNUD.Value = Convert.ToDecimal(FrontCamberBar.Value) / 10;
-            FrontCamberVal = Convert.ToSingle((FrontCamberNUD.Value / Convert.ToDecimal(114.60233013789604449450136702072)) - Convert.ToDecimal(0.02725616843));
-            NegFrontCamberVal = 0 - FrontCamberVal;
-            SetCamber();
+            if(!refresh)
+            {
+                FrontCamberNUD.Value = Convert.ToDecimal(FrontCamberBar.Value) / 10;
+                FrontCamberVal = Convert.ToSingle((FrontCamberNUD.Value / Convert.ToDecimal(114.60233013789604449450136702072)) - Convert.ToDecimal(0.02725616843));
+                NegFrontCamberVal = 0 - FrontCamberVal;
+                SetCamber();
+            }
         }
         private void FrontCamberNUD_ValueChanged(object sender, EventArgs e)
         {
-            FrontCamberBar.Value = Convert.ToInt32(FrontCamberNUD.Value * 10);
-            FrontCamberVal = Convert.ToSingle((FrontCamberNUD.Value / Convert.ToDecimal(114.60233013789604449450136702072)) - Convert.ToDecimal(0.02725616843));
-            NegFrontCamberVal = 0 - FrontCamberVal;
-            SetCamber();
+            if (!refresh)
+            {
+                FrontCamberBar.Value = Convert.ToInt32(FrontCamberNUD.Value * 10);
+                FrontCamberVal = Convert.ToSingle((FrontCamberNUD.Value / Convert.ToDecimal(114.60233013789604449450136702072)) - Convert.ToDecimal(0.02725616843));
+                NegFrontCamberVal = 0 - FrontCamberVal;
+                SetCamber();
+            }
         }
         private void RearCamberBar_Scroll(object sender, EventArgs e)
         {
-            RearCamberNUD.Value = Convert.ToDecimal(RearCamberBar.Value) / 10;
-            RearCamberVal = Convert.ToSingle((RearCamberNUD.Value / Convert.ToDecimal(114.60389582695653381140516563262)) - Convert.ToDecimal(0.01430380344));
-            NegRearCamberVal = 0 - RearCamberVal;
-            SetCamber();
+            if (!refresh)
+            {
+                RearCamberNUD.Value = Convert.ToDecimal(RearCamberBar.Value) / 10;
+                RearCamberVal = Convert.ToSingle((RearCamberNUD.Value / Convert.ToDecimal(114.60389582695653381140516563262)) - Convert.ToDecimal(0.01430380344));
+                NegRearCamberVal = 0 - RearCamberVal;
+                SetCamber();
+            }
         }
         private void RearCamberNUD_ValueChanged(object sender, EventArgs e)
         {
-            RearCamberBar.Value = Convert.ToInt32(RearCamberNUD.Value * 10);
-            RearCamberVal = Convert.ToSingle((RearCamberNUD.Value / Convert.ToDecimal(114.60389582695653381140516563262)) - Convert.ToDecimal(0.01430380344));
-            NegRearCamberVal = 0 - RearCamberVal;
-            SetCamber();
+            if (!refresh)
+            {
+                RearCamberBar.Value = Convert.ToInt32(RearCamberNUD.Value * 10);
+                RearCamberVal = Convert.ToSingle((RearCamberNUD.Value / Convert.ToDecimal(114.60389582695653381140516563262)) - Convert.ToDecimal(0.01430380344));
+                NegRearCamberVal = 0 - RearCamberVal;
+                SetCamber();
+            }
         }
         private void FrontToeBar_Scroll(object sender, EventArgs e)
         {
-            FrontToeNUD.Value = Convert.ToDecimal(FrontToeBar.Value) / 10;
-            FrontToeVal = Convert.ToSingle((FrontToeNUD.Value / Convert.ToDecimal(57.295776347772800370292061126347)) - Convert.ToDecimal(0.00000001481075884));
-            NegFrontToeVal = 0 - FrontToeVal;
-            SetToe();
+            if (!refresh)
+            {
+                FrontToeNUD.Value = Convert.ToDecimal(FrontToeBar.Value) / 10;
+                FrontToeVal = Convert.ToSingle((FrontToeNUD.Value / Convert.ToDecimal(57.295776347772800370292061126347)) - Convert.ToDecimal(0.00000001481075884));
+                NegFrontToeVal = 0 - FrontToeVal;
+                SetToe();
+            }
         }
         private void FrontToeNUD_ValueChanged(object sender, EventArgs e)
         {
-            FrontToeBar.Value = Convert.ToInt32(FrontToeNUD.Value * 10);
-            FrontToeVal = Convert.ToSingle((FrontToeNUD.Value / Convert.ToDecimal(57.295776347772800370292061126347)) - Convert.ToDecimal(0.00000001481075884));
-            NegFrontToeVal = 0 - FrontToeVal;
-            SetToe();
+            if (!refresh)
+            {
+                FrontToeBar.Value = Convert.ToInt32(FrontToeNUD.Value * 10);
+                FrontToeVal = Convert.ToSingle((FrontToeNUD.Value / Convert.ToDecimal(57.295776347772800370292061126347)) - Convert.ToDecimal(0.00000001481075884));
+                NegFrontToeVal = 0 - FrontToeVal;
+                SetToe();
+            }
         }
         private void RearToeBar_Scroll(object sender, EventArgs e)
         {
-            RearToeNUD.Value = Convert.ToDecimal(RearToeBar.Value) / 10;
-            RearToeVal = Convert.ToSingle((RearToeNUD.Value / Convert.ToDecimal(114.61758396931828138337574705036)) - Convert.ToDecimal(0.000002134096121));
-            NegRearToeVal = 0 - RearToeVal;
-            SetToe();
+            if (!refresh)
+            {
+                RearToeNUD.Value = Convert.ToDecimal(RearToeBar.Value) / 10;
+                RearToeVal = Convert.ToSingle((RearToeNUD.Value / Convert.ToDecimal(114.61758396931828138337574705036)) - Convert.ToDecimal(0.000002134096121));
+                NegRearToeVal = 0 - RearToeVal;
+                SetToe();
+            }
         }
         private void RearToeNUD_ValueChanged(object sender, EventArgs e)
         {
-            RearToeBar.Value = Convert.ToInt32(RearToeNUD.Value * 10);
-            RearToeVal = Convert.ToSingle((RearToeNUD.Value / Convert.ToDecimal(114.61758396931828138337574705036)) - Convert.ToDecimal(0.000002134096121));
-            NegRearToeVal = 0 - RearToeVal;
-            SetToe();
+            if (!refresh)
+            {
+                RearToeBar.Value = Convert.ToInt32(RearToeNUD.Value * 10);
+                RearToeVal = Convert.ToSingle((RearToeNUD.Value / Convert.ToDecimal(114.61758396931828138337574705036)) - Convert.ToDecimal(0.000002134096121));
+                NegRearToeVal = 0 - RearToeVal;
+                SetToe();
+            }
         }
-
-
         private void BTN_Refresh_Click(object sender, EventArgs e)
         {
             CamberRefresh();

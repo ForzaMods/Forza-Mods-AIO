@@ -98,12 +98,12 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             65536});
             this.RearCamberNUD.Location = new System.Drawing.Point(841, 119);
             this.RearCamberNUD.Maximum = new decimal(new int[] {
-            10,
+            15,
             0,
             0,
             0});
             this.RearCamberNUD.Minimum = new decimal(new int[] {
-            10,
+            15,
             0,
             0,
             -2147483648});
@@ -116,8 +116,8 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // 
             this.RearCamberBar.LargeChange = 10;
             this.RearCamberBar.Location = new System.Drawing.Point(3, 119);
-            this.RearCamberBar.Maximum = 100;
-            this.RearCamberBar.Minimum = -100;
+            this.RearCamberBar.Maximum = 150;
+            this.RearCamberBar.Minimum = -150;
             this.RearCamberBar.Name = "RearCamberBar";
             this.RearCamberBar.Size = new System.Drawing.Size(832, 45);
             this.RearCamberBar.TabIndex = 2;
@@ -133,12 +133,12 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             65536});
             this.FrontCamberNUD.Location = new System.Drawing.Point(841, 68);
             this.FrontCamberNUD.Maximum = new decimal(new int[] {
-            10,
+            15,
             0,
             0,
             0});
             this.FrontCamberNUD.Minimum = new decimal(new int[] {
-            10,
+            15,
             0,
             0,
             -2147483648});
@@ -161,8 +161,8 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // 
             this.FrontCamberBar.LargeChange = 10;
             this.FrontCamberBar.Location = new System.Drawing.Point(3, 68);
-            this.FrontCamberBar.Maximum = 100;
-            this.FrontCamberBar.Minimum = -100;
+            this.FrontCamberBar.Maximum = 150;
+            this.FrontCamberBar.Minimum = -150;
             this.FrontCamberBar.Name = "FrontCamberBar";
             this.FrontCamberBar.Size = new System.Drawing.Size(832, 45);
             this.FrontCamberBar.TabIndex = 2;
