@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ using IniParser;
 using IniParser.Model;
 using Forza_Mods_AIO.TabForms;
 using DiscordRPC;
+using System.Net;
 
 namespace Forza_Mods_AIO
 {
@@ -70,6 +72,18 @@ namespace Forza_Mods_AIO
             {
                 RPCclient.UpdateDetails("reading info");
                 RPCclient.UpdateSmallAsset("home", "Info");
+            }
+            if (! Directory.Exists(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool"))
+            {
+                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool");
+                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper");
+                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames");
+                using (var client = new WebClient())
+                {
+                    client.DownloadFile("https://pixeldrain.com/api/file/Nr4R4wrR", @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\saves.zip");
+                    ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\saves.zip", @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\");
+                    File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\saves.zip");
+                }
             }
         }
 

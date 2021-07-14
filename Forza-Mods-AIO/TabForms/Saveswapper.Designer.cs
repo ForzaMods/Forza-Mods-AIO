@@ -54,6 +54,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Radio_MS.TabIndex = 28;
             this.Radio_MS.Text = "Microsoft Store";
             this.Radio_MS.UseVisualStyleBackColor = true;
+            this.Radio_MS.CheckedChanged += new System.EventHandler(this.Radio_MS_CheckedChanged);
             // 
             // Radio_Steam
             // 
@@ -219,6 +220,7 @@ namespace Forza_Mods_AIO.TabForms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Saveswapper";
             this.Text = "Saveswapper";
+            this.Load += new System.EventHandler(this.Saveswapper_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
