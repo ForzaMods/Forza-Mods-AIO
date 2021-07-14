@@ -1273,6 +1273,12 @@ namespace Forza_Mods_AIO.TabForms
             this.TimeWorker.WorkerSupportsCancellation = true;
             this.TimeWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.TimeWorker_DoWork);
             // 
+            // CheckPointTPworker
+            // 
+            this.CheckPointTPworker.WorkerReportsProgress = true;
+            this.CheckPointTPworker.WorkerSupportsCancellation = true;
+            this.CheckPointTPworker.DoWork += new System.ComponentModel.DoWorkEventHandler(CheckPointTPworker_DoWork);
+            // 
             // ControllerWorker
             // 
             this.ControllerWorker.WorkerSupportsCancellation = true;
@@ -1297,6 +1303,7 @@ namespace Forza_Mods_AIO.TabForms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Speedhack";
             this.Text = "Speedhack";
+            this.Load += new System.EventHandler(this.SpeedHack_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel7.ResumeLayout(false);
@@ -1334,7 +1341,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.TurnStrengthBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).EndInit();
             this.ResumeLayout(false);
-            this.Load += new System.EventHandler(this.SpeedHack_Load);
+
         }
 
         #endregion

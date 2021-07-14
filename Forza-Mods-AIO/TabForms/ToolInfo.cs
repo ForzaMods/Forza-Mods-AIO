@@ -10,8 +10,10 @@ namespace Forza_Mods_AIO
 {
     public partial class ToolInfo : Form
     {
+        public static ToolInfo t;
         public ToolInfo()
         {
+            t = this;
             InitializeComponent();
         }
 
@@ -28,5 +30,4 @@ namespace Forza_Mods_AIO
             System.Diagnostics.Process.Start("explorer.exe", "https://discord.gg/PQNxeYWUy9");
         }
     }
-
 }
