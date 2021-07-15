@@ -50,7 +50,6 @@ namespace Forza_Mods_AIO
             this.AOBScanProgress.Name = "AOBScanProgress";
             this.AOBScanProgress.Size = new System.Drawing.Size(159, 23);
             this.AOBScanProgress.TabIndex = 18;
-            this.AOBScanProgress.Visible = false;
             // 
             // TXT_InfoTab
             // 

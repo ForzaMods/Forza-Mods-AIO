@@ -27,6 +27,7 @@ namespace Forza_Mods_AIO.TabForms
     public partial class Speedhack : Form
     {
         assembly a = new assembly();
+        public static Speedhack s;
         public static bool IsAttached = false;
         bool BreakToggle = false;
         bool StopToggle = false;
@@ -63,6 +64,8 @@ namespace Forza_Mods_AIO.TabForms
         public static string Bonnet = "00 80 3E 63 B8 1E 3F 00 00 80 3F";
         //public static string Front = "A0 41 01 00 8C 42 00 00 11 43 00 00 3E 43 00 00 00 80 00 00 00 80 00 00 80 3E 7B 14 2E 3F";
         public static string Front = "80 3E 7B 14 2E 3F 00 00 80 3F";
+        public static string XPaob = "F3 0F ? ? 89 45 ? 48 8D ? ? ? ? ? 41 83 BD C0 00 00 00";
+        public static string XPAmountaob = "8B 89 ? ? ? ? 85 C9 0F 8E";
         public static string KBKeyString = "LShiftKey"; public static string XBKeyString = "LeftShoulder";
         public static string GravityAddr; public static string WeirdAddr;
         public static string BaseAddr; public static string Base2Addr; public static string Base3Addr; public static string Base4Addr;
@@ -74,11 +77,13 @@ namespace Forza_Mods_AIO.TabForms
         public static string xVelocityAddr; public static string yVelocityAddr; public static string zVelocityAddr;
         public static string xAddr; public static string yAddr; public static string zAddr;
         public static string CheckPointxAddr; public static string CheckPointyAddr; public static string CheckPointzAddr; public static string CheckPointxASMAddr;
+        public static string WaypointxAddr; public static string WaypointyAddr; public static string WaypointzAddr;
         public static string YawAddr; public static string RollAddr; public static string PitchAddr; public static string yAngVelAddr;
         public static string GasAddr; public static string FOVHighAddr; public static string FOVInAddr; public static string FirstPersonAddr; public static string DashAddr; public static string FrontAddr; public static string BonnetAddr; public static string LowAddr; public static string LowCompare;
         public string CheckPointBaseAddr = null;
-        public IntPtr CCBA = (IntPtr)0; public IntPtr CCBA2 = (IntPtr)0;
-        public IntPtr CodeCave = (IntPtr)0; public IntPtr CodeCave2 = (IntPtr)0;
+        public string XPaddr = null; public long XPaddrLong = 0; public string XPAmountaddr = null; public long XPAmountaddrLong = 0;
+        public IntPtr CCBA = (IntPtr)0; public IntPtr CCBA2 = (IntPtr)0; public IntPtr CCBA3 = (IntPtr)0;
+        public IntPtr CodeCave = (IntPtr)0; public IntPtr CodeCave2 = (IntPtr)0; public IntPtr CodeCave3 = (IntPtr)0;
         public static IntPtr InjectAddress;
         public static string TimeAddrAddr;
         public static string allocationstring;
@@ -123,6 +128,7 @@ namespace Forza_Mods_AIO.TabForms
         private void SpeedHack_Load(object sender, EventArgs e)
         {
             MainWindow Main = new MainWindow();
+            s = this;
         }
         public static void Addresses()
         {
@@ -138,6 +144,9 @@ namespace Forza_Mods_AIO.TabForms
             CheckPointxAddr = (Base3Addr + ",0x618,0x2F8,0xE0,0x198,0xA8,0x168,0x118,0xAA0");
             CheckPointyAddr = (Base3Addr + ",0x618,0x2F8,0xE0,0x198,0xA8,0x168,0x118,0xAA4");
             CheckPointzAddr = (Base3Addr + ",0x618,0x2F8,0xE0,0x198,0xA8,0x168,0x118,0xAA8");
+            WaypointxAddr = (BaseAddr + ",0x2C0,0x138,0xBA0,0x2D0,0x80,-0x538");
+            WaypointyAddr = (BaseAddr + ",0x2C0,0x138,0xBA0,0x2D0,0x80,-0x538");
+            WaypointzAddr = (BaseAddr + ",0x2C0,0x138,0xBA0,0x2D0,0x80,-0x538");
             yAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x51C");
             zAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x518");
             xAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x520");
@@ -471,6 +480,8 @@ namespace Forza_Mods_AIO.TabForms
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
                 {
+                    short one = GetAsyncKeyState(Keys.LShiftKey);
+                    short two = GetAsyncKeyState(Keys.Right);
                     if (GetAsyncKeyState(Keys.NumPad6) is 1 or Int16.MinValue
                         || (GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && (GetAsyncKeyState(Keys.Right) is 1 or Int16.MinValue)))
                     {
@@ -615,7 +626,6 @@ namespace Forza_Mods_AIO.TabForms
         private void TimeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
-            a.GetTimeAddr(CodeCave2);
             var NOP = new byte[5] { 0x90, 0x90, 0x90, 0x90, 0x90 };
             var NOPBefore = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08 };
             if (TimeCheckBox.Checked == false)
@@ -629,6 +639,7 @@ namespace Forza_Mods_AIO.TabForms
             }
             else
             {
+                a.GetTimeAddr(CodeCave2);
                 MainWindow.m.WriteBytes(TimeNOPAddr, NOP);
                 TimeToggle = true;
                 Timestart = true;
@@ -691,8 +702,18 @@ namespace Forza_Mods_AIO.TabForms
                         CheckPointzAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 616).ToString("X");
                         InRace = MainWindow.m.ReadFloat(InRaceAddr);
                         CheckPointTP();
+                        if (CheckPointTPworker.CancellationPending)
+                        {
+                            e.Cancel = true;
+                            CheckPointTPToggle = false;
+                        }
                     }
                     MainWindow.m.UnfreezeValue(yAngVelAddr);
+                    if (CheckPointTPworker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        CheckPointTPToggle = false;
+                    }
                 }
                 if (CheckPointTPworker.CancellationPending)
                 {
@@ -1049,9 +1070,18 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void TPButton_Click(object sender, EventArgs e)
         {
-            MainWindow.m.WriteMemory(xAddr, "float", x.ToString());
-            MainWindow.m.WriteMemory(yAddr, "float", y.ToString());
-            MainWindow.m.WriteMemory(zAddr, "float", z.ToString());
+            if (LST_TeleportLocation.Text == "Waypoint")
+            {
+                MainWindow.m.WriteMemory(xAddr, "float", x.ToString());
+                MainWindow.m.WriteMemory(yAddr, "float", y.ToString());
+                MainWindow.m.WriteMemory(zAddr, "float", z.ToString());
+            }
+            else
+            {
+                MainWindow.m.WriteMemory(xAddr, "float", x.ToString());
+                MainWindow.m.WriteMemory(yAddr, "float", y.ToString());
+                MainWindow.m.WriteMemory(zAddr, "float", z.ToString());
+            }
         }
         private void CheckpointBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -1198,6 +1228,7 @@ namespace Forza_Mods_AIO.TabForms
             VelMultBox.Value = Convert.ToDecimal(VelMult);
             VelMultBar.Value = Decimal.ToInt32(VelMultBox.Value * 100);
             FOVVal = (float)FOVBar.Value / 100;
+            //LST_TeleportLocation.Text = "Waypoint";
         }
         public void ReadSpeedDefaultValues()
         {
@@ -1488,5 +1519,21 @@ namespace Forza_Mods_AIO.TabForms
                 NewGravityVal = (float)GravityBox.Value;
         }
 
+        private void XPBox_CheckedChanged(object sender, EventArgs e)
+        {
+            byte[] XPGiveBefore = new byte[7] { 0xF3, 0x0F, 0x2C, 0xC6, 0x89, 0x45, 0xB8 };
+            byte[] Normal = new byte[6] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 };
+            if (XPBox.Checked == false)
+            {
+                MainWindow.m.WriteBytes(XPaddr, XPGiveBefore);
+                MainWindow.m.WriteBytes(XPAmountaddr, Normal);
+                XPnup.Enabled = true;
+            }
+            else
+            {
+                a.StartXPtool(CodeCave3);
+                XPnup.Enabled = false;
+            }
+        }
     }
 }
