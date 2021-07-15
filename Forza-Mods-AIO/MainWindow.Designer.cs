@@ -223,7 +223,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabSpeedhack.Size = new System.Drawing.Size(164, 30);
             this.BTN_TabSpeedhack.TabIndex = 6;
             this.BTN_TabSpeedhack.TabStop = false;
-            this.BTN_TabSpeedhack.Text = "Speedhack";
+            this.BTN_TabSpeedhack.Text = "Cool Shit";
             this.BTN_TabSpeedhack.UseVisualStyleBackColor = false;
             this.BTN_TabSpeedhack.Click += new System.EventHandler(this.BTN_TabSpeedhack_Click);
             this.BTN_TabSpeedhack.MouseEnter += new System.EventHandler(this.BTN_TabSpeedhack_MouseEnter);
@@ -309,16 +309,16 @@ namespace Forza_Mods_AIO
             this.TabHolder.Size = new System.Drawing.Size(1000, 445);
             this.TabHolder.TabIndex = 15;
             // 
+            // CheckAttachedworker
+            // 
+            //this.CheckAttachedworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckAttachedworker_DoWork);
+            // 
             // InitialBGworker
             // 
             this.InitialBGworker.WorkerReportsProgress = true;
             this.InitialBGworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.InitialBGworker_DoWork);
             this.InitialBGworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.InitialBGworker_ProgressChanged);
             this.InitialBGworker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.InitialBGworker_RunWorkerCompleted);
-            // 
-            // CheckAttachedworker
-            // 
-            this.CheckAttachedworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckAttachedworker_DoWork);
             // 
             // MainWindow
             // 

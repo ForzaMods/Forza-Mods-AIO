@@ -144,9 +144,33 @@ namespace Forza_Mods_AIO
             MainWindow.m.WriteBytes(Speedhack.TimeNOPAddr, JmpToCodeCaveCode);
             Thread.Sleep(25);
             Speedhack.TimeAddr = (MainWindow.m.ReadLong(((long)CodeCave2 + 40).ToString("X")) + 8).ToString("X");
-            //byte[] TimeAddrArray = MainWindow.m.ReadBytes(((long)CodeCave2 + 40).ToString("X"), 8);
             MainWindow.m.WriteBytes(Speedhack.TimeNOPAddr, TimeJumpBefore);
-            VirtualFreeEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, CodeCave2, 0, MEM_DECOMMIT);
+        }
+
+        public void StartXPtool(IntPtr CodeCave3)
+        {
+            Speedhack s = new Speedhack();
+            byte[] OnePoint = new byte[6] { 0xB9, 0x01, 0x00, 0x00, 0x00, 0x90 };
+            string CodeCaveAddrString = ((long)CodeCave3).ToString("X");
+            string CodeCavejmpString = ((long)CodeCave3 - (Speedhack.s.XPaddrLong + 5)).ToString("X");
+            byte[] CodeCaveAddr = StringToBytes("0" + CodeCavejmpString);
+            Array.Reverse(CodeCaveAddr);
+
+            string XPGiveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "9090";
+            byte[] XPGiveCode = StringToBytes(XPGiveCodeString);
+
+            string XPAmountHex = (Convert.ToInt64(Speedhack.s.XPnup.Text)).ToString("X8");
+            byte[] XPAmountArray = StringToBytes(XPAmountHex);
+            Array.Reverse(XPAmountArray);
+
+            byte[] jmpBackBytes = longToByteArray(Speedhack.s.XPaddrLong + 7 - (long)(CodeCave3 + 16));
+            Array.Reverse(jmpBackBytes);
+            string InsideCaveCodeString = "F30F2CC6C745B8" + BitConverter.ToString(XPAmountArray).Replace("-", String.Empty) + "E9" + (BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty)).Replace("FFFFFFFF", String.Empty);
+            byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
+
+            MainWindow.m.WriteBytes(Speedhack.s.XPAmountaddr, OnePoint);
+            MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
+            MainWindow.m.WriteBytes(Speedhack.s.XPaddr, XPGiveCode);
         }
     }
 }

@@ -35,19 +35,20 @@ namespace Forza_Mods_AIO.TabForms
             this.TB_SHCarNoClip = new System.Windows.Forms.CheckBox();
             this.TB_SHWallNoClip = new System.Windows.Forms.CheckBox();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.label32 = new System.Windows.Forms.Label();
+            this.XPBox = new System.Windows.Forms.CheckBox();
+            this.XPnup = new System.Windows.Forms.NumericUpDown();
+            this.SaveSHDefault = new System.Windows.Forms.Button();
+            this.LoadSHDefault = new System.Windows.Forms.Button();
             this.FOVScan_bar = new System.Windows.Forms.ProgressBar();
-            this.FOV = new System.Windows.Forms.CheckBox();
             this.FOVBar = new System.Windows.Forms.TrackBar();
             this.TimeCheckBox = new System.Windows.Forms.CheckBox();
             this.CheckpointBox = new System.Windows.Forms.CheckBox();
-            this.LoadSHDefault = new System.Windows.Forms.Button();
-            this.SaveSHDefault = new System.Windows.Forms.Button();
             this.FOVScan_BTN = new System.Windows.Forms.Button();
             this.TPButton = new System.Windows.Forms.Button();
             this.LST_TeleportLocation = new System.Windows.Forms.ComboBox();
             this.LBL_Misc = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.FOV = new System.Windows.Forms.CheckBox();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -77,7 +78,6 @@ namespace Forza_Mods_AIO.TabForms
             this.WheelSpeedButton = new System.Windows.Forms.CheckBox();
             this.VelHackButton = new System.Windows.Forms.CheckBox();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.LimitBox = new System.Windows.Forms.NumericUpDown();
             this.Speed3Box = new System.Windows.Forms.NumericUpDown();
             this.Speed2Box = new System.Windows.Forms.NumericUpDown();
@@ -123,6 +123,7 @@ namespace Forza_Mods_AIO.TabForms
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.XPnup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FOVBar)).BeginInit();
             this.panel9.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -199,56 +200,94 @@ namespace Forza_Mods_AIO.TabForms
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel7.Controls.Add(this.label32);
+            this.panel7.Controls.Add(this.XPBox);
+            this.panel7.Controls.Add(this.XPnup);
+            this.panel7.Controls.Add(this.SaveSHDefault);
+            this.panel7.Controls.Add(this.LoadSHDefault);
             this.panel7.Controls.Add(this.FOVScan_bar);
-            this.panel7.Controls.Add(this.FOV);
             this.panel7.Controls.Add(this.FOVBar);
             this.panel7.Controls.Add(this.TimeCheckBox);
             this.panel7.Controls.Add(this.CheckpointBox);
-            this.panel7.Controls.Add(this.LoadSHDefault);
-            this.panel7.Controls.Add(this.SaveSHDefault);
             this.panel7.Controls.Add(this.FOVScan_BTN);
             this.panel7.Controls.Add(this.TPButton);
             this.panel7.Controls.Add(this.LST_TeleportLocation);
             this.panel7.Controls.Add(this.LBL_Misc);
             this.panel7.Controls.Add(this.label10);
+            this.panel7.Controls.Add(this.FOV);
             this.panel7.Location = new System.Drawing.Point(746, 12);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(242, 421);
             this.panel7.TabIndex = 12;
             // 
-            // label32
+            // XPBox
             // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(9, 334);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(227, 15);
-            this.label32.TabIndex = 40;
-            this.label32.Text = "Scan after you have gone through all cams";
+            this.XPBox.AutoSize = true;
+            this.XPBox.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.XPBox.Location = new System.Drawing.Point(65, 206);
+            this.XPBox.Name = "XPBox";
+            this.XPBox.Size = new System.Drawing.Size(128, 23);
+            this.XPBox.TabIndex = 41;
+            this.XPBox.Text = "XP on unpause";
+            this.XPBox.UseVisualStyleBackColor = true;
+            this.XPBox.CheckedChanged += new System.EventHandler(this.XPBox_CheckedChanged);
+            // 
+            // XPnup
+            // 
+            this.XPnup.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.XPnup.Location = new System.Drawing.Point(64, 185);
+            this.XPnup.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.XPnup.Name = "XPnup";
+            this.XPnup.Size = new System.Drawing.Size(120, 22);
+            this.XPnup.TabIndex = 40;
+            // 
+            // SaveSHDefault
+            // 
+            this.SaveSHDefault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.SaveSHDefault.FlatAppearance.BorderSize = 0;
+            this.SaveSHDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveSHDefault.Font = new System.Drawing.Font("Open Sans", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveSHDefault.Location = new System.Drawing.Point(12, 365);
+            this.SaveSHDefault.Name = "SaveSHDefault";
+            this.SaveSHDefault.Size = new System.Drawing.Size(101, 45);
+            this.SaveSHDefault.TabIndex = 37;
+            this.SaveSHDefault.Text = "Save as default";
+            this.SaveSHDefault.UseVisualStyleBackColor = false;
+            this.SaveSHDefault.Click += new System.EventHandler(this.SaveSHDefault_Click);
+            // 
+            // LoadSHDefault
+            // 
+            this.LoadSHDefault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.LoadSHDefault.FlatAppearance.BorderSize = 0;
+            this.LoadSHDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LoadSHDefault.Font = new System.Drawing.Font("Open Sans", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadSHDefault.Location = new System.Drawing.Point(128, 365);
+            this.LoadSHDefault.Name = "LoadSHDefault";
+            this.LoadSHDefault.Size = new System.Drawing.Size(101, 45);
+            this.LoadSHDefault.TabIndex = 37;
+            this.LoadSHDefault.Text = "Load default";
+            this.LoadSHDefault.UseVisualStyleBackColor = false;
+            this.LoadSHDefault.Click += new System.EventHandler(this.LoadSHDefault_Click);
             // 
             // FOVScan_bar
             // 
             this.FOVScan_bar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.FOVScan_bar.Location = new System.Drawing.Point(47, 285);
+            this.FOVScan_bar.Location = new System.Drawing.Point(47, 310);
             this.FOVScan_bar.Name = "FOVScan_bar";
             this.FOVScan_bar.Size = new System.Drawing.Size(159, 23);
             this.FOVScan_bar.TabIndex = 15;
             // 
-            // FOV
-            // 
-            this.FOV.AutoSize = true;
-            this.FOV.Location = new System.Drawing.Point(105, 289);
-            this.FOV.Name = "FOV";
-            this.FOV.Size = new System.Drawing.Size(48, 19);
-            this.FOV.TabIndex = 39;
-            this.FOV.Text = "FOV";
-            this.FOV.UseVisualStyleBackColor = true;
-            this.FOV.CheckedChanged += new System.EventHandler(this.FOV_CheckedChanged);
-            // 
             // FOVBar
             // 
             this.FOVBar.LargeChange = 20;
-            this.FOVBar.Location = new System.Drawing.Point(31, 314);
+            this.FOVBar.Location = new System.Drawing.Point(31, 339);
             this.FOVBar.Maximum = 150;
             this.FOVBar.Minimum = -95;
             this.FOVBar.Name = "FOVBar";
@@ -264,7 +303,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TimeCheckBox.AutoSize = true;
             this.TimeCheckBox.FlatAppearance.BorderSize = 0;
             this.TimeCheckBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeCheckBox.Location = new System.Drawing.Point(64, 171);
+            this.TimeCheckBox.Location = new System.Drawing.Point(64, 162);
             this.TimeCheckBox.Name = "TimeCheckBox";
             this.TimeCheckBox.Size = new System.Drawing.Size(116, 23);
             this.TimeCheckBox.TabIndex = 38;
@@ -285,45 +324,17 @@ namespace Forza_Mods_AIO.TabForms
             this.CheckpointBox.UseVisualStyleBackColor = true;
             this.CheckpointBox.CheckedChanged += new System.EventHandler(this.CheckpointBox_CheckedChanged);
             // 
-            // LoadSHDefault
-            // 
-            this.LoadSHDefault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.LoadSHDefault.FlatAppearance.BorderSize = 0;
-            this.LoadSHDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LoadSHDefault.Font = new System.Drawing.Font("Open Sans", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadSHDefault.Location = new System.Drawing.Point(128, 365);
-            this.LoadSHDefault.Name = "LoadSHDefault";
-            this.LoadSHDefault.Size = new System.Drawing.Size(101, 45);
-            this.LoadSHDefault.TabIndex = 37;
-            this.LoadSHDefault.Text = "Load default";
-            this.LoadSHDefault.UseVisualStyleBackColor = false;
-            this.LoadSHDefault.Click += new System.EventHandler(this.LoadSHDefault_Click);
-            // 
-            // SaveSHDefault
-            // 
-            this.SaveSHDefault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.SaveSHDefault.FlatAppearance.BorderSize = 0;
-            this.SaveSHDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveSHDefault.Font = new System.Drawing.Font("Open Sans", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveSHDefault.Location = new System.Drawing.Point(12, 365);
-            this.SaveSHDefault.Name = "SaveSHDefault";
-            this.SaveSHDefault.Size = new System.Drawing.Size(101, 45);
-            this.SaveSHDefault.TabIndex = 37;
-            this.SaveSHDefault.Text = "Save as default";
-            this.SaveSHDefault.UseVisualStyleBackColor = false;
-            this.SaveSHDefault.Click += new System.EventHandler(this.SaveSHDefault_Click);
-            // 
             // FOVScan_BTN
             // 
             this.FOVScan_BTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.FOVScan_BTN.FlatAppearance.BorderSize = 0;
             this.FOVScan_BTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FOVScan_BTN.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FOVScan_BTN.Location = new System.Drawing.Point(47, 280);
+            this.FOVScan_BTN.Location = new System.Drawing.Point(47, 305);
             this.FOVScan_BTN.Name = "FOVScan_BTN";
             this.FOVScan_BTN.Size = new System.Drawing.Size(159, 34);
             this.FOVScan_BTN.TabIndex = 37;
-            this.FOVScan_BTN.Text = "Scan";
+            this.FOVScan_BTN.Text = "Scan for FOV";
             this.FOVScan_BTN.UseVisualStyleBackColor = false;
             this.FOVScan_BTN.Click += new System.EventHandler(this.FOVScan_BTN_Click);
             // 
@@ -349,6 +360,7 @@ namespace Forza_Mods_AIO.TabForms
             this.LST_TeleportLocation.ForeColor = System.Drawing.Color.White;
             this.LST_TeleportLocation.FormattingEnabled = true;
             this.LST_TeleportLocation.Items.AddRange(new object[] {
+            "Waypoint",
             "Festival",
             "Start of Motorway",
             "Broadway",
@@ -378,6 +390,17 @@ namespace Forza_Mods_AIO.TabForms
             this.label10.Size = new System.Drawing.Size(125, 19);
             this.label10.TabIndex = 22;
             this.label10.Text = "Teleport Location";
+            // 
+            // FOV
+            // 
+            this.FOV.AutoSize = true;
+            this.FOV.Location = new System.Drawing.Point(105, 311);
+            this.FOV.Name = "FOV";
+            this.FOV.Size = new System.Drawing.Size(48, 19);
+            this.FOV.TabIndex = 39;
+            this.FOV.Text = "FOV";
+            this.FOV.UseVisualStyleBackColor = true;
+            this.FOV.CheckedChanged += new System.EventHandler(this.FOV_CheckedChanged);
             // 
             // panel9
             // 
@@ -742,7 +765,6 @@ namespace Forza_Mods_AIO.TabForms
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel6.Controls.Add(this.label3);
             this.panel6.Controls.Add(this.LimitBox);
             this.panel6.Controls.Add(this.Speed3Box);
             this.panel6.Controls.Add(this.Speed2Box);
@@ -772,15 +794,6 @@ namespace Forza_Mods_AIO.TabForms
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(532, 222);
             this.panel6.TabIndex = 10;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(42, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 15);
-            this.label3.TabIndex = 32;
-            this.label3.Text = "label3";
             // 
             // LimitBox
             // 
@@ -1277,7 +1290,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.CheckPointTPworker.WorkerReportsProgress = true;
             this.CheckPointTPworker.WorkerSupportsCancellation = true;
-            this.CheckPointTPworker.DoWork += new System.ComponentModel.DoWorkEventHandler(CheckPointTPworker_DoWork);
+            this.CheckPointTPworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckPointTPworker_DoWork);
             // 
             // ControllerWorker
             // 
@@ -1308,6 +1321,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel3.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.XPnup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FOVBar)).EndInit();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
@@ -1351,7 +1365,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.CheckBox TB_SHCarNoClip;
         private System.Windows.Forms.CheckBox TB_SHWallNoClip;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Label label32;
         public System.Windows.Forms.ProgressBar FOVScan_bar;
         public System.Windows.Forms.CheckBox FOV;
         private System.Windows.Forms.TrackBar FOVBar;
@@ -1434,8 +1447,9 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Button WeirdPull;
         private System.Windows.Forms.CheckBox TimeCheckBox;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button KBChange;
         private System.Windows.Forms.Button XBChange;
+        private System.Windows.Forms.CheckBox XPBox;
+        public System.Windows.Forms.NumericUpDown XPnup;
     }
 }
