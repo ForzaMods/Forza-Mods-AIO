@@ -206,21 +206,21 @@ namespace Forza_Mods_AIO
                     ToolInfo.AOBScanProgress.Show();
                 //long lTime;
                 Thread.Sleep(1);
-                if (Speedhack.BaseAddr == "29A0" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0")
-                {
-                    Speedhack.BaseAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.Base, true, true)).FirstOrDefault() + 10656;
-                    Speedhack.BaseAddr = Speedhack.BaseAddrLong.ToString("X");
-                    //Speedhack.BaseAddrLong = (long)Sigscan.FindPattern(Speedhack.Base, out lTime) + 10656;
-                    //Speedhack.BaseAddr = Speedhack.BaseAddrLong.ToString("X");
-                }
-
-                else if (Speedhack.Base2Addr == "3B40" || Speedhack.Base2Addr == null || Speedhack.Base2Addr == "0")
+                if (Speedhack.Base2Addr == "3B40" || Speedhack.Base2Addr == null || Speedhack.Base2Addr == "0")
                 {
                     ToolInfo.AOBScanProgress.Value = 7;
                     Speedhack.Base2AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.Base, true, true)).FirstOrDefault() + 15168;
                     Speedhack.Base2Addr = Speedhack.Base2AddrLong.ToString("X");
                     //Speedhack.Base2AddrLong = (long)Sigscan.FindPattern(Speedhack.Base, out lTime) + 15168;
                     //Speedhack.Base2Addr = Speedhack.Base2AddrLong.ToString("X");
+                }
+                else if (Speedhack.BaseAddr == "29A0" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0")
+                {
+                    Speedhack.VolumeSetup();
+                    Speedhack.BaseAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.Base, true, true)).FirstOrDefault() + 10656;
+                    Speedhack.BaseAddr = Speedhack.BaseAddrLong.ToString("X");
+                    //Speedhack.BaseAddrLong = (long)Sigscan.FindPattern(Speedhack.Base, out lTime) + 10656;
+                    //Speedhack.BaseAddr = Speedhack.BaseAddrLong.ToString("X");
                 }
                 else if (Speedhack.Base3Addr == "FFFFFFFFFFFFF300" || Speedhack.Base3Addr == null || Speedhack.Base3Addr == "0")
                 {

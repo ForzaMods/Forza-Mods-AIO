@@ -213,6 +213,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SigScanSharp.cs" />
+    <Compile Include="TabForms\VolumeMixer.cs" />
     <Compile Include="TabForms\LiveTuning.cs">
       <SubType>Form</SubType>
     </Compile>
