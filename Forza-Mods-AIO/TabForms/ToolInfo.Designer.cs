@@ -41,6 +41,10 @@ namespace Forza_Mods_AIO
             this.DraffsYTLink = new System.Windows.Forms.Label();
             this.UCPostLink = new System.Windows.Forms.Label();
             this.DiscordLink = new System.Windows.Forms.Label();
+            this.Mute = new System.Windows.Forms.CheckBox();
+            this.Volumeworker = new System.ComponentModel.BackgroundWorker();
+            this.VolNum = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.VolNum)).BeginInit();
             this.SuspendLayout();
             // 
             // AOBScanProgress
@@ -148,12 +152,38 @@ namespace Forza_Mods_AIO
             this.DiscordLink.Text = "https://discord.gg/PQNxeYWUy9";
             this.DiscordLink.Click += new System.EventHandler(this.DiscordLink_Click);
             // 
+            // Mute
+            // 
+            this.Mute.AutoSize = true;
+            this.Mute.Location = new System.Drawing.Point(911, 31);
+            this.Mute.Name = "Mute";
+            this.Mute.Size = new System.Drawing.Size(84, 19);
+            this.Mute.TabIndex = 20;
+            this.Mute.Text = "Mute Forza";
+            this.Mute.UseVisualStyleBackColor = true;
+            this.Mute.CheckedChanged += new System.EventHandler(this.Mute_CheckedChanged);
+            // 
+            // Volumeworker
+            // 
+            this.Volumeworker.WorkerReportsProgress = true;
+            this.Volumeworker.WorkerSupportsCancellation = true;
+            this.Volumeworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Volumeworker_DoWork);
+            // 
+            // VolNum
+            // 
+            this.VolNum.Location = new System.Drawing.Point(911, 5);
+            this.VolNum.Name = "VolNum";
+            this.VolNum.Size = new System.Drawing.Size(84, 22);
+            this.VolNum.TabIndex = 21;
+            // 
             // ToolInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.VolNum);
+            this.Controls.Add(this.Mute);
             this.Controls.Add(this.UCPostLink);
             this.Controls.Add(this.Discord);
             this.Controls.Add(this.UCPost);
@@ -168,6 +198,7 @@ namespace Forza_Mods_AIO
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ToolInfo";
             this.Text = "ToolInfo";
+            ((System.ComponentModel.ISupportInitialize)(this.VolNum)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,5 +217,8 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Label DraffsYTLink;
         private System.Windows.Forms.Label UCPostLink;
         private System.Windows.Forms.Label DiscordLink;
+        private System.Windows.Forms.CheckBox Mute;
+        private System.ComponentModel.BackgroundWorker Volumeworker;
+        private System.Windows.Forms.NumericUpDown VolNum;
     }
 }

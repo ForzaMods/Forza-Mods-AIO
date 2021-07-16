@@ -73,7 +73,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string TimeNOPAddr; public static string TimeAddr;
         public static string Wall1Addr; public static string Wall2Addr;
         public static string FrontLeftAddr; public static string FrontRightAddr; public static string BackLeftAddr; public static string BackRightAddr;
-        public static string OnGroundAddr; public static string InRaceAddr; public static string PastStartAddr;
+        public static string OnGroundAddr; public static string InRaceAddr; public static string PastStartAddr; public static string PastIntroAddr = null;
         public static string xVelocityAddr; public static string yVelocityAddr; public static string zVelocityAddr;
         public static string xAddr; public static string yAddr; public static string zAddr;
         public static string CheckPointxAddr; public static string CheckPointyAddr; public static string CheckPointzAddr; public static string CheckPointxASMAddr;
@@ -161,6 +161,11 @@ namespace Forza_Mods_AIO.TabForms
             FOVHighAddr = (BaseAddr + ",0x568,0x270,0x258,0xB8,0x348,0x70,0x5B0");
             WeirdAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x554");
             GravityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x558");
+        }
+
+        public static void VolumeSetup()
+        {
+            PastIntroAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x21820");
         }
         //end of setup
 

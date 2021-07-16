@@ -133,4 +133,7 @@ person 4 - reason 4 reason 4 reason 4 reason 4 reason 4 reason 4 reason 4</value
   <metadata name="InitialBGworker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>15, 23</value>
   </metadata>
+  <metadata name="Volumeworker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>310, 25</value>
+  </metadata>
 </root>
