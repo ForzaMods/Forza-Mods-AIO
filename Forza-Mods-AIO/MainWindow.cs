@@ -173,14 +173,17 @@ namespace Forza_Mods_AIO
             else
             {
                 ToolInfo.LBL_Attached.Text = "Not Attached to FH4";
-                ToolInfo.LBL_Attached.ForeColor = Color.Red;
-                DisableButtons();
-                ClearColours();
-                BTN_TabInfo.BackColor = Color.FromArgb(45, 45, 48);
-                Panel_Info.BackColor = Color.FromArgb(150, 11, 166);
-                ClearTabItems();
-                this.TabHolder.Controls.Add(ToolInfo);
-                ToolInfo.Visible = true;
+                if(!ToolInfo.Visible)
+                {
+                    ToolInfo.LBL_Attached.ForeColor = Color.Red;
+                    DisableButtons();
+                    ClearColours();
+                    BTN_TabInfo.BackColor = Color.FromArgb(45, 45, 48);
+                    Panel_Info.BackColor = Color.FromArgb(150, 11, 166);
+                    ClearTabItems();
+                    this.TabHolder.Controls.Add(ToolInfo);
+                    ToolInfo.Visible = true;
+                }
                 RPCclient.UpdateDetails("Reading Info");
                 RPCclient.UpdateSmallAsset("home", "reading info");
                 RPCclient.SynchronizeState();
@@ -199,6 +202,7 @@ namespace Forza_Mods_AIO
             var TargetProcess = Process.GetProcessesByName("ForzaHorizon4")[0];
             SigScanSharp Sigscan = new SigScanSharp(TargetProcess.Handle);
             Sigscan.SelectModule(TargetProcess.MainModule);
+            long lTime;
 
             while (Speedhack.done == false)
             {
