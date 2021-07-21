@@ -155,11 +155,11 @@ namespace Forza_Mods_AIO
             // Mute
             // 
             this.Mute.AutoSize = true;
-            this.Mute.Location = new System.Drawing.Point(911, 31);
+            this.Mute.Location = new System.Drawing.Point(810, 399);
             this.Mute.Name = "Mute";
-            this.Mute.Size = new System.Drawing.Size(84, 19);
+            this.Mute.Size = new System.Drawing.Size(178, 34);
             this.Mute.TabIndex = 20;
-            this.Mute.Text = "Mute Forza";
+            this.Mute.Text = "        Control Forza Audio\r\n(Mute Intro + choose volume)";
             this.Mute.UseVisualStyleBackColor = true;
             this.Mute.CheckedChanged += new System.EventHandler(this.Mute_CheckedChanged);
             // 
@@ -171,10 +171,15 @@ namespace Forza_Mods_AIO
             // 
             // VolNum
             // 
-            this.VolNum.Location = new System.Drawing.Point(911, 5);
+            this.VolNum.Location = new System.Drawing.Point(861, 377);
             this.VolNum.Name = "VolNum";
             this.VolNum.Size = new System.Drawing.Size(84, 22);
             this.VolNum.TabIndex = 21;
+            this.VolNum.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // ToolInfo
             // 

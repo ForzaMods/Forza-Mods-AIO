@@ -57,7 +57,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string FOVOutsig = "4C 8D ? ? ? 0F 29 ? ? ? F3 0F";
         public static string FOVInsig = "48 81 EC ? ? ? ? 48 8B ? E8 ? ? ? ? 48 8B ? ? 48 8B";
         public static string Timesig = "20 F2 0F 11 43 08 48 83";
-        public static string CheckPointxASMsig = "0F 28 ? ? ? ? ? 48 8B ? 0F 28 ? ? ? ? ? 0F 29 ? 0F 28 ? ? ? ? ? 0F 29 ? ? 0F 28 ? ? ? ? ? 0F 29 ? ? 0F 29 ? ? C3 CC 48 8B ? 55";
+        public static string CheckPointxASMsig = "0F 28 ? ? ? ? ? 48 8B ? 0F 28 ? ? ? ? ? 0F 29 ? 0F 28 ? ? ? ? ? 0F 29 ? ? 0F 28 ? ? ? ? ? 0F 29 ? ? 0F 29 ? ? C3 CC 48 8B";
         public static string FirstPerson = "80 00 80 82 43";
         public static string Dash = "3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 01 ?? 00 00 00 00 00 00 00 00 A0 40";
         public static string Low = "80 CD CC 4C 3E CD CC CC 3E 9A 99 19 3F 00 00 80 3F";
@@ -423,16 +423,19 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     if (GetAsyncKeyState(Keys.NumPad6) is 1 or Int16.MinValue)
                     {
+                        Thread.Sleep(20);
                         FOVIncrease();
                     }
                     if (GetAsyncKeyState(Keys.NumPad4) is 1 or Int16.MinValue)
                     {
+                        Thread.Sleep(20);
                         FOVdecrease();
                     }
                     if (FOVWorker.CancellationPending)
                     {
                         e.Cancel = true;
                         FOVstart = false;
+                        return;
                     }
                     Thread.Sleep(1);
                 }
@@ -658,16 +661,16 @@ namespace Forza_Mods_AIO.TabForms
         {
             if(GetAsyncKeyState(Keys.LControlKey) is 1 or Int16.MinValue)
             {
-                Thread.Sleep(250);
+                Thread.Sleep(300);//Thread.Sleep(250);
                 double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
-                string TimeVal = (TimeValDouble - 10000).ToString();
+                string TimeVal = (TimeValDouble - 1000).ToString();//string TimeVal = (TimeValDouble + 10000).ToString();
                 MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
             }
             else
             {
-                Thread.Sleep(75);
+                Thread.Sleep(10);//Thread.Sleep(50);
                 double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
-                string TimeVal = (TimeValDouble - 100).ToString();
+                string TimeVal = (TimeValDouble - 20).ToString();//string TimeVal = (TimeValDouble - 100).ToString();
                 MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
             }
         }
@@ -675,16 +678,16 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (GetAsyncKeyState(Keys.LControlKey) is 1 or Int16.MinValue)
             {
-                Thread.Sleep(250);
+                Thread.Sleep(300);//Thread.Sleep(250);
                 double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
-                string TimeVal = (TimeValDouble + 10000).ToString();
+                string TimeVal = (TimeValDouble + 1000).ToString();//string TimeVal = (TimeValDouble + 10000).ToString();
                 MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
             }
             else
             {
-                Thread.Sleep(75);
+                Thread.Sleep(10);//Thread.Sleep(50);
                 double TimeValDouble = MainWindow.m.ReadDouble(TimeAddr);
-                string TimeVal = (TimeValDouble + 100).ToString();
+                string TimeVal = (TimeValDouble + 20).ToString();//string TimeVal = (TimeValDouble + 100).ToString();
                 MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
             }
         }
@@ -1359,8 +1362,8 @@ namespace Forza_Mods_AIO.TabForms
         }
         private async void FOVScan_BTN_Click(object sender, EventArgs e)
         {
-            ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;
-            ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 2000000000;
+            ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 1500000000;//ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;
+            ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 300000000;//ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 2000000000;
             FOVScan_BTN.Hide();
             FOVScan_bar.Show();
             bool scan = true;
@@ -1429,6 +1432,8 @@ namespace Forza_Mods_AIO.TabForms
             SHReset();
             if (FOV.Checked == false)
             {
+                FOVstart = false;
+                FOVWorker.CancelAsync();
                 MainWindow.m.WriteBytes(FOVnopOutAddr, nopoutbefore);
                 MainWindow.m.WriteBytes(FOVnopInAddr, nopinbefore);
                 MainWindow.m.UnfreezeValue(FOVHighAddr);
@@ -1440,6 +1445,11 @@ namespace Forza_Mods_AIO.TabForms
             }
             else
             {
+                FOVstart = true;
+                if (FOVWorker.IsBusy == false)
+                {
+                    FOVWorker.RunWorkerAsync();
+                }
                 MainWindow.m.WriteBytes(FOVnopOutAddr, nop);
                 MainWindow.m.WriteBytes(FOVnopInAddr, nop);
                 MainWindow.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());

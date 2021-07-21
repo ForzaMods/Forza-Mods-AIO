@@ -60,7 +60,6 @@ namespace Forza_Mods_AIO
         {
             while(VolStart)
             {
-
                 while (MainWindow.m.OpenProcess("ForzaHorizon4") && Speedhack.PastIntroAddr != null)
                 {
                     if (MainWindow.m.ReadByte(Speedhack.PastIntroAddr) == 1)
@@ -73,6 +72,7 @@ namespace Forza_Mods_AIO
                         while (MainWindow.m.ReadByte(Speedhack.PastIntroAddr) == 0)
                         {
                             VolumeMixer.SetApplicationMute(Process.GetProcessesByName("ForzaHorizon4")[0].Id, true);
+                            VolumeMixer.SetApplicationVolume(Process.GetProcessesByName("ForzaHorizon4")[0].Id, (float)VolNum.Value);
                             if (Volumeworker.CancellationPending)
                             {
                                 e.Cancel = true;
@@ -80,7 +80,7 @@ namespace Forza_Mods_AIO
                             }
                             Thread.Sleep(1);
                         }
-                        Thread.Sleep(30);
+                        Thread.Sleep(20000);
                         VolumeMixer.SetApplicationMute(Process.GetProcessesByName("ForzaHorizon4")[0].Id, false);
                         VolumeMixer.SetApplicationVolume(Process.GetProcessesByName("ForzaHorizon4")[0].Id, (float)VolNum.Value);
                     }
