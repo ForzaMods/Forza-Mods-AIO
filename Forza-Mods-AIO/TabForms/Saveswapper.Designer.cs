@@ -29,12 +29,13 @@ namespace Forza_Mods_AIO.TabForms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Saveswapper));
             this.Radio_MS = new System.Windows.Forms.RadioButton();
             this.Radio_Steam = new System.Windows.Forms.RadioButton();
             this.LST_Accounts = new System.Windows.Forms.ListBox();
             this.LST_Savegames = new System.Windows.Forms.ListBox();
             this.TB_Backup = new System.Windows.Forms.CheckBox();
-            this.TXT_ACGuide = new System.Windows.Forms.RichTextBox();
+            this.TXT_SaveInfo = new System.Windows.Forms.RichTextBox();
             this.BTN_SwapSave = new System.Windows.Forms.Button();
             this.BTN_Backup = new System.Windows.Forms.Button();
             this.LBL_Account = new System.Windows.Forms.Label();
@@ -103,21 +104,21 @@ namespace Forza_Mods_AIO.TabForms
             this.TB_Backup.Text = "Backup while swapping";
             this.TB_Backup.UseVisualStyleBackColor = true;
             // 
-            // TXT_ACGuide
+            // TXT_SaveInfo
             // 
-            this.TXT_ACGuide.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.TXT_ACGuide.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TXT_ACGuide.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.TXT_ACGuide.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TXT_ACGuide.ForeColor = System.Drawing.Color.White;
-            this.TXT_ACGuide.Location = new System.Drawing.Point(491, 1);
-            this.TXT_ACGuide.Margin = new System.Windows.Forms.Padding(0);
-            this.TXT_ACGuide.Name = "TXT_ACGuide";
-            this.TXT_ACGuide.ReadOnly = true;
-            this.TXT_ACGuide.Size = new System.Drawing.Size(511, 425);
-            this.TXT_ACGuide.TabIndex = 34;
-            this.TXT_ACGuide.TabStop = false;
-            this.TXT_ACGuide.Text = "";
+            this.TXT_SaveInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.TXT_SaveInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TXT_SaveInfo.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TXT_SaveInfo.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TXT_SaveInfo.ForeColor = System.Drawing.Color.White;
+            this.TXT_SaveInfo.Location = new System.Drawing.Point(491, 1);
+            this.TXT_SaveInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.TXT_SaveInfo.Name = "TXT_SaveInfo";
+            this.TXT_SaveInfo.ReadOnly = true;
+            this.TXT_SaveInfo.Size = new System.Drawing.Size(500, 425);
+            this.TXT_SaveInfo.TabIndex = 34;
+            this.TXT_SaveInfo.TabStop = false;
+            this.TXT_SaveInfo.Text = resources.GetString("TXT_SaveInfo.Text");
             // 
             // BTN_SwapSave
             // 
@@ -195,7 +196,7 @@ namespace Forza_Mods_AIO.TabForms
             this.ClientSize = new System.Drawing.Size(1000, 445);
             this.Controls.Add(this.LBL_Account);
             this.Controls.Add(this.BTN_Backup);
-            this.Controls.Add(this.TXT_ACGuide);
+            this.Controls.Add(this.TXT_SaveInfo);
             this.Controls.Add(this.TB_Backup);
             this.Controls.Add(this.LST_Savegames);
             this.Controls.Add(this.LST_Accounts);
@@ -220,7 +221,7 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.ListBox LST_Accounts;
         private System.Windows.Forms.ListBox LST_Savegames;
         private System.Windows.Forms.CheckBox TB_Backup;
-        private System.Windows.Forms.RichTextBox TXT_ACGuide;
+        private System.Windows.Forms.RichTextBox TXT_SaveInfo;
         private System.Windows.Forms.Button BTN_SwapSave;
         private System.Windows.Forms.Button BTN_Backup;
         private System.Windows.Forms.Label LBL_Account;
