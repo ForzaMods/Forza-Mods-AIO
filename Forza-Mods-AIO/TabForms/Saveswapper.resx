@@ -117,25 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TXT_ACGuide.Text" xml:space="preserve">
-    <value>Save info
-===============================================
-Name- 100% Stories Complete(including Fortune Island and Lego Valley)
-
-Cars- All cars in the game up to and including series 35(Including Autoshows, BFs, POs, DLCs, CPs and Legos) no Owen's
-
-Platform- Steam
-
-Level- P7 Lv750ish
-
-Money- 390+ mil 
-
-Others- 5+ million Super Wheelspins. 3+ million wheelspins. 800+ skill points.
-
-Creator- @Ariza
-
-Special thanks to @Major Colaman  for the original save</value>
-  </data>
   <metadata name="GamertagResolve.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>27, 15</value>
   </metadata>

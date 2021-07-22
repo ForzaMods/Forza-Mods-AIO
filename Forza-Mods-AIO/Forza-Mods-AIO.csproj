@@ -198,6 +198,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="assembly.cs" />
+    <Compile Include="BinaryReaderHelper.cs" />
+    <Compile Include="ContainerReader.cs" />
     <Compile Include="TabForms\AddCars.cs">
       <SubType>Form</SubType>
     </Compile>
