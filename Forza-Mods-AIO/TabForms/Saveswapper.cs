@@ -155,40 +155,59 @@ namespace Forza_Mods_AIO.TabForms
             }
             else
             {
-                var scan1 = (await sm.AoBScan("41 75 74 68 6F 72 69 7A 61 74 69 6F 6E 58 42 4C 33 2E 30 20 78 3D", true, true)).FirstOrDefault();
-                var scan2 = (await sm.AoBScan("43 6F 6E 74 65 6E 74 2D 4C 65 6E 67 74 68 31 31 37", true, true)).FirstOrDefault();
-                var length = scan2 - scan1;
-                length -= 93;
-                var address = (scan1 + 13).ToString("X");
-                string auth = Encoding.ASCII.GetString(sm.ReadBytes(address, length));
-                LST_Accounts.Items.Clear();
-                foreach (var dir in acclist)
+                try
                 {
-                    if (dir.Name != "t")
+                    var scan1 = (await sm.AoBScan("41 75 74 68 6F 72 69 7A 61 74 69 6F 6E 58 42 4C 33 2E 30 20 78 3D", true, true)).FirstOrDefault();
+                    var scan2 = (await sm.AoBScan("43 6F 6E 74 65 6E 74 2D 4C 65 6E 67 74 68 31 31 37", true, true)).FirstOrDefault();
+                    var length = scan2 - scan1;
+                    length -= 93;
+                    var address = (scan1 + 13).ToString("X");
+                    string auth = Encoding.ASCII.GetString(sm.ReadBytes(address, length));
+                    LST_Accounts.Items.Clear();
+
+                    foreach (var dir in acclist)
                     {
-                        try
+                        if (dir.Name != "t")
                         {
-                            var response = (dynamic)JObject.Parse(Get("https://peoplehub.xboxlive.com/users/me/people/xuids(" + Int64.Parse(dir.Name.Substring(0, 16), System.Globalization.NumberStyles.HexNumber) + ")", auth));
-                            LST_Accounts.Items.Add(response.people[0].gamertag.ToString());
-                        }
-                        catch (Exception a)
-                        {
-                            LST_Accounts.Items.Clear();
-                            dircount = 0;
-                            foreach (var dir2 in acclist)
+                            try
                             {
-                                if (dir2.Name != "t")
-                                {
-                                    dircount++;
-                                    LST_Accounts.Items.Add(dircount + ": Last Played " + dir2.LastWriteTime);
-
-                                }
+                                var response = (dynamic)JObject.Parse(Get("https://peoplehub.xboxlive.com/users/me/people/xuids(" + Int64.Parse(dir.Name.Substring(0, 16), System.Globalization.NumberStyles.HexNumber) + ")", auth));
+                                LST_Accounts.Items.Add(response.people[0].gamertag.ToString());
                             }
-                            return;
-                        }
+                            catch (Exception a)
+                            {
+                                LST_Accounts.Items.Clear();
+                                dircount = 0;
+                                foreach (var dir2 in acclist)
+                                {
+                                    if (dir2.Name != "t")
+                                    {
+                                        dircount++;
+                                        LST_Accounts.Items.Add(dircount + ": Last Played " + dir2.LastWriteTime);
 
+                                    }
+                                }
+                                return;
+                            }
+
+                        }
                     }
                 }
+                catch
+                {
+                    LST_Accounts.Items.Clear();
+                    dircount = 0;
+                    foreach (var dir in acclist)
+                    {
+                        if (dir.Name != "t")
+                        {
+                            dircount++;
+                            LST_Accounts.Items.Add(dircount + ": Last Played " + dir.LastWriteTime);
+                        }
+                    }
+                }
+
+
             }
             foreach (var save in savelist)
                 LST_Savegames.Items.Add(save);
