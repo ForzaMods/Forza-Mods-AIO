@@ -29,7 +29,6 @@ namespace Forza_Mods_AIO.TabForms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Saveswapper));
             this.Radio_MS = new System.Windows.Forms.RadioButton();
             this.Radio_Steam = new System.Windows.Forms.RadioButton();
             this.LST_Accounts = new System.Windows.Forms.ListBox();
@@ -88,18 +87,6 @@ namespace Forza_Mods_AIO.TabForms
             this.LST_Savegames.ForeColor = System.Drawing.Color.White;
             this.LST_Savegames.FormattingEnabled = true;
             this.LST_Savegames.ItemHeight = 18;
-            this.LST_Savegames.Items.AddRange(new object[] {
-            "save1",
-            "save2",
-            "save3",
-            "=================",
-            "customsave1",
-            "customsave2",
-            "customsave3",
-            "=================",
-            "autobackup1",
-            "autobackup2",
-            "autobackup3"});
             this.LST_Savegames.Location = new System.Drawing.Point(254, 12);
             this.LST_Savegames.Name = "LST_Savegames";
             this.LST_Savegames.Size = new System.Drawing.Size(234, 414);
@@ -130,7 +117,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TXT_ACGuide.Size = new System.Drawing.Size(511, 425);
             this.TXT_ACGuide.TabIndex = 34;
             this.TXT_ACGuide.TabStop = false;
-            this.TXT_ACGuide.Text = resources.GetString("TXT_ACGuide.Text");
+            this.TXT_ACGuide.Text = "";
             // 
             // BTN_SwapSave
             // 
