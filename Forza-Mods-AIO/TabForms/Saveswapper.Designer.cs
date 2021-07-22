@@ -33,10 +33,10 @@ namespace Forza_Mods_AIO.TabForms
             this.Radio_Steam = new System.Windows.Forms.RadioButton();
             this.LST_Accounts = new System.Windows.Forms.ListBox();
             this.LST_Savegames = new System.Windows.Forms.ListBox();
-            this.TB_ACAutoshow = new System.Windows.Forms.CheckBox();
+            this.TB_Backup = new System.Windows.Forms.CheckBox();
             this.TXT_ACGuide = new System.Windows.Forms.RichTextBox();
             this.BTN_SwapSave = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BTN_Backup = new System.Windows.Forms.Button();
             this.LBL_Account = new System.Windows.Forms.Label();
             this.GamertagResolve = new System.ComponentModel.BackgroundWorker();
             this.HiddenRadio = new System.Windows.Forms.RadioButton();
@@ -92,16 +92,16 @@ namespace Forza_Mods_AIO.TabForms
             this.LST_Savegames.Size = new System.Drawing.Size(234, 414);
             this.LST_Savegames.TabIndex = 31;
             // 
-            // TB_ACAutoshow
+            // TB_Backup
             // 
-            this.TB_ACAutoshow.AutoSize = true;
-            this.TB_ACAutoshow.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_ACAutoshow.Location = new System.Drawing.Point(51, 122);
-            this.TB_ACAutoshow.Name = "TB_ACAutoshow";
-            this.TB_ACAutoshow.Size = new System.Drawing.Size(147, 23);
-            this.TB_ACAutoshow.TabIndex = 33;
-            this.TB_ACAutoshow.Text = "Auto Backup Save";
-            this.TB_ACAutoshow.UseVisualStyleBackColor = true;
+            this.TB_Backup.AutoSize = true;
+            this.TB_Backup.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TB_Backup.Location = new System.Drawing.Point(33, 122);
+            this.TB_Backup.Name = "TB_Backup";
+            this.TB_Backup.Size = new System.Drawing.Size(186, 23);
+            this.TB_Backup.TabIndex = 33;
+            this.TB_Backup.Text = "Backup while swapping";
+            this.TB_Backup.UseVisualStyleBackColor = true;
             // 
             // TXT_ACGuide
             // 
@@ -137,22 +137,23 @@ namespace Forza_Mods_AIO.TabForms
             this.BTN_SwapSave.UseVisualStyleBackColor = false;
             this.BTN_SwapSave.Click += new System.EventHandler(this.BTN_SwapSave_Click);
             // 
-            // button1
+            // BTN_Backup
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Open Sans", 11F);
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(12, 151);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(236, 50);
-            this.button1.TabIndex = 35;
-            this.button1.TabStop = false;
-            this.button1.Text = "Backup Save";
-            this.button1.UseVisualStyleBackColor = false;
+            this.BTN_Backup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.BTN_Backup.FlatAppearance.BorderSize = 0;
+            this.BTN_Backup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
+            this.BTN_Backup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.BTN_Backup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_Backup.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.BTN_Backup.ForeColor = System.Drawing.Color.White;
+            this.BTN_Backup.Location = new System.Drawing.Point(12, 151);
+            this.BTN_Backup.Name = "BTN_Backup";
+            this.BTN_Backup.Size = new System.Drawing.Size(236, 50);
+            this.BTN_Backup.TabIndex = 35;
+            this.BTN_Backup.TabStop = false;
+            this.BTN_Backup.Text = "Backup Save";
+            this.BTN_Backup.UseVisualStyleBackColor = false;
+            this.BTN_Backup.Click += new System.EventHandler(this.BTN_Backup_Click);
             // 
             // LBL_Account
             // 
@@ -193,9 +194,9 @@ namespace Forza_Mods_AIO.TabForms
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
             this.Controls.Add(this.LBL_Account);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BTN_Backup);
             this.Controls.Add(this.TXT_ACGuide);
-            this.Controls.Add(this.TB_ACAutoshow);
+            this.Controls.Add(this.TB_Backup);
             this.Controls.Add(this.LST_Savegames);
             this.Controls.Add(this.LST_Accounts);
             this.Controls.Add(this.Radio_Steam);
@@ -218,10 +219,10 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.RadioButton Radio_Steam;
         private System.Windows.Forms.ListBox LST_Accounts;
         private System.Windows.Forms.ListBox LST_Savegames;
-        private System.Windows.Forms.CheckBox TB_ACAutoshow;
+        private System.Windows.Forms.CheckBox TB_Backup;
         private System.Windows.Forms.RichTextBox TXT_ACGuide;
         private System.Windows.Forms.Button BTN_SwapSave;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BTN_Backup;
         private System.Windows.Forms.Label LBL_Account;
         private System.ComponentModel.BackgroundWorker GamertagResolve;
         private System.Windows.Forms.RadioButton HiddenRadio;
