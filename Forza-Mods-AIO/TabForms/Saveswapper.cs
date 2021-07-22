@@ -78,7 +78,10 @@ namespace Forza_Mods_AIO.TabForms
         {
 
             if (Radio_MS.Checked && LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
+            {
                 SwapMSSave();
+            }
+                
             else if (Radio_Steam.Checked && LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
                 FindSteamSave();
             else
@@ -91,12 +94,30 @@ namespace Forza_Mods_AIO.TabForms
 
         void SwapMSSave()
         {
+            BTN_SwapSave.Enabled = false;
+            BTN_Backup.Enabled = false;
             var targetacc = new DirectoryInfo(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs").EnumerateDirectories("*").ToList()[LST_Accounts.SelectedIndex];
             var selectedsave = new DirectoryInfo(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS").EnumerateFiles("*").ToList()[LST_Savegames.SelectedIndex];
             var savepath = container.Read(targetacc.FullName + "\\containers.index");
-            MessageBox.Show("Target profile:" + "\n" + targetacc.FullName + "\n" + "Selected savegame:" + "\n" + selectedsave.FullName + "\n" + "Savegame path:" + "\n" + targetacc.FullName + savepath );
+            //MessageBox.Show("Target profile:" + "\n" + targetacc.FullName + "\n" + "Selected savegame:" + "\n" + selectedsave.FullName + "\n" + "Savegame path:" + "\n" + targetacc.FullName + savepath );
+            if (TB_Backup.Checked)
+                File.Move(targetacc.FullName + "\\" + savepath, @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backups\" + DateTime.Now.ToString("Automatic-yyyy-MM-dd HH-mm-ss-fff"));
+            else
+                File.Delete(targetacc.FullName + "\\" + savepath);
+            File.Copy(selectedsave.FullName.ToString(), targetacc.FullName + "\\"+savepath);
+            BTN_SwapSave.Enabled = true;
+            BTN_Backup.Enabled = true;
         }
-
+        void BackupMSSave()
+        {
+            BTN_SwapSave.Enabled = false;
+            BTN_Backup.Enabled = false;
+            var targetacc = new DirectoryInfo(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs").EnumerateDirectories("*").ToList()[LST_Accounts.SelectedIndex];
+            var savepath = container.Read(targetacc.FullName + "\\containers.index");
+            File.Copy(targetacc.FullName + "\\" + savepath, @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backups\" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-fff"));
+            BTN_SwapSave.Enabled = true;
+            BTN_Backup.Enabled = true;
+        }
         //bg worker stuff. query xbox api for gamertag using the xuids
 
         public async void GamertagResolve_DoWork(object sender, DoWorkEventArgs e)
@@ -182,10 +203,22 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (Radio_MS.Checked)
             {
-
                 GamertagResolve.RunWorkerAsync();
             }
 
+        }
+
+        private void BTN_Backup_Click(object sender, EventArgs e)
+        {
+            if (Radio_MS.Checked && LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
+            {
+                BackupMSSave();
+            }
+
+            else if (Radio_Steam.Checked && LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
+                FindSteamSave();
+            else
+                MessageBox.Show("Options not selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
