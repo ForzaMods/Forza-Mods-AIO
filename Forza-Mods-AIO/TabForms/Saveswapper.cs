@@ -29,7 +29,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             while (true)
             {
-                if (!sm.OpenProcess("GameBarPresenceWriter"))
+                if (!sm.OpenProcess("XboxApp"))
                 {
                     Thread.Sleep(1000);
                     return;
@@ -132,11 +132,7 @@ namespace Forza_Mods_AIO.TabForms
                     dircount++;
                 }
             }
-            if (dircount == 1)
-            {
-                LST_Accounts.Visible = false;
-            }
-            else if (dircount <= 0)
+            if (dircount <= 0)
             {
                 //idk man some shit went wrong if there are no files
             }
@@ -158,7 +154,7 @@ namespace Forza_Mods_AIO.TabForms
                 try
                 {
                     var scan1 = (await sm.AoBScan("41 75 74 68 6F 72 69 7A 61 74 69 6F 6E 58 42 4C 33 2E 30 20 78 3D", true, true)).FirstOrDefault();
-                    var scan2 = (await sm.AoBScan("43 6F 6E 74 65 6E 74 2D 4C 65 6E 67 74 68 31 31 37", true, true)).FirstOrDefault();
+                    var scan2 = (await sm.AoBScan("48 6F 73 74 63 6F 6D 6D 65 6E 74 73 2E 78 62 6F 78 6C 69 76 65 2E 63 6F 6D", true, true)).FirstOrDefault();
                     var length = scan2 - scan1;
                     length -= 93;
                     var address = (scan1 + 13).ToString("X");
@@ -209,6 +205,7 @@ namespace Forza_Mods_AIO.TabForms
 
 
             }
+            LST_Savegames.Items.Clear();
             foreach (var save in savelist)
                 LST_Savegames.Items.Add(save);
         }
