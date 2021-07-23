@@ -1362,7 +1362,7 @@ namespace Forza_Mods_AIO.TabForms
         }
         private async void FOVScan_BTN_Click(object sender, EventArgs e)
         {
-            ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 1500000000;//ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;
+            ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;//ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;
             ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 300000000;//ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 2000000000;
             FOVScan_BTN.Hide();
             FOVScan_bar.Show();

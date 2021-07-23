@@ -15,12 +15,19 @@ namespace Forza_Mods_AIO.TabForms
         LiveTuningForms.Tyres Tyres = new LiveTuningForms.Tyres() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         LiveTuningForms.Gears Gears = new LiveTuningForms.Gears() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         LiveTuningForms.Alignment Alignment = new LiveTuningForms.Alignment() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        LiveTuningForms.Aero Aero = new LiveTuningForms.Aero() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         public LiveTuning()
         {
             InitializeComponent();
             this.TabHolder.Controls.Add(Tyres);
             Tyres.Visible = true;
         }
+        #region Aero Addresses
+        public static string FrontAeroAddr1;
+        public static string FrontAeroAddr2;
+        public static string RearAeroAddr1;
+        public static string RearAeroAddr2;
+        #endregion
         #region Pressure Addresses
         public static string FrontTyrePressureAddr;
         public static string RearTyrePressureAddr;
@@ -234,6 +241,12 @@ namespace Forza_Mods_AIO.TabForms
         #endregion
         public static void Addresses()
         {
+            #region aero
+            FrontAeroAddr1 = (Speedhack.BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0x1708");
+            FrontAeroAddr2 = (Speedhack.BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0x1700");
+            RearAeroAddr1 = (Speedhack.BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0x1748");
+            RearAeroAddr2 = (Speedhack.BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0x1740");
+            #endregion
             #region pressure
             FrontTyrePressureAddr = (Speedhack.BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0x337C");
             RearTyrePressureAddr = (Speedhack.BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0x495C");
@@ -461,12 +474,15 @@ namespace Forza_Mods_AIO.TabForms
             Panel_Springs.BackColor = Color.FromArgb(28, 28, 28);
             BTN_Damping.BackColor = Color.FromArgb(28, 28, 28);
             Panel_Damping.BackColor = Color.FromArgb(28, 28, 28);
+            BTN_Aero.BackColor = Color.FromArgb(28, 28, 28);
+            Panel_Aero.BackColor = Color.FromArgb(28, 28, 28);
         }
         public void ClearTabItems()
         {
             Tyres.Visible = false;
             Gears.Visible = false;
             Alignment.Visible = false;
+            Aero.Visible = false;
             //Saveswapper.Visible = false;
             //LiveTuning.Visible = false;
             //Speedhack.Visible = false;
@@ -536,8 +552,8 @@ namespace Forza_Mods_AIO.TabForms
             BTN_Aero.BackColor = Color.FromArgb(45, 45, 48);
             Panel_Aero.BackColor = Color.FromArgb(150, 11, 166);
             ClearTabItems();
-            //this.TabHolder.Controls.Add(Damping);
-            //Damping.Visible = true;
+            this.TabHolder.Controls.Add(Aero);
+            Aero.Visible = true;
         }
         private void BTN_Brake_Click(object sender, EventArgs e)
         {
