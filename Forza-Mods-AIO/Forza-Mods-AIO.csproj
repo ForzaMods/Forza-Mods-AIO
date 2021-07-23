@@ -215,6 +215,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SigScanSharp.cs" />
+    <Compile Include="TabForms\LiveTuningForms\Aero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForms\LiveTuningForms\Aero.designer.cs">
+      <DependentUpon>Aero.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabForms\VolumeMixer.cs" />
     <Compile Include="TabForms\LiveTuning.cs">
       <SubType>Form</SubType>
@@ -288,6 +294,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TabForms\LiveTuningForms\Gears.resx">
       <DependentUpon>Gears.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabForms\LiveTuningForms\Aero.resx">
+      <DependentUpon>Aero.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabForms\LiveTuningForms\Tyres.resx">
       <DependentUpon>Tyres.cs</DependentUpon>
