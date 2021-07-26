@@ -1,12 +1,10 @@
 ﻿using Forza_Mods_AIO.TabForms;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+using System.Globalization;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Forza_Mods_AIO
 {
@@ -121,6 +119,55 @@ namespace Forza_Mods_AIO
                 Array.Reverse(CheckBaseAddrArray);
                 CheckpointBaseAddr = BitConverter.ToString(CheckBaseAddrArray).Replace("-", String.Empty);
             }
+        }
+
+        public void GetWayPointXAddr(IntPtr CodeCave, out string WayPointBaseAddr)
+        {
+            string CodeCaveAddrString = ((long)CodeCave).ToString("X"); // CodeCave address
+            string CodeCavejmpString = ((long)CodeCave - (Speedhack.WayPointxASMAddrLong + 5)).ToString("X"); // address to calculate jump from
+            byte[] CodeCaveAddr = StringToBytes("0" + CodeCavejmpString);
+            Array.Reverse(CodeCaveAddr);
+
+            string JmpToCodeCaveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "9090"; // code that replaces original code - 90 = nop, as many as these as you need
+            byte[] JmpToCodeCaveCode = StringToBytes(JmpToCodeCaveCodeString);
+
+            byte[] jmpBackBytes = longToByteArray(Speedhack.WayPointxASMAddrLong + 7 - (long)(CodeCave + 19)); // (address + jmp code) - address of end of code cave
+            Array.Reverse(jmpBackBytes);
+            string InsideCaveCodeString = "48893D22000000" + "0F1097A0030000E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty); // move reg to address within code cave + original code + jump back
+            byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
+
+            MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
+            MainWindow.m.WriteBytes(Speedhack.WayPointxASMAddr, JmpToCodeCaveCode);
+
+            Thread.Sleep(25);
+            byte[] CheckBaseAddrArray = MainWindow.m.ReadBytes(((long)CodeCave + 41).ToString("X"), 6);
+            Array.Reverse(CheckBaseAddrArray);
+            WayPointBaseAddr = BitConverter.ToString(CheckBaseAddrArray).Replace("-", String.Empty);
+            if (WayPointBaseAddr == "000000000000" && Speedhack.s.AutoWayPoint.Checked == false)
+                MessageBox.Show("Make a new waypoint");
+
+            while (WayPointBaseAddr == "000000000000")
+            {
+                CheckBaseAddrArray = MainWindow.m.ReadBytes(((long)CodeCave + 41).ToString("X"), 6);
+                Array.Reverse(CheckBaseAddrArray);
+                WayPointBaseAddr = BitConverter.ToString(CheckBaseAddrArray).Replace("-", String.Empty);
+            }
+
+            Speedhack.WayPointxAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 928).ToString("X");
+            Speedhack.WayPointyAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 932).ToString("X");
+            Speedhack.WayPointzAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 936).ToString("X");
+            float WayPointX = MainWindow.m.ReadFloat(Speedhack.WayPointxAddr, round: false);
+            float WayPointY = MainWindow.m.ReadFloat(Speedhack.WayPointyAddr, round: false);
+            float WayPointZ = MainWindow.m.ReadFloat(Speedhack.WayPointzAddr, round: false);
+            if (WayPointX != 0 && WayPointX != 0 && WayPointX != 0)
+            {
+                MainWindow.m.WriteMemory(Speedhack.xAddr, "float", WayPointX.ToString());
+                MainWindow.m.WriteMemory(Speedhack.yAddr, "float", WayPointY.ToString());
+                MainWindow.m.WriteMemory(Speedhack.zAddr, "float", WayPointZ.ToString());
+            }
+
+            byte[] WayPointCodeBefore = new byte[7] { 0x0F, 0x10, 0x97, 0xA0, 0x03, 0x00, 0x00};
+            MainWindow.m.WriteBytes(Speedhack.WayPointxASMAddr, WayPointCodeBefore);
         }
 
         public void GetTimeAddr(IntPtr CodeCave2)

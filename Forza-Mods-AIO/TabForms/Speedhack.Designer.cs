@@ -42,6 +42,7 @@ namespace Forza_Mods_AIO.TabForms
             this.FOVScan_bar = new System.Windows.Forms.ProgressBar();
             this.FOVBar = new System.Windows.Forms.TrackBar();
             this.TimeCheckBox = new System.Windows.Forms.CheckBox();
+            this.AutoWayPoint = new System.Windows.Forms.CheckBox();
             this.CheckpointBox = new System.Windows.Forms.CheckBox();
             this.FOVScan_BTN = new System.Windows.Forms.Button();
             this.TPButton = new System.Windows.Forms.Button();
@@ -121,6 +122,8 @@ namespace Forza_Mods_AIO.TabForms
             this.CheckPointTPworker = new System.ComponentModel.BackgroundWorker();
             this.ControllerWorker = new System.ComponentModel.BackgroundWorker();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.WayPointWorker = new System.ComponentModel.BackgroundWorker();
+            this.WayPointTPworker = new System.ComponentModel.BackgroundWorker();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.XPnup)).BeginInit();
@@ -207,6 +210,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel7.Controls.Add(this.FOVScan_bar);
             this.panel7.Controls.Add(this.FOVBar);
             this.panel7.Controls.Add(this.TimeCheckBox);
+            this.panel7.Controls.Add(this.AutoWayPoint);
             this.panel7.Controls.Add(this.CheckpointBox);
             this.panel7.Controls.Add(this.FOVScan_BTN);
             this.panel7.Controls.Add(this.TPButton);
@@ -223,7 +227,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.XPBox.AutoSize = true;
             this.XPBox.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.XPBox.Location = new System.Drawing.Point(65, 206);
+            this.XPBox.Location = new System.Drawing.Point(65, 224);
             this.XPBox.Name = "XPBox";
             this.XPBox.Size = new System.Drawing.Size(128, 23);
             this.XPBox.TabIndex = 41;
@@ -238,7 +242,7 @@ namespace Forza_Mods_AIO.TabForms
             0,
             0,
             0});
-            this.XPnup.Location = new System.Drawing.Point(64, 185);
+            this.XPnup.Location = new System.Drawing.Point(64, 203);
             this.XPnup.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -303,13 +307,26 @@ namespace Forza_Mods_AIO.TabForms
             this.TimeCheckBox.AutoSize = true;
             this.TimeCheckBox.FlatAppearance.BorderSize = 0;
             this.TimeCheckBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeCheckBox.Location = new System.Drawing.Point(64, 162);
+            this.TimeCheckBox.Location = new System.Drawing.Point(64, 180);
             this.TimeCheckBox.Name = "TimeCheckBox";
             this.TimeCheckBox.Size = new System.Drawing.Size(116, 23);
             this.TimeCheckBox.TabIndex = 38;
             this.TimeCheckBox.Text = "Manual Time";
             this.TimeCheckBox.UseVisualStyleBackColor = true;
             this.TimeCheckBox.CheckedChanged += new System.EventHandler(this.TimeCheckBox_CheckedChanged);
+            // 
+            // AutoWayPoint
+            // 
+            this.AutoWayPoint.AutoSize = true;
+            this.AutoWayPoint.FlatAppearance.BorderSize = 0;
+            this.AutoWayPoint.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AutoWayPoint.Location = new System.Drawing.Point(64, 161);
+            this.AutoWayPoint.Name = "AutoWayPoint";
+            this.AutoWayPoint.Size = new System.Drawing.Size(161, 23);
+            this.AutoWayPoint.TabIndex = 38;
+            this.AutoWayPoint.Text = "Auto TP to waypoint";
+            this.AutoWayPoint.UseVisualStyleBackColor = true;
+            this.AutoWayPoint.CheckedChanged += new System.EventHandler(this.WayPointBox_CheckedChanged);
             // 
             // CheckpointBox
             // 
@@ -1297,6 +1314,18 @@ namespace Forza_Mods_AIO.TabForms
             this.ControllerWorker.WorkerSupportsCancellation = true;
             this.ControllerWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ControllerWorker_DoWork);
             // 
+            // WayPointWorker
+            // 
+            this.WayPointWorker.WorkerReportsProgress = true;
+            this.WayPointWorker.WorkerSupportsCancellation = true;
+            this.WayPointWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WayPointWorker_DoWork);
+            // 
+            // WayPointTPworker
+            // 
+            this.WayPointTPworker.WorkerReportsProgress = true;
+            this.WayPointTPworker.WorkerSupportsCancellation = true;
+            this.WayPointTPworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WayPointTPworker_DoWork);
+            // 
             // Speedhack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -1451,5 +1480,8 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Button XBChange;
         private System.Windows.Forms.CheckBox XPBox;
         public System.Windows.Forms.NumericUpDown XPnup;
+        private System.ComponentModel.BackgroundWorker WayPointWorker;
+        public System.Windows.Forms.CheckBox AutoWayPoint;
+        private System.ComponentModel.BackgroundWorker WayPointTPworker;
     }
 }

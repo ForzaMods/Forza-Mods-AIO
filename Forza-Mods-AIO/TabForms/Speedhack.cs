@@ -42,11 +42,12 @@ namespace Forza_Mods_AIO.TabForms
         bool WallNoClipToggle = false;
         bool CarNoClipToggle = false;
         bool CheckPointTPToggle = false;
+        bool WayPointTPToggle = false;
         public static bool done = false;
         public static bool Velstart = false; public static bool NCstart = false; public static bool FOVstart = false; public static bool Timestart = false; public static bool Breakstart = false; public static bool Speedstart = false; public static bool Turnstart = false;
         bool FovIncreaseStart = false; bool FovDecreaseStart = false;
         bool TimeToggle = false;  bool TimeForwardStart = false; bool TimeBackStart = false;
-        public static long TimeNOPAddrLong; public static long CheckPointxASMAddrLong;
+        public static long TimeNOPAddrLong; public static long CheckPointxASMAddrLong; public static long WayPointxASMAddrLong;
         public static long BaseAddrLong; public static long Base2AddrLong; public static long Base3AddrLong; public static long Base4AddrLong; public static long Car1AddrLong; public static long Car2AddrLong; public static long Wall1AddrLong; public static long Wall2AddrLong; public static long FOVnopOutAddrLong; public static long FOVnopInAddrLong;
         public static long FirstPersonAddrLong; public static long DashAddrLong; public static long FrontAddrLong; public static long LowAddrLong; public static long BonnetAddrLong;
         public static string Base = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
@@ -58,6 +59,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string FOVInsig = "48 81 EC ? ? ? ? 48 8B ? E8 ? ? ? ? 48 8B ? ? 48 8B";
         public static string Timesig = "20 F2 0F 11 43 08 48 83";
         public static string CheckPointxASMsig = "0F 28 ? ? ? ? ? 48 8B ? 0F 28 ? ? ? ? ? 0F 29 ? 0F 28 ? ? ? ? ? 0F 29 ? ? 0F 28 ? ? ? ? ? 0F 29 ? ? 0F 29 ? ? C3 CC 48 8B";
+        public static string WayPointxASMsig = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50 C1 83 E0 07 3C 07";
         public static string FirstPerson = "80 00 80 82 43";
         public static string Dash = "3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 01 ?? 00 00 00 00 00 00 00 00 A0 40";
         public static string Low = "80 CD CC 4C 3E CD CC CC 3E 9A 99 19 3F 00 00 80 3F";
@@ -77,13 +79,13 @@ namespace Forza_Mods_AIO.TabForms
         public static string xVelocityAddr; public static string yVelocityAddr; public static string zVelocityAddr;
         public static string xAddr; public static string yAddr; public static string zAddr;
         public static string CheckPointxAddr; public static string CheckPointyAddr; public static string CheckPointzAddr; public static string CheckPointxASMAddr;
-        public static string WaypointxAddr; public static string WaypointyAddr; public static string WaypointzAddr;
+        public static string WayPointxAddr; public static string WayPointyAddr; public static string WayPointzAddr; public static string WayPointxASMAddr;
         public static string YawAddr; public static string RollAddr; public static string PitchAddr; public static string yAngVelAddr;
         public static string GasAddr; public static string FOVHighAddr; public static string FOVInAddr; public static string FirstPersonAddr; public static string DashAddr; public static string FrontAddr; public static string BonnetAddr; public static string LowAddr; public static string LowCompare;
-        public string CheckPointBaseAddr = null;
+        public string CheckPointBaseAddr = null; public string WayPointBaseAddr = null;
         public string XPaddr = null; public long XPaddrLong = 0; public string XPAmountaddr = null; public long XPAmountaddrLong = 0;
-        public IntPtr CCBA = (IntPtr)0; public IntPtr CCBA2 = (IntPtr)0; public IntPtr CCBA3 = (IntPtr)0;
-        public IntPtr CodeCave = (IntPtr)0; public IntPtr CodeCave2 = (IntPtr)0; public IntPtr CodeCave3 = (IntPtr)0;
+        public IntPtr CCBA = (IntPtr)0; public IntPtr CCBA2 = (IntPtr)0; public IntPtr CCBA3 = (IntPtr)0; public IntPtr CCBA4 = (IntPtr)0;
+        public IntPtr CodeCave = (IntPtr)0; public IntPtr CodeCave2 = (IntPtr)0; public IntPtr CodeCave3 = (IntPtr)0; public IntPtr CodeCave4 = (IntPtr)0;
         public static IntPtr InjectAddress;
         public static string TimeAddrAddr;
         public static string allocationstring;
@@ -93,6 +95,7 @@ namespace Forza_Mods_AIO.TabForms
         float BoostSpeed1; float BoostSpeed2; float BoostSpeed3; float BoostLim;
         float TurnRatio; float TurnStrength; public float boost;
         float VelMult = 1; float FOVVal;
+        float LastWPx = 0; float LastWPy = 0; float LastWPz = 0;
         public int StorageAddress;
         int IncreaseCycles = 0; int DecreaseCycles = 0;
         int times1; int times2; int times3; int times4;
@@ -144,9 +147,6 @@ namespace Forza_Mods_AIO.TabForms
             CheckPointxAddr = (Base3Addr + ",0x618,0x2F8,0xE0,0x198,0xA8,0x168,0x118,0xAA0");
             CheckPointyAddr = (Base3Addr + ",0x618,0x2F8,0xE0,0x198,0xA8,0x168,0x118,0xAA4");
             CheckPointzAddr = (Base3Addr + ",0x618,0x2F8,0xE0,0x198,0xA8,0x168,0x118,0xAA8");
-            WaypointxAddr = (BaseAddr + ",0x2C0,0x138,0xBA0,0x2D0,0x80,-0x538");
-            WaypointyAddr = (BaseAddr + ",0x2C0,0x138,0xBA0,0x2D0,0x80,-0x538");
-            WaypointzAddr = (BaseAddr + ",0x2C0,0x138,0xBA0,0x2D0,0x80,-0x538");
             yAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x51C");
             zAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x518");
             xAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x520");
@@ -1080,9 +1080,24 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (LST_TeleportLocation.Text == "Waypoint")
             {
-                MainWindow.m.WriteMemory(xAddr, "float", x.ToString());
-                MainWindow.m.WriteMemory(yAddr, "float", y.ToString());
-                MainWindow.m.WriteMemory(zAddr, "float", z.ToString());
+                if(WayPointBaseAddr == "000000000000" || WayPointBaseAddr == null)
+                {
+                    WayPointWorker.RunWorkerAsync();
+                }
+                else
+                {
+                    float WayPointX =MainWindow.m.ReadFloat(WayPointxAddr, round: false);
+                    float WayPointY = MainWindow.m.ReadFloat(WayPointyAddr, round: false);
+                    float WayPointZ = MainWindow.m.ReadFloat(WayPointzAddr, round: false);
+                    if (WayPointX != 0 && WayPointX != 0 && WayPointX != 0)
+                    {
+                        MainWindow.m.WriteMemory(xAddr, "float", WayPointX.ToString());
+                        MainWindow.m.WriteMemory(yAddr, "float", WayPointY.ToString());
+                        MainWindow.m.WriteMemory(zAddr, "float", WayPointZ.ToString());
+                    }
+                    else
+                        MessageBox.Show("Set a waypoint first smh my head");
+                }
             }
             else
             {
@@ -1105,6 +1120,20 @@ namespace Forza_Mods_AIO.TabForms
             {
                 CheckPointTPToggle = true;
                 CheckPointTPworker.RunWorkerAsync();
+            }
+        }
+
+        private void WayPointBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (AutoWayPoint.Checked == false)
+            {
+                WayPointTPToggle = false;
+                WayPointTPworker.CancelAsync();
+            }
+            else
+            {
+                WayPointTPToggle = true;
+                WayPointTPworker.RunWorkerAsync();
             }
         }
         //end of teleports
@@ -1362,7 +1391,7 @@ namespace Forza_Mods_AIO.TabForms
         }
         private async void FOVScan_BTN_Click(object sender, EventArgs e)
         {
-            ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;//ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;
+            ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 3100000000;//ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;
             ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 300000000;//ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 2000000000;
             FOVScan_BTN.Hide();
             FOVScan_bar.Show();
@@ -1548,6 +1577,37 @@ namespace Forza_Mods_AIO.TabForms
             {
                 a.StartXPtool(CodeCave3);
                 XPnup.Enabled = false;
+            }
+        }
+
+        private void WayPointWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            a.GetWayPointXAddr(CodeCave4, out WayPointBaseAddr);
+        }
+
+        private void WayPointTPworker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            a.GetWayPointXAddr(CodeCave4, out WayPointBaseAddr);
+            while (WayPointTPToggle)
+            {
+                float NewWPx = MainWindow.m.ReadFloat(WayPointxAddr, round: false);
+                float NewWPy = MainWindow.m.ReadFloat(WayPointyAddr, round: false);
+                float NewWPz = MainWindow.m.ReadFloat(WayPointzAddr, round: false);
+                if ((LastWPx != NewWPx || LastWPy != NewWPy || LastWPz != NewWPz) && NewWPx != 0 && NewWPy != 0 && NewWPz != 0)
+                {
+                    MainWindow.m.WriteMemory(xAddr, "float", NewWPx.ToString());
+                    MainWindow.m.WriteMemory(yAddr, "float", NewWPy.ToString());
+                    MainWindow.m.WriteMemory(zAddr, "float", NewWPz.ToString());
+                    LastWPx = NewWPx;
+                    LastWPy = NewWPy;
+                    LastWPz = NewWPz;
+                }
+                if (CheckPointTPworker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    CheckPointTPToggle = false;
+                }
+                Thread.Sleep(50);
             }
         }
     }
