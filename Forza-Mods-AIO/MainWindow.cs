@@ -35,7 +35,7 @@ namespace Forza_Mods_AIO
         Saveswapper Saveswapper = new Saveswapper() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         LiveTuning LiveTuning = new LiveTuning() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         Speedhack Speedhack = new Speedhack() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-        public bool IsRPCInitialized = false;
+        public bool IsRPCInitialized = false; public bool FirstLoad = true;
         long sig = 0;
 
         public MainWindow()
@@ -311,6 +311,12 @@ namespace Forza_Mods_AIO
                         Speedhack.CheckPointxASMAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.CheckPointxASMsig, true, true)).FirstOrDefault();
                         Speedhack.CheckPointxASMAddr = Speedhack.CheckPointxASMAddrLong.ToString("X");
                     }
+                    else if (Speedhack.WayPointxASMAddr == null || Speedhack.WayPointxASMAddr == "0")
+                    {
+                        ToolInfo.AOBScanProgress.Value = 79;
+                        Speedhack.WayPointxASMAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.WayPointxASMsig, true, true)).FirstOrDefault();
+                        Speedhack.WayPointxASMAddr = Speedhack.WayPointxASMAddrLong.ToString("X");
+                    }
                     else if (Speedhack.XPaddr == null || Speedhack.XPaddr == "0")
                     {
                         ToolInfo.AOBScanProgress.Value = 86;
@@ -368,6 +374,13 @@ namespace Forza_Mods_AIO
                     {
                         Speedhack.CCBA3 += 500000;
                         Speedhack.CodeCave3 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                    }
+                    Speedhack.CCBA4 = Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.BaseAddress;
+                    Speedhack.CodeCave4 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                    while (Speedhack.CodeCave4 == (IntPtr)0)
+                    {
+                        Speedhack.CCBA4 += 500000;
+                        Speedhack.CodeCave4 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                     }
                     Speedhack.FOVScan_BTN.Show(); Speedhack.FOVScan_bar.Hide(); Speedhack.FOV.Hide();
                     ToolInfo.AOBScanProgress.Value = 100;
@@ -432,6 +445,7 @@ namespace Forza_Mods_AIO
             byte[] XPGiveBefore = new byte[7] { 0xF3, 0x0F, 0x2C, 0xC6, 0x89, 0x45, 0xB8 };
             byte[] Normal = new byte[6] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 };
             byte[] original = new byte[7] { 0x0F, 0x28, 0x81, 0x30, 0x02, 0x00, 0x00 };
+            byte[] WayPointCodeBefore = new byte[7] { 0x0F, 0x10, 0x97, 0xA0, 0x03, 0x00, 0x00 };
             if (Speedhack.done)
             {
                 m.WriteBytes(Speedhack.Wall1Addr, Jmp1before);
@@ -443,6 +457,7 @@ namespace Forza_Mods_AIO
                 m.WriteBytes(Speedhack.FOVnopInAddr, nopinbefore);
                 MainWindow.m.WriteBytes(Speedhack.XPaddr, XPGiveBefore);
                 MainWindow.m.WriteBytes(Speedhack.XPAmountaddr, Normal);
+                MainWindow.m.WriteBytes(Speedhack.WayPointxASMAddr, WayPointCodeBefore);
                 try { m.WriteBytes(Speedhack.CheckPointxASMAddr, original); } catch { }
             }
             this.Close();
@@ -542,17 +557,18 @@ namespace Forza_Mods_AIO
         {
             if (Speedhack.IsAttached)
             {
+
                 ClearColours();
                 BTN_TabSpeedhack.BackColor = Color.FromArgb(45, 45, 48);
                 Panel_Speedhack.BackColor = Color.FromArgb(150, 11, 166);
                 ClearTabItems();
                 TabHolder.Controls.Add(Speedhack);
                 Speedhack.Visible = true;
-                Speedhack.ReadSpeedDefaultValues();
-                Speedhack.SHReset();
                 RPCclient.UpdateDetails("Vroooming");
                 RPCclient.UpdateSmallAsset("speed", "Vroom");
                 RPCclient.SynchronizeState();
+                if(FirstLoad)
+                    Speedhack.ReadSpeedDefaultValues(); Speedhack.SHReset(); FirstLoad = false;
             }
             else
             {
