@@ -1,25 +1,20 @@
 ﻿using System;
+using LumenWorks.Framework.IO.Csv;
 using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using System.Threading;
 using System.Windows.Forms;
-using Memory;
-using GlobalLowLevelHooks;
 using IniParser;
 using IniParser.Model;
-using Forza_Mods_AIO.TabForms;
 using System.Runtime.InteropServices;
 using SharpDX.XInput;
 using SharpDX.DirectInput;
 using System.Globalization;
+using Forza_Mods_AIO.Properties;
 
 namespace Forza_Mods_AIO.TabForms
 {
@@ -28,6 +23,8 @@ namespace Forza_Mods_AIO.TabForms
     {
         assembly a = new assembly();
         public static Speedhack s;
+
+        #region Global Variables
         public static bool IsAttached = false;
         bool BreakToggle = false;
         bool StopToggle = false;
@@ -43,13 +40,17 @@ namespace Forza_Mods_AIO.TabForms
         bool CarNoClipToggle = false;
         bool CheckPointTPToggle = false;
         bool WayPointTPToggle = false;
+        bool TimerToggle = false;
         public static bool done = false;
         public static bool Velstart = false; public static bool NCstart = false; public static bool FOVstart = false; public static bool Timestart = false; public static bool Breakstart = false; public static bool Speedstart = false; public static bool Turnstart = false;
         bool FovIncreaseStart = false; bool FovDecreaseStart = false;
         bool TimeToggle = false;  bool TimeForwardStart = false; bool TimeBackStart = false;
+
         public static long TimeNOPAddrLong; public static long CheckPointxASMAddrLong; public static long WayPointxASMAddrLong;
         public static long BaseAddrLong; public static long Base2AddrLong; public static long Base3AddrLong; public static long Base4AddrLong; public static long Car1AddrLong; public static long Car2AddrLong; public static long Wall1AddrLong; public static long Wall2AddrLong; public static long FOVnopOutAddrLong; public static long FOVnopInAddrLong;
         public static long FirstPersonAddrLong; public static long DashAddrLong; public static long FrontAddrLong; public static long LowAddrLong; public static long BonnetAddrLong;
+        public static long CurrentIDAddrLong;
+
         public static string Base = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
         public static string Car1 = "48 89 ? ? ? 44 8B ? 48 89 ? ? ? BA";
         public static string Car2 = "0F 28 ? 41 0F ? ? ? 0F C6 D6 ? 41 0F";
@@ -58,7 +59,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string FOVOutsig = "4C 8D ? ? ? 0F 29 ? ? ? F3 0F";
         public static string FOVInsig = "48 81 EC ? ? ? ? 48 8B ? E8 ? ? ? ? 48 8B ? ? 48 8B";
         public static string Timesig = "20 F2 0F 11 43 08 48 83";
-        public static string CheckPointxASMsig = "0F 28 ? ? ? ? ? 48 8B ? 0F 28 ? ? ? ? ? 0F 29 ? 0F 28 ? ? ? ? ? 0F 29 ? ? 0F 28 ? ? ? ? ? 0F 29 ? ? 0F 29 ? ? C3 CC 48 8B";
+        public static string CheckPointxASMsig = "0F 28 ? ? ? ? ? 0F 29 ? ? 0F 29 ? ? C3 90 48 8B ? 55";
         public static string WayPointxASMsig = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50 C1 83 E0 07 3C 07";
         public static string FirstPerson = "80 00 80 82 43";
         public static string Dash = "3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 01 ?? 00 00 00 00 00 00 00 00 A0 40";
@@ -68,6 +69,8 @@ namespace Forza_Mods_AIO.TabForms
         public static string Front = "80 3E 7B 14 2E 3F 00 00 80 3F";
         public static string XPaob = "F3 0F ? ? 89 45 ? 48 8D ? ? ? ? ? 41 83 BD C0 00 00 00";
         public static string XPAmountaob = "8B 89 ? ? ? ? 85 C9 0F 8E";
+        public static string CurrentIDaob = "00 00 50 4C 41 59 45 52 5F 43 41 52 00 00";
+
         public static string KBKeyString = "LShiftKey"; public static string XBKeyString = "LeftShoulder";
         public static string GravityAddr; public static string WeirdAddr;
         public static string BaseAddr; public static string Base2Addr; public static string Base3Addr; public static string Base4Addr;
@@ -81,14 +84,18 @@ namespace Forza_Mods_AIO.TabForms
         public static string CheckPointxAddr; public static string CheckPointyAddr; public static string CheckPointzAddr; public static string CheckPointxASMAddr;
         public static string WayPointxAddr; public static string WayPointyAddr; public static string WayPointzAddr; public static string WayPointxASMAddr;
         public static string YawAddr; public static string RollAddr; public static string PitchAddr; public static string yAngVelAddr;
-        public static string GasAddr; public static string FOVHighAddr; public static string FOVInAddr; public static string FirstPersonAddr; public static string DashAddr; public static string FrontAddr; public static string BonnetAddr; public static string LowAddr; public static string LowCompare;
+        public static string GasAddr;
+        public static string FOVHighAddr; public static string FOVInAddr; public static string FirstPersonAddr; public static string DashAddr; public static string FrontAddr; public static string BonnetAddr; public static string LowAddr; public static string LowCompare;
+        public static string SpeedAddr;
+        public static string CurrentIDAddr;
+        public static string TimeAddrAddr;
+        public static string allocationstring;
         public string CheckPointBaseAddr = null; public string WayPointBaseAddr = null;
         public string XPaddr = null; public long XPaddrLong = 0; public string XPAmountaddr = null; public long XPAmountaddrLong = 0;
+
         public IntPtr CCBA = (IntPtr)0; public IntPtr CCBA2 = (IntPtr)0; public IntPtr CCBA3 = (IntPtr)0; public IntPtr CCBA4 = (IntPtr)0;
         public IntPtr CodeCave = (IntPtr)0; public IntPtr CodeCave2 = (IntPtr)0; public IntPtr CodeCave3 = (IntPtr)0; public IntPtr CodeCave4 = (IntPtr)0;
         public static IntPtr InjectAddress;
-        public static string TimeAddrAddr;
-        public static string allocationstring;
         float xVelocityVal; float yVelocityVal; float zVelocityVal;
         float x; float y; float z;
         float CheckPointx; float CheckPointy; float CheckPointz;
@@ -96,18 +103,31 @@ namespace Forza_Mods_AIO.TabForms
         float TurnRatio; float TurnStrength; public float boost;
         float VelMult = 1; float FOVVal;
         float LastWPx = 0; float LastWPy = 0; float LastWPz = 0;
+        float WeirdVal; float NewWeirdVal; float GravityVal; float NewGravityVal;
+
         public int StorageAddress;
         int IncreaseCycles = 0; int DecreaseCycles = 0;
         int times1; int times2; int times3; int times4;
         int BoostInterval1; int BoostInterval2; int BoostInterval3; int BoostInterval4; int TurnInterval;
         int Velcycles; int NoClipcycles;
-        float WeirdVal; float NewWeirdVal; float GravityVal; float NewGravityVal;
+
         long ScanStartAddr;
         long ScanEndAddr;
+
         public static int cycles = 0;
+
         Controller controller = null;
         Joystick joystick = null;
         Guid joystickGuid = Guid.Empty;
+
+        private static CultureInfo resourceCulture;
+        internal static byte[] FH4_Cars
+        {
+            get
+            {
+                return (byte[])Resources.ResourceManager.GetObject("FH4_Cars", resourceCulture);
+            }
+        }
         private readonly static Dictionary<int, string> DInputmap = new Dictionary<int, string>()
         {
             { 0, "X" },{ 1, "Circle" },{ 2, "Square" },{ 3, "Triangle" },
@@ -119,6 +139,7 @@ namespace Forza_Mods_AIO.TabForms
         static extern short GetAsyncKeyState(Keys vKey);
         [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(Int32 vKey);
+        #endregion
 
         public Speedhack()
         {
@@ -161,15 +182,15 @@ namespace Forza_Mods_AIO.TabForms
             FOVHighAddr = (BaseAddr + ",0x568,0x270,0x258,0xB8,0x348,0x70,0x5B0");
             WeirdAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x554");
             GravityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x558");
+            SpeedAddr = (BaseAddr + ",0x568,0x270,0x258,0xB8,0x348,0x70,0x5A4");
         }
-
         public static void VolumeSetup()
         {
             PastIntroAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x21820");
         }
-        //end of setup
 
-        //BG Workers
+
+        #region BG Workers
         public void ControllerWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             int count = 0;
@@ -510,9 +531,175 @@ namespace Forza_Mods_AIO.TabForms
                 Thread.Sleep(1);
             }
         }
-        //end of BG Workers
+        private void TimerWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Stopwatch stopWatch = new Stopwatch();
+            string logdir = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Cool Shit\0-60 Logs\";
+            string filename = DateTime.Now.ToString("dd-MM-yyyy") + ".txt";
+            string path = Path.Combine(logdir, filename);
+            if (!Directory.Exists(logdir))
+            {
+                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool");
+                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Cool Shit");
+                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Cool Shit\0-60 Logs");
+            }
+            bool under = false;
+            while (TimerToggle)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
+                    string value = null;
+                    float Speed = MainWindow.m.ReadFloat(SpeedAddr, round: false);
+                    if (Speed < 0.01)
+                        under = true;
+                    while (under)
+                    {
+                        Speed = MainWindow.m.ReadFloat(SpeedAddr, round: false);
+                        if (Speed > 0.05 && Speed < 0.5)
+                        {
+                            stopWatch.Reset();
+                            stopWatch.Start();
+                            TimerIndicator.BackColor = Color.Green;
+                        }
+                        while (Speed > 0.05 && Speed < 61 && under && stopWatch.IsRunning)
+                        {
+                            Speed = MainWindow.m.ReadFloat(SpeedAddr, round: false);
+                            if (Speed >= 60)
+                            {
+                                stopWatch.Stop();
+                                TimerIndicator.BackColor = Color.Red;
 
-        //break hack methods
+                                string CurrentID = MainWindow.m.Read2Byte(CurrentIDAddr).ToString();
+                                File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "FH4_Cars.csv"), FH4_Cars);
+                                string nameColumnName = "ID";
+                                string valueColumnName = "Short Name";
+                                using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "FH4_Cars.csv")), hasHeaders: true))
+                                {
+                                    int nameColumnIndex = csvReader.GetFieldIndex(nameColumnName);
+                                    int valueColumnIndex = csvReader.GetFieldIndex(valueColumnName);
+
+                                    while (csvReader.ReadNextRecord())
+                                    {
+                                        if (csvReader[nameColumnIndex] == CurrentID)
+                                        {
+                                            value = csvReader[valueColumnIndex];
+                                            break;
+                                        }
+                                        if (TimerWorker.CancellationPending)
+                                        {
+                                            e.Cancel = true;
+                                            TimerToggle = false;
+                                        }
+                                    }
+                                }
+                                File.Delete(Path.Combine(Path.GetTempPath(), "FH4_Cars.csv"));
+                                if (!File.Exists(path))
+                                    using (FileStream fs = File.Create(path)) ;
+
+                                if (new FileInfo(path).Length == 0)
+                                {
+                                    using StreamWriter sw = new StreamWriter(path, false);
+                                    sw.WriteLine(DateTime.Now.ToString("h\\:mm tt - ") + value + " - " + stopWatch.Elapsed.TotalSeconds.ToString() + " seconds");
+                                }
+                                else
+                                {
+                                    using StreamWriter sw = new StreamWriter(path, true);
+                                    sw.WriteLine(DateTime.Now.ToString("h\\:mm tt - ") + value + " - " + stopWatch.Elapsed.TotalSeconds.ToString() + " seconds");
+                                }
+                                under = false;
+                            }
+                            Thread.Sleep(1);
+                            if (TimerWorker.CancellationPending)
+                            {
+                                e.Cancel = true;
+                                TimerToggle = false;
+                            }
+                        }
+                        if (TimerWorker.CancellationPending)
+                        {
+                            e.Cancel = true;
+                            TimerToggle = false;
+                        }
+                    }
+                    stopWatch.Stop();
+                    if (stopWatch.Elapsed.TotalSeconds > 0.001)
+                        TimerLabel.Text = stopWatch.Elapsed.TotalSeconds.ToString();
+                    if (TimerWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        TimerToggle = false;
+                    }
+                }
+            }
+        }
+        private void WayPointWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            a.GetWayPointXAddr(CodeCave4, out WayPointBaseAddr);
+        }
+        private void WayPointTPworker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            a.GetWayPointXAddr(CodeCave4, out WayPointBaseAddr);
+            while (WayPointTPToggle)
+            {
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (PastStart == 1)
+                {
+                    float NewWPx = MainWindow.m.ReadFloat(WayPointxAddr, round: false);
+                    float NewWPy = MainWindow.m.ReadFloat(WayPointyAddr, round: false);
+                    float NewWPz = MainWindow.m.ReadFloat(WayPointzAddr, round: false);
+                    if ((LastWPx != NewWPx || LastWPy != NewWPy || LastWPz != NewWPz) && NewWPx != 0 && NewWPy != 0 && NewWPz != 0)
+                    {
+                        MainWindow.m.WriteMemory(xAddr, "float", NewWPx.ToString());
+                        MainWindow.m.WriteMemory(yAddr, "float", NewWPy.ToString());
+                        MainWindow.m.WriteMemory(zAddr, "float", NewWPz.ToString());
+                        LastWPx = NewWPx;
+                        LastWPy = NewWPy;
+                        LastWPz = NewWPz;
+                    }
+                    if (CheckPointTPworker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        CheckPointTPToggle = false;
+                    }
+                    Thread.Sleep(50);
+                }
+            }
+        }
+        #endregion
+
+        #region Break Hack
+        private void SuperBreakButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (SuperBreakButton.Checked == false)
+            {
+                BreakToggle = false;
+                if (BreakToggle == false)
+                {
+                    SuperBreakWorker.CancelAsync();
+                }
+            }
+            else
+            {
+                BreakToggle = true;
+                Breakstart = true;
+                if (SuperBreakWorker.IsBusy == false)
+                {
+                    SuperBreakWorker.RunWorkerAsync();
+                }
+            }
+        }
+        private void StopAllWheelsButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (StopAllWheelsButton.Checked == false)
+            {
+                StopToggle = false;
+            }
+            else
+            {
+                StopToggle = true;
+            }
+        }
         public void SuperBreak()
         {
             xVelocityVal = MainWindow.m.ReadFloat(xVelocityAddr) * (float)0.50;
@@ -530,9 +717,49 @@ namespace Forza_Mods_AIO.TabForms
             MainWindow.m.WriteMemory(BackLeftAddr, "float", "0");
             MainWindow.m.WriteMemory(BackRightAddr, "float", "0");
         }
-        //end of break hacks
+        #endregion
 
-        //speed hack methods
+        #region Speed Hack
+        private void VelHackButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (VelHackButton.Checked == false)
+            {
+                VelHackToggle = false;
+                if (VelHackToggle == false)
+                {
+                    VelHackWorker.CancelAsync();
+                }
+            }
+            else
+            {
+                VelHackToggle = true;
+                Velstart = true;
+                if (VelHackWorker.IsBusy == false)
+                {
+                    VelHackWorker.RunWorkerAsync();
+                }
+            }
+        }
+        private void WheelSpeedButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (WheelSpeedButton.Checked == false)
+            {
+                SpeedHackToggle = false;
+                if (SpeedHackToggle == false)
+                {
+                    SpeedHackWorker.CancelAsync();
+                }
+            }
+            else
+            {
+                SpeedHackToggle = true;
+                Speedstart = true;
+                if (SpeedHackWorker.IsBusy == false)
+                {
+                    SpeedHackWorker.RunWorkerAsync();
+                }
+            }
+        }
         public void SpeedHackVel()
         {
             xVelocityVal = MainWindow.m.ReadFloat(xVelocityAddr) * (float)VelMult;
@@ -587,9 +814,29 @@ namespace Forza_Mods_AIO.TabForms
             MainWindow.m.WriteMemory(BackLeftAddr, "float", boost.ToString());
             MainWindow.m.WriteMemory(BackRightAddr, "float", boost.ToString());
         }
-        //end of speed hacks
+        #endregion
 
-        //Turn assist methods
+        #region Turn Assist
+        private void TurnAssistButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (TurnAssistButton.Checked == false)
+            {
+                TurnAssistToggle = false;
+                if (TurnAssistToggle == false)
+                {
+                    TurnWorker.CancelAsync();
+                }
+            }
+            else
+            {
+                TurnAssistToggle = true;
+                Turnstart = true;
+                if (TurnWorker.IsBusy == false)
+                {
+                    TurnWorker.RunWorkerAsync();
+                }
+            }
+        }
         public void TurnAssistLeft()
         {
             float FrontLeft = MainWindow.m.ReadFloat(FrontLeftAddr);
@@ -628,9 +875,9 @@ namespace Forza_Mods_AIO.TabForms
             MainWindow.m.WriteMemory(BackLeftAddr, "float", BackLeft.ToString());
             MainWindow.m.WriteMemory(BackRightAddr, "float", BackRight.ToString());
         }
-        //end of turn assists
+        #endregion
 
-        //Time
+        #region Time
         private void TimeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
@@ -691,9 +938,9 @@ namespace Forza_Mods_AIO.TabForms
                 MainWindow.m.WriteMemory(TimeAddr, "double", TimeVal);
             }
         }
-        //end of time
+        #endregion
 
-        //teleport "script"
+        #region Autowin
         public void CheckPointTPworker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (CheckPointTPToggle)
@@ -702,9 +949,13 @@ namespace Forza_Mods_AIO.TabForms
                 if (InRace == 1)
                 {
                     Thread.Sleep(3750);
+                    MainWindow.m.FreezeValue(RollAddr, "float", "0");
+                    MainWindow.m.FreezeValue(PitchAddr, "float", "0");
                     while (InRace == 1)
                     {
                         a.GetCheckXAddr(CodeCave, out CheckPointBaseAddr);
+                        MainWindow.m.FreezeValue(RollAddr, "float", (MainWindow.m.ReadFloat(RollAddr)).ToString());
+                        MainWindow.m.FreezeValue(PitchAddr, "float", (MainWindow.m.ReadFloat(PitchAddr)).ToString());
                         CheckPointxAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 608).ToString("X");
                         CheckPointyAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 612).ToString("X");
                         CheckPointzAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 616).ToString("X");
@@ -716,6 +967,8 @@ namespace Forza_Mods_AIO.TabForms
                             CheckPointTPToggle = false;
                         }
                     }
+                    MainWindow.m.UnfreezeValue(RollAddr);
+                    MainWindow.m.UnfreezeValue(PitchAddr);
                     MainWindow.m.UnfreezeValue(yAngVelAddr);
                     if (CheckPointTPworker.CancellationPending)
                     {
@@ -733,15 +986,15 @@ namespace Forza_Mods_AIO.TabForms
         }
         public void CheckPointTP()
         {
-            Thread.Sleep(25);
+            Thread.Sleep(75);
             MainWindow.m.WriteMemory(xAddr, "float", (MainWindow.m.ReadFloat(CheckPointxAddr)).ToString());
             MainWindow.m.WriteMemory(yAddr, "float", (MainWindow.m.ReadFloat(CheckPointyAddr) + 4).ToString());
             MainWindow.m.WriteMemory(zAddr, "float", (MainWindow.m.ReadFloat(CheckPointzAddr)).ToString());
             MainWindow.m.FreezeValue(yAngVelAddr, "float", "100");
         }
-        //end of teleport "script"
+        #endregion
 
-        //noclip
+        #region Noclip
         public void Noclip()
         {
             var Jmp1 = new byte[6] { 0xE9, 0x2A, 0x02, 0x00, 0x00, 0x90 };
@@ -818,9 +1071,9 @@ namespace Forza_Mods_AIO.TabForms
                 }
             }
         }
-        //end of noclip
+        #endregion
 
-        //key change buttons
+        #region Key Change Buttons
         private void KBChange_MouseEnter(object sender, EventArgs e)
         {
             KBChange.Text = "Change";
@@ -829,7 +1082,6 @@ namespace Forza_Mods_AIO.TabForms
         {
             KBChange.Text = KBKeyString;
         }
-
         private void KBChange_Click(object sender, EventArgs e)
         {
             bool done = false;
@@ -870,7 +1122,6 @@ namespace Forza_Mods_AIO.TabForms
         {
             XBChange.Text = XBKeyString;
         }
-
         private void XBChange_Click(object sender, EventArgs e)
         {
             bool done = false;
@@ -948,119 +1199,28 @@ namespace Forza_Mods_AIO.TabForms
                 }
             }
         }
-        // end of change key buttons
+        #endregion
 
-        //speedhack buttons
-        private void SuperBreakButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (SuperBreakButton.Checked == false)
-            {
-                BreakToggle = false;
-                if (BreakToggle == false)
-                {
-                    SuperBreakWorker.CancelAsync();
-                }
-            }
-            else
-            {
-                BreakToggle = true;
-                Breakstart = true;
-                if (SuperBreakWorker.IsBusy == false)
-                {
-                    SuperBreakWorker.RunWorkerAsync();
-                }
-            }
-        }
-        private void StopAllWheelsButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (StopAllWheelsButton.Checked == false)
-            {
-                StopToggle = false;
-            }
-            else
-            {
-                StopToggle = true;
-            }
-        }
-        private void VelHackButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (VelHackButton.Checked == false)
-            {
-                VelHackToggle = false;
-                if (VelHackToggle == false)
-                {
-                    VelHackWorker.CancelAsync();
-                }
-            }
-            else
-            {
-                VelHackToggle = true;
-                Velstart = true;
-                if (VelHackWorker.IsBusy == false)
-                {
-                    VelHackWorker.RunWorkerAsync();
-                }
-            }
-        }
-        private void WheelSpeedButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (WheelSpeedButton.Checked == false)
-            {
-                SpeedHackToggle = false;
-                if (SpeedHackToggle == false)
-                {
-                    SpeedHackWorker.CancelAsync();
-                }
-            }
-            else
-            {
-                SpeedHackToggle = true;
-                Speedstart = true;
-                if (SpeedHackWorker.IsBusy == false)
-                {
-                    SpeedHackWorker.RunWorkerAsync();
-                }
-            }
-        }
-        //end of speedhack stuff
-
-        //turnassist button
-        private void TurnAssistButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (TurnAssistButton.Checked == false)
-            {
-                TurnAssistToggle = false;
-                if (TurnAssistToggle == false)
-                {
-                    TurnWorker.CancelAsync();
-                }
-            }
-            else
-            {
-                TurnAssistToggle = true;
-                Turnstart = true;
-                if (TurnWorker.IsBusy == false)
-                {
-                    TurnWorker.RunWorkerAsync();
-                }
-            }
-        }
-        //end of turn assist
-
-        //teleports
+        # region Teleports
         private void LST_TeleportLocation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (LST_TeleportLocation.Text == "Festival")
+            if (LST_TeleportLocation.Text == "Adventure Park")
             {
-                x = (float)-2753.350098;
-                y = (float)349.7218018;
-                z = (float)-4357.629883;
+                x = (float)2267.335449;
+                y = (float)304.2393494;
+                z = (float)-2611.638428;
             }
-            if (LST_TeleportLocation.Text == "Start of Motorway")
+            if (LST_TeleportLocation.Text == "Ambleside")
             {
-                x = (float)2657.887451;
-                y = (float)270.7128906;
-                z = (float)-4353.087402;
+                x = (float)-5112.047363;
+                y = (float)154.1546478;
+                z = (float)-3534.503906;
+            }
+            if (LST_TeleportLocation.Text == "Beach")
+            {
+                x = (float)4874.382812;
+                y = (float)124.9019775;
+                z = (float)-1392.215454;
             }
             if (LST_TeleportLocation.Text == "Broadway")
             {
@@ -1068,12 +1228,65 @@ namespace Forza_Mods_AIO.TabForms
                 y = (float)239.5045471;
                 z = (float)-5816.858398;
             }
-
+            if (LST_TeleportLocation.Text == "Damn")
+            {
+                x = (float)-854.6953125;
+                y = (float)209.1066284;
+                z = (float)-2031.137329;
+            }
+            if (LST_TeleportLocation.Text == "Edinburgh")
+            {
+                x = (float)2045.383179;
+                y = (float)204.0559845;
+                z = (float)2511.078613;
+            }
+            if (LST_TeleportLocation.Text == "Festival")
+            {
+                x = (float)-2753.350098;
+                y = (float)349.7218018;
+                z = (float)-4357.629883;
+            }
             if (LST_TeleportLocation.Text == "Greendale Airstrip")
             {
                 x = (float)3409.570068;
                 y = (float)159.2418976;
                 z = (float)661.2498779;
+            }
+            if (LST_TeleportLocation.Text == "Lake Island")
+            {
+                x = (float)-4001.890869;
+                y = (float)175.7261353;
+                z = (float)-196.6170197;
+            }
+            if (LST_TeleportLocation.Text == "Mortimer Gardens")
+            {
+                x = (float)-4314.36377;
+                y = (float)153.261261;
+                z = (float)1804.139282;
+            }
+            if (LST_TeleportLocation.Text == "Quarry")
+            {
+                x = (float)-1569.987305;
+                y = (float)206.0023804;
+                z = (float)-2843.05249;
+            }
+            if (LST_TeleportLocation.Text == "Railyard")
+            {
+                x = (float)-935.0923462;
+                y = (float)161.055069;
+                z = (float)1745.383667;
+            }
+            if (LST_TeleportLocation.Text == "Start of Motorway")
+            {
+                x = (float)2657.887451;
+                y = (float)270.7128906;
+                z = (float)-4353.087402;
+            }
+            if (LST_TeleportLocation.Text == "Top of Mountain")
+            {
+                x = (float)-2285.739746;
+                y = (float)364.6417236;
+                z = (float)2576.946533;
             }
         }
         private void TPButton_Click(object sender, EventArgs e)
@@ -1092,7 +1305,7 @@ namespace Forza_Mods_AIO.TabForms
                     if (WayPointX != 0 && WayPointX != 0 && WayPointX != 0)
                     {
                         MainWindow.m.WriteMemory(xAddr, "float", WayPointX.ToString());
-                        MainWindow.m.WriteMemory(yAddr, "float", WayPointY.ToString());
+                        MainWindow.m.WriteMemory(yAddr, "float", (WayPointY + 3).ToString());
                         MainWindow.m.WriteMemory(zAddr, "float", WayPointZ.ToString());
                     }
                     else
@@ -1108,11 +1321,13 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void CheckpointBox_CheckedChanged(object sender, EventArgs e)
         {
-            byte[] original = new byte[7]{ 0x0F, 0x28, 0x81, 0x30, 0x02, 0x00, 0x00 };
+            byte[] original = new byte[7]{ 0x0F, 0x28, 0x89, 0x60, 0x02, 0x00, 0x00 };
             if (CheckpointBox.Checked == false)
             {
                 CheckPointTPToggle = false;
                 CheckPointTPworker.CancelAsync();
+                MainWindow.m.UnfreezeValue(RollAddr);
+                MainWindow.m.UnfreezeValue(PitchAddr);
                 MainWindow.m.UnfreezeValue(yAngVelAddr);
                 MainWindow.m.WriteBytes(CheckPointxASMAddr, original);
             }
@@ -1122,7 +1337,6 @@ namespace Forza_Mods_AIO.TabForms
                 CheckPointTPworker.RunWorkerAsync();
             }
         }
-
         private void WayPointBox_CheckedChanged(object sender, EventArgs e)
         {
             if (AutoWayPoint.Checked == false)
@@ -1136,28 +1350,9 @@ namespace Forza_Mods_AIO.TabForms
                 WayPointTPworker.RunWorkerAsync();
             }
         }
-        //end of teleports
+        #endregion
 
-        private void SetSpeedhackVal()
-        {
-            TurnIntervalBox.Value = Convert.ToDecimal(TurnInterval);
-            RatioBox.Value = Convert.ToDecimal(TurnRatio);
-            TurnStrengthBox.Value = Convert.ToDecimal(TurnStrength);
-            VelMultBar.Value = Convert.ToInt32(VelMult);
-            VelMultBox.Value = Convert.ToDecimal(VelMult);
-            Speed1Box.Value = Convert.ToDecimal(BoostSpeed1);
-            Speed2Box.Value = Convert.ToDecimal(BoostSpeed2);
-            Speed3Box.Value = Convert.ToDecimal(BoostSpeed3);
-            LimitBox.Value = Convert.ToDecimal(BoostLim);
-            Interval1Box.Value = Convert.ToDecimal(BoostInterval1);
-            Interval2Box.Value = Convert.ToDecimal(BoostInterval2);
-            Interval3Box.Value = Convert.ToDecimal(BoostInterval3);
-            Interval4Box.Value = Convert.ToDecimal(BoostInterval4);
-            Boost1Box.Value = Convert.ToDecimal(times1);
-            Boost2Box.Value = Convert.ToDecimal(times2);
-            Boost3Box.Value = Convert.ToDecimal(times3);
-            Boost4Box.Value = Convert.ToDecimal(times4);
-        }
+        #region Variables
         private void TurnIntervalBox_ValueChanged(object sender, EventArgs e)
         {
             TurnInterval = Decimal.ToInt32(TurnIntervalBox.Value);
@@ -1166,7 +1361,6 @@ namespace Forza_Mods_AIO.TabForms
         {
             TurnRatio = Decimal.ToSingle(RatioBox.Value);
         }
-
         private void TurnStrengthBox_ValueChanged(object sender, EventArgs e)
         {
             TurnStrength = Decimal.ToSingle(TurnStrengthBox.Value);
@@ -1175,74 +1369,280 @@ namespace Forza_Mods_AIO.TabForms
         {
             BoostSpeed1 = Decimal.ToSingle(Speed1Box.Value);
         }
-
         private void Speed2Box_ValueChanged(object sender, EventArgs e)
         {
             BoostSpeed2 = Decimal.ToSingle(Speed2Box.Value);
         }
-
         private void Speed3Box_ValueChanged(object sender, EventArgs e)
         {
             BoostSpeed3 = Decimal.ToSingle(Speed3Box.Value);
         }
-
         private void LimitBox_ValueChanged(object sender, EventArgs e)
         {
             BoostLim = Decimal.ToSingle(LimitBox.Value);
         }
-
         private void Interval1Box_ValueChanged(object sender, EventArgs e)
         {
             BoostInterval1 = Decimal.ToInt32(Interval1Box.Value);
         }
-
         private void Interval2Box_ValueChanged(object sender, EventArgs e)
         {
             BoostInterval2 = Decimal.ToInt32(Interval2Box.Value);
         }
-
         private void Interval3Box_ValueChanged(object sender, EventArgs e)
         {
             BoostInterval3 = Decimal.ToInt32(Interval3Box.Value);
         }
-
         private void Interval4Box_ValueChanged(object sender, EventArgs e)
         {
             BoostInterval4 = Decimal.ToInt32(Interval4Box.Value);
         }
-
         private void Boost1Box_ValueChanged(object sender, EventArgs e)
         {
             times1 = Decimal.ToInt32(Boost1Box.Value);
         }
-
         private void Boost2Box_ValueChanged(object sender, EventArgs e)
         {
             times2 = Decimal.ToInt32(Boost2Box.Value);
         }
-
         private void Boost3Box_ValueChanged(object sender, EventArgs e)
         {
             times3 = Decimal.ToInt32(Boost3Box.Value);
         }
-
         private void Boost4Box_ValueChanged(object sender, EventArgs e)
         {
             times4 = Decimal.ToInt32(Boost4Box.Value);
         }
-
         private void VelMultBar_Scroll(object sender, EventArgs e)
         {
             VelMultBox.Value = Convert.ToDecimal(VelMultBar.Value) / 100;
             VelMult = Decimal.ToSingle(VelMultBox.Value);
         }
-
         private void VelMultBox_ValueChanged(object sender, EventArgs e)
         {
             VelMultBar.Value = Decimal.ToInt32(VelMultBox.Value * 100);
             VelMult = Decimal.ToSingle(VelMultBox.Value);
         }
+        #endregion
 
+        #region FOV
+        private void FOVBar_Scroll(object sender, EventArgs e)
+        {
+            //FOVBar.Value = FOVBar.Value / 100;
+            FOVVal = (float)FOVBar.Value / 100;
+            if (FOV.Checked == true)
+            {
+                FOV.Checked = false;
+                FOV.Checked = true;
+            }
+            SHReset();
+        }
+        private async void FOVScan_BTN_Click(object sender, EventArgs e)
+        {
+            ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;//ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;
+            ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 600000000;//ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 2000000000;
+            FOVScan_BTN.Hide();
+            FOVScan_bar.Show();
+            bool scan = true;
+            cycles = 0;
+            while (scan)
+            {
+                Thread.Sleep(1);
+                if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null || FirstPersonAddr == "0")
+                {
+                    FirstPersonAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, FirstPerson, true, true)).FirstOrDefault() - 75;
+                    FirstPersonAddr = FirstPersonAddrLong.ToString("X");
+                }
+                else if (DashAddr == "FFFFFFFFFFFFFF45" || DashAddr == null || DashAddr == "0")
+                {
+                    FOVScan_bar.Value = 20;
+                    DashAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Dash, true, true)).FirstOrDefault() - 187;
+                    DashAddr = DashAddrLong.ToString("X");
+                }
+                else if (FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0")
+                {
+                    FOVScan_bar.Value = 40;
+                    FrontAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Front, true, true)).FirstOrDefault() - 190;
+                    FrontAddr = FrontAddrLong.ToString("X");
+                }
+                else if (LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0")
+                {
+                    FOVScan_bar.Value = 60;
+                    LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).FirstOrDefault() - 183;
+                    LowCompare = LowAddrLong.ToString();
+                    if (LowCompare == MainWindow.m.GetCode(FOVHighAddr).ToString())
+                    {
+                        LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).LastOrDefault() - 183;
+                    }
+                    LowAddr = LowAddrLong.ToString("X");
+                }
+                else if (BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || DashAddr == "0")
+                {
+                    FOVScan_bar.Value = 80;
+                    BonnetAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Bonnet, true, true)).FirstOrDefault() - 189;
+                    BonnetAddr = BonnetAddrLong.ToString("X");
+                }
+                if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null
+                    || FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0"
+                    || LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0"
+                    || BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || BonnetAddr == "0"
+                    || FirstPersonAddr == "0" || DashAddr == null || DashAddr == "0")
+                {
+                    ;
+                }
+                else
+                {
+                    FOVScan_bar.Value = 100;
+                    Thread.Sleep(1000);
+                    FOVScan_bar.Hide();
+                    //FOVScan_BTN.Enabled = false;
+                    FOV.Show();//FOV.Enabled = true;
+                    scan = false;
+                }
+            }
+        }
+        private void FOV_CheckedChanged(object sender, EventArgs e)
+        {
+            var nopoutbefore = new byte[4] { 0x0F, 0x11, 0x43, 0x10 };
+            var nopinbefore = new byte[4] { 0x0F, 0x11, 0x73, 0x10 };
+            var nop = new byte[4] { 0x90, 0x90, 0x90, 0x90 };
+            SHReset();
+            if (FOV.Checked == false)
+            {
+                FOVstart = false;
+                FOVWorker.CancelAsync();
+                MainWindow.m.WriteBytes(FOVnopOutAddr, nopoutbefore);
+                MainWindow.m.WriteBytes(FOVnopInAddr, nopinbefore);
+                MainWindow.m.UnfreezeValue(FOVHighAddr);
+                MainWindow.m.UnfreezeValue(FirstPersonAddr);
+                MainWindow.m.UnfreezeValue(DashAddr);
+                MainWindow.m.UnfreezeValue(LowAddr);
+                MainWindow.m.UnfreezeValue(BonnetAddr);
+                MainWindow.m.UnfreezeValue(FrontAddr);
+            }
+            else
+            {
+                FOVstart = true;
+                if (FOVWorker.IsBusy == false)
+                {
+                    FOVWorker.RunWorkerAsync();
+                }
+                MainWindow.m.WriteBytes(FOVnopOutAddr, nop);
+                MainWindow.m.WriteBytes(FOVnopInAddr, nop);
+                MainWindow.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
+                MainWindow.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
+                MainWindow.m.FreezeValue(DashAddr, "float", FOVVal.ToString());
+                MainWindow.m.FreezeValue(LowAddr, "float", FOVVal.ToString());
+                MainWindow.m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
+                MainWindow.m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
+            }
+        }
+        private void FOVIncrease()
+        {
+            IncreaseCycles++;
+            if (FOVBar.Value > 149)
+                FOVBar.Value = 149;
+            FOVBar.Value = FOVBar.Value + 1;
+            FOVVal = (float)FOVBar.Value / 100;
+            MainWindow.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
+            MainWindow.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
+            MainWindow.m.FreezeValue(DashAddr, "float", FOVVal.ToString());
+            MainWindow.m.FreezeValue(LowAddr, "float", FOVVal.ToString());
+            MainWindow.m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
+            MainWindow.m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
+        }
+        private void FOVdecrease()
+        {
+            DecreaseCycles++;
+            if (FOVBar.Value < -94)
+                FOVBar.Value = -94;
+            FOVBar.Value = FOVBar.Value - 1;
+            FOVVal = (float)FOVBar.Value / 100;
+            MainWindow.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
+            MainWindow.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
+            MainWindow.m.FreezeValue(DashAddr, "float", FOVVal.ToString());
+            MainWindow.m.FreezeValue(LowAddr, "float", FOVVal.ToString());
+            MainWindow.m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
+            MainWindow.m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
+        }
+        #endregion
+
+        #region Weird + Grav
+        public void WeirdPullVal()
+        {
+            WeirdVal = MainWindow.m.ReadFloat(WeirdAddr, round: false);
+            WeirdBox.Value = (decimal)WeirdVal;
+            NewWeirdVal = WeirdVal;
+        }
+        public void GravityPullVal()
+        {
+            GravityVal = MainWindow.m.ReadFloat(GravityAddr);
+            GravityBox.Value = (decimal)GravityVal;
+            NewGravityVal = GravityVal;
+        }
+        private void WeirdPull_Click(object sender, EventArgs e)
+        {
+            WeirdPullVal();
+        }
+        private void WeirdSet_Click(object sender, EventArgs e)
+        {
+            MainWindow.m.WriteMemory(WeirdAddr, "float", NewWeirdVal.ToString());
+        }
+        private void GravityPull_Click(object sender, EventArgs e)
+        {
+            if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
+                GravityPullVal();
+        }
+        private void GravitySet_Click(object sender, EventArgs e)
+        {
+            if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
+                MainWindow.m.WriteMemory(GravityAddr, "float", NewGravityVal.ToString());
+        }
+        private void WeirdBox_ValueChanged(object sender, EventArgs e)
+        {
+            if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
+                NewWeirdVal = (float)WeirdBox.Value;
+        }
+        private void GravityBox_ValueChanged(object sender, EventArgs e)
+        {
+            if(MainWindow.m.ReadFloat(PastStartAddr) == 1)
+                NewGravityVal = (float)GravityBox.Value;
+        }
+        #endregion
+
+        #region Other misc
+        private void XPBox_CheckedChanged(object sender, EventArgs e)
+        {
+            byte[] XPGiveBefore = new byte[7] { 0xF3, 0x0F, 0x2C, 0xC6, 0x89, 0x45, 0xB8 };
+            byte[] Normal = new byte[6] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 };
+            if (XPBox.Checked == false)
+            {
+                MainWindow.m.WriteBytes(XPaddr, XPGiveBefore);
+                MainWindow.m.WriteBytes(XPAmountaddr, Normal);
+                XPnup.Enabled = true;
+            }
+            else
+            {
+                a.StartXPtool(CodeCave3);
+                XPnup.Enabled = false;
+            }
+        }
+        private void TimerButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (TimerButton.Checked == false)
+            {
+                TimerToggle = false;
+                TimerWorker.CancelAsync();
+            }
+            else
+            {
+                TimerToggle = true;
+                TimerWorker.RunWorkerAsync();
+            }
+        }
+        #endregion
+
+        #region Save / Load
         public void SHReset()
         {
             KBChange.Text = KBKeyString;
@@ -1378,237 +1778,6 @@ namespace Forza_Mods_AIO.TabForms
             ReadSpeedDefaultValues();
             SHReset();
         }
-        private void FOVBar_Scroll(object sender, EventArgs e)
-        {
-            //FOVBar.Value = FOVBar.Value / 100;
-            FOVVal = (float)FOVBar.Value / 100;
-            if (FOV.Checked == true)
-            {
-                FOV.Checked = false;
-                FOV.Checked = true;
-            }
-            SHReset();
-        }
-        private async void FOVScan_BTN_Click(object sender, EventArgs e)
-        {
-            ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 3100000000;//ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;
-            ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 300000000;//ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 2000000000;
-            FOVScan_BTN.Hide();
-            FOVScan_bar.Show();
-            bool scan = true;
-            cycles = 0;
-            while (scan)
-            {
-                Thread.Sleep(1);
-                if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null || FirstPersonAddr == "0")
-                {
-                    FirstPersonAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, FirstPerson, true, true)).FirstOrDefault() - 75;
-                    FirstPersonAddr = FirstPersonAddrLong.ToString("X");
-                }
-                else if (DashAddr == "FFFFFFFFFFFFFF45" || DashAddr == null || DashAddr == "0")
-                {
-                    FOVScan_bar.Value = 20;
-                    DashAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Dash, true, true)).FirstOrDefault() - 187;
-                    DashAddr = DashAddrLong.ToString("X");
-                }
-                else if (FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0")
-                {
-                    FOVScan_bar.Value = 40;
-                    FrontAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Front, true, true)).FirstOrDefault() - 190;
-                    FrontAddr = FrontAddrLong.ToString("X");
-                }
-                else if (LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0")
-                {
-                    FOVScan_bar.Value = 60;
-                    LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).FirstOrDefault() - 183;
-                    LowCompare = LowAddrLong.ToString();
-                    if (LowCompare == MainWindow.m.GetCode(FOVHighAddr).ToString())
-                    {
-                        LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).LastOrDefault() - 183;
-                    }
-                    LowAddr = LowAddrLong.ToString("X");
-                }
-                else if (BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || DashAddr == "0")
-                {
-                    FOVScan_bar.Value = 80;
-                    BonnetAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Bonnet, true, true)).FirstOrDefault() - 189;
-                    BonnetAddr = BonnetAddrLong.ToString("X");
-                }
-                if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null
-                    || FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0"
-                    || LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0"
-                    || BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || BonnetAddr == "0"
-                    || FirstPersonAddr == "0" || DashAddr == null || DashAddr == "0")
-                {
-                    ;
-                }
-                else
-                {
-                    FOVScan_bar.Value = 100;
-                    Thread.Sleep(1000);
-                    FOVScan_bar.Hide();
-                    //FOVScan_BTN.Enabled = false;
-                    FOV.Show();//FOV.Enabled = true;
-                    scan = false;
-                }
-            }
-        }
-        private void FOV_CheckedChanged(object sender, EventArgs e)
-        {
-            var nopoutbefore = new byte[4] { 0x0F, 0x11, 0x43, 0x10 };
-            var nopinbefore = new byte[4] { 0x0F, 0x11, 0x73, 0x10 };
-            var nop = new byte[4] { 0x90, 0x90, 0x90, 0x90 };
-            SHReset();
-            if (FOV.Checked == false)
-            {
-                FOVstart = false;
-                FOVWorker.CancelAsync();
-                MainWindow.m.WriteBytes(FOVnopOutAddr, nopoutbefore);
-                MainWindow.m.WriteBytes(FOVnopInAddr, nopinbefore);
-                MainWindow.m.UnfreezeValue(FOVHighAddr);
-                MainWindow.m.UnfreezeValue(FirstPersonAddr);
-                MainWindow.m.UnfreezeValue(DashAddr);
-                MainWindow.m.UnfreezeValue(LowAddr);
-                MainWindow.m.UnfreezeValue(BonnetAddr);
-                MainWindow.m.UnfreezeValue(FrontAddr);
-            }
-            else
-            {
-                FOVstart = true;
-                if (FOVWorker.IsBusy == false)
-                {
-                    FOVWorker.RunWorkerAsync();
-                }
-                MainWindow.m.WriteBytes(FOVnopOutAddr, nop);
-                MainWindow.m.WriteBytes(FOVnopInAddr, nop);
-                MainWindow.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
-                MainWindow.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
-                MainWindow.m.FreezeValue(DashAddr, "float", FOVVal.ToString());
-                MainWindow.m.FreezeValue(LowAddr, "float", FOVVal.ToString());
-                MainWindow.m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
-                MainWindow.m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
-            }
-        }
-        private void FOVIncrease()
-        {
-            IncreaseCycles++;
-            if (FOVBar.Value > 149)
-                FOVBar.Value = 149;
-            FOVBar.Value = FOVBar.Value + 1;
-            FOVVal = (float)FOVBar.Value / 100;
-            MainWindow.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
-            MainWindow.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
-            MainWindow.m.FreezeValue(DashAddr, "float", FOVVal.ToString());
-            MainWindow.m.FreezeValue(LowAddr, "float", FOVVal.ToString());
-            MainWindow.m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
-            MainWindow.m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
-        }
-        private void FOVdecrease()
-        {
-            DecreaseCycles++;
-            if (FOVBar.Value < -94)
-                FOVBar.Value = -94;
-            FOVBar.Value = FOVBar.Value - 1;
-            FOVVal = (float)FOVBar.Value / 100;
-            MainWindow.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
-            MainWindow.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
-            MainWindow.m.FreezeValue(DashAddr, "float", FOVVal.ToString());
-            MainWindow.m.FreezeValue(LowAddr, "float", FOVVal.ToString());
-            MainWindow.m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
-            MainWindow.m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
-        }
-        public void WeirdPullVal()
-        {
-            WeirdVal = MainWindow.m.ReadFloat(WeirdAddr, round: false);
-            WeirdBox.Value = (decimal)WeirdVal;
-            NewWeirdVal = WeirdVal;
-        }
-        public void GravityPullVal()
-        {
-            GravityVal = MainWindow.m.ReadFloat(GravityAddr);
-            GravityBox.Value = (decimal)GravityVal;
-            NewGravityVal = GravityVal;
-        }
-        private void WeirdPull_Click(object sender, EventArgs e)
-        {
-            WeirdPullVal();
-        }
-
-        private void WeirdSet_Click(object sender, EventArgs e)
-        {
-            MainWindow.m.WriteMemory(WeirdAddr, "float", NewWeirdVal.ToString());
-        }
-
-        private void GravityPull_Click(object sender, EventArgs e)
-        {
-            if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
-                GravityPullVal();
-        }
-
-        private void GravitySet_Click(object sender, EventArgs e)
-        {
-            if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
-                MainWindow.m.WriteMemory(GravityAddr, "float", NewGravityVal.ToString());
-        }
-
-        private void WeirdBox_ValueChanged(object sender, EventArgs e)
-        {
-            if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
-                NewWeirdVal = (float)WeirdBox.Value;
-        }
-
-        private void GravityBox_ValueChanged(object sender, EventArgs e)
-        {
-            if(MainWindow.m.ReadFloat(PastStartAddr) == 1)
-                NewGravityVal = (float)GravityBox.Value;
-        }
-
-        private void XPBox_CheckedChanged(object sender, EventArgs e)
-        {
-            byte[] XPGiveBefore = new byte[7] { 0xF3, 0x0F, 0x2C, 0xC6, 0x89, 0x45, 0xB8 };
-            byte[] Normal = new byte[6] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 };
-            if (XPBox.Checked == false)
-            {
-                MainWindow.m.WriteBytes(XPaddr, XPGiveBefore);
-                MainWindow.m.WriteBytes(XPAmountaddr, Normal);
-                XPnup.Enabled = true;
-            }
-            else
-            {
-                a.StartXPtool(CodeCave3);
-                XPnup.Enabled = false;
-            }
-        }
-
-        private void WayPointWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            a.GetWayPointXAddr(CodeCave4, out WayPointBaseAddr);
-        }
-
-        private void WayPointTPworker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            a.GetWayPointXAddr(CodeCave4, out WayPointBaseAddr);
-            while (WayPointTPToggle)
-            {
-                float NewWPx = MainWindow.m.ReadFloat(WayPointxAddr, round: false);
-                float NewWPy = MainWindow.m.ReadFloat(WayPointyAddr, round: false);
-                float NewWPz = MainWindow.m.ReadFloat(WayPointzAddr, round: false);
-                if ((LastWPx != NewWPx || LastWPy != NewWPy || LastWPz != NewWPz) && NewWPx != 0 && NewWPy != 0 && NewWPz != 0)
-                {
-                    MainWindow.m.WriteMemory(xAddr, "float", NewWPx.ToString());
-                    MainWindow.m.WriteMemory(yAddr, "float", NewWPy.ToString());
-                    MainWindow.m.WriteMemory(zAddr, "float", NewWPz.ToString());
-                    LastWPx = NewWPx;
-                    LastWPy = NewWPy;
-                    LastWPz = NewWPz;
-                }
-                if (CheckPointTPworker.CancellationPending)
-                {
-                    e.Cancel = true;
-                    CheckPointTPToggle = false;
-                }
-                Thread.Sleep(50);
-            }
-        }
+        #endregion
     }
 }
