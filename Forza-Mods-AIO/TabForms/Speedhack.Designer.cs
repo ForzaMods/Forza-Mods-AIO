@@ -35,6 +35,9 @@ namespace Forza_Mods_AIO.TabForms
             this.TB_SHCarNoClip = new System.Windows.Forms.CheckBox();
             this.TB_SHWallNoClip = new System.Windows.Forms.CheckBox();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.TimerIndicator = new System.Windows.Forms.Panel();
+            this.TimerLabel = new System.Windows.Forms.Label();
+            this.TimerButton = new System.Windows.Forms.CheckBox();
             this.XPBox = new System.Windows.Forms.CheckBox();
             this.XPnup = new System.Windows.Forms.NumericUpDown();
             this.SaveSHDefault = new System.Windows.Forms.Button();
@@ -64,7 +67,7 @@ namespace Forza_Mods_AIO.TabForms
             this.GravityBox = new System.Windows.Forms.NumericUpDown();
             this.WeirdBox = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.AcelLabel = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.VelMultBox = new System.Windows.Forms.NumericUpDown();
@@ -124,6 +127,8 @@ namespace Forza_Mods_AIO.TabForms
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.WayPointWorker = new System.ComponentModel.BackgroundWorker();
             this.WayPointTPworker = new System.ComponentModel.BackgroundWorker();
+            this.TimerWorker = new System.ComponentModel.BackgroundWorker();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.XPnup)).BeginInit();
@@ -180,7 +185,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.TB_SHCarNoClip.AutoSize = true;
             this.TB_SHCarNoClip.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_SHCarNoClip.Location = new System.Drawing.Point(17, 38);
+            this.TB_SHCarNoClip.Location = new System.Drawing.Point(44, 38);
             this.TB_SHCarNoClip.Name = "TB_SHCarNoClip";
             this.TB_SHCarNoClip.Size = new System.Drawing.Size(51, 23);
             this.TB_SHCarNoClip.TabIndex = 2;
@@ -192,7 +197,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.TB_SHWallNoClip.AutoSize = true;
             this.TB_SHWallNoClip.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_SHWallNoClip.Location = new System.Drawing.Point(71, 38);
+            this.TB_SHWallNoClip.Location = new System.Drawing.Point(100, 38);
             this.TB_SHWallNoClip.Name = "TB_SHWallNoClip";
             this.TB_SHWallNoClip.Size = new System.Drawing.Size(57, 23);
             this.TB_SHWallNoClip.TabIndex = 3;
@@ -203,6 +208,9 @@ namespace Forza_Mods_AIO.TabForms
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel7.Controls.Add(this.TimerIndicator);
+            this.panel7.Controls.Add(this.TimerLabel);
+            this.panel7.Controls.Add(this.TimerButton);
             this.panel7.Controls.Add(this.XPBox);
             this.panel7.Controls.Add(this.XPnup);
             this.panel7.Controls.Add(this.SaveSHDefault);
@@ -223,11 +231,40 @@ namespace Forza_Mods_AIO.TabForms
             this.panel7.Size = new System.Drawing.Size(242, 421);
             this.panel7.TabIndex = 12;
             // 
+            // TimerIndicator
+            // 
+            this.TimerIndicator.BackColor = System.Drawing.Color.Red;
+            this.TimerIndicator.Location = new System.Drawing.Point(65, 278);
+            this.TimerIndicator.Name = "TimerIndicator";
+            this.TimerIndicator.Size = new System.Drawing.Size(15, 15);
+            this.TimerIndicator.TabIndex = 43;
+            // 
+            // TimerLabel
+            // 
+            this.TimerLabel.AutoSize = true;
+            this.TimerLabel.Location = new System.Drawing.Point(85, 278);
+            this.TimerLabel.Name = "TimerLabel";
+            this.TimerLabel.Size = new System.Drawing.Size(28, 15);
+            this.TimerLabel.TabIndex = 42;
+            this.TimerLabel.Text = "0.00";
+            // 
+            // TimerButton
+            // 
+            this.TimerButton.AutoSize = true;
+            this.TimerButton.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.TimerButton.Location = new System.Drawing.Point(65, 258);
+            this.TimerButton.Name = "TimerButton";
+            this.TimerButton.Size = new System.Drawing.Size(148, 23);
+            this.TimerButton.TabIndex = 41;
+            this.TimerButton.Text = "Start 0 - 60 timing";
+            this.TimerButton.UseVisualStyleBackColor = true;
+            this.TimerButton.CheckedChanged += new System.EventHandler(this.TimerButton_CheckedChanged);
+            // 
             // XPBox
             // 
             this.XPBox.AutoSize = true;
             this.XPBox.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.XPBox.Location = new System.Drawing.Point(65, 224);
+            this.XPBox.Location = new System.Drawing.Point(65, 228);
             this.XPBox.Name = "XPBox";
             this.XPBox.Size = new System.Drawing.Size(128, 23);
             this.XPBox.TabIndex = 41;
@@ -242,7 +279,7 @@ namespace Forza_Mods_AIO.TabForms
             0,
             0,
             0});
-            this.XPnup.Location = new System.Drawing.Point(64, 203);
+            this.XPnup.Location = new System.Drawing.Point(64, 207);
             this.XPnup.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -378,10 +415,20 @@ namespace Forza_Mods_AIO.TabForms
             this.LST_TeleportLocation.FormattingEnabled = true;
             this.LST_TeleportLocation.Items.AddRange(new object[] {
             "Waypoint",
-            "Festival",
-            "Start of Motorway",
+            "Adventure Park",
+            "Ambleside",
+            "Beach",
             "Broadway",
-            "Greendale Airstrip"});
+            "Damn",
+            "Edinburgh",
+            "Festival",
+            "Greendale Airstrip",
+            "Lake Island",
+            "Mortimer Gardens",
+            "Quarry",
+            "Railyard",
+            "Start of Motorway",
+            "Top of Mountain"});
             this.LST_TeleportLocation.Location = new System.Drawing.Point(3, 70);
             this.LST_TeleportLocation.Name = "LST_TeleportLocation";
             this.LST_TeleportLocation.Size = new System.Drawing.Size(236, 26);
@@ -502,7 +549,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel1.Controls.Add(this.GravityBox);
             this.panel1.Controls.Add(this.WeirdBox);
             this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.label15);
+            this.panel1.Controls.Add(this.AcelLabel);
             this.panel1.Controls.Add(this.label16);
             this.panel1.Location = new System.Drawing.Point(12, 297);
             this.panel1.Name = "panel1";
@@ -594,15 +641,15 @@ namespace Forza_Mods_AIO.TabForms
             this.label8.TabIndex = 7;
             this.label8.Text = "Dont know";
             // 
-            // label15
+            // AcelLabel
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(67, 36);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(49, 19);
-            this.label15.TabIndex = 14;
-            this.label15.Text = "Weird";
+            this.AcelLabel.AutoSize = true;
+            this.AcelLabel.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AcelLabel.Location = new System.Drawing.Point(44, 35);
+            this.AcelLabel.Name = "AcelLabel";
+            this.AcelLabel.Size = new System.Drawing.Size(92, 19);
+            this.AcelLabel.TabIndex = 14;
+            this.AcelLabel.Text = "Acceleration";
             // 
             // label16
             // 
@@ -1326,6 +1373,12 @@ namespace Forza_Mods_AIO.TabForms
             this.WayPointTPworker.WorkerSupportsCancellation = true;
             this.WayPointTPworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WayPointTPworker_DoWork);
             // 
+            // TimerWorker
+            // 
+            this.TimerWorker.WorkerReportsProgress = true;
+            this.TimerWorker.WorkerSupportsCancellation = true;
+            this.TimerWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.TimerWorker_DoWork);
+            // 
             // Speedhack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -1411,7 +1464,7 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label AcelLabel;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.NumericUpDown VelMultBox;
@@ -1483,5 +1536,10 @@ namespace Forza_Mods_AIO.TabForms
         private System.ComponentModel.BackgroundWorker WayPointWorker;
         public System.Windows.Forms.CheckBox AutoWayPoint;
         private System.ComponentModel.BackgroundWorker WayPointTPworker;
+        private System.Windows.Forms.Label TimerLabel;
+        private System.Windows.Forms.CheckBox TimerButton;
+        private System.ComponentModel.BackgroundWorker TimerWorker;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Panel TimerIndicator;
     }
 }
