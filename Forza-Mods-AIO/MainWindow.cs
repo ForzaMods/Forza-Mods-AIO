@@ -34,7 +34,6 @@ namespace Forza_Mods_AIO
         public MainWindow()
         {
             InitializeComponent();
-            Main = this;
             this.TabHolder.Controls.Add(ToolInfo);
             ToolInfo.Visible = true;
             RPCclient.Initialize();
