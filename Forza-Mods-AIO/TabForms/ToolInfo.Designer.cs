@@ -44,6 +44,8 @@ namespace Forza_Mods_AIO
             this.Mute = new System.Windows.Forms.CheckBox();
             this.Volumeworker = new System.ComponentModel.BackgroundWorker();
             this.VolNum = new System.Windows.Forms.NumericUpDown();
+            this.VersionLabel = new System.Windows.Forms.Label();
+            this.InfoMask = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.VolNum)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,14 +64,15 @@ namespace Forza_Mods_AIO
             this.TXT_InfoTab.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.TXT_InfoTab.Font = new System.Drawing.Font("Open Sans", 13F);
             this.TXT_InfoTab.ForeColor = System.Drawing.Color.White;
-            this.TXT_InfoTab.Location = new System.Drawing.Point(1, 73);
+            this.TXT_InfoTab.Location = new System.Drawing.Point(11, 73);
             this.TXT_InfoTab.Margin = new System.Windows.Forms.Padding(0);
             this.TXT_InfoTab.Name = "TXT_InfoTab";
             this.TXT_InfoTab.ReadOnly = true;
-            this.TXT_InfoTab.Size = new System.Drawing.Size(998, 195);
+            this.TXT_InfoTab.Size = new System.Drawing.Size(977, 195);
             this.TXT_InfoTab.TabIndex = 17;
             this.TXT_InfoTab.TabStop = false;
             this.TXT_InfoTab.Text = resources.GetString("TXT_InfoTab.Text");
+            this.TXT_InfoTab.Enter += new System.EventHandler(this.TXT_InfoTab_Enter);
             // 
             // LBL_Attached
             // 
@@ -87,7 +90,7 @@ namespace Forza_Mods_AIO
             // 
             this.DraffsYT.AutoSize = true;
             this.DraffsYT.Font = new System.Drawing.Font("Open Sans", 13F);
-            this.DraffsYT.Location = new System.Drawing.Point(-3, 282);
+            this.DraffsYT.Location = new System.Drawing.Point(7, 282);
             this.DraffsYT.Name = "DraffsYT";
             this.DraffsYT.Size = new System.Drawing.Size(141, 24);
             this.DraffsYT.TabIndex = 19;
@@ -97,7 +100,7 @@ namespace Forza_Mods_AIO
             // 
             this.UCPost.AutoSize = true;
             this.UCPost.Font = new System.Drawing.Font("Open Sans", 13F);
-            this.UCPost.Location = new System.Drawing.Point(-3, 306);
+            this.UCPost.Location = new System.Drawing.Point(7, 306);
             this.UCPost.Name = "UCPost";
             this.UCPost.Size = new System.Drawing.Size(299, 24);
             this.UCPost.TabIndex = 19;
@@ -107,7 +110,7 @@ namespace Forza_Mods_AIO
             // 
             this.Discord.AutoSize = true;
             this.Discord.Font = new System.Drawing.Font("Open Sans", 13F);
-            this.Discord.Location = new System.Drawing.Point(-3, 330);
+            this.Discord.Location = new System.Drawing.Point(7, 330);
             this.Discord.Name = "Discord";
             this.Discord.Size = new System.Drawing.Size(182, 24);
             this.Discord.TabIndex = 19;
@@ -119,7 +122,7 @@ namespace Forza_Mods_AIO
             this.DraffsYTLink.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DraffsYTLink.Font = new System.Drawing.Font("Open Sans", 13F);
             this.DraffsYTLink.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            this.DraffsYTLink.Location = new System.Drawing.Point(133, 282);
+            this.DraffsYTLink.Location = new System.Drawing.Point(143, 282);
             this.DraffsYTLink.Name = "DraffsYTLink";
             this.DraffsYTLink.Size = new System.Drawing.Size(556, 24);
             this.DraffsYTLink.TabIndex = 19;
@@ -132,7 +135,7 @@ namespace Forza_Mods_AIO
             this.UCPostLink.Cursor = System.Windows.Forms.Cursors.Hand;
             this.UCPostLink.Font = new System.Drawing.Font("Open Sans", 13F);
             this.UCPostLink.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            this.UCPostLink.Location = new System.Drawing.Point(285, 306);
+            this.UCPostLink.Location = new System.Drawing.Point(295, 306);
             this.UCPostLink.Name = "UCPostLink";
             this.UCPostLink.Size = new System.Drawing.Size(703, 24);
             this.UCPostLink.TabIndex = 19;
@@ -145,7 +148,7 @@ namespace Forza_Mods_AIO
             this.DiscordLink.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DiscordLink.Font = new System.Drawing.Font("Open Sans", 13F);
             this.DiscordLink.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            this.DiscordLink.Location = new System.Drawing.Point(174, 330);
+            this.DiscordLink.Location = new System.Drawing.Point(184, 330);
             this.DiscordLink.Name = "DiscordLink";
             this.DiscordLink.Size = new System.Drawing.Size(284, 24);
             this.DiscordLink.TabIndex = 19;
@@ -181,12 +184,31 @@ namespace Forza_Mods_AIO
             0,
             0});
             // 
+            // VersionLabel
+            // 
+            this.VersionLabel.AutoSize = true;
+            this.VersionLabel.Font = new System.Drawing.Font("Open Sans", 13F);
+            this.VersionLabel.Location = new System.Drawing.Point(7, 399);
+            this.VersionLabel.Name = "VersionLabel";
+            this.VersionLabel.Size = new System.Drawing.Size(84, 24);
+            this.VersionLabel.TabIndex = 23;
+            this.VersionLabel.Text = "Version: ";
+            // 
+            // InfoMask
+            // 
+            this.InfoMask.Location = new System.Drawing.Point(10, 73);
+            this.InfoMask.Name = "InfoMask";
+            this.InfoMask.Size = new System.Drawing.Size(977, 195);
+            this.InfoMask.TabIndex = 24;
+            this.InfoMask.Text = "  ";
+            // 
             // ToolInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.VersionLabel);
             this.Controls.Add(this.VolNum);
             this.Controls.Add(this.Mute);
             this.Controls.Add(this.UCPostLink);
@@ -198,6 +220,7 @@ namespace Forza_Mods_AIO
             this.Controls.Add(this.AOBScanProgress);
             this.Controls.Add(this.TXT_InfoTab);
             this.Controls.Add(this.LBL_Attached);
+            this.Controls.Add(this.InfoMask);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -225,5 +248,7 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.CheckBox Mute;
         private System.ComponentModel.BackgroundWorker Volumeworker;
         private System.Windows.Forms.NumericUpDown VolNum;
+        private System.Windows.Forms.Label VersionLabel;
+        private System.Windows.Forms.Label InfoMask;
     }
 }

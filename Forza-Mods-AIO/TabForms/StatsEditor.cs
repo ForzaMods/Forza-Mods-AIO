@@ -1,25 +1,202 @@
-﻿using System;
+﻿using Forza_Mods_AIO.Properties;
+using LumenWorks.Framework.IO.Csv;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Forza_Mods_AIO.TabForms
 {
     public partial class StatsEditor : Form
     {
+        List<long> yeet = new List<long>();
+        List<string> yeetstring = new List<string>();
+        List<string> yeetstring2 = new List<string>();
+        List<long> AddrList = new List<long>();
+        DataTable StatsTableData = new DataTable();
+        public static StatsEditor s;
+        private static CultureInfo resourceCulture;
+        internal static byte[] FH4_Stats
+        {
+            get
+            {
+                return (byte[])Resources.ResourceManager.GetObject("FH4_Stats", resourceCulture);
+            }
+        }
         public StatsEditor()
         {
             InitializeComponent();
+            StatsTable.AutoGenerateColumns = false;
+            ScanMarquee.Style = ProgressBarStyle.Marquee;
+            ScanMarquee.Visible = false;
+            SendProgress.Visible = false;
+            SendButton.Enabled = false;
+            FilterBox.Visible = false;
+            StatsTableData.Columns.Add("Key", typeof(string));
+            StatsTableData.Columns.Add("Value", typeof(string));
+            s = this;
         }
-
         private void StatsEditor_Load(object sender, EventArgs e)
         {
+        }
 
+        private async void StatScanButton_Click(object sender, EventArgs e)
+        {
+            FilterBox.Visible = false;
+            StatsTable.DataSource = null;
+            StatsTable.Rows.Clear();
+            StatsTableData.Clear();
+            yeetstring.Clear();
+            yeetstring2.Clear();
+            yeet.Clear();
+            StatScanButton.Enabled = false;
+            ScanMarquee.Visible = true;
+            ScanMarquee.MarqueeAnimationSpeed = 1;
+            File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv"), FH4_Stats);
+            string nameColumnName = "Name";
+            string valueColumnName = "Type";
+            string Type = null;
+            long ScanStartAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 30000000000;
+            long ScanEndAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 23500000000;
+            yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "58 97 ? ? ? 7F 00 00", true, true)).ToList();
+            foreach (var item in yeet)
+            {
+                if (MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true).Length > 1
+                    && Regex.IsMatch(MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true), @"^[a-zA-Z]+$"))
+                {
+                    using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv")), hasHeaders: true))
+                    {
+                        int nameColumnIndex = csvReader.GetFieldIndex(nameColumnName);
+                        int valueColumnIndex = csvReader.GetFieldIndex(valueColumnName);
+
+                        while (csvReader.ReadNextRecord())
+                        {
+                            if (csvReader[nameColumnIndex] == MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true))
+                            {
+                                Type = csvReader[valueColumnIndex];
+                                break;
+                            }
+                        }
+                    }
+                    yeetstring.Add(MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true));
+                    if (Type == "Float")
+                        yeetstring2.Add(MainWindow.m.ReadFloat((item + 8).ToString("X"), round: false).ToString());
+                    else
+                        yeetstring2.Add(MainWindow.m.ReadInt((item + 8).ToString("X")).ToString());
+                    AddrList.Add(item);
+                }
+            }
+            for (int i = 0; i < yeetstring.Count; i++)
+            {
+                StatsTableData.Rows.Add(yeetstring[i], yeetstring2[i]);
+            }
+            File.Delete(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv"));
+            StatsTable.DataSource = StatsTableData;
+            StatsTable.Update();
+            StatsTable.Refresh();
+            ScanMarquee.Visible = false;
+            StatScanButton.Enabled = true;
+            SendButton.Enabled = true;
+            FilterBox.Visible = true;
+            if(FilterBox.Text == "Filter")
+                FilterBox.Text.PadLeft(FilterBox.Text.Length + 15);
+        }
+
+        private void SendButton_Click(object sender, EventArgs e)
+        {
+            if (!SendWorker.IsBusy)
+            {
+                StatScanButton.Enabled = false;
+                SendButton.Enabled = false;
+                SendProgress.Visible = true;
+                SendWorker.RunWorkerAsync();
+            }
+        }
+
+        private void SendWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            int i = 0;
+            File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv"), FH4_Stats);
+            foreach (var item in AddrList)
+            {
+                string nameColumnName = "Name";
+                string valueColumnName = "Type";
+                string Type = null;
+                using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv")), hasHeaders: true))
+                {
+                    int nameColumnIndex = csvReader.GetFieldIndex(nameColumnName);
+                    int valueColumnIndex = csvReader.GetFieldIndex(valueColumnName);
+
+                    while (csvReader.ReadNextRecord())
+                    {
+                        if (csvReader[nameColumnIndex] == MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true))
+                        {
+                            Type = csvReader[valueColumnIndex];
+                            break;
+                        }
+                    }
+                }
+                if (Type == "Float")
+                    try { MainWindow.m.WriteMemory((item + 8).ToString("X"), "float", StatsTableData.Rows[i][1].ToString()); } catch { }
+                else
+                    try { MainWindow.m.WriteMemory((item + 8).ToString("X"), "int", StatsTableData.Rows[i][1].ToString()); } catch { }
+                int progress = (int)(100 * i / AddrList.Count);
+                SendWorker.ReportProgress(progress);
+                i++;
+            }
+            File.Delete(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv"));
+            SendWorker.ReportProgress(100);
+            StatScanButton.Enabled = true;
+            SendButton.Enabled = true;
+        }
+
+        private void SendWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            SendProgress.Value = e.ProgressPercentage;
+        }
+
+        private void SendWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            SendProgress.Visible = false;
+            SendProgress.Value = 0;
+        }
+
+        private void FilterBox_TextChanged(object sender, EventArgs e)
+        {
+            FilterBox.Text.PadLeft(FilterBox.Text.Length + 15);
+            StatsTableData.DefaultView.RowFilter = string.Concat("CONVERT(Key,System.String) LIKE '%", FilterBox.Text, "%'");
+        }
+
+        private void FilterBox_Enter(object sender, EventArgs e)
+        {
+            if(FilterBox.Text == "Filter")
+                FilterBox.Clear();
+        }
+
+        private void FilterBox_Leave(object sender, EventArgs e)
+        {
+            if (FilterBox.Text == "")
+            {
+                FilterBox.Text = "Filter";
+                FilterBox.Text.PadLeft(FilterBox.Text.Length + 15);
+                StatsTableData.DefaultView.RowFilter = String.Empty;
+            }
+        }
+
+        private void FilterBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (FilterBox.Text == "Filter")
+                FilterBox.Clear();
+        }
+
+        private void StatScanButton_Leave(object sender, EventArgs e)
+        {
+            StatScanButton.NotifyDefault(false);
         }
     }
 }

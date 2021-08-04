@@ -15,6 +15,7 @@ using SharpDX.XInput;
 using SharpDX.DirectInput;
 using System.Globalization;
 using Forza_Mods_AIO.Properties;
+using System.Collections;
 
 namespace Forza_Mods_AIO.TabForms
 {
@@ -104,6 +105,7 @@ namespace Forza_Mods_AIO.TabForms
         float VelMult = 1; float FOVVal;
         float LastWPx = 0; float LastWPy = 0; float LastWPz = 0;
         float WeirdVal; float NewWeirdVal; float GravityVal; float NewGravityVal;
+        float basegrav;
 
         public int StorageAddress;
         int IncreaseCycles = 0; int DecreaseCycles = 0;
@@ -148,6 +150,7 @@ namespace Forza_Mods_AIO.TabForms
             ControllerWorker.RunWorkerAsync();
             KBChange.Text = KBKeyString;
             XBChange.Text = XBKeyString;
+            DonoPic.Image = Properties.Resources.default_orange;
         }
         private void SpeedHack_Load(object sender, EventArgs e)
         {
@@ -165,9 +168,6 @@ namespace Forza_Mods_AIO.TabForms
             xVelocityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x540");
             yVelocityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x53C");
             zVelocityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x538");
-            CheckPointxAddr = (Base3Addr + ",0x618,0x2F8,0xE0,0x198,0xA8,0x168,0x118,0xAA0");
-            CheckPointyAddr = (Base3Addr + ",0x618,0x2F8,0xE0,0x198,0xA8,0x168,0x118,0xAA4");
-            CheckPointzAddr = (Base3Addr + ",0x618,0x2F8,0xE0,0x198,0xA8,0x168,0x118,0xAA8");
             yAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x51C");
             zAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x518");
             xAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x520");
@@ -182,7 +182,7 @@ namespace Forza_Mods_AIO.TabForms
             FOVHighAddr = (BaseAddr + ",0x568,0x270,0x258,0xB8,0x348,0x70,0x5B0");
             WeirdAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x554");
             GravityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x558");
-            SpeedAddr = (BaseAddr + ",0x568,0x270,0x258,0xB8,0x348,0x70,0x5A4");
+            SpeedAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0xDC8");
         }
         public static void VolumeSetup()
         {
@@ -945,6 +945,8 @@ namespace Forza_Mods_AIO.TabForms
         {
             while (CheckPointTPToggle)
             {
+                if(MainWindow.m.ReadFloat(GravityAddr) != 0)
+                    basegrav = MainWindow.m.ReadFloat(GravityAddr);
                 float InRace = MainWindow.m.ReadFloat(InRaceAddr);
                 if (InRace == 1)
                 {
@@ -956,6 +958,7 @@ namespace Forza_Mods_AIO.TabForms
                         a.GetCheckXAddr(CodeCave, out CheckPointBaseAddr);
                         MainWindow.m.FreezeValue(RollAddr, "float", (MainWindow.m.ReadFloat(RollAddr)).ToString());
                         MainWindow.m.FreezeValue(PitchAddr, "float", (MainWindow.m.ReadFloat(PitchAddr)).ToString());
+                        MainWindow.m.WriteMemory(GravityAddr, "float", "0");
                         CheckPointxAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 608).ToString("X");
                         CheckPointyAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 612).ToString("X");
                         CheckPointzAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 616).ToString("X");
@@ -967,6 +970,7 @@ namespace Forza_Mods_AIO.TabForms
                             CheckPointTPToggle = false;
                         }
                     }
+                    MainWindow.m.WriteMemory(GravityAddr, "float", basegrav.ToString());
                     MainWindow.m.UnfreezeValue(RollAddr);
                     MainWindow.m.UnfreezeValue(PitchAddr);
                     MainWindow.m.UnfreezeValue(yAngVelAddr);
@@ -1326,6 +1330,7 @@ namespace Forza_Mods_AIO.TabForms
             {
                 CheckPointTPToggle = false;
                 CheckPointTPworker.CancelAsync();
+                MainWindow.m.WriteMemory(GravityAddr, "float", basegrav.ToString());
                 MainWindow.m.UnfreezeValue(RollAddr);
                 MainWindow.m.UnfreezeValue(PitchAddr);
                 MainWindow.m.UnfreezeValue(yAngVelAddr);
@@ -1779,5 +1784,10 @@ namespace Forza_Mods_AIO.TabForms
             SHReset();
         }
         #endregion
+
+        private void DonoPic_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", "https://www.buymeacoffee.com/Yeethan69");
+        }
     }
 }

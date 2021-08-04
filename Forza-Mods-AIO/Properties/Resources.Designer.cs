@@ -61,11 +61,31 @@ namespace Forza_Mods_AIO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap default_orange {
+            get {
+                object obj = ResourceManager.GetObject("default-orange", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] FH4_Cars {
             get {
                 object obj = ResourceManager.GetObject("FH4_Cars", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] FH4_Stats {
+            get {
+                object obj = ResourceManager.GetObject("FH4_Stats", resourceCulture);
                 return ((byte[])(obj));
             }
         }
