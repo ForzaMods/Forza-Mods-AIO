@@ -2307,4 +2307,7 @@
   <data name="FH4_Stats" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FH4_Stats.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Updater" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Updater.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
