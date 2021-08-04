@@ -75,6 +75,8 @@ namespace Forza_Mods_AIO.TabForms
             this.label6 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.DonationLabel = new System.Windows.Forms.Label();
+            this.DonoPic = new System.Windows.Forms.PictureBox();
             this.StopAllWheelsButton = new System.Windows.Forms.CheckBox();
             this.SuperBreakButton = new System.Windows.Forms.CheckBox();
             this.LBL_Toggles = new System.Windows.Forms.Label();
@@ -141,6 +143,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBar)).BeginInit();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DonoPic)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LimitBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Speed3Box)).BeginInit();
@@ -745,6 +748,8 @@ namespace Forza_Mods_AIO.TabForms
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel4.Controls.Add(this.DonationLabel);
+            this.panel4.Controls.Add(this.DonoPic);
             this.panel4.Controls.Add(this.StopAllWheelsButton);
             this.panel4.Controls.Add(this.SuperBreakButton);
             this.panel4.Controls.Add(this.LBL_Toggles);
@@ -755,6 +760,26 @@ namespace Forza_Mods_AIO.TabForms
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(532, 111);
             this.panel4.TabIndex = 9;
+            // 
+            // DonationLabel
+            // 
+            this.DonationLabel.AutoSize = true;
+            this.DonationLabel.Location = new System.Drawing.Point(4, 13);
+            this.DonationLabel.Name = "DonationLabel";
+            this.DonationLabel.Size = new System.Drawing.Size(48, 15);
+            this.DonationLabel.TabIndex = 37;
+            this.DonationLabel.Text = "Donate:";
+            // 
+            // DonoPic
+            // 
+            this.DonoPic.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DonoPic.Location = new System.Drawing.Point(57, 8);
+            this.DonoPic.Name = "DonoPic";
+            this.DonoPic.Size = new System.Drawing.Size(108, 25);
+            this.DonoPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.DonoPic.TabIndex = 36;
+            this.DonoPic.TabStop = false;
+            this.DonoPic.Click += new System.EventHandler(this.DonoPic_Click);
             // 
             // StopAllWheelsButton
             // 
@@ -1417,6 +1442,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBar)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DonoPic)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LimitBox)).EndInit();
@@ -1541,5 +1567,7 @@ namespace Forza_Mods_AIO.TabForms
         private System.ComponentModel.BackgroundWorker TimerWorker;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Panel TimerIndicator;
+        private System.Windows.Forms.Label DonationLabel;
+        private System.Windows.Forms.PictureBox DonoPic;
     }
 }

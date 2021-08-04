@@ -203,6 +203,11 @@
     <Compile Include="assembly.cs" />
     <Compile Include="BinaryReaderHelper.cs" />
     <Compile Include="ContainerReader.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="TabForms\AddCars.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -281,14 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="TabForms\LiveTuning.resx">
       <DependentUpon>LiveTuning.cs</DependentUpon>
     </EmbeddedResource>
@@ -332,6 +332,7 @@
     </Compile>
     <EmbeddedResource Include="Resources\OpenSans-Regular.ttf" />
     <None Include="Resources\FH4_Cars.csv" />
+    <None Include="Resources\FH4_Stats.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -347,6 +348,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\default-orange.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

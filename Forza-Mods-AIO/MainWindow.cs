@@ -9,13 +9,13 @@ using System.Windows.Forms;
 using Memory;
 using Forza_Mods_AIO.TabForms;
 using DiscordRPC;
+using System.Net;
 
 namespace Forza_Mods_AIO
 {
     public partial class MainWindow : Form
     {
         public static Mem m = new Mem();
-        public static MainWindow Main;
         public DiscordRpcClient client;
         public DiscordRpcClient RPCclient = new DiscordRpcClient("841090098837323818");
         ToolInfo ToolInfo = new ToolInfo() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
@@ -25,11 +25,16 @@ namespace Forza_Mods_AIO
         LiveTuning LiveTuning = new LiveTuning() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         Speedhack Speedhack = new Speedhack() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         public bool IsRPCInitialized = false; public bool FirstLoad = true;
+        DialogResult UpdateYesNo;
+        Version NewVer = null;
+        public static Version CurrVer = new Version("0.0.1");
+        string DL = null;
         long sig = 0;
 
         public MainWindow()
         {
             InitializeComponent();
+            Main = this;
             this.TabHolder.Controls.Add(ToolInfo);
             ToolInfo.Visible = true;
             RPCclient.Initialize();
@@ -56,6 +61,19 @@ namespace Forza_Mods_AIO
         private void MainWindow_Load(object sender, EventArgs e)
         {
             ToolInfo.AOBScanProgress.Hide();
+            using (WebClient client = new WebClient())
+            {
+                string Response = client.DownloadString(@"https://yeethan69.github.io/aioUpdate.txt");
+                string[] VerAndLink = Response.Split('\n', (char)StringSplitOptions.RemoveEmptyEntries);
+                NewVer = new Version(VerAndLink[0].Split(':').Last());
+                DL = VerAndLink[1].Split(':').Last();
+            }
+            if (NewVer != null && CurrVer.CompareTo(NewVer) < 0)
+                UpdateYesNo = MessageBox.Show("A new version has been released, would you like to download it now ? ", "Update", MessageBoxButtons.YesNo);
+            if(UpdateYesNo == DialogResult.Yes)
+            {
+                //Do Update stuff
+            }
             InitialBGworker.RunWorkerAsync();
             if(RPCclient.IsInitialized)
             {

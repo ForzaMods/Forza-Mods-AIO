@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TXT_InfoTab.Text" xml:space="preserve">
-    <value>This tool was last updated on: 30/07/2021
-If a new season has started since this date then there may be an update avalible
+    <value>This tool was last updated on: 04/08/2021.
+If a new season has started since this date then there may be an update available.
 
 Tool Credits:
-Draff - UI, Adding cars, Saveswapping
-Weebthan - Cool Shit and discovery
-Mark - Backend help
+Draff - UI, Adding cars, Saveswapping, Backend.
+Weebthan - Stat editor, Live tuning, Cool shit, Backend.
+Mark - More backend help.
 </value>
   </data>
   <metadata name="CheckAttachedworker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
