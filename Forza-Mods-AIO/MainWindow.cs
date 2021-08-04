@@ -10,6 +10,9 @@ using Memory;
 using Forza_Mods_AIO.TabForms;
 using DiscordRPC;
 using System.Net;
+using System.Globalization;
+using Forza_Mods_AIO.Properties;
+using System.Runtime.InteropServices;
 
 namespace Forza_Mods_AIO
 {
@@ -27,13 +30,30 @@ namespace Forza_Mods_AIO
         public bool IsRPCInitialized = false; public bool FirstLoad = true;
         DialogResult UpdateYesNo;
         Version NewVer = null;
-        public static Version CurrVer = new Version("0.0.1");
+        public static Version CurrVer = new Version("0.0.0.1");
         string DL = null;
         long sig = 0;
+        private static CultureInfo resourceCulture;
+        internal static byte[] Updater
+        {
+            get
+            {
+                return (byte[])Resources.ResourceManager.GetObject("Updater", resourceCulture);
+            }
+        }
+        [DllImport("user32.dll")]
+        public static extern int FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(int hWnd, uint Msg, int wParam, int lParam);
+
+        [DllImport("User32.dll", ExactSpelling = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+        private static extern bool MoveWindow(IntPtr hWnd, int x, int y, int cx, int cy, bool repaint);
 
         public MainWindow()
         {
             InitializeComponent();
+            File.Delete("Updater.exe");
             this.TabHolder.Controls.Add(ToolInfo);
             ToolInfo.Visible = true;
             RPCclient.Initialize();
@@ -64,14 +84,16 @@ namespace Forza_Mods_AIO
             {
                 string Response = client.DownloadString(@"https://yeethan69.github.io/aioUpdate.txt");
                 string[] VerAndLink = Response.Split('\n', (char)StringSplitOptions.RemoveEmptyEntries);
-                NewVer = new Version(VerAndLink[0].Split(':').Last());
-                DL = VerAndLink[1].Split(':').Last();
+                NewVer = new Version(VerAndLink[0].Split('|').Last());
             }
             if (NewVer != null && CurrVer.CompareTo(NewVer) < 0)
                 UpdateYesNo = MessageBox.Show("A new version has been released, would you like to download it now ? ", "Update", MessageBoxButtons.YesNo);
             if(UpdateYesNo == DialogResult.Yes)
             {
-                //Do Update stuff
+                File.WriteAllBytes("Updater.exe", Updater);
+                Thread.Sleep(250);
+                Process.Start("Updater.exe");
+                Environment.Exit(0);
             }
             InitialBGworker.RunWorkerAsync();
             if(RPCclient.IsInitialized)
