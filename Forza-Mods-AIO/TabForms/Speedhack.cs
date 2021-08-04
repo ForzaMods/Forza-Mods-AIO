@@ -1670,7 +1670,7 @@ namespace Forza_Mods_AIO.TabForms
             VelMultBox.Value = Convert.ToDecimal(VelMult);
             VelMultBar.Value = Decimal.ToInt32(VelMultBox.Value * 100);
             FOVVal = (float)FOVBar.Value / 100;
-            //LST_TeleportLocation.Text = "Waypoint";
+            LST_TeleportLocation.Text = "Waypoint";
         }
         public void ReadSpeedDefaultValues()
         {
@@ -1705,6 +1705,8 @@ namespace Forza_Mods_AIO.TabForms
                 string TurnStrengthStr = SpeedHack["Turn assist"]["Strength"]; TurnStrength = float.Parse(TurnStrengthStr);
                 string TurnRatioStr = SpeedHack["Turn assist"]["Ratio"]; TurnRatio = float.Parse(TurnRatioStr);
                 string TurnIntervalStr = SpeedHack["Turn assist"]["Interval"]; TurnInterval = Int32.Parse(TurnIntervalStr);
+                string AutoWinStr = SpeedHack["Teleports"]["Auto-Win"]; CheckpointBox.Checked = bool.Parse(AutoWinStr);
+                string AutoTPStr = SpeedHack["Teleports"]["Auto-Tp to waypoint"]; AutoWayPoint.Checked = bool.Parse(AutoTPStr);
             }
             else
             {
@@ -1741,6 +1743,8 @@ namespace Forza_Mods_AIO.TabForms
             SpeedHack["Turn assist"]["Strength"] = TurnStrength.ToString();
             SpeedHack["Turn assist"]["Ratio"] = TurnRatio.ToString();
             SpeedHack["Turn assist"]["Interval"] = TurnInterval.ToString();
+            SpeedHack["Teleports"]["Auto-Win"] = CheckpointBox.Checked.ToString();
+            SpeedHack["Teleports"]["Auto-Tp to waypoint"] = AutoWayPoint.Checked.ToString();
             SpeedHackparser.WriteFile("SpeedHackDefault.ini", SpeedHack);
         }
         public void CreateSHini()
@@ -1772,6 +1776,8 @@ namespace Forza_Mods_AIO.TabForms
             SpeedHack["Turn assist"]["Strength"] = "0";
             SpeedHack["Turn assist"]["Ratio"] = "0";
             SpeedHack["Turn assist"]["Interval"] = "0";
+            SpeedHack["Teleports"]["Auto-Win"] = "false";
+            SpeedHack["Teleports"]["Auto-Tp to waypoint"] = "false";
             SpeedHackparser.SaveFile("SpeedHackDefault.ini", SpeedHack);
         }
         private void SaveSHDefault_Click(object sender, EventArgs e)
