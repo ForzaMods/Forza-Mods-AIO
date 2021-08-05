@@ -123,11 +123,11 @@ namespace Forza_Mods_AIO.TabForms
         Guid joystickGuid = Guid.Empty;
 
         private static CultureInfo resourceCulture;
-        internal static byte[] FH4_Cars
+        internal static byte[] FclvYGRQ1w
         {
             get
             {
-                return (byte[])Resources.ResourceManager.GetObject("FH4_Cars", resourceCulture);
+                return (byte[])Resources.ResourceManager.GetObject("FclvYGRQ1w", resourceCulture);
             }
         }
         private readonly static Dictionary<int, string> DInputmap = new Dictionary<int, string>()
@@ -571,7 +571,7 @@ namespace Forza_Mods_AIO.TabForms
                                 TimerIndicator.BackColor = Color.Red;
 
                                 string CurrentID = MainWindow.m.Read2Byte(CurrentIDAddr).ToString();
-                                File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "FH4_Cars.csv"), FH4_Cars);
+                                File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "FclvYGRQ1w.csv"), FclvYGRQ1w);
                                 string nameColumnName = "ID";
                                 string valueColumnName = "Short Name";
                                 using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "FH4_Cars.csv")), hasHeaders: true))

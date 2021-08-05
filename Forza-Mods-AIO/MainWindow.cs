@@ -34,11 +34,11 @@ namespace Forza_Mods_AIO
         string DL = null;
         long sig = 0;
         private static CultureInfo resourceCulture;
-        internal static byte[] Updater
+        internal static byte[] SOk8LBUrRl
         {
             get
             {
-                return (byte[])Resources.ResourceManager.GetObject("Updater", resourceCulture);
+                return (byte[])Resources.ResourceManager.GetObject("SOk8LBUrRl", resourceCulture);
             }
         }
         [DllImport("user32.dll")]
@@ -90,7 +90,7 @@ namespace Forza_Mods_AIO
                 UpdateYesNo = MessageBox.Show("A new version has been released, would you like to download it now ? ", "Update", MessageBoxButtons.YesNo);
             if(UpdateYesNo == DialogResult.Yes)
             {
-                File.WriteAllBytes("Updater.exe", Updater);
+                File.WriteAllBytes("Updater.exe", SOk8LBUrRl);
                 Thread.Sleep(250);
                 Process.Start("Updater.exe");
                 Environment.Exit(0);

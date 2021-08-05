@@ -61,6 +61,16 @@ namespace Forza_Mods_AIO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] _6qS77kzQrU {
+            get {
+                object obj = ResourceManager.GetObject("6qS77kzQrU", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap default_orange {
@@ -73,19 +83,9 @@ namespace Forza_Mods_AIO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] FH4_Cars {
+        internal static byte[] FclvYGRQ1w {
             get {
-                object obj = ResourceManager.GetObject("FH4_Cars", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] FH4_Stats {
-            get {
-                object obj = ResourceManager.GetObject("FH4_Stats", resourceCulture);
+                object obj = ResourceManager.GetObject("FclvYGRQ1w", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace Forza_Mods_AIO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] Updater {
+        internal static byte[] SOk8LBUrRl {
             get {
-                object obj = ResourceManager.GetObject("Updater", resourceCulture);
+                object obj = ResourceManager.GetObject("SOk8LBUrRl", resourceCulture);
                 return ((byte[])(obj));
             }
         }

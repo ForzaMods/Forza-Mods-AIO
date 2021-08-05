@@ -13,7 +13,6 @@ using System.Windows.Input;
 using System.Threading;
 using System.Windows.Forms;
 using Memory;
-using GlobalLowLevelHooks;
 using IniParser;
 using IniParser.Model;
 using Forza_Mods_AIO.TabForms;

@@ -51,8 +51,12 @@ namespace Forza_Mods_AIO
             {
                 VolStart = false;
                 Volumeworker.CancelAsync();
-                VolumeMixer.SetApplicationMute(Process.GetProcessesByName("ForzaHorizon4")[0].Id, false);
-                VolumeMixer.SetApplicationVolume(Process.GetProcessesByName("ForzaHorizon4")[0].Id, (float)VolNum.Value);
+                try
+                {
+                    VolumeMixer.SetApplicationMute(Process.GetProcessesByName("ForzaHorizon4")[0].Id, false);
+                    VolumeMixer.SetApplicationVolume(Process.GetProcessesByName("ForzaHorizon4")[0].Id, (float)VolNum.Value);
+                }
+                catch { }
             }
             else
             {
@@ -90,8 +94,12 @@ namespace Forza_Mods_AIO
                             Thread.Sleep(1);
                         }
                         Thread.Sleep(20000);
-                        VolumeMixer.SetApplicationMute(Process.GetProcessesByName("ForzaHorizon4")[0].Id, false);
-                        VolumeMixer.SetApplicationVolume(Process.GetProcessesByName("ForzaHorizon4")[0].Id, (float)VolNum.Value);
+                        try
+                        {
+                            VolumeMixer.SetApplicationMute(Process.GetProcessesByName("ForzaHorizon4")[0].Id, false);
+                            VolumeMixer.SetApplicationVolume(Process.GetProcessesByName("ForzaHorizon4")[0].Id, (float)VolNum.Value);
+                        }
+                        catch { }
                     }
                     if (Volumeworker.CancellationPending)
                     {
