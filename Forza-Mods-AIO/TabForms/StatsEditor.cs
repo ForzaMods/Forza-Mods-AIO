@@ -21,11 +21,11 @@ namespace Forza_Mods_AIO.TabForms
         DataTable StatsTableData = new DataTable();
         public static StatsEditor s;
         private static CultureInfo resourceCulture;
-        internal static byte[] FH4_Stats
+        internal static byte[] TqS77kzQrU
         {
             get
             {
-                return (byte[])Resources.ResourceManager.GetObject("FH4_Stats", resourceCulture);
+                return (byte[])Resources.ResourceManager.GetObject("TqS77kzQrU", resourceCulture);
             }
         }
         public StatsEditor()
@@ -57,12 +57,12 @@ namespace Forza_Mods_AIO.TabForms
             StatScanButton.Enabled = false;
             ScanMarquee.Visible = true;
             ScanMarquee.MarqueeAnimationSpeed = 1;
-            File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv"), FH4_Stats);
+            File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"), TqS77kzQrU);
             string nameColumnName = "Name";
             string valueColumnName = "Type";
             string Type = null;
             long ScanStartAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 30000000000;
-            long ScanEndAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 23500000000;
+            long ScanEndAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 20000000000;
             yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "58 97 ? ? ? 7F 00 00", true, true)).ToList();
             foreach (var item in yeet)
             {
@@ -95,7 +95,7 @@ namespace Forza_Mods_AIO.TabForms
             {
                 StatsTableData.Rows.Add(yeetstring[i], yeetstring2[i]);
             }
-            File.Delete(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv"));
+            File.Delete(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"));
             StatsTable.DataSource = StatsTableData;
             StatsTable.Update();
             StatsTable.Refresh();
@@ -121,7 +121,7 @@ namespace Forza_Mods_AIO.TabForms
         private void SendWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             int i = 0;
-            File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv"), FH4_Stats);
+            File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"), TqS77kzQrU);
             foreach (var item in AddrList)
             {
                 string nameColumnName = "Name";
@@ -149,7 +149,7 @@ namespace Forza_Mods_AIO.TabForms
                 SendWorker.ReportProgress(progress);
                 i++;
             }
-            File.Delete(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv"));
+            File.Delete(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"));
             SendWorker.ReportProgress(100);
             StatScanButton.Enabled = true;
             SendButton.Enabled = true;
