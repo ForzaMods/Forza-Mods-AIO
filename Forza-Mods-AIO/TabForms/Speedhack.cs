@@ -1316,6 +1316,16 @@ namespace Forza_Mods_AIO.TabForms
                         MessageBox.Show("Set a waypoint first smh my head");
                 }
             }
+            if (LST_TeleportLocation.Text == "Lake Island")
+            {
+                MainWindow.m.FreezeValue(xAddr, "float", x.ToString());
+                MainWindow.m.FreezeValue(yAddr, "float", y.ToString());
+                MainWindow.m.FreezeValue(zAddr, "float", z.ToString());
+                Thread.Sleep(50);
+                MainWindow.m.UnfreezeValue(xAddr);
+                MainWindow.m.UnfreezeValue(yAddr);
+                MainWindow.m.UnfreezeValue(zAddr);
+            }
             else
             {
                 MainWindow.m.WriteMemory(xAddr, "float", x.ToString());
