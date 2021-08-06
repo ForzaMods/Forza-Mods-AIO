@@ -23,7 +23,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
         public void TyreRefresh()
         {
             FrontTyreVal = MainWindow.m.ReadFloat(LiveTuning.FrontTyrePressureAddr); FrontTyreNUD.Value = Convert.ToDecimal(FrontTyreVal); FrontTyreBar.Value = Convert.ToInt32(FrontTyreVal * 10);
-            RearTyreVal = MainWindow.m.ReadFloat(LiveTuning.RearTyrePressureAddr); RearTyreNUD.Value = Convert.ToDecimal(FrontTyreVal); RearTyreBar.Value = Convert.ToInt32(FrontTyreVal * 10);
+            RearTyreVal = MainWindow.m.ReadFloat(LiveTuning.RearTyrePressureAddr); RearTyreNUD.Value = Convert.ToDecimal(RearTyreVal); RearTyreBar.Value = Convert.ToInt32(RearTyreVal * 10);
         }
         private void FrontTyreBar_Scroll(object sender, EventArgs e)
         {
