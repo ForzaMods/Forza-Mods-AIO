@@ -41,14 +41,6 @@ namespace Forza_Mods_AIO
                 return (byte[])Resources.ResourceManager.GetObject("SOk8LBUrRl", resourceCulture);
             }
         }
-        [DllImport("user32.dll")]
-        public static extern int FindWindow(string lpClassName, string lpWindowName);
-
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(int hWnd, uint Msg, int wParam, int lParam);
-
-        [DllImport("User32.dll", ExactSpelling = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
-        private static extern bool MoveWindow(IntPtr hWnd, int x, int y, int cx, int cy, bool repaint);
 
         public MainWindow()
         {
