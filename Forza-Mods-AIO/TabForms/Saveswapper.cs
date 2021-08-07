@@ -25,6 +25,7 @@ namespace Forza_Mods_AIO.TabForms
         List<string> gamertags = new List<string>();
         Mem sm = new Mem();
         bool attached = false;
+        string[] savemetadata = File.ReadAllText(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\SaveMetadata").Split('Ω');
         public void GamebarAttach_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
@@ -79,7 +80,9 @@ namespace Forza_Mods_AIO.TabForms
 
             if (Radio_MS.Checked && LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
             {
+                
                 SwapMSSave();
+
             }
             else if (Radio_Steam.Checked && LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
                 FindSteamSave();
@@ -234,6 +237,19 @@ namespace Forza_Mods_AIO.TabForms
                 FindSteamSave();
             else
                 MessageBox.Show("Options not selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void LST_Savegames_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                TXT_SaveInfo.Text = savemetadata[LST_Savegames.SelectedIndex];
+            }
+                catch
+            {
+                TXT_SaveInfo.Text = "There is no information about this save. \nManually adding metadata will be added at a later date";
+            }
+
         }
     }
 }

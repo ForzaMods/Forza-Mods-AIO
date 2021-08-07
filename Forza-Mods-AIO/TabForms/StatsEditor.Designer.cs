@@ -30,18 +30,21 @@ namespace Forza_Mods_AIO.TabForms
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.StatScanButton = new System.Windows.Forms.Button();
             this.ScanMarquee = new System.Windows.Forms.ProgressBar();
             this.StatsTable = new System.Windows.Forms.DataGridView();
+            this.Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SendButton = new System.Windows.Forms.Button();
             this.SendProgress = new System.Windows.Forms.ProgressBar();
             this.SendWorker = new System.ComponentModel.BackgroundWorker();
             this.FilterBox = new System.Windows.Forms.TextBox();
-            this.Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.StatsTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +55,7 @@ namespace Forza_Mods_AIO.TabForms
             this.StatScanButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StatScanButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StatScanButton.ForeColor = System.Drawing.Color.White;
-            this.StatScanButton.Location = new System.Drawing.Point(12, 12);
+            this.StatScanButton.Location = new System.Drawing.Point(12, 8);
             this.StatScanButton.Name = "StatScanButton";
             this.StatScanButton.Size = new System.Drawing.Size(61, 28);
             this.StatScanButton.TabIndex = 1;
@@ -63,7 +66,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             // ScanMarquee
             // 
-            this.ScanMarquee.Location = new System.Drawing.Point(79, 17);
+            this.ScanMarquee.Location = new System.Drawing.Point(79, 13);
             this.ScanMarquee.Name = "ScanMarquee";
             this.ScanMarquee.Size = new System.Drawing.Size(148, 19);
             this.ScanMarquee.TabIndex = 2;
@@ -74,38 +77,79 @@ namespace Forza_Mods_AIO.TabForms
             this.StatsTable.AllowUserToDeleteRows = false;
             this.StatsTable.AllowUserToResizeColumns = false;
             this.StatsTable.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(38)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            this.StatsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.StatsTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StatsTable.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             this.StatsTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.StatsTable.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            this.StatsTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Open Sans", 10F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StatsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.StatsTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StatsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.StatsTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.StatsTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Key,
             this.Value});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.StatsTable.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.StatsTable.DefaultCellStyle = dataGridViewCellStyle5;
             this.StatsTable.EnableHeadersVisualStyles = false;
-            this.StatsTable.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.StatsTable.Location = new System.Drawing.Point(12, 46);
+            this.StatsTable.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(78)))));
+            this.StatsTable.Location = new System.Drawing.Point(12, 41);
             this.StatsTable.Name = "StatsTable";
+            this.StatsTable.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.StatsTable.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Empty;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Empty;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Empty;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Empty;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StatsTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.StatsTable.RowHeadersVisible = false;
-            this.StatsTable.Size = new System.Drawing.Size(976, 387);
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White;
+            this.StatsTable.RowsDefaultCellStyle = dataGridViewCellStyle7;
+            this.StatsTable.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Empty;
+            this.StatsTable.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Empty;
+            this.StatsTable.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.StatsTable.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.StatsTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.StatsTable.Size = new System.Drawing.Size(976, 393);
             this.StatsTable.TabIndex = 3;
+            // 
+            // Key
+            // 
+            this.Key.DataPropertyName = "Key";
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.Key.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Key.HeaderText = "Stat/Setting Name";
+            this.Key.MinimumWidth = 15;
+            this.Key.Name = "Key";
+            this.Key.ReadOnly = true;
+            // 
+            // Value
+            // 
+            this.Value.DataPropertyName = "Value";
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.Value.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Value.HeaderText = "Stat/Setting Value";
+            this.Value.Name = "Value";
             // 
             // SendButton
             // 
@@ -113,7 +157,7 @@ namespace Forza_Mods_AIO.TabForms
             this.SendButton.FlatAppearance.BorderSize = 0;
             this.SendButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SendButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SendButton.Location = new System.Drawing.Point(927, 12);
+            this.SendButton.Location = new System.Drawing.Point(927, 8);
             this.SendButton.Name = "SendButton";
             this.SendButton.Size = new System.Drawing.Size(61, 28);
             this.SendButton.TabIndex = 1;
@@ -123,7 +167,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             // SendProgress
             // 
-            this.SendProgress.Location = new System.Drawing.Point(773, 17);
+            this.SendProgress.Location = new System.Drawing.Point(773, 13);
             this.SendProgress.Name = "SendProgress";
             this.SendProgress.Size = new System.Drawing.Size(148, 19);
             this.SendProgress.TabIndex = 2;
@@ -141,7 +185,8 @@ namespace Forza_Mods_AIO.TabForms
             this.FilterBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             this.FilterBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.FilterBox.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.FilterBox.Location = new System.Drawing.Point(79, 17);
+            this.FilterBox.ForeColor = System.Drawing.Color.White;
+            this.FilterBox.Location = new System.Drawing.Point(79, 13);
             this.FilterBox.Name = "FilterBox";
             this.FilterBox.Size = new System.Drawing.Size(100, 19);
             this.FilterBox.TabIndex = 4;
@@ -150,24 +195,6 @@ namespace Forza_Mods_AIO.TabForms
             this.FilterBox.Enter += new System.EventHandler(this.FilterBox_Enter);
             this.FilterBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilterBox_KeyDown);
             this.FilterBox.Leave += new System.EventHandler(this.FilterBox_Leave);
-            // 
-            // Key
-            // 
-            this.Key.DataPropertyName = "Key";
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.Key.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Key.HeaderText = "Stat/Setting Name";
-            this.Key.MinimumWidth = 15;
-            this.Key.Name = "Key";
-            this.Key.ReadOnly = true;
-            // 
-            // Value
-            // 
-            this.Value.DataPropertyName = "Value";
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.Value.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Value.HeaderText = "Stat/Setting Value";
-            this.Value.Name = "Value";
             // 
             // StatsEditor
             // 

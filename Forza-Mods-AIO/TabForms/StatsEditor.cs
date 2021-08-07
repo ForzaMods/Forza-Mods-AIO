@@ -69,7 +69,7 @@ namespace Forza_Mods_AIO.TabForms
                 if (MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true).Length > 1
                     && Regex.IsMatch(MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true), @"^[a-zA-Z]+$"))
                 {
-                    using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv")), hasHeaders: true))
+                    using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv")), hasHeaders: true))
                     {
                         int nameColumnIndex = csvReader.GetFieldIndex(nameColumnName);
                         int valueColumnIndex = csvReader.GetFieldIndex(valueColumnName);
@@ -91,6 +91,7 @@ namespace Forza_Mods_AIO.TabForms
                     AddrList.Add(item);
                 }
             }
+
             for (int i = 0; i < yeetstring.Count; i++)
             {
                 StatsTableData.Rows.Add(yeetstring[i], yeetstring2[i]);
@@ -99,12 +100,14 @@ namespace Forza_Mods_AIO.TabForms
             StatsTable.DataSource = StatsTableData;
             StatsTable.Update();
             StatsTable.Refresh();
+            StatsTable.Sort(StatsTable.Columns[0], 0);
             ScanMarquee.Visible = false;
             StatScanButton.Enabled = true;
             SendButton.Enabled = true;
             FilterBox.Visible = true;
             if(FilterBox.Text == "Filter")
                 FilterBox.Text.PadLeft(FilterBox.Text.Length + 15);
+
         }
 
         private void SendButton_Click(object sender, EventArgs e)
@@ -127,7 +130,7 @@ namespace Forza_Mods_AIO.TabForms
                 string nameColumnName = "Name";
                 string valueColumnName = "Type";
                 string Type = null;
-                using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv")), hasHeaders: true))
+                using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv")), hasHeaders: true))
                 {
                     int nameColumnIndex = csvReader.GetFieldIndex(nameColumnName);
                     int valueColumnIndex = csvReader.GetFieldIndex(valueColumnName);
