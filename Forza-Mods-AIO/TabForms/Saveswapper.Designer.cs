@@ -92,6 +92,7 @@ namespace Forza_Mods_AIO.TabForms
             this.LST_Savegames.Name = "LST_Savegames";
             this.LST_Savegames.Size = new System.Drawing.Size(234, 414);
             this.LST_Savegames.TabIndex = 31;
+            this.LST_Savegames.SelectedIndexChanged += new System.EventHandler(this.LST_Savegames_SelectedIndexChanged);
             // 
             // TB_Backup
             // 
