@@ -161,7 +161,6 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             Gear9Val = (float)Gear9NUD.Value;
             MainWindow.m.WriteMemory(LiveTuning.Gear9Addr, "float", Gear9Val.ToString());
         }
-
         private void BTN_Refresh_Click(object sender, EventArgs e)
         {
             GearsRefresh();

@@ -30,6 +30,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
         private void InitializeComponent()
         {
             this.panel3 = new System.Windows.Forms.Panel();
+            this.BTN_Refresh = new System.Windows.Forms.Button();
             this.LBL_Gear9 = new System.Windows.Forms.Label();
             this.LBL_Gear8 = new System.Windows.Forms.Label();
             this.LBL_Gear7 = new System.Windows.Forms.Label();
@@ -61,7 +62,6 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             this.FinalGearBar = new System.Windows.Forms.TrackBar();
             this.LBL_FinalGear = new System.Windows.Forms.Label();
             this.LBL_Gears = new System.Windows.Forms.Label();
-            this.BTN_Refresh = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Gear9NUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Gear8NUD)).BeginInit();
@@ -125,11 +125,25 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             this.panel3.Size = new System.Drawing.Size(976, 386);
             this.panel3.TabIndex = 8;
             // 
+            // BTN_Refresh
+            // 
+            this.BTN_Refresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.BTN_Refresh.FlatAppearance.BorderSize = 0;
+            this.BTN_Refresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_Refresh.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTN_Refresh.Location = new System.Drawing.Point(802, 10);
+            this.BTN_Refresh.Name = "BTN_Refresh";
+            this.BTN_Refresh.Size = new System.Drawing.Size(159, 34);
+            this.BTN_Refresh.TabIndex = 39;
+            this.BTN_Refresh.Text = "Refresh";
+            this.BTN_Refresh.UseVisualStyleBackColor = false;
+            this.BTN_Refresh.Click += new System.EventHandler(this.BTN_Refresh_Click);
+            // 
             // LBL_Gear9
             // 
             this.LBL_Gear9.AutoSize = true;
             this.LBL_Gear9.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_Gear9.Location = new System.Drawing.Point(0, 323);
+            this.LBL_Gear9.Location = new System.Drawing.Point(10, 341);
             this.LBL_Gear9.Name = "LBL_Gear9";
             this.LBL_Gear9.Size = new System.Drawing.Size(92, 27);
             this.LBL_Gear9.TabIndex = 1;
@@ -139,7 +153,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // 
             this.LBL_Gear8.AutoSize = true;
             this.LBL_Gear8.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_Gear8.Location = new System.Drawing.Point(0, 292);
+            this.LBL_Gear8.Location = new System.Drawing.Point(10, 310);
             this.LBL_Gear8.Name = "LBL_Gear8";
             this.LBL_Gear8.Size = new System.Drawing.Size(92, 27);
             this.LBL_Gear8.TabIndex = 1;
@@ -149,7 +163,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // 
             this.LBL_Gear7.AutoSize = true;
             this.LBL_Gear7.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_Gear7.Location = new System.Drawing.Point(0, 260);
+            this.LBL_Gear7.Location = new System.Drawing.Point(10, 278);
             this.LBL_Gear7.Name = "LBL_Gear7";
             this.LBL_Gear7.Size = new System.Drawing.Size(92, 27);
             this.LBL_Gear7.TabIndex = 1;
@@ -159,7 +173,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // 
             this.LBL_Gear6.AutoSize = true;
             this.LBL_Gear6.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_Gear6.Location = new System.Drawing.Point(0, 230);
+            this.LBL_Gear6.Location = new System.Drawing.Point(10, 248);
             this.LBL_Gear6.Name = "LBL_Gear6";
             this.LBL_Gear6.Size = new System.Drawing.Size(92, 27);
             this.LBL_Gear6.TabIndex = 1;
@@ -169,7 +183,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // 
             this.LBL_Gear5.AutoSize = true;
             this.LBL_Gear5.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_Gear5.Location = new System.Drawing.Point(0, 198);
+            this.LBL_Gear5.Location = new System.Drawing.Point(10, 216);
             this.LBL_Gear5.Name = "LBL_Gear5";
             this.LBL_Gear5.Size = new System.Drawing.Size(92, 27);
             this.LBL_Gear5.TabIndex = 1;
@@ -179,7 +193,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // 
             this.LBL_Gear4.AutoSize = true;
             this.LBL_Gear4.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_Gear4.Location = new System.Drawing.Point(0, 166);
+            this.LBL_Gear4.Location = new System.Drawing.Point(10, 184);
             this.LBL_Gear4.Name = "LBL_Gear4";
             this.LBL_Gear4.Size = new System.Drawing.Size(92, 27);
             this.LBL_Gear4.TabIndex = 1;
@@ -189,7 +203,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // 
             this.LBL_Gear3.AutoSize = true;
             this.LBL_Gear3.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_Gear3.Location = new System.Drawing.Point(0, 136);
+            this.LBL_Gear3.Location = new System.Drawing.Point(10, 154);
             this.LBL_Gear3.Name = "LBL_Gear3";
             this.LBL_Gear3.Size = new System.Drawing.Size(93, 27);
             this.LBL_Gear3.TabIndex = 1;
@@ -199,7 +213,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // 
             this.LBL_Gear2.AutoSize = true;
             this.LBL_Gear2.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_Gear2.Location = new System.Drawing.Point(0, 105);
+            this.LBL_Gear2.Location = new System.Drawing.Point(10, 123);
             this.LBL_Gear2.Name = "LBL_Gear2";
             this.LBL_Gear2.Size = new System.Drawing.Size(97, 27);
             this.LBL_Gear2.TabIndex = 1;
@@ -209,7 +223,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // 
             this.LBL_Gear1.AutoSize = true;
             this.LBL_Gear1.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_Gear1.Location = new System.Drawing.Point(1, 75);
+            this.LBL_Gear1.Location = new System.Drawing.Point(11, 93);
             this.LBL_Gear1.Name = "LBL_Gear1";
             this.LBL_Gear1.Size = new System.Drawing.Size(90, 27);
             this.LBL_Gear1.TabIndex = 1;
@@ -223,7 +237,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             0,
             0,
             65536});
-            this.Gear9NUD.Location = new System.Drawing.Point(838, 323);
+            this.Gear9NUD.Location = new System.Drawing.Point(848, 341);
             this.Gear9NUD.Maximum = new decimal(new int[] {
             10,
             0,
@@ -242,7 +256,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             0,
             0,
             65536});
-            this.Gear8NUD.Location = new System.Drawing.Point(838, 292);
+            this.Gear8NUD.Location = new System.Drawing.Point(848, 310);
             this.Gear8NUD.Maximum = new decimal(new int[] {
             10,
             0,
@@ -261,7 +275,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             0,
             0,
             65536});
-            this.Gear7NUD.Location = new System.Drawing.Point(838, 260);
+            this.Gear7NUD.Location = new System.Drawing.Point(848, 278);
             this.Gear7NUD.Maximum = new decimal(new int[] {
             10,
             0,
@@ -280,7 +294,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             0,
             0,
             65536});
-            this.Gear6NUD.Location = new System.Drawing.Point(838, 230);
+            this.Gear6NUD.Location = new System.Drawing.Point(848, 248);
             this.Gear6NUD.Maximum = new decimal(new int[] {
             10,
             0,
@@ -299,7 +313,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             0,
             0,
             65536});
-            this.Gear5NUD.Location = new System.Drawing.Point(838, 198);
+            this.Gear5NUD.Location = new System.Drawing.Point(848, 216);
             this.Gear5NUD.Maximum = new decimal(new int[] {
             10,
             0,
@@ -318,7 +332,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             0,
             0,
             65536});
-            this.Gear4NUD.Location = new System.Drawing.Point(838, 166);
+            this.Gear4NUD.Location = new System.Drawing.Point(848, 184);
             this.Gear4NUD.Maximum = new decimal(new int[] {
             10,
             0,
@@ -337,7 +351,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             0,
             0,
             65536});
-            this.Gear3NUD.Location = new System.Drawing.Point(838, 136);
+            this.Gear3NUD.Location = new System.Drawing.Point(848, 154);
             this.Gear3NUD.Maximum = new decimal(new int[] {
             10,
             0,
@@ -356,7 +370,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             0,
             0,
             65536});
-            this.Gear2NUD.Location = new System.Drawing.Point(838, 105);
+            this.Gear2NUD.Location = new System.Drawing.Point(848, 123);
             this.Gear2NUD.Maximum = new decimal(new int[] {
             10,
             0,
@@ -375,7 +389,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             0,
             0,
             65536});
-            this.Gear1NUD.Location = new System.Drawing.Point(838, 75);
+            this.Gear1NUD.Location = new System.Drawing.Point(848, 93);
             this.Gear1NUD.Maximum = new decimal(new int[] {
             10,
             0,
@@ -394,7 +408,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             0,
             0,
             65536});
-            this.FinalGearNUD.Location = new System.Drawing.Point(838, 45);
+            this.FinalGearNUD.Location = new System.Drawing.Point(848, 63);
             this.FinalGearNUD.Maximum = new decimal(new int[] {
             10,
             0,
@@ -408,7 +422,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // Gear9Bar
             // 
             this.Gear9Bar.LargeChange = 200;
-            this.Gear9Bar.Location = new System.Drawing.Point(97, 323);
+            this.Gear9Bar.Location = new System.Drawing.Point(107, 341);
             this.Gear9Bar.Maximum = 1000;
             this.Gear9Bar.Name = "Gear9Bar";
             this.Gear9Bar.Size = new System.Drawing.Size(735, 45);
@@ -419,7 +433,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // Gear8Bar
             // 
             this.Gear8Bar.LargeChange = 200;
-            this.Gear8Bar.Location = new System.Drawing.Point(97, 292);
+            this.Gear8Bar.Location = new System.Drawing.Point(107, 310);
             this.Gear8Bar.Maximum = 1000;
             this.Gear8Bar.Name = "Gear8Bar";
             this.Gear8Bar.Size = new System.Drawing.Size(735, 45);
@@ -430,7 +444,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // Gear7Bar
             // 
             this.Gear7Bar.LargeChange = 200;
-            this.Gear7Bar.Location = new System.Drawing.Point(97, 260);
+            this.Gear7Bar.Location = new System.Drawing.Point(107, 278);
             this.Gear7Bar.Maximum = 1000;
             this.Gear7Bar.Name = "Gear7Bar";
             this.Gear7Bar.Size = new System.Drawing.Size(735, 45);
@@ -441,7 +455,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // Gear6Bar
             // 
             this.Gear6Bar.LargeChange = 200;
-            this.Gear6Bar.Location = new System.Drawing.Point(97, 230);
+            this.Gear6Bar.Location = new System.Drawing.Point(107, 248);
             this.Gear6Bar.Maximum = 1000;
             this.Gear6Bar.Name = "Gear6Bar";
             this.Gear6Bar.Size = new System.Drawing.Size(735, 45);
@@ -452,7 +466,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // Gear5Bar
             // 
             this.Gear5Bar.LargeChange = 200;
-            this.Gear5Bar.Location = new System.Drawing.Point(97, 198);
+            this.Gear5Bar.Location = new System.Drawing.Point(107, 216);
             this.Gear5Bar.Maximum = 1000;
             this.Gear5Bar.Name = "Gear5Bar";
             this.Gear5Bar.Size = new System.Drawing.Size(735, 45);
@@ -463,7 +477,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // Gear4Bar
             // 
             this.Gear4Bar.LargeChange = 200;
-            this.Gear4Bar.Location = new System.Drawing.Point(97, 166);
+            this.Gear4Bar.Location = new System.Drawing.Point(107, 184);
             this.Gear4Bar.Maximum = 1000;
             this.Gear4Bar.Name = "Gear4Bar";
             this.Gear4Bar.Size = new System.Drawing.Size(735, 45);
@@ -474,7 +488,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // Gear3Bar
             // 
             this.Gear3Bar.LargeChange = 200;
-            this.Gear3Bar.Location = new System.Drawing.Point(97, 136);
+            this.Gear3Bar.Location = new System.Drawing.Point(107, 154);
             this.Gear3Bar.Maximum = 1000;
             this.Gear3Bar.Name = "Gear3Bar";
             this.Gear3Bar.Size = new System.Drawing.Size(735, 45);
@@ -485,7 +499,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // Gear2Bar
             // 
             this.Gear2Bar.LargeChange = 200;
-            this.Gear2Bar.Location = new System.Drawing.Point(97, 105);
+            this.Gear2Bar.Location = new System.Drawing.Point(107, 123);
             this.Gear2Bar.Maximum = 1000;
             this.Gear2Bar.Name = "Gear2Bar";
             this.Gear2Bar.Size = new System.Drawing.Size(735, 45);
@@ -496,7 +510,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // Gear1Bar
             // 
             this.Gear1Bar.LargeChange = 200;
-            this.Gear1Bar.Location = new System.Drawing.Point(97, 75);
+            this.Gear1Bar.Location = new System.Drawing.Point(107, 93);
             this.Gear1Bar.Maximum = 1000;
             this.Gear1Bar.Name = "Gear1Bar";
             this.Gear1Bar.Size = new System.Drawing.Size(735, 45);
@@ -507,7 +521,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // FinalGearBar
             // 
             this.FinalGearBar.LargeChange = 200;
-            this.FinalGearBar.Location = new System.Drawing.Point(97, 45);
+            this.FinalGearBar.Location = new System.Drawing.Point(107, 63);
             this.FinalGearBar.Maximum = 1000;
             this.FinalGearBar.Name = "FinalGearBar";
             this.FinalGearBar.Size = new System.Drawing.Size(735, 45);
@@ -519,7 +533,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // 
             this.LBL_FinalGear.AutoSize = true;
             this.LBL_FinalGear.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_FinalGear.Location = new System.Drawing.Point(22, 45);
+            this.LBL_FinalGear.Location = new System.Drawing.Point(32, 63);
             this.LBL_FinalGear.Name = "LBL_FinalGear";
             this.LBL_FinalGear.Size = new System.Drawing.Size(55, 27);
             this.LBL_FinalGear.TabIndex = 1;
@@ -529,25 +543,11 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             // 
             this.LBL_Gears.AutoSize = true;
             this.LBL_Gears.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_Gears.Location = new System.Drawing.Point(449, 13);
+            this.LBL_Gears.Location = new System.Drawing.Point(449, 10);
             this.LBL_Gears.Name = "LBL_Gears";
             this.LBL_Gears.Size = new System.Drawing.Size(67, 27);
             this.LBL_Gears.TabIndex = 1;
             this.LBL_Gears.Text = "Gears";
-            // 
-            // BTN_Refresh
-            // 
-            this.BTN_Refresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.BTN_Refresh.FlatAppearance.BorderSize = 0;
-            this.BTN_Refresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_Refresh.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTN_Refresh.Location = new System.Drawing.Point(664, 12);
-            this.BTN_Refresh.Name = "BTN_Refresh";
-            this.BTN_Refresh.Size = new System.Drawing.Size(159, 34);
-            this.BTN_Refresh.TabIndex = 39;
-            this.BTN_Refresh.Text = "Refresh";
-            this.BTN_Refresh.UseVisualStyleBackColor = false;
-            this.BTN_Refresh.Click += new System.EventHandler(this.BTN_Refresh_Click);
             // 
             // Gears
             // 
