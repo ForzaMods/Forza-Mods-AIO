@@ -49,6 +49,7 @@ namespace Forza_Mods_AIO
             this.TabHolder = new System.Windows.Forms.Panel();
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
             this.InitialBGworker = new System.ComponentModel.BackgroundWorker();
+            this.windows8Theme1 = new Telerik.WinControls.Themes.Windows8Theme();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -379,6 +380,7 @@ namespace Forza_Mods_AIO
         public System.Windows.Forms.Panel TabHolder;
         public System.ComponentModel.BackgroundWorker CheckAttachedworker;
         public System.ComponentModel.BackgroundWorker InitialBGworker;
+        private Telerik.WinControls.Themes.Windows8Theme windows8Theme1;
     }
 }
 
