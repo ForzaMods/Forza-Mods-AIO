@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using Memory;
 using ContainerReader;
+using BaseNcoding;
+using System.Text.RegularExpressions;
 
 namespace Forza_Mods_AIO.TabForms
 {
@@ -80,9 +82,7 @@ namespace Forza_Mods_AIO.TabForms
 
             if (Radio_MS.Checked && LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
             {
-                
                 SwapMSSave();
-
             }
             else if (Radio_Steam.Checked && LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
                 FindSteamSave();
@@ -238,12 +238,33 @@ namespace Forza_Mods_AIO.TabForms
             else
                 MessageBox.Show("Options not selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+        public static string GetAlphabet(int charsCount)
+        {
+            var result = new StringBuilder(charsCount);
+            int i = 0;
+            int count = 0;
+            do
+            {
+                char c = (char)i;
+                if (!char.IsControl(c) && !char.IsWhiteSpace(c))
+                {
+                    result.Append(c);
+                    count++;
+                }
+                i++;
+            }
+            while (count < charsCount);
 
+            return result.ToString();
+        }
         private void LST_Savegames_SelectedIndexChanged(object sender, EventArgs e)
         {
+            MessageBox.Show(savemetadata[LST_Savegames.SelectedIndex]);
+            string alpha = GetAlphabet(844);
+            var converter = new BaseN(alpha);
             try
             {
-                TXT_SaveInfo.Text = savemetadata[LST_Savegames.SelectedIndex];
+                TXT_SaveInfo.Text = Encoding.ASCII.GetString(converter.Decode(Regex.Replace(savemetadata[LST_Savegames.SelectedIndex], @"\t|\n|\r", String.Empty)));
             }
                 catch
             {

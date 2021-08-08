@@ -470,7 +470,7 @@ namespace Forza_Mods_AIO.TabForms
             Tyres.Visible = false;
             Gears.Visible = false;
             Alignment.Visible = false;
-            Aero.Visible = false;
+            //Aero.Visible = false;
             //Saveswapper.Visible = false;
             //LiveTuning.Visible = false;
             //Speedhack.Visible = false;
@@ -540,8 +540,8 @@ namespace Forza_Mods_AIO.TabForms
             BTN_Aero.BackColor = Color.FromArgb(45, 45, 48);
             Panel_Aero.BackColor = Color.FromArgb(150, 11, 166);
             ClearTabItems();
-            this.TabHolder.Controls.Add(Aero);
-            Aero.Visible = true;
+            //this.TabHolder.Controls.Add(Aero);
+            //Aero.Visible = true;
         }
         private void BTN_Brake_Click(object sender, EventArgs e)
         {
@@ -580,6 +580,18 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (Gears.Visible == false)
                 Panel_Gears.BackColor = Color.FromArgb(28, 28, 28);
+        }
+
+        private void BTN_Alignment_MouseEnter(object sender, EventArgs e)
+        {
+            if (Alignment.Visible == false)
+                Panel_Alignment.BackColor = Color.FromArgb(93, 93, 100);
+        }
+
+        private void BTN_Alignment_MouseLeave(object sender, EventArgs e)
+        {
+            if (Alignment.Visible == false)
+                Panel_Alignment.BackColor = Color.FromArgb(28, 28, 28);
         }
     }
 }
