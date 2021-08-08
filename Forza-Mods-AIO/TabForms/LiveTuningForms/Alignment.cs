@@ -223,10 +223,13 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
         }
         public void CamberRefresh()
         {
-            refresh = true;
-            FrontCamberVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.FrontLeftCamber1Addr, round: false) + 0.0431509) / 0.00871621); FrontCamberNUD.Value = Convert.ToDecimal(FrontCamberVal); FrontCamberBar.Value = Convert.ToInt32(FrontCamberVal * 10);
-            RearCamberVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.RearLeftCamber1Addr, round: false) + 0.135588) / 0.00864161); RearCamberNUD.Value = Convert.ToDecimal(RearCamberVal); RearCamberBar.Value = Convert.ToInt32(RearCamberVal * 10);
-            refresh = false;
+            if (MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
+            {
+                refresh = true;
+                FrontCamberVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.FrontLeftCamber1Addr, round: false) + 0.0431509) / 0.00871621); FrontCamberNUD.Value = Convert.ToDecimal(FrontCamberVal); FrontCamberBar.Value = Convert.ToInt32(FrontCamberVal * 10);
+                RearCamberVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.RearLeftCamber1Addr, round: false) + 0.135588) / 0.00864161); RearCamberNUD.Value = Convert.ToDecimal(RearCamberVal); RearCamberBar.Value = Convert.ToInt32(RearCamberVal * 10);
+                refresh = false;
+            }
         }
         public void ToeRefresh()
         {
@@ -237,14 +240,14 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
         }
         private void FrontCamberBar_Scroll(object sender, EventArgs e)
         {
-            if(!refresh)
+            if(!refresh && MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
             {
                 FrontCamberNUD.Value = Convert.ToDecimal(FrontCamberBar.Value) / 10;
             }
         }
         private void FrontCamberNUD_ValueChanged(object sender, EventArgs e)
         {
-            if (!refresh)
+            if (!refresh && MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
             {
                 FrontCamberBar.Value = Convert.ToInt32(FrontCamberNUD.Value * 10);
                 SetFrontCamber();
@@ -252,14 +255,14 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
         }
         private void RearCamberBar_Scroll(object sender, EventArgs e)
         {
-            if (!refresh)
+            if (!refresh && MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
             {
                 RearCamberNUD.Value = Convert.ToDecimal(RearCamberBar.Value) / 10;
             }
         }
         private void RearCamberNUD_ValueChanged(object sender, EventArgs e)
         {
-            if (!refresh)
+            if (!refresh && MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
             {
                 RearCamberBar.Value = Convert.ToInt32(RearCamberNUD.Value * 10);
                 SetRearCamber();
@@ -267,7 +270,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
         }
         private void FrontToeBar_Scroll(object sender, EventArgs e)
         {
-            if (!refresh)
+            if (!refresh && MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
             {
                 FrontToeNUD.Value = Convert.ToDecimal(FrontToeBar.Value) / 10;
                 FrontToeVal = Convert.ToSingle((FrontToeNUD.Value / Convert.ToDecimal(57.295776347772800370292061126347)) - Convert.ToDecimal(0.00000001481075884));
@@ -277,7 +280,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
         }
         private void FrontToeNUD_ValueChanged(object sender, EventArgs e)
         {
-            if (!refresh)
+            if (!refresh && MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
             {
                 FrontToeBar.Value = Convert.ToInt32(FrontToeNUD.Value * 10);
                 FrontToeVal = Convert.ToSingle((FrontToeNUD.Value / Convert.ToDecimal(57.295776347772800370292061126347)) - Convert.ToDecimal(0.00000001481075884));
@@ -287,7 +290,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
         }
         private void RearToeBar_Scroll(object sender, EventArgs e)
         {
-            if (!refresh)
+            if (!refresh && MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
             {
                 RearToeNUD.Value = Convert.ToDecimal(RearToeBar.Value) / 10;
                 RearToeVal = Convert.ToSingle((RearToeNUD.Value / Convert.ToDecimal(114.61758396931828138337574705036)) - Convert.ToDecimal(0.000002134096121));
@@ -297,7 +300,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
         }
         private void RearToeNUD_ValueChanged(object sender, EventArgs e)
         {
-            if (!refresh)
+            if (!refresh && MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
             {
                 RearToeBar.Value = Convert.ToInt32(RearToeNUD.Value * 10);
                 RearToeVal = Convert.ToSingle((RearToeNUD.Value / Convert.ToDecimal(114.61758396931828138337574705036)) - Convert.ToDecimal(0.000002134096121));

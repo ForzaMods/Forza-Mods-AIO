@@ -80,11 +80,9 @@ public class SigScanSharp
 
         byte[][] arrBytePatterns = new byte[g_dictStringPatterns.Count][];
         ulong[] arrResult = new ulong[g_dictStringPatterns.Count];
-        
         // PARSE PATTERNS
         for (int nIndex = 0; nIndex < g_dictStringPatterns.Count; nIndex++)
             arrBytePatterns[nIndex] = ParsePatternString(g_dictStringPatterns.ElementAt(nIndex).Value);
-        
         // SCAN FOR PATTERNS
         for (int nModuleIndex = 0; nModuleIndex < g_arrModuleBuffer.Length; nModuleIndex++)
         {
@@ -111,10 +109,8 @@ public class SigScanSharp
     private byte[] ParsePatternString(string szPattern)
 	{
 		List<byte> patternbytes = new List<byte>();
-	
 		foreach (var szByte in szPattern.Split(' '))
 			patternbytes.Add(szByte == "?" ? (byte)0x0 : Convert.ToByte(szByte, 16));
-	
 		return patternbytes.ToArray();
 	}
 

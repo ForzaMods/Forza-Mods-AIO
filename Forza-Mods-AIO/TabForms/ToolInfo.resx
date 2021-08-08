@@ -142,4 +142,7 @@ Mark - More backend help.
   <metadata name="RainbowWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>593, 25</value>
   </metadata>
+  <metadata name="office2010BlackTheme1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>732, 25</value>
+  </metadata>
 </root>

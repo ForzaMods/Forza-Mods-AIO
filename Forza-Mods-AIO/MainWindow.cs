@@ -24,12 +24,12 @@ namespace Forza_Mods_AIO
         public static MainWindow main;
         public DiscordRpcClient client;
         public DiscordRpcClient RPCclient = new DiscordRpcClient("841090098837323818");
-        ToolInfo ToolInfo = new ToolInfo() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-        AddCars AddCars = new AddCars() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-        StatsEditor StatsEditor = new StatsEditor() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-        Saveswapper Saveswapper = new Saveswapper() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-        LiveTuning LiveTuning = new LiveTuning() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-        Speedhack Speedhack = new Speedhack() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public ToolInfo ToolInfo = new ToolInfo() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public AddCars AddCars = new AddCars() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public StatsEditor StatsEditor = new StatsEditor() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public Saveswapper Saveswapper = new Saveswapper() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public LiveTuning LiveTuning = new LiveTuning() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public Speedhack Speedhack = new Speedhack() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         public bool IsRPCInitialized = false; public bool FirstLoad = true;
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
@@ -117,13 +117,39 @@ namespace Forza_Mods_AIO
             }
             string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
             bool Exists = File.Exists(SettingsPath);
-            if(!Exists)
+            if(!Exists || new FileInfo(SettingsPath).Length == 0)
             {
                 var SettingsParser = new FileIniDataParser();
                 IniData Settings = new IniData();
                 Settings["Settings"]["Theme Colour"] = "#960ba6";
                 Settings["Settings"]["Rainbow Speed"] = "1";
+                Settings["Settings"]["Volume Control"] = "False";
+                Settings["Settings"]["Volume"] = "5";
                 SettingsParser.SaveFile(SettingsPath, Settings);
+                Settings = SettingsParser.ReadFile(SettingsPath);
+                float Speed = Convert.ToSingle(Settings["Settings"]["Rainbow Speed"]);
+                string TC = Settings["Settings"]["Theme Colour"];
+                if (Speed > 10)
+                    Speed = 10;
+                else if (Speed < 1)
+                    Speed = 1;
+                ToolInfo.Rainbowspeed = Speed;
+                ToolInfo.RainbowSpeed.Value = (decimal)Speed;
+                ToolInfo.VolNum.Value = int.Parse(Settings["Settings"]["Volume"]);
+                if (bool.Parse(Settings["Settings"]["Volume Control"]))
+                    ToolInfo.Mute.Checked = true;
+                if (TC == "Rainbow")
+                    ToolInfo.RainbowBox.Checked = true;
+                else
+                {
+                    ToolInfo.RainbowSpeed.Enabled = false;
+                    MainWindow.ThemeColour = TC;
+                    ToolInfo.UpdateThemeColour(ColorTranslator.FromHtml(MainWindow.ThemeColour));
+                    ToolInfo.ColourPicker.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
+                    ToolInfo.ColourSlider.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
+                    ToolInfo.ColourPicker.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                    ToolInfo.ColourSlider.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                }
             }
             else
             {
@@ -131,18 +157,20 @@ namespace Forza_Mods_AIO
                 IniData Settings = SettingsParser.ReadFile(SettingsPath);
                 string TC = Settings["Settings"]["Theme Colour"];
                 float Speed = Convert.ToSingle(Settings["Settings"]["Rainbow Speed"]);
+                if (Speed > 10)
+                    Speed = 10;
+                else if (Speed < 1)
+                    Speed = 1;
+                ToolInfo.Rainbowspeed = Speed;
+                ToolInfo.RainbowSpeed.Value = (decimal)Speed;
+                ToolInfo.VolNum.Value = int.Parse(Settings["Settings"]["Volume"]);
+                if (bool.Parse(Settings["Settings"]["Volume Control"]))
+                    ToolInfo.Mute.Checked = true;
                 if (TC == "Rainbow")
-                {
-                    if (Speed > 10)
-                        Speed = 10;
-                    else if (Speed < 1)
-                        Speed = 1;
-                    ToolInfo.Rainbowspeed = Speed;
-                    ToolInfo.RainbowSpeed.Value = (decimal)Speed;
                     ToolInfo.RainbowBox.Checked = true;
-                }
                 else
                 {
+                    ToolInfo.RainbowSpeed.Enabled = false;
                     MainWindow.ThemeColour = TC;
                     ToolInfo.UpdateThemeColour(ColorTranslator.FromHtml(MainWindow.ThemeColour));
                     ToolInfo.ColourPicker.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
@@ -232,6 +260,14 @@ namespace Forza_Mods_AIO
                 {
                     ToolInfo.LBL_Attached.Text = "Attached to FH4";
                     ToolInfo.LBL_Attached.ForeColor = Color.Green;
+                    if (m.ReadByte(Speedhack.PastStartAddr) == 1)
+                    {
+                        Speedhack.CheckpointBox.Enabled = true;
+                        Speedhack.AutoWayPoint.Enabled = true;
+                        Speedhack.TimeCheckBox.Enabled = true;
+                        Speedhack.XPBox.Enabled = true;
+                        Speedhack.TimerButton.Enabled = true;
+                    }
                     EnableButtons();
                     ToolInfo.AOBScanProgress.Hide();
                 }
@@ -337,6 +373,7 @@ namespace Forza_Mods_AIO
                     {
                         for (int i = ToolInfo.AOBScanProgress.Value1; i <= 50; i++)
                         { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
+                        //ToolInfo.Mute.Enabled = true;
                         Speedhack.FOVnopOutAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.FOVOutsig, true, true)).FirstOrDefault() + 123;
                         Speedhack.FOVnopOutAddr = Speedhack.FOVnopOutAddrLong.ToString("X");
                     }
@@ -441,6 +478,14 @@ namespace Forza_Mods_AIO
                     { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                     LiveTuning.Addresses();
                     Speedhack.Addresses();
+                    if (m.ReadByte(Speedhack.PastStartAddr) == 0)
+                    {
+                        Speedhack.CheckpointBox.Enabled = false;
+                        Speedhack.AutoWayPoint.Enabled = false;
+                        Speedhack.TimeCheckBox.Enabled = false;
+                        Speedhack.XPBox.Enabled = false;
+                        Speedhack.TimerButton.Enabled = false;
+                    }
                     Speedhack.ReadSpeedDefaultValues();
                     Speedhack.done = true;
                 }
@@ -515,7 +560,7 @@ namespace Forza_Mods_AIO
                 MainWindow.m.WriteBytes(Speedhack.WayPointxASMAddr, WayPointCodeBefore);
                 try { m.WriteBytes(Speedhack.CheckPointxASMAddr, original); } catch { }
             }
-            this.Close();
+            Environment.Exit(0);
         }
         private void BTN_MIN_Click(object sender, EventArgs e)
         {
@@ -525,7 +570,8 @@ namespace Forza_Mods_AIO
         {
             ClearColours();
             BTN_TabInfo.BackColor = Color.FromArgb(45, 45, 48);
-            Panel_Info.BackColor = ColorTranslator.FromHtml(ThemeColour);
+            if (ThemeColour != "Rainbow")
+                Panel_Info.BackColor = ColorTranslator.FromHtml(ThemeColour);
             ClearTabItems();
             this.TabHolder.Controls.Add(ToolInfo);
             ToolInfo.Visible = true;
@@ -540,7 +586,8 @@ namespace Forza_Mods_AIO
                 //do colours and hide/show ui
                 ClearColours();
                 BTN_TabAddCars.BackColor = Color.FromArgb(45, 45, 48);
-                Panel_AddCars.BackColor = ColorTranslator.FromHtml(ThemeColour);
+                if(ThemeColour != "Rainbow")
+                    Panel_AddCars.BackColor = ColorTranslator.FromHtml(ThemeColour);
                 ClearTabItems();
                 this.TabHolder.Controls.Add(AddCars);
                 AddCars.Visible = true;
@@ -559,7 +606,8 @@ namespace Forza_Mods_AIO
             {
                 ClearColours();
                 BTN_TabStatsEditor.BackColor = Color.FromArgb(45, 45, 48);
-                Panel_StatsEditor.BackColor = ColorTranslator.FromHtml(ThemeColour);
+                if (ThemeColour != "Rainbow")
+                    Panel_StatsEditor.BackColor = ColorTranslator.FromHtml(ThemeColour);
                 ClearTabItems();
                 this.TabHolder.Controls.Add(StatsEditor);
                 StatsEditor.Visible = true;
@@ -576,7 +624,8 @@ namespace Forza_Mods_AIO
         {
             ClearColours();
             BTN_TabSaveswap.BackColor = Color.FromArgb(45, 45, 48);
-            Panel_Saveswap.BackColor = ColorTranslator.FromHtml(ThemeColour);
+            if (ThemeColour != "Rainbow")
+                Panel_Saveswap.BackColor = ColorTranslator.FromHtml(ThemeColour);
             ClearTabItems();
             this.TabHolder.Controls.Add(Saveswapper);
             Saveswapper.Visible = true;
@@ -591,9 +640,10 @@ namespace Forza_Mods_AIO
             {
                 ClearColours();
                 BTN_TabLiveTuning.BackColor = Color.FromArgb(45, 45, 48);
-                Panel_LiveTuning.BackColor = ColorTranslator.FromHtml(ThemeColour);
+                if (ThemeColour != "Rainbow")
+                    Panel_LiveTuning.BackColor = ColorTranslator.FromHtml(ThemeColour);
                 ClearTabItems();
-                this.TabHolder.Controls.Add(LiveTuning);
+                TabHolder.Controls.Add(LiveTuning);
                 LiveTuning.Visible = true;
                 TabForms.LiveTuningForms.Tyres.t.TyreRefresh();
                 TabForms.LiveTuningForms.Gears.g.GearsRefresh();
@@ -612,10 +662,10 @@ namespace Forza_Mods_AIO
         {
             if (Speedhack.IsAttached)
             {
-
                 ClearColours();
                 BTN_TabSpeedhack.BackColor = Color.FromArgb(45, 45, 48);
-                Panel_Speedhack.BackColor = ColorTranslator.FromHtml(ThemeColour);
+                if (ThemeColour != "Rainbow")
+                    Panel_Speedhack.BackColor = ColorTranslator.FromHtml(ThemeColour);
                 ClearTabItems();
                 TabHolder.Controls.Add(Speedhack);
                 Speedhack.Visible = true;
