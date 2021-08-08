@@ -10,6 +10,7 @@ using IniParser;
 using IniParser.Model;
 using System.Drawing;
 using MechanikaDesign.WinForms.UI.ColorPicker;
+using System.Collections.Generic;
 
 namespace Forza_Mods_AIO
 {
@@ -22,6 +23,7 @@ namespace Forza_Mods_AIO
         Color colorRgb;
         bool lockUpdates = false;
         public float Rainbowspeed;
+        public string RainbowColour;
 
         [DllImport("user32.dll")]
         public static extern IntPtr FindWindow(string strClassName, string strWindowName);
@@ -36,6 +38,7 @@ namespace Forza_Mods_AIO
             VersionLabel.Text += MainWindow.CurrVer.ToString();
             File.Delete(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv"));
             File.Delete(Path.Combine(Path.GetTempPath(), "FH4_Cars.csv"));
+            //Mute.Enabled = false;
         }
 
         private void DraffsYTLink_Click(object sender, EventArgs e)
@@ -56,7 +59,7 @@ namespace Forza_Mods_AIO
             if(Mute.Checked == false)
             {
                 VolStart = false;
-                ((Telerik.WinControls.Primitives.FillPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = Color.FromArgb(45, 45, 48);
+                //((Telerik.WinControls.Primitives.FillPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = Color.FromArgb(45, 45, 48);
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(30, 30, 33);
                 Volumeworker.CancelAsync();
                 try
@@ -68,34 +71,50 @@ namespace Forza_Mods_AIO
             }
             else
             {
-                ((Telerik.WinControls.Primitives.FillPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                //((Telerik.WinControls.Primitives.FillPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 VolStart = true;
                 Volumeworker.RunWorkerAsync();
+                string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
+                var SettingsParser = new FileIniDataParser();
+                IniData Settings = new IniData();
+                Settings["Settings"]["Theme Colour"] = RainbowColour;
+                Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
+                Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
+                Settings["Settings"]["Volume"] = VolNum.Value.ToString();
+                SettingsParser.WriteFile(SettingsPath, Settings);
             }
         }
 
         private void Volumeworker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while(VolStart)
+            bool g2g = false;
+            while (VolStart)
             {
-                while (MainWindow.m.OpenProcess("ForzaHorizon4") && Speedhack.PastIntroAddr != null)
+                try
+                { var yeet = MainWindow.m.ReadByte(Speedhack.PastIntroAddr); g2g = true; }
+                catch
+                { g2g = false; }
+                while (MainWindow.m.OpenProcess("ForzaHorizon4") && Speedhack.PastIntroAddr != null && Mute.Enabled && g2g)
                 {
+                    var yeet2 = MainWindow.m.ReadByte(Speedhack.PastIntroAddr);
                     if (MainWindow.m.ReadByte(Speedhack.PastIntroAddr) == 1)
                     {
-                        VolumeMixer.SetApplicationMute(Process.GetProcessesByName("ForzaHorizon4")[0].Id, false);
-                        VolumeMixer.SetApplicationVolume(Process.GetProcessesByName("ForzaHorizon4")[0].Id, (float)VolNum.Value);
+                        if ((DateTime.Now - Process.GetProcessesByName("ForzaHorizon4")[0].StartTime).TotalSeconds >= 25)
+                        {
+                            VolumeMixer.SetApplicationMute(Process.GetProcessesByName("ForzaHorizon4")[0].Id, false);
+                            VolumeMixer.SetApplicationVolume(Process.GetProcessesByName("ForzaHorizon4")[0].Id, (float)VolNum.Value);
+                        }
                     }
                     else
                     {
                         while (MainWindow.m.ReadByte(Speedhack.PastIntroAddr) == 0)
                         {
-                            try
+                            if ((DateTime.Now - Process.GetProcessesByName("ForzaHorizon4")[0].StartTime).TotalSeconds >= 25)
                             {
                                 VolumeMixer.SetApplicationMute(Process.GetProcessesByName("ForzaHorizon4")[0].Id, true);
                                 VolumeMixer.SetApplicationVolume(Process.GetProcessesByName("ForzaHorizon4")[0].Id, (float)VolNum.Value);
                             }
-                            catch { }
                             if (Volumeworker.CancellationPending)
                             {
                                 e.Cancel = true;
@@ -104,12 +123,11 @@ namespace Forza_Mods_AIO
                             Thread.Sleep(1);
                         }
                         Thread.Sleep(20000);
-                        try
+                        if ((DateTime.Now - Process.GetProcessesByName("ForzaHorizon4")[0].StartTime).TotalSeconds >= 25)
                         {
                             VolumeMixer.SetApplicationMute(Process.GetProcessesByName("ForzaHorizon4")[0].Id, false);
                             VolumeMixer.SetApplicationVolume(Process.GetProcessesByName("ForzaHorizon4")[0].Id, (float)VolNum.Value);
                         }
-                        catch { }
                     }
                     if (Volumeworker.CancellationPending)
                     {
@@ -152,7 +170,14 @@ namespace Forza_Mods_AIO
         {
             if(ColourPickerBox.Checked)
             {
-                ((Telerik.WinControls.Primitives.FillPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                if (!lockUpdates)
+                {
+                    ColourPicker.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
+                    ColourSlider.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
+                    ColourPicker.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                    ColourSlider.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                }
+                //((Telerik.WinControls.Primitives.FillPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 ((Telerik.WinControls.Primitives.BorderPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 RainbowBox.Visible = false;
                 RainbowSpeed.Visible = false;
@@ -161,7 +186,7 @@ namespace Forza_Mods_AIO
             }
             else
             {
-                ((Telerik.WinControls.Primitives.FillPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = Color.FromArgb(45, 45, 48);
+                //((Telerik.WinControls.Primitives.FillPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = Color.FromArgb(45, 45, 48);
                 ((Telerik.WinControls.Primitives.BorderPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(30, 30, 33);
                 RainbowBox.Visible = true;
                 RainbowSpeed.Visible = true;
@@ -209,6 +234,8 @@ namespace Forza_Mods_AIO
                 IniData Settings = new IniData();
                 Settings["Settings"]["Theme Colour"] = "Rainbow";
                 Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
+                Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
+                Settings["Settings"]["Volume"] = VolNum.Value.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
             }
             else if (ColourPickerBox.Checked)
@@ -217,8 +244,11 @@ namespace Forza_Mods_AIO
                 var SettingsParser = new FileIniDataParser();
                 IniData Settings = new IniData();
                 Settings["Settings"]["Theme Colour"] = MainWindow.ThemeColour;
+                Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
+                Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
+                Settings["Settings"]["Volume"] = VolNum.Value.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
-                ((Telerik.WinControls.Primitives.FillPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = color;
+                //((Telerik.WinControls.Primitives.FillPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = color;
                 ((Telerik.WinControls.Primitives.BorderPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             }
             else
@@ -229,15 +259,9 @@ namespace Forza_Mods_AIO
                 string TC = Settings["Settings"]["Theme Colour"]; MainWindow.ThemeColour = TC;
             }
             if (RainbowBox.Checked)
-            {
-                ((Telerik.WinControls.Primitives.FillPrimitive)RainbowBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = color;
                 ((Telerik.WinControls.Primitives.BorderPrimitive)RainbowBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
-            }
             if (Mute.Checked)
-            {
-                ((Telerik.WinControls.Primitives.FillPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = color;
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
-            }
             ((Telerik.WinControls.UI.ProgressIndicatorElement)AOBScanProgress.GetChildAt(0).GetChildAt(0)).BackColor2 = color;
             ((Telerik.WinControls.UI.ProgressIndicatorElement)AOBScanProgress.GetChildAt(0).GetChildAt(0)).BackColor3 = color;
             ((Telerik.WinControls.UI.ProgressIndicatorElement)AOBScanProgress.GetChildAt(0).GetChildAt(0)).BackColor4 = color;
@@ -246,23 +270,50 @@ namespace Forza_Mods_AIO
             ((Telerik.WinControls.UI.ProgressIndicatorElement)AOBScanProgress.GetChildAt(0).GetChildAt(1)).BackColor3 = color;
             ((Telerik.WinControls.UI.ProgressIndicatorElement)AOBScanProgress.GetChildAt(0).GetChildAt(1)).BackColor4 = color;
             ((Telerik.WinControls.UI.ProgressIndicatorElement)AOBScanProgress.GetChildAt(0).GetChildAt(1)).BackColor = color;
-            StatsEditor.s.StatsTable.DefaultCellStyle.SelectionBackColor = color;
-            StatsEditor.s.StatsTable.RowsDefaultCellStyle.SelectionBackColor = color;
-            StatsEditor.s.StatsTable.AlternatingRowsDefaultCellStyle.SelectionBackColor = color;
+            /*
             double luminance = (0.299 * color.R + 0.587 * color.G + 0.114 * color.B) / 255;
             if (luminance > 0.5)
                 bow = 0;
             else
                 bow = 255;
-            StatsEditor.s.StatsTable.DefaultCellStyle.SelectionForeColor = Color.FromArgb(bow, bow, bow);
-            StatsEditor.s.StatsTable.RowsDefaultCellStyle.SelectionForeColor = Color.FromArgb(bow, bow, bow);
-            StatsEditor.s.StatsTable.AlternatingRowsDefaultCellStyle.SelectionForeColor = Color.FromArgb(bow, bow, bow);
             ((Telerik.WinControls.Primitives.CheckPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2)).ForeColor = Color.FromArgb(bow, bow, bow);
             ((Telerik.WinControls.Primitives.CheckPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2)).ForeColor = Color.FromArgb(bow, bow, bow);
             ((Telerik.WinControls.Primitives.CheckPrimitive)RainbowBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2)).ForeColor = Color.FromArgb(bow, bow, bow);
-            StatsEditor.s.StatsTable.Update();
-            StatsEditor.s.StatsTable.Refresh();
-            MainWindow.main.Panel_Info.BackColor = color;
+            */
+            if(MainWindow.main.ToolInfo.Visible)
+                MainWindow.main.Panel_Info.BackColor = color;
+            if (MainWindow.main.AddCars.Visible)
+                MainWindow.main.Panel_AddCars.BackColor = color;
+            if (MainWindow.main.StatsEditor.Visible)
+                MainWindow.main.Panel_StatsEditor.BackColor = color;
+            if (MainWindow.main.Saveswapper.Visible)
+                MainWindow.main.Panel_Saveswap.BackColor = color;
+            if (MainWindow.main.LiveTuning.Visible)
+                MainWindow.main.Panel_LiveTuning.BackColor = color;
+            if (MainWindow.main.Speedhack.Visible)
+                MainWindow.main.Panel_Speedhack.BackColor = color;
+            if(Speedhack.s.TB_SHCarNoClip.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.TB_SHWallNoClip.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.VelHackButton.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.WheelSpeedButton.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.TurnAssistButton.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.SuperBreakButton.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.StopAllWheelsButton.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.CheckpointBox.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.AutoWayPoint.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.TimeCheckBox.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.TimerButton.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             DraffsYTLink.ForeColor = color;
             UCPostLink.ForeColor = color;
             DiscordLink.ForeColor = color;
@@ -278,6 +329,16 @@ namespace Forza_Mods_AIO
             }
             else
             {
+                //((Telerik.WinControls.Primitives.FillPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = Color.FromArgb(45, 45, 48);
+                ((Telerik.WinControls.Primitives.BorderPrimitive)RainbowBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(30, 30, 33);
+                string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
+                var SettingsParser = new FileIniDataParser();
+                IniData Settings = new IniData();
+                Settings["Settings"]["Theme Colour"] = RainbowColour;
+                Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
+                SettingsParser.WriteFile(SettingsPath, Settings);
+                MainWindow.ThemeColour = RainbowColour;
+                UpdateThemeColour(ColorTranslator.FromHtml(RainbowColour));
                 ColourPickerBox.Enabled = true;
                 RainbowSpeed.Enabled = false;
                 RainbowWorker.CancelAsync();
@@ -293,6 +354,7 @@ namespace Forza_Mods_AIO
                 t.UpdateThemeColour(rainbow);
                 Thread.Sleep(10);
                 i += (float)(Rainbowspeed / 1000);
+                RainbowColour = ColorTranslator.ToHtml(rainbow);
                 if (RainbowWorker.CancellationPending)
                     e.Cancel = true;
             }

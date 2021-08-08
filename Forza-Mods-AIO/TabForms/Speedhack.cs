@@ -150,11 +150,7 @@ namespace Forza_Mods_AIO.TabForms
             ControllerWorker.RunWorkerAsync();
             KBChange.Text = KBKeyString;
             XBChange.Text = XBKeyString;
-            DonoPic.Image = Properties.Resources.default_orange;
-        }
-        private void SpeedHack_Load(object sender, EventArgs e)
-        {
-            MainWindow Main = new MainWindow();
+            DonoPic.Image = Resources.default_orange;
             s = this;
         }
         public static void Addresses()
@@ -188,7 +184,6 @@ namespace Forza_Mods_AIO.TabForms
         {
             PastIntroAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x21820");
         }
-
 
         #region BG Workers
         public void ControllerWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -502,13 +497,60 @@ namespace Forza_Mods_AIO.TabForms
                 Thread.Sleep(1);
             }
         }
-        public void TimeWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void StopWheelsWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (Timestart)
+            while (StopToggle)
             {
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (PastStart == 1)
                 {
+                    if (controller != null)
+                    {
+                        var XBState = controller.GetState();
+                        if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue || XBState.Gamepad.Buttons.ToString().Contains("A"))
+                        {
+                            StopAllWheels();
+                        }
+                    }
+                    else if (joystickGuid != Guid.Empty)
+                    {
+                        var datas = joystick.GetCurrentState();
+                        bool[] ControllerButtonstate = datas.Buttons;
+                        int test = DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key;
+                        if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue || ControllerButtonstate[0])
+                        {
+                            StopAllWheels();
+                        }
+                    }
+                    else if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue)
+                    {
+                        StopAllWheels();
+                    }
+                    if (StopWheelsWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        StopToggle = false;
+                    }
+                    Thread.Sleep(1);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        public void TimeWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (Timestart)
+            {
+                var NOP = new byte[5] { 0x90, 0x90, 0x90, 0x90, 0x90 };
+                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                bool get = true;
+                if (PastStart == 1)
+                {
+                    if (get)
+                    {
+                        a.GetTimeAddr(CodeCave2);
+                        MainWindow.m.WriteBytes(TimeNOPAddr, NOP);
+                        get = false;
+                    }
                     short one = GetAsyncKeyState(Keys.LShiftKey);
                     short two = GetAsyncKeyState(Keys.Right);
                     if (GetAsyncKeyState(Keys.NumPad6) is 1 or Int16.MinValue
@@ -635,6 +677,10 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void WayPointWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            while (MainWindow.m.ReadByte(PastStartAddr) == 0)
+            {
+                Thread.Sleep(1);
+            }
             a.GetWayPointXAddr(CodeCave4, out WayPointBaseAddr);
         }
         private void WayPointTPworker_DoWork(object sender, DoWorkEventArgs e)
@@ -673,6 +719,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (SuperBreakButton.Checked == false)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 BreakToggle = false;
                 if (BreakToggle == false)
                 {
@@ -681,6 +728,8 @@ namespace Forza_Mods_AIO.TabForms
             }
             else
             {
+
+                ((Telerik.WinControls.Primitives.BorderPrimitive)SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 BreakToggle = true;
                 Breakstart = true;
                 if (SuperBreakWorker.IsBusy == false)
@@ -693,11 +742,18 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (StopAllWheelsButton.Checked == false)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 StopToggle = false;
+                StopWheelsWorker.CancelAsync();
             }
             else
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 StopToggle = true;
+                if (StopWheelsWorker.IsBusy == false)
+                {
+                    StopWheelsWorker.RunWorkerAsync();
+                }
             }
         }
         public void SuperBreak()
@@ -724,6 +780,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (VelHackButton.Checked == false)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 VelHackToggle = false;
                 if (VelHackToggle == false)
                 {
@@ -732,6 +789,7 @@ namespace Forza_Mods_AIO.TabForms
             }
             else
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 VelHackToggle = true;
                 Velstart = true;
                 if (VelHackWorker.IsBusy == false)
@@ -744,6 +802,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (WheelSpeedButton.Checked == false)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 SpeedHackToggle = false;
                 if (SpeedHackToggle == false)
                 {
@@ -752,6 +811,7 @@ namespace Forza_Mods_AIO.TabForms
             }
             else
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 SpeedHackToggle = true;
                 Speedstart = true;
                 if (SpeedHackWorker.IsBusy == false)
@@ -821,6 +881,8 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (TurnAssistButton.Checked == false)
             {
+
+                ((Telerik.WinControls.Primitives.BorderPrimitive)TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 TurnAssistToggle = false;
                 if (TurnAssistToggle == false)
                 {
@@ -829,6 +891,8 @@ namespace Forza_Mods_AIO.TabForms
             }
             else
             {
+
+                ((Telerik.WinControls.Primitives.BorderPrimitive)TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 TurnAssistToggle = true;
                 Turnstart = true;
                 if (TurnWorker.IsBusy == false)
@@ -880,11 +944,10 @@ namespace Forza_Mods_AIO.TabForms
         #region Time
         private void TimeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
-            var NOP = new byte[5] { 0x90, 0x90, 0x90, 0x90, 0x90 };
             var NOPBefore = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08 };
             if (TimeCheckBox.Checked == false)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 MainWindow.m.WriteBytes(TimeNOPAddr, NOPBefore);
                 TimeToggle = false;
                 if (TimeToggle == false)
@@ -894,8 +957,7 @@ namespace Forza_Mods_AIO.TabForms
             }
             else
             {
-                a.GetTimeAddr(CodeCave2);
-                MainWindow.m.WriteBytes(TimeNOPAddr, NOP);
+                ((Telerik.WinControls.Primitives.BorderPrimitive)TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 TimeToggle = true;
                 Timestart = true;
                 if (TimeWorker.IsBusy == false)
@@ -1038,11 +1100,13 @@ namespace Forza_Mods_AIO.TabForms
 
             if (TB_SHCarNoClip.Checked == false)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 MainWindow.m.WriteBytes(Car1Addr, Jmp3before);
                 MainWindow.m.WriteBytes(Car2Addr, Jmp4before);
             }
             else
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 CarNoClipToggle = true;
                 NCstart = true;
                 if (NoClipWorker.IsBusy == false)
@@ -1057,6 +1121,7 @@ namespace Forza_Mods_AIO.TabForms
             var Jmp2before = new byte[6] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 };
             if (TB_SHWallNoClip.Checked == false)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 WallNoClipToggle = false;
                 if (WallNoClipToggle == false)
                 {
@@ -1067,6 +1132,7 @@ namespace Forza_Mods_AIO.TabForms
             }
             else
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 WallNoClipToggle = true;
                 NCstart = true;
                 if (NoClipWorker.IsBusy == false)
@@ -1632,12 +1698,14 @@ namespace Forza_Mods_AIO.TabForms
             byte[] Normal = new byte[6] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 };
             if (XPBox.Checked == false)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 MainWindow.m.WriteBytes(XPaddr, XPGiveBefore);
                 MainWindow.m.WriteBytes(XPAmountaddr, Normal);
                 XPnup.Enabled = true;
             }
             else
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 a.StartXPtool(CodeCave3);
                 XPnup.Enabled = false;
             }
@@ -1646,11 +1714,14 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (TimerButton.Checked == false)
             {
+
+                ((Telerik.WinControls.Primitives.BorderPrimitive)TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 TimerToggle = false;
                 TimerWorker.CancelAsync();
             }
             else
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 TimerToggle = true;
                 TimerWorker.RunWorkerAsync();
             }

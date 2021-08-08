@@ -31,22 +31,21 @@ namespace Forza_Mods_AIO.TabForms
         {
             this.components = new System.ComponentModel.Container();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.TB_SHWallNoClip = new Telerik.WinControls.UI.RadCheckBox();
+            this.TB_SHCarNoClip = new Telerik.WinControls.UI.RadCheckBox();
             this.LBL_SHNoClip = new System.Windows.Forms.Label();
-            this.TB_SHCarNoClip = new System.Windows.Forms.CheckBox();
-            this.TB_SHWallNoClip = new System.Windows.Forms.CheckBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.TimerIndicator = new System.Windows.Forms.Panel();
+            this.XPBox = new Telerik.WinControls.UI.RadCheckBox();
+            this.TimeCheckBox = new Telerik.WinControls.UI.RadCheckBox();
+            this.AutoWayPoint = new Telerik.WinControls.UI.RadCheckBox();
+            this.CheckpointBox = new Telerik.WinControls.UI.RadCheckBox();
             this.TimerLabel = new System.Windows.Forms.Label();
-            this.TimerButton = new System.Windows.Forms.CheckBox();
-            this.XPBox = new System.Windows.Forms.CheckBox();
             this.XPnup = new System.Windows.Forms.NumericUpDown();
             this.SaveSHDefault = new System.Windows.Forms.Button();
             this.LoadSHDefault = new System.Windows.Forms.Button();
             this.FOVScan_bar = new System.Windows.Forms.ProgressBar();
             this.FOVBar = new System.Windows.Forms.TrackBar();
-            this.TimeCheckBox = new System.Windows.Forms.CheckBox();
-            this.AutoWayPoint = new System.Windows.Forms.CheckBox();
-            this.CheckpointBox = new System.Windows.Forms.CheckBox();
             this.FOVScan_BTN = new System.Windows.Forms.Button();
             this.TPButton = new System.Windows.Forms.Button();
             this.LST_TeleportLocation = new System.Windows.Forms.ComboBox();
@@ -75,14 +74,14 @@ namespace Forza_Mods_AIO.TabForms
             this.label6 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.TurnAssistButton = new Telerik.WinControls.UI.RadCheckBox();
+            this.StopAllWheelsButton = new Telerik.WinControls.UI.RadCheckBox();
+            this.WheelSpeedButton = new Telerik.WinControls.UI.RadCheckBox();
+            this.SuperBreakButton = new Telerik.WinControls.UI.RadCheckBox();
+            this.VelHackButton = new Telerik.WinControls.UI.RadCheckBox();
             this.DonationLabel = new System.Windows.Forms.Label();
             this.DonoPic = new System.Windows.Forms.PictureBox();
-            this.StopAllWheelsButton = new System.Windows.Forms.CheckBox();
-            this.SuperBreakButton = new System.Windows.Forms.CheckBox();
             this.LBL_Toggles = new System.Windows.Forms.Label();
-            this.TurnAssistButton = new System.Windows.Forms.CheckBox();
-            this.WheelSpeedButton = new System.Windows.Forms.CheckBox();
-            this.VelHackButton = new System.Windows.Forms.CheckBox();
             this.panel6 = new System.Windows.Forms.Panel();
             this.LimitBox = new System.Windows.Forms.NumericUpDown();
             this.Speed3Box = new System.Windows.Forms.NumericUpDown();
@@ -130,9 +129,16 @@ namespace Forza_Mods_AIO.TabForms
             this.WayPointWorker = new System.ComponentModel.BackgroundWorker();
             this.WayPointTPworker = new System.ComponentModel.BackgroundWorker();
             this.TimerWorker = new System.ComponentModel.BackgroundWorker();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.StopWheelsWorker = new System.ComponentModel.BackgroundWorker();
+            this.TimerButton = new Telerik.WinControls.UI.RadCheckBox();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TB_SHWallNoClip)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).BeginInit();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimeCheckBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AutoWayPoint)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CheckpointBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPnup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FOVBar)).BeginInit();
             this.panel9.SuspendLayout();
@@ -143,6 +149,11 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBar)).BeginInit();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnAssistButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StopAllWheelsButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WheelSpeedButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SuperBreakButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VelHackButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DonoPic)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LimitBox)).BeginInit();
@@ -161,18 +172,79 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnStrengthBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimerButton)).BeginInit();
             this.SuspendLayout();
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel3.Controls.Add(this.LBL_SHNoClip);
-            this.panel3.Controls.Add(this.TB_SHCarNoClip);
             this.panel3.Controls.Add(this.TB_SHWallNoClip);
+            this.panel3.Controls.Add(this.TB_SHCarNoClip);
+            this.panel3.Controls.Add(this.LBL_SHNoClip);
             this.panel3.Location = new System.Drawing.Point(12, 12);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(190, 82);
             this.panel3.TabIndex = 6;
+            // 
+            // TB_SHWallNoClip
+            // 
+            this.TB_SHWallNoClip.Location = new System.Drawing.Point(100, 38);
+            this.TB_SHWallNoClip.Name = "TB_SHWallNoClip";
+            this.TB_SHWallNoClip.Size = new System.Drawing.Size(51, 20);
+            this.TB_SHWallNoClip.TabIndex = 29;
+            this.TB_SHWallNoClip.Text = "Wall";
+            this.TB_SHWallNoClip.ThemeName = "FluentDark";
+            this.TB_SHWallNoClip.CheckStateChanged += new System.EventHandler(this.TB_SHWallNoClip_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.TB_SHWallNoClip.GetChildAt(0))).Text = "Wall";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // TB_SHCarNoClip
+            // 
+            this.TB_SHCarNoClip.Location = new System.Drawing.Point(44, 38);
+            this.TB_SHCarNoClip.Name = "TB_SHCarNoClip";
+            this.TB_SHCarNoClip.Size = new System.Drawing.Size(46, 20);
+            this.TB_SHCarNoClip.TabIndex = 29;
+            this.TB_SHCarNoClip.Text = "Car";
+            this.TB_SHCarNoClip.ThemeName = "FluentDark";
+            this.TB_SHCarNoClip.CheckStateChanged += new System.EventHandler(this.TB_SHCarNoClip_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.TB_SHCarNoClip.GetChildAt(0))).Text = "Car";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
             // LBL_SHNoClip
             // 
@@ -184,45 +256,21 @@ namespace Forza_Mods_AIO.TabForms
             this.LBL_SHNoClip.TabIndex = 1;
             this.LBL_SHNoClip.Text = "No-Clip";
             // 
-            // TB_SHCarNoClip
-            // 
-            this.TB_SHCarNoClip.AutoSize = true;
-            this.TB_SHCarNoClip.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_SHCarNoClip.Location = new System.Drawing.Point(44, 38);
-            this.TB_SHCarNoClip.Name = "TB_SHCarNoClip";
-            this.TB_SHCarNoClip.Size = new System.Drawing.Size(51, 23);
-            this.TB_SHCarNoClip.TabIndex = 2;
-            this.TB_SHCarNoClip.Text = "Car";
-            this.TB_SHCarNoClip.UseVisualStyleBackColor = true;
-            this.TB_SHCarNoClip.CheckedChanged += new System.EventHandler(this.TB_SHCarNoClip_CheckedChanged);
-            // 
-            // TB_SHWallNoClip
-            // 
-            this.TB_SHWallNoClip.AutoSize = true;
-            this.TB_SHWallNoClip.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_SHWallNoClip.Location = new System.Drawing.Point(100, 38);
-            this.TB_SHWallNoClip.Name = "TB_SHWallNoClip";
-            this.TB_SHWallNoClip.Size = new System.Drawing.Size(57, 23);
-            this.TB_SHWallNoClip.TabIndex = 3;
-            this.TB_SHWallNoClip.Text = "Wall";
-            this.TB_SHWallNoClip.UseVisualStyleBackColor = true;
-            this.TB_SHWallNoClip.CheckedChanged += new System.EventHandler(this.TB_SHWallNoClip_CheckedChanged);
-            // 
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             this.panel7.Controls.Add(this.TimerIndicator);
-            this.panel7.Controls.Add(this.TimerLabel);
             this.panel7.Controls.Add(this.TimerButton);
             this.panel7.Controls.Add(this.XPBox);
+            this.panel7.Controls.Add(this.TimeCheckBox);
+            this.panel7.Controls.Add(this.AutoWayPoint);
+            this.panel7.Controls.Add(this.CheckpointBox);
+            this.panel7.Controls.Add(this.TimerLabel);
             this.panel7.Controls.Add(this.XPnup);
             this.panel7.Controls.Add(this.SaveSHDefault);
             this.panel7.Controls.Add(this.LoadSHDefault);
             this.panel7.Controls.Add(this.FOVScan_bar);
             this.panel7.Controls.Add(this.FOVBar);
-            this.panel7.Controls.Add(this.TimeCheckBox);
-            this.panel7.Controls.Add(this.AutoWayPoint);
-            this.panel7.Controls.Add(this.CheckpointBox);
             this.panel7.Controls.Add(this.FOVScan_BTN);
             this.panel7.Controls.Add(this.TPButton);
             this.panel7.Controls.Add(this.LST_TeleportLocation);
@@ -237,43 +285,143 @@ namespace Forza_Mods_AIO.TabForms
             // TimerIndicator
             // 
             this.TimerIndicator.BackColor = System.Drawing.Color.Red;
-            this.TimerIndicator.Location = new System.Drawing.Point(65, 278);
+            this.TimerIndicator.Location = new System.Drawing.Point(66, 271);
             this.TimerIndicator.Name = "TimerIndicator";
             this.TimerIndicator.Size = new System.Drawing.Size(15, 15);
             this.TimerIndicator.TabIndex = 43;
             // 
+            // XPBox
+            // 
+            this.XPBox.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.XPBox.Location = new System.Drawing.Point(64, 232);
+            this.XPBox.Name = "XPBox";
+            this.XPBox.Size = new System.Drawing.Size(120, 20);
+            this.XPBox.TabIndex = 29;
+            this.XPBox.Text = "XP on unpause";
+            this.XPBox.ThemeName = "FluentDark";
+            this.XPBox.CheckStateChanged += new System.EventHandler(this.XPBox_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.XPBox.GetChildAt(0))).Text = "XP on unpause";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // TimeCheckBox
+            // 
+            this.TimeCheckBox.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.TimeCheckBox.Location = new System.Drawing.Point(64, 180);
+            this.TimeCheckBox.Name = "TimeCheckBox";
+            this.TimeCheckBox.Size = new System.Drawing.Size(107, 20);
+            this.TimeCheckBox.TabIndex = 29;
+            this.TimeCheckBox.Text = "Manual Time";
+            this.TimeCheckBox.ThemeName = "FluentDark";
+            this.TimeCheckBox.CheckStateChanged += new System.EventHandler(this.TimeCheckBox_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.TimeCheckBox.GetChildAt(0))).Text = "Manual Time";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // AutoWayPoint
+            // 
+            this.AutoWayPoint.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.AutoWayPoint.Location = new System.Drawing.Point(64, 161);
+            this.AutoWayPoint.Name = "AutoWayPoint";
+            this.AutoWayPoint.Size = new System.Drawing.Size(153, 20);
+            this.AutoWayPoint.TabIndex = 29;
+            this.AutoWayPoint.Text = "Auto TP to waypoint";
+            this.AutoWayPoint.ThemeName = "FluentDark";
+            this.AutoWayPoint.CheckStateChanged += new System.EventHandler(this.WayPointBox_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.AutoWayPoint.GetChildAt(0))).Text = "Auto TP to waypoint";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // CheckpointBox
+            // 
+            this.CheckpointBox.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.CheckpointBox.Location = new System.Drawing.Point(64, 142);
+            this.CheckpointBox.Name = "CheckpointBox";
+            this.CheckpointBox.Size = new System.Drawing.Size(111, 20);
+            this.CheckpointBox.TabIndex = 29;
+            this.CheckpointBox.Text = "Auto win race";
+            this.CheckpointBox.ThemeName = "FluentDark";
+            this.CheckpointBox.CheckStateChanged += new System.EventHandler(this.CheckpointBox_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.CheckpointBox.GetChildAt(0))).Text = "Auto win race";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
             // TimerLabel
             // 
             this.TimerLabel.AutoSize = true;
-            this.TimerLabel.Location = new System.Drawing.Point(85, 278);
+            this.TimerLabel.Location = new System.Drawing.Point(85, 271);
             this.TimerLabel.Name = "TimerLabel";
             this.TimerLabel.Size = new System.Drawing.Size(28, 15);
             this.TimerLabel.TabIndex = 42;
             this.TimerLabel.Text = "0.00";
-            // 
-            // TimerButton
-            // 
-            this.TimerButton.AutoSize = true;
-            this.TimerButton.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.TimerButton.Location = new System.Drawing.Point(65, 258);
-            this.TimerButton.Name = "TimerButton";
-            this.TimerButton.Size = new System.Drawing.Size(148, 23);
-            this.TimerButton.TabIndex = 41;
-            this.TimerButton.Text = "Start 0 - 60 timing";
-            this.TimerButton.UseVisualStyleBackColor = true;
-            this.TimerButton.CheckedChanged += new System.EventHandler(this.TimerButton_CheckedChanged);
-            // 
-            // XPBox
-            // 
-            this.XPBox.AutoSize = true;
-            this.XPBox.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.XPBox.Location = new System.Drawing.Point(65, 228);
-            this.XPBox.Name = "XPBox";
-            this.XPBox.Size = new System.Drawing.Size(128, 23);
-            this.XPBox.TabIndex = 41;
-            this.XPBox.Text = "XP on unpause";
-            this.XPBox.UseVisualStyleBackColor = true;
-            this.XPBox.CheckedChanged += new System.EventHandler(this.XPBox_CheckedChanged);
             // 
             // XPnup
             // 
@@ -341,45 +489,6 @@ namespace Forza_Mods_AIO.TabForms
             this.FOVBar.TickFrequency = 10;
             this.FOVBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.FOVBar.Scroll += new System.EventHandler(this.FOVBar_Scroll);
-            // 
-            // TimeCheckBox
-            // 
-            this.TimeCheckBox.AutoSize = true;
-            this.TimeCheckBox.FlatAppearance.BorderSize = 0;
-            this.TimeCheckBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeCheckBox.Location = new System.Drawing.Point(64, 180);
-            this.TimeCheckBox.Name = "TimeCheckBox";
-            this.TimeCheckBox.Size = new System.Drawing.Size(116, 23);
-            this.TimeCheckBox.TabIndex = 38;
-            this.TimeCheckBox.Text = "Manual Time";
-            this.TimeCheckBox.UseVisualStyleBackColor = true;
-            this.TimeCheckBox.CheckedChanged += new System.EventHandler(this.TimeCheckBox_CheckedChanged);
-            // 
-            // AutoWayPoint
-            // 
-            this.AutoWayPoint.AutoSize = true;
-            this.AutoWayPoint.FlatAppearance.BorderSize = 0;
-            this.AutoWayPoint.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AutoWayPoint.Location = new System.Drawing.Point(64, 161);
-            this.AutoWayPoint.Name = "AutoWayPoint";
-            this.AutoWayPoint.Size = new System.Drawing.Size(161, 23);
-            this.AutoWayPoint.TabIndex = 38;
-            this.AutoWayPoint.Text = "Auto TP to waypoint";
-            this.AutoWayPoint.UseVisualStyleBackColor = true;
-            this.AutoWayPoint.CheckedChanged += new System.EventHandler(this.WayPointBox_CheckedChanged);
-            // 
-            // CheckpointBox
-            // 
-            this.CheckpointBox.AutoSize = true;
-            this.CheckpointBox.FlatAppearance.BorderSize = 0;
-            this.CheckpointBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckpointBox.Location = new System.Drawing.Point(64, 142);
-            this.CheckpointBox.Name = "CheckpointBox";
-            this.CheckpointBox.Size = new System.Drawing.Size(120, 23);
-            this.CheckpointBox.TabIndex = 38;
-            this.CheckpointBox.Text = "Auto win race";
-            this.CheckpointBox.UseVisualStyleBackColor = true;
-            this.CheckpointBox.CheckedChanged += new System.EventHandler(this.CheckpointBox_CheckedChanged);
             // 
             // FOVScan_BTN
             // 
@@ -748,18 +857,172 @@ namespace Forza_Mods_AIO.TabForms
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel4.Controls.Add(this.TurnAssistButton);
+            this.panel4.Controls.Add(this.StopAllWheelsButton);
+            this.panel4.Controls.Add(this.WheelSpeedButton);
+            this.panel4.Controls.Add(this.SuperBreakButton);
+            this.panel4.Controls.Add(this.VelHackButton);
             this.panel4.Controls.Add(this.DonationLabel);
             this.panel4.Controls.Add(this.DonoPic);
-            this.panel4.Controls.Add(this.StopAllWheelsButton);
-            this.panel4.Controls.Add(this.SuperBreakButton);
             this.panel4.Controls.Add(this.LBL_Toggles);
-            this.panel4.Controls.Add(this.TurnAssistButton);
-            this.panel4.Controls.Add(this.WheelSpeedButton);
-            this.panel4.Controls.Add(this.VelHackButton);
             this.panel4.Location = new System.Drawing.Point(208, 12);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(532, 111);
             this.panel4.TabIndex = 9;
+            // 
+            // TurnAssistButton
+            // 
+            this.TurnAssistButton.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.TurnAssistButton.Location = new System.Drawing.Point(399, 42);
+            this.TurnAssistButton.Name = "TurnAssistButton";
+            this.TurnAssistButton.Size = new System.Drawing.Size(93, 20);
+            this.TurnAssistButton.TabIndex = 29;
+            this.TurnAssistButton.Text = "Turn assist";
+            this.TurnAssistButton.ThemeName = "FluentDark";
+            this.TurnAssistButton.CheckStateChanged += new System.EventHandler(this.TurnAssistButton_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.TurnAssistButton.GetChildAt(0))).Text = "Turn assist";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // StopAllWheelsButton
+            // 
+            this.StopAllWheelsButton.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.StopAllWheelsButton.Location = new System.Drawing.Point(297, 71);
+            this.StopAllWheelsButton.Name = "StopAllWheelsButton";
+            this.StopAllWheelsButton.Size = new System.Drawing.Size(119, 20);
+            this.StopAllWheelsButton.TabIndex = 29;
+            this.StopAllWheelsButton.Text = "Stop all wheels";
+            this.StopAllWheelsButton.ThemeName = "FluentDark";
+            this.StopAllWheelsButton.CheckStateChanged += new System.EventHandler(this.StopAllWheelsButton_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.StopAllWheelsButton.GetChildAt(0))).Text = "Stop all wheels";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // WheelSpeedButton
+            // 
+            this.WheelSpeedButton.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.WheelSpeedButton.Location = new System.Drawing.Point(217, 40);
+            this.WheelSpeedButton.Name = "WheelSpeedButton";
+            this.WheelSpeedButton.Size = new System.Drawing.Size(103, 20);
+            this.WheelSpeedButton.TabIndex = 29;
+            this.WheelSpeedButton.Text = "Wheelspeed";
+            this.WheelSpeedButton.ThemeName = "FluentDark";
+            this.WheelSpeedButton.CheckStateChanged += new System.EventHandler(this.WheelSpeedButton_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.WheelSpeedButton.GetChildAt(0))).Text = "Wheelspeed";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // SuperBreakButton
+            // 
+            this.SuperBreakButton.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.SuperBreakButton.Location = new System.Drawing.Point(109, 70);
+            this.SuperBreakButton.Name = "SuperBreakButton";
+            this.SuperBreakButton.Size = new System.Drawing.Size(102, 20);
+            this.SuperBreakButton.TabIndex = 29;
+            this.SuperBreakButton.Text = "Super Brake";
+            this.SuperBreakButton.ThemeName = "FluentDark";
+            this.SuperBreakButton.CheckStateChanged += new System.EventHandler(this.SuperBreakButton_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.SuperBreakButton.GetChildAt(0))).Text = "Super Brake";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // VelHackButton
+            // 
+            this.VelHackButton.Location = new System.Drawing.Point(41, 42);
+            this.VelHackButton.Name = "VelHackButton";
+            this.VelHackButton.Size = new System.Drawing.Size(73, 20);
+            this.VelHackButton.TabIndex = 29;
+            this.VelHackButton.Text = "Velocity";
+            this.VelHackButton.ThemeName = "FluentDark";
+            this.VelHackButton.CheckStateChanged += new System.EventHandler(this.VelHackButton_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.VelHackButton.GetChildAt(0))).Text = "Velocity";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
             // DonationLabel
             // 
@@ -781,30 +1044,6 @@ namespace Forza_Mods_AIO.TabForms
             this.DonoPic.TabStop = false;
             this.DonoPic.Click += new System.EventHandler(this.DonoPic_Click);
             // 
-            // StopAllWheelsButton
-            // 
-            this.StopAllWheelsButton.AutoSize = true;
-            this.StopAllWheelsButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StopAllWheelsButton.Location = new System.Drawing.Point(311, 71);
-            this.StopAllWheelsButton.Name = "StopAllWheelsButton";
-            this.StopAllWheelsButton.Size = new System.Drawing.Size(129, 23);
-            this.StopAllWheelsButton.TabIndex = 35;
-            this.StopAllWheelsButton.Text = "Stop all wheels";
-            this.StopAllWheelsButton.UseVisualStyleBackColor = true;
-            this.StopAllWheelsButton.CheckedChanged += new System.EventHandler(this.StopAllWheelsButton_CheckedChanged);
-            // 
-            // SuperBreakButton
-            // 
-            this.SuperBreakButton.AutoSize = true;
-            this.SuperBreakButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SuperBreakButton.Location = new System.Drawing.Point(98, 71);
-            this.SuperBreakButton.Name = "SuperBreakButton";
-            this.SuperBreakButton.Size = new System.Drawing.Size(110, 23);
-            this.SuperBreakButton.TabIndex = 34;
-            this.SuperBreakButton.Text = "Super break";
-            this.SuperBreakButton.UseVisualStyleBackColor = true;
-            this.SuperBreakButton.CheckedChanged += new System.EventHandler(this.SuperBreakButton_CheckedChanged);
-            // 
             // LBL_Toggles
             // 
             this.LBL_Toggles.AutoSize = true;
@@ -814,42 +1053,6 @@ namespace Forza_Mods_AIO.TabForms
             this.LBL_Toggles.Size = new System.Drawing.Size(83, 27);
             this.LBL_Toggles.TabIndex = 4;
             this.LBL_Toggles.Text = "Toggles";
-            // 
-            // TurnAssistButton
-            // 
-            this.TurnAssistButton.AutoSize = true;
-            this.TurnAssistButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TurnAssistButton.Location = new System.Drawing.Point(384, 42);
-            this.TurnAssistButton.Name = "TurnAssistButton";
-            this.TurnAssistButton.Size = new System.Drawing.Size(102, 23);
-            this.TurnAssistButton.TabIndex = 31;
-            this.TurnAssistButton.Text = "Turn assist";
-            this.TurnAssistButton.UseVisualStyleBackColor = true;
-            this.TurnAssistButton.CheckedChanged += new System.EventHandler(this.TurnAssistButton_CheckedChanged);
-            // 
-            // WheelSpeedButton
-            // 
-            this.WheelSpeedButton.AutoSize = true;
-            this.WheelSpeedButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WheelSpeedButton.Location = new System.Drawing.Point(210, 42);
-            this.WheelSpeedButton.Name = "WheelSpeedButton";
-            this.WheelSpeedButton.Size = new System.Drawing.Size(111, 23);
-            this.WheelSpeedButton.TabIndex = 32;
-            this.WheelSpeedButton.Text = "Wheelspeed";
-            this.WheelSpeedButton.UseVisualStyleBackColor = true;
-            this.WheelSpeedButton.CheckedChanged += new System.EventHandler(this.WheelSpeedButton_CheckedChanged);
-            // 
-            // VelHackButton
-            // 
-            this.VelHackButton.AutoSize = true;
-            this.VelHackButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VelHackButton.Location = new System.Drawing.Point(41, 42);
-            this.VelHackButton.Name = "VelHackButton";
-            this.VelHackButton.Size = new System.Drawing.Size(79, 23);
-            this.VelHackButton.TabIndex = 33;
-            this.VelHackButton.Text = "Velocity";
-            this.VelHackButton.UseVisualStyleBackColor = true;
-            this.VelHackButton.CheckedChanged += new System.EventHandler(this.VelHackButton_CheckedChanged);
             // 
             // panel6
             // 
@@ -1404,6 +1607,43 @@ namespace Forza_Mods_AIO.TabForms
             this.TimerWorker.WorkerSupportsCancellation = true;
             this.TimerWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.TimerWorker_DoWork);
             // 
+            // StopWheelsWorker
+            // 
+            this.StopWheelsWorker.WorkerReportsProgress = true;
+            this.StopWheelsWorker.WorkerSupportsCancellation = true;
+            this.StopWheelsWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.StopWheelsWorker_DoWork);
+            // 
+            // TimerButton
+            // 
+            this.TimerButton.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.TimerButton.Location = new System.Drawing.Point(64, 251);
+            this.TimerButton.Name = "TimerButton";
+            this.TimerButton.Size = new System.Drawing.Size(137, 20);
+            this.TimerButton.TabIndex = 29;
+            this.TimerButton.Text = "Start 0 - 60 timing";
+            this.TimerButton.ThemeName = "FluentDark";
+            this.TimerButton.CheckStateChanged += new System.EventHandler(this.TimerButton_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.TimerButton.GetChildAt(0))).Text = "Start 0 - 60 timing";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
             // Speedhack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -1423,11 +1663,16 @@ namespace Forza_Mods_AIO.TabForms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Speedhack";
             this.Text = "Speedhack";
-            this.Load += new System.EventHandler(this.SpeedHack_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TB_SHWallNoClip)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).EndInit();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.XPBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimeCheckBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AutoWayPoint)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CheckpointBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPnup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FOVBar)).EndInit();
             this.panel9.ResumeLayout(false);
@@ -1442,6 +1687,11 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBar)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnAssistButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StopAllWheelsButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WheelSpeedButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SuperBreakButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VelHackButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DonoPic)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
@@ -1462,6 +1712,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnStrengthBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimerButton)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1470,13 +1721,10 @@ namespace Forza_Mods_AIO.TabForms
 
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label LBL_SHNoClip;
-        private System.Windows.Forms.CheckBox TB_SHCarNoClip;
-        private System.Windows.Forms.CheckBox TB_SHWallNoClip;
         private System.Windows.Forms.Panel panel7;
         public System.Windows.Forms.ProgressBar FOVScan_bar;
         public System.Windows.Forms.CheckBox FOV;
         private System.Windows.Forms.TrackBar FOVBar;
-        private System.Windows.Forms.CheckBox CheckpointBox;
         private System.Windows.Forms.Button LoadSHDefault;
         private System.Windows.Forms.Button SaveSHDefault;
         public System.Windows.Forms.Button FOVScan_BTN;
@@ -1498,12 +1746,7 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.CheckBox StopAllWheelsButton;
-        private System.Windows.Forms.CheckBox SuperBreakButton;
         private System.Windows.Forms.Label LBL_Toggles;
-        private System.Windows.Forms.CheckBox TurnAssistButton;
-        private System.Windows.Forms.CheckBox WheelSpeedButton;
-        private System.Windows.Forms.CheckBox VelHackButton;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.NumericUpDown LimitBox;
         private System.Windows.Forms.NumericUpDown Speed3Box;
@@ -1553,21 +1796,29 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Button WeirdSet;
         private System.Windows.Forms.Button GravityPull;
         private System.Windows.Forms.Button WeirdPull;
-        private System.Windows.Forms.CheckBox TimeCheckBox;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button KBChange;
         private System.Windows.Forms.Button XBChange;
-        private System.Windows.Forms.CheckBox XPBox;
         public System.Windows.Forms.NumericUpDown XPnup;
         private System.ComponentModel.BackgroundWorker WayPointWorker;
-        public System.Windows.Forms.CheckBox AutoWayPoint;
         private System.ComponentModel.BackgroundWorker WayPointTPworker;
         private System.Windows.Forms.Label TimerLabel;
-        private System.Windows.Forms.CheckBox TimerButton;
         private System.ComponentModel.BackgroundWorker TimerWorker;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Panel TimerIndicator;
         private System.Windows.Forms.Label DonationLabel;
         private System.Windows.Forms.PictureBox DonoPic;
+        public Telerik.WinControls.UI.RadCheckBox TB_SHWallNoClip;
+        public Telerik.WinControls.UI.RadCheckBox TB_SHCarNoClip;
+        public Telerik.WinControls.UI.RadCheckBox SuperBreakButton;
+        public Telerik.WinControls.UI.RadCheckBox VelHackButton;
+        public Telerik.WinControls.UI.RadCheckBox TurnAssistButton;
+        public Telerik.WinControls.UI.RadCheckBox StopAllWheelsButton;
+        public Telerik.WinControls.UI.RadCheckBox WheelSpeedButton;
+        private System.ComponentModel.BackgroundWorker StopWheelsWorker;
+        public Telerik.WinControls.UI.RadCheckBox CheckpointBox;
+        public Telerik.WinControls.UI.RadCheckBox TimeCheckBox;
+        public Telerik.WinControls.UI.RadCheckBox AutoWayPoint;
+        public Telerik.WinControls.UI.RadCheckBox XPBox;
+        public Telerik.WinControls.UI.RadCheckBox TimerButton;
     }
 }
