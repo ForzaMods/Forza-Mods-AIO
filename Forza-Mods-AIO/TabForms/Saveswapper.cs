@@ -50,10 +50,6 @@ namespace Forza_Mods_AIO.TabForms
         {
             GamebarAttach.RunWorkerAsync();
         }
-        public void InitialBGworker_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-        }
 
 
         string Get(string uri, string auth)
@@ -74,7 +70,6 @@ namespace Forza_Mods_AIO.TabForms
             using (Stream stream = response.GetResponseStream())
             using (StreamReader reader = new StreamReader(stream))
             {
-
                 return reader.ReadToEnd();
             }
         }
@@ -83,18 +78,11 @@ namespace Forza_Mods_AIO.TabForms
         public void BTN_SwapSave_Click(object sender, EventArgs e)
         {
 
-            if (Radio_MS.Checked && LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
+            if (LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
             {
                 SwapMSSave();
             }
-            else if (Radio_Steam.Checked && LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
-                FindSteamSave();
-            else
                 MessageBox.Show("Options not selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-        void FindSteamSave()
-        {
-            MessageBox.Show("Steam Save");
         }
 
         void SwapMSSave()
@@ -139,7 +127,7 @@ namespace Forza_Mods_AIO.TabForms
             }
             if (dircount <= 0)
             {
-                //idk man some shit went wrong if there are no files
+                MessageBox.Show("No savegames found. Make sure you are using the microsoft store version of the game and own it legitimately", "Error: No Savegames", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (!attached)
             {
@@ -213,35 +201,24 @@ namespace Forza_Mods_AIO.TabForms
             LST_Savegames.Items.Clear();
             foreach (var save in savelist)
                 LST_Savegames.Items.Add(save);
-            string[] savemetadata = File.ReadAllText(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\SaveMetadata").Split('Ω');
 
         }
 
         public void Saveswapper_Load(object sender, EventArgs e)
         {
             GamebarAttach.RunWorkerAsync();
+            GamertagResolve.RunWorkerAsync();
         }
 
-        private void Radio_MS_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Radio_MS.Checked)
-            {
-                GamertagResolve.RunWorkerAsync();
-            }
-
-        }
 
         private void BTN_Backup_Click(object sender, EventArgs e)
         {
-            if (Radio_MS.Checked && LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
+            if (LST_Accounts.SelectedItem != null)
             {
                 BackupMSSave();
+                MessageBox.Show("Savegame has been backed up to: \n " + @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backup\" + "\n With the current date and time as the filename");
             }
 
-            else if (Radio_Steam.Checked && LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
-                FindSteamSave();
-            else
-                MessageBox.Show("Options not selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         public static string GetAlphabet(int charsCount)
         {
@@ -281,6 +258,11 @@ namespace Forza_Mods_AIO.TabForms
                 TXT_SaveInfo.Text = "There is no information about this save. \nManually adding metadata will be added at a later date";
             }
 
+        }
+
+        private void BTN_ACCRefresh_Click(object sender, EventArgs e)
+        {
+            GamertagResolve.RunWorkerAsync();
         }
     }
 }
