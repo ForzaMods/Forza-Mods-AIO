@@ -23,11 +23,14 @@ namespace Forza_Mods_AIO.TabForms
         public Saveswapper()
         {
             InitializeComponent();
+
         }
         List<string> gamertags = new List<string>();
         Mem sm = new Mem();
         bool attached = false;
-        string[] savemetadata = File.ReadAllText(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\SaveMetadata").Split('Ω');
+        string[] savemetadata = null;
+
+
         public void GamebarAttach_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
@@ -210,9 +213,11 @@ namespace Forza_Mods_AIO.TabForms
             LST_Savegames.Items.Clear();
             foreach (var save in savelist)
                 LST_Savegames.Items.Add(save);
+            string[] savemetadata = File.ReadAllText(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\SaveMetadata").Split('Ω');
+
         }
 
-        private void Saveswapper_Load(object sender, EventArgs e)
+        public void Saveswapper_Load(object sender, EventArgs e)
         {
             GamebarAttach.RunWorkerAsync();
         }
@@ -257,9 +262,14 @@ namespace Forza_Mods_AIO.TabForms
 
             return result.ToString();
         }
+
         private void LST_Savegames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MessageBox.Show(savemetadata[LST_Savegames.SelectedIndex]);
+            if (savemetadata==null)
+            savemetadata = File.ReadAllText(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\SaveMetadata").Split('Ω');
+
+
+            //MessageBox.Show(savemetadata[LST_Savegames.SelectedIndex]);
             string alpha = GetAlphabet(844);
             var converter = new BaseN(alpha);
             try

@@ -221,6 +221,7 @@ namespace Forza_Mods_AIO
             // 
             // VolNum
             // 
+            this.VolNum.Font = new System.Drawing.Font("Open Sans", 8.25F);
             this.VolNum.ForeColor = System.Drawing.Color.Transparent;
             this.VolNum.Location = new System.Drawing.Point(862, 372);
             this.VolNum.Name = "VolNum";
@@ -232,6 +233,8 @@ namespace Forza_Mods_AIO
             // 
             // 
             // 
+            this.VolNum.RootElement.BorderHighlightColor = System.Drawing.Color.White;
+            this.VolNum.RootElement.BorderHighlightThickness = 0;
             this.VolNum.RootElement.EnableFocusBorderAnimation = false;
             this.VolNum.ShowBorder = false;
             this.VolNum.Size = new System.Drawing.Size(100, 23);
