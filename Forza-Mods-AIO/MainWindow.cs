@@ -12,13 +12,16 @@ using DiscordRPC;
 using System.Net;
 using System.Globalization;
 using Forza_Mods_AIO.Properties;
-using System.Runtime.InteropServices;
+using IniParser;
+using IniParser.Model;
+using MechanikaDesign.WinForms.UI.ColorPicker;
 
 namespace Forza_Mods_AIO
 {
     public partial class MainWindow : Form
     {
         public static Mem m = new Mem();
+        public static MainWindow main;
         public DiscordRpcClient client;
         public DiscordRpcClient RPCclient = new DiscordRpcClient("841090098837323818");
         ToolInfo ToolInfo = new ToolInfo() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
@@ -28,6 +31,7 @@ namespace Forza_Mods_AIO
         LiveTuning LiveTuning = new LiveTuning() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         Speedhack Speedhack = new Speedhack() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         public bool IsRPCInitialized = false; public bool FirstLoad = true;
+        public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
         Version NewVer = null;
         public static Version CurrVer = new Version("0.0.0.1");
@@ -45,6 +49,7 @@ namespace Forza_Mods_AIO
         public MainWindow()
         {
             InitializeComponent();
+            main = this;
             File.Delete("Updater.exe");
             this.TabHolder.Controls.Add(ToolInfo);
             ToolInfo.Visible = true;
@@ -93,23 +98,59 @@ namespace Forza_Mods_AIO
                 RPCclient.UpdateDetails("reading info");
                 RPCclient.UpdateSmallAsset("home", "Info");
             }
-           if (! Directory.Exists(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\MS\Backups\"))
-           {
-                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool");
-                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper");
-                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames");
-                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS");
-//                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\Steam");
-                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backups");
-//                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\Steam\Backups");
+            if (! Directory.Exists(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\MS\Backups\"))
+            {
+                 Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool");
+                 Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper");
+                 Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames");
+                 Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS");
+//               Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\Steam");
+                 Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backups");
+//               Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\Steam\Backups");
 
 //                using (var client = new WebClient())
-//               {
-//                    client.DownloadFile("https://pixeldrain.com/api/file/Nr4R4wrR", @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\saves.zip");
-//                    ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\saves.zip", @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\");
-//                    File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\saves.zip");
-//               }
-           }
+//                {
+//                     client.DownloadFile("https://pixeldrain.com/api/file/Nr4R4wrR", @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\saves.zip");
+//                     ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\saves.zip", @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\");
+//                     File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\saves.zip");
+//                }
+            }
+            string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
+            bool Exists = File.Exists(SettingsPath);
+            if(!Exists)
+            {
+                var SettingsParser = new FileIniDataParser();
+                IniData Settings = new IniData();
+                Settings["Settings"]["Theme Colour"] = "#960ba6";
+                Settings["Settings"]["Rainbow Speed"] = "1";
+                SettingsParser.SaveFile(SettingsPath, Settings);
+            }
+            else
+            {
+                var SettingsParser = new FileIniDataParser();
+                IniData Settings = SettingsParser.ReadFile(SettingsPath);
+                string TC = Settings["Settings"]["Theme Colour"];
+                float Speed = Convert.ToSingle(Settings["Settings"]["Rainbow Speed"]);
+                if (TC == "Rainbow")
+                {
+                    if (Speed > 10)
+                        Speed = 10;
+                    else if (Speed < 1)
+                        Speed = 1;
+                    ToolInfo.Rainbowspeed = Speed;
+                    ToolInfo.RainbowSpeed.Value = (decimal)Speed;
+                    ToolInfo.RainbowBox.Checked = true;
+                }
+                else
+                {
+                    MainWindow.ThemeColour = TC;
+                    ToolInfo.UpdateThemeColour(ColorTranslator.FromHtml(MainWindow.ThemeColour));
+                    ToolInfo.ColourPicker.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
+                    ToolInfo.ColourSlider.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
+                    ToolInfo.ColourPicker.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                    ToolInfo.ColourSlider.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                }
+            }
         }
 
         //dragging functionality
@@ -244,92 +285,107 @@ namespace Forza_Mods_AIO
                     }
                     else if (Speedhack.BaseAddr == "29A0" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 6;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 6; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.VolumeSetup();
                         Speedhack.BaseAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.Base, true, true)).FirstOrDefault() + 10656;
                         Speedhack.BaseAddr = Speedhack.BaseAddrLong.ToString("X");
                     }
                     else if (Speedhack.Base3Addr == "FFFFFFFFFFFFF300" || Speedhack.Base3Addr == null || Speedhack.Base3Addr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 13;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 13; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.Base3AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.Base, true, true)).FirstOrDefault() - 3328;
                         Speedhack.Base3Addr = Speedhack.Base3AddrLong.ToString("X");
                     }
                     else if (Speedhack.Base4Addr == "BA18" || Speedhack.Base4Addr == null || Speedhack.Base4Addr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 19;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 19; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.Base4AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.Base, true, true)).FirstOrDefault() - 47640;
                         Speedhack.Base4Addr = Speedhack.Base4AddrLong.ToString("X");
                     }
                     else if (Speedhack.Car1Addr == "6A" || Speedhack.Car1Addr == null || Speedhack.Car1Addr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 25;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 25; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.Car1AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.Car1, true, true)).FirstOrDefault() + 106;
                         Speedhack.Car1Addr = Speedhack.Car1AddrLong.ToString("X");
                     }
                     else if (Speedhack.Car2Addr == "FFFFFFFFFFFFFE65" || Speedhack.Car2Addr == null || Speedhack.Car2Addr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 31;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 31; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.Car2AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.Car2, true, true)).FirstOrDefault() - 411;
                         Speedhack.Car2Addr = Speedhack.Car2AddrLong.ToString("X");
                     }
                     else if (Speedhack.Wall1Addr == "191" || Speedhack.Wall1Addr == null || Speedhack.Wall1Addr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 38;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 38; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.Wall1AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.Wall1, true, true)).FirstOrDefault() + 401;
                         Speedhack.Wall1Addr = Speedhack.Wall1AddrLong.ToString("X");
                     }
                     else if (Speedhack.Wall2Addr == "FFFFFFFFFFFFFE42" || Speedhack.Wall2Addr == null || Speedhack.Wall2Addr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 44;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 44; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.Wall2AddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.Wall2, true, true)).FirstOrDefault() - 446;
                         Speedhack.Wall2Addr = Speedhack.Wall2AddrLong.ToString("X");
                     }
                     else if (Speedhack.FOVnopOutAddr == "7B" || Speedhack.FOVnopOutAddr == null || Speedhack.FOVnopOutAddr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 50;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 50; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.FOVnopOutAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.FOVOutsig, true, true)).FirstOrDefault() + 123;
                         Speedhack.FOVnopOutAddr = Speedhack.FOVnopOutAddrLong.ToString("X");
                     }
                     else if (Speedhack.FOVnopInAddr == "567" || Speedhack.FOVnopInAddr == null || Speedhack.FOVnopInAddr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 56;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 56; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.FOVnopInAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.FOVInsig, true, true)).FirstOrDefault() + 1383;
                         Speedhack.FOVnopInAddr = Speedhack.FOVnopInAddrLong.ToString("X");
                     }
                     else if (Speedhack.TimeNOPAddr == null || Speedhack.TimeNOPAddr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 62;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 62; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.TimeNOPAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.Timesig, true, true)).FirstOrDefault() + 1;
                         Speedhack.TimeNOPAddr = Speedhack.TimeNOPAddrLong.ToString("X");
                     }
                     else if (Speedhack.CheckPointxASMAddr == null || Speedhack.CheckPointxASMAddr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 69;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 69; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.CheckPointxASMAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.CheckPointxASMsig, true, true)).FirstOrDefault();
                         Speedhack.CheckPointxASMAddr = Speedhack.CheckPointxASMAddrLong.ToString("X");
                     }
                     else if (Speedhack.WayPointxASMAddr == null || Speedhack.WayPointxASMAddr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 75;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 75; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.WayPointxASMAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.WayPointxASMsig, true, true)).FirstOrDefault();
                         Speedhack.WayPointxASMAddr = Speedhack.WayPointxASMAddrLong.ToString("X");
                     }
                     else if (Speedhack.XPaddr == null || Speedhack.XPaddr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 81;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 81; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.XPaddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.XPaob, true, true)).FirstOrDefault();
                         Speedhack.XPaddr = Speedhack.XPaddrLong.ToString("X");
                     }
                     else if (Speedhack.XPAmountaddr == null || Speedhack.XPAmountaddr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 88;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 88; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.XPAmountaddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.XPAmountaob, true, true)).FirstOrDefault();
                         Speedhack.XPAmountaddr = Speedhack.XPAmountaddrLong.ToString("X");
                     }
                     else if (Speedhack.CurrentIDAddr == "2A" || Speedhack.CurrentIDAddr == null || Speedhack.CurrentIDAddr == "0")
                     {
-                        ToolInfo.AOBScanProgress.Value = 94;
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 94; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                         Speedhack.CurrentIDAddrLong = (await m.AoBScan(0x7FF000000000, 0x7FFFF0000000, Speedhack.CurrentIDaob, true, true)).FirstOrDefault() + 42;
                         Speedhack.CurrentIDAddr = Speedhack.CurrentIDAddrLong.ToString("X");
                     }
@@ -381,7 +437,8 @@ namespace Forza_Mods_AIO
                         Speedhack.CodeCave4 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                     }
                     Speedhack.FOVScan_BTN.Show(); Speedhack.FOVScan_bar.Hide(); Speedhack.FOV.Hide();
-                    ToolInfo.AOBScanProgress.Value = 100;
+                    for (int i = ToolInfo.AOBScanProgress.Value1; i <= 100; i++)
+                    { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                     LiveTuning.Addresses();
                     Speedhack.Addresses();
                     Speedhack.ReadSpeedDefaultValues();
@@ -468,7 +525,7 @@ namespace Forza_Mods_AIO
         {
             ClearColours();
             BTN_TabInfo.BackColor = Color.FromArgb(45, 45, 48);
-            Panel_Info.BackColor = Color.FromArgb(150, 11, 166);
+            Panel_Info.BackColor = ColorTranslator.FromHtml(ThemeColour);
             ClearTabItems();
             this.TabHolder.Controls.Add(ToolInfo);
             ToolInfo.Visible = true;
@@ -483,7 +540,7 @@ namespace Forza_Mods_AIO
                 //do colours and hide/show ui
                 ClearColours();
                 BTN_TabAddCars.BackColor = Color.FromArgb(45, 45, 48);
-                Panel_AddCars.BackColor = Color.FromArgb(150, 11, 166);
+                Panel_AddCars.BackColor = ColorTranslator.FromHtml(ThemeColour);
                 ClearTabItems();
                 this.TabHolder.Controls.Add(AddCars);
                 AddCars.Visible = true;
@@ -502,7 +559,7 @@ namespace Forza_Mods_AIO
             {
                 ClearColours();
                 BTN_TabStatsEditor.BackColor = Color.FromArgb(45, 45, 48);
-                Panel_StatsEditor.BackColor = Color.FromArgb(150, 11, 166);
+                Panel_StatsEditor.BackColor = ColorTranslator.FromHtml(ThemeColour);
                 ClearTabItems();
                 this.TabHolder.Controls.Add(StatsEditor);
                 StatsEditor.Visible = true;
@@ -519,7 +576,7 @@ namespace Forza_Mods_AIO
         {
             ClearColours();
             BTN_TabSaveswap.BackColor = Color.FromArgb(45, 45, 48);
-            Panel_Saveswap.BackColor = Color.FromArgb(150, 11, 166);
+            Panel_Saveswap.BackColor = ColorTranslator.FromHtml(ThemeColour);
             ClearTabItems();
             this.TabHolder.Controls.Add(Saveswapper);
             Saveswapper.Visible = true;
@@ -534,7 +591,7 @@ namespace Forza_Mods_AIO
             {
                 ClearColours();
                 BTN_TabLiveTuning.BackColor = Color.FromArgb(45, 45, 48);
-                Panel_LiveTuning.BackColor = Color.FromArgb(150, 11, 166);
+                Panel_LiveTuning.BackColor = ColorTranslator.FromHtml(ThemeColour);
                 ClearTabItems();
                 this.TabHolder.Controls.Add(LiveTuning);
                 LiveTuning.Visible = true;
@@ -558,7 +615,7 @@ namespace Forza_Mods_AIO
 
                 ClearColours();
                 BTN_TabSpeedhack.BackColor = Color.FromArgb(45, 45, 48);
-                Panel_Speedhack.BackColor = Color.FromArgb(150, 11, 166);
+                Panel_Speedhack.BackColor = ColorTranslator.FromHtml(ThemeColour);
                 ClearTabItems();
                 TabHolder.Controls.Add(Speedhack);
                 Speedhack.Visible = true;

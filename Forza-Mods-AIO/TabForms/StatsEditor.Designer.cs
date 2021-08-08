@@ -42,10 +42,12 @@ namespace Forza_Mods_AIO.TabForms
             this.Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SendButton = new System.Windows.Forms.Button();
-            this.SendProgress = new System.Windows.Forms.ProgressBar();
             this.SendWorker = new System.ComponentModel.BackgroundWorker();
             this.FilterBox = new System.Windows.Forms.TextBox();
+            this.StatsScrollBar = new DarkUI.Controls.DarkScrollBar();
+            this.SendProgress = new Telerik.WinControls.UI.RadProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.StatsTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SendProgress)).BeginInit();
             this.SuspendLayout();
             // 
             // StatScanButton
@@ -113,10 +115,7 @@ namespace Forza_Mods_AIO.TabForms
             this.StatsTable.Name = "StatsTable";
             this.StatsTable.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StatsTable.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Empty;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Empty;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Empty;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Empty;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.StatsTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.StatsTable.RowHeadersVisible = false;
@@ -125,11 +124,7 @@ namespace Forza_Mods_AIO.TabForms
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White;
             this.StatsTable.RowsDefaultCellStyle = dataGridViewCellStyle7;
-            this.StatsTable.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Empty;
-            this.StatsTable.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Empty;
-            this.StatsTable.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.StatsTable.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.StatsTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.StatsTable.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.StatsTable.Size = new System.Drawing.Size(976, 393);
             this.StatsTable.TabIndex = 3;
             // 
@@ -165,13 +160,6 @@ namespace Forza_Mods_AIO.TabForms
             this.SendButton.UseVisualStyleBackColor = false;
             this.SendButton.Click += new System.EventHandler(this.SendButton_Click);
             // 
-            // SendProgress
-            // 
-            this.SendProgress.Location = new System.Drawing.Point(773, 13);
-            this.SendProgress.Name = "SendProgress";
-            this.SendProgress.Size = new System.Drawing.Size(148, 19);
-            this.SendProgress.TabIndex = 2;
-            // 
             // SendWorker
             // 
             this.SendWorker.WorkerReportsProgress = true;
@@ -196,15 +184,77 @@ namespace Forza_Mods_AIO.TabForms
             this.FilterBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilterBox_KeyDown);
             this.FilterBox.Leave += new System.EventHandler(this.FilterBox_Leave);
             // 
+            // StatsScrollBar
+            // 
+            this.StatsScrollBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.StatsScrollBar.Location = new System.Drawing.Point(973, 41);
+            this.StatsScrollBar.Name = "StatsScrollBar";
+            this.StatsScrollBar.Size = new System.Drawing.Size(15, 392);
+            this.StatsScrollBar.TabIndex = 5;
+            this.StatsScrollBar.Text = "darkScrollBar1";
+            this.StatsScrollBar.Visible = false;
+            this.StatsScrollBar.ValueChanged += new System.EventHandler<DarkUI.Controls.ScrollValueEventArgs>(this.StatsScrollBar_Scroll);
+            // 
+            // SendProgress
+            // 
+            this.SendProgress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.SendProgress.Location = new System.Drawing.Point(773, 13);
+            this.SendProgress.Name = "SendProgress";
+            this.SendProgress.Size = new System.Drawing.Size(155, 19);
+            this.SendProgress.TabIndex = 26;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).Text = "";
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).ClipText = false;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.SendProgress.GetChildAt(0).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.UI.SeparatorsElement)(this.SendProgress.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressBarTextElement)(this.SendProgress.GetChildAt(0).GetChildAt(3))).Text = "";
+            // 
             // StatsEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.SendProgress);
+            this.Controls.Add(this.StatsScrollBar);
             this.Controls.Add(this.FilterBox);
             this.Controls.Add(this.StatsTable);
-            this.Controls.Add(this.SendProgress);
             this.Controls.Add(this.SendButton);
             this.Controls.Add(this.ScanMarquee);
             this.Controls.Add(this.StatScanButton);
@@ -215,6 +265,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Text = "StatsEditor";
             this.Load += new System.EventHandler(this.StatsEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.StatsTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SendProgress)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,12 +274,13 @@ namespace Forza_Mods_AIO.TabForms
         #endregion
         private System.Windows.Forms.Button StatScanButton;
         private System.Windows.Forms.ProgressBar ScanMarquee;
-        private System.Windows.Forms.DataGridView StatsTable;
         private System.Windows.Forms.Button SendButton;
-        private System.Windows.Forms.ProgressBar SendProgress;
         public System.ComponentModel.BackgroundWorker SendWorker;
         private System.Windows.Forms.TextBox FilterBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn Key;
         private System.Windows.Forms.DataGridViewTextBoxColumn Value;
+        private DarkUI.Controls.DarkScrollBar StatsScrollBar;
+        public Telerik.WinControls.UI.RadProgressBar SendProgress;
+        public System.Windows.Forms.DataGridView StatsTable;
     }
 }

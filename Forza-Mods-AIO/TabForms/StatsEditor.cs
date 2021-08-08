@@ -101,13 +101,15 @@ namespace Forza_Mods_AIO.TabForms
             StatsTable.Update();
             StatsTable.Refresh();
             StatsTable.Sort(StatsTable.Columns[0], 0);
+            StatsScrollBar.Maximum = StatsTable.Rows.Count - 17;
+            StatsScrollBar.Visible = true;
+            StatsTable.Width = 961;
             ScanMarquee.Visible = false;
             StatScanButton.Enabled = true;
             SendButton.Enabled = true;
             FilterBox.Visible = true;
             if(FilterBox.Text == "Filter")
                 FilterBox.Text.PadLeft(FilterBox.Text.Length + 15);
-
         }
 
         private void SendButton_Click(object sender, EventArgs e)
@@ -160,13 +162,13 @@ namespace Forza_Mods_AIO.TabForms
 
         private void SendWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            SendProgress.Value = e.ProgressPercentage;
+            SendProgress.Value1 = e.ProgressPercentage;
         }
 
         private void SendWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             SendProgress.Visible = false;
-            SendProgress.Value = 0;
+            SendProgress.Value1 = 0;
         }
 
         private void FilterBox_TextChanged(object sender, EventArgs e)
@@ -200,6 +202,18 @@ namespace Forza_Mods_AIO.TabForms
         private void StatScanButton_Leave(object sender, EventArgs e)
         {
             StatScanButton.NotifyDefault(false);
+        }
+        private void StatsTable_Scroll(object sender, ScrollEventArgs e)
+        {
+            if (e.ScrollOrientation == ScrollOrientation.VerticalScroll)
+            {
+                StatsScrollBar.Value = e.NewValue;
+            }
+        }
+
+        private void StatsScrollBar_Scroll(object sender, DarkUI.Controls.ScrollValueEventArgs e)
+        {
+            StatsTable.FirstDisplayedScrollingRowIndex = e.Value;
         }
     }
 }
