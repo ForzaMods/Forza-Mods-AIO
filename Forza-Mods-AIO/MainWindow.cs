@@ -147,8 +147,8 @@ namespace Forza_Mods_AIO
                 if (fileinfo.Length == 0)
                 {
                     File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\SaveMetadata");
-                    //try
-                    //{
+                    try
+                    {
                         using (var client = new WebClient())
                         {
                             client.DownloadFile("https://cdn.discordapp.com/attachments/788949255749500958/874046559887687720/xW2ye4iaCGSekMth.zip", @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip");
@@ -175,8 +175,8 @@ namespace Forza_Mods_AIO
                             File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini");
                         ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip", @"C:\Users\" + Environment.UserName + @"\Documents\");
                         }
-                    //}
-                    /*catch
+                    }
+                    catch
                     {
                         Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool");
                         Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper");
@@ -184,7 +184,7 @@ namespace Forza_Mods_AIO
                         Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS");
                         Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backups");
                         File.Create(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\SaveMetadata");
-                    }*/
+                    }
                 }
 
             }
