@@ -30,8 +30,6 @@ namespace Forza_Mods_AIO.TabForms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Saveswapper));
-            this.Radio_MS = new System.Windows.Forms.RadioButton();
-            this.Radio_Steam = new System.Windows.Forms.RadioButton();
             this.LST_Accounts = new System.Windows.Forms.ListBox();
             this.LST_Savegames = new System.Windows.Forms.ListBox();
             this.TB_Backup = new System.Windows.Forms.CheckBox();
@@ -42,30 +40,8 @@ namespace Forza_Mods_AIO.TabForms
             this.GamertagResolve = new System.ComponentModel.BackgroundWorker();
             this.HiddenRadio = new System.Windows.Forms.RadioButton();
             this.GamebarAttach = new System.ComponentModel.BackgroundWorker();
+            this.BTN_ACCRefresh = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // Radio_MS
-            // 
-            this.Radio_MS.AutoSize = true;
-            this.Radio_MS.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Radio_MS.Location = new System.Drawing.Point(60, 68);
-            this.Radio_MS.Name = "Radio_MS";
-            this.Radio_MS.Size = new System.Drawing.Size(129, 23);
-            this.Radio_MS.TabIndex = 28;
-            this.Radio_MS.Text = "Microsoft Store";
-            this.Radio_MS.UseVisualStyleBackColor = true;
-            this.Radio_MS.CheckedChanged += new System.EventHandler(this.Radio_MS_CheckedChanged);
-            // 
-            // Radio_Steam
-            // 
-            this.Radio_Steam.AutoSize = true;
-            this.Radio_Steam.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Radio_Steam.Location = new System.Drawing.Point(60, 93);
-            this.Radio_Steam.Name = "Radio_Steam";
-            this.Radio_Steam.Size = new System.Drawing.Size(69, 23);
-            this.Radio_Steam.TabIndex = 29;
-            this.Radio_Steam.Text = "Steam";
-            this.Radio_Steam.UseVisualStyleBackColor = true;
             // 
             // LST_Accounts
             // 
@@ -98,7 +74,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.TB_Backup.AutoSize = true;
             this.TB_Backup.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_Backup.Location = new System.Drawing.Point(33, 122);
+            this.TB_Backup.Location = new System.Drawing.Point(35, 68);
             this.TB_Backup.Name = "TB_Backup";
             this.TB_Backup.Size = new System.Drawing.Size(186, 23);
             this.TB_Backup.TabIndex = 33;
@@ -148,7 +124,7 @@ namespace Forza_Mods_AIO.TabForms
             this.BTN_Backup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_Backup.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_Backup.ForeColor = System.Drawing.Color.White;
-            this.BTN_Backup.Location = new System.Drawing.Point(12, 151);
+            this.BTN_Backup.Location = new System.Drawing.Point(12, 97);
             this.BTN_Backup.Name = "BTN_Backup";
             this.BTN_Backup.Size = new System.Drawing.Size(236, 50);
             this.BTN_Backup.TabIndex = 35;
@@ -189,20 +165,37 @@ namespace Forza_Mods_AIO.TabForms
             this.GamebarAttach.DoWork += new System.ComponentModel.DoWorkEventHandler(this.GamebarAttach_DoWork);
             this.GamebarAttach.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.GamebarAttach_RunWorkerCompleted);
             // 
+            // BTN_ACCRefresh
+            // 
+            this.BTN_ACCRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.BTN_ACCRefresh.FlatAppearance.BorderSize = 0;
+            this.BTN_ACCRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
+            this.BTN_ACCRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.BTN_ACCRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_ACCRefresh.Font = new System.Drawing.Font("Open Sans", 8F);
+            this.BTN_ACCRefresh.ForeColor = System.Drawing.Color.White;
+            this.BTN_ACCRefresh.Location = new System.Drawing.Point(130, 267);
+            this.BTN_ACCRefresh.Name = "BTN_ACCRefresh";
+            this.BTN_ACCRefresh.Size = new System.Drawing.Size(118, 30);
+            this.BTN_ACCRefresh.TabIndex = 38;
+            this.BTN_ACCRefresh.TabStop = false;
+            this.BTN_ACCRefresh.Text = "Refresh Accounts";
+            this.BTN_ACCRefresh.UseVisualStyleBackColor = false;
+            this.BTN_ACCRefresh.Click += new System.EventHandler(this.BTN_ACCRefresh_Click);
+            // 
             // Saveswapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.BTN_ACCRefresh);
             this.Controls.Add(this.LBL_Account);
             this.Controls.Add(this.BTN_Backup);
             this.Controls.Add(this.TXT_SaveInfo);
             this.Controls.Add(this.TB_Backup);
             this.Controls.Add(this.LST_Savegames);
             this.Controls.Add(this.LST_Accounts);
-            this.Controls.Add(this.Radio_Steam);
-            this.Controls.Add(this.Radio_MS);
             this.Controls.Add(this.BTN_SwapSave);
             this.Controls.Add(this.HiddenRadio);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -217,8 +210,6 @@ namespace Forza_Mods_AIO.TabForms
         }
 
         #endregion
-        private System.Windows.Forms.RadioButton Radio_MS;
-        private System.Windows.Forms.RadioButton Radio_Steam;
         private System.Windows.Forms.ListBox LST_Accounts;
         private System.Windows.Forms.ListBox LST_Savegames;
         private System.Windows.Forms.CheckBox TB_Backup;
@@ -229,5 +220,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.ComponentModel.BackgroundWorker GamertagResolve;
         private System.Windows.Forms.RadioButton HiddenRadio;
         private System.ComponentModel.BackgroundWorker GamebarAttach;
+        private System.Windows.Forms.Button BTN_ACCRefresh;
     }
 }
