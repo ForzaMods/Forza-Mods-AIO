@@ -55,6 +55,7 @@ namespace Forza_Mods_AIO
             this.RainbowSpeed = new Telerik.WinControls.UI.RadSpinEditor();
             this.RainbowLabel = new System.Windows.Forms.Label();
             this.office2010BlackTheme1 = new Telerik.WinControls.Themes.Office2010BlackTheme();
+            this.MOTD = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.AOBScanProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VolNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mute)).BeginInit();
@@ -548,6 +549,15 @@ namespace Forza_Mods_AIO
             this.RainbowLabel.TabIndex = 33;
             this.RainbowLabel.Text = "Aids mode speed";
             // 
+            // MOTD
+            // 
+            this.MOTD.AutoSize = true;
+            this.MOTD.Font = new System.Drawing.Font("Open Sans", 13F);
+            this.MOTD.Location = new System.Drawing.Point(6, 388);
+            this.MOTD.Name = "MOTD";
+            this.MOTD.Size = new System.Drawing.Size(0, 24);
+            this.MOTD.TabIndex = 23;
+            // 
             // ToolInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -563,6 +573,7 @@ namespace Forza_Mods_AIO
             this.Controls.Add(this.VolNum);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AOBScanProgress);
+            this.Controls.Add(this.MOTD);
             this.Controls.Add(this.VersionLabel);
             this.Controls.Add(this.UCPostLink);
             this.Controls.Add(this.Discord);
@@ -614,5 +625,6 @@ namespace Forza_Mods_AIO
         private Telerik.WinControls.Themes.Office2010BlackTheme office2010BlackTheme1;
         public Telerik.WinControls.UI.RadSpinEditor VolNum;
         public Telerik.WinControls.UI.RadCheckBox Mute;
+        public System.Windows.Forms.Label MOTD;
     }
 }
