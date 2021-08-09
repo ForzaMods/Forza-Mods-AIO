@@ -146,12 +146,27 @@ namespace Forza_Mods_AIO.TabForms
             {
                 try
                 {
-                    var scan1 = (await sm.AoBScan("41 75 74 68 6F 72 69 7A 61 74 69 6F 6E 58 42 4C 33 2E 30 20 78 3D", true, true)).FirstOrDefault();
+                    long length = 0;
+                    string address = null;
+                    string auth = null;
+                    int count = 0;
+                    IEnumerable<long> scan1 = (await sm.AoBScan("41 75 74 68 6F 72 69 7A 61 74 69 6F 6E 58 42 4C 33 2E 30 20 78 3D", true, true));
                     var scan2 = (await sm.AoBScan("48 6F 73 74 63 6F 6D 6D 65 6E 74 73 2E 78 62 6F 78 6C 69 76 65 2E 63 6F 6D", true, true)).FirstOrDefault();
-                    var length = scan2 - scan1;
-                    length -= 93;
-                    var address = (scan1 + 13).ToString("X");
-                    string auth = Encoding.ASCII.GetString(sm.ReadBytes(address, length));
+                    foreach(var addr in scan1.ToArray())
+                    {
+                        length = scan2 - addr;
+                        if (length < 3500)
+                        {
+                            length -= 93;
+                            address = (addr + 13).ToString("X");
+                            break;
+                        }
+                        else if (count == scan1.Count())
+                            throw new Exception("yeet lol");
+                        count++;
+                    }
+                    if(length != 0 && address != null)
+                        auth = Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length));
                     LST_Accounts.Items.Clear();
 
                     foreach (var dir in acclist)
@@ -182,7 +197,7 @@ namespace Forza_Mods_AIO.TabForms
                         }
                     }
                 }
-                catch
+                catch(Exception a)
                 {
                     LST_Accounts.Items.Clear();
                     dircount = 0;
