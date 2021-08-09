@@ -150,19 +150,23 @@ namespace Forza_Mods_AIO.TabForms
                     string address = null;
                     string auth = null;
                     int count = 0;
-                    IEnumerable<long> scan1 = (await sm.AoBScan("41 75 74 68 6F 72 69 7A 61 74 69 6F 6E 58 42 4C 33 2E 30 20 78 3D", true, true));
-                    var scan2 = (await sm.AoBScan("48 6F 73 74 63 6F 6D 6D 65 6E 74 73 2E 78 62 6F 78 6C 69 76 65 2E 63 6F 6D", true, true)).FirstOrDefault();
-                    foreach(var addr in scan1.ToArray())
+                    bool done = false;
+                    IEnumerable<long> scan1 = await sm.AoBScan("41 75 74 68 6F 72 69 7A 61 74 69 6F 6E 58 42 4C 33 2E 30 20 78 3D", true, true);
+                    IEnumerable<long> scan2 = await sm.AoBScan("48 6F 73 74 63 6F 6D 6D 65 6E 74 73 2E 78 62 6F 78 6C 69 76 65 2E 63 6F 6D", true, true);
+                    foreach (var addr2 in scan2.ToArray())
                     {
-                        length = scan2 - addr;
-                        if (length < 3500)
+                        foreach (var addr1 in scan1.ToArray())
                         {
-                            length -= 93;
-                            address = (addr + 13).ToString("X");
-                            break;
+                            long templength = addr2 - addr1;
+                            if (templength < 3500)
+                            {
+                                length = templength - 93;
+                                address = (addr1 + 13).ToString("X");
+                                break;
+                            }
+                            else if (count == scan2.Count())
+                                throw new Exception("yeet lol");
                         }
-                        else if (count == scan1.Count())
-                            throw new Exception("yeet lol");
                         count++;
                     }
                     if(length != 0 && address != null)
@@ -199,6 +203,7 @@ namespace Forza_Mods_AIO.TabForms
                 }
                 catch(Exception a)
                 {
+                    MessageBox.Show(a.ToString());
                     LST_Accounts.Items.Clear();
                     dircount = 0;
                     foreach (var dir in acclist)

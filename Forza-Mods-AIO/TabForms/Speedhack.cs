@@ -51,6 +51,8 @@ namespace Forza_Mods_AIO.TabForms
         public static long BaseAddrLong; public static long Base2AddrLong; public static long Base3AddrLong; public static long Base4AddrLong; public static long Car1AddrLong; public static long Car2AddrLong; public static long Wall1AddrLong; public static long Wall2AddrLong; public static long FOVnopOutAddrLong; public static long FOVnopInAddrLong;
         public static long FirstPersonAddrLong; public static long DashAddrLong; public static long FrontAddrLong; public static long LowAddrLong; public static long BonnetAddrLong;
         public static long CurrentIDAddrLong;
+        public static long OOBnopAddrLong;
+        public static long SuperCarAddrLong;
 
         public static string Base = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
         public static string Car1 = "48 89 ? ? ? 44 8B ? 48 89 ? ? ? BA";
@@ -71,6 +73,8 @@ namespace Forza_Mods_AIO.TabForms
         public static string XPaob = "F3 0F ? ? 89 45 ? 48 8D ? ? ? ? ? 41 83 BD C0 00 00 00";
         public static string XPAmountaob = "8B 89 ? ? ? ? 85 C9 0F 8E";
         public static string CurrentIDaob = "00 00 50 4C 41 59 45 52 5F 43 41 52 00 00";
+        public static string OOBaob = "0F 11 ? ? ? ? ? 0F 5C ? 0F 59 ? 0F 28 ? 0F C6 CA ? F3 0F";
+        public static string SuperCaraob = "0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 48 83 C2 ? 0F 11 ? ? 48 83 C1 ? E8 ? ? ? ? 0F 10";
 
         public static string KBKeyString = "LShiftKey"; public static string XBKeyString = "LeftShoulder";
         public static string GravityAddr; public static string WeirdAddr;
@@ -91,6 +95,8 @@ namespace Forza_Mods_AIO.TabForms
         public static string CurrentIDAddr;
         public static string TimeAddrAddr;
         public static string allocationstring;
+        public static string OOBnopAddr;
+        public static string SuperCarAddr;
         public string CheckPointBaseAddr = null; public string WayPointBaseAddr = null;
         public string XPaddr = null; public long XPaddrLong = 0; public string XPAmountaddr = null; public long XPAmountaddrLong = 0;
 
@@ -538,11 +544,11 @@ namespace Forza_Mods_AIO.TabForms
         }
         public void TimeWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            var NOP = new byte[5] { 0x90, 0x90, 0x90, 0x90, 0x90 };
+            float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+            bool get = true;
             while (Timestart)
             {
-                var NOP = new byte[5] { 0x90, 0x90, 0x90, 0x90, 0x90 };
-                float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
-                bool get = true;
                 if (PastStart == 1)
                 {
                     if (get)
@@ -677,7 +683,7 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void WayPointWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (MainWindow.m.ReadByte(PastStartAddr) == 0)
+            while (MainWindow.m.ReadFloat(PastStartAddr) == 0)
             {
                 Thread.Sleep(1);
             }
@@ -685,11 +691,12 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void WayPointTPworker_DoWork(object sender, DoWorkEventArgs e)
         {
-            a.GetWayPointXAddr(CodeCave4, out WayPointBaseAddr);
+            if (!WayPointWorker.IsBusy)
+                WayPointWorker.RunWorkerAsync();
             while (WayPointTPToggle)
             {
                 float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
-                if (PastStart == 1)
+                if (PastStart == 1 && WayPointBaseAddr != null && WayPointBaseAddr != "000000000000")
                 {
                     float NewWPx = MainWindow.m.ReadFloat(WayPointxAddr, round: false);
                     float NewWPy = MainWindow.m.ReadFloat(WayPointyAddr, round: false);
@@ -703,10 +710,10 @@ namespace Forza_Mods_AIO.TabForms
                         LastWPy = NewWPy;
                         LastWPz = NewWPz;
                     }
-                    if (CheckPointTPworker.CancellationPending)
+                    if (WayPointTPworker.CancellationPending)
                     {
                         e.Cancel = true;
-                        CheckPointTPToggle = false;
+                        WayPointTPToggle = false;
                     }
                     Thread.Sleep(50);
                 }
@@ -881,7 +888,6 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (TurnAssistButton.Checked == false)
             {
-
                 ((Telerik.WinControls.Primitives.BorderPrimitive)TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 TurnAssistToggle = false;
                 if (TurnAssistToggle == false)
@@ -891,7 +897,6 @@ namespace Forza_Mods_AIO.TabForms
             }
             else
             {
-
                 ((Telerik.WinControls.Primitives.BorderPrimitive)TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 TurnAssistToggle = true;
                 Turnstart = true;
@@ -1365,7 +1370,8 @@ namespace Forza_Mods_AIO.TabForms
             {
                 if(WayPointBaseAddr == "000000000000" || WayPointBaseAddr == null)
                 {
-                    WayPointWorker.RunWorkerAsync();
+                    if(!WayPointWorker.IsBusy)
+                        WayPointWorker.RunWorkerAsync();
                 }
                 else
                 {
@@ -1384,13 +1390,15 @@ namespace Forza_Mods_AIO.TabForms
             }
             if (LST_TeleportLocation.Text == "Lake Island")
             {
-                MainWindow.m.FreezeValue(xAddr, "float", x.ToString());
-                MainWindow.m.FreezeValue(yAddr, "float", y.ToString());
-                MainWindow.m.FreezeValue(zAddr, "float", z.ToString());
-                Thread.Sleep(50);
-                MainWindow.m.UnfreezeValue(xAddr);
-                MainWindow.m.UnfreezeValue(yAddr);
-                MainWindow.m.UnfreezeValue(zAddr);
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
+                while (stopWatch.Elapsed < TimeSpan.FromSeconds(1))
+                {
+                    MainWindow.m.WriteMemory(xAddr, "float", x.ToString());
+                    MainWindow.m.WriteMemory(yAddr, "float", y.ToString());
+                    MainWindow.m.WriteMemory(zAddr, "float", z.ToString());
+                }
+                stopWatch.Stop();
             }
             else
             {
@@ -1404,6 +1412,7 @@ namespace Forza_Mods_AIO.TabForms
             byte[] original = new byte[7]{ 0x0F, 0x28, 0x89, 0x60, 0x02, 0x00, 0x00 };
             if (CheckpointBox.Checked == false)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 CheckPointTPToggle = false;
                 CheckPointTPworker.CancelAsync();
                 MainWindow.m.WriteMemory(GravityAddr, "float", basegrav.ToString());
@@ -1414,6 +1423,7 @@ namespace Forza_Mods_AIO.TabForms
             }
             else
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 CheckPointTPToggle = true;
                 CheckPointTPworker.RunWorkerAsync();
             }
@@ -1422,13 +1432,16 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (AutoWayPoint.Checked == false)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 WayPointTPToggle = false;
                 WayPointTPworker.CancelAsync();
             }
             else
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 WayPointTPToggle = true;
-                WayPointTPworker.RunWorkerAsync();
+                if(!WayPointTPworker.IsBusy)
+                    WayPointTPworker.RunWorkerAsync();
             }
         }
         #endregion
@@ -1875,6 +1888,47 @@ namespace Forza_Mods_AIO.TabForms
         private void DonoPic_Click(object sender, EventArgs e)
         {
             Process.Start("explorer.exe", "https://www.buymeacoffee.com/Yeethan69");
+        }
+
+        private void Bypassoob_CheckStateChanged(object sender, EventArgs e)
+        {
+            var before = new byte[] { 0x0F, 0x11, 0x9B, 0xE0, 0xFA, 0xFF, 0xFF };
+            var nop = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
+            if (Bypassoob.Checked)
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                MainWindow.m.WriteBytes(OOBnopAddr, nop);
+            }
+            else
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
+                MainWindow.m.WriteBytes(OOBnopAddr, before);
+            }
+        }
+
+        private void SuperCarBox_CheckStateChanged(object sender, EventArgs e)
+        {
+            var before1 = new byte[] { 0x0F, 0x11, 0x41, 0x10 };
+            var before2 = new byte[] { 0x0F, 0x11, 0x49, 0x20 };
+            var before3 = new byte[] { 0x0F, 0x11, 0x41, 0x30 };
+            var before4 = new byte[] { 0x0F, 0x11, 0x49, 0x40 };
+            var nop = new byte[] { 0x90, 0x90, 0x90, 0x90 };
+            if (SuperCarBox.Checked)
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                MainWindow.m.WriteBytes((SuperCarAddrLong + 4).ToString("X"), nop);
+                MainWindow.m.WriteBytes((SuperCarAddrLong + 12).ToString("X"), nop);
+                MainWindow.m.WriteBytes((SuperCarAddrLong + 20).ToString("X"), nop);
+                MainWindow.m.WriteBytes((SuperCarAddrLong + 32).ToString("X"), nop);
+            }
+            else
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
+                MainWindow.m.WriteBytes((SuperCarAddrLong + 4).ToString("X"), before1);
+                MainWindow.m.WriteBytes((SuperCarAddrLong + 12).ToString("X"), before2);
+                MainWindow.m.WriteBytes((SuperCarAddrLong + 20).ToString("X"), before3);
+                MainWindow.m.WriteBytes((SuperCarAddrLong + 32).ToString("X"), before4);
+            }
         }
     }
 }

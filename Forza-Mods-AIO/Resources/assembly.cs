@@ -140,30 +140,32 @@ namespace Forza_Mods_AIO
             MainWindow.m.WriteBytes(Speedhack.WayPointxASMAddr, JmpToCodeCaveCode);
 
             Thread.Sleep(25);
-            byte[] CheckBaseAddrArray = MainWindow.m.ReadBytes(((long)CodeCave + 41).ToString("X"), 6);
-            Array.Reverse(CheckBaseAddrArray);
-            WayPointBaseAddr = BitConverter.ToString(CheckBaseAddrArray).Replace("-", String.Empty);
+            byte[] WayBaseAddrArray = MainWindow.m.ReadBytes(((long)CodeCave + 41).ToString("X"), 6);
+            Array.Reverse(WayBaseAddrArray);
+            WayPointBaseAddr = BitConverter.ToString(WayBaseAddrArray).Replace("-", String.Empty);
             if (WayPointBaseAddr == "000000000000" && Speedhack.s.AutoWayPoint.Checked == false)
                 MessageBox.Show("Make a new waypoint");
 
-            while (WayPointBaseAddr == "000000000000")
+            while (WayPointBaseAddr == "000000000000" && !Speedhack.s.WayPointWorker.CancellationPending)
             {
-                CheckBaseAddrArray = MainWindow.m.ReadBytes(((long)CodeCave + 41).ToString("X"), 6);
-                Array.Reverse(CheckBaseAddrArray);
-                WayPointBaseAddr = BitConverter.ToString(CheckBaseAddrArray).Replace("-", String.Empty);
+                WayBaseAddrArray = MainWindow.m.ReadBytes(((long)CodeCave + 41).ToString("X"), 6);
+                Array.Reverse(WayBaseAddrArray);
+                WayPointBaseAddr = BitConverter.ToString(WayBaseAddrArray).Replace("-", String.Empty);
             }
-
-            Speedhack.WayPointxAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 928).ToString("X");
-            Speedhack.WayPointyAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 932).ToString("X");
-            Speedhack.WayPointzAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 936).ToString("X");
-            float WayPointX = MainWindow.m.ReadFloat(Speedhack.WayPointxAddr, round: false);
-            float WayPointY = MainWindow.m.ReadFloat(Speedhack.WayPointyAddr, round: false);
-            float WayPointZ = MainWindow.m.ReadFloat(Speedhack.WayPointzAddr, round: false);
-            if (WayPointX != 0 && WayPointX != 0 && WayPointX != 0)
+            if(!Speedhack.s.WayPointWorker.CancellationPending)
             {
-                MainWindow.m.WriteMemory(Speedhack.xAddr, "float", WayPointX.ToString());
-                MainWindow.m.WriteMemory(Speedhack.yAddr, "float", WayPointY.ToString());
-                MainWindow.m.WriteMemory(Speedhack.zAddr, "float", WayPointZ.ToString());
+                Speedhack.WayPointxAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 928).ToString("X");
+                Speedhack.WayPointyAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 932).ToString("X");
+                Speedhack.WayPointzAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 936).ToString("X");
+                float WayPointX = MainWindow.m.ReadFloat(Speedhack.WayPointxAddr, round: false);
+                float WayPointY = MainWindow.m.ReadFloat(Speedhack.WayPointyAddr, round: false);
+                float WayPointZ = MainWindow.m.ReadFloat(Speedhack.WayPointzAddr, round: false);
+                if (WayPointX != 0 && WayPointX != 0 && WayPointX != 0)
+                {
+                    MainWindow.m.WriteMemory(Speedhack.xAddr, "float", WayPointX.ToString());
+                    MainWindow.m.WriteMemory(Speedhack.yAddr, "float", WayPointY.ToString());
+                    MainWindow.m.WriteMemory(Speedhack.zAddr, "float", WayPointZ.ToString());
+                }
             }
 
             byte[] WayPointCodeBefore = new byte[7] { 0x0F, 0x10, 0x97, 0xA0, 0x03, 0x00, 0x00};
