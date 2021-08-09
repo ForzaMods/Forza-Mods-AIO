@@ -188,7 +188,7 @@ namespace Forza_Mods_AIO
                 }
 
             }
-                File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip");
+            File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip");
 
 
             string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
@@ -264,7 +264,7 @@ namespace Forza_Mods_AIO
         private void TopPanel_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             dragging = true;
-            dragCursorPoint = System.Windows.Forms.Cursor.Position;
+            dragCursorPoint = Cursor.Position;
             dragFormPoint = this.Location;
         }
         private void TopPanel_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)

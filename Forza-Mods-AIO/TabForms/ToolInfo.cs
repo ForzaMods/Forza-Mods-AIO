@@ -78,7 +78,7 @@ namespace Forza_Mods_AIO
                 string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
                 var SettingsParser = new FileIniDataParser();
                 IniData Settings = new IniData();
-                Settings["Settings"]["Theme Colour"] = RainbowColour;
+                Settings["Settings"]["Theme Colour"] = MainWindow.ThemeColour;
                 Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
                 Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
                 Settings["Settings"]["Volume"] = VolNum.Value.ToString();
