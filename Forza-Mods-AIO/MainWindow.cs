@@ -37,6 +37,7 @@ namespace Forza_Mods_AIO
         Version NewVer = null;
         public static Version CurrVer = new Version("0.0.0.1");
         string DL = null;
+        string MOTDstring = "";
         long sig = 0;
         private static CultureInfo resourceCulture;
         internal static byte[] SOk8LBUrRl
@@ -78,12 +79,18 @@ namespace Forza_Mods_AIO
         private void MainWindow_Load(object sender, EventArgs e)
         {
             ToolInfo.AOBScanProgress.Hide();
-            using (WebClient client = new WebClient())
+            try
             {
-                string Response = client.DownloadString(@"https://yeethan69.github.io/aioUpdate.txt");
-                string[] VerAndLink = Response.Split('\n', (char)StringSplitOptions.RemoveEmptyEntries);
-                NewVer = new Version(VerAndLink[0].Split('|').Last());
+                using (WebClient client = new WebClient())
+                {
+                    string Response = client.DownloadString(@"https://raw.githubusercontent.com/Yeethan69/AIOinfo/main/aioUpdate.txt");
+                    string[] VerAndLink = Response.Split('\n', (char)StringSplitOptions.RemoveEmptyEntries);
+                    NewVer = new Version(VerAndLink[0].Split('|').Last());
+                    MOTDstring = VerAndLink[2].Split('|').Last();
+                    ToolInfo.MOTD.Text = "MOTD: " + MOTDstring;
+                }
             }
+            catch { }
             if (NewVer != null && CurrVer.CompareTo(NewVer) < 0)
                 UpdateYesNo = MessageBox.Show("A new version has been released, would you like to download it now ? ", "Update", MessageBoxButtons.YesNo);
             if(UpdateYesNo == DialogResult.Yes)
