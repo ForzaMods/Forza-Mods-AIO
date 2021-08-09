@@ -314,6 +314,10 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.TimerButton.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.Bypassoob.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.SuperCarBox.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             DraffsYTLink.ForeColor = color;
             UCPostLink.ForeColor = color;
             DiscordLink.ForeColor = color;
@@ -352,8 +356,8 @@ namespace Forza_Mods_AIO
             {
                 Color rainbow = Rainbow(i);
                 t.UpdateThemeColour(rainbow);
-                Thread.Sleep(10);
-                i += (float)(Rainbowspeed / 1000);
+                Thread.Sleep(11);
+                i += (float)(Rainbowspeed / 10000);
                 RainbowColour = ColorTranslator.ToHtml(rainbow);
                 if (RainbowWorker.CancellationPending)
                     e.Cancel = true;

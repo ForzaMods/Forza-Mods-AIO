@@ -36,6 +36,7 @@ namespace Forza_Mods_AIO.TabForms
             this.LBL_SHNoClip = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.TimerIndicator = new System.Windows.Forms.Panel();
+            this.Bypassoob = new Telerik.WinControls.UI.RadCheckBox();
             this.TimerButton = new Telerik.WinControls.UI.RadCheckBox();
             this.XPBox = new Telerik.WinControls.UI.RadCheckBox();
             this.TimeCheckBox = new Telerik.WinControls.UI.RadCheckBox();
@@ -77,6 +78,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel4 = new System.Windows.Forms.Panel();
             this.TurnAssistButton = new Telerik.WinControls.UI.RadCheckBox();
             this.StopAllWheelsButton = new Telerik.WinControls.UI.RadCheckBox();
+            this.SuperCarBox = new Telerik.WinControls.UI.RadCheckBox();
             this.WheelSpeedButton = new Telerik.WinControls.UI.RadCheckBox();
             this.SuperBreakButton = new Telerik.WinControls.UI.RadCheckBox();
             this.VelHackButton = new Telerik.WinControls.UI.RadCheckBox();
@@ -135,6 +137,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHWallNoClip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).BeginInit();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Bypassoob)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimerButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimeCheckBox)).BeginInit();
@@ -152,6 +155,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TurnAssistButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopAllWheelsButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SuperCarBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WheelSpeedButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperBreakButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VelHackButton)).BeginInit();
@@ -201,7 +205,7 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -231,7 +235,7 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -260,6 +264,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             this.panel7.Controls.Add(this.TimerIndicator);
+            this.panel7.Controls.Add(this.Bypassoob);
             this.panel7.Controls.Add(this.TimerButton);
             this.panel7.Controls.Add(this.XPBox);
             this.panel7.Controls.Add(this.TimeCheckBox);
@@ -285,15 +290,46 @@ namespace Forza_Mods_AIO.TabForms
             // TimerIndicator
             // 
             this.TimerIndicator.BackColor = System.Drawing.Color.Red;
-            this.TimerIndicator.Location = new System.Drawing.Point(66, 271);
+            this.TimerIndicator.Location = new System.Drawing.Point(66, 284);
             this.TimerIndicator.Name = "TimerIndicator";
             this.TimerIndicator.Size = new System.Drawing.Size(15, 15);
             this.TimerIndicator.TabIndex = 43;
             // 
+            // Bypassoob
+            // 
+            this.Bypassoob.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.Bypassoob.Location = new System.Drawing.Point(64, 243);
+            this.Bypassoob.Name = "Bypassoob";
+            this.Bypassoob.Size = new System.Drawing.Size(180, 20);
+            this.Bypassoob.TabIndex = 29;
+            this.Bypassoob.Text = "Bypass out of bounds tp";
+            this.Bypassoob.ThemeName = "FluentDark";
+            this.Bypassoob.CheckStateChanged += new System.EventHandler(this.Bypassoob_CheckStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Bypassoob.GetChildAt(0))).Text = "Bypass out of bounds tp";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
             // TimerButton
             // 
             this.TimerButton.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.TimerButton.Location = new System.Drawing.Point(64, 251);
+            this.TimerButton.Location = new System.Drawing.Point(64, 262);
             this.TimerButton.Name = "TimerButton";
             this.TimerButton.Size = new System.Drawing.Size(137, 20);
             this.TimerButton.TabIndex = 29;
@@ -306,7 +342,7 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -324,7 +360,7 @@ namespace Forza_Mods_AIO.TabForms
             // XPBox
             // 
             this.XPBox.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.XPBox.Location = new System.Drawing.Point(64, 232);
+            this.XPBox.Location = new System.Drawing.Point(64, 224);
             this.XPBox.Name = "XPBox";
             this.XPBox.Size = new System.Drawing.Size(120, 20);
             this.XPBox.TabIndex = 29;
@@ -337,7 +373,7 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -368,7 +404,7 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -399,7 +435,7 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -430,7 +466,7 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -448,7 +484,7 @@ namespace Forza_Mods_AIO.TabForms
             // TimerLabel
             // 
             this.TimerLabel.AutoSize = true;
-            this.TimerLabel.Location = new System.Drawing.Point(85, 271);
+            this.TimerLabel.Location = new System.Drawing.Point(85, 284);
             this.TimerLabel.Name = "TimerLabel";
             this.TimerLabel.Size = new System.Drawing.Size(28, 15);
             this.TimerLabel.TabIndex = 42;
@@ -461,7 +497,7 @@ namespace Forza_Mods_AIO.TabForms
             0,
             0,
             0});
-            this.XPnup.Location = new System.Drawing.Point(64, 207);
+            this.XPnup.Location = new System.Drawing.Point(64, 201);
             this.XPnup.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -890,6 +926,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             this.panel4.Controls.Add(this.TurnAssistButton);
             this.panel4.Controls.Add(this.StopAllWheelsButton);
+            this.panel4.Controls.Add(this.SuperCarBox);
             this.panel4.Controls.Add(this.WheelSpeedButton);
             this.panel4.Controls.Add(this.SuperBreakButton);
             this.panel4.Controls.Add(this.VelHackButton);
@@ -904,7 +941,7 @@ namespace Forza_Mods_AIO.TabForms
             // TurnAssistButton
             // 
             this.TurnAssistButton.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.TurnAssistButton.Location = new System.Drawing.Point(399, 42);
+            this.TurnAssistButton.Location = new System.Drawing.Point(401, 71);
             this.TurnAssistButton.Name = "TurnAssistButton";
             this.TurnAssistButton.Size = new System.Drawing.Size(93, 20);
             this.TurnAssistButton.TabIndex = 29;
@@ -917,7 +954,7 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -935,7 +972,7 @@ namespace Forza_Mods_AIO.TabForms
             // StopAllWheelsButton
             // 
             this.StopAllWheelsButton.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.StopAllWheelsButton.Location = new System.Drawing.Point(297, 71);
+            this.StopAllWheelsButton.Location = new System.Drawing.Point(218, 73);
             this.StopAllWheelsButton.Name = "StopAllWheelsButton";
             this.StopAllWheelsButton.Size = new System.Drawing.Size(119, 20);
             this.StopAllWheelsButton.TabIndex = 29;
@@ -948,7 +985,7 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -963,10 +1000,41 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
+            // SuperCarBox
+            // 
+            this.SuperCarBox.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.SuperCarBox.Location = new System.Drawing.Point(401, 38);
+            this.SuperCarBox.Name = "SuperCarBox";
+            this.SuperCarBox.Size = new System.Drawing.Size(87, 20);
+            this.SuperCarBox.TabIndex = 29;
+            this.SuperCarBox.Text = "Super Car";
+            this.SuperCarBox.ThemeName = "FluentDark";
+            this.SuperCarBox.CheckStateChanged += new System.EventHandler(this.SuperCarBox_CheckStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.SuperCarBox.GetChildAt(0))).Text = "Super Car";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SuperCarBox.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
             // WheelSpeedButton
             // 
             this.WheelSpeedButton.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.WheelSpeedButton.Location = new System.Drawing.Point(217, 40);
+            this.WheelSpeedButton.Location = new System.Drawing.Point(41, 73);
             this.WheelSpeedButton.Name = "WheelSpeedButton";
             this.WheelSpeedButton.Size = new System.Drawing.Size(103, 20);
             this.WheelSpeedButton.TabIndex = 29;
@@ -979,7 +1047,7 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.WheelSpeedButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -997,7 +1065,7 @@ namespace Forza_Mods_AIO.TabForms
             // SuperBreakButton
             // 
             this.SuperBreakButton.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.SuperBreakButton.Location = new System.Drawing.Point(109, 70);
+            this.SuperBreakButton.Location = new System.Drawing.Point(218, 40);
             this.SuperBreakButton.Name = "SuperBreakButton";
             this.SuperBreakButton.Size = new System.Drawing.Size(102, 20);
             this.SuperBreakButton.TabIndex = 29;
@@ -1010,7 +1078,7 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SuperBreakButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -1040,7 +1108,7 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(38)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VelHackButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -1669,6 +1737,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).EndInit();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Bypassoob)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimerButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimeCheckBox)).EndInit();
@@ -1690,6 +1759,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TurnAssistButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopAllWheelsButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SuperCarBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WheelSpeedButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperBreakButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VelHackButton)).EndInit();
@@ -1800,7 +1870,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Button KBChange;
         private System.Windows.Forms.Button XBChange;
         public System.Windows.Forms.NumericUpDown XPnup;
-        private System.ComponentModel.BackgroundWorker WayPointWorker;
         private System.ComponentModel.BackgroundWorker WayPointTPworker;
         private System.Windows.Forms.Label TimerLabel;
         private System.ComponentModel.BackgroundWorker TimerWorker;
@@ -1820,5 +1889,8 @@ namespace Forza_Mods_AIO.TabForms
         public Telerik.WinControls.UI.RadCheckBox AutoWayPoint;
         public Telerik.WinControls.UI.RadCheckBox XPBox;
         public Telerik.WinControls.UI.RadCheckBox TimerButton;
+        public System.ComponentModel.BackgroundWorker WayPointWorker;
+        public Telerik.WinControls.UI.RadCheckBox Bypassoob;
+        public Telerik.WinControls.UI.RadCheckBox SuperCarBox;
     }
 }
