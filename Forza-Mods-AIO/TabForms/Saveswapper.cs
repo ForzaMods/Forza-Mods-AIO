@@ -275,8 +275,10 @@ namespace Forza_Mods_AIO.TabForms
             if (LST_Accounts.SelectedItem != null)
             {
                 BackupMSSave();
-                MessageBox.Show("Savegame has been backed up to: \n " + @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backup\" + "\n With the current date and time as the filename");
+                MessageBox.Show("Savegame has been backed up to: \n " + @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backup\", "Save Backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else
+                MessageBox.Show("Account not selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         }
         public static string GetAlphabet(int charsCount)
@@ -328,6 +330,11 @@ namespace Forza_Mods_AIO.TabForms
         void BTN_Help_Click(object sender, EventArgs e)
         {
             SaveswapGuide.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
