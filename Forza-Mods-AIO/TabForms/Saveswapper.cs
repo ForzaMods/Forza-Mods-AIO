@@ -30,7 +30,7 @@ namespace Forza_Mods_AIO.TabForms
         Mem sm = new Mem();
         bool attached = false;
         string[] savemetadata = null;
-
+        public PopupForms.SaveswappingGuide SaveswapGuide = new PopupForms.SaveswappingGuide();
 
         public void GamebarAttach_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -204,6 +204,7 @@ namespace Forza_Mods_AIO.TabForms
                             }
                             catch (Exception a)
                             {
+                                MessageBox.Show("Resolving Failed");
                                 LST_Accounts.Items.Clear();
                                 dircount = 0;
                                 foreach (var dir2 in acclist)
@@ -301,6 +302,11 @@ namespace Forza_Mods_AIO.TabForms
         private void BTN_ACCRefresh_Click(object sender, EventArgs e)
         {
             GamertagResolve.RunWorkerAsync();
+        }
+
+        void BTN_Help_Click(object sender, EventArgs e)
+        {
+            SaveswapGuide.Show();
         }
     }
 }

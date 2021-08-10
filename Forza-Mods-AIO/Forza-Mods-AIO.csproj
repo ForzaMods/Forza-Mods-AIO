@@ -361,6 +361,12 @@
     <Compile Include="TabForms\LiveTuningForms\Aero.designer.cs">
       <DependentUpon>Aero.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabForms\PopupForms\SaveswappingGuide.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForms\PopupForms\SaveswappingGuide.Designer.cs">
+      <DependentUpon>SaveswappingGuide.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabForms\VolumeMixer.cs" />
     <Compile Include="TabForms\LiveTuning.cs">
       <SubType>Form</SubType>
@@ -437,6 +443,9 @@
     <EmbeddedResource Include="TabForms\LiveTuningForms\Tyres.resx">
       <DependentUpon>Tyres.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TabForms\PopupForms\SaveswappingGuide.resx">
+      <DependentUpon>SaveswappingGuide.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TabForms\Saveswapper.resx">
       <DependentUpon>Saveswapper.cs</DependentUpon>
     </EmbeddedResource>
@@ -488,6 +497,7 @@
   <ItemGroup>
     <None Include="Resources\Updater.exe" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.5.2\build\Fody.targets" Condition="Exists('..\packages\Fody.6.5.2\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

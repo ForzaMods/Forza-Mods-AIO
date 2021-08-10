@@ -41,6 +41,7 @@ namespace Forza_Mods_AIO.TabForms
             this.HiddenRadio = new System.Windows.Forms.RadioButton();
             this.GamebarAttach = new System.ComponentModel.BackgroundWorker();
             this.BTN_ACCRefresh = new System.Windows.Forms.Button();
+            this.BTN_Help = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LST_Accounts
@@ -183,12 +184,31 @@ namespace Forza_Mods_AIO.TabForms
             this.BTN_ACCRefresh.UseVisualStyleBackColor = false;
             this.BTN_ACCRefresh.Click += new System.EventHandler(this.BTN_ACCRefresh_Click);
             // 
+            // BTN_Help
+            // 
+            this.BTN_Help.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.BTN_Help.FlatAppearance.BorderSize = 0;
+            this.BTN_Help.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
+            this.BTN_Help.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.BTN_Help.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_Help.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.BTN_Help.ForeColor = System.Drawing.Color.White;
+            this.BTN_Help.Location = new System.Drawing.Point(12, 211);
+            this.BTN_Help.Name = "BTN_Help";
+            this.BTN_Help.Size = new System.Drawing.Size(236, 50);
+            this.BTN_Help.TabIndex = 39;
+            this.BTN_Help.TabStop = false;
+            this.BTN_Help.Text = "Help/Use Guide";
+            this.BTN_Help.UseVisualStyleBackColor = false;
+            this.BTN_Help.Click += new System.EventHandler(this.BTN_Help_Click);
+            // 
             // Saveswapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.BTN_Help);
             this.Controls.Add(this.BTN_ACCRefresh);
             this.Controls.Add(this.LBL_Account);
             this.Controls.Add(this.BTN_Backup);
@@ -221,5 +241,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.RadioButton HiddenRadio;
         private System.ComponentModel.BackgroundWorker GamebarAttach;
         private System.Windows.Forms.Button BTN_ACCRefresh;
+        private System.Windows.Forms.Button BTN_Help;
     }
 }
