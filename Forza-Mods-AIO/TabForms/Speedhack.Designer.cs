@@ -494,6 +494,10 @@ namespace Forza_Mods_AIO.TabForms
             // 
             // XPnup
             // 
+            this.XPnup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.XPnup.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.XPnup.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.XPnup.ForeColor = System.Drawing.Color.White;
             this.XPnup.Increment = new decimal(new int[] {
             100,
             0,
@@ -506,8 +510,9 @@ namespace Forza_Mods_AIO.TabForms
             0,
             0});
             this.XPnup.Name = "XPnup";
-            this.XPnup.Size = new System.Drawing.Size(120, 22);
+            this.XPnup.Size = new System.Drawing.Size(120, 20);
             this.XPnup.TabIndex = 40;
+            this.XPnup.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // SaveSHDefault
             // 
