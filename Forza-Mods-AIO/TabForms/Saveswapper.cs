@@ -38,6 +38,7 @@ namespace Forza_Mods_AIO.TabForms
             {
                 if (!sm.OpenProcess("XboxApp"))
                 {
+                    attached = false;
                     Thread.Sleep(1000);
                     return;
                 }
@@ -120,6 +121,7 @@ namespace Forza_Mods_AIO.TabForms
             var savelist = new DirectoryInfo(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS").EnumerateFiles("*");
             var acclist = new DirectoryInfo(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs").EnumerateDirectories("*");
             int dircount = 0;
+            var resolved = 2;
             foreach (var dir in acclist)
             {
                 if (dir.Name != "t")
@@ -143,6 +145,7 @@ namespace Forza_Mods_AIO.TabForms
                         LST_Accounts.Items.Add(dircount + ": Last Played " + dir.LastWriteTime);
                     }
                 }
+                BTN_ACCRefresh.Enabled = true;
             }
             else
             {
@@ -181,6 +184,7 @@ namespace Forza_Mods_AIO.TabForms
                         auth = Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length));
                     LST_Accounts.Items.Clear();
                     var response = (dynamic)(new JObject());
+
                     foreach (var dir in acclist)
                     {
                         if (dir.Name != "t")
@@ -200,13 +204,15 @@ namespace Forza_Mods_AIO.TabForms
                                         retrycount++;
                                     }
                                 }
+                                resolved = 1;
                                 LST_Accounts.Items.Add(response.people[0].gamertag.ToString());
                             }
                             catch (Exception a)
                             {
-                                MessageBox.Show("Resolving Failed");
                                 LST_Accounts.Items.Clear();
                                 dircount = 0;
+                                LST_Resolved.Text = "Resolving Failed";
+                                LST_Resolved.ForeColor = Color.Red;
                                 foreach (var dir2 in acclist)
                                 {
                                     if (dir2.Name != "t")
@@ -215,6 +221,7 @@ namespace Forza_Mods_AIO.TabForms
                                         LST_Accounts.Items.Add(dircount + ": Last Played " + dir2.LastWriteTime);
                                     }
                                 }
+                                BTN_ACCRefresh.Enabled = true;
                                 return;
                             }
                         }
@@ -222,25 +229,33 @@ namespace Forza_Mods_AIO.TabForms
                 }
                 catch(Exception a)
                 {
-                    MessageBox.Show(a.ToString());
+                    //MessageBox.Show(a.ToString());
                     LST_Accounts.Items.Clear();
                     dircount = 0;
+                    LST_Resolved.Text = "Resolving Failed";
+                    LST_Resolved.ForeColor = Color.Red;
                     foreach (var dir in acclist)
                     {
                         if (dir.Name != "t")
                         {
                             dircount++;
                             LST_Accounts.Items.Add(dircount + ": Last Played " + dir.LastWriteTime);
+                            BTN_ACCRefresh.Enabled = true;
                         }
                     }
                 }
 
 
             }
+            if (resolved== 1)
+            {
+                LST_Resolved.Text = "      Resolved";
+                LST_Resolved.ForeColor = Color.Green;
+            }
             LST_Savegames.Items.Clear();
             foreach (var save in savelist)
                 LST_Savegames.Items.Add(save);
-
+            BTN_ACCRefresh.Enabled = true;
         }
 
         public void Saveswapper_Load(object sender, EventArgs e)
@@ -301,6 +316,7 @@ namespace Forza_Mods_AIO.TabForms
 
         private void BTN_ACCRefresh_Click(object sender, EventArgs e)
         {
+            BTN_ACCRefresh.Enabled = false;
             GamertagResolve.RunWorkerAsync();
         }
 

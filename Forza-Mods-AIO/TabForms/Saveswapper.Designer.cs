@@ -42,6 +42,7 @@ namespace Forza_Mods_AIO.TabForms
             this.GamebarAttach = new System.ComponentModel.BackgroundWorker();
             this.BTN_ACCRefresh = new System.Windows.Forms.Button();
             this.BTN_Help = new System.Windows.Forms.Button();
+            this.LST_Resolved = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LST_Accounts
@@ -193,7 +194,7 @@ namespace Forza_Mods_AIO.TabForms
             this.BTN_Help.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_Help.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_Help.ForeColor = System.Drawing.Color.White;
-            this.BTN_Help.Location = new System.Drawing.Point(12, 211);
+            this.BTN_Help.Location = new System.Drawing.Point(12, 153);
             this.BTN_Help.Name = "BTN_Help";
             this.BTN_Help.Size = new System.Drawing.Size(236, 50);
             this.BTN_Help.TabIndex = 39;
@@ -202,12 +203,22 @@ namespace Forza_Mods_AIO.TabForms
             this.BTN_Help.UseVisualStyleBackColor = false;
             this.BTN_Help.Click += new System.EventHandler(this.BTN_Help_Click);
             // 
+            // LST_Resolved
+            // 
+            this.LST_Resolved.AutoSize = true;
+            this.LST_Resolved.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.LST_Resolved.Location = new System.Drawing.Point(128, 244);
+            this.LST_Resolved.Name = "LST_Resolved";
+            this.LST_Resolved.Size = new System.Drawing.Size(0, 20);
+            this.LST_Resolved.TabIndex = 40;
+            // 
             // Saveswapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.LST_Resolved);
             this.Controls.Add(this.BTN_Help);
             this.Controls.Add(this.BTN_ACCRefresh);
             this.Controls.Add(this.LBL_Account);
@@ -242,5 +253,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.ComponentModel.BackgroundWorker GamebarAttach;
         private System.Windows.Forms.Button BTN_ACCRefresh;
         private System.Windows.Forms.Button BTN_Help;
+        private System.Windows.Forms.Label LST_Resolved;
     }
 }
