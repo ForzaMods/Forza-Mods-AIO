@@ -135,6 +135,7 @@ namespace Forza_Mods_AIO.TabForms
             }
             else if (!attached)
             {
+                resolved = 3;
                 LST_Accounts.Items.Clear();
                 dircount = 0;
                 foreach (var dir in acclist)
@@ -251,6 +252,10 @@ namespace Forza_Mods_AIO.TabForms
             {
                 LST_Resolved.Text = "      Resolved";
                 LST_Resolved.ForeColor = Color.Green;
+            }
+            if (resolved == 3)
+            {
+                LST_Resolved.Text = "";
             }
             LST_Savegames.Items.Clear();
             foreach (var save in savelist)
