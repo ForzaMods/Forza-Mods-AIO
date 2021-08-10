@@ -156,10 +156,12 @@ namespace Forza_Mods_AIO.TabForms
                     IEnumerable<long> scan2 = await sm.AoBScan("48 6F 73 74 63 6F 6D 6D 65 6E 74 73 2E 78 62 6F 78 6C 69 76 65 2E 63 6F 6D", true, true);
                     foreach (var addr2 in scan2.ToArray())
                     {
+                        if (done)
+                            break;
                         foreach (var addr1 in scan1.ToArray())
                         {
                             long templength = addr2 - addr1;
-                            if (templength < 3500)
+                            if (templength < 3500 && templength > 0)
                             {
                                 length = templength - 93;
                                 address = (addr1 + 13).ToString("X");
