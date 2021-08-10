@@ -622,7 +622,7 @@ namespace Forza_Mods_AIO.TabForms
                                 File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "FclvYGRQ1w.csv"), FclvYGRQ1w);
                                 string nameColumnName = "ID";
                                 string valueColumnName = "Short Name";
-                                using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "FH4_Cars.csv")), hasHeaders: true))
+                                using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "FclvYGRQ1w.csv")), hasHeaders: true))
                                 {
                                     int nameColumnIndex = csvReader.GetFieldIndex(nameColumnName);
                                     int valueColumnIndex = csvReader.GetFieldIndex(valueColumnName);
@@ -1372,6 +1372,8 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     if(!WayPointWorker.IsBusy)
                         WayPointWorker.RunWorkerAsync();
+                    else
+                        MessageBox.Show("Set a waypoint first smh my head");
                 }
                 else
                 {
@@ -1388,11 +1390,11 @@ namespace Forza_Mods_AIO.TabForms
                         MessageBox.Show("Set a waypoint first smh my head");
                 }
             }
-            if (LST_TeleportLocation.Text == "Lake Island")
+            else if (LST_TeleportLocation.Text == "Lake Island")
             {
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
-                while (stopWatch.Elapsed < TimeSpan.FromSeconds(1))
+                while (stopWatch.Elapsed < TimeSpan.FromMilliseconds(500))
                 {
                     MainWindow.m.WriteMemory(xAddr, "float", x.ToString());
                     MainWindow.m.WriteMemory(yAddr, "float", y.ToString());

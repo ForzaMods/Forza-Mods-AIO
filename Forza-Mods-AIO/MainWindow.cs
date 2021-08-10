@@ -36,9 +36,7 @@ namespace Forza_Mods_AIO
         DialogResult UpdateYesNo;
         Version NewVer = null;
         public static Version CurrVer = new Version("0.0.0.1");
-        string DL = null;
         string MOTDstring = "";
-        long sig = 0;
         private static CultureInfo resourceCulture;
         internal static byte[] SOk8LBUrRl
         {
@@ -240,8 +238,8 @@ namespace Forza_Mods_AIO
                 IniData Settings = SettingsParser.ReadFile(SettingsPath);
                 string TC = Settings["Settings"]["Theme Colour"];
                 float Speed = Convert.ToSingle(Settings["Settings"]["Rainbow Speed"]);
-                if (Speed > 10)
-                    Speed = 10;
+                if (Speed > 100)
+                    Speed = 100;
                 else if (Speed < 1)
                     Speed = 1;
                 ToolInfo.Rainbowspeed = Speed;
@@ -313,14 +311,6 @@ namespace Forza_Mods_AIO
                 }
                 else
                 {
-                    if (m.ReadByte(Speedhack.PastStartAddr) == 1)
-                    {
-                        Speedhack.CheckpointBox.Enabled = true;
-                        Speedhack.AutoWayPoint.Enabled = true;
-                        Speedhack.TimeCheckBox.Enabled = true;
-                        Speedhack.XPBox.Enabled = true;
-                        Speedhack.TimerButton.Enabled = true;
-                    }
                     Speedhack.IsAttached = true;
                     Thread.Sleep(500);
                     InitialBGworker.ReportProgress(0);
@@ -343,7 +333,7 @@ namespace Forza_Mods_AIO
             }
         }
         */
-                            private void InitialBGworker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void InitialBGworker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             if (Speedhack.IsAttached)
             {
@@ -577,14 +567,6 @@ namespace Forza_Mods_AIO
                     { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                     LiveTuning.Addresses();
                     Speedhack.Addresses();
-                    if (m.ReadByte(Speedhack.PastStartAddr) == 0)
-                    {
-                        Speedhack.CheckpointBox.Enabled = false;
-                        Speedhack.AutoWayPoint.Enabled = false;
-                        Speedhack.TimeCheckBox.Enabled = false;
-                        Speedhack.XPBox.Enabled = false;
-                        Speedhack.TimerButton.Enabled = false;
-                    }
                     Speedhack.ReadSpeedDefaultValues();
                     Speedhack.done = true;
                 }
