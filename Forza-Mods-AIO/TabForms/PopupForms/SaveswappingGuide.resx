@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="richTextBox1.Text" xml:space="preserve">
+  <data name="label1.Text" xml:space="preserve">
     <value>Xbox Console Companion must be open for gamertags to be shown. 
 
 Getting the account gamertags makes API calls to xbox servers using YOUR authentication token so open the xbox console companion at your own risk

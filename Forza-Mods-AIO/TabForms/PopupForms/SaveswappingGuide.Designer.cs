@@ -33,7 +33,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.BTN_Close = new System.Windows.Forms.Button();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.LBL_Title = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,18 +88,14 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.LBL_Title.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseMove);
             this.LBL_Title.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseUp);
             // 
-            // richTextBox1
+            // label1
             // 
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Font = new System.Drawing.Font("Open Sans", 11F);
-            this.richTextBox1.ForeColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 38);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(801, 238);
-            this.richTextBox1.TabIndex = 9;
-            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
+            this.label1.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.label1.Location = new System.Drawing.Point(3, 47);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(792, 200);
+            this.label1.TabIndex = 10;
+            this.label1.Text = resources.GetString("label1.Text");
             // 
             // SaveswappingGuide
             // 
@@ -108,7 +104,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(800, 263);
             this.ControlBox = false;
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.TopPanel);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
@@ -129,6 +125,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
         public System.Windows.Forms.Button BTN_Close;
         private System.Windows.Forms.Panel TopPanel;
         public System.Windows.Forms.Label LBL_Title;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
