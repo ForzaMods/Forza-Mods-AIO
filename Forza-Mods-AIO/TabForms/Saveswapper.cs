@@ -15,6 +15,7 @@ using Memory;
 using ContainerReader;
 using BaseNcoding;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace Forza_Mods_AIO.TabForms
 {
@@ -82,6 +83,7 @@ namespace Forza_Mods_AIO.TabForms
             {
                 SwapMSSave();
             }
+            else
                 MessageBox.Show("Options not selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -155,14 +157,20 @@ namespace Forza_Mods_AIO.TabForms
                     IEnumerable<long> scan2 = await sm.AoBScan("48 6F 73 74 63 6F 6D 6D 65 6E 74 73 2E 78 62 6F 78 6C 69 76 65 2E 63 6F 6D", true, true);
                     foreach (var addr2 in scan2.ToArray())
                     {
+                        if (done)
+                            break;
                         foreach (var addr1 in scan1.ToArray())
                         {
                             long templength = addr2 - addr1;
-                            if (templength < 3500)
+                            if (templength < 3500 && templength > 0)
                             {
                                 length = templength - 93;
                                 address = (addr1 + 13).ToString("X");
-                                break;
+                                if (!Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length)).Contains("Content-Length") && !Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length)).Contains(@"\"))
+                                {
+                                    done = true;
+                                    break;
+                                }
                             }
                             else if (count == scan2.Count())
                                 throw new Exception("yeet lol");
@@ -172,14 +180,26 @@ namespace Forza_Mods_AIO.TabForms
                     if(length != 0 && address != null)
                         auth = Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length));
                     LST_Accounts.Items.Clear();
-
+                    var response = (dynamic)(new JObject());
                     foreach (var dir in acclist)
                     {
                         if (dir.Name != "t")
                         {
                             try
                             {
-                                var response = (dynamic)JObject.Parse(Get("https://peoplehub.xboxlive.com/users/me/people/xuids(" + Int64.Parse(dir.Name.Substring(0, 16), System.Globalization.NumberStyles.HexNumber) + ")", auth));
+                                int retrycount = 0;
+                                while (retrycount < 3)
+                                {
+                                    try
+                                    {
+                                        response = (dynamic)JObject.Parse(Get("https://peoplehub.xboxlive.com/users/me/people/xuids(" + Int64.Parse(dir.Name.Substring(0, 16), System.Globalization.NumberStyles.HexNumber) + ")", auth));
+                                        break;
+                                    }
+                                    catch
+                                    {
+                                        retrycount++;
+                                    }
+                                }
                                 LST_Accounts.Items.Add(response.people[0].gamertag.ToString());
                             }
                             catch (Exception a)
@@ -192,12 +212,10 @@ namespace Forza_Mods_AIO.TabForms
                                     {
                                         dircount++;
                                         LST_Accounts.Items.Add(dircount + ": Last Played " + dir2.LastWriteTime);
-
                                     }
                                 }
                                 return;
                             }
-
                         }
                     }
                 }
