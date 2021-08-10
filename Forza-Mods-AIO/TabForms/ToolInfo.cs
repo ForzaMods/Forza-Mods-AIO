@@ -340,6 +340,8 @@ namespace Forza_Mods_AIO
                 IniData Settings = new IniData();
                 Settings["Settings"]["Theme Colour"] = RainbowColour;
                 Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
+                Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
+                Settings["Settings"]["Volume"] = VolNum.Value.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
                 MainWindow.ThemeColour = RainbowColour;
                 UpdateThemeColour(ColorTranslator.FromHtml(RainbowColour));

@@ -43,6 +43,7 @@ namespace Forza_Mods_AIO.TabForms
             this.BTN_ACCRefresh = new System.Windows.Forms.Button();
             this.BTN_Help = new System.Windows.Forms.Button();
             this.LST_Resolved = new System.Windows.Forms.Label();
+            this.ResolvingWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // LST_Accounts
@@ -212,6 +213,12 @@ namespace Forza_Mods_AIO.TabForms
             this.LST_Resolved.Size = new System.Drawing.Size(0, 20);
             this.LST_Resolved.TabIndex = 40;
             // 
+            // ResolvingWorker
+            // 
+            this.ResolvingWorker.WorkerReportsProgress = true;
+            this.ResolvingWorker.WorkerSupportsCancellation = true;
+            this.ResolvingWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ReolvingWorker_DoWork);
+            // 
             // Saveswapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -254,5 +261,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Button BTN_ACCRefresh;
         private System.Windows.Forms.Button BTN_Help;
         private System.Windows.Forms.Label LST_Resolved;
+        private System.ComponentModel.BackgroundWorker ResolvingWorker;
     }
 }

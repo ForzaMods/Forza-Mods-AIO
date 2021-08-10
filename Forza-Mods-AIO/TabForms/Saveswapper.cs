@@ -26,12 +26,14 @@ namespace Forza_Mods_AIO.TabForms
             InitializeComponent();
 
         }
+        Stopwatch AuthTimer = new Stopwatch();
         List<string> gamertags = new List<string>();
         Mem sm = new Mem();
         bool attached = false;
         string[] savemetadata = null;
         public PopupForms.SaveswappingGuide SaveswapGuide = new PopupForms.SaveswappingGuide();
-
+        bool resolving = false;
+        string auth = null;
         public void GamebarAttach_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
@@ -152,40 +154,45 @@ namespace Forza_Mods_AIO.TabForms
             {
                 try
                 {
+                    if(AuthTimer.Elapsed > TimeSpan.FromMinutes(20))
+                        { auth = null; AuthTimer.Reset(); }
+                    resolving = true;
+                    ResolvingWorker.RunWorkerAsync();
                     long length = 0;
                     string address = null;
-                    string auth = null;
                     int count = 0;
                     bool done = false;
-                    IEnumerable<long> scan1 = await sm.AoBScan("41 75 74 68 6F 72 69 7A 61 74 69 6F 6E 58 42 4C 33 2E 30 20 78 3D", true, true);
-                    IEnumerable<long> scan2 = await sm.AoBScan("48 6F 73 74 63 6F 6D 6D 65 6E 74 73 2E 78 62 6F 78 6C 69 76 65 2E 63 6F 6D", true, true);
-                    foreach (var addr2 in scan2.ToArray())
+                    if(auth == null)
                     {
-                        if (done)
-                            break;
-                        foreach (var addr1 in scan1.ToArray())
+                        IEnumerable<long> scan1 = await sm.AoBScan("41 75 74 68 6F 72 69 7A 61 74 69 6F 6E 58 42 4C 33 2E 30 20 78 3D", true, true);
+                        IEnumerable<long> scan2 = await sm.AoBScan("48 6F 73 74 63 6F 6D 6D 65 6E 74 73 2E 78 62 6F 78 6C 69 76 65 2E 63 6F 6D", true, true);
+                        foreach (var addr2 in scan2.ToArray())
                         {
-                            long templength = addr2 - addr1;
-                            if (templength < 3500 && templength > 0)
+                            if (done)
+                                break;
+                            foreach (var addr1 in scan1.ToArray())
                             {
-                                length = templength - 93;
-                                address = (addr1 + 13).ToString("X");
-                                if (!Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length)).Contains("Content-Length") && !Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length)).Contains(@"\"))
+                                long templength = addr2 - addr1;
+                                if (templength < 3500 && templength > 0)
                                 {
-                                    done = true;
-                                    break;
+                                    length = templength - 93;
+                                    address = (addr1 + 13).ToString("X");
+                                    if (!Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length)).Contains("Content-Length") && !Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length)).Contains(@"\") && !Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length)).Any(c => c > 255))
+                                    {
+                                        done = true;
+                                        break;
+                                    }
                                 }
+                                else if (count == scan2.Count())
+                                    throw new Exception("yeet lol");
                             }
-                            else if (count == scan2.Count())
-                                throw new Exception("yeet lol");
+                            count++;
                         }
-                        count++;
+                        if (length != 0 && address != null)
+                            auth = Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length));
                     }
-                    if(length != 0 && address != null)
-                        auth = Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length));
                     LST_Accounts.Items.Clear();
                     var response = (dynamic)(new JObject());
-
                     foreach (var dir in acclist)
                     {
                         if (dir.Name != "t")
@@ -202,16 +209,22 @@ namespace Forza_Mods_AIO.TabForms
                                     }
                                     catch
                                     {
+                                        Thread.Sleep(500);
                                         retrycount++;
                                     }
                                 }
                                 resolved = 1;
-                                LST_Accounts.Items.Add(response.people[0].gamertag.ToString());
+                                if(!LST_Accounts.Items.Contains(response.people[0].gamertag.ToString()))
+                                    LST_Accounts.Items.Add(response.people[0].gamertag.ToString());
+                                else
+                                    throw new Exception("yeet lol");
                             }
                             catch (Exception a)
                             {
                                 LST_Accounts.Items.Clear();
                                 dircount = 0;
+                                resolving = false;
+                                ResolvingWorker.CancelAsync();
                                 LST_Resolved.Text = "Resolving Failed";
                                 LST_Resolved.ForeColor = Color.Red;
                                 foreach (var dir2 in acclist)
@@ -233,6 +246,8 @@ namespace Forza_Mods_AIO.TabForms
                     //MessageBox.Show(a.ToString());
                     LST_Accounts.Items.Clear();
                     dircount = 0;
+                    resolving = false;
+                    ResolvingWorker.CancelAsync();
                     LST_Resolved.Text = "Resolving Failed";
                     LST_Resolved.ForeColor = Color.Red;
                     foreach (var dir in acclist)
@@ -250,11 +265,15 @@ namespace Forza_Mods_AIO.TabForms
             }
             if (resolved== 1)
             {
+                AuthTimer.Start();
+                resolving = false;
+                ResolvingWorker.CancelAsync();
                 LST_Resolved.Text = "      Resolved";
                 LST_Resolved.ForeColor = Color.Green;
             }
             if (resolved == 3)
             {
+                ResolvingWorker.CancelAsync();
                 LST_Resolved.Text = "";
             }
             LST_Savegames.Items.Clear();
@@ -275,9 +294,10 @@ namespace Forza_Mods_AIO.TabForms
             if (LST_Accounts.SelectedItem != null)
             {
                 BackupMSSave();
-                MessageBox.Show("Savegame has been backed up to: \n " + @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backup\" + "\n With the current date and time as the filename");
+                MessageBox.Show("Savegame has been backed up to: \n " + @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backup\", "Save Backup", MessageBoxButtons.OK, MessageBoxIcon.Information");
             }
-
+            else
+                MessageBox.Show("Account not selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         public static string GetAlphabet(int charsCount)
         {
@@ -328,6 +348,49 @@ namespace Forza_Mods_AIO.TabForms
         void BTN_Help_Click(object sender, EventArgs e)
         {
             SaveswapGuide.Show();
+        }
+
+        private void ReolvingWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (ResolvingWorker.CancellationPending)
+            {
+                e.Cancel = true;
+            }
+            LST_Resolved.ForeColor = Color.White;
+            LST_Resolved.Text = "    Resolving";
+            if (ResolvingWorker.CancellationPending)
+            {
+                e.Cancel = true;
+            }
+            while (resolving)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (ResolvingWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        break;
+                    }
+                    Thread.Sleep(100);
+                    if (ResolvingWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        break;
+                    }
+                    LST_Resolved.Text += ".";
+                }
+                if (ResolvingWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                LST_Resolved.Text = "    Resolving";
+                if (ResolvingWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+            }
         }
     }
 }
