@@ -97,11 +97,11 @@ namespace Forza_Mods_AIO.TabForms
         public static string allocationstring;
         public static string OOBnopAddr;
         public static string SuperCarAddr;
-        public string CheckPointBaseAddr = null; public string WayPointBaseAddr = null;
-        public string XPaddr = null; public long XPaddrLong = 0; public string XPAmountaddr = null; public long XPAmountaddrLong = 0;
+        public static string CheckPointBaseAddr = null; public static string WayPointBaseAddr = null;
+        public static string XPaddr = null; public static long XPaddrLong = 0; public static string XPAmountaddr = null; public static long XPAmountaddrLong = 0;
 
-        public IntPtr CCBA = (IntPtr)0; public IntPtr CCBA2 = (IntPtr)0; public IntPtr CCBA3 = (IntPtr)0; public IntPtr CCBA4 = (IntPtr)0;
-        public IntPtr CodeCave = (IntPtr)0; public IntPtr CodeCave2 = (IntPtr)0; public IntPtr CodeCave3 = (IntPtr)0; public IntPtr CodeCave4 = (IntPtr)0;
+        public static IntPtr CCBA = (IntPtr)0; public static IntPtr CCBA2 = (IntPtr)0; public static IntPtr CCBA3 = (IntPtr)0; public static IntPtr CCBA4 = (IntPtr)0;
+        public static IntPtr CodeCave = (IntPtr)0; public static IntPtr CodeCave2 = (IntPtr)0; public static IntPtr CodeCave3 = (IntPtr)0; public static IntPtr CodeCave4 = (IntPtr)0;
         public static IntPtr InjectAddress;
         float xVelocityVal; float yVelocityVal; float zVelocityVal;
         float x; float y; float z;
@@ -1394,7 +1394,7 @@ namespace Forza_Mods_AIO.TabForms
             {
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
-                while (stopWatch.Elapsed < TimeSpan.FromMilliseconds(500))
+                while (stopWatch.Elapsed < TimeSpan.FromSeconds(1))
                 {
                     MainWindow.m.WriteMemory(xAddr, "float", x.ToString());
                     MainWindow.m.WriteMemory(yAddr, "float", y.ToString());
