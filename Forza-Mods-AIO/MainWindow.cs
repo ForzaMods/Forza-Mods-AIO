@@ -760,13 +760,13 @@ namespace Forza_Mods_AIO
                 if (ThemeColour != "Rainbow")
                     Panel_Speedhack.BackColor = ColorTranslator.FromHtml(ThemeColour);
                 ClearTabItems();
-                TabHolder.Controls.Add(Speedhack);
-                Speedhack.Visible = true;
+                TabHolder.Controls.Add(speedhack);
+                speedhack.Visible = true;
                 RPCclient.UpdateDetails("Vroooming");
                 RPCclient.UpdateSmallAsset("speed", "Vroom");
                 RPCclient.SynchronizeState();
                 if(FirstLoad)
-                    Speedhack.ReadSpeedDefaultValues(); Speedhack.SHReset(); FirstLoad = false;
+                    speedhack.ReadSpeedDefaultValues(); speedhack.SHReset(); FirstLoad = false;
             }
             else
             {
@@ -825,12 +825,12 @@ namespace Forza_Mods_AIO
         }
         private void BTN_TabSpeedhack_MouseEnter(object sender, EventArgs e)
         {
-            if (Speedhack.Visible == false)
+            if (speedhack.Visible == false)
                 Panel_Speedhack.BackColor = Color.FromArgb(93, 93, 100);
         }
         private void BTN_TabSpeedhack_MouseLeave(object sender, EventArgs e)
         {
-            if (Speedhack.Visible == false)
+            if (speedhack.Visible == false)
                 Panel_Speedhack.BackColor = Color.FromArgb(28, 28, 28);
         }
     }
