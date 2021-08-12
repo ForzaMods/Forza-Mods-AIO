@@ -70,7 +70,7 @@ namespace Forza_Mods_AIO
                     LargeImageKey = "aio2",
                     LargeImageText = "Forza Mods AIO",
                     SmallImageKey = "home",
-                    SmallImageText = "reading info"
+                    SmallImageText = "Reading Info"
                 }
             });
         }
@@ -101,7 +101,7 @@ namespace Forza_Mods_AIO
             InitialBGworker.RunWorkerAsync();
             if(RPCclient.IsInitialized)
             {
-                RPCclient.UpdateDetails("reading info");
+                RPCclient.UpdateDetails("Reading Info");
                 RPCclient.UpdateSmallAsset("home", "Info");
             }
 
@@ -684,7 +684,7 @@ namespace Forza_Mods_AIO
                 ClearTabItems();
                 this.TabHolder.Controls.Add(AddCars);
                 AddCars.Visible = true;
-                RPCclient.UpdateDetails("Adding Cars");
+                RPCclient.UpdateDetails("Editing Garage/Autoshow");
                 RPCclient.UpdateSmallAsset("car", "adding cars");
                 RPCclient.SynchronizeState();
             }
