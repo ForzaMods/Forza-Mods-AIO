@@ -1,22 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Threading;
 using System.Windows.Forms;
-using Memory;
-using IniParser;
-using IniParser.Model;
-using Forza_Mods_AIO.TabForms;
-using LumenWorks.Framework.IO.Csv;
+
 
 namespace Forza_Mods_AIO
 {
@@ -30,6 +15,7 @@ namespace Forza_Mods_AIO
         //2 = steam
         //3 = default
         int platform = 3;
+        public TabForms.PopupForms.AddCarsGuide AddCarsGuide = new TabForms.PopupForms.AddCarsGuide();
         private void AddCars_Load(object sender, EventArgs e)
         {
 
@@ -462,6 +448,11 @@ namespace Forza_Mods_AIO
                 {
                 }
             }
+        }
+
+        private void BTN_Help_Click(object sender, EventArgs e)
+        {
+            AddCarsGuide.Show();
         }
     }
 }
