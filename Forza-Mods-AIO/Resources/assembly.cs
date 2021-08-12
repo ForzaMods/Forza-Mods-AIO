@@ -201,7 +201,7 @@ namespace Forza_Mods_AIO
             Speedhack s = new Speedhack();
             byte[] OnePoint = new byte[6] { 0xB9, 0x01, 0x00, 0x00, 0x00, 0x90 };
             string CodeCaveAddrString = ((long)CodeCave3).ToString("X");
-            string CodeCavejmpString = ((long)CodeCave3 - (Speedhack.s.XPaddrLong + 5)).ToString("X");
+            string CodeCavejmpString = ((long)CodeCave3 - (Speedhack.XPaddrLong + 5)).ToString("X");
             if (CodeCavejmpString.Length % 2 != 0)
                 CodeCavejmpString = "0" + CodeCavejmpString;
             byte[] CodeCaveAddr = StringToBytes(CodeCavejmpString);
@@ -214,14 +214,14 @@ namespace Forza_Mods_AIO
             byte[] XPAmountArray = StringToBytes(XPAmountHex);
             Array.Reverse(XPAmountArray);
 
-            byte[] jmpBackBytes = longToByteArray(Speedhack.s.XPaddrLong + 7 - (long)(CodeCave3 + 16));
+            byte[] jmpBackBytes = longToByteArray(Speedhack.XPaddrLong + 7 - (long)(CodeCave3 + 16));
             Array.Reverse(jmpBackBytes);
             string InsideCaveCodeString = "F30F2CC6C745B8" + BitConverter.ToString(XPAmountArray).Replace("-", String.Empty) + "E9" + (BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty)).Replace("FFFFFFFF", String.Empty);
             byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
 
-            MainWindow.m.WriteBytes(Speedhack.s.XPAmountaddr, OnePoint);
+            MainWindow.m.WriteBytes(Speedhack.XPAmountaddr, OnePoint);
             MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
-            MainWindow.m.WriteBytes(Speedhack.s.XPaddr, XPGiveCode);
+            MainWindow.m.WriteBytes(Speedhack.XPaddr, XPGiveCode);
         }
     }
 }

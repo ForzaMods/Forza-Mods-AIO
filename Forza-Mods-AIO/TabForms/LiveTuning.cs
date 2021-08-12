@@ -12,15 +12,17 @@ namespace Forza_Mods_AIO.TabForms
 {
     public partial class LiveTuning : Form
     {
-        LiveTuningForms.Tyres Tyres = new LiveTuningForms.Tyres() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-        LiveTuningForms.Gears Gears = new LiveTuningForms.Gears() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-        LiveTuningForms.Alignment Alignment = new LiveTuningForms.Alignment() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-        LiveTuningForms.Aero Aero = new LiveTuningForms.Aero() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public LiveTuningForms.Tyres Tyres = new LiveTuningForms.Tyres() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public LiveTuningForms.Gears Gears = new LiveTuningForms.Gears() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public LiveTuningForms.Alignment Alignment = new LiveTuningForms.Alignment() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public LiveTuningForms.Aero Aero = new LiveTuningForms.Aero() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public static LiveTuning l = new LiveTuning();
         public LiveTuning()
         {
             InitializeComponent();
             this.TabHolder.Controls.Add(Tyres);
             Tyres.Visible = true;
+            l = this;
         }
         #region Aero Addresses
         public static string FrontAeroAddr1;
@@ -479,7 +481,8 @@ namespace Forza_Mods_AIO.TabForms
         {
             ClearColours();
             BTN_Tyres.BackColor = Color.FromArgb(45, 45, 48);
-            Panel_Tyres.BackColor = Color.FromArgb(150, 11, 166);
+            if (MainWindow.ThemeColour != "Rainbow")
+                Panel_Tyres.BackColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
             ClearTabItems();
             this.TabHolder.Controls.Add(Tyres);
             Tyres.Visible = true;
@@ -489,7 +492,8 @@ namespace Forza_Mods_AIO.TabForms
         {
             ClearColours();
             BTN_Gears.BackColor = Color.FromArgb(45, 45, 48);
-            Panel_Gears.BackColor = Color.FromArgb(150, 11, 166);
+            if (MainWindow.ThemeColour != "Rainbow")
+                Panel_Gears.BackColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
             ClearTabItems();
             this.TabHolder.Controls.Add(Gears);
             Gears.Visible = true;
@@ -499,7 +503,8 @@ namespace Forza_Mods_AIO.TabForms
         {
             ClearColours();
             BTN_Alignment.BackColor = Color.FromArgb(45, 45, 48);
-            Panel_Alignment.BackColor = Color.FromArgb(150, 11, 166);
+            if (MainWindow.ThemeColour != "Rainbow")
+                Panel_Alignment.BackColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
             ClearTabItems();
             this.TabHolder.Controls.Add(Alignment);
             Alignment.Visible = true;

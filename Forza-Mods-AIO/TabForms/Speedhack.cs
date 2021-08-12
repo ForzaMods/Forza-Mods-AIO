@@ -1373,7 +1373,7 @@ namespace Forza_Mods_AIO.TabForms
                     if(!WayPointWorker.IsBusy)
                         WayPointWorker.RunWorkerAsync();
                     else
-                        MessageBox.Show("Set a waypoint first smh my head");
+                        MessageBox.Show("Make a new waypoint");
                 }
                 else
                 {
