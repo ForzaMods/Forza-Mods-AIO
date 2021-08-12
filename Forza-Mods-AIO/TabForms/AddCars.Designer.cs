@@ -44,14 +44,16 @@ namespace Forza_Mods_AIO
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Box_ClearGarage = new System.Windows.Forms.CheckBox();
+            this.Box_Null = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.Box_Decals = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.Box_RemoveCars = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.Box_LegoPaint = new System.Windows.Forms.CheckBox();
-            this.Box_Decals = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.Box_Null = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -234,6 +236,8 @@ namespace Forza_Mods_AIO
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel4.Controls.Add(this.label1);
+            this.panel4.Controls.Add(this.Box_ClearGarage);
             this.panel4.Controls.Add(this.Box_Null);
             this.panel4.Controls.Add(this.label10);
             this.panel4.Controls.Add(this.Box_Decals);
@@ -261,6 +265,82 @@ namespace Forza_Mods_AIO
             this.panel4.Size = new System.Drawing.Size(976, 421);
             this.panel4.TabIndex = 16;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.label1.ForeColor = System.Drawing.Color.Green;
+            this.label1.Location = new System.Drawing.Point(317, 365);
+            this.label1.Margin = new System.Windows.Forms.Padding(0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(230, 20);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "Deletes every car in your garage";
+            // 
+            // Box_ClearGarage
+            // 
+            this.Box_ClearGarage.AutoSize = true;
+            this.Box_ClearGarage.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.Box_ClearGarage.ForeColor = System.Drawing.Color.Green;
+            this.Box_ClearGarage.Location = new System.Drawing.Point(364, 338);
+            this.Box_ClearGarage.Name = "Box_ClearGarage";
+            this.Box_ClearGarage.Size = new System.Drawing.Size(113, 24);
+            this.Box_ClearGarage.TabIndex = 22;
+            this.Box_ClearGarage.Text = "Clear garage";
+            this.Box_ClearGarage.UseVisualStyleBackColor = true;
+            this.Box_ClearGarage.CheckedChanged += new System.EventHandler(this.Box_ClearGarage_CheckedChanged);
+            // 
+            // Box_Null
+            // 
+            this.Box_Null.AutoSize = true;
+            this.Box_Null.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.Box_Null.ForeColor = System.Drawing.Color.Red;
+            this.Box_Null.Location = new System.Drawing.Point(712, 3);
+            this.Box_Null.Name = "Box_Null";
+            this.Box_Null.Size = new System.Drawing.Size(83, 24);
+            this.Box_Null.TabIndex = 20;
+            this.Box_Null.Text = "Null Car";
+            this.Box_Null.UseVisualStyleBackColor = true;
+            this.Box_Null.CheckedChanged += new System.EventHandler(this.Box_Null_CheckedChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(665, 103);
+            this.label10.Margin = new System.Windows.Forms.Padding(0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(202, 20);
+            this.label10.TabIndex = 17;
+            this.label10.Text = "Unlocks hidden paint decals";
+            // 
+            // Box_Decals
+            // 
+            this.Box_Decals.AutoSize = true;
+            this.Box_Decals.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.Box_Decals.ForeColor = System.Drawing.Color.White;
+            this.Box_Decals.Location = new System.Drawing.Point(712, 76);
+            this.Box_Decals.Name = "Box_Decals";
+            this.Box_Decals.Size = new System.Drawing.Size(125, 24);
+            this.Box_Decals.TabIndex = 16;
+            this.Box_Decals.Text = "Unlock Decals";
+            this.Box_Decals.UseVisualStyleBackColor = true;
+            this.Box_Decals.CheckedChanged += new System.EventHandler(this.Box_Decals_CheckedChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.label12.ForeColor = System.Drawing.Color.Red;
+            this.label12.Location = new System.Drawing.Point(665, 30);
+            this.label12.Margin = new System.Windows.Forms.Padding(0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(296, 40);
+            this.label12.TabIndex = 21;
+            this.label12.Text = "Shows only the null car in the autoshow\r\n(Requires Show traffic/HS enabled before" +
+    ")";
+            // 
             // Box_RemoveCars
             // 
             this.Box_RemoveCars.AutoSize = true;
@@ -284,18 +364,6 @@ namespace Forza_Mods_AIO
             this.label11.TabIndex = 19;
             this.label11.Text = "Allows you to remove any car from the garage";
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Open Sans", 11F);
-            this.label10.ForeColor = System.Drawing.Color.Green;
-            this.label10.Location = new System.Drawing.Point(327, 365);
-            this.label10.Margin = new System.Windows.Forms.Padding(0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(202, 20);
-            this.label10.TabIndex = 17;
-            this.label10.Text = "Unlocks hidden paint decals";
-            // 
             // Box_LegoPaint
             // 
             this.Box_LegoPaint.AutoSize = true;
@@ -308,19 +376,6 @@ namespace Forza_Mods_AIO
             this.Box_LegoPaint.UseVisualStyleBackColor = true;
             this.Box_LegoPaint.CheckedChanged += new System.EventHandler(this.Box_LegoPaint_CheckedChanged);
             // 
-            // Box_Decals
-            // 
-            this.Box_Decals.AutoSize = true;
-            this.Box_Decals.Font = new System.Drawing.Font("Open Sans", 11F);
-            this.Box_Decals.ForeColor = System.Drawing.Color.Green;
-            this.Box_Decals.Location = new System.Drawing.Point(374, 338);
-            this.Box_Decals.Name = "Box_Decals";
-            this.Box_Decals.Size = new System.Drawing.Size(125, 24);
-            this.Box_Decals.TabIndex = 16;
-            this.Box_Decals.Text = "Unlock Decals";
-            this.Box_Decals.UseVisualStyleBackColor = true;
-            this.Box_Decals.CheckedChanged += new System.EventHandler(this.Box_Decals_CheckedChanged);
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -331,32 +386,6 @@ namespace Forza_Mods_AIO
             this.label9.Size = new System.Drawing.Size(290, 20);
             this.label9.TabIndex = 12;
             this.label9.Text = "Allows you to apply paint to lego dlc cars";
-            // 
-            // Box_Null
-            // 
-            this.Box_Null.AutoSize = true;
-            this.Box_Null.Font = new System.Drawing.Font("Open Sans", 11F);
-            this.Box_Null.ForeColor = System.Drawing.Color.Red;
-            this.Box_Null.Location = new System.Drawing.Point(712, 3);
-            this.Box_Null.Name = "Box_Null";
-            this.Box_Null.Size = new System.Drawing.Size(83, 24);
-            this.Box_Null.TabIndex = 20;
-            this.Box_Null.Text = "Null Car";
-            this.Box_Null.UseVisualStyleBackColor = true;
-            this.Box_Null.CheckedChanged += new System.EventHandler(this.Box_Null_CheckedChanged);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Open Sans", 11F);
-            this.label12.ForeColor = System.Drawing.Color.Red;
-            this.label12.Location = new System.Drawing.Point(665, 30);
-            this.label12.Margin = new System.Windows.Forms.Padding(0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(296, 40);
-            this.label12.TabIndex = 21;
-            this.label12.Text = "Shows only the null car in the autoshow\r\n(Requires Show traffic/HS enabled before" +
-    ")";
             // 
             // AddCars
             // 
@@ -403,5 +432,7 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox Box_Null;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox Box_ClearGarage;
     }
 }
