@@ -194,7 +194,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.TB_SHWallNoClip.Location = new System.Drawing.Point(100, 38);
             this.TB_SHWallNoClip.Name = "TB_SHWallNoClip";
-            this.TB_SHWallNoClip.Size = new System.Drawing.Size(48, 22);
+            this.TB_SHWallNoClip.Size = new System.Drawing.Size(51, 20);
             this.TB_SHWallNoClip.TabIndex = 29;
             this.TB_SHWallNoClip.Text = "Wall";
             this.TB_SHWallNoClip.ThemeName = "FluentDark";
@@ -224,7 +224,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.TB_SHCarNoClip.Location = new System.Drawing.Point(44, 38);
             this.TB_SHCarNoClip.Name = "TB_SHCarNoClip";
-            this.TB_SHCarNoClip.Size = new System.Drawing.Size(43, 22);
+            this.TB_SHCarNoClip.Size = new System.Drawing.Size(46, 20);
             this.TB_SHCarNoClip.TabIndex = 29;
             this.TB_SHCarNoClip.Text = "Car";
             this.TB_SHCarNoClip.ThemeName = "FluentDark";
@@ -300,7 +300,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Bypassoob.Font = new System.Drawing.Font("Open Sans", 10F);
             this.Bypassoob.Location = new System.Drawing.Point(64, 243);
             this.Bypassoob.Name = "Bypassoob";
-            this.Bypassoob.Size = new System.Drawing.Size(177, 22);
+            this.Bypassoob.Size = new System.Drawing.Size(180, 20);
             this.Bypassoob.TabIndex = 29;
             this.Bypassoob.Text = "Bypass out of bounds tp";
             this.Bypassoob.ThemeName = "FluentDark";
@@ -331,7 +331,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TimerButton.Font = new System.Drawing.Font("Open Sans", 10F);
             this.TimerButton.Location = new System.Drawing.Point(64, 262);
             this.TimerButton.Name = "TimerButton";
-            this.TimerButton.Size = new System.Drawing.Size(134, 22);
+            this.TimerButton.Size = new System.Drawing.Size(137, 20);
             this.TimerButton.TabIndex = 29;
             this.TimerButton.Text = "Start 0 - 60 timing";
             this.TimerButton.ThemeName = "FluentDark";
@@ -362,7 +362,7 @@ namespace Forza_Mods_AIO.TabForms
             this.XPBox.Font = new System.Drawing.Font("Open Sans", 10F);
             this.XPBox.Location = new System.Drawing.Point(64, 224);
             this.XPBox.Name = "XPBox";
-            this.XPBox.Size = new System.Drawing.Size(117, 22);
+            this.XPBox.Size = new System.Drawing.Size(120, 20);
             this.XPBox.TabIndex = 29;
             this.XPBox.Text = "XP on unpause";
             this.XPBox.ThemeName = "FluentDark";
@@ -393,7 +393,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TimeCheckBox.Font = new System.Drawing.Font("Open Sans", 10F);
             this.TimeCheckBox.Location = new System.Drawing.Point(64, 180);
             this.TimeCheckBox.Name = "TimeCheckBox";
-            this.TimeCheckBox.Size = new System.Drawing.Size(104, 22);
+            this.TimeCheckBox.Size = new System.Drawing.Size(107, 20);
             this.TimeCheckBox.TabIndex = 29;
             this.TimeCheckBox.Text = "Manual Time";
             this.TimeCheckBox.ThemeName = "FluentDark";
@@ -424,7 +424,7 @@ namespace Forza_Mods_AIO.TabForms
             this.AutoWayPoint.Font = new System.Drawing.Font("Open Sans", 10F);
             this.AutoWayPoint.Location = new System.Drawing.Point(64, 161);
             this.AutoWayPoint.Name = "AutoWayPoint";
-            this.AutoWayPoint.Size = new System.Drawing.Size(150, 22);
+            this.AutoWayPoint.Size = new System.Drawing.Size(153, 20);
             this.AutoWayPoint.TabIndex = 29;
             this.AutoWayPoint.Text = "Auto TP to waypoint";
             this.AutoWayPoint.ThemeName = "FluentDark";
@@ -456,7 +456,7 @@ namespace Forza_Mods_AIO.TabForms
             this.CheckpointBox.Font = new System.Drawing.Font("Open Sans", 10F);
             this.CheckpointBox.Location = new System.Drawing.Point(64, 142);
             this.CheckpointBox.Name = "CheckpointBox";
-            this.CheckpointBox.Size = new System.Drawing.Size(108, 22);
+            this.CheckpointBox.Size = new System.Drawing.Size(111, 20);
             this.CheckpointBox.TabIndex = 29;
             this.CheckpointBox.Text = "Auto win race";
             this.CheckpointBox.ThemeName = "FluentDark";
@@ -970,7 +970,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TurnAssistButton.Font = new System.Drawing.Font("Open Sans", 10F);
             this.TurnAssistButton.Location = new System.Drawing.Point(401, 71);
             this.TurnAssistButton.Name = "TurnAssistButton";
-            this.TurnAssistButton.Size = new System.Drawing.Size(90, 22);
+            this.TurnAssistButton.Size = new System.Drawing.Size(93, 20);
             this.TurnAssistButton.TabIndex = 29;
             this.TurnAssistButton.Text = "Turn assist";
             this.TurnAssistButton.ThemeName = "FluentDark";
@@ -1001,7 +1001,7 @@ namespace Forza_Mods_AIO.TabForms
             this.StopAllWheelsButton.Font = new System.Drawing.Font("Open Sans", 10F);
             this.StopAllWheelsButton.Location = new System.Drawing.Point(218, 73);
             this.StopAllWheelsButton.Name = "StopAllWheelsButton";
-            this.StopAllWheelsButton.Size = new System.Drawing.Size(116, 22);
+            this.StopAllWheelsButton.Size = new System.Drawing.Size(119, 20);
             this.StopAllWheelsButton.TabIndex = 29;
             this.StopAllWheelsButton.Text = "Stop all wheels";
             this.StopAllWheelsButton.ThemeName = "FluentDark";
@@ -1032,7 +1032,7 @@ namespace Forza_Mods_AIO.TabForms
             this.SuperCarBox.Font = new System.Drawing.Font("Open Sans", 10F);
             this.SuperCarBox.Location = new System.Drawing.Point(401, 38);
             this.SuperCarBox.Name = "SuperCarBox";
-            this.SuperCarBox.Size = new System.Drawing.Size(84, 22);
+            this.SuperCarBox.Size = new System.Drawing.Size(87, 20);
             this.SuperCarBox.TabIndex = 29;
             this.SuperCarBox.Text = "Super Car";
             this.SuperCarBox.ThemeName = "FluentDark";
@@ -1063,7 +1063,7 @@ namespace Forza_Mods_AIO.TabForms
             this.WheelSpeedButton.Font = new System.Drawing.Font("Open Sans", 10F);
             this.WheelSpeedButton.Location = new System.Drawing.Point(41, 73);
             this.WheelSpeedButton.Name = "WheelSpeedButton";
-            this.WheelSpeedButton.Size = new System.Drawing.Size(100, 22);
+            this.WheelSpeedButton.Size = new System.Drawing.Size(103, 20);
             this.WheelSpeedButton.TabIndex = 29;
             this.WheelSpeedButton.Text = "Wheelspeed";
             this.WheelSpeedButton.ThemeName = "FluentDark";
@@ -1094,7 +1094,7 @@ namespace Forza_Mods_AIO.TabForms
             this.SuperBreakButton.Font = new System.Drawing.Font("Open Sans", 10F);
             this.SuperBreakButton.Location = new System.Drawing.Point(218, 40);
             this.SuperBreakButton.Name = "SuperBreakButton";
-            this.SuperBreakButton.Size = new System.Drawing.Size(99, 22);
+            this.SuperBreakButton.Size = new System.Drawing.Size(102, 20);
             this.SuperBreakButton.TabIndex = 29;
             this.SuperBreakButton.Text = "Super Brake";
             this.SuperBreakButton.ThemeName = "FluentDark";
@@ -1124,7 +1124,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.VelHackButton.Location = new System.Drawing.Point(41, 42);
             this.VelHackButton.Name = "VelHackButton";
-            this.VelHackButton.Size = new System.Drawing.Size(70, 22);
+            this.VelHackButton.Size = new System.Drawing.Size(73, 20);
             this.VelHackButton.TabIndex = 29;
             this.VelHackButton.Text = "Velocity";
             this.VelHackButton.ThemeName = "FluentDark";

@@ -290,9 +290,15 @@ namespace Forza_Mods_AIO
                 MainWindow.main.Panel_Saveswap.BackColor = color;
             if (MainWindow.main.LiveTuning.Visible)
                 MainWindow.main.Panel_LiveTuning.BackColor = color;
-            if (MainWindow.main.Speedhack.Visible)
+            if (MainWindow.main.speedhack.Visible)
                 MainWindow.main.Panel_Speedhack.BackColor = color;
-            if(Speedhack.s.TB_SHCarNoClip.Checked)
+            if (LiveTuning.l.Tyres.Visible)
+                LiveTuning.l.Panel_Tyres.BackColor = color;
+            if (LiveTuning.l.Gears.Visible)
+                LiveTuning.l.Panel_Gears.BackColor = color;
+            if (LiveTuning.l.Alignment.Visible)
+                LiveTuning.l.Panel_Alignment.BackColor = color;
+            if (Speedhack.s.TB_SHCarNoClip.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.TB_SHCarNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.TB_SHWallNoClip.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.TB_SHWallNoClip.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
