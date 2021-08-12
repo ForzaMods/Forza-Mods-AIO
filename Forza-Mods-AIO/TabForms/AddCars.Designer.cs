@@ -284,7 +284,7 @@ namespace Forza_Mods_AIO
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Open Sans", 10F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(718, 125);
+            this.label1.Location = new System.Drawing.Point(708, 125);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(225, 19);
@@ -296,7 +296,7 @@ namespace Forza_Mods_AIO
             this.Box_ClearGarage.AutoSize = true;
             this.Box_ClearGarage.Font = new System.Drawing.Font("Open Sans", 10F);
             this.Box_ClearGarage.ForeColor = System.Drawing.Color.White;
-            this.Box_ClearGarage.Location = new System.Drawing.Point(761, 99);
+            this.Box_ClearGarage.Location = new System.Drawing.Point(757, 99);
             this.Box_ClearGarage.Name = "Box_ClearGarage";
             this.Box_ClearGarage.Size = new System.Drawing.Size(113, 23);
             this.Box_ClearGarage.TabIndex = 22;
