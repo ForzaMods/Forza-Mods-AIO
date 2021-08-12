@@ -141,7 +141,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabAddCars.Size = new System.Drawing.Size(166, 30);
             this.BTN_TabAddCars.TabIndex = 2;
             this.BTN_TabAddCars.TabStop = false;
-            this.BTN_TabAddCars.Text = "Add Cars";
+            this.BTN_TabAddCars.Text = "Autoshow/Garage";
             this.BTN_TabAddCars.UseVisualStyleBackColor = false;
             this.BTN_TabAddCars.Click += new System.EventHandler(this.BTN_TabAddCars_Click);
             this.BTN_TabAddCars.MouseEnter += new System.EventHandler(this.BTN_TabAddCars_MouseEnter);
