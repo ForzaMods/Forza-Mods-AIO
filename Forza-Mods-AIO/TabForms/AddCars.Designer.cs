@@ -29,12 +29,6 @@ namespace Forza_Mods_AIO
         /// </summary>
         private void InitializeComponent()
         {
-            this.Box_RareCars = new System.Windows.Forms.CheckBox();
-            this.Box_FreeCars = new System.Windows.Forms.CheckBox();
-            this.Box_SeriesFix = new System.Windows.Forms.CheckBox();
-            this.Box_ThumbsFix = new System.Windows.Forms.CheckBox();
-            this.Box_Traffic = new System.Windows.Forms.CheckBox();
-            this.Box_Presets = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -43,103 +37,43 @@ namespace Forza_Mods_AIO
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.Box_Null = new System.Windows.Forms.CheckBox();
+            this.Box_Null = new Telerik.WinControls.UI.RadCheckBox();
+            this.Box_RareCars = new Telerik.WinControls.UI.RadCheckBox();
+            this.Box_AllCars = new Telerik.WinControls.UI.RadCheckBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.Box_AllCars = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Box_ClearGarage = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.Box_Decals = new System.Windows.Forms.CheckBox();
-            this.Box_RemoveCars = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.Box_LegoPaint = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
             this.BTN_Help = new System.Windows.Forms.Button();
+            this.Box_LegoPaint = new Telerik.WinControls.UI.RadCheckBox();
+            this.Box_RemoveCars = new Telerik.WinControls.UI.RadCheckBox();
+            this.Box_Decals = new Telerik.WinControls.UI.RadCheckBox();
+            this.Box_FreeCars = new Telerik.WinControls.UI.RadCheckBox();
+            this.Box_SeriesFix = new Telerik.WinControls.UI.RadCheckBox();
+            this.Box_Traffic = new Telerik.WinControls.UI.RadCheckBox();
+            this.Box_ThumbsFix = new Telerik.WinControls.UI.RadCheckBox();
+            this.Box_Presets = new Telerik.WinControls.UI.RadCheckBox();
+            this.Box_ClearGarage = new Telerik.WinControls.UI.RadCheckBox();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_Null)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_RareCars)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_AllCars)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_LegoPaint)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_RemoveCars)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_Decals)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_FreeCars)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_SeriesFix)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_Traffic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_ThumbsFix)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_Presets)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_ClearGarage)).BeginInit();
             this.SuspendLayout();
-            // 
-            // Box_RareCars
-            // 
-            this.Box_RareCars.AutoSize = true;
-            this.Box_RareCars.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_RareCars.ForeColor = System.Drawing.Color.White;
-            this.Box_RareCars.Location = new System.Drawing.Point(443, 23);
-            this.Box_RareCars.Name = "Box_RareCars";
-            this.Box_RareCars.Size = new System.Drawing.Size(93, 23);
-            this.Box_RareCars.TabIndex = 1;
-            this.Box_RareCars.Text = "Rare Cars";
-            this.Box_RareCars.UseVisualStyleBackColor = true;
-            this.Box_RareCars.CheckedChanged += new System.EventHandler(this.Box_RareCars_CheckedChanged);
-            // 
-            // Box_FreeCars
-            // 
-            this.Box_FreeCars.AutoSize = true;
-            this.Box_FreeCars.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_FreeCars.ForeColor = System.Drawing.Color.White;
-            this.Box_FreeCars.Location = new System.Drawing.Point(92, 13);
-            this.Box_FreeCars.Name = "Box_FreeCars";
-            this.Box_FreeCars.Size = new System.Drawing.Size(89, 23);
-            this.Box_FreeCars.TabIndex = 2;
-            this.Box_FreeCars.Text = "Free cars";
-            this.Box_FreeCars.UseVisualStyleBackColor = true;
-            this.Box_FreeCars.CheckedChanged += new System.EventHandler(this.Box_FreeCars_CheckedChanged);
-            // 
-            // Box_SeriesFix
-            // 
-            this.Box_SeriesFix.AutoSize = true;
-            this.Box_SeriesFix.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_SeriesFix.ForeColor = System.Drawing.Color.White;
-            this.Box_SeriesFix.Location = new System.Drawing.Point(379, 13);
-            this.Box_SeriesFix.Name = "Box_SeriesFix";
-            this.Box_SeriesFix.Size = new System.Drawing.Size(191, 23);
-            this.Box_SeriesFix.TabIndex = 3;
-            this.Box_SeriesFix.Text = "Series S|X Savegame Fix";
-            this.Box_SeriesFix.UseVisualStyleBackColor = true;
-            this.Box_SeriesFix.CheckedChanged += new System.EventHandler(this.Box_SeriesFix_CheckedChanged);
-            // 
-            // Box_ThumbsFix
-            // 
-            this.Box_ThumbsFix.AutoSize = true;
-            this.Box_ThumbsFix.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_ThumbsFix.ForeColor = System.Drawing.Color.White;
-            this.Box_ThumbsFix.Location = new System.Drawing.Point(80, 99);
-            this.Box_ThumbsFix.Name = "Box_ThumbsFix";
-            this.Box_ThumbsFix.Size = new System.Drawing.Size(130, 23);
-            this.Box_ThumbsFix.TabIndex = 4;
-            this.Box_ThumbsFix.Text = "Fix Thumbnails";
-            this.Box_ThumbsFix.UseVisualStyleBackColor = true;
-            this.Box_ThumbsFix.CheckedChanged += new System.EventHandler(this.Box_ThumbsFix_CheckedChanged);
-            // 
-            // Box_Traffic
-            // 
-            this.Box_Traffic.AutoSize = true;
-            this.Box_Traffic.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_Traffic.ForeColor = System.Drawing.Color.White;
-            this.Box_Traffic.Location = new System.Drawing.Point(742, 13);
-            this.Box_Traffic.Name = "Box_Traffic";
-            this.Box_Traffic.Size = new System.Drawing.Size(162, 23);
-            this.Box_Traffic.TabIndex = 5;
-            this.Box_Traffic.Text = "Show Traffic and HS";
-            this.Box_Traffic.UseVisualStyleBackColor = true;
-            this.Box_Traffic.CheckedChanged += new System.EventHandler(this.Box_Traffic_CheckedChanged);
-            // 
-            // Box_Presets
-            // 
-            this.Box_Presets.AutoSize = true;
-            this.Box_Presets.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_Presets.ForeColor = System.Drawing.Color.White;
-            this.Box_Presets.Location = new System.Drawing.Point(373, 99);
-            this.Box_Presets.Name = "Box_Presets";
-            this.Box_Presets.Size = new System.Drawing.Size(179, 23);
-            this.Box_Presets.TabIndex = 7;
-            this.Box_Presets.Text = "Unlock Hidden Presets";
-            this.Box_Presets.UseVisualStyleBackColor = true;
-            this.Box_Presets.CheckedChanged += new System.EventHandler(this.Box_Presets_CheckedChanged);
             // 
             // label2
             // 
@@ -230,9 +164,9 @@ namespace Forza_Mods_AIO
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             this.panel4.Controls.Add(this.Box_Null);
-            this.panel4.Controls.Add(this.label12);
-            this.panel4.Controls.Add(this.Box_AllCars);
             this.panel4.Controls.Add(this.Box_RareCars);
+            this.panel4.Controls.Add(this.Box_AllCars);
+            this.panel4.Controls.Add(this.label12);
             this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Location = new System.Drawing.Point(12, 12);
@@ -242,16 +176,93 @@ namespace Forza_Mods_AIO
             // 
             // Box_Null
             // 
-            this.Box_Null.AutoSize = true;
-            this.Box_Null.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_Null.ForeColor = System.Drawing.Color.White;
             this.Box_Null.Location = new System.Drawing.Point(761, 23);
             this.Box_Null.Name = "Box_Null";
-            this.Box_Null.Size = new System.Drawing.Size(83, 23);
-            this.Box_Null.TabIndex = 20;
+            this.Box_Null.Size = new System.Drawing.Size(75, 20);
+            this.Box_Null.TabIndex = 30;
             this.Box_Null.Text = "Null Car";
-            this.Box_Null.UseVisualStyleBackColor = true;
-            this.Box_Null.CheckedChanged += new System.EventHandler(this.Box_Null_CheckedChanged);
+            this.Box_Null.ThemeName = "FluentDark";
+            this.Box_Null.CheckStateChanged += new System.EventHandler(this.Box_Null_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Box_Null.GetChildAt(0))).Text = "Null Car";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Null.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // Box_RareCars
+            // 
+            this.Box_RareCars.Location = new System.Drawing.Point(443, 23);
+            this.Box_RareCars.Name = "Box_RareCars";
+            this.Box_RareCars.Size = new System.Drawing.Size(85, 20);
+            this.Box_RareCars.TabIndex = 30;
+            this.Box_RareCars.Text = "Rare Cars";
+            this.Box_RareCars.ThemeName = "FluentDark";
+            this.Box_RareCars.CheckStateChanged += new System.EventHandler(this.Box_RareCars_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Box_RareCars.GetChildAt(0))).Text = "Rare Cars";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_RareCars.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // Box_AllCars
+            // 
+            this.Box_AllCars.Location = new System.Drawing.Point(92, 23);
+            this.Box_AllCars.Name = "Box_AllCars";
+            this.Box_AllCars.Size = new System.Drawing.Size(69, 20);
+            this.Box_AllCars.TabIndex = 30;
+            this.Box_AllCars.Text = "All cars";
+            this.Box_AllCars.ThemeName = "FluentDark";
+            this.Box_AllCars.CheckStateChanged += new System.EventHandler(this.Box_AllCars_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Box_AllCars.GetChildAt(0))).Text = "All cars";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_AllCars.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
             // label12
             // 
@@ -266,19 +277,6 @@ namespace Forza_Mods_AIO
             this.label12.Text = "Shows only the null car in the autoshow\r\n(Requires Show traffic/HS enabled before" +
     ")";
             // 
-            // Box_AllCars
-            // 
-            this.Box_AllCars.AutoSize = true;
-            this.Box_AllCars.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_AllCars.ForeColor = System.Drawing.Color.White;
-            this.Box_AllCars.Location = new System.Drawing.Point(92, 23);
-            this.Box_AllCars.Name = "Box_AllCars";
-            this.Box_AllCars.Size = new System.Drawing.Size(77, 23);
-            this.Box_AllCars.TabIndex = 0;
-            this.Box_AllCars.Text = "All cars";
-            this.Box_AllCars.UseVisualStyleBackColor = true;
-            this.Box_AllCars.CheckedChanged += new System.EventHandler(this.Box_AllCars_CheckedChanged);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -290,19 +288,6 @@ namespace Forza_Mods_AIO
             this.label1.Size = new System.Drawing.Size(225, 19);
             this.label1.TabIndex = 23;
             this.label1.Text = "Deletes every car in your garage";
-            // 
-            // Box_ClearGarage
-            // 
-            this.Box_ClearGarage.AutoSize = true;
-            this.Box_ClearGarage.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_ClearGarage.ForeColor = System.Drawing.Color.White;
-            this.Box_ClearGarage.Location = new System.Drawing.Point(757, 99);
-            this.Box_ClearGarage.Name = "Box_ClearGarage";
-            this.Box_ClearGarage.Size = new System.Drawing.Size(113, 23);
-            this.Box_ClearGarage.TabIndex = 22;
-            this.Box_ClearGarage.Text = "Clear garage";
-            this.Box_ClearGarage.UseVisualStyleBackColor = true;
-            this.Box_ClearGarage.CheckedChanged += new System.EventHandler(this.Box_ClearGarage_CheckedChanged);
             // 
             // label10
             // 
@@ -316,32 +301,6 @@ namespace Forza_Mods_AIO
             this.label10.TabIndex = 17;
             this.label10.Text = "Unlocks hidden paint decals";
             // 
-            // Box_Decals
-            // 
-            this.Box_Decals.AutoSize = true;
-            this.Box_Decals.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_Decals.ForeColor = System.Drawing.Color.White;
-            this.Box_Decals.Location = new System.Drawing.Point(749, 19);
-            this.Box_Decals.Name = "Box_Decals";
-            this.Box_Decals.Size = new System.Drawing.Size(121, 23);
-            this.Box_Decals.TabIndex = 16;
-            this.Box_Decals.Text = "Unlock Decals";
-            this.Box_Decals.UseVisualStyleBackColor = true;
-            this.Box_Decals.CheckedChanged += new System.EventHandler(this.Box_Decals_CheckedChanged);
-            // 
-            // Box_RemoveCars
-            // 
-            this.Box_RemoveCars.AutoSize = true;
-            this.Box_RemoveCars.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_RemoveCars.ForeColor = System.Drawing.Color.White;
-            this.Box_RemoveCars.Location = new System.Drawing.Point(422, 19);
-            this.Box_RemoveCars.Name = "Box_RemoveCars";
-            this.Box_RemoveCars.Size = new System.Drawing.Size(137, 23);
-            this.Box_RemoveCars.TabIndex = 18;
-            this.Box_RemoveCars.Text = "Remove Any Car";
-            this.Box_RemoveCars.UseVisualStyleBackColor = true;
-            this.Box_RemoveCars.CheckedChanged += new System.EventHandler(this.Box_RemoveCars_CheckedChanged);
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -353,19 +312,6 @@ namespace Forza_Mods_AIO
             this.label11.Size = new System.Drawing.Size(316, 19);
             this.label11.TabIndex = 19;
             this.label11.Text = "Allows you to remove any car from the garage";
-            // 
-            // Box_LegoPaint
-            // 
-            this.Box_LegoPaint.AutoSize = true;
-            this.Box_LegoPaint.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_LegoPaint.ForeColor = System.Drawing.Color.White;
-            this.Box_LegoPaint.Location = new System.Drawing.Point(73, 19);
-            this.Box_LegoPaint.Name = "Box_LegoPaint";
-            this.Box_LegoPaint.Size = new System.Drawing.Size(131, 23);
-            this.Box_LegoPaint.TabIndex = 11;
-            this.Box_LegoPaint.Text = "Paint Lego Cars";
-            this.Box_LegoPaint.UseVisualStyleBackColor = true;
-            this.Box_LegoPaint.CheckedChanged += new System.EventHandler(this.Box_LegoPaint_CheckedChanged);
             // 
             // label9
             // 
@@ -382,12 +328,12 @@ namespace Forza_Mods_AIO
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel1.Controls.Add(this.Box_LegoPaint);
             this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.label10);
-            this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.Box_Decals);
             this.panel1.Controls.Add(this.Box_RemoveCars);
+            this.panel1.Controls.Add(this.Box_LegoPaint);
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.label11);
             this.panel1.Location = new System.Drawing.Point(12, 117);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(976, 100);
@@ -396,18 +342,18 @@ namespace Forza_Mods_AIO
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel2.Controls.Add(this.Box_FreeCars);
-            this.panel2.Controls.Add(this.Box_ThumbsFix);
-            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.Box_Traffic);
             this.panel2.Controls.Add(this.Box_SeriesFix);
+            this.panel2.Controls.Add(this.Box_ClearGarage);
+            this.panel2.Controls.Add(this.Box_Presets);
+            this.panel2.Controls.Add(this.Box_ThumbsFix);
+            this.panel2.Controls.Add(this.Box_FreeCars);
+            this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.Box_Traffic);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.label8);
-            this.panel2.Controls.Add(this.Box_ClearGarage);
-            this.panel2.Controls.Add(this.Box_Presets);
             this.panel2.Location = new System.Drawing.Point(12, 223);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(976, 180);
@@ -440,6 +386,283 @@ namespace Forza_Mods_AIO
             this.BTN_Help.UseVisualStyleBackColor = false;
             this.BTN_Help.Click += new System.EventHandler(this.BTN_Help_Click);
             // 
+            // Box_LegoPaint
+            // 
+            this.Box_LegoPaint.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.Box_LegoPaint.Location = new System.Drawing.Point(73, 19);
+            this.Box_LegoPaint.Name = "Box_LegoPaint";
+            this.Box_LegoPaint.Size = new System.Drawing.Size(123, 20);
+            this.Box_LegoPaint.TabIndex = 30;
+            this.Box_LegoPaint.Text = "Paint Lego Cars";
+            this.Box_LegoPaint.ThemeName = "FluentDark";
+            this.Box_LegoPaint.CheckStateChanged += new System.EventHandler(this.Box_LegoPaint_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Box_LegoPaint.GetChildAt(0))).Text = "Paint Lego Cars";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_LegoPaint.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // Box_RemoveCars
+            // 
+            this.Box_RemoveCars.Location = new System.Drawing.Point(422, 19);
+            this.Box_RemoveCars.Name = "Box_RemoveCars";
+            this.Box_RemoveCars.Size = new System.Drawing.Size(129, 20);
+            this.Box_RemoveCars.TabIndex = 30;
+            this.Box_RemoveCars.Text = "Remove Any Car";
+            this.Box_RemoveCars.ThemeName = "FluentDark";
+            this.Box_RemoveCars.CheckStateChanged += new System.EventHandler(this.Box_RemoveCars_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Box_RemoveCars.GetChildAt(0))).Text = "Remove Any Car";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_RemoveCars.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // Box_Decals
+            // 
+            this.Box_Decals.Location = new System.Drawing.Point(749, 19);
+            this.Box_Decals.Name = "Box_Decals";
+            this.Box_Decals.Size = new System.Drawing.Size(113, 20);
+            this.Box_Decals.TabIndex = 30;
+            this.Box_Decals.Text = "Unlock Decals";
+            this.Box_Decals.ThemeName = "FluentDark";
+            this.Box_Decals.CheckStateChanged += new System.EventHandler(this.Box_Decals_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Box_Decals.GetChildAt(0))).Text = "Unlock Decals";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Decals.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // Box_FreeCars
+            // 
+            this.Box_FreeCars.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.Box_FreeCars.Location = new System.Drawing.Point(92, 13);
+            this.Box_FreeCars.Name = "Box_FreeCars";
+            this.Box_FreeCars.Size = new System.Drawing.Size(82, 20);
+            this.Box_FreeCars.TabIndex = 30;
+            this.Box_FreeCars.Text = "Free cars";
+            this.Box_FreeCars.ThemeName = "FluentDark";
+            this.Box_FreeCars.CheckStateChanged += new System.EventHandler(this.Box_FreeCars_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Box_FreeCars.GetChildAt(0))).Text = "Free cars";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_FreeCars.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // Box_SeriesFix
+            // 
+            this.Box_SeriesFix.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.Box_SeriesFix.Location = new System.Drawing.Point(379, 13);
+            this.Box_SeriesFix.Name = "Box_SeriesFix";
+            this.Box_SeriesFix.Size = new System.Drawing.Size(179, 20);
+            this.Box_SeriesFix.TabIndex = 30;
+            this.Box_SeriesFix.Text = "Series S|X Savegame Fix";
+            this.Box_SeriesFix.ThemeName = "FluentDark";
+            this.Box_SeriesFix.CheckStateChanged += new System.EventHandler(this.Box_SeriesFix_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Box_SeriesFix.GetChildAt(0))).Text = "Series S|X Savegame Fix";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_SeriesFix.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // Box_Traffic
+            // 
+            this.Box_Traffic.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.Box_Traffic.Location = new System.Drawing.Point(742, 13);
+            this.Box_Traffic.Name = "Box_Traffic";
+            this.Box_Traffic.Size = new System.Drawing.Size(152, 20);
+            this.Box_Traffic.TabIndex = 30;
+            this.Box_Traffic.Text = "Show Traffic and HS";
+            this.Box_Traffic.ThemeName = "FluentDark";
+            this.Box_Traffic.CheckStateChanged += new System.EventHandler(this.Box_Traffic_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Box_Traffic.GetChildAt(0))).Text = "Show Traffic and HS";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Traffic.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // Box_ThumbsFix
+            // 
+            this.Box_ThumbsFix.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.Box_ThumbsFix.Location = new System.Drawing.Point(80, 99);
+            this.Box_ThumbsFix.Name = "Box_ThumbsFix";
+            this.Box_ThumbsFix.Size = new System.Drawing.Size(120, 20);
+            this.Box_ThumbsFix.TabIndex = 30;
+            this.Box_ThumbsFix.Text = "Fix Thumbnails";
+            this.Box_ThumbsFix.ThemeName = "FluentDark";
+            this.Box_ThumbsFix.CheckStateChanged += new System.EventHandler(this.Box_ThumbsFix_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Box_ThumbsFix.GetChildAt(0))).Text = "Fix Thumbnails";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_ThumbsFix.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // Box_Presets
+            // 
+            this.Box_Presets.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.Box_Presets.Location = new System.Drawing.Point(373, 99);
+            this.Box_Presets.Name = "Box_Presets";
+            this.Box_Presets.Size = new System.Drawing.Size(169, 20);
+            this.Box_Presets.TabIndex = 30;
+            this.Box_Presets.Text = "Unlock Hidden Presets";
+            this.Box_Presets.ThemeName = "FluentDark";
+            this.Box_Presets.CheckStateChanged += new System.EventHandler(this.Box_Presets_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Box_Presets.GetChildAt(0))).Text = "Unlock Hidden Presets";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_Presets.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // Box_ClearGarage
+            // 
+            this.Box_ClearGarage.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.Box_ClearGarage.Location = new System.Drawing.Point(757, 99);
+            this.Box_ClearGarage.Name = "Box_ClearGarage";
+            this.Box_ClearGarage.Size = new System.Drawing.Size(104, 20);
+            this.Box_ClearGarage.TabIndex = 30;
+            this.Box_ClearGarage.Text = "Clear garage";
+            this.Box_ClearGarage.ThemeName = "FluentDark";
+            this.Box_ClearGarage.CheckStateChanged += new System.EventHandler(this.Box_ClearGarage_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Box_ClearGarage.GetChildAt(0))).Text = "Clear garage";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Box_ClearGarage.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
             // AddCars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -460,22 +683,28 @@ namespace Forza_Mods_AIO
             this.Shown += new System.EventHandler(this.AddCars_Shown);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_Null)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_RareCars)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_AllCars)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_LegoPaint)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_RemoveCars)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_Decals)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_FreeCars)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_SeriesFix)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_Traffic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_ThumbsFix)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_Presets)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Box_ClearGarage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.CheckBox Box_RareCars;
-        private System.Windows.Forms.CheckBox Box_FreeCars;
-        private System.Windows.Forms.CheckBox Box_SeriesFix;
-        private System.Windows.Forms.CheckBox Box_ThumbsFix;
-        private System.Windows.Forms.CheckBox Box_Traffic;
-        private System.Windows.Forms.CheckBox Box_Presets;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -485,19 +714,25 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.CheckBox Box_Decals;
-        private System.Windows.Forms.CheckBox Box_LegoPaint;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.CheckBox Box_RemoveCars;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.CheckBox Box_Null;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox Box_ClearGarage;
-        private System.Windows.Forms.CheckBox Box_AllCars;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button BTN_Help;
+        public Telerik.WinControls.UI.RadCheckBox Box_Null;
+        public Telerik.WinControls.UI.RadCheckBox Box_RareCars;
+        public Telerik.WinControls.UI.RadCheckBox Box_AllCars;
+        public Telerik.WinControls.UI.RadCheckBox Box_RemoveCars;
+        public Telerik.WinControls.UI.RadCheckBox Box_LegoPaint;
+        public Telerik.WinControls.UI.RadCheckBox Box_Decals;
+        public Telerik.WinControls.UI.RadCheckBox Box_Presets;
+        public Telerik.WinControls.UI.RadCheckBox Box_Traffic;
+        public Telerik.WinControls.UI.RadCheckBox Box_SeriesFix;
+        public Telerik.WinControls.UI.RadCheckBox Box_ThumbsFix;
+        public Telerik.WinControls.UI.RadCheckBox Box_FreeCars;
+        public Telerik.WinControls.UI.RadCheckBox Box_ClearGarage;
     }
 }

@@ -198,7 +198,6 @@ namespace Forza_Mods_AIO
 
         public void StartXPtool(IntPtr CodeCave3)
         {
-            Speedhack s = new Speedhack();
             byte[] OnePoint = new byte[6] { 0xB9, 0x01, 0x00, 0x00, 0x00, 0x90 };
             string CodeCaveAddrString = ((long)CodeCave3).ToString("X");
             string CodeCavejmpString = ((long)CodeCave3 - (Speedhack.XPaddrLong + 5)).ToString("X");

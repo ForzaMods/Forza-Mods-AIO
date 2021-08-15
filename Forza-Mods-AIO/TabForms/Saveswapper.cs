@@ -24,7 +24,7 @@ namespace Forza_Mods_AIO.TabForms
         public Saveswapper()
         {
             InitializeComponent();
-
+            s = this;
         }
         Stopwatch AuthTimer = new Stopwatch();
         List<string> gamertags = new List<string>();
@@ -34,6 +34,7 @@ namespace Forza_Mods_AIO.TabForms
         public PopupForms.SaveswappingGuide SaveswapGuide = new PopupForms.SaveswappingGuide();
         bool resolving = false;
         string auth = null;
+        public static Saveswapper s;
         public void GamebarAttach_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
@@ -392,6 +393,14 @@ namespace Forza_Mods_AIO.TabForms
                     break;
                 }
             }
+        }
+
+        private void TB_Backup_ToggleStateChanged(object sender, Telerik.WinControls.UI.StateChangedEventArgs args)
+        {
+            if(TB_Backup.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+            else
+            ((Telerik.WinControls.Primitives.BorderPrimitive)TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(30, 30, 33);
         }
     }
 }

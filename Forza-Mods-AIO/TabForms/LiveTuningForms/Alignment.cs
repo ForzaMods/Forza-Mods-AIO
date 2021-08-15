@@ -238,7 +238,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             RearToeVal = Convert.ToSingle((MainWindow.m.ReadFloat(LiveTuning.RearRightToeAddr1, round: false) + 0.000002134096121) * 114.61758396931828138337574705036); RearToeNUD.Value = Convert.ToDecimal(RearToeVal); RearToeBar.Value = Convert.ToInt32(RearToeVal * 10);
             refresh = false;
         }
-        private void FrontCamberBar_Scroll(object sender, EventArgs e)
+        private void FrontCamberBar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             if(!refresh && MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
             {
@@ -253,7 +253,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
                 SetFrontCamber();
             }
         }
-        private void RearCamberBar_Scroll(object sender, EventArgs e)
+        private void RearCamberBar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             if (!refresh && MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
             {
@@ -268,7 +268,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
                 SetRearCamber();
             }
         }
-        private void FrontToeBar_Scroll(object sender, EventArgs e)
+        private void FrontToeBar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             if (!refresh && MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
             {
@@ -288,7 +288,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
                 SetToe();
             }
         }
-        private void RearToeBar_Scroll(object sender, EventArgs e)
+        private void RearToeBar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             if (!refresh && MainWindow.m.ReadFloat(Speedhack.PastStartAddr) == 1)
             {

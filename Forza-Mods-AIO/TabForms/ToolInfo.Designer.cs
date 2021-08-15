@@ -43,7 +43,6 @@ namespace Forza_Mods_AIO
             this.VersionLabel = new System.Windows.Forms.Label();
             this.AOBScanProgress = new Telerik.WinControls.UI.RadProgressBar();
             this.label1 = new System.Windows.Forms.Label();
-            this.VolNum = new Telerik.WinControls.UI.RadSpinEditor();
             this.fluentDarkTheme1 = new Telerik.WinControls.Themes.FluentDarkTheme();
             this.object_bafcc9f3_8e1d_4cf1_ae26_d65338bac494 = new Telerik.WinControls.RootRadElement();
             this.Mute = new Telerik.WinControls.UI.RadCheckBox();
@@ -52,16 +51,17 @@ namespace Forza_Mods_AIO
             this.ColourPicker = new MechanikaDesign.WinForms.UI.ColorPicker.ColorBox2D();
             this.RainbowWorker = new System.ComponentModel.BackgroundWorker();
             this.RainbowBox = new Telerik.WinControls.UI.RadCheckBox();
-            this.RainbowSpeed = new Telerik.WinControls.UI.RadSpinEditor();
+            this.RainbowSpeed = new DarkUI.Controls.DarkNumericUpDown();
             this.RainbowLabel = new System.Windows.Forms.Label();
             this.office2010BlackTheme1 = new Telerik.WinControls.Themes.Office2010BlackTheme();
             this.MOTD = new System.Windows.Forms.Label();
+            this.VolNum = new DarkUI.Controls.DarkNumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.AOBScanProgress)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VolNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColourPickerBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RainbowBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RainbowSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VolNum)).BeginInit();
             this.SuspendLayout();
             // 
             // LBL_Attached
@@ -220,112 +220,6 @@ namespace Forza_Mods_AIO
             this.label1.TabIndex = 26;
             this.label1.Text = resources.GetString("label1.Text");
             // 
-            // VolNum
-            // 
-            this.VolNum.Font = new System.Drawing.Font("Open Sans", 8.25F);
-            this.VolNum.ForeColor = System.Drawing.Color.Transparent;
-            this.VolNum.Location = new System.Drawing.Point(862, 372);
-            this.VolNum.Name = "VolNum";
-            this.VolNum.NullableValue = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // 
-            // 
-            this.VolNum.RootElement.BorderHighlightColor = System.Drawing.Color.White;
-            this.VolNum.RootElement.BorderHighlightThickness = 0;
-            this.VolNum.RootElement.EnableFocusBorderAnimation = false;
-            this.VolNum.ShowBorder = false;
-            this.VolNum.Size = new System.Drawing.Size(100, 23);
-            this.VolNum.TabIndex = 27;
-            this.VolNum.TabStop = false;
-            this.VolNum.ThemeName = "FluentDark";
-            this.VolNum.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            ((Telerik.WinControls.UI.RadSpinElement)(this.VolNum.GetChildAt(0))).FocusBorderColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.RadSpinElement)(this.VolNum.GetChildAt(0))).EnableFocusBorderAnimation = false;
-            ((Telerik.WinControls.UI.RadSpinElement)(this.VolNum.GetChildAt(0))).BorderHighlightColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.RadSpinElement)(this.VolNum.GetChildAt(0))).ForeColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.RadSpinElement)(this.VolNum.GetChildAt(0))).BackColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).LeftWidth = 1F;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).TopWidth = 1F;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).RightWidth = 1F;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).LeftColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).TopColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).RightColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).BottomColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).InnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).InnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).InnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderLeftColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderTopColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderRightColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderBottomColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderLeftShadowColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderTopShadowColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderRightShadowColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderBottomShadowColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).EnableFocusBorderAnimation = false;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BorderHighlightColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(203)))), ((int)(((byte)(203)))));
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            ((Telerik.WinControls.UI.RadTextBoxItem)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(0))).Text = "5";
-            ((Telerik.WinControls.UI.RadTextBoxItem)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(0))).EnableFocusBorderAnimation = false;
-            ((Telerik.WinControls.UI.RadTextBoxItem)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.RadTextBoxItem)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.UI.RadTextBoxItem)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(0))).RightToLeft = false;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderColor = System.Drawing.SystemColors.ControlDarkDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderColor2 = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderColor3 = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderColor4 = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderInnerColor = System.Drawing.SystemColors.ControlLightLight;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderInnerColor2 = System.Drawing.SystemColors.Control;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderInnerColor3 = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderInnerColor4 = System.Drawing.SystemColors.ControlDarkDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BackColor2 = System.Drawing.SystemColors.Control;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BackColor3 = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BackColor4 = System.Drawing.SystemColors.ControlLightLight;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).EnableFocusBorderAnimation = false;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderHighlightColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(203)))), ((int)(((byte)(203)))));
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            ((Telerik.WinControls.UI.RadSpinElementUpButton)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(0))).EnableFocusBorderAnimation = false;
-            ((Telerik.WinControls.UI.RadSpinElementUpButton)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(0))).EnableHighlight = true;
-            ((Telerik.WinControls.UI.RadSpinElementUpButton)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(0))).EnableBorderHighlight = false;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            ((Telerik.WinControls.UI.RadSpinElementDownButton)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(1))).EnableFocusBorderAnimation = false;
-            ((Telerik.WinControls.UI.RadSpinElementDownButton)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(1))).EnableHighlight = true;
-            ((Telerik.WinControls.UI.RadSpinElementDownButton)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(1))).EnableBorderHighlight = false;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.VolNum.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(1).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            // 
             // object_bafcc9f3_8e1d_4cf1_ae26_d65338bac494
             // 
             this.object_bafcc9f3_8e1d_4cf1_ae26_d65338bac494.Name = "object_bafcc9f3_8e1d_4cf1_ae26_d65338bac494";
@@ -334,6 +228,7 @@ namespace Forza_Mods_AIO
             // 
             // Mute
             // 
+            this.Mute.Font = new System.Drawing.Font("Open Sans", 8.25F);
             this.Mute.Location = new System.Drawing.Point(815, 402);
             this.Mute.Name = "Mute";
             this.Mute.Size = new System.Drawing.Size(173, 31);
@@ -437,7 +332,7 @@ namespace Forza_Mods_AIO
             // 
             // RainbowSpeed
             // 
-            this.RainbowSpeed.ForeColor = System.Drawing.Color.Transparent;
+            this.RainbowSpeed.Font = new System.Drawing.Font("Open Sans", 8.25F);
             this.RainbowSpeed.Location = new System.Drawing.Point(888, 62);
             this.RainbowSpeed.Minimum = new decimal(new int[] {
             1,
@@ -445,100 +340,15 @@ namespace Forza_Mods_AIO
             0,
             0});
             this.RainbowSpeed.Name = "RainbowSpeed";
-            this.RainbowSpeed.NullableValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // 
-            // 
-            this.RainbowSpeed.RootElement.EnableFocusBorderAnimation = false;
-            this.RainbowSpeed.ShowBorder = false;
-            this.RainbowSpeed.Size = new System.Drawing.Size(100, 23);
-            this.RainbowSpeed.TabIndex = 27;
-            this.RainbowSpeed.TabStop = false;
-            this.RainbowSpeed.ThemeName = "FluentDark";
+            this.RainbowSpeed.Size = new System.Drawing.Size(100, 22);
+            this.RainbowSpeed.TabIndex = 37;
+            this.RainbowSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RainbowSpeed.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.RainbowSpeed.ValueChanged += new System.EventHandler(this.RainbowSpeed_ValueChanged);
-            ((Telerik.WinControls.UI.RadSpinElement)(this.RainbowSpeed.GetChildAt(0))).FocusBorderColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.RadSpinElement)(this.RainbowSpeed.GetChildAt(0))).EnableFocusBorderAnimation = false;
-            ((Telerik.WinControls.UI.RadSpinElement)(this.RainbowSpeed.GetChildAt(0))).BorderHighlightColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.RadSpinElement)(this.RainbowSpeed.GetChildAt(0))).ForeColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.RadSpinElement)(this.RainbowSpeed.GetChildAt(0))).BackColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).LeftWidth = 1F;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).TopWidth = 1F;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).RightWidth = 1F;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).LeftColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).TopColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).RightColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).BottomColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).InnerColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).InnerColor2 = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).InnerColor3 = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).InnerColor4 = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.Empty;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderColor = System.Drawing.SystemColors.ControlDarkDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderInnerColor = System.Drawing.SystemColors.ControlLightLight;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderInnerColor2 = System.Drawing.SystemColors.Control;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderInnerColor3 = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderLeftColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderTopColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderRightColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderBottomColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderLeftShadowColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderTopShadowColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderRightShadowColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderBottomShadowColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).EnableFocusBorderAnimation = false;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BorderHighlightColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(203)))), ((int)(((byte)(203)))));
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            ((Telerik.WinControls.UI.RadTextBoxItem)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(0))).Text = "1";
-            ((Telerik.WinControls.UI.RadTextBoxItem)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(0))).EnableFocusBorderAnimation = false;
-            ((Telerik.WinControls.UI.RadTextBoxItem)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.RadTextBoxItem)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.UI.RadTextBoxItem)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(0))).RightToLeft = false;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderColor = System.Drawing.SystemColors.ControlDarkDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderColor2 = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderColor3 = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderColor4 = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderInnerColor = System.Drawing.SystemColors.ControlLightLight;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderInnerColor2 = System.Drawing.SystemColors.Control;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderInnerColor3 = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderInnerColor4 = System.Drawing.SystemColors.ControlDarkDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BackColor2 = System.Drawing.SystemColors.Control;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BackColor3 = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BackColor4 = System.Drawing.SystemColors.ControlLightLight;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).EnableFocusBorderAnimation = false;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BorderHighlightColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(203)))), ((int)(((byte)(203)))));
-            ((Telerik.WinControls.UI.StackLayoutElement)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            ((Telerik.WinControls.UI.RadSpinElementUpButton)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(0))).EnableFocusBorderAnimation = false;
-            ((Telerik.WinControls.UI.RadSpinElementUpButton)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(0))).EnableHighlight = true;
-            ((Telerik.WinControls.UI.RadSpinElementUpButton)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(0))).EnableBorderHighlight = false;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            ((Telerik.WinControls.UI.RadSpinElementDownButton)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(1))).EnableFocusBorderAnimation = false;
-            ((Telerik.WinControls.UI.RadSpinElementDownButton)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(1))).EnableHighlight = true;
-            ((Telerik.WinControls.UI.RadSpinElementDownButton)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(1))).EnableBorderHighlight = false;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.RainbowSpeed.GetChildAt(0).GetChildAt(2).GetChildAt(1).GetChildAt(1).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
             // 
             // RainbowLabel
             // 
@@ -558,6 +368,14 @@ namespace Forza_Mods_AIO
             this.MOTD.Size = new System.Drawing.Size(0, 24);
             this.MOTD.TabIndex = 23;
             // 
+            // VolNum
+            // 
+            this.VolNum.Location = new System.Drawing.Point(861, 375);
+            this.VolNum.Name = "VolNum";
+            this.VolNum.Size = new System.Drawing.Size(100, 22);
+            this.VolNum.TabIndex = 34;
+            this.VolNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // ToolInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -565,12 +383,11 @@ namespace Forza_Mods_AIO
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
             this.Controls.Add(this.ColourPicker);
+            this.Controls.Add(this.VolNum);
             this.Controls.Add(this.ColourSlider);
             this.Controls.Add(this.RainbowBox);
             this.Controls.Add(this.ColourPickerBox);
             this.Controls.Add(this.Mute);
-            this.Controls.Add(this.RainbowSpeed);
-            this.Controls.Add(this.VolNum);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AOBScanProgress);
             this.Controls.Add(this.MOTD);
@@ -583,17 +400,18 @@ namespace Forza_Mods_AIO
             this.Controls.Add(this.DiscordLink);
             this.Controls.Add(this.DraffsYTLink);
             this.Controls.Add(this.RainbowLabel);
+            this.Controls.Add(this.RainbowSpeed);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ToolInfo";
             this.Text = "ToolInfo";
             ((System.ComponentModel.ISupportInitialize)(this.AOBScanProgress)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VolNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mute)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColourPickerBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RainbowBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RainbowSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VolNum)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -621,10 +439,10 @@ namespace Forza_Mods_AIO
         private System.ComponentModel.BackgroundWorker RainbowWorker;
         private System.Windows.Forms.Label RainbowLabel;
         public Telerik.WinControls.UI.RadCheckBox RainbowBox;
-        public Telerik.WinControls.UI.RadSpinEditor RainbowSpeed;
         private Telerik.WinControls.Themes.Office2010BlackTheme office2010BlackTheme1;
-        public Telerik.WinControls.UI.RadSpinEditor VolNum;
         public Telerik.WinControls.UI.RadCheckBox Mute;
         public System.Windows.Forms.Label MOTD;
+        public DarkUI.Controls.DarkNumericUpDown VolNum;
+        public DarkUI.Controls.DarkNumericUpDown RainbowSpeed;
     }
 }

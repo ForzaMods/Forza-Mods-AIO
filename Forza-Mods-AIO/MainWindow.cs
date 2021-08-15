@@ -35,7 +35,7 @@ namespace Forza_Mods_AIO
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
         Version NewVer = null;
-        public static Version CurrVer = new Version("0.0.0.1");
+        public static Version CurrVer = new Version("0.0.0.2");
         string MOTDstring = "";
         private static CultureInfo resourceCulture;
         internal static byte[] SOk8LBUrRl
@@ -242,23 +242,23 @@ namespace Forza_Mods_AIO
                     Speed = 100;
                 else if (Speed < 1)
                     Speed = 1;
-                ToolInfo.Rainbowspeed = Speed;
-                ToolInfo.RainbowSpeed.Value = (decimal)Speed;
-                ToolInfo.VolNum.Value = int.Parse(Settings["Settings"]["Volume"]);
-                if (bool.Parse(Settings["Settings"]["Volume Control"]))
-                    ToolInfo.Mute.Checked = true;
                 if (TC == "Rainbow")
                     ToolInfo.RainbowBox.Checked = true;
                 else
                 {
                     ToolInfo.RainbowSpeed.Enabled = false;
-                    MainWindow.ThemeColour = TC;
+                    ThemeColour = TC;
                     ToolInfo.UpdateThemeColour(ColorTranslator.FromHtml(MainWindow.ThemeColour));
                     ToolInfo.ColourPicker.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
                     ToolInfo.ColourSlider.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
                     ToolInfo.ColourPicker.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                     ToolInfo.ColourSlider.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 }
+                ToolInfo.Rainbowspeed = Speed;
+                ToolInfo.RainbowSpeed.Value = (decimal)Speed;
+                ToolInfo.VolNum.Value = int.Parse(Settings["Settings"]["Volume"]);
+                if (bool.Parse(Settings["Settings"]["Volume Control"]))
+                    ToolInfo.Mute.Checked = true;
             }
         }
 
@@ -374,6 +374,7 @@ namespace Forza_Mods_AIO
 
         public async void AoBscan()
         {
+            Speedhack.Aobs();
             var TargetProcess = Process.GetProcessesByName("ForzaHorizon4")[0];
             SigScanSharp Sigscan = new SigScanSharp(TargetProcess.Handle);
             Sigscan.SelectModule(TargetProcess.MainModule);
@@ -731,6 +732,7 @@ namespace Forza_Mods_AIO
         {
             if (Speedhack.IsAttached)
             {
+                MessageBox.Show("Live Tuning is currently a wip poc.\nSome values wont display as what they really are.\n(Expect bugs.)");
                 ClearColours();
                 BTN_TabLiveTuning.BackColor = Color.FromArgb(45, 45, 48);
                 if (ThemeColour != "Rainbow")
