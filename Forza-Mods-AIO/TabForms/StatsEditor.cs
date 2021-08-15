@@ -32,7 +32,6 @@ namespace Forza_Mods_AIO.TabForms
         {
             InitializeComponent();
             StatsTable.AutoGenerateColumns = false;
-            ScanMarquee.Style = ProgressBarStyle.Marquee;
             ScanMarquee.Visible = false;
             SendProgress.Visible = false;
             SendButton.Enabled = false;
@@ -56,13 +55,13 @@ namespace Forza_Mods_AIO.TabForms
             yeet.Clear();
             StatScanButton.Enabled = false;
             ScanMarquee.Visible = true;
-            ScanMarquee.MarqueeAnimationSpeed = 1;
+            ScanMarquee.StartWaiting();
             File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"), TqS77kzQrU);
             string nameColumnName = "Name";
             string valueColumnName = "Type";
             string Type = null;
             long ScanStartAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 30000000000;
-            long ScanEndAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 20000000000;
+            long ScanEndAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 10000000000;
             yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "58 97 ? ? ? 7F 00 00", true, true)).ToList();
             foreach (var item in yeet)
             {
@@ -105,6 +104,7 @@ namespace Forza_Mods_AIO.TabForms
             StatsScrollBar.Visible = true;
             StatsTable.Width = 961;
             ScanMarquee.Visible = false;
+            ScanMarquee.StopWaiting();
             StatScanButton.Enabled = true;
             SendButton.Enabled = true;
             FilterBox.Visible = true;

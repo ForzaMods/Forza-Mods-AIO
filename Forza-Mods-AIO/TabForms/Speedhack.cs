@@ -54,27 +54,26 @@ namespace Forza_Mods_AIO.TabForms
         public static long OOBnopAddrLong;
         public static long SuperCarAddrLong;
 
-        public static string Base = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
-        public static string Car1 = "48 89 ? ? ? 44 8B ? 48 89 ? ? ? BA";
-        public static string Car2 = "0F 28 ? 41 0F ? ? ? 0F C6 D6 ? 41 0F";
-        public static string Wall1 = "F3 0F ? ? ? 0F 59 ? 0F C6 ED ? 0F C6 F6";
-        public static string Wall2 = "0F 28 ? 0F C6 C1 ? 0F 28 ? 0F C6 CB ? 41 0F ? ? F3 0F ? ? 41 0F ? ? 0F C6 C0 ? 0F C6 E4";
-        public static string FOVOutsig = "4C 8D ? ? ? 0F 29 ? ? ? F3 0F";
-        public static string FOVInsig = "48 81 EC ? ? ? ? 48 8B ? E8 ? ? ? ? 48 8B ? ? 48 8B";
-        public static string Timesig = "20 F2 0F 11 43 08 48 83";
-        public static string CheckPointxASMsig = "0F 28 ? ? ? ? ? 0F 29 ? ? 0F 29 ? ? C3 90 48 8B ? 55";
-        public static string WayPointxASMsig = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50 C1 83 E0 07 3C 07";
-        public static string FirstPerson = "80 00 80 82 43";
-        public static string Dash = "3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 01 ?? 00 00 00 00 00 00 00 00 A0 40";
-        public static string Low = "80 CD CC 4C 3E CD CC CC 3E 9A 99 19 3F 00 00 80 3F";
-        public static string Bonnet = "00 80 3E 63 B8 1E 3F 00 00 80 3F";
-        //public static string Front = "A0 41 01 00 8C 42 00 00 11 43 00 00 3E 43 00 00 00 80 00 00 00 80 00 00 80 3E 7B 14 2E 3F";
-        public static string Front = "80 3E 7B 14 2E 3F 00 00 80 3F";
-        public static string XPaob = "F3 0F ? ? 89 45 ? 48 8D ? ? ? ? ? 41 83 BD C0 00 00 00";
-        public static string XPAmountaob = "8B 89 ? ? ? ? 85 C9 0F 8E";
-        public static string CurrentIDaob = "00 00 50 4C 41 59 45 52 5F 43 41 52 00 00";
-        public static string OOBaob = "0F 11 ? ? ? ? ? 0F 5C ? 0F 59 ? 0F 28 ? 0F C6 CA ? F3 0F";
-        public static string SuperCaraob = "0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 48 83 C2 ? 0F 11 ? ? 48 83 C1 ? E8 ? ? ? ? 0F 10";
+        public static string Base;
+        public static string Car1;
+        public static string Car2;
+        public static string Wall1;
+        public static string Wall2;
+        public static string FOVOutsig;
+        public static string FOVInsig;
+        public static string Timesig;
+        public static string CheckPointxASMsig;
+        public static string WayPointxASMsig;
+        public static string FirstPerson;
+        public static string Dash;
+        public static string Low;
+        public static string Bonnet;
+        public static string Front;
+        public static string XPaob;
+        public static string XPAmountaob;
+        public static string CurrentIDaob;
+        public static string OOBaob;
+        public static string SuperCaraob;
 
         public static string KBKeyString = "LShiftKey"; public static string XBKeyString = "LeftShoulder";
         public static string GravityAddr; public static string WeirdAddr;
@@ -136,7 +135,7 @@ namespace Forza_Mods_AIO.TabForms
                 return (byte[])Resources.ResourceManager.GetObject("FclvYGRQ1w", resourceCulture);
             }
         }
-        private readonly static Dictionary<int, string> DInputmap = new Dictionary<int, string>()
+        private static Dictionary<int, string> DInputmap = new Dictionary<int, string>()
         {
             { 0, "X" },{ 1, "Circle" },{ 2, "Square" },{ 3, "Triangle" },
             { 4, "LeftShoulder" },{ 5, "RightShoulder" },{ 6, "Select" },{ 7, "Start" },
@@ -190,6 +189,30 @@ namespace Forza_Mods_AIO.TabForms
         {
             PastIntroAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x21820");
         }
+        public static void Aobs()
+        {
+            Base = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
+            Car1 = "48 89 ? ? ? 44 8B ? 48 89 ? ? ? BA";
+            Car2 = "0F 28 ? 41 0F ? ? ? 0F C6 D6 ? 41 0F";
+            Wall1 = "F3 0F ? ? ? 0F 59 ? 0F C6 ED ? 0F C6 F6";
+            Wall2 = "0F 28 ? 0F C6 C1 ? 0F 28 ? 0F C6 CB ? 41 0F ? ? F3 0F ? ? 41 0F ? ? 0F C6 C0 ? 0F C6 E4";
+            FOVOutsig = "4C 8D ? ? ? 0F 29 ? ? ? F3 0F";
+            FOVInsig = "48 81 EC ? ? ? ? 48 8B ? E8 ? ? ? ? 48 8B ? ? 48 8B";
+            Timesig = "20 F2 0F 11 43 08 48 83";
+            CheckPointxASMsig = "0F 28 ? ? ? ? ? 0F 29 ? ? 0F 29 ? ? C3 90 48 8B ? 55";
+            WayPointxASMsig = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50 C1 83 E0 07 3C 07";
+            FirstPerson = "80 00 80 82 43";
+            Dash = "3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 01 ?? 00 00 00 00 00 00 00 00 A0 40";
+            Low = "80 CD CC 4C 3E CD CC CC 3E 9A 99 19 3F 00 00 80 3F";
+            Bonnet = "00 80 3E 63 B8 1E 3F 00 00 80 3F";
+            //Front = "A0 41 01 00 8C 42 00 00 11 43 00 00 3E 43 00 00 00 80 00 00 00 80 00 00 80 3E 7B 14 2E 3F";
+            Front = "80 3E 7B 14 2E 3F 00 00 80 3F";
+            XPaob = "F3 0F ? ? 89 45 ? 48 8D ? ? ? ? ? 41 83 BD C0 00 00 00";
+            XPAmountaob = "8B 89 ? ? ? ? 85 C9 0F 8E";
+            CurrentIDaob = "00 00 50 4C 41 59 45 52 5F 43 41 52 00 00";
+            OOBaob = "0F 11 ? ? ? ? ? 0F 5C ? 0F 59 ? 0F 28 ? 0F C6 CA ? F3 0F";
+            SuperCaraob = "0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 48 83 C2 ? 0F 11 ? ? 48 83 C1 ? E8 ? ? ? ? 0F 10";
+    }
 
         #region BG Workers
         public void ControllerWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -1509,9 +1532,9 @@ namespace Forza_Mods_AIO.TabForms
         {
             times4 = Decimal.ToInt32(Boost4Box.Value);
         }
-        private void VelMultBar_Scroll(object sender, EventArgs e)
+        private void VelMultBar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
-            VelMultBox.Value = Convert.ToDecimal(VelMultBar.Value) / 100;
+            VelMultBox.Value = Convert.ToDecimal(Math.Round(VelMultBar.Value)) / 100;
             VelMult = Decimal.ToSingle(VelMultBox.Value);
         }
         private void VelMultBox_ValueChanged(object sender, EventArgs e)
@@ -1522,14 +1545,18 @@ namespace Forza_Mods_AIO.TabForms
         #endregion
 
         #region FOV
-        private void FOVBar_Scroll(object sender, EventArgs e)
+        private void FOVBar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             //FOVBar.Value = FOVBar.Value / 100;
             FOVVal = (float)FOVBar.Value / 100;
             if (FOV.Checked == true)
             {
-                FOV.Checked = false;
-                FOV.Checked = true;
+                MainWindow.m.UnfreezeValue(FOVHighAddr); MainWindow.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
+                MainWindow.m.UnfreezeValue(FirstPersonAddr); MainWindow.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
+                MainWindow.m.UnfreezeValue(DashAddr); MainWindow.m.FreezeValue(DashAddr, "float", FOVVal.ToString());
+                MainWindow.m.UnfreezeValue(LowAddr); MainWindow.m.FreezeValue(LowAddr, "float", FOVVal.ToString());
+                MainWindow.m.UnfreezeValue(BonnetAddr); MainWindow.m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
+                MainWindow.m.UnfreezeValue(FrontAddr); MainWindow.m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
             }
             SHReset();
         }
@@ -1551,19 +1578,22 @@ namespace Forza_Mods_AIO.TabForms
                 }
                 else if (DashAddr == "FFFFFFFFFFFFFF45" || DashAddr == null || DashAddr == "0")
                 {
-                    FOVScan_bar.Value = 20;
+                    for (int i = FOVScan_bar.Value1; i <= 20; i++)
+                    { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
                     DashAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Dash, true, true)).FirstOrDefault() - 187;
                     DashAddr = DashAddrLong.ToString("X");
                 }
                 else if (FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0")
                 {
-                    FOVScan_bar.Value = 40;
+                    for (int i = FOVScan_bar.Value1; i <= 40; i++)
+                    { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
                     FrontAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Front, true, true)).FirstOrDefault() - 190;
                     FrontAddr = FrontAddrLong.ToString("X");
                 }
                 else if (LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0")
                 {
-                    FOVScan_bar.Value = 60;
+                    for (int i = FOVScan_bar.Value1; i <= 60; i++)
+                    { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
                     LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).FirstOrDefault() - 183;
                     LowCompare = LowAddrLong.ToString();
                     if (LowCompare == MainWindow.m.GetCode(FOVHighAddr).ToString())
@@ -1574,21 +1604,23 @@ namespace Forza_Mods_AIO.TabForms
                 }
                 else if (BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || DashAddr == "0")
                 {
-                    FOVScan_bar.Value = 80;
+                    for (int i = FOVScan_bar.Value1; i <= 80; i++)
+                    { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
                     BonnetAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Bonnet, true, true)).FirstOrDefault() - 189;
                     BonnetAddr = BonnetAddrLong.ToString("X");
                 }
-                if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null
+                if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null|| FirstPersonAddr == "0"
+                    || DashAddr == "FFFFFFFFFFFFFF45" || DashAddr == null || DashAddr == "0"
                     || FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0"
                     || LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0"
-                    || BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || BonnetAddr == "0"
-                    || FirstPersonAddr == "0" || DashAddr == null || DashAddr == "0")
+                    || BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || BonnetAddr == "0")
                 {
                     ;
                 }
                 else
                 {
-                    FOVScan_bar.Value = 100;
+                    for (int i = FOVScan_bar.Value1; i <= 100; i++)
+                    { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
                     Thread.Sleep(1000);
                     FOVScan_bar.Hide();
                     //FOVScan_BTN.Enabled = false;
@@ -1605,6 +1637,7 @@ namespace Forza_Mods_AIO.TabForms
             SHReset();
             if (FOV.Checked == false)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 FOVstart = false;
                 FOVWorker.CancelAsync();
                 MainWindow.m.WriteBytes(FOVnopOutAddr, nopoutbefore);
@@ -1618,6 +1651,7 @@ namespace Forza_Mods_AIO.TabForms
             }
             else
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 FOVstart = true;
                 if (FOVWorker.IsBusy == false)
                 {

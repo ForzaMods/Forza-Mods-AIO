@@ -37,7 +37,6 @@ namespace Forza_Mods_AIO.TabForms
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.StatScanButton = new System.Windows.Forms.Button();
-            this.ScanMarquee = new System.Windows.Forms.ProgressBar();
             this.StatsTable = new System.Windows.Forms.DataGridView();
             this.Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,8 +45,12 @@ namespace Forza_Mods_AIO.TabForms
             this.FilterBox = new System.Windows.Forms.TextBox();
             this.StatsScrollBar = new DarkUI.Controls.DarkScrollBar();
             this.SendProgress = new Telerik.WinControls.UI.RadProgressBar();
+            this.ScanMarquee = new Telerik.WinControls.UI.RadWaitingBar();
+            this.waitingBarIndicatorElement2 = new Telerik.WinControls.UI.WaitingBarIndicatorElement();
+            this.waitingBarIndicatorElement1 = new Telerik.WinControls.UI.WaitingBarIndicatorElement();
             ((System.ComponentModel.ISupportInitialize)(this.StatsTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SendProgress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScanMarquee)).BeginInit();
             this.SuspendLayout();
             // 
             // StatScanButton
@@ -65,13 +68,6 @@ namespace Forza_Mods_AIO.TabForms
             this.StatScanButton.UseVisualStyleBackColor = false;
             this.StatScanButton.Click += new System.EventHandler(this.StatScanButton_Click);
             this.StatScanButton.Leave += new System.EventHandler(this.StatScanButton_Leave);
-            // 
-            // ScanMarquee
-            // 
-            this.ScanMarquee.Location = new System.Drawing.Point(79, 13);
-            this.ScanMarquee.Name = "ScanMarquee";
-            this.ScanMarquee.Size = new System.Drawing.Size(148, 19);
-            this.ScanMarquee.TabIndex = 2;
             // 
             // StatsTable
             // 
@@ -200,7 +196,7 @@ namespace Forza_Mods_AIO.TabForms
             this.SendProgress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             this.SendProgress.Location = new System.Drawing.Point(773, 13);
             this.SendProgress.Name = "SendProgress";
-            this.SendProgress.Size = new System.Drawing.Size(155, 19);
+            this.SendProgress.Size = new System.Drawing.Size(148, 19);
             this.SendProgress.TabIndex = 26;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).Text = "";
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.SendProgress.GetChildAt(0))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
@@ -245,18 +241,106 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.UI.SeparatorsElement)(this.SendProgress.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.UI.ProgressBarTextElement)(this.SendProgress.GetChildAt(0).GetChildAt(3))).Text = "";
             // 
+            // ScanMarquee
+            // 
+            this.ScanMarquee.Location = new System.Drawing.Point(79, 13);
+            this.ScanMarquee.Name = "ScanMarquee";
+            this.ScanMarquee.Size = new System.Drawing.Size(148, 19);
+            this.ScanMarquee.TabIndex = 27;
+            this.ScanMarquee.Text = "radWaitingBar1";
+            this.ScanMarquee.WaitingIndicators.Add(this.waitingBarIndicatorElement2);
+            this.ScanMarquee.WaitingIndicators.Add(this.waitingBarIndicatorElement1);
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.ScanMarquee.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.ScanMarquee.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.ScanMarquee.GetChildAt(0).GetChildAt(0).GetChildAt(1))).Text = "radWaitingBar1";
+            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.ScanMarquee.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            // 
+            // waitingBarIndicatorElement2
+            // 
+            this.waitingBarIndicatorElement2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement2.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement2.BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement2.BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement2.BorderBottomColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderBottomShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderLeftColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderLeftShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderRightColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderRightShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderTopColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderTopShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.ElementColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.ElementColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.EnableFocusBorder = false;
+            this.waitingBarIndicatorElement2.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.Name = "waitingBarIndicatorElement2";
+            this.waitingBarIndicatorElement2.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.StretchHorizontally = false;
+            // 
+            // waitingBarIndicatorElement1
+            // 
+            this.waitingBarIndicatorElement1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement1.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement1.BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement1.BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement1.BorderBottomColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderBottomShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderLeftColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderLeftShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderRightColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderRightShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderTopColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderTopShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.ElementColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.ElementColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.EnableFocusBorder = false;
+            this.waitingBarIndicatorElement1.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.Name = "waitingBarIndicatorElement1";
+            this.waitingBarIndicatorElement1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.StretchHorizontally = false;
+            // 
             // StatsEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.ScanMarquee);
             this.Controls.Add(this.SendProgress);
             this.Controls.Add(this.StatsScrollBar);
             this.Controls.Add(this.FilterBox);
             this.Controls.Add(this.StatsTable);
             this.Controls.Add(this.SendButton);
-            this.Controls.Add(this.ScanMarquee);
             this.Controls.Add(this.StatScanButton);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
@@ -266,6 +350,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Load += new System.EventHandler(this.StatsEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.StatsTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SendProgress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScanMarquee)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,7 +358,6 @@ namespace Forza_Mods_AIO.TabForms
 
         #endregion
         private System.Windows.Forms.Button StatScanButton;
-        private System.Windows.Forms.ProgressBar ScanMarquee;
         private System.Windows.Forms.Button SendButton;
         public System.ComponentModel.BackgroundWorker SendWorker;
         private System.Windows.Forms.TextBox FilterBox;
@@ -282,5 +366,8 @@ namespace Forza_Mods_AIO.TabForms
         private DarkUI.Controls.DarkScrollBar StatsScrollBar;
         public Telerik.WinControls.UI.RadProgressBar SendProgress;
         public System.Windows.Forms.DataGridView StatsTable;
+        public Telerik.WinControls.UI.WaitingBarIndicatorElement waitingBarIndicatorElement2;
+        public Telerik.WinControls.UI.WaitingBarIndicatorElement waitingBarIndicatorElement1;
+        public Telerik.WinControls.UI.RadWaitingBar ScanMarquee;
     }
 }

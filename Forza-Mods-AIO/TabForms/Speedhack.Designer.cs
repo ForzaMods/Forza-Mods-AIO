@@ -35,6 +35,10 @@ namespace Forza_Mods_AIO.TabForms
             this.TB_SHCarNoClip = new Telerik.WinControls.UI.RadCheckBox();
             this.LBL_SHNoClip = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.LST_TeleportLocation = new DarkUI.Controls.DarkComboBox();
+            this.FOVBar = new LimitlessUI.Slider_WOC();
+            this.FOVScan_bar = new Telerik.WinControls.UI.RadProgressBar();
+            this.XPnup = new DarkUI.Controls.DarkNumericUpDown();
             this.TimerIndicator = new System.Windows.Forms.Panel();
             this.Bypassoob = new Telerik.WinControls.UI.RadCheckBox();
             this.TimerButton = new Telerik.WinControls.UI.RadCheckBox();
@@ -43,17 +47,12 @@ namespace Forza_Mods_AIO.TabForms
             this.AutoWayPoint = new Telerik.WinControls.UI.RadCheckBox();
             this.CheckpointBox = new Telerik.WinControls.UI.RadCheckBox();
             this.TimerLabel = new System.Windows.Forms.Label();
-            this.XPnup = new System.Windows.Forms.NumericUpDown();
             this.SaveSHDefault = new System.Windows.Forms.Button();
             this.LoadSHDefault = new System.Windows.Forms.Button();
-            this.FOVScan_bar = new System.Windows.Forms.ProgressBar();
-            this.FOVBar = new System.Windows.Forms.TrackBar();
             this.FOVScan_BTN = new System.Windows.Forms.Button();
             this.TPButton = new System.Windows.Forms.Button();
-            this.LST_TeleportLocation = new System.Windows.Forms.ComboBox();
             this.LBL_Misc = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.FOV = new System.Windows.Forms.CheckBox();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -61,18 +60,18 @@ namespace Forza_Mods_AIO.TabForms
             this.XBChange = new System.Windows.Forms.Button();
             this.KBChange = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.WeirdBox = new DarkUI.Controls.DarkNumericUpDown();
+            this.GravityBox = new DarkUI.Controls.DarkNumericUpDown();
             this.GravitySet = new System.Windows.Forms.Button();
             this.WeirdSet = new System.Windows.Forms.Button();
             this.GravityPull = new System.Windows.Forms.Button();
             this.WeirdPull = new System.Windows.Forms.Button();
-            this.GravityBox = new System.Windows.Forms.NumericUpDown();
-            this.WeirdBox = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.AcelLabel = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.VelMultBox = new System.Windows.Forms.NumericUpDown();
-            this.VelMultBar = new System.Windows.Forms.TrackBar();
+            this.VelMultBar = new LimitlessUI.Slider_WOC();
+            this.VelMultBox = new DarkUI.Controls.DarkNumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -86,18 +85,18 @@ namespace Forza_Mods_AIO.TabForms
             this.DonoPic = new System.Windows.Forms.PictureBox();
             this.LBL_Toggles = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.LimitBox = new System.Windows.Forms.NumericUpDown();
-            this.Speed3Box = new System.Windows.Forms.NumericUpDown();
-            this.Speed2Box = new System.Windows.Forms.NumericUpDown();
-            this.Interval4Box = new System.Windows.Forms.NumericUpDown();
-            this.Interval3Box = new System.Windows.Forms.NumericUpDown();
-            this.Interval2Box = new System.Windows.Forms.NumericUpDown();
-            this.Boost4Box = new System.Windows.Forms.NumericUpDown();
-            this.Boost3Box = new System.Windows.Forms.NumericUpDown();
-            this.Boost2Box = new System.Windows.Forms.NumericUpDown();
-            this.Boost1Box = new System.Windows.Forms.NumericUpDown();
-            this.Interval1Box = new System.Windows.Forms.NumericUpDown();
-            this.Speed1Box = new System.Windows.Forms.NumericUpDown();
+            this.LimitBox = new DarkUI.Controls.DarkNumericUpDown();
+            this.Speed3Box = new DarkUI.Controls.DarkNumericUpDown();
+            this.Speed2Box = new DarkUI.Controls.DarkNumericUpDown();
+            this.Interval4Box = new DarkUI.Controls.DarkNumericUpDown();
+            this.Interval3Box = new DarkUI.Controls.DarkNumericUpDown();
+            this.Interval2Box = new DarkUI.Controls.DarkNumericUpDown();
+            this.Boost4Box = new DarkUI.Controls.DarkNumericUpDown();
+            this.Boost3Box = new DarkUI.Controls.DarkNumericUpDown();
+            this.Boost2Box = new DarkUI.Controls.DarkNumericUpDown();
+            this.Boost1Box = new DarkUI.Controls.DarkNumericUpDown();
+            this.Interval1Box = new DarkUI.Controls.DarkNumericUpDown();
+            this.Speed1Box = new DarkUI.Controls.DarkNumericUpDown();
             this.LBL_Wheelspeed = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
@@ -112,13 +111,13 @@ namespace Forza_Mods_AIO.TabForms
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.RatioBox = new System.Windows.Forms.NumericUpDown();
-            this.TurnStrengthBox = new System.Windows.Forms.NumericUpDown();
-            this.TurnIntervalBox = new System.Windows.Forms.NumericUpDown();
             this.LBL_Turn = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.TurnStrengthBox = new DarkUI.Controls.DarkNumericUpDown();
+            this.RatioBox = new DarkUI.Controls.DarkNumericUpDown();
+            this.TurnIntervalBox = new DarkUI.Controls.DarkNumericUpDown();
             this.VelHackWorker = new System.ComponentModel.BackgroundWorker();
             this.NoClipWorker = new System.ComponentModel.BackgroundWorker();
             this.SpeedHackWorker = new System.ComponentModel.BackgroundWorker();
@@ -133,25 +132,25 @@ namespace Forza_Mods_AIO.TabForms
             this.WayPointTPworker = new System.ComponentModel.BackgroundWorker();
             this.TimerWorker = new System.ComponentModel.BackgroundWorker();
             this.StopWheelsWorker = new System.ComponentModel.BackgroundWorker();
+            this.FOV = new Telerik.WinControls.UI.RadCheckBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHWallNoClip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).BeginInit();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FOVScan_bar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.XPnup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bypassoob)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimerButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimeCheckBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AutoWayPoint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CheckpointBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.XPnup)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FOVBar)).BeginInit();
             this.panel9.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.GravityBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WeirdBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GravityBox)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VelMultBar)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TurnAssistButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopAllWheelsButton)).BeginInit();
@@ -174,9 +173,10 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.Interval1Box)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Speed1Box)).BeginInit();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnStrengthBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FOV)).BeginInit();
             this.SuspendLayout();
             // 
             // panel3
@@ -263,29 +263,154 @@ namespace Forza_Mods_AIO.TabForms
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel7.Controls.Add(this.LST_TeleportLocation);
+            this.panel7.Controls.Add(this.FOVBar);
+            this.panel7.Controls.Add(this.FOVScan_bar);
+            this.panel7.Controls.Add(this.XPnup);
             this.panel7.Controls.Add(this.TimerIndicator);
             this.panel7.Controls.Add(this.Bypassoob);
+            this.panel7.Controls.Add(this.FOV);
             this.panel7.Controls.Add(this.TimerButton);
             this.panel7.Controls.Add(this.XPBox);
             this.panel7.Controls.Add(this.TimeCheckBox);
             this.panel7.Controls.Add(this.AutoWayPoint);
             this.panel7.Controls.Add(this.CheckpointBox);
             this.panel7.Controls.Add(this.TimerLabel);
-            this.panel7.Controls.Add(this.XPnup);
             this.panel7.Controls.Add(this.SaveSHDefault);
             this.panel7.Controls.Add(this.LoadSHDefault);
-            this.panel7.Controls.Add(this.FOVScan_bar);
-            this.panel7.Controls.Add(this.FOVBar);
             this.panel7.Controls.Add(this.FOVScan_BTN);
             this.panel7.Controls.Add(this.TPButton);
-            this.panel7.Controls.Add(this.LST_TeleportLocation);
             this.panel7.Controls.Add(this.LBL_Misc);
             this.panel7.Controls.Add(this.label10);
-            this.panel7.Controls.Add(this.FOV);
             this.panel7.Location = new System.Drawing.Point(746, 12);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(242, 421);
             this.panel7.TabIndex = 12;
+            // 
+            // LST_TeleportLocation
+            // 
+            this.LST_TeleportLocation.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.LST_TeleportLocation.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.LST_TeleportLocation.FormattingEnabled = true;
+            this.LST_TeleportLocation.Items.AddRange(new object[] {
+            "Waypoint",
+            "Adventure Park",
+            "Ambleside",
+            "Beach",
+            "Broadway",
+            "Damn",
+            "Edinburgh",
+            "Festival",
+            "Greendale Airstrip",
+            "Lake Island",
+            "Mortimer Gardens",
+            "Quarry",
+            "Railyard",
+            "Start of Motorway",
+            "Top of Mountain"});
+            this.LST_TeleportLocation.Location = new System.Drawing.Point(3, 70);
+            this.LST_TeleportLocation.Name = "LST_TeleportLocation";
+            this.LST_TeleportLocation.Size = new System.Drawing.Size(236, 27);
+            this.LST_TeleportLocation.TabIndex = 45;
+            this.LST_TeleportLocation.SelectedIndexChanged += new System.EventHandler(this.LST_TeleportLocation_SelectedIndexChanged);
+            // 
+            // FOVBar
+            // 
+            this.FOVBar.BackLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.FOVBar.BackLineThikness = 3F;
+            this.FOVBar.CircleSize = 10F;
+            this.FOVBar.DrawCircle = true;
+            this.FOVBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.FOVBar.FrontLineThikness = 3F;
+            this.FOVBar.Location = new System.Drawing.Point(35, 339);
+            this.FOVBar.MaxValue = 150F;
+            this.FOVBar.MinValue = -95F;
+            this.FOVBar.Name = "FOVBar";
+            this.FOVBar.Rounded = false;
+            this.FOVBar.Size = new System.Drawing.Size(182, 23);
+            this.FOVBar.TabIndex = 36;
+            this.FOVBar.Text = "VelMultBar";
+            this.FOVBar.Value = 7.329836F;
+            this.FOVBar.OnValueChanged += new LimitlessUI.Slider_WOC.OnValueChangedEvent(this.FOVBar_Scroll);
+            // 
+            // FOVScan_bar
+            // 
+            this.FOVScan_bar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.FOVScan_bar.Location = new System.Drawing.Point(47, 310);
+            this.FOVScan_bar.Name = "FOVScan_bar";
+            this.FOVScan_bar.Size = new System.Drawing.Size(159, 23);
+            this.FOVScan_bar.TabIndex = 44;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).Text = "";
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).ClipText = false;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.FOVScan_bar.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BorderGradientStyle = Telerik.WinControls.GradientStyles.Radial;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.UI.SeparatorsElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressBarTextElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(3))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressBarTextElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(3))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressBarTextElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(3))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressBarTextElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(3))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressBarTextElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(3))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressBarTextElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(3))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressBarTextElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(3))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressBarTextElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(3))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.ProgressBarTextElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(3))).Text = "";
+            ((Telerik.WinControls.UI.ProgressBarTextElement)(this.FOVScan_bar.GetChildAt(0).GetChildAt(3))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            // 
+            // XPnup
+            // 
+            this.XPnup.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.XPnup.Location = new System.Drawing.Point(64, 201);
+            this.XPnup.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.XPnup.Name = "XPnup";
+            this.XPnup.Size = new System.Drawing.Size(120, 22);
+            this.XPnup.TabIndex = 35;
+            this.XPnup.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.XPnup.ValueChanged += new System.EventHandler(this.WeirdBox_ValueChanged);
             // 
             // TimerIndicator
             // 
@@ -492,28 +617,6 @@ namespace Forza_Mods_AIO.TabForms
             this.TimerLabel.TabIndex = 42;
             this.TimerLabel.Text = "0.00";
             // 
-            // XPnup
-            // 
-            this.XPnup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.XPnup.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.XPnup.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.XPnup.ForeColor = System.Drawing.Color.White;
-            this.XPnup.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.XPnup.Location = new System.Drawing.Point(64, 201);
-            this.XPnup.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.XPnup.Name = "XPnup";
-            this.XPnup.Size = new System.Drawing.Size(120, 20);
-            this.XPnup.TabIndex = 40;
-            this.XPnup.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // SaveSHDefault
             // 
             this.SaveSHDefault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
@@ -541,28 +644,6 @@ namespace Forza_Mods_AIO.TabForms
             this.LoadSHDefault.Text = "Load default";
             this.LoadSHDefault.UseVisualStyleBackColor = false;
             this.LoadSHDefault.Click += new System.EventHandler(this.LoadSHDefault_Click);
-            // 
-            // FOVScan_bar
-            // 
-            this.FOVScan_bar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.FOVScan_bar.Location = new System.Drawing.Point(47, 310);
-            this.FOVScan_bar.Name = "FOVScan_bar";
-            this.FOVScan_bar.Size = new System.Drawing.Size(159, 23);
-            this.FOVScan_bar.TabIndex = 15;
-            // 
-            // FOVBar
-            // 
-            this.FOVBar.LargeChange = 20;
-            this.FOVBar.Location = new System.Drawing.Point(31, 339);
-            this.FOVBar.Maximum = 150;
-            this.FOVBar.Minimum = -95;
-            this.FOVBar.Name = "FOVBar";
-            this.FOVBar.Size = new System.Drawing.Size(187, 45);
-            this.FOVBar.SmallChange = 5;
-            this.FOVBar.TabIndex = 32;
-            this.FOVBar.TickFrequency = 10;
-            this.FOVBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.FOVBar.Scroll += new System.EventHandler(this.FOVBar_Scroll);
             // 
             // FOVScan_BTN
             // 
@@ -592,35 +673,6 @@ namespace Forza_Mods_AIO.TabForms
             this.TPButton.UseVisualStyleBackColor = false;
             this.TPButton.Click += new System.EventHandler(this.TPButton_Click);
             // 
-            // LST_TeleportLocation
-            // 
-            this.LST_TeleportLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.LST_TeleportLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LST_TeleportLocation.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LST_TeleportLocation.ForeColor = System.Drawing.Color.White;
-            this.LST_TeleportLocation.FormattingEnabled = true;
-            this.LST_TeleportLocation.Items.AddRange(new object[] {
-            "Waypoint",
-            "Adventure Park",
-            "Ambleside",
-            "Beach",
-            "Broadway",
-            "Damn",
-            "Edinburgh",
-            "Festival",
-            "Greendale Airstrip",
-            "Lake Island",
-            "Mortimer Gardens",
-            "Quarry",
-            "Railyard",
-            "Start of Motorway",
-            "Top of Mountain"});
-            this.LST_TeleportLocation.Location = new System.Drawing.Point(3, 70);
-            this.LST_TeleportLocation.Name = "LST_TeleportLocation";
-            this.LST_TeleportLocation.Size = new System.Drawing.Size(236, 26);
-            this.LST_TeleportLocation.TabIndex = 22;
-            this.LST_TeleportLocation.SelectedIndexChanged += new System.EventHandler(this.LST_TeleportLocation_SelectedIndexChanged);
-            // 
             // LBL_Misc
             // 
             this.LBL_Misc.AutoSize = true;
@@ -640,17 +692,6 @@ namespace Forza_Mods_AIO.TabForms
             this.label10.Size = new System.Drawing.Size(125, 19);
             this.label10.TabIndex = 22;
             this.label10.Text = "Teleport Location";
-            // 
-            // FOV
-            // 
-            this.FOV.AutoSize = true;
-            this.FOV.Location = new System.Drawing.Point(105, 311);
-            this.FOV.Name = "FOV";
-            this.FOV.Size = new System.Drawing.Size(48, 19);
-            this.FOV.TabIndex = 39;
-            this.FOV.Text = "FOV";
-            this.FOV.UseVisualStyleBackColor = true;
-            this.FOV.CheckedChanged += new System.EventHandler(this.FOV_CheckedChanged);
             // 
             // panel9
             // 
@@ -728,12 +769,12 @@ namespace Forza_Mods_AIO.TabForms
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel1.Controls.Add(this.WeirdBox);
+            this.panel1.Controls.Add(this.GravityBox);
             this.panel1.Controls.Add(this.GravitySet);
             this.panel1.Controls.Add(this.WeirdSet);
             this.panel1.Controls.Add(this.GravityPull);
             this.panel1.Controls.Add(this.WeirdPull);
-            this.panel1.Controls.Add(this.GravityBox);
-            this.panel1.Controls.Add(this.WeirdBox);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.AcelLabel);
             this.panel1.Controls.Add(this.label16);
@@ -742,6 +783,41 @@ namespace Forza_Mods_AIO.TabForms
             this.panel1.Size = new System.Drawing.Size(190, 136);
             this.panel1.TabIndex = 5;
             // 
+            // WeirdBox
+            // 
+            this.WeirdBox.DecimalPlaces = 8;
+            this.WeirdBox.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.WeirdBox.Location = new System.Drawing.Point(12, 56);
+            this.WeirdBox.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.WeirdBox.Name = "WeirdBox";
+            this.WeirdBox.Size = new System.Drawing.Size(83, 22);
+            this.WeirdBox.TabIndex = 35;
+            this.WeirdBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.WeirdBox.ValueChanged += new System.EventHandler(this.WeirdBox_ValueChanged);
+            // 
+            // GravityBox
+            // 
+            this.GravityBox.DecimalPlaces = 2;
+            this.GravityBox.Location = new System.Drawing.Point(12, 99);
+            this.GravityBox.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.GravityBox.Name = "GravityBox";
+            this.GravityBox.Size = new System.Drawing.Size(83, 22);
+            this.GravityBox.TabIndex = 35;
+            this.GravityBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GravityBox.ValueChanged += new System.EventHandler(this.GravityBox_ValueChanged);
+            // 
             // GravitySet
             // 
             this.GravitySet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
@@ -749,7 +825,7 @@ namespace Forza_Mods_AIO.TabForms
             this.GravitySet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GravitySet.Location = new System.Drawing.Point(142, 99);
             this.GravitySet.Name = "GravitySet";
-            this.GravitySet.Size = new System.Drawing.Size(35, 23);
+            this.GravitySet.Size = new System.Drawing.Size(35, 22);
             this.GravitySet.TabIndex = 17;
             this.GravitySet.Text = "Set";
             this.GravitySet.UseVisualStyleBackColor = false;
@@ -760,9 +836,9 @@ namespace Forza_Mods_AIO.TabForms
             this.WeirdSet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.WeirdSet.FlatAppearance.BorderSize = 0;
             this.WeirdSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WeirdSet.Location = new System.Drawing.Point(142, 55);
+            this.WeirdSet.Location = new System.Drawing.Point(142, 56);
             this.WeirdSet.Name = "WeirdSet";
-            this.WeirdSet.Size = new System.Drawing.Size(35, 23);
+            this.WeirdSet.Size = new System.Drawing.Size(35, 22);
             this.WeirdSet.TabIndex = 17;
             this.WeirdSet.Text = "Set";
             this.WeirdSet.UseVisualStyleBackColor = false;
@@ -775,7 +851,7 @@ namespace Forza_Mods_AIO.TabForms
             this.GravityPull.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GravityPull.Location = new System.Drawing.Point(101, 99);
             this.GravityPull.Name = "GravityPull";
-            this.GravityPull.Size = new System.Drawing.Size(35, 23);
+            this.GravityPull.Size = new System.Drawing.Size(35, 22);
             this.GravityPull.TabIndex = 17;
             this.GravityPull.Text = "Pull";
             this.GravityPull.UseVisualStyleBackColor = false;
@@ -786,56 +862,13 @@ namespace Forza_Mods_AIO.TabForms
             this.WeirdPull.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.WeirdPull.FlatAppearance.BorderSize = 0;
             this.WeirdPull.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WeirdPull.Location = new System.Drawing.Point(101, 55);
+            this.WeirdPull.Location = new System.Drawing.Point(101, 56);
             this.WeirdPull.Name = "WeirdPull";
-            this.WeirdPull.Size = new System.Drawing.Size(35, 23);
+            this.WeirdPull.Size = new System.Drawing.Size(35, 22);
             this.WeirdPull.TabIndex = 17;
             this.WeirdPull.Text = "Pull";
             this.WeirdPull.UseVisualStyleBackColor = false;
             this.WeirdPull.Click += new System.EventHandler(this.WeirdPull_Click);
-            // 
-            // GravityBox
-            // 
-            this.GravityBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.GravityBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GravityBox.DecimalPlaces = 2;
-            this.GravityBox.Font = new System.Drawing.Font("Open Sans", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GravityBox.ForeColor = System.Drawing.Color.White;
-            this.GravityBox.Location = new System.Drawing.Point(12, 99);
-            this.GravityBox.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.GravityBox.Name = "GravityBox";
-            this.GravityBox.Size = new System.Drawing.Size(83, 18);
-            this.GravityBox.TabIndex = 16;
-            this.GravityBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.GravityBox.ValueChanged += new System.EventHandler(this.GravityBox_ValueChanged);
-            // 
-            // WeirdBox
-            // 
-            this.WeirdBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.WeirdBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.WeirdBox.DecimalPlaces = 8;
-            this.WeirdBox.Font = new System.Drawing.Font("Open Sans", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WeirdBox.ForeColor = System.Drawing.Color.White;
-            this.WeirdBox.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.WeirdBox.Location = new System.Drawing.Point(12, 55);
-            this.WeirdBox.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.WeirdBox.Name = "WeirdBox";
-            this.WeirdBox.Size = new System.Drawing.Size(83, 18);
-            this.WeirdBox.TabIndex = 16;
-            this.WeirdBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.WeirdBox.ValueChanged += new System.EventHandler(this.WeirdBox_ValueChanged);
             // 
             // label8
             // 
@@ -870,8 +903,8 @@ namespace Forza_Mods_AIO.TabForms
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel2.Controls.Add(this.VelMultBox);
             this.panel2.Controls.Add(this.VelMultBar);
+            this.panel2.Controls.Add(this.VelMultBox);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.label12);
             this.panel2.Location = new System.Drawing.Point(12, 211);
@@ -879,19 +912,34 @@ namespace Forza_Mods_AIO.TabForms
             this.panel2.Size = new System.Drawing.Size(190, 80);
             this.panel2.TabIndex = 8;
             // 
+            // VelMultBar
+            // 
+            this.VelMultBar.BackLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.VelMultBar.BackLineThikness = 3F;
+            this.VelMultBar.CircleSize = 10F;
+            this.VelMultBar.DrawCircle = true;
+            this.VelMultBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.VelMultBar.FrontLineThikness = 3F;
+            this.VelMultBar.Location = new System.Drawing.Point(3, 56);
+            this.VelMultBar.MaxValue = 200F;
+            this.VelMultBar.MinValue = 100F;
+            this.VelMultBar.Name = "VelMultBar";
+            this.VelMultBar.Rounded = false;
+            this.VelMultBar.Size = new System.Drawing.Size(184, 23);
+            this.VelMultBar.TabIndex = 36;
+            this.VelMultBar.Text = "VelMultBar";
+            this.VelMultBar.Value = 200F;
+            this.VelMultBar.OnValueChanged += new LimitlessUI.Slider_WOC.OnValueChangedEvent(this.VelMultBar_Scroll);
+            // 
             // VelMultBox
             // 
-            this.VelMultBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.VelMultBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.VelMultBox.DecimalPlaces = 5;
-            this.VelMultBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VelMultBox.ForeColor = System.Drawing.Color.White;
             this.VelMultBox.Increment = new decimal(new int[] {
             5,
             0,
             0,
             196608});
-            this.VelMultBox.Location = new System.Drawing.Point(89, 34);
+            this.VelMultBox.Location = new System.Drawing.Point(91, 33);
             this.VelMultBox.Maximum = new decimal(new int[] {
             2,
             0,
@@ -904,7 +952,7 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.VelMultBox.Name = "VelMultBox";
             this.VelMultBox.Size = new System.Drawing.Size(68, 22);
-            this.VelMultBox.TabIndex = 32;
+            this.VelMultBox.TabIndex = 35;
             this.VelMultBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.VelMultBox.Value = new decimal(new int[] {
             1,
@@ -912,21 +960,6 @@ namespace Forza_Mods_AIO.TabForms
             0,
             0});
             this.VelMultBox.ValueChanged += new System.EventHandler(this.VelMultBox_ValueChanged);
-            // 
-            // VelMultBar
-            // 
-            this.VelMultBar.LargeChange = 20;
-            this.VelMultBar.Location = new System.Drawing.Point(3, 57);
-            this.VelMultBar.Maximum = 200;
-            this.VelMultBar.Minimum = 100;
-            this.VelMultBar.Name = "VelMultBar";
-            this.VelMultBar.Size = new System.Drawing.Size(187, 45);
-            this.VelMultBar.SmallChange = 5;
-            this.VelMultBar.TabIndex = 32;
-            this.VelMultBar.TickFrequency = 10;
-            this.VelMultBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.VelMultBar.Value = 100;
-            this.VelMultBar.Scroll += new System.EventHandler(this.VelMultBar_Scroll);
             // 
             // label6
             // 
@@ -1215,10 +1248,6 @@ namespace Forza_Mods_AIO.TabForms
             // 
             // LimitBox
             // 
-            this.LimitBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.LimitBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.LimitBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LimitBox.ForeColor = System.Drawing.Color.White;
             this.LimitBox.Location = new System.Drawing.Point(71, 178);
             this.LimitBox.Maximum = new decimal(new int[] {
             9999,
@@ -1227,16 +1256,12 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.LimitBox.Name = "LimitBox";
             this.LimitBox.Size = new System.Drawing.Size(70, 22);
-            this.LimitBox.TabIndex = 31;
+            this.LimitBox.TabIndex = 35;
             this.LimitBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.LimitBox.ValueChanged += new System.EventHandler(this.LimitBox_ValueChanged);
             // 
             // Speed3Box
             // 
-            this.Speed3Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Speed3Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Speed3Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Speed3Box.ForeColor = System.Drawing.Color.White;
             this.Speed3Box.Location = new System.Drawing.Point(71, 138);
             this.Speed3Box.Maximum = new decimal(new int[] {
             9999,
@@ -1245,16 +1270,12 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.Speed3Box.Name = "Speed3Box";
             this.Speed3Box.Size = new System.Drawing.Size(70, 22);
-            this.Speed3Box.TabIndex = 31;
+            this.Speed3Box.TabIndex = 35;
             this.Speed3Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Speed3Box.ValueChanged += new System.EventHandler(this.Speed3Box_ValueChanged);
             // 
             // Speed2Box
             // 
-            this.Speed2Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Speed2Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Speed2Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Speed2Box.ForeColor = System.Drawing.Color.White;
             this.Speed2Box.Location = new System.Drawing.Point(71, 98);
             this.Speed2Box.Maximum = new decimal(new int[] {
             9999,
@@ -1263,16 +1284,12 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.Speed2Box.Name = "Speed2Box";
             this.Speed2Box.Size = new System.Drawing.Size(70, 22);
-            this.Speed2Box.TabIndex = 31;
+            this.Speed2Box.TabIndex = 35;
             this.Speed2Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Speed2Box.ValueChanged += new System.EventHandler(this.Speed2Box_ValueChanged);
             // 
             // Interval4Box
             // 
-            this.Interval4Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Interval4Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Interval4Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Interval4Box.ForeColor = System.Drawing.Color.White;
             this.Interval4Box.Location = new System.Drawing.Point(250, 178);
             this.Interval4Box.Maximum = new decimal(new int[] {
             9999,
@@ -1281,16 +1298,12 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.Interval4Box.Name = "Interval4Box";
             this.Interval4Box.Size = new System.Drawing.Size(70, 22);
-            this.Interval4Box.TabIndex = 31;
+            this.Interval4Box.TabIndex = 35;
             this.Interval4Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Interval4Box.ValueChanged += new System.EventHandler(this.Interval4Box_ValueChanged);
             // 
             // Interval3Box
             // 
-            this.Interval3Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Interval3Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Interval3Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Interval3Box.ForeColor = System.Drawing.Color.White;
             this.Interval3Box.Location = new System.Drawing.Point(250, 138);
             this.Interval3Box.Maximum = new decimal(new int[] {
             9999,
@@ -1299,16 +1312,12 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.Interval3Box.Name = "Interval3Box";
             this.Interval3Box.Size = new System.Drawing.Size(70, 22);
-            this.Interval3Box.TabIndex = 31;
+            this.Interval3Box.TabIndex = 35;
             this.Interval3Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Interval3Box.ValueChanged += new System.EventHandler(this.Interval3Box_ValueChanged);
             // 
             // Interval2Box
             // 
-            this.Interval2Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Interval2Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Interval2Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Interval2Box.ForeColor = System.Drawing.Color.White;
             this.Interval2Box.Location = new System.Drawing.Point(250, 98);
             this.Interval2Box.Maximum = new decimal(new int[] {
             9999,
@@ -1317,16 +1326,12 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.Interval2Box.Name = "Interval2Box";
             this.Interval2Box.Size = new System.Drawing.Size(70, 22);
-            this.Interval2Box.TabIndex = 31;
+            this.Interval2Box.TabIndex = 35;
             this.Interval2Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Interval2Box.ValueChanged += new System.EventHandler(this.Interval2Box_ValueChanged);
             // 
             // Boost4Box
             // 
-            this.Boost4Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Boost4Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Boost4Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Boost4Box.ForeColor = System.Drawing.Color.White;
             this.Boost4Box.Location = new System.Drawing.Point(433, 178);
             this.Boost4Box.Maximum = new decimal(new int[] {
             9999,
@@ -1335,16 +1340,12 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.Boost4Box.Name = "Boost4Box";
             this.Boost4Box.Size = new System.Drawing.Size(70, 22);
-            this.Boost4Box.TabIndex = 31;
+            this.Boost4Box.TabIndex = 35;
             this.Boost4Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Boost4Box.ValueChanged += new System.EventHandler(this.Boost4Box_ValueChanged);
             // 
             // Boost3Box
             // 
-            this.Boost3Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Boost3Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Boost3Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Boost3Box.ForeColor = System.Drawing.Color.White;
             this.Boost3Box.Location = new System.Drawing.Point(433, 138);
             this.Boost3Box.Maximum = new decimal(new int[] {
             9999,
@@ -1353,16 +1354,12 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.Boost3Box.Name = "Boost3Box";
             this.Boost3Box.Size = new System.Drawing.Size(70, 22);
-            this.Boost3Box.TabIndex = 31;
+            this.Boost3Box.TabIndex = 35;
             this.Boost3Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Boost3Box.ValueChanged += new System.EventHandler(this.Boost3Box_ValueChanged);
             // 
             // Boost2Box
             // 
-            this.Boost2Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Boost2Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Boost2Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Boost2Box.ForeColor = System.Drawing.Color.White;
             this.Boost2Box.Location = new System.Drawing.Point(433, 98);
             this.Boost2Box.Maximum = new decimal(new int[] {
             9999,
@@ -1371,16 +1368,12 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.Boost2Box.Name = "Boost2Box";
             this.Boost2Box.Size = new System.Drawing.Size(70, 22);
-            this.Boost2Box.TabIndex = 31;
+            this.Boost2Box.TabIndex = 35;
             this.Boost2Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Boost2Box.ValueChanged += new System.EventHandler(this.Boost2Box_ValueChanged);
             // 
             // Boost1Box
             // 
-            this.Boost1Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Boost1Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Boost1Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Boost1Box.ForeColor = System.Drawing.Color.White;
             this.Boost1Box.Location = new System.Drawing.Point(433, 58);
             this.Boost1Box.Maximum = new decimal(new int[] {
             9999,
@@ -1389,16 +1382,12 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.Boost1Box.Name = "Boost1Box";
             this.Boost1Box.Size = new System.Drawing.Size(70, 22);
-            this.Boost1Box.TabIndex = 31;
+            this.Boost1Box.TabIndex = 35;
             this.Boost1Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Boost1Box.ValueChanged += new System.EventHandler(this.Boost1Box_ValueChanged);
             // 
             // Interval1Box
             // 
-            this.Interval1Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Interval1Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Interval1Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Interval1Box.ForeColor = System.Drawing.Color.White;
             this.Interval1Box.Location = new System.Drawing.Point(250, 58);
             this.Interval1Box.Maximum = new decimal(new int[] {
             9999,
@@ -1407,16 +1396,12 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.Interval1Box.Name = "Interval1Box";
             this.Interval1Box.Size = new System.Drawing.Size(70, 22);
-            this.Interval1Box.TabIndex = 31;
+            this.Interval1Box.TabIndex = 35;
             this.Interval1Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Interval1Box.ValueChanged += new System.EventHandler(this.Interval1Box_ValueChanged);
             // 
             // Speed1Box
             // 
-            this.Speed1Box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Speed1Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Speed1Box.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Speed1Box.ForeColor = System.Drawing.Color.White;
             this.Speed1Box.Location = new System.Drawing.Point(71, 58);
             this.Speed1Box.Maximum = new decimal(new int[] {
             9999,
@@ -1425,7 +1410,7 @@ namespace Forza_Mods_AIO.TabForms
             0});
             this.Speed1Box.Name = "Speed1Box";
             this.Speed1Box.Size = new System.Drawing.Size(70, 22);
-            this.Speed1Box.TabIndex = 31;
+            this.Speed1Box.TabIndex = 35;
             this.Speed1Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Speed1Box.ValueChanged += new System.EventHandler(this.Speed1Box_ValueChanged);
             // 
@@ -1562,72 +1547,17 @@ namespace Forza_Mods_AIO.TabForms
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel5.Controls.Add(this.RatioBox);
-            this.panel5.Controls.Add(this.TurnStrengthBox);
-            this.panel5.Controls.Add(this.TurnIntervalBox);
             this.panel5.Controls.Add(this.LBL_Turn);
             this.panel5.Controls.Add(this.label17);
             this.panel5.Controls.Add(this.label18);
             this.panel5.Controls.Add(this.label19);
+            this.panel5.Controls.Add(this.TurnStrengthBox);
+            this.panel5.Controls.Add(this.RatioBox);
+            this.panel5.Controls.Add(this.TurnIntervalBox);
             this.panel5.Location = new System.Drawing.Point(208, 129);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(532, 76);
             this.panel5.TabIndex = 11;
-            // 
-            // RatioBox
-            // 
-            this.RatioBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.RatioBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.RatioBox.DecimalPlaces = 2;
-            this.RatioBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RatioBox.ForeColor = System.Drawing.Color.White;
-            this.RatioBox.Location = new System.Drawing.Point(266, 44);
-            this.RatioBox.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.RatioBox.Name = "RatioBox";
-            this.RatioBox.Size = new System.Drawing.Size(70, 22);
-            this.RatioBox.TabIndex = 31;
-            this.RatioBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.RatioBox.ValueChanged += new System.EventHandler(this.RatioBox_ValueChanged);
-            // 
-            // TurnStrengthBox
-            // 
-            this.TurnStrengthBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.TurnStrengthBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TurnStrengthBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TurnStrengthBox.ForeColor = System.Drawing.Color.White;
-            this.TurnStrengthBox.Location = new System.Drawing.Point(443, 42);
-            this.TurnStrengthBox.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.TurnStrengthBox.Name = "TurnStrengthBox";
-            this.TurnStrengthBox.Size = new System.Drawing.Size(70, 22);
-            this.TurnStrengthBox.TabIndex = 31;
-            this.TurnStrengthBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TurnStrengthBox.ValueChanged += new System.EventHandler(this.TurnStrengthBox_ValueChanged);
-            // 
-            // TurnIntervalBox
-            // 
-            this.TurnIntervalBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.TurnIntervalBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TurnIntervalBox.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TurnIntervalBox.ForeColor = System.Drawing.Color.White;
-            this.TurnIntervalBox.Location = new System.Drawing.Point(86, 44);
-            this.TurnIntervalBox.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.TurnIntervalBox.Name = "TurnIntervalBox";
-            this.TurnIntervalBox.Size = new System.Drawing.Size(70, 22);
-            this.TurnIntervalBox.TabIndex = 31;
-            this.TurnIntervalBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TurnIntervalBox.ValueChanged += new System.EventHandler(this.TurnIntervalBox_ValueChanged);
             // 
             // LBL_Turn
             // 
@@ -1643,7 +1573,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(20, 44);
+            this.label17.Location = new System.Drawing.Point(24, 44);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(60, 19);
             this.label17.TabIndex = 16;
@@ -1653,7 +1583,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(217, 45);
+            this.label18.Location = new System.Drawing.Point(204, 43);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(43, 19);
             this.label18.TabIndex = 17;
@@ -1663,11 +1593,53 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(370, 43);
+            this.label19.Location = new System.Drawing.Point(373, 43);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(67, 19);
             this.label19.TabIndex = 18;
             this.label19.Text = "Strength";
+            // 
+            // TurnStrengthBox
+            // 
+            this.TurnStrengthBox.Location = new System.Drawing.Point(443, 43);
+            this.TurnStrengthBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.TurnStrengthBox.Name = "TurnStrengthBox";
+            this.TurnStrengthBox.Size = new System.Drawing.Size(70, 22);
+            this.TurnStrengthBox.TabIndex = 35;
+            this.TurnStrengthBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TurnStrengthBox.ValueChanged += new System.EventHandler(this.TurnStrengthBox_ValueChanged);
+            // 
+            // RatioBox
+            // 
+            this.RatioBox.Location = new System.Drawing.Point(247, 44);
+            this.RatioBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.RatioBox.Name = "RatioBox";
+            this.RatioBox.Size = new System.Drawing.Size(70, 22);
+            this.RatioBox.TabIndex = 35;
+            this.RatioBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.RatioBox.ValueChanged += new System.EventHandler(this.RatioBox_ValueChanged);
+            // 
+            // TurnIntervalBox
+            // 
+            this.TurnIntervalBox.Location = new System.Drawing.Point(84, 43);
+            this.TurnIntervalBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.TurnIntervalBox.Name = "TurnIntervalBox";
+            this.TurnIntervalBox.Size = new System.Drawing.Size(70, 22);
+            this.TurnIntervalBox.TabIndex = 35;
+            this.TurnIntervalBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TurnIntervalBox.ValueChanged += new System.EventHandler(this.TurnIntervalBox_ValueChanged);
             // 
             // VelHackWorker
             // 
@@ -1739,6 +1711,37 @@ namespace Forza_Mods_AIO.TabForms
             this.StopWheelsWorker.WorkerSupportsCancellation = true;
             this.StopWheelsWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.StopWheelsWorker_DoWork);
             // 
+            // FOV
+            // 
+            this.FOV.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.FOV.Location = new System.Drawing.Point(105, 311);
+            this.FOV.Name = "FOV";
+            this.FOV.Size = new System.Drawing.Size(50, 20);
+            this.FOV.TabIndex = 29;
+            this.FOV.Text = "FOV";
+            this.FOV.ThemeName = "FluentDark";
+            this.FOV.CheckStateChanged += new System.EventHandler(this.FOV_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.FOV.GetChildAt(0))).Text = "FOV";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FOV.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FOV.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FOV.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
             // Speedhack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -1764,24 +1767,23 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).EndInit();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FOVScan_bar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.XPnup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bypassoob)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimerButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimeCheckBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AutoWayPoint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CheckpointBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.XPnup)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FOVBar)).EndInit();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.GravityBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WeirdBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GravityBox)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VelMultBar)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TurnAssistButton)).EndInit();
@@ -1807,9 +1809,10 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.Speed1Box)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnStrengthBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FOV)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1819,14 +1822,10 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label LBL_SHNoClip;
         private System.Windows.Forms.Panel panel7;
-        public System.Windows.Forms.ProgressBar FOVScan_bar;
-        public System.Windows.Forms.CheckBox FOV;
-        private System.Windows.Forms.TrackBar FOVBar;
         private System.Windows.Forms.Button LoadSHDefault;
         private System.Windows.Forms.Button SaveSHDefault;
         public System.Windows.Forms.Button FOVScan_BTN;
         private System.Windows.Forms.Button TPButton;
-        private System.Windows.Forms.ComboBox LST_TeleportLocation;
         private System.Windows.Forms.Label LBL_Misc;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel9;
@@ -1838,25 +1837,11 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Label AcelLabel;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.NumericUpDown VelMultBox;
-        private System.Windows.Forms.TrackBar VelMultBar;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label LBL_Toggles;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.NumericUpDown LimitBox;
-        private System.Windows.Forms.NumericUpDown Speed3Box;
-        private System.Windows.Forms.NumericUpDown Speed2Box;
-        private System.Windows.Forms.NumericUpDown Interval4Box;
-        private System.Windows.Forms.NumericUpDown Interval3Box;
-        private System.Windows.Forms.NumericUpDown Interval2Box;
-        private System.Windows.Forms.NumericUpDown Boost4Box;
-        private System.Windows.Forms.NumericUpDown Boost3Box;
-        private System.Windows.Forms.NumericUpDown Boost2Box;
-        private System.Windows.Forms.NumericUpDown Boost1Box;
-        private System.Windows.Forms.NumericUpDown Interval1Box;
-        private System.Windows.Forms.NumericUpDown Speed1Box;
         private System.Windows.Forms.Label LBL_Wheelspeed;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
@@ -1871,9 +1856,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.NumericUpDown RatioBox;
-        private System.Windows.Forms.NumericUpDown TurnStrengthBox;
-        private System.Windows.Forms.NumericUpDown TurnIntervalBox;
         private System.Windows.Forms.Label LBL_Turn;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
@@ -1887,8 +1869,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.ComponentModel.BackgroundWorker TimeWorker;
         private System.ComponentModel.BackgroundWorker CheckPointTPworker;
         private System.ComponentModel.BackgroundWorker ControllerWorker;
-        private System.Windows.Forms.NumericUpDown GravityBox;
-        private System.Windows.Forms.NumericUpDown WeirdBox;
         private System.Windows.Forms.Button GravitySet;
         private System.Windows.Forms.Button WeirdSet;
         private System.Windows.Forms.Button GravityPull;
@@ -1896,7 +1876,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button KBChange;
         private System.Windows.Forms.Button XBChange;
-        public System.Windows.Forms.NumericUpDown XPnup;
         private System.ComponentModel.BackgroundWorker WayPointTPworker;
         private System.Windows.Forms.Label TimerLabel;
         private System.ComponentModel.BackgroundWorker TimerWorker;
@@ -1919,5 +1898,29 @@ namespace Forza_Mods_AIO.TabForms
         public System.ComponentModel.BackgroundWorker WayPointWorker;
         public Telerik.WinControls.UI.RadCheckBox Bypassoob;
         public Telerik.WinControls.UI.RadCheckBox SuperCarBox;
+        private DarkUI.Controls.DarkNumericUpDown GravityBox;
+        private DarkUI.Controls.DarkNumericUpDown WeirdBox;
+        private DarkUI.Controls.DarkNumericUpDown VelMultBox;
+        public DarkUI.Controls.DarkNumericUpDown XPnup;
+        public Telerik.WinControls.UI.RadProgressBar FOVScan_bar;
+        public DarkUI.Controls.DarkNumericUpDown Speed2Box;
+        public DarkUI.Controls.DarkNumericUpDown Speed1Box;
+        public DarkUI.Controls.DarkNumericUpDown Speed3Box;
+        public DarkUI.Controls.DarkNumericUpDown LimitBox;
+        public DarkUI.Controls.DarkNumericUpDown Interval4Box;
+        public DarkUI.Controls.DarkNumericUpDown Interval3Box;
+        public DarkUI.Controls.DarkNumericUpDown Interval2Box;
+        public DarkUI.Controls.DarkNumericUpDown Boost4Box;
+        public DarkUI.Controls.DarkNumericUpDown Boost3Box;
+        public DarkUI.Controls.DarkNumericUpDown Boost2Box;
+        public DarkUI.Controls.DarkNumericUpDown Boost1Box;
+        public DarkUI.Controls.DarkNumericUpDown Interval1Box;
+        public DarkUI.Controls.DarkNumericUpDown TurnStrengthBox;
+        public DarkUI.Controls.DarkNumericUpDown RatioBox;
+        public DarkUI.Controls.DarkNumericUpDown TurnIntervalBox;
+        public LimitlessUI.Slider_WOC VelMultBar;
+        public LimitlessUI.Slider_WOC FOVBar;
+        private DarkUI.Controls.DarkComboBox LST_TeleportLocation;
+        public Telerik.WinControls.UI.RadCheckBox FOV;
     }
 }

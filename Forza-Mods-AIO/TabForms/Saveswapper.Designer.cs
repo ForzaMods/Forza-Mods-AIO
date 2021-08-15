@@ -32,7 +32,6 @@ namespace Forza_Mods_AIO.TabForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Saveswapper));
             this.LST_Accounts = new System.Windows.Forms.ListBox();
             this.LST_Savegames = new System.Windows.Forms.ListBox();
-            this.TB_Backup = new System.Windows.Forms.CheckBox();
             this.TXT_SaveInfo = new System.Windows.Forms.RichTextBox();
             this.BTN_SwapSave = new System.Windows.Forms.Button();
             this.BTN_Backup = new System.Windows.Forms.Button();
@@ -44,6 +43,8 @@ namespace Forza_Mods_AIO.TabForms
             this.BTN_Help = new System.Windows.Forms.Button();
             this.LST_Resolved = new System.Windows.Forms.Label();
             this.ResolvingWorker = new System.ComponentModel.BackgroundWorker();
+            this.TB_Backup = new Telerik.WinControls.UI.RadCheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.TB_Backup)).BeginInit();
             this.SuspendLayout();
             // 
             // LST_Accounts
@@ -72,17 +73,6 @@ namespace Forza_Mods_AIO.TabForms
             this.LST_Savegames.Size = new System.Drawing.Size(234, 414);
             this.LST_Savegames.TabIndex = 31;
             this.LST_Savegames.SelectedIndexChanged += new System.EventHandler(this.LST_Savegames_SelectedIndexChanged);
-            // 
-            // TB_Backup
-            // 
-            this.TB_Backup.AutoSize = true;
-            this.TB_Backup.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_Backup.Location = new System.Drawing.Point(35, 68);
-            this.TB_Backup.Name = "TB_Backup";
-            this.TB_Backup.Size = new System.Drawing.Size(186, 23);
-            this.TB_Backup.TabIndex = 33;
-            this.TB_Backup.Text = "Backup while swapping";
-            this.TB_Backup.UseVisualStyleBackColor = true;
             // 
             // TXT_SaveInfo
             // 
@@ -219,19 +209,50 @@ namespace Forza_Mods_AIO.TabForms
             this.ResolvingWorker.WorkerSupportsCancellation = true;
             this.ResolvingWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ReolvingWorker_DoWork);
             // 
+            // TB_Backup
+            // 
+            this.TB_Backup.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.TB_Backup.Location = new System.Drawing.Point(35, 68);
+            this.TB_Backup.Name = "TB_Backup";
+            this.TB_Backup.Size = new System.Drawing.Size(173, 20);
+            this.TB_Backup.TabIndex = 41;
+            this.TB_Backup.Text = "Backup while swapping";
+            this.TB_Backup.ThemeName = "FluentDark";
+            this.TB_Backup.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.TB_Backup_ToggleStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.TB_Backup.GetChildAt(0))).Text = "Backup while swapping";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
             // Saveswapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.TB_Backup);
             this.Controls.Add(this.LST_Resolved);
             this.Controls.Add(this.BTN_Help);
             this.Controls.Add(this.BTN_ACCRefresh);
             this.Controls.Add(this.LBL_Account);
             this.Controls.Add(this.BTN_Backup);
             this.Controls.Add(this.TXT_SaveInfo);
-            this.Controls.Add(this.TB_Backup);
             this.Controls.Add(this.LST_Savegames);
             this.Controls.Add(this.LST_Accounts);
             this.Controls.Add(this.BTN_SwapSave);
@@ -242,6 +263,7 @@ namespace Forza_Mods_AIO.TabForms
             this.Name = "Saveswapper";
             this.Text = "Saveswapper";
             this.Load += new System.EventHandler(this.Saveswapper_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.TB_Backup)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,7 +272,6 @@ namespace Forza_Mods_AIO.TabForms
         #endregion
         private System.Windows.Forms.ListBox LST_Accounts;
         private System.Windows.Forms.ListBox LST_Savegames;
-        private System.Windows.Forms.CheckBox TB_Backup;
         private System.Windows.Forms.RichTextBox TXT_SaveInfo;
         private System.Windows.Forms.Button BTN_SwapSave;
         private System.Windows.Forms.Button BTN_Backup;
@@ -262,5 +283,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Button BTN_Help;
         private System.Windows.Forms.Label LST_Resolved;
         private System.ComponentModel.BackgroundWorker ResolvingWorker;
+        public Telerik.WinControls.UI.RadCheckBox TB_Backup;
     }
 }

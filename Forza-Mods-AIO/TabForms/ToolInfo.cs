@@ -11,6 +11,7 @@ using IniParser.Model;
 using System.Drawing;
 using MechanikaDesign.WinForms.UI.ColorPicker;
 using System.Collections.Generic;
+using Forza_Mods_AIO.TabForms.LiveTuningForms;
 
 namespace Forza_Mods_AIO
 {
@@ -270,6 +271,48 @@ namespace Forza_Mods_AIO
             ((Telerik.WinControls.UI.ProgressIndicatorElement)AOBScanProgress.GetChildAt(0).GetChildAt(1)).BackColor3 = color;
             ((Telerik.WinControls.UI.ProgressIndicatorElement)AOBScanProgress.GetChildAt(0).GetChildAt(1)).BackColor4 = color;
             ((Telerik.WinControls.UI.ProgressIndicatorElement)AOBScanProgress.GetChildAt(0).GetChildAt(1)).BackColor = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)StatsEditor.s.SendProgress.GetChildAt(0).GetChildAt(0)).BackColor2 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)StatsEditor.s.SendProgress.GetChildAt(0).GetChildAt(0)).BackColor3 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)StatsEditor.s.SendProgress.GetChildAt(0).GetChildAt(0)).BackColor4 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)StatsEditor.s.SendProgress.GetChildAt(0).GetChildAt(0)).BackColor = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)StatsEditor.s.SendProgress.GetChildAt(0).GetChildAt(1)).BackColor2 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)StatsEditor.s.SendProgress.GetChildAt(0).GetChildAt(1)).BackColor3 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)StatsEditor.s.SendProgress.GetChildAt(0).GetChildAt(1)).BackColor4 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)StatsEditor.s.SendProgress.GetChildAt(0).GetChildAt(1)).BackColor = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)Speedhack.s.FOVScan_bar.GetChildAt(0).GetChildAt(0)).BackColor2 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)Speedhack.s.FOVScan_bar.GetChildAt(0).GetChildAt(0)).BackColor3 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)Speedhack.s.FOVScan_bar.GetChildAt(0).GetChildAt(0)).BackColor4 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)Speedhack.s.FOVScan_bar.GetChildAt(0).GetChildAt(0)).BackColor = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)Speedhack.s.FOVScan_bar.GetChildAt(0).GetChildAt(1)).BackColor2 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)Speedhack.s.FOVScan_bar.GetChildAt(0).GetChildAt(1)).BackColor3 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)Speedhack.s.FOVScan_bar.GetChildAt(0).GetChildAt(1)).BackColor4 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)Speedhack.s.FOVScan_bar.GetChildAt(0).GetChildAt(1)).BackColor = color;
+            StatsEditor.s.waitingBarIndicatorElement1.BackColor = color;
+            StatsEditor.s.waitingBarIndicatorElement1.BackColor2 = color;
+            StatsEditor.s.waitingBarIndicatorElement1.BackColor3 = color;
+            StatsEditor.s.waitingBarIndicatorElement1.BackColor4 = color;
+            StatsEditor.s.waitingBarIndicatorElement2.BackColor = color;
+            StatsEditor.s.waitingBarIndicatorElement2.BackColor2 = color;
+            StatsEditor.s.waitingBarIndicatorElement2.BackColor3 = color;
+            StatsEditor.s.waitingBarIndicatorElement2.BackColor4 = color;
+            Speedhack.s.VelMultBar.ForeColor = color;
+            Speedhack.s.FOVBar.ForeColor = color;
+            Tyres.t.FrontTyreBar.ForeColor = color;
+            Tyres.t.RearTyreBar.ForeColor = color;
+            Gears.g.FinalGearBar.ForeColor = color;
+            Gears.g.Gear1Bar.ForeColor = color;
+            Gears.g.Gear2Bar.ForeColor = color;
+            Gears.g.Gear3Bar.ForeColor = color;
+            Gears.g.Gear4Bar.ForeColor = color;
+            Gears.g.Gear5Bar.ForeColor = color;
+            Gears.g.Gear6Bar.ForeColor = color;
+            Gears.g.Gear7Bar.ForeColor = color;
+            Gears.g.Gear8Bar.ForeColor = color;
+            Gears.g.Gear9Bar.ForeColor = color;
+            Alignment.a.FrontCamberBar.ForeColor = color;
+            Alignment.a.RearCamberBar.ForeColor = color;
+            Alignment.a.FrontToeBar.ForeColor = color;
+            Alignment.a.RearToeBar.ForeColor = color;
             /*
             double luminance = (0.299 * color.R + 0.587 * color.G + 0.114 * color.B) / 255;
             if (luminance > 0.5)
@@ -280,7 +323,7 @@ namespace Forza_Mods_AIO
             ((Telerik.WinControls.Primitives.CheckPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2)).ForeColor = Color.FromArgb(bow, bow, bow);
             ((Telerik.WinControls.Primitives.CheckPrimitive)RainbowBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2)).ForeColor = Color.FromArgb(bow, bow, bow);
             */
-            if(MainWindow.main.ToolInfo.Visible)
+            if (MainWindow.main.ToolInfo.Visible)
                 MainWindow.main.Panel_Info.BackColor = color;
             if (MainWindow.main.AddCars.Visible)
                 MainWindow.main.Panel_AddCars.BackColor = color;
@@ -316,6 +359,8 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.AutoWayPoint.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.XPBox.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.TimeCheckBox.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.TimeCheckBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.TimerButton.Checked)
@@ -324,6 +369,32 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.SuperCarBox.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.FOV.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Saveswapper.s.TB_Backup.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Saveswapper.s.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.Box_AllCars.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.Box_RareCars.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.Box_LegoPaint.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.Box_RemoveCars.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.Box_Decals.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.Box_FreeCars.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.Box_SeriesFix.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.Box_Traffic.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.Box_ThumbsFix.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.Box_Presets.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.Box_ClearGarage.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             DraffsYTLink.ForeColor = color;
             UCPostLink.ForeColor = color;
             DiscordLink.ForeColor = color;

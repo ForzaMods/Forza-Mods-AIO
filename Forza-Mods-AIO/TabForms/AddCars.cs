@@ -7,9 +7,11 @@ namespace Forza_Mods_AIO
 {
     public partial class AddCars : Form
     {
+        public static AddCars a = new AddCars();
         public AddCars()
         {
             InitializeComponent();
+            a = this;
         }
         //1 = ms store
         //2 = steam
@@ -67,6 +69,7 @@ namespace Forza_Mods_AIO
             }
             else if (!Box_AllCars.Checked)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Box_AllCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
                 Box_Null.Enabled = true;
                 Box_RareCars.Enabled = true;
                 if (platform == 1)
@@ -100,6 +103,7 @@ namespace Forza_Mods_AIO
             }
             else if (!Box_RareCars.Checked)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Box_RareCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
                 Box_Null.Enabled = true;
                 Box_AllCars.Enabled = true;
                 if (platform == 1)
@@ -131,6 +135,7 @@ namespace Forza_Mods_AIO
             }
             else if (!Box_Null.Checked)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Box_Null.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
                 Box_AllCars.Enabled = true;
                 Box_RareCars.Enabled = true;
                 if (platform == 1)
@@ -160,6 +165,7 @@ namespace Forza_Mods_AIO
             }
             else if (!Box_LegoPaint.Checked)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Box_LegoPaint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
                 if (platform == 1)
                 {
                     MainWindow.m.WriteMemory("base+4DE4FC7", "string", "H");
@@ -184,6 +190,7 @@ namespace Forza_Mods_AIO
             }
             else if (!Box_RemoveCars.Checked)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Box_RemoveCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
                 if (platform == 1)
                 {
                     MainWindow.m.WriteMemory("base+4CD7AE0", "string", "D");
@@ -217,6 +224,7 @@ namespace Forza_Mods_AIO
             }
             else if (!Box_FreeCars.Checked)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
                 Box_Presets.Enabled = true;
                 Box_SeriesFix.Enabled = true;
                 Box_ThumbsFix.Enabled = true;
@@ -254,6 +262,7 @@ namespace Forza_Mods_AIO
             }
             else if (!Box_SeriesFix.Checked)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Box_SeriesFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
                 Box_FreeCars.Enabled = true;
                 Box_Presets.Enabled = true;
                 Box_SeriesFix.Enabled = true;
@@ -276,7 +285,7 @@ namespace Forza_Mods_AIO
 
         private void Box_ThumbsFix_CheckedChanged(object sender, EventArgs e)
         {
-            if (Box_ThumbsFix.Checked)
+            if(Box_ThumbsFix.Checked)
             {
                 Box_FreeCars.Enabled = false;
                 Box_Presets.Enabled = false;
@@ -295,6 +304,7 @@ namespace Forza_Mods_AIO
             }
             else if (!Box_ThumbsFix.Checked)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Box_ThumbsFix.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
                 Box_FreeCars.Enabled = true;
                 Box_Presets.Enabled = true;
                 Box_SeriesFix.Enabled = true;
@@ -334,6 +344,7 @@ namespace Forza_Mods_AIO
             }
             else if (!Box_Traffic.Checked)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
                 Box_FreeCars.Enabled = true;
                 Box_Presets.Enabled = true;
                 Box_SeriesFix.Enabled = true;
@@ -372,6 +383,7 @@ namespace Forza_Mods_AIO
             }
             else if (!Box_Presets.Checked)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
                 Box_FreeCars.Enabled = true;
                 Box_Presets.Enabled = true;
                 Box_SeriesFix.Enabled = true;
@@ -405,6 +417,7 @@ namespace Forza_Mods_AIO
             }
             else if (!Box_Decals.Checked)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Box_Decals.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
                 if (platform == 1)
                 {
                     MainWindow.m.WriteMemory("base+4CFF609", "string", "INNER JOIN Livery_DecalsSortOrder ON (Livery_Decals.ID = Livery_DecalsSortOrder.Livery_DecalID) WHERE MakeID = %d ORDER BY Sequence, AlphaSort");
@@ -434,6 +447,7 @@ namespace Forza_Mods_AIO
             }
             else if (!Box_ClearGarage.Checked)
             {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
                 Box_FreeCars.Enabled = true;
                 Box_Presets.Enabled = true;
                 Box_SeriesFix.Enabled = true;
