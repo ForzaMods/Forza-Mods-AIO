@@ -179,6 +179,7 @@ namespace Forza_Mods_AIO.TabForms
                 StatsScrollBar.Maximum = StatsTable.Rows.Count - 17;
             else
                 StatsScrollBar.Maximum = 0;
+            StatsScrollBar.Value = 0;
         }
 
         private void FilterBox_Enter(object sender, EventArgs e)
