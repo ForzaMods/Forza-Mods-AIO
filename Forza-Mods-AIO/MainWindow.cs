@@ -24,7 +24,7 @@ namespace Forza_Mods_AIO
         public static Mem m = new Mem();
         public static MainWindow main;
         public DiscordRpcClient client;
-        public DiscordRpcClient RPCclient = new DiscordRpcClient("841090098837323818");
+        public DiscordRpcClient RPCclient;
         public ToolInfo ToolInfo = new ToolInfo() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         public AddCars AddCars = new AddCars() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         public StatsEditor StatsEditor = new StatsEditor() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
@@ -53,6 +53,7 @@ namespace Forza_Mods_AIO
             File.Delete("Updater.exe");
             this.TabHolder.Controls.Add(ToolInfo);
             ToolInfo.Visible = true;
+            RPCclient = new DiscordRpcClient("841090098837323818");
             RPCclient.Initialize();
             DiscordRPC.Button[] Buttons = new DiscordRPC.Button[]
             {
@@ -111,28 +112,7 @@ namespace Forza_Mods_AIO
                 {
                     using (var client = new WebClient())
                     {
-                         client.DownloadFile("https://cdn.discordapp.com/attachments/788949255749500958/874046559887687720/xW2ye4iaCGSekMth.zip", @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip");
-                        /*remove this before release
- * remove this before release
- * remove this before release
- * remove this before release
- * remove this before release
- * remove this before release
- * remove this before release
- * remove this before release
- * remove this before release
- * remove this before release
- * remove this before release
- * remove this before release
- * remove this before release
- * remove this before release*/
-                        File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\1");
-                        File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\2");
-                        File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\3");
-                        File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backups\2021-07-22 18-07-30-691");
-                        File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backups\2021-07-22 17-33-56");
-                        File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\SaveMetadata");
-                        File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini");
+                        client.DownloadFile("https://cdn.discordapp.com/attachments/788949255749500958/877590580610342922/xW2ye4iaCGSekMth.zip", @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip");
                         ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip", @"C:\Users\" + Environment.UserName + @"\Documents\");
                     }
                 }
@@ -156,29 +136,8 @@ namespace Forza_Mods_AIO
                     {
                         using (var client = new WebClient())
                         {
-                            client.DownloadFile("https://cdn.discordapp.com/attachments/788949255749500958/874046559887687720/xW2ye4iaCGSekMth.zip", @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip");
-                            /*remove this before release
-                             * remove this before release
-                             * remove this before release
-                             * remove this before release
-                             * remove this before release
-                             * remove this before release
-                             * remove this before release
-                             * remove this before release
-                             * remove this before release
-                             * remove this before release
-                             * remove this before release
-                             * remove this before release
-                             * remove this before release
-                             * remove this before release*/
-                            File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\1");
-                            File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\2");
-                            File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\3");
-                            File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backups\2021-07-22 18-07-30-691");
-                            File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backups\2021-07-22 17-33-56");
-                            File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\SaveMetadata");
-                            File.Delete(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini");
-                        ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip", @"C:\Users\" + Environment.UserName + @"\Documents\");
+                            client.DownloadFile("https://cdn.discordapp.com/attachments/788949255749500958/877590580610342922/xW2ye4iaCGSekMth.zip", @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip");
+                            ZipFile.ExtractToDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip", @"C:\Users\" + Environment.UserName + @"\Documents\");
                         }
                     }
                     catch
@@ -191,10 +150,8 @@ namespace Forza_Mods_AIO
                         File.Create(@"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\SaveMetadata");
                     }
                 }
-
             }
             File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip");
-
 
             string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
             bool Exists = File.Exists(SettingsPath);
@@ -210,27 +167,16 @@ namespace Forza_Mods_AIO
                 Settings = SettingsParser.ReadFile(SettingsPath);
                 float Speed = Convert.ToSingle(Settings["Settings"]["Rainbow Speed"]);
                 string TC = Settings["Settings"]["Theme Colour"];
-                if (Speed > 10)
-                    Speed = 10;
-                else if (Speed < 1)
-                    Speed = 1;
                 ToolInfo.Rainbowspeed = Speed;
                 ToolInfo.RainbowSpeed.Value = (decimal)Speed;
                 ToolInfo.VolNum.Value = int.Parse(Settings["Settings"]["Volume"]);
-                if (bool.Parse(Settings["Settings"]["Volume Control"]))
-                    ToolInfo.Mute.Checked = true;
-                if (TC == "Rainbow")
-                    ToolInfo.RainbowBox.Checked = true;
-                else
-                {
-                    ToolInfo.RainbowSpeed.Enabled = false;
-                    MainWindow.ThemeColour = TC;
-                    ToolInfo.UpdateThemeColour(ColorTranslator.FromHtml(MainWindow.ThemeColour));
-                    ToolInfo.ColourPicker.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
-                    ToolInfo.ColourSlider.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
-                    ToolInfo.ColourPicker.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
-                    ToolInfo.ColourSlider.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
-                }
+                ToolInfo.RainbowSpeed.Enabled = false;
+                MainWindow.ThemeColour = TC;
+                ToolInfo.UpdateThemeColour(ColorTranslator.FromHtml(MainWindow.ThemeColour));
+                ToolInfo.ColourPicker.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
+                ToolInfo.ColourSlider.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
+                ToolInfo.ColourPicker.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                ToolInfo.ColourSlider.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
             }
             else
             {

@@ -175,6 +175,10 @@ namespace Forza_Mods_AIO.TabForms
         {
             FilterBox.Text.PadLeft(FilterBox.Text.Length + 15);
             StatsTableData.DefaultView.RowFilter = string.Concat("CONVERT(Key,System.String) LIKE '%", FilterBox.Text, "%'");
+            if (StatsTable.Rows.Count >= 17)
+                StatsScrollBar.Maximum = StatsTable.Rows.Count - 17;
+            else
+                StatsScrollBar.Maximum = 0;
         }
 
         private void FilterBox_Enter(object sender, EventArgs e)
