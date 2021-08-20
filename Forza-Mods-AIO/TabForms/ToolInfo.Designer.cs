@@ -29,6 +29,7 @@ namespace Forza_Mods_AIO
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolInfo));
             this.LBL_Attached = new System.Windows.Forms.Label();
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
@@ -56,6 +57,7 @@ namespace Forza_Mods_AIO
             this.office2010BlackTheme1 = new Telerik.WinControls.Themes.Office2010BlackTheme();
             this.MOTD = new System.Windows.Forms.Label();
             this.VolNum = new DarkUI.Controls.DarkNumericUpDown();
+            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.AOBScanProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColourPickerBox)).BeginInit();
@@ -314,6 +316,7 @@ namespace Forza_Mods_AIO
             this.RainbowBox.Text = "Aids mode";
             this.RainbowBox.ThemeName = "FluentDark";
             this.RainbowBox.CheckStateChanged += new System.EventHandler(this.RainbowBox_CheckedChanged);
+            this.RainbowBox.MouseHover += new System.EventHandler(this.RainbowBox_MouseHover);
             ((Telerik.WinControls.UI.RadCheckBoxElement)(this.RainbowBox.GetChildAt(0))).Text = "Aids mode";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.RainbowBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.RainbowBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -444,5 +447,6 @@ namespace Forza_Mods_AIO
         public System.Windows.Forms.Label MOTD;
         public DarkUI.Controls.DarkNumericUpDown VolNum;
         public DarkUI.Controls.DarkNumericUpDown RainbowSpeed;
+        private System.Windows.Forms.ToolTip ToolTip;
     }
 }

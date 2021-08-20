@@ -35,7 +35,7 @@ namespace Forza_Mods_AIO
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
         Version NewVer = null;
-        public static Version CurrVer = new Version("0.0.0.2");
+        public static Version CurrVer = new Version("0.0.0.4");
         string MOTDstring = "";
         private static CultureInfo resourceCulture;
         internal static byte[] SOk8LBUrRl
@@ -490,6 +490,13 @@ namespace Forza_Mods_AIO
                 }
                 else
                 {
+                    Speedhack.CCBA = Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.BaseAddress;
+                    Speedhack.CodeCave = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                    while (Speedhack.CodeCave == (IntPtr)0)
+                    {
+                        Speedhack.CCBA += 500000;
+                        Speedhack.CodeCave = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                    }
                     Speedhack.CCBA2 = Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.BaseAddress;
                     Speedhack.CodeCave2 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                     while (Speedhack.CodeCave2 == (IntPtr)0)
@@ -644,6 +651,7 @@ namespace Forza_Mods_AIO
         {
             if (Speedhack.IsAttached)
             {
+                MessageBox.Show("Stat editing is currently a WIP,\nexpect some values to not show correctly.)");
                 ClearColours();
                 BTN_TabStatsEditor.BackColor = Color.FromArgb(45, 45, 48);
                 if (ThemeColour != "Rainbow")
@@ -682,7 +690,10 @@ namespace Forza_Mods_AIO
                 ClearColours();
                 BTN_TabLiveTuning.BackColor = Color.FromArgb(45, 45, 48);
                 if (ThemeColour != "Rainbow")
+                {
                     Panel_LiveTuning.BackColor = ColorTranslator.FromHtml(ThemeColour);
+                    LiveTuning.l.Panel_Tyres.BackColor = ColorTranslator.FromHtml(ThemeColour);
+                }
                 ClearTabItems();
                 TabHolder.Controls.Add(LiveTuning);
                 LiveTuning.Visible = true;

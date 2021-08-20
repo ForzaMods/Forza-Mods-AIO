@@ -35,12 +35,14 @@ namespace Forza_Mods_AIO.TabForms
             this.TB_SHCarNoClip = new Telerik.WinControls.UI.RadCheckBox();
             this.LBL_SHNoClip = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.XPLabel = new System.Windows.Forms.Label();
             this.LST_TeleportLocation = new DarkUI.Controls.DarkComboBox();
             this.FOVBar = new LimitlessUI.Slider_WOC();
             this.FOVScan_bar = new Telerik.WinControls.UI.RadProgressBar();
             this.XPnup = new DarkUI.Controls.DarkNumericUpDown();
             this.TimerIndicator = new System.Windows.Forms.Panel();
             this.Bypassoob = new Telerik.WinControls.UI.RadCheckBox();
+            this.FOV = new Telerik.WinControls.UI.RadCheckBox();
             this.TimerButton = new Telerik.WinControls.UI.RadCheckBox();
             this.XPBox = new Telerik.WinControls.UI.RadCheckBox();
             this.TimeCheckBox = new Telerik.WinControls.UI.RadCheckBox();
@@ -60,10 +62,10 @@ namespace Forza_Mods_AIO.TabForms
             this.XBChange = new System.Windows.Forms.Button();
             this.KBChange = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.GravitySet = new Telerik.WinControls.UI.RadCheckBox();
+            this.WeirdSet = new Telerik.WinControls.UI.RadCheckBox();
             this.WeirdBox = new DarkUI.Controls.DarkNumericUpDown();
             this.GravityBox = new DarkUI.Controls.DarkNumericUpDown();
-            this.GravitySet = new System.Windows.Forms.Button();
-            this.WeirdSet = new System.Windows.Forms.Button();
             this.GravityPull = new System.Windows.Forms.Button();
             this.WeirdPull = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -132,7 +134,7 @@ namespace Forza_Mods_AIO.TabForms
             this.WayPointTPworker = new System.ComponentModel.BackgroundWorker();
             this.TimerWorker = new System.ComponentModel.BackgroundWorker();
             this.StopWheelsWorker = new System.ComponentModel.BackgroundWorker();
-            this.FOV = new Telerik.WinControls.UI.RadCheckBox();
+            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHWallNoClip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).BeginInit();
@@ -140,6 +142,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.FOVScan_bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPnup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bypassoob)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FOV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimerButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimeCheckBox)).BeginInit();
@@ -147,6 +150,8 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.CheckpointBox)).BeginInit();
             this.panel9.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GravitySet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WeirdSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WeirdBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GravityBox)).BeginInit();
             this.panel2.SuspendLayout();
@@ -176,7 +181,6 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.TurnStrengthBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FOV)).BeginInit();
             this.SuspendLayout();
             // 
             // panel3
@@ -263,6 +267,7 @@ namespace Forza_Mods_AIO.TabForms
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel7.Controls.Add(this.XPLabel);
             this.panel7.Controls.Add(this.LST_TeleportLocation);
             this.panel7.Controls.Add(this.FOVBar);
             this.panel7.Controls.Add(this.FOVScan_bar);
@@ -286,6 +291,15 @@ namespace Forza_Mods_AIO.TabForms
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(242, 421);
             this.panel7.TabIndex = 12;
+            // 
+            // XPLabel
+            // 
+            this.XPLabel.AutoSize = true;
+            this.XPLabel.Location = new System.Drawing.Point(64, 204);
+            this.XPLabel.Name = "XPLabel";
+            this.XPLabel.Size = new System.Drawing.Size(23, 15);
+            this.XPLabel.TabIndex = 46;
+            this.XPLabel.Text = "XP:";
             // 
             // LST_TeleportLocation
             // 
@@ -400,14 +414,14 @@ namespace Forza_Mods_AIO.TabForms
             0,
             0,
             0});
-            this.XPnup.Location = new System.Drawing.Point(64, 201);
+            this.XPnup.Location = new System.Drawing.Point(88, 201);
             this.XPnup.Maximum = new decimal(new int[] {
             2147483647,
             0,
             0,
             0});
             this.XPnup.Name = "XPnup";
-            this.XPnup.Size = new System.Drawing.Size(120, 22);
+            this.XPnup.Size = new System.Drawing.Size(96, 22);
             this.XPnup.TabIndex = 35;
             this.XPnup.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.XPnup.ValueChanged += new System.EventHandler(this.WeirdBox_ValueChanged);
@@ -451,6 +465,37 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.Bypassoob.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
+            // FOV
+            // 
+            this.FOV.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.FOV.Location = new System.Drawing.Point(105, 311);
+            this.FOV.Name = "FOV";
+            this.FOV.Size = new System.Drawing.Size(50, 20);
+            this.FOV.TabIndex = 29;
+            this.FOV.Text = "FOV";
+            this.FOV.ThemeName = "FluentDark";
+            this.FOV.CheckStateChanged += new System.EventHandler(this.FOV_CheckedChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.FOV.GetChildAt(0))).Text = "FOV";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FOV.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FOV.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FOV.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
             // TimerButton
             // 
             this.TimerButton.Font = new System.Drawing.Font("Open Sans", 10F);
@@ -461,6 +506,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TimerButton.Text = "Start 0 - 60 timing";
             this.TimerButton.ThemeName = "FluentDark";
             this.TimerButton.CheckStateChanged += new System.EventHandler(this.TimerButton_CheckedChanged);
+            this.TimerButton.MouseHover += new System.EventHandler(this.TimerButton_MouseHover);
             ((Telerik.WinControls.UI.RadCheckBoxElement)(this.TimerButton.GetChildAt(0))).Text = "Start 0 - 60 timing";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimerButton.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -523,6 +569,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TimeCheckBox.Text = "Manual Time";
             this.TimeCheckBox.ThemeName = "FluentDark";
             this.TimeCheckBox.CheckStateChanged += new System.EventHandler(this.TimeCheckBox_CheckedChanged);
+            this.TimeCheckBox.MouseHover += new System.EventHandler(this.TimeCheckBox_MouseHover);
             ((Telerik.WinControls.UI.RadCheckBoxElement)(this.TimeCheckBox.GetChildAt(0))).Text = "Manual Time";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.TimeCheckBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
@@ -769,10 +816,10 @@ namespace Forza_Mods_AIO.TabForms
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel1.Controls.Add(this.WeirdBox);
-            this.panel1.Controls.Add(this.GravityBox);
             this.panel1.Controls.Add(this.GravitySet);
             this.panel1.Controls.Add(this.WeirdSet);
+            this.panel1.Controls.Add(this.WeirdBox);
+            this.panel1.Controls.Add(this.GravityBox);
             this.panel1.Controls.Add(this.GravityPull);
             this.panel1.Controls.Add(this.WeirdPull);
             this.panel1.Controls.Add(this.label8);
@@ -782,6 +829,66 @@ namespace Forza_Mods_AIO.TabForms
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(190, 136);
             this.panel1.TabIndex = 5;
+            // 
+            // GravitySet
+            // 
+            this.GravitySet.Location = new System.Drawing.Point(142, 101);
+            this.GravitySet.Name = "GravitySet";
+            this.GravitySet.Size = new System.Drawing.Size(44, 20);
+            this.GravitySet.TabIndex = 29;
+            this.GravitySet.Text = "Set";
+            this.GravitySet.ThemeName = "FluentDark";
+            this.GravitySet.CheckStateChanged += new System.EventHandler(this.GravitySet_CheckStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.GravitySet.GetChildAt(0))).Text = "Set";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.GravitySet.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // WeirdSet
+            // 
+            this.WeirdSet.Location = new System.Drawing.Point(142, 58);
+            this.WeirdSet.Name = "WeirdSet";
+            this.WeirdSet.Size = new System.Drawing.Size(44, 20);
+            this.WeirdSet.TabIndex = 29;
+            this.WeirdSet.Text = "Set";
+            this.WeirdSet.ThemeName = "FluentDark";
+            this.WeirdSet.CheckStateChanged += new System.EventHandler(this.WeridSet_CheckStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.WeirdSet.GetChildAt(0))).Text = "Set";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.WeirdSet.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
             // WeirdBox
             // 
@@ -817,32 +924,6 @@ namespace Forza_Mods_AIO.TabForms
             this.GravityBox.TabIndex = 35;
             this.GravityBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.GravityBox.ValueChanged += new System.EventHandler(this.GravityBox_ValueChanged);
-            // 
-            // GravitySet
-            // 
-            this.GravitySet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.GravitySet.FlatAppearance.BorderSize = 0;
-            this.GravitySet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GravitySet.Location = new System.Drawing.Point(142, 99);
-            this.GravitySet.Name = "GravitySet";
-            this.GravitySet.Size = new System.Drawing.Size(35, 22);
-            this.GravitySet.TabIndex = 17;
-            this.GravitySet.Text = "Set";
-            this.GravitySet.UseVisualStyleBackColor = false;
-            this.GravitySet.Click += new System.EventHandler(this.GravitySet_Click);
-            // 
-            // WeirdSet
-            // 
-            this.WeirdSet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.WeirdSet.FlatAppearance.BorderSize = 0;
-            this.WeirdSet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WeirdSet.Location = new System.Drawing.Point(142, 56);
-            this.WeirdSet.Name = "WeirdSet";
-            this.WeirdSet.Size = new System.Drawing.Size(35, 22);
-            this.WeirdSet.TabIndex = 17;
-            this.WeirdSet.Text = "Set";
-            this.WeirdSet.UseVisualStyleBackColor = false;
-            this.WeirdSet.Click += new System.EventHandler(this.WeirdSet_Click);
             // 
             // GravityPull
             // 
@@ -1711,37 +1792,6 @@ namespace Forza_Mods_AIO.TabForms
             this.StopWheelsWorker.WorkerSupportsCancellation = true;
             this.StopWheelsWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.StopWheelsWorker_DoWork);
             // 
-            // FOV
-            // 
-            this.FOV.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.FOV.Location = new System.Drawing.Point(105, 311);
-            this.FOV.Name = "FOV";
-            this.FOV.Size = new System.Drawing.Size(50, 20);
-            this.FOV.TabIndex = 29;
-            this.FOV.Text = "FOV";
-            this.FOV.ThemeName = "FluentDark";
-            this.FOV.CheckStateChanged += new System.EventHandler(this.FOV_CheckedChanged);
-            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.FOV.GetChildAt(0))).Text = "FOV";
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FOV.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FOV.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
-            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
-            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
-            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
-            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
-            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
-            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
-            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FOV.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
-            // 
             // Speedhack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -1770,6 +1820,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.FOVScan_bar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPnup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bypassoob)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FOV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimerButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TimeCheckBox)).EndInit();
@@ -1779,6 +1830,8 @@ namespace Forza_Mods_AIO.TabForms
             this.panel9.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GravitySet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WeirdSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WeirdBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GravityBox)).EndInit();
             this.panel2.ResumeLayout(false);
@@ -1812,7 +1865,6 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.TurnStrengthBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FOV)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1869,8 +1921,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.ComponentModel.BackgroundWorker TimeWorker;
         private System.ComponentModel.BackgroundWorker CheckPointTPworker;
         private System.ComponentModel.BackgroundWorker ControllerWorker;
-        private System.Windows.Forms.Button GravitySet;
-        private System.Windows.Forms.Button WeirdSet;
         private System.Windows.Forms.Button GravityPull;
         private System.Windows.Forms.Button WeirdPull;
         private System.Windows.Forms.Timer timer1;
@@ -1922,5 +1972,9 @@ namespace Forza_Mods_AIO.TabForms
         public LimitlessUI.Slider_WOC FOVBar;
         private DarkUI.Controls.DarkComboBox LST_TeleportLocation;
         public Telerik.WinControls.UI.RadCheckBox FOV;
+        private System.Windows.Forms.ToolTip ToolTip;
+        public Telerik.WinControls.UI.RadCheckBox WeirdSet;
+        public Telerik.WinControls.UI.RadCheckBox GravitySet;
+        private System.Windows.Forms.Label XPLabel;
     }
 }

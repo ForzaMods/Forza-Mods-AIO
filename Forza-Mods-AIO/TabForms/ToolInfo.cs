@@ -371,6 +371,10 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.FOV.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.WeirdSet.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.GravitySet.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Saveswapper.s.TB_Backup.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Saveswapper.s.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (AddCars.a.Box_AllCars.Checked)
@@ -446,6 +450,11 @@ namespace Forza_Mods_AIO
         private void RainbowSpeed_ValueChanged(object sender, EventArgs e)
         {
             Rainbowspeed = (float)RainbowSpeed.Value;
+        }
+
+        private void RainbowBox_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip.Show("Sets theme to rainbow", RainbowBox);
         }
     }
 }

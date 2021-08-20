@@ -727,7 +727,7 @@ namespace Forza_Mods_AIO.TabForms
                     if ((LastWPx != NewWPx || LastWPy != NewWPy || LastWPz != NewWPz) && NewWPx != 0 && NewWPy != 0 && NewWPz != 0)
                     {
                         MainWindow.m.WriteMemory(xAddr, "float", NewWPx.ToString());
-                        MainWindow.m.WriteMemory(yAddr, "float", NewWPy.ToString());
+                        MainWindow.m.WriteMemory(yAddr, "float", (NewWPy + 4).ToString());
                         MainWindow.m.WriteMemory(zAddr, "float", NewWPz.ToString());
                         LastWPx = NewWPx;
                         LastWPy = NewWPy;
@@ -1035,8 +1035,6 @@ namespace Forza_Mods_AIO.TabForms
         {
             while (CheckPointTPToggle)
             {
-                if(MainWindow.m.ReadFloat(GravityAddr) != 0)
-                    basegrav = MainWindow.m.ReadFloat(GravityAddr);
                 float InRace = MainWindow.m.ReadFloat(InRaceAddr);
                 if (InRace == 1)
                 {
@@ -1048,7 +1046,6 @@ namespace Forza_Mods_AIO.TabForms
                         a.GetCheckXAddr(CodeCave, out CheckPointBaseAddr);
                         MainWindow.m.FreezeValue(RollAddr, "float", (MainWindow.m.ReadFloat(RollAddr)).ToString());
                         MainWindow.m.FreezeValue(PitchAddr, "float", (MainWindow.m.ReadFloat(PitchAddr)).ToString());
-                        MainWindow.m.WriteMemory(GravityAddr, "float", "0");
                         CheckPointxAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 608).ToString("X");
                         CheckPointyAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 612).ToString("X");
                         CheckPointzAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 616).ToString("X");
@@ -1060,7 +1057,6 @@ namespace Forza_Mods_AIO.TabForms
                             CheckPointTPToggle = false;
                         }
                     }
-                    MainWindow.m.WriteMemory(GravityAddr, "float", basegrav.ToString());
                     MainWindow.m.UnfreezeValue(RollAddr);
                     MainWindow.m.UnfreezeValue(PitchAddr);
                     MainWindow.m.UnfreezeValue(yAngVelAddr);
@@ -1406,7 +1402,7 @@ namespace Forza_Mods_AIO.TabForms
                     if (WayPointX != 0 && WayPointX != 0 && WayPointX != 0)
                     {
                         MainWindow.m.WriteMemory(xAddr, "float", WayPointX.ToString());
-                        MainWindow.m.WriteMemory(yAddr, "float", (WayPointY + 3).ToString());
+                        MainWindow.m.WriteMemory(yAddr, "float", (WayPointY + 4).ToString());
                         MainWindow.m.WriteMemory(zAddr, "float", WayPointZ.ToString());
                     }
                     else
@@ -1459,7 +1455,7 @@ namespace Forza_Mods_AIO.TabForms
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 WayPointTPToggle = false;
-                WayPointTPworker.CancelAsync();
+                    WayPointTPworker.CancelAsync();
             }
             else
             {
@@ -1714,14 +1710,36 @@ namespace Forza_Mods_AIO.TabForms
         {
             WeirdPullVal();
         }
-        private void WeirdSet_Click(object sender, EventArgs e)
+        private void WeridSet_CheckStateChanged(object sender, EventArgs e)
         {
-            MainWindow.m.WriteMemory(WeirdAddr, "float", NewWeirdVal.ToString());
+            if (WeirdSet.Checked)
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                MainWindow.m.FreezeValue(WeirdAddr, "float", NewWeirdVal.ToString());
+            }
+            else
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
+                MainWindow.m.UnfreezeValue(WeirdAddr);
+            }
         }
         private void GravityPull_Click(object sender, EventArgs e)
         {
             if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
                 GravityPullVal();
+        }
+        private void GravitySet_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (GravitySet.Checked)
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                MainWindow.m.FreezeValue(GravityAddr, "float", NewGravityVal.ToString());
+            }
+            else
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
+                MainWindow.m.UnfreezeValue(GravityAddr);
+            }
         }
         private void GravitySet_Click(object sender, EventArgs e)
         {
@@ -1732,11 +1750,15 @@ namespace Forza_Mods_AIO.TabForms
         {
             if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
                 NewWeirdVal = (float)WeirdBox.Value;
+            if(WeirdSet.Checked)
+                MainWindow.m.FreezeValue(WeirdAddr, "float", NewWeirdVal.ToString());
         }
         private void GravityBox_ValueChanged(object sender, EventArgs e)
         {
             if(MainWindow.m.ReadFloat(PastStartAddr) == 1)
                 NewGravityVal = (float)GravityBox.Value;
+            if (GravitySet.Checked)
+                MainWindow.m.FreezeValue(GravityAddr, "float", NewGravityVal.ToString());
         }
         #endregion
 
@@ -1965,6 +1987,16 @@ namespace Forza_Mods_AIO.TabForms
                 MainWindow.m.WriteBytes((SuperCarAddrLong + 20).ToString("X"), before3);
                 MainWindow.m.WriteBytes((SuperCarAddrLong + 32).ToString("X"), before4);
             }
+        }
+
+        private void TimerButton_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip.Show(@"Logs go to \Documents\Forza Mods Tool\Cool Shit\0-60 Logs\", TimerButton);
+        }
+
+        private void TimeCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip.Show(@"Numpad 4 to go back, 6 to go forward, ctrl to go faster", TimeCheckBox);
         }
     }
 }
