@@ -111,6 +111,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddCarsGuide";
             this.Text = "AddCarsGuide";
             this.TopPanel.ResumeLayout(false);

@@ -86,6 +86,7 @@ namespace Forza_Mods_AIO.TabForms
             if (LST_Accounts.SelectedItem != null && LST_Savegames.SelectedItem != null)
             {
                 SwapMSSave();
+                MessageBox.Show("Saveswap completed successfully");
             }
             else
                 MessageBox.Show("Options not selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -113,7 +114,10 @@ namespace Forza_Mods_AIO.TabForms
             BTN_Backup.Enabled = false;
             var targetacc = new DirectoryInfo(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs").EnumerateDirectories("*").ToList()[LST_Accounts.SelectedIndex];
             var savepath = container.Read(targetacc.FullName + "\\containers.index");
-            File.Copy(targetacc.FullName + "\\" + savepath, @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backups\" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-fff"));
+            var backfolder = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper\Savegames\MS\Backups\";
+            if (!Directory.Exists(backfolder))
+                Directory.CreateDirectory(backfolder);
+            File.Copy(targetacc.FullName + "\\" + savepath,  backfolder + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-fff"));
             BTN_SwapSave.Enabled = true;
             BTN_Backup.Enabled = true;
         }
@@ -125,6 +129,10 @@ namespace Forza_Mods_AIO.TabForms
             var acclist = new DirectoryInfo(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs").EnumerateDirectories("*");
             int dircount = 0;
             var resolved = 2;
+            LST_Savegames.Items.Clear();
+            foreach (var save in savelist)
+                LST_Savegames.Items.Add(save);
+            LST_Savegames.Update();
             foreach (var dir in acclist)
             {
                 if (dir.Name != "t")
@@ -159,11 +167,15 @@ namespace Forza_Mods_AIO.TabForms
                         { auth = null; AuthTimer.Reset(); }
                     resolving = true;
                     ResolvingWorker.RunWorkerAsync();
+                    bool scandone = false;
                     long length = 0;
                     string address = null;
                     int count = 0;
                     bool done = false;
-                    if(auth == null)
+                    List<long> lengthlist = new List<long>();
+                    List<string> addresslist = new List<string>();
+                    List<string> authlist = new List<string>();
+                    if (!scandone)
                     {
                         IEnumerable<long> scan1 = await sm.AoBScan("41 75 74 68 6F 72 69 7A 61 74 69 6F 6E 58 42 4C 33 2E 30 20 78 3D", true, true);
                         IEnumerable<long> scan2 = await sm.AoBScan("48 6F 73 74 63 6F 6D 6D 65 6E 74 73 2E 78 62 6F 78 6C 69 76 65 2E 63 6F 6D", true, true);
@@ -180,8 +192,10 @@ namespace Forza_Mods_AIO.TabForms
                                     address = (addr1 + 13).ToString("X");
                                     if (!Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length)).Contains("Content-Length") && !Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length)).Contains(@"\") && !Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length)).Any(c => c > 255))
                                     {
-                                        done = true;
-                                        break;
+                                        lengthlist.Add(length);
+                                        addresslist.Add(address);
+                                        //done = true;
+                                        //break;
                                     }
                                 }
                                 else if (count == scan2.Count())
@@ -189,35 +203,58 @@ namespace Forza_Mods_AIO.TabForms
                             }
                             count++;
                         }
-                        if (length != 0 && address != null)
-                            auth = Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length));
+                        if (lengthlist.Count != 0 && addresslist.Count != 0)
+                        {
+                            int listcount = 0;
+                            foreach(var b in lengthlist)
+                            {
+                                authlist.Add(Encoding.ASCII.GetString(sm.ReadBytes(addresslist[listcount], (int)b)));
+                                listcount++;
+                            }
+                            scandone = true;
+                        }
+                            //auth = Encoding.ASCII.GetString(sm.ReadBytes(address, (int)length));
                     }
                     LST_Accounts.Items.Clear();
                     var response = (dynamic)(new JObject());
+                    string workingauth = null;
                     foreach (var dir in acclist)
                     {
                         if (dir.Name != "t")
                         {
+                            bool authdone = false;
                             try
                             {
                                 int retrycount = 0;
-                                while (retrycount < 3)
+                                int authtriedcount = 0;
+                                while (authtriedcount < authlist.Count && !authdone)
                                 {
-                                    try
+                                    while (retrycount < 3)
                                     {
-                                        response = (dynamic)JObject.Parse(Get("https://peoplehub.xboxlive.com/users/me/people/xuids(" + Int64.Parse(dir.Name.Substring(0, 16), System.Globalization.NumberStyles.HexNumber) + ")", auth));
-                                        break;
+                                        try
+                                        {
+                                            if (workingauth == null)
+                                                auth = authlist[authtriedcount];
+                                            else
+                                                auth = workingauth;
+                                            response = (dynamic)JObject.Parse(Get("https://peoplehub.xboxlive.com/users/me/people/xuids(" + Int64.Parse(dir.Name.Substring(0, 16), System.Globalization.NumberStyles.HexNumber) + ")", auth));
+                                            break;
+                                        }
+                                        catch
+                                        {
+                                            Thread.Sleep(500);
+                                            retrycount++;
+                                        }
                                     }
-                                    catch
-                                    {
-                                        Thread.Sleep(500);
-                                        retrycount++;
-                                    }
+                                    authdone = true;
+
+                                    resolved = 1;
+                                    if (!LST_Accounts.Items.Contains(response.people[0].gamertag.ToString()))
+                                        LST_Accounts.Items.Add(response.people[0].gamertag.ToString());
+                                    else
+                                        throw new Exception("yeet lol");
                                 }
-                                resolved = 1;
-                                if(!LST_Accounts.Items.Contains(response.people[0].gamertag.ToString()))
-                                    LST_Accounts.Items.Add(response.people[0].gamertag.ToString());
-                                else
+                                if(authlist.Count == 0)
                                     throw new Exception("yeet lol");
                             }
                             catch (Exception a)
@@ -277,9 +314,6 @@ namespace Forza_Mods_AIO.TabForms
                 ResolvingWorker.CancelAsync();
                 LST_Resolved.Text = "";
             }
-            LST_Savegames.Items.Clear();
-            foreach (var save in savelist)
-                LST_Savegames.Items.Add(save);
             BTN_ACCRefresh.Enabled = true;
         }
 
