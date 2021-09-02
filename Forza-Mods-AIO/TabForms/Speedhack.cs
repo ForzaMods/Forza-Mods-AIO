@@ -42,10 +42,12 @@ namespace Forza_Mods_AIO.TabForms
         bool CheckPointTPToggle = false;
         bool WayPointTPToggle = false;
         bool TimerToggle = false;
+        bool OOB = false;
         public static bool done = false;
         public static bool Velstart = false; public static bool NCstart = false; public static bool FOVstart = false; public static bool Timestart = false; public static bool Breakstart = false; public static bool Speedstart = false; public static bool Turnstart = false;
         bool FovIncreaseStart = false; bool FovDecreaseStart = false;
         bool TimeToggle = false;  bool TimeForwardStart = false; bool TimeBackStart = false;
+        bool GravityFreeze = false; bool WeirdFreeze = false;
 
         public static long TimeNOPAddrLong; public static long CheckPointxASMAddrLong; public static long WayPointxASMAddrLong;
         public static long BaseAddrLong; public static long Base2AddrLong; public static long Base3AddrLong; public static long Base4AddrLong; public static long Car1AddrLong; public static long Car2AddrLong; public static long Wall1AddrLong; public static long Wall2AddrLong; public static long FOVnopOutAddrLong; public static long FOVnopInAddrLong;
@@ -96,6 +98,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string allocationstring;
         public static string OOBnopAddr;
         public static string SuperCarAddr;
+        public static string InPauseAddr;
         public static string CheckPointBaseAddr = null; public static string WayPointBaseAddr = null;
         public static string XPaddr = null; public static long XPaddrLong = 0; public static string XPAmountaddr = null; public static long XPAmountaddrLong = 0;
 
@@ -180,6 +183,7 @@ namespace Forza_Mods_AIO.TabForms
             yAngVelAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x52C");
             GasAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0xD18,-0x53C");
             PastStartAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x5C");
+            InPauseAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x3D8");
             FOVHighAddr = (BaseAddr + ",0x568,0x270,0x258,0xB8,0x348,0x70,0x5B0");
             WeirdAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x554");
             GravityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x558");
@@ -711,6 +715,8 @@ namespace Forza_Mods_AIO.TabForms
                 Thread.Sleep(1);
             }
             a.GetWayPointXAddr(CodeCave4, out WayPointBaseAddr);
+            if (WayPointWorker.CancellationPending)
+                e.Cancel = true;
         }
         private void WayPointTPworker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -724,14 +730,22 @@ namespace Forza_Mods_AIO.TabForms
                     float NewWPx = MainWindow.m.ReadFloat(WayPointxAddr, round: false);
                     float NewWPy = MainWindow.m.ReadFloat(WayPointyAddr, round: false);
                     float NewWPz = MainWindow.m.ReadFloat(WayPointzAddr, round: false);
-                    if ((LastWPx != NewWPx || LastWPy != NewWPy || LastWPz != NewWPz) && NewWPx != 0 && NewWPy != 0 && NewWPz != 0)
+                    if ((LastWPx != NewWPx || LastWPy != NewWPy || LastWPz != NewWPz) && (NewWPx != 0 && NewWPy != 0 && NewWPz != 0))
                     {
-                        MainWindow.m.WriteMemory(xAddr, "float", NewWPx.ToString());
-                        MainWindow.m.WriteMemory(yAddr, "float", (NewWPy + 4).ToString());
-                        MainWindow.m.WriteMemory(zAddr, "float", NewWPz.ToString());
-                        LastWPx = NewWPx;
-                        LastWPy = NewWPy;
-                        LastWPz = NewWPz;
+                        try
+                        {
+                            MainWindow.m.WriteMemory(xAddr, "float", NewWPx.ToString());
+                            MainWindow.m.WriteMemory(yAddr, "float", (NewWPy + 2).ToString());
+                            MainWindow.m.WriteMemory(zAddr, "float", NewWPz.ToString());
+                            LastWPx = NewWPx;
+                            LastWPy = NewWPy;
+                            LastWPz = NewWPz;
+                        }
+                        catch
+                        {
+                            if (!WayPointWorker.IsBusy)
+                                WayPointWorker.RunWorkerAsync();
+                        }
                     }
                     if (WayPointTPworker.CancellationPending)
                     {
@@ -740,6 +754,34 @@ namespace Forza_Mods_AIO.TabForms
                     }
                     Thread.Sleep(50);
                 }
+            }
+        }
+        private void OOBworker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var before = new byte[] { 0x0F, 0x11, 0x9B, 0xE0, 0xFA, 0xFF, 0xFF };
+            var nop = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
+            Stopwatch stopWatch = new Stopwatch();
+            string LastID = MainWindow.m.Read2Byte(CurrentIDAddr).ToString();
+            MainWindow.m.WriteBytes(OOBnopAddr, nop);
+            while (OOB)
+            {
+                if (OOBWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                try
+                {
+                    if(MainWindow.m.ReadFloat(InPauseAddr) == 1 || (MainWindow.m.ReadFloat(OnGroundAddr) == 0 && MainWindow.m.ReadFloat(SpeedAddr) == 0))
+                        MainWindow.m.WriteBytes(OOBnopAddr, before);
+                    else
+                        MainWindow.m.WriteBytes(OOBnopAddr, nop);
+                }
+                catch
+                {
+                    MainWindow.m.WriteBytes(OOBnopAddr, before);
+                }
+                Thread.Sleep(1);
             }
         }
         #endregion
@@ -899,10 +941,14 @@ namespace Forza_Mods_AIO.TabForms
             {
                 boost = BoostLim;
             }
-            MainWindow.m.WriteMemory(FrontLeftAddr, "float", boost.ToString());
-            MainWindow.m.WriteMemory(FrontRightAddr, "float", boost.ToString());
-            MainWindow.m.WriteMemory(BackLeftAddr, "float", boost.ToString());
-            MainWindow.m.WriteMemory(BackRightAddr, "float", boost.ToString());
+            try
+            {
+                MainWindow.m.WriteMemory(FrontLeftAddr, "float", boost.ToString());
+                MainWindow.m.WriteMemory(FrontRightAddr, "float", boost.ToString());
+                MainWindow.m.WriteMemory(BackLeftAddr, "float", boost.ToString());
+                MainWindow.m.WriteMemory(BackRightAddr, "float", boost.ToString());
+            }
+            catch { }
         }
         #endregion
 
@@ -1399,10 +1445,10 @@ namespace Forza_Mods_AIO.TabForms
                     float WayPointX =MainWindow.m.ReadFloat(WayPointxAddr, round: false);
                     float WayPointY = MainWindow.m.ReadFloat(WayPointyAddr, round: false);
                     float WayPointZ = MainWindow.m.ReadFloat(WayPointzAddr, round: false);
-                    if (WayPointX != 0 && WayPointX != 0 && WayPointX != 0)
+                    if (WayPointX != 0 && WayPointY != 0 && WayPointZ != 0)
                     {
                         MainWindow.m.WriteMemory(xAddr, "float", WayPointX.ToString());
-                        MainWindow.m.WriteMemory(yAddr, "float", (WayPointY + 4).ToString());
+                        MainWindow.m.WriteMemory(yAddr, "float", (WayPointY + 2).ToString());
                         MainWindow.m.WriteMemory(zAddr, "float", WayPointZ.ToString());
                     }
                     else
@@ -1436,7 +1482,6 @@ namespace Forza_Mods_AIO.TabForms
                 ((Telerik.WinControls.Primitives.BorderPrimitive)CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 CheckPointTPToggle = false;
                 CheckPointTPworker.CancelAsync();
-                MainWindow.m.WriteMemory(GravityAddr, "float", basegrav.ToString());
                 MainWindow.m.UnfreezeValue(RollAddr);
                 MainWindow.m.UnfreezeValue(PitchAddr);
                 MainWindow.m.UnfreezeValue(yAngVelAddr);
@@ -1455,7 +1500,8 @@ namespace Forza_Mods_AIO.TabForms
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)AutoWayPoint.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 WayPointTPToggle = false;
-                    WayPointTPworker.CancelAsync();
+                WayPointTPworker.CancelAsync();
+                WayPointWorker.CancelAsync();
             }
             else
             {
@@ -1715,12 +1761,15 @@ namespace Forza_Mods_AIO.TabForms
             if (WeirdSet.Checked)
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
-                MainWindow.m.FreezeValue(WeirdAddr, "float", NewWeirdVal.ToString());
+                WeirdFreeze = true;
+                if (!WeirdWorker.IsBusy)
+                    WeirdWorker.RunWorkerAsync();
             }
             else
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
-                MainWindow.m.UnfreezeValue(WeirdAddr);
+                WeirdFreeze = false;
+                WeirdWorker.CancelAsync();
             }
         }
         private void GravityPull_Click(object sender, EventArgs e)
@@ -1733,32 +1782,26 @@ namespace Forza_Mods_AIO.TabForms
             if (GravitySet.Checked)
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
-                MainWindow.m.FreezeValue(GravityAddr, "float", NewGravityVal.ToString());
+                GravityFreeze = true;
+                if (!GravityWorker.IsBusy)
+                    GravityWorker.RunWorkerAsync();
             }
             else
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
-                MainWindow.m.UnfreezeValue(GravityAddr);
+                GravityFreeze = false;
+                GravityWorker.CancelAsync();
             }
-        }
-        private void GravitySet_Click(object sender, EventArgs e)
-        {
-            if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
-                MainWindow.m.WriteMemory(GravityAddr, "float", NewGravityVal.ToString());
         }
         private void WeirdBox_ValueChanged(object sender, EventArgs e)
         {
             if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
                 NewWeirdVal = (float)WeirdBox.Value;
-            if(WeirdSet.Checked)
-                MainWindow.m.FreezeValue(WeirdAddr, "float", NewWeirdVal.ToString());
         }
         private void GravityBox_ValueChanged(object sender, EventArgs e)
         {
             if(MainWindow.m.ReadFloat(PastStartAddr) == 1)
                 NewGravityVal = (float)GravityBox.Value;
-            if (GravitySet.Checked)
-                MainWindow.m.FreezeValue(GravityAddr, "float", NewGravityVal.ToString());
         }
         #endregion
 
@@ -1951,16 +1994,19 @@ namespace Forza_Mods_AIO.TabForms
         private void Bypassoob_CheckStateChanged(object sender, EventArgs e)
         {
             var before = new byte[] { 0x0F, 0x11, 0x9B, 0xE0, 0xFA, 0xFF, 0xFF };
-            var nop = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
             if (Bypassoob.Checked)
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
-                MainWindow.m.WriteBytes(OOBnopAddr, nop);
+                OOB = true;
+                if (!OOBWorker.IsBusy)
+                    OOBWorker.RunWorkerAsync();
             }
             else
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Bypassoob.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
+                OOBWorker.CancelAsync();
                 MainWindow.m.WriteBytes(OOBnopAddr, before);
+                OOB = false;
             }
         }
 
@@ -1974,18 +2020,26 @@ namespace Forza_Mods_AIO.TabForms
             if (SuperCarBox.Checked)
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
-                MainWindow.m.WriteBytes((SuperCarAddrLong + 4).ToString("X"), nop);
-                MainWindow.m.WriteBytes((SuperCarAddrLong + 12).ToString("X"), nop);
-                MainWindow.m.WriteBytes((SuperCarAddrLong + 20).ToString("X"), nop);
-                MainWindow.m.WriteBytes((SuperCarAddrLong + 32).ToString("X"), nop);
+                try
+                {
+                    MainWindow.m.WriteBytes((SuperCarAddrLong + 4).ToString("X"), nop);
+                    MainWindow.m.WriteBytes((SuperCarAddrLong + 12).ToString("X"), nop);
+                    MainWindow.m.WriteBytes((SuperCarAddrLong + 20).ToString("X"), nop);
+                    MainWindow.m.WriteBytes((SuperCarAddrLong + 32).ToString("X"), nop);
+                }
+                catch { }
             }
             else
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
-                MainWindow.m.WriteBytes((SuperCarAddrLong + 4).ToString("X"), before1);
-                MainWindow.m.WriteBytes((SuperCarAddrLong + 12).ToString("X"), before2);
-                MainWindow.m.WriteBytes((SuperCarAddrLong + 20).ToString("X"), before3);
-                MainWindow.m.WriteBytes((SuperCarAddrLong + 32).ToString("X"), before4);
+                try
+                {
+                    MainWindow.m.WriteBytes((SuperCarAddrLong + 4).ToString("X"), before1);
+                    MainWindow.m.WriteBytes((SuperCarAddrLong + 12).ToString("X"), before2);
+                    MainWindow.m.WriteBytes((SuperCarAddrLong + 20).ToString("X"), before3);
+                    MainWindow.m.WriteBytes((SuperCarAddrLong + 32).ToString("X"), before4);
+                }
+                catch { }
             }
         }
 
@@ -1997,6 +2051,45 @@ namespace Forza_Mods_AIO.TabForms
         private void TimeCheckBox_MouseHover(object sender, EventArgs e)
         {
             ToolTip.Show(@"Numpad 4 to go back, 6 to go forward, ctrl to go faster", TimeCheckBox);
+        }
+
+        private void WeirdWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while(WeirdFreeze)
+            {
+                try
+                {
+                    MainWindow.m.WriteMemory(WeirdAddr, "float", NewWeirdVal.ToString());
+                    Thread.Sleep(1);
+                    if (WeirdWorker.CancellationPending)
+                        e.Cancel = true;
+                }
+                catch
+                {
+                    if (WeirdWorker.CancellationPending)
+                        e.Cancel = true;
+                }
+            }
+        }
+
+        private void GravityWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (GravityFreeze)
+            {
+                try
+                {
+                    if (MainWindow.m.ReadFloat(GravityAddr) != NewGravityVal)
+                        MainWindow.m.WriteMemory(GravityAddr, "float", NewGravityVal.ToString());
+                    Thread.Sleep(1);
+                    if (GravityWorker.CancellationPending)
+                        e.Cancel = true;
+                }
+                catch
+                {
+                    if (GravityWorker.CancellationPending)
+                        e.Cancel = true;
+                }
+            }
         }
     }
 }
