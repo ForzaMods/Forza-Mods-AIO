@@ -57,7 +57,7 @@ namespace Forza_Mods_AIO
 
         private void Mute_CheckedChanged(object sender, EventArgs e)
         {
-            if(Mute.Checked == false)
+            if(!Mute.Checked)
             {
                 VolStart = false;
                 //((Telerik.WinControls.Primitives.FillPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = Color.FromArgb(45, 45, 48);
@@ -75,7 +75,6 @@ namespace Forza_Mods_AIO
                 //((Telerik.WinControls.Primitives.FillPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 VolStart = true;
-                Volumeworker.RunWorkerAsync();
                 string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
                 var SettingsParser = new FileIniDataParser();
                 IniData Settings = new IniData();
@@ -84,6 +83,19 @@ namespace Forza_Mods_AIO
                 Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
                 Settings["Settings"]["Volume"] = VolNum.Value.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
+                if (!Volumeworker.IsBusy)
+                    Volumeworker.RunWorkerAsync();
+                else while (Volumeworker.IsBusy)
+                {
+                    Thread.Sleep(1);
+                    if (!Volumeworker.IsBusy)
+                    {
+                        Volumeworker.RunWorkerAsync();
+                        break;
+                    }
+                    if (!Mute.Checked)
+                        break;
+                }
             }
         }
 
@@ -118,6 +130,7 @@ namespace Forza_Mods_AIO
                             }
                             if (Volumeworker.CancellationPending)
                             {
+                                VolStart = false;
                                 e.Cancel = true;
                                 return;
                             }
@@ -132,6 +145,7 @@ namespace Forza_Mods_AIO
                     }
                     if (Volumeworker.CancellationPending)
                     {
+                        VolStart = false;
                         e.Cancel = true;
                         return;
                     }
@@ -139,6 +153,7 @@ namespace Forza_Mods_AIO
                 }
                 if (Volumeworker.CancellationPending)
                 {
+                    VolStart = false;
                     e.Cancel = true;
                     return;
                 }
@@ -371,6 +386,10 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.FOV.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.WeirdSet.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.GravitySet.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Saveswapper.s.TB_Backup.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Saveswapper.s.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (AddCars.a.Box_AllCars.Checked)
@@ -446,6 +465,11 @@ namespace Forza_Mods_AIO
         private void RainbowSpeed_ValueChanged(object sender, EventArgs e)
         {
             Rainbowspeed = (float)RainbowSpeed.Value;
+        }
+
+        private void RainbowBox_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip.Show("Sets theme to rainbow", RainbowBox);
         }
     }
 }
