@@ -213,11 +213,11 @@ namespace Forza_Mods_AIO
                 Box_Traffic.Enabled = false;
                 Box_ClearGarage.Enabled = false;
 
-                if (platform==1)
+                if (platform == 1)
                 {
                     MainWindow.m.WriteMemory("base+4DDBD20", "string", "UPDATE Data_Car SET BaseCost = 0 WHERE BaseCost >0                                                                                                                                                                                                                                                                                                                         ");
                 }
-                else if (platform==2)
+                else if (platform == 2)
                 {
 
                 }
@@ -285,7 +285,7 @@ namespace Forza_Mods_AIO
 
         private void Box_ThumbsFix_CheckedChanged(object sender, EventArgs e)
         {
-            if(Box_ThumbsFix.Checked)
+            if (Box_ThumbsFix.Checked)
             {
                 Box_FreeCars.Enabled = false;
                 Box_Presets.Enabled = false;
