@@ -32,6 +32,10 @@ namespace Forza_Mods_AIO
         public LiveTuning LiveTuning = new LiveTuning() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         public Speedhack speedhack = new Speedhack() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         public bool IsRPCInitialized = false; public bool FirstLoad = true;
+        //1 = ms store
+        //2 = steam
+        //3 = default
+        public int platform = 3;
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
         Version NewVer = null;
@@ -320,7 +324,6 @@ namespace Forza_Mods_AIO
 
         public async void AoBscan()
         {
-            Speedhack.Aobs();
             var TargetProcess = Process.GetProcessesByName("ForzaHorizon4")[0];
             SigScanSharp Sigscan = new SigScanSharp(TargetProcess.Handle);
             Sigscan.SelectModule(TargetProcess.MainModule);
@@ -330,6 +333,8 @@ namespace Forza_Mods_AIO
             {
                 if (TargetProcess.MainModule.FileName.Contains("Microsoft.SunriseBaseGame"))
                 {
+                    Speedhack.Aobs();
+                    platform = 1;
                     if (!ToolInfo.AOBScanProgress.Visible)
                         ToolInfo.AOBScanProgress.Show();
                     //long lTime;
@@ -465,7 +470,8 @@ namespace Forza_Mods_AIO
                 }
                 else
                 {
-
+                    platform = 2;
+                    Speedhack.done = true;
                 }
                 if (TargetProcess.MainModule.FileName.Contains("Microsoft.SunriseBaseGame") && (Speedhack.BaseAddr == "29A0" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0"
                     || Speedhack.Base2Addr == "3B40" || Speedhack.Base2Addr == null || Speedhack.Base2Addr == "0"
@@ -490,41 +496,44 @@ namespace Forza_Mods_AIO
                 }
                 else
                 {
-                    Speedhack.CCBA = Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.BaseAddress;
-                    Speedhack.CodeCave = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                    while (Speedhack.CodeCave == (IntPtr)0)
+                    if(platform == 1)
                     {
-                        Speedhack.CCBA += 500000;
+                        Speedhack.CCBA = Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.BaseAddress;
                         Speedhack.CodeCave = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                    }
-                    Speedhack.CCBA2 = Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.BaseAddress;
-                    Speedhack.CodeCave2 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                    while (Speedhack.CodeCave2 == (IntPtr)0)
-                    {
-                        Speedhack.CCBA2 += 500000;
+                        while (Speedhack.CodeCave == (IntPtr)0)
+                        {
+                            Speedhack.CCBA += 500000;
+                            Speedhack.CodeCave = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                        }
+                        Speedhack.CCBA2 = Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.BaseAddress;
                         Speedhack.CodeCave2 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                    }
-                    Speedhack.CCBA3 = Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.BaseAddress;
-                    Speedhack.CodeCave3 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                    while (Speedhack.CodeCave3 == (IntPtr)0)
-                    {
-                        Speedhack.CCBA3 += 500000;
+                        while (Speedhack.CodeCave2 == (IntPtr)0)
+                        {
+                            Speedhack.CCBA2 += 500000;
+                            Speedhack.CodeCave2 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                        }
+                        Speedhack.CCBA3 = Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.BaseAddress;
                         Speedhack.CodeCave3 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                    }
-                    Speedhack.CCBA4 = Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.BaseAddress;
-                    Speedhack.CodeCave4 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                    while (Speedhack.CodeCave4 == (IntPtr)0)
-                    {
-                        Speedhack.CCBA4 += 500000;
+                        while (Speedhack.CodeCave3 == (IntPtr)0)
+                        {
+                            Speedhack.CCBA3 += 500000;
+                            Speedhack.CodeCave3 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                        }
+                        Speedhack.CCBA4 = Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.BaseAddress;
                         Speedhack.CodeCave4 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                        while (Speedhack.CodeCave4 == (IntPtr)0)
+                        {
+                            Speedhack.CCBA4 += 500000;
+                            Speedhack.CodeCave4 = assembly.VirtualAllocEx(Process.GetProcessesByName("ForzaHorizon4")[0].Handle, Speedhack.CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                        }
+                        Speedhack.s.FOVScan_BTN.Show(); Speedhack.s.FOVScan_bar.Hide(); Speedhack.s.FOV.Hide();
+                        for (int i = ToolInfo.AOBScanProgress.Value1; i <= 100; i++)
+                        { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
+                        LiveTuning.Addresses();
+                        Speedhack.Addresses();
+                        Speedhack.s.ReadSpeedDefaultValues();
+                        Speedhack.done = true;
                     }
-                    Speedhack.s.FOVScan_BTN.Show(); Speedhack.s.FOVScan_bar.Hide(); Speedhack.s.FOV.Hide();
-                    for (int i = ToolInfo.AOBScanProgress.Value1; i <= 100; i++)
-                    { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
-                    LiveTuning.Addresses();
-                    Speedhack.Addresses();
-                    Speedhack.s.ReadSpeedDefaultValues();
-                    Speedhack.done = true;
                 }
                 Thread.Sleep(1);
             }
@@ -561,51 +570,58 @@ namespace Forza_Mods_AIO
             BTN_TabStatsEditor.Enabled = false;
             BTN_TabLiveTuning.Enabled = false;
             BTN_TabSpeedhack.Enabled = false;
-
         }
         public void EnableButtons()
         {
-            BTN_TabAddCars.Enabled = true;
-            BTN_TabStatsEditor.Enabled = true;
-            BTN_TabLiveTuning.Enabled = true;
-            BTN_TabSpeedhack.Enabled = true;
+            if(platform == 1)
+            {
+                BTN_TabAddCars.Enabled = true;
+                BTN_TabStatsEditor.Enabled = true;
+                BTN_TabLiveTuning.Enabled = true;
+                BTN_TabSpeedhack.Enabled = true;
+            }
+            else
+                BTN_TabAddCars.Enabled = true;
         }
         private void BTN_Close_Click(object sender, EventArgs e)
         {
-            var Jmp1before = new byte[6] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 };
-            var Jmp2before = new byte[6] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 };
-            var Jmp3before = new byte[6] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 };
-            var Jmp4before = new byte[6] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00 };
-            var NOPBefore = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08 };
-            var nopoutbefore = new byte[4] { 0x0F, 0x11, 0x43, 0x10 };
-            var nopinbefore = new byte[4] { 0x0F, 0x11, 0x73, 0x10 };
-            byte[] XPGiveBefore = new byte[7] { 0xF3, 0x0F, 0x2C, 0xC6, 0x89, 0x45, 0xB8 };
-            byte[] Normal = new byte[6] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 };
-            byte[] original = new byte[7] { 0x0F, 0x28, 0x89, 0x60, 0x02, 0x00, 0x00 };
-            byte[] WayPointCodeBefore = new byte[7] { 0x0F, 0x10, 0x97, 0xA0, 0x03, 0x00, 0x00 };
-            var OOBbefore = new byte[] { 0x0F, 0x11, 0x9B, 0xE0, 0xFA, 0xFF, 0xFF };
-            var scbefore1 = new byte[] { 0x0F, 0x11, 0x41, 0x10 };
-            var scbefore2 = new byte[] { 0x0F, 0x11, 0x49, 0x20 };
-            var scbefore3 = new byte[] { 0x0F, 0x11, 0x41, 0x30 };
-            var scbefore4 = new byte[] { 0x0F, 0x11, 0x49, 0x40 };
-            if (Speedhack.done)
+            if(platform == 1)
             {
-                m.WriteBytes(Speedhack.Wall1Addr, Jmp1before);
-                m.WriteBytes(Speedhack.Wall2Addr, Jmp2before);
-                m.WriteBytes(Speedhack.Car1Addr, Jmp3before);
-                m.WriteBytes(Speedhack.Car2Addr, Jmp4before);
-                m.WriteBytes(Speedhack.TimeNOPAddr, NOPBefore);
-                m.WriteBytes(Speedhack.FOVnopOutAddr, nopoutbefore);
-                m.WriteBytes(Speedhack.FOVnopInAddr, nopinbefore);
-                m.WriteBytes(Speedhack.XPaddr, XPGiveBefore);
-                m.WriteBytes(Speedhack.XPAmountaddr, Normal);
-                m.WriteBytes(Speedhack.WayPointxASMAddr, WayPointCodeBefore);
-                m.WriteBytes(Speedhack.CheckPointxASMAddr, original);
-                m.WriteBytes(Speedhack.OOBnopAddr, OOBbefore);
-                m.WriteBytes((Speedhack.SuperCarAddrLong + 4).ToString("X"), scbefore1);
-                m.WriteBytes((Speedhack.SuperCarAddrLong + 12).ToString("X"), scbefore2);
-                m.WriteBytes((Speedhack.SuperCarAddrLong + 20).ToString("X"), scbefore3);
-                m.WriteBytes((Speedhack.SuperCarAddrLong + 32).ToString("X"), scbefore4);
+                var Jmp1before = new byte[6] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 };
+                var Jmp2before = new byte[6] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 };
+                var Jmp3before = new byte[6] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 };
+                var Jmp4before = new byte[6] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00 };
+                var NOPBefore = new byte[5] { 0xF2, 0x0F, 0x11, 0x43, 0x08 };
+                var nopoutbefore = new byte[4] { 0x0F, 0x11, 0x43, 0x10 };
+                var nopinbefore = new byte[4] { 0x0F, 0x11, 0x73, 0x10 };
+                byte[] XPGiveBefore = new byte[7] { 0xF3, 0x0F, 0x2C, 0xC6, 0x89, 0x45, 0xB8 };
+                byte[] Normal = new byte[6] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 };
+                byte[] original = new byte[7] { 0x0F, 0x28, 0x89, 0x60, 0x02, 0x00, 0x00 };
+                byte[] WayPointCodeBefore = new byte[7] { 0x0F, 0x10, 0x97, 0xA0, 0x03, 0x00, 0x00 };
+                var OOBbefore = new byte[] { 0x0F, 0x11, 0x9B, 0xE0, 0xFA, 0xFF, 0xFF };
+                var scbefore1 = new byte[] { 0x0F, 0x11, 0x41, 0x10 };
+                var scbefore2 = new byte[] { 0x0F, 0x11, 0x49, 0x20 };
+                var scbefore3 = new byte[] { 0x0F, 0x11, 0x41, 0x30 };
+                var scbefore4 = new byte[] { 0x0F, 0x11, 0x49, 0x40 };
+                if (Speedhack.done)
+                {
+                    m.WriteBytes(Speedhack.Wall1Addr, Jmp1before);
+                    m.WriteBytes(Speedhack.Wall2Addr, Jmp2before);
+                    m.WriteBytes(Speedhack.Car1Addr, Jmp3before);
+                    m.WriteBytes(Speedhack.Car2Addr, Jmp4before);
+                    m.WriteBytes(Speedhack.TimeNOPAddr, NOPBefore);
+                    m.WriteBytes(Speedhack.FOVnopOutAddr, nopoutbefore);
+                    m.WriteBytes(Speedhack.FOVnopInAddr, nopinbefore);
+                    m.WriteBytes(Speedhack.XPaddr, XPGiveBefore);
+                    m.WriteBytes(Speedhack.XPAmountaddr, Normal);
+                    m.WriteBytes(Speedhack.WayPointxASMAddr, WayPointCodeBefore);
+                    m.WriteBytes(Speedhack.CheckPointxASMAddr, original);
+                    m.WriteBytes(Speedhack.OOBnopAddr, OOBbefore);
+                    m.WriteBytes((Speedhack.SuperCarAddrLong + 4).ToString("X"), scbefore1);
+                    m.WriteBytes((Speedhack.SuperCarAddrLong + 12).ToString("X"), scbefore2);
+                    m.WriteBytes((Speedhack.SuperCarAddrLong + 20).ToString("X"), scbefore3);
+                    m.WriteBytes((Speedhack.SuperCarAddrLong + 32).ToString("X"), scbefore4);
+                }
             }
             Environment.Exit(0);
         }
