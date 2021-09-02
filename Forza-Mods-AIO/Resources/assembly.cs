@@ -95,7 +95,9 @@ namespace Forza_Mods_AIO
         {
             string CodeCaveAddrString = ((long)CodeCave).ToString("X"); // CodeCave address
             string CodeCavejmpString = ((long)CodeCave - (Speedhack.CheckPointxASMAddrLong + 5)).ToString("X"); // address to calculate jump from
-            byte[] CodeCaveAddr = StringToBytes("0" + CodeCavejmpString);
+            if (CodeCavejmpString.Length % 2 != 0)
+                CodeCavejmpString = "0" + CodeCavejmpString;
+            byte[] CodeCaveAddr = StringToBytes(CodeCavejmpString);
             Array.Reverse(CodeCaveAddr);
 
             string JmpToCodeCaveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "9090"; // code that replaces original code - 90 = nop, as many as these as you need
@@ -125,7 +127,9 @@ namespace Forza_Mods_AIO
         {
             string CodeCaveAddrString = ((long)CodeCave).ToString("X"); // CodeCave address
             string CodeCavejmpString = ((long)CodeCave - (Speedhack.WayPointxASMAddrLong + 5)).ToString("X"); // address to calculate jump from
-            byte[] CodeCaveAddr = StringToBytes("0" + CodeCavejmpString);
+            if (CodeCavejmpString.Length % 2 != 0)
+                CodeCavejmpString = "0" + CodeCavejmpString;
+            byte[] CodeCaveAddr = StringToBytes(CodeCavejmpString);
             Array.Reverse(CodeCaveAddr);
 
             string JmpToCodeCaveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "9090"; // code that replaces original code - 90 = nop, as many as these as you need
@@ -176,7 +180,9 @@ namespace Forza_Mods_AIO
         {
             string CodeCaveAddrString = ((long)CodeCave2).ToString("X");
             string CodeCavejmpString = ((long)CodeCave2 - (Speedhack.TimeNOPAddrLong + 5)).ToString("X");
-            byte[] CodeCaveAddr = StringToBytes("0" + CodeCavejmpString);
+            if (CodeCavejmpString.Length % 2 != 0)
+                CodeCavejmpString = "0" + CodeCavejmpString;
+            byte[] CodeCaveAddr = StringToBytes(CodeCavejmpString);
             Array.Reverse(CodeCaveAddr);
 
             string JmpToCodeCaveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "9090";

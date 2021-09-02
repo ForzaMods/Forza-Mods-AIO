@@ -61,8 +61,8 @@ namespace Forza_Mods_AIO.TabForms
             string valueColumnName = "Type";
             string Type = null;
             long ScanStartAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 30000000000;
-            long ScanEndAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 10000000000;
-            yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "58 97 ? ? ? 7F 00 00", true, true)).ToList();
+            long ScanEndAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 20000000000;
+            yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "F8 5F F3 D2 F6 7F 00 00", true, true)).ToList();
             foreach (var item in yeet)
             {
                 if (MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true).Length > 1
