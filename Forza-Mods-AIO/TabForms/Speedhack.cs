@@ -1754,7 +1754,8 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void WeirdPull_Click(object sender, EventArgs e)
         {
-            WeirdPullVal();
+            if (MainWindow.m.ReadFloat(PastStartAddr) == 1)
+                WeirdPullVal();
         }
         private void WeridSet_CheckStateChanged(object sender, EventArgs e)
         {
