@@ -39,7 +39,7 @@ namespace Forza_Mods_AIO
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
         Version NewVer = null;
-        public static Version CurrVer = new Version("0.0.0.4");
+        public static Version CurrVer = new Version("0.0.0.5");
         string MOTDstring = "";
         private static CultureInfo resourceCulture;
         internal static byte[] SOk8LBUrRl
@@ -583,7 +583,7 @@ namespace Forza_Mods_AIO
             else
                 BTN_TabAddCars.Enabled = true;
         }
-        private void BTN_Close_Click(object sender, EventArgs e)
+        public void BTN_Close_Click(object sender, EventArgs e)
         {
             if(platform == 1)
             {
