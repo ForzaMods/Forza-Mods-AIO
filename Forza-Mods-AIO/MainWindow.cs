@@ -309,9 +309,12 @@ namespace Forza_Mods_AIO
                     this.TabHolder.Controls.Add(ToolInfo);
                     ToolInfo.Visible = true;
                 }
-                RPCclient.UpdateDetails("Reading Info");
-                RPCclient.UpdateSmallAsset("home", "reading info");
-                RPCclient.SynchronizeState();
+                if(ToolInfo.Visible == true)
+                {
+                    RPCclient.UpdateDetails("Reading Info");
+                    RPCclient.UpdateSmallAsset("home", "reading info");
+                    RPCclient.SynchronizeState();
+                }
                 Speedhack.FrontAddr = "0"; Speedhack.DashAddr = "0"; Speedhack.LowAddr = "0"; Speedhack.BonnetAddr = "0"; Speedhack.FirstPersonAddr = "0";
                 Speedhack.FrontAddrLong = 0; Speedhack.DashAddrLong = 0; Speedhack.LowAddrLong = 0; Speedhack.BonnetAddrLong = 0; Speedhack.FirstPersonAddrLong = 0;
                 Speedhack.cycles = 0;

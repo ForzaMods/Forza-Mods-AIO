@@ -23,20 +23,30 @@ namespace Forza_Mods_AIO
         }
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            if (Application.OpenForms.Count == 1)
+            if (!Application.OpenForms.Cast<Form>().Any(form => form.Name == "Error"))
             {
                 Form error = new TabForms.PopupForms.Error(e);
                 error.StartPosition = FormStartPosition.CenterParent;
                 error.Show();
             }
+            else
+            {
+                Form error = Application.OpenForms["error"];
+                error.Focus();
+            }
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            if (Application.OpenForms.Count == 1)
+            if (!Application.OpenForms.Cast<Form>().Any(form => form.Name == "Error"))
             {
                 Form error = new TabForms.PopupForms.Error(e);
                 error.StartPosition = FormStartPosition.CenterParent;
                 error.Show();
+            }
+            else
+            {
+                Form error = Application.OpenForms["error"];
+                error.Focus();
             }
         }
     }
