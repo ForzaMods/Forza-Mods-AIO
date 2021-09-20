@@ -85,7 +85,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
 
         private void Continue_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -96,7 +96,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
         private void Devs_Click(object sender, EventArgs e)
         {
             SendWebhook(Data.Message, Data.StackTrace, "9502975");
-            this.Hide();
+            this.Close();
         }
     }
 }
