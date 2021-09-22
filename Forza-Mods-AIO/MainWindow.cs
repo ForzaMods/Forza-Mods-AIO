@@ -81,6 +81,8 @@ namespace Forza_Mods_AIO
         }
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            if (!Directory.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs"))
+                BTN_TabSaveswap.Enabled = false;
             ToolInfo.AOBScanProgress.Hide();
             try
             {
