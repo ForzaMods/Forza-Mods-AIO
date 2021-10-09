@@ -144,7 +144,10 @@ namespace ContainerReader
                                     subFile.Close();
                                     subReader.Dispose();
                                     subFile.Dispose();
-                                    return Path.Combine(guid.Replace("-", string.Empty).ToUpper(), subGuid);
+                                    if (subGuid != subSecondGuid)
+                                        return Path.Combine(guid.Replace("-", string.Empty).ToUpper(), subSecondGuid);
+                                    else
+                                        return Path.Combine(guid.Replace("-", string.Empty).ToUpper(), subGuid);
                                     
                                 }
 
