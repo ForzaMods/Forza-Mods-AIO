@@ -148,6 +148,7 @@ namespace ContainerReader
                                         return Path.Combine(guid.Replace("-", string.Empty).ToUpper(), subSecondGuid);
                                     else
                                         return Path.Combine(guid.Replace("-", string.Empty).ToUpper(), subGuid);
+
                                 }
 
 
