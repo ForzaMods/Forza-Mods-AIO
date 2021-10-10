@@ -43,12 +43,14 @@ namespace Forza_Mods_AIO
             File.Delete(Path.Combine(Path.GetTempPath(), "FH4_Cars.csv"));
             DonoPic.Image = Resources.bmac_grey;
             DonoPic2.Image = Resources.paypal;
+            DonoPicD.Image = Resources.bmac_grey;
+            DonoPic2D.Image = Resources.paypal;
             //Mute.Enabled = false;
         }
 
         private void DraffsYTLink_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", "https://www.youtube.com/channel/UCwQ8XprkEbBJ3UaBYT_F8jA");
+            Process.Start("explorer.exe", "https://www.youtube.com/c/comamnds/");
         }
         private void UCPostLink_Click(object sender, EventArgs e)
         {
@@ -483,6 +485,14 @@ namespace Forza_Mods_AIO
         private void DonoPic2_Click(object sender, EventArgs e)
         {
             Process.Start("explorer.exe", "\"https://www.paypal.com/donate?hosted_button_id=DACQKRJ4HTZRN\"");
+        }
+        private void DonoPic_ClickD(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", "https://www.buymeacoffee.com/comamnds");
+        }
+        private void DonoPic2_ClickD(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", "\"https://www.paypal.com/donate?hosted_button_id=H37GURADQ2SXU\"");
         }
     }
 }

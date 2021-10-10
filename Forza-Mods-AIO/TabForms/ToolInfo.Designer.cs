@@ -61,6 +61,9 @@ namespace Forza_Mods_AIO
             this.DonationLabel = new System.Windows.Forms.Label();
             this.DonoPic = new System.Windows.Forms.PictureBox();
             this.DonoPic2 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.DonoPic2D = new System.Windows.Forms.PictureBox();
+            this.DonoPicD = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.AOBScanProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColourPickerBox)).BeginInit();
@@ -69,6 +72,8 @@ namespace Forza_Mods_AIO
             ((System.ComponentModel.ISupportInitialize)(this.VolNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DonoPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DonoPic2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DonoPic2D)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DonoPicD)).BeginInit();
             this.SuspendLayout();
             // 
             // LBL_Attached
@@ -121,9 +126,9 @@ namespace Forza_Mods_AIO
             this.DraffsYTLink.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
             this.DraffsYTLink.Location = new System.Drawing.Point(143, 238);
             this.DraffsYTLink.Name = "DraffsYTLink";
-            this.DraffsYTLink.Size = new System.Drawing.Size(556, 24);
+            this.DraffsYTLink.Size = new System.Drawing.Size(355, 24);
             this.DraffsYTLink.TabIndex = 19;
-            this.DraffsYTLink.Text = "https://www.youtube.com/channel/UCwQ8XprkEbBJ3UaBYT_F8jA\r\n";
+            this.DraffsYTLink.Text = "https://www.youtube.com/c/comamnds/";
             this.DraffsYTLink.Click += new System.EventHandler(this.DraffsYTLink_Click);
             // 
             // UCPostLink
@@ -415,12 +420,46 @@ namespace Forza_Mods_AIO
             this.DonoPic2.TabStop = false;
             this.DonoPic2.Click += new System.EventHandler(this.DonoPic2_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(363, 367);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 30);
+            this.label2.TabIndex = 42;
+            this.label2.Text = "Donate:\r\n (Draff)";
+            // 
+            // DonoPic2D
+            // 
+            this.DonoPic2D.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DonoPic2D.Location = new System.Drawing.Point(530, 370);
+            this.DonoPic2D.Name = "DonoPic2D";
+            this.DonoPic2D.Size = new System.Drawing.Size(108, 25);
+            this.DonoPic2D.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.DonoPic2D.TabIndex = 40;
+            this.DonoPic2D.TabStop = false;
+            this.DonoPic2D.Click += new System.EventHandler(this.DonoPic2_ClickD);
+            // 
+            // DonoPicD
+            // 
+            this.DonoPicD.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DonoPicD.Location = new System.Drawing.Point(416, 370);
+            this.DonoPicD.Name = "DonoPicD";
+            this.DonoPicD.Size = new System.Drawing.Size(108, 25);
+            this.DonoPicD.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.DonoPicD.TabIndex = 41;
+            this.DonoPicD.TabStop = false;
+            this.DonoPicD.Click += new System.EventHandler(this.DonoPic_ClickD);
+            // 
             // ToolInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.DonoPic2D);
+            this.Controls.Add(this.DonoPicD);
             this.Controls.Add(this.DonationLabel);
             this.Controls.Add(this.DonoPic2);
             this.Controls.Add(this.DonoPic);
@@ -456,6 +495,8 @@ namespace Forza_Mods_AIO
             ((System.ComponentModel.ISupportInitialize)(this.VolNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DonoPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DonoPic2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DonoPic2D)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DonoPicD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -492,5 +533,8 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Label DonationLabel;
         private System.Windows.Forms.PictureBox DonoPic;
         private System.Windows.Forms.PictureBox DonoPic2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox DonoPic2D;
+        private System.Windows.Forms.PictureBox DonoPicD;
     }
 }
