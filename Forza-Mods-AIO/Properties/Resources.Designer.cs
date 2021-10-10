@@ -63,6 +63,16 @@ namespace Forza_Mods_AIO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bmac_grey {
+            get {
+                object obj = ResourceManager.GetObject("bmac-grey", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap default_orange {
             get {
                 object obj = ResourceManager.GetObject("default-orange", resourceCulture);
@@ -87,6 +97,26 @@ namespace Forza_Mods_AIO.Properties {
             get {
                 object obj = ResourceManager.GetObject("OpenSans_Regular", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap paypal {
+            get {
+                object obj = ResourceManager.GetObject("paypal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap paypal_grey {
+            get {
+                object obj = ResourceManager.GetObject("paypal-grey", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

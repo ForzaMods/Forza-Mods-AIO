@@ -158,7 +158,6 @@ namespace Forza_Mods_AIO.TabForms
             ControllerWorker.RunWorkerAsync();
             KBChange.Text = KBKeyString;
             XBChange.Text = XBKeyString;
-            DonoPic.Image = Resources.default_orange;
             s = this;
         }
         public static void Addresses()
@@ -234,6 +233,7 @@ namespace Forza_Mods_AIO.TabForms
                         controller = selectControler;
                         break;
                     }
+                    Thread.Sleep(100);
                 }
                 if (controller == null)
                 {
@@ -241,7 +241,7 @@ namespace Forza_Mods_AIO.TabForms
                     if(count == 0)
                         Debug.WriteLine("No XInput controller installed");
                     count++;
-                    Thread.Sleep(10);
+                    Thread.Sleep(100);
                     try
                     {
                         foreach (var deviceInstance in directInput.GetDevices(SharpDX.DirectInput.DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices))
@@ -289,7 +289,7 @@ namespace Forza_Mods_AIO.TabForms
                         controller = null;
                     }
                 }
-                Thread.Sleep(10);
+                Thread.Sleep(100);
             }
         }
         public void VelHackWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -747,6 +747,8 @@ namespace Forza_Mods_AIO.TabForms
                                 WayPointWorker.RunWorkerAsync();
                         }
                     }
+                    else if (!WayPointWorker.IsBusy)
+                        WayPointWorker.RunWorkerAsync();
                     if (WayPointTPworker.CancellationPending)
                     {
                         e.Cancel = true;
@@ -1986,11 +1988,6 @@ namespace Forza_Mods_AIO.TabForms
             SHReset();
         }
         #endregion
-
-        private void DonoPic_Click(object sender, EventArgs e)
-        {
-            Process.Start("explorer.exe", "https://www.buymeacoffee.com/Yeethan69");
-        }
 
         private void Bypassoob_CheckStateChanged(object sender, EventArgs e)
         {

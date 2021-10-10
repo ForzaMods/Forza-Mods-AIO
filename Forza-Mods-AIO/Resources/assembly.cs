@@ -120,6 +120,8 @@ namespace Forza_Mods_AIO
                 CheckBaseAddrArray = MainWindow.m.ReadBytes(((long)CodeCave + 40).ToString("X"), 8);
                 Array.Reverse(CheckBaseAddrArray);
                 CheckpointBaseAddr = BitConverter.ToString(CheckBaseAddrArray).Replace("-", String.Empty);
+                if (Speedhack.s.CheckPointTPworker.CancellationPending)
+                    break;
             }
         }
 

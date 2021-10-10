@@ -58,12 +58,17 @@ namespace Forza_Mods_AIO
             this.MOTD = new System.Windows.Forms.Label();
             this.VolNum = new DarkUI.Controls.DarkNumericUpDown();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.DonationLabel = new System.Windows.Forms.Label();
+            this.DonoPic = new System.Windows.Forms.PictureBox();
+            this.DonoPic2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.AOBScanProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColourPickerBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RainbowBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RainbowSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VolNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DonoPic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DonoPic2)).BeginInit();
             this.SuspendLayout();
             // 
             // LBL_Attached
@@ -235,10 +240,10 @@ namespace Forza_Mods_AIO
             this.Mute.Name = "Mute";
             this.Mute.Size = new System.Drawing.Size(173, 31);
             this.Mute.TabIndex = 28;
-            this.Mute.Text = "        Control Forza Audio\r\n(Mute Intro + choose volume)";
+            this.Mute.Text = "  (W.I.P) Control Forza Audio\r\n(Mute Intro + choose volume)";
             this.Mute.ThemeName = "FluentDark";
             this.Mute.CheckStateChanged += new System.EventHandler(this.Mute_CheckedChanged);
-            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Mute.GetChildAt(0))).Text = "        Control Forza Audio\r\n(Mute Intro + choose volume)";
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.Mute.GetChildAt(0))).Text = "  (W.I.P) Control Forza Audio\r\n(Mute Intro + choose volume)";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.Mute.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.Mute.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
@@ -379,12 +384,46 @@ namespace Forza_Mods_AIO
             this.VolNum.TabIndex = 34;
             this.VolNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // DonationLabel
+            // 
+            this.DonationLabel.AutoSize = true;
+            this.DonationLabel.Location = new System.Drawing.Point(363, 403);
+            this.DonationLabel.Name = "DonationLabel";
+            this.DonationLabel.Size = new System.Drawing.Size(48, 30);
+            this.DonationLabel.TabIndex = 39;
+            this.DonationLabel.Text = "Donate:\r\n (Weeb)";
+            // 
+            // DonoPic
+            // 
+            this.DonoPic.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DonoPic.Location = new System.Drawing.Point(416, 406);
+            this.DonoPic.Name = "DonoPic";
+            this.DonoPic.Size = new System.Drawing.Size(108, 25);
+            this.DonoPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.DonoPic.TabIndex = 38;
+            this.DonoPic.TabStop = false;
+            this.DonoPic.Click += new System.EventHandler(this.DonoPic_Click);
+            // 
+            // DonoPic2
+            // 
+            this.DonoPic2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DonoPic2.Location = new System.Drawing.Point(530, 406);
+            this.DonoPic2.Name = "DonoPic2";
+            this.DonoPic2.Size = new System.Drawing.Size(108, 25);
+            this.DonoPic2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.DonoPic2.TabIndex = 38;
+            this.DonoPic2.TabStop = false;
+            this.DonoPic2.Click += new System.EventHandler(this.DonoPic2_Click);
+            // 
             // ToolInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.DonationLabel);
+            this.Controls.Add(this.DonoPic2);
+            this.Controls.Add(this.DonoPic);
             this.Controls.Add(this.ColourPicker);
             this.Controls.Add(this.VolNum);
             this.Controls.Add(this.ColourSlider);
@@ -415,6 +454,8 @@ namespace Forza_Mods_AIO
             ((System.ComponentModel.ISupportInitialize)(this.RainbowBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RainbowSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VolNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DonoPic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DonoPic2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -448,5 +489,8 @@ namespace Forza_Mods_AIO
         public DarkUI.Controls.DarkNumericUpDown VolNum;
         public DarkUI.Controls.DarkNumericUpDown RainbowSpeed;
         private System.Windows.Forms.ToolTip ToolTip;
+        private System.Windows.Forms.Label DonationLabel;
+        private System.Windows.Forms.PictureBox DonoPic;
+        private System.Windows.Forms.PictureBox DonoPic2;
     }
 }
