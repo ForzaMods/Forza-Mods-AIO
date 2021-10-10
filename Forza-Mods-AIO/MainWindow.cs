@@ -303,14 +303,9 @@ namespace Forza_Mods_AIO
                 ToolInfo.LBL_Attached.Text = "Not Attached to FH4";
                 ToolInfo.LBL_Attached.ForeColor = Color.Red;
                 DisableButtons();
-                ClearColours();
                 if (!ToolInfo.Visible && !Saveswapper.Visible)
                 {
-                    BTN_TabInfo.BackColor = Color.FromArgb(45, 45, 48);
-                    Panel_Info.BackColor = Color.FromArgb(150, 11, 166);
-                    ClearTabItems();
-                    this.TabHolder.Controls.Add(ToolInfo);
-                    ToolInfo.Visible = true;
+                    BTN_TabInfo.PerformClick();
                 }
                 if(ToolInfo.Visible == true)
                 {
