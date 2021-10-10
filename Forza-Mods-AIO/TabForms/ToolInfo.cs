@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using Forza_Mods_AIO.TabForms.LiveTuningForms;
 using Forza_Mods_AIO.Properties;
 using System.Web;
+using DiscordRPC;
 
 namespace Forza_Mods_AIO
 {
@@ -280,6 +281,8 @@ namespace Forza_Mods_AIO
                 IniData Settings = SettingsParser.ReadFile(SettingsPath);
                 string TC = Settings["Settings"]["Theme Colour"]; MainWindow.ThemeColour = TC;
             }
+            if (RPCBox.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (RainbowBox.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)RainbowBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Mute.Checked)
@@ -423,6 +426,56 @@ namespace Forza_Mods_AIO
             DraffsYTLink.ForeColor = color;
             UCPostLink.ForeColor = color;
             DiscordLink.ForeColor = color;
+        }
+        private void RPCBox_ToggleStateChanged(object sender, EventArgs e)
+        {
+            if (RPCBox.Checked)
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                MainWindow.main.RPCclient = new DiscordRpcClient("841090098837323818");
+                MainWindow.main.RPCclient.Initialize();
+                DiscordRPC.Button[] Buttons = new DiscordRPC.Button[]
+                {
+                    new DiscordRPC.Button() { Label = "Discord Link", Url = "https://discord.gg/N3m6E5V" },
+                    new DiscordRPC.Button() { Label = "Download", Url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
+                };
+                MainWindow.main.RPCclient.SetPresence(new RichPresence()
+                {
+                    Buttons = Buttons,
+                    Details = "Reading Info",
+                    State = "Being Epic",
+                    Timestamps = Timestamps.Now,
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "aio2",
+                        LargeImageText = "Forza Mods AIO",
+                        SmallImageKey = "home",
+                        SmallImageText = "Reading Info"
+                    }
+                });
+                string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
+                var SettingsParser = new FileIniDataParser();
+                IniData Settings = new IniData();
+                Settings["Settings"]["Theme Colour"] = MainWindow.ThemeColour;
+                Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
+                Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
+                Settings["Settings"]["Volume"] = VolNum.Value.ToString();
+                Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
+                SettingsParser.WriteFile(SettingsPath, Settings);
+            }
+            else
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(30, 30, 33);
+                MainWindow.main.RPCclient.Deinitialize(); string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
+                var SettingsParser = new FileIniDataParser();
+                IniData Settings = new IniData();
+                Settings["Settings"]["Theme Colour"] = MainWindow.ThemeColour;
+                Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
+                Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
+                Settings["Settings"]["Volume"] = VolNum.Value.ToString();
+                Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
+                SettingsParser.WriteFile(SettingsPath, Settings);
+            }
         }
 
         private void RainbowBox_CheckedChanged(object sender, EventArgs e)

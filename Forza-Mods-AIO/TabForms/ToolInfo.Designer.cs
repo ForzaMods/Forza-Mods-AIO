@@ -64,6 +64,7 @@ namespace Forza_Mods_AIO
             this.label2 = new System.Windows.Forms.Label();
             this.DonoPic2D = new System.Windows.Forms.PictureBox();
             this.DonoPicD = new System.Windows.Forms.PictureBox();
+            this.RPCBox = new Telerik.WinControls.UI.RadCheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.AOBScanProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColourPickerBox)).BeginInit();
@@ -74,6 +75,7 @@ namespace Forza_Mods_AIO
             ((System.ComponentModel.ISupportInitialize)(this.DonoPic2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DonoPic2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DonoPicD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RPCBox)).BeginInit();
             this.SuspendLayout();
             // 
             // LBL_Attached
@@ -392,7 +394,7 @@ namespace Forza_Mods_AIO
             // DonationLabel
             // 
             this.DonationLabel.AutoSize = true;
-            this.DonationLabel.Location = new System.Drawing.Point(363, 403);
+            this.DonationLabel.Location = new System.Drawing.Point(363, 370);
             this.DonationLabel.Name = "DonationLabel";
             this.DonationLabel.Size = new System.Drawing.Size(48, 30);
             this.DonationLabel.TabIndex = 39;
@@ -401,7 +403,7 @@ namespace Forza_Mods_AIO
             // DonoPic
             // 
             this.DonoPic.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DonoPic.Location = new System.Drawing.Point(416, 406);
+            this.DonoPic.Location = new System.Drawing.Point(416, 373);
             this.DonoPic.Name = "DonoPic";
             this.DonoPic.Size = new System.Drawing.Size(108, 25);
             this.DonoPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -412,7 +414,7 @@ namespace Forza_Mods_AIO
             // DonoPic2
             // 
             this.DonoPic2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DonoPic2.Location = new System.Drawing.Point(530, 406);
+            this.DonoPic2.Location = new System.Drawing.Point(530, 373);
             this.DonoPic2.Name = "DonoPic2";
             this.DonoPic2.Size = new System.Drawing.Size(108, 25);
             this.DonoPic2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -423,7 +425,7 @@ namespace Forza_Mods_AIO
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(363, 367);
+            this.label2.Location = new System.Drawing.Point(363, 403);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 30);
             this.label2.TabIndex = 42;
@@ -432,7 +434,7 @@ namespace Forza_Mods_AIO
             // DonoPic2D
             // 
             this.DonoPic2D.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DonoPic2D.Location = new System.Drawing.Point(530, 370);
+            this.DonoPic2D.Location = new System.Drawing.Point(530, 406);
             this.DonoPic2D.Name = "DonoPic2D";
             this.DonoPic2D.Size = new System.Drawing.Size(108, 25);
             this.DonoPic2D.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -443,13 +445,38 @@ namespace Forza_Mods_AIO
             // DonoPicD
             // 
             this.DonoPicD.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DonoPicD.Location = new System.Drawing.Point(416, 370);
+            this.DonoPicD.Location = new System.Drawing.Point(416, 406);
             this.DonoPicD.Name = "DonoPicD";
             this.DonoPicD.Size = new System.Drawing.Size(108, 25);
             this.DonoPicD.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.DonoPicD.TabIndex = 41;
             this.DonoPicD.TabStop = false;
             this.DonoPicD.Click += new System.EventHandler(this.DonoPic_ClickD);
+            // 
+            // RPCBox
+            // 
+            this.RPCBox.Location = new System.Drawing.Point(720, 12);
+            this.RPCBox.Name = "RPCBox";
+            this.RPCBox.Size = new System.Drawing.Size(133, 18);
+            this.RPCBox.TabIndex = 28;
+            this.RPCBox.Text = "Discord Rich Presence";
+            this.RPCBox.ThemeName = "FluentDark";
+            this.RPCBox.CheckStateChanged += new System.EventHandler(this.RPCBox_ToggleStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.RPCBox.GetChildAt(0))).Text = "Discord Rich Presence";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
             // 
             // ToolInfo
             // 
@@ -467,6 +494,7 @@ namespace Forza_Mods_AIO
             this.Controls.Add(this.VolNum);
             this.Controls.Add(this.ColourSlider);
             this.Controls.Add(this.RainbowBox);
+            this.Controls.Add(this.RPCBox);
             this.Controls.Add(this.ColourPickerBox);
             this.Controls.Add(this.Mute);
             this.Controls.Add(this.label1);
@@ -497,6 +525,7 @@ namespace Forza_Mods_AIO
             ((System.ComponentModel.ISupportInitialize)(this.DonoPic2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DonoPic2D)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DonoPicD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RPCBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -536,5 +565,6 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox DonoPic2D;
         private System.Windows.Forms.PictureBox DonoPicD;
+        public Telerik.WinControls.UI.RadCheckBox RPCBox;
     }
 }
