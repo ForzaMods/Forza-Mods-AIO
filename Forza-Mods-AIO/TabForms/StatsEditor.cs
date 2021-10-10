@@ -46,70 +46,92 @@ namespace Forza_Mods_AIO.TabForms
 
         private async void StatScanButton_Click(object sender, EventArgs e)
         {
-            FilterBox.Visible = false;
-            StatsTable.DataSource = null;
-            StatsTable.Rows.Clear();
-            StatsTableData.Clear();
-            yeetstring.Clear();
-            yeetstring2.Clear();
-            yeet.Clear();
-            StatScanButton.Enabled = false;
-            ScanMarquee.Visible = true;
-            ScanMarquee.StartWaiting();
-            File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"), TqS77kzQrU);
-            string nameColumnName = "Name";
-            string valueColumnName = "Type";
-            string Type = null;
-            long ScanStartAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 30000000000;
-            long ScanEndAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 20000000000;
-            yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "F8 5F ? ? ? 7F 00 00", true, true)).ToList();
-            foreach (var item in yeet)
+            try
             {
-                if (MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true).Length > 1
-                    && Regex.IsMatch(MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true), @"^[a-zA-Z]+$"))
+                FilterBox.Visible = false;
+                StatsTable.DataSource = null;
+                StatsTable.Rows.Clear();
+                StatsTableData.Clear();
+                yeetstring.Clear();
+                yeetstring2.Clear();
+                yeet.Clear();
+                StatScanButton.Enabled = false;
+                ScanMarquee.Visible = true;
+                ScanMarquee.StartWaiting();
+                File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"), TqS77kzQrU);
+                string nameColumnName = "Name";
+                string valueColumnName = "Type";
+                string Type = null;
+                long ScanStartAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 30000000000;
+                long ScanEndAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 20000000000;
+                yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "F8 5F ? ? ? 7F 00 00", true, true)).ToList();
+                foreach (var item in yeet)
                 {
-                    using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv")), hasHeaders: true))
+                    if (MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true).Length > 1
+                        && Regex.IsMatch(MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true), @"^[a-zA-Z]+$"))
                     {
-                        int nameColumnIndex = csvReader.GetFieldIndex(nameColumnName);
-                        int valueColumnIndex = csvReader.GetFieldIndex(valueColumnName);
-
-                        while (csvReader.ReadNextRecord())
+                        using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv")), hasHeaders: true))
                         {
-                            if (csvReader[nameColumnIndex] == MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true))
+                            int nameColumnIndex = csvReader.GetFieldIndex(nameColumnName);
+                            int valueColumnIndex = csvReader.GetFieldIndex(valueColumnName);
+
+                            while (csvReader.ReadNextRecord())
                             {
-                                Type = csvReader[valueColumnIndex];
-                                break;
+                                if (csvReader[nameColumnIndex] == MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true))
+                                {
+                                    Type = csvReader[valueColumnIndex];
+                                    break;
+                                }
                             }
                         }
+                        yeetstring.Add(MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true));
+                        if (Type == "Float")
+                            yeetstring2.Add(MainWindow.m.ReadFloat((item + 8).ToString("X"), round: false).ToString());
+                        else
+                            yeetstring2.Add(MainWindow.m.ReadInt((item + 8).ToString("X")).ToString());
+                        AddrList.Add(item);
                     }
-                    yeetstring.Add(MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true));
-                    if (Type == "Float")
-                        yeetstring2.Add(MainWindow.m.ReadFloat((item + 8).ToString("X"), round: false).ToString());
-                    else
-                        yeetstring2.Add(MainWindow.m.ReadInt((item + 8).ToString("X")).ToString());
-                    AddrList.Add(item);
                 }
+
+                for (int i = 0; i < yeetstring.Count; i++)
+                {
+                    StatsTableData.Rows.Add(yeetstring[i], yeetstring2[i]);
+                }
+                File.Delete(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"));
+                StatsTable.DataSource = StatsTableData;
+                StatsTable.Update();
+                StatsTable.Refresh();
+                StatsTable.Sort(StatsTable.Columns[0], 0);
+                StatsScrollBar.Maximum = StatsTable.Rows.Count - 17;
+                StatsScrollBar.Visible = true;
+                StatsTable.Width = 961;
+                ScanMarquee.Visible = false;
+                ScanMarquee.StopWaiting();
+                StatScanButton.Enabled = true;
+                SendButton.Enabled = true;
+                FilterBox.Visible = true;
+                if (FilterBox.Text == "Filter")
+                    FilterBox.Text.PadLeft(FilterBox.Text.Length + 15);
+            }
+            catch
+            {
+                File.Delete(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"));
+                StatsTable.DataSource = StatsTableData;
+                StatsTable.Update();
+                StatsTable.Refresh();
+                StatsTable.Sort(StatsTable.Columns[0], 0);
+                StatsScrollBar.Maximum = StatsTable.Rows.Count - 17;
+                StatsScrollBar.Visible = true;
+                StatsTable.Width = 961;
+                ScanMarquee.Visible = false;
+                ScanMarquee.StopWaiting();
+                StatScanButton.Enabled = true;
+                SendButton.Enabled = true;
+                FilterBox.Visible = true;
+                if (FilterBox.Text == "Filter")
+                    FilterBox.Text.PadLeft(FilterBox.Text.Length + 15);
             }
 
-            for (int i = 0; i < yeetstring.Count; i++)
-            {
-                StatsTableData.Rows.Add(yeetstring[i], yeetstring2[i]);
-            }
-            File.Delete(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"));
-            StatsTable.DataSource = StatsTableData;
-            StatsTable.Update();
-            StatsTable.Refresh();
-            StatsTable.Sort(StatsTable.Columns[0], 0);
-            StatsScrollBar.Maximum = StatsTable.Rows.Count - 17;
-            StatsScrollBar.Visible = true;
-            StatsTable.Width = 961;
-            ScanMarquee.Visible = false;
-            ScanMarquee.StopWaiting();
-            StatScanButton.Enabled = true;
-            SendButton.Enabled = true;
-            FilterBox.Visible = true;
-            if(FilterBox.Text == "Filter")
-                FilterBox.Text.PadLeft(FilterBox.Text.Length + 15);
         }
 
         private void SendButton_Click(object sender, EventArgs e)

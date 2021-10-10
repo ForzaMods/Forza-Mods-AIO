@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Forza_Mods_AIO.TabForms
@@ -131,6 +132,7 @@ namespace Forza_Mods_AIO.TabForms
             ISimpleAudioVolume volumeControl = null;
             for (int i = 0; i < count; i++)
             {
+                Thread.Sleep(5);
                 IAudioSessionControl2 ctl;
                 sessionEnumerator.GetSession(i, out ctl);
                 int cpid;

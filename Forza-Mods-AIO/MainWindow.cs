@@ -39,7 +39,7 @@ namespace Forza_Mods_AIO
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
         Version NewVer = null;
-        public static Version CurrVer = new Version("0.0.0.5");
+        public static Version CurrVer = new Version("0.0.0.7");
         string MOTDstring = "";
         private static CultureInfo resourceCulture;
         internal static byte[] SOk8LBUrRl
@@ -295,16 +295,17 @@ namespace Forza_Mods_AIO
                     ToolInfo.LBL_Attached.ForeColor = Color.Green;
                     EnableButtons();
                     ToolInfo.AOBScanProgress.Hide();
+                    Thread.Sleep(1);
                 }
             }
             else
             {
                 ToolInfo.LBL_Attached.Text = "Not Attached to FH4";
-                if(!ToolInfo.Visible && !Saveswapper.Visible)
+                ToolInfo.LBL_Attached.ForeColor = Color.Red;
+                DisableButtons();
+                ClearColours();
+                if (!ToolInfo.Visible && !Saveswapper.Visible)
                 {
-                    ToolInfo.LBL_Attached.ForeColor = Color.Red;
-                    DisableButtons();
-                    ClearColours();
                     BTN_TabInfo.BackColor = Color.FromArgb(45, 45, 48);
                     Panel_Info.BackColor = Color.FromArgb(150, 11, 166);
                     ClearTabItems();
@@ -320,6 +321,7 @@ namespace Forza_Mods_AIO
                 Speedhack.FrontAddr = "0"; Speedhack.DashAddr = "0"; Speedhack.LowAddr = "0"; Speedhack.BonnetAddr = "0"; Speedhack.FirstPersonAddr = "0";
                 Speedhack.FrontAddrLong = 0; Speedhack.DashAddrLong = 0; Speedhack.LowAddrLong = 0; Speedhack.BonnetAddrLong = 0; Speedhack.FirstPersonAddrLong = 0;
                 Speedhack.cycles = 0;
+                Thread.Sleep(1);
             }
         }
         private void InitialBGworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

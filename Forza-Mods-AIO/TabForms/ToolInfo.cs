@@ -12,6 +12,8 @@ using System.Drawing;
 using MechanikaDesign.WinForms.UI.ColorPicker;
 using System.Collections.Generic;
 using Forza_Mods_AIO.TabForms.LiveTuningForms;
+using Forza_Mods_AIO.Properties;
+using System.Web;
 
 namespace Forza_Mods_AIO
 {
@@ -39,6 +41,8 @@ namespace Forza_Mods_AIO
             VersionLabel.Text += MainWindow.CurrVer.ToString();
             File.Delete(Path.Combine(Path.GetTempPath(), "FH4_Stats.csv"));
             File.Delete(Path.Combine(Path.GetTempPath(), "FH4_Cars.csv"));
+            DonoPic.Image = Resources.bmac_grey;
+            DonoPic2.Image = Resources.paypal;
             //Mute.Enabled = false;
         }
 
@@ -134,7 +138,7 @@ namespace Forza_Mods_AIO
                                 e.Cancel = true;
                                 return;
                             }
-                            Thread.Sleep(1);
+                            Thread.Sleep(10);
                         }
                         Thread.Sleep(20000);
                         if ((DateTime.Now - Process.GetProcessesByName("ForzaHorizon4")[0].StartTime).TotalSeconds >= 25)
@@ -149,7 +153,7 @@ namespace Forza_Mods_AIO
                         e.Cancel = true;
                         return;
                     }
-                    Thread.Sleep(1);
+                    Thread.Sleep(10);
                 }
                 if (Volumeworker.CancellationPending)
                 {
@@ -157,7 +161,7 @@ namespace Forza_Mods_AIO
                     e.Cancel = true;
                     return;
                 }
-                Thread.Sleep(1);
+                Thread.Sleep(150);
             }
         }
         public static Color Rainbow(float progress)
@@ -454,7 +458,7 @@ namespace Forza_Mods_AIO
             {
                 Color rainbow = Rainbow(i);
                 t.UpdateThemeColour(rainbow);
-                Thread.Sleep(11);
+                Thread.Sleep(10);
                 i += (float)(Rainbowspeed / 10000);
                 RainbowColour = ColorTranslator.ToHtml(rainbow);
                 if (RainbowWorker.CancellationPending)
@@ -470,6 +474,15 @@ namespace Forza_Mods_AIO
         private void RainbowBox_MouseHover(object sender, EventArgs e)
         {
             ToolTip.Show("Sets theme to rainbow", RainbowBox);
+        }
+
+        private void DonoPic_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", "https://www.buymeacoffee.com/Yeethan69");
+        }
+        private void DonoPic2_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", "\"https://www.paypal.com/donate?hosted_button_id=DACQKRJ4HTZRN\"");
         }
     }
 }
