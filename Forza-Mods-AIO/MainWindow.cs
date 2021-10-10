@@ -58,26 +58,6 @@ namespace Forza_Mods_AIO
             this.TabHolder.Controls.Add(ToolInfo);
             ToolInfo.Visible = true;
             RPCclient = new DiscordRpcClient("841090098837323818");
-            RPCclient.Initialize();
-            DiscordRPC.Button[] Buttons = new DiscordRPC.Button[]
-            {
-                new DiscordRPC.Button() { Label = "Discord Link", Url = "https://discord.gg/N3m6E5V" },
-                new DiscordRPC.Button() { Label = "Download", Url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
-            };
-            RPCclient.SetPresence(new RichPresence()
-            {
-                Buttons = Buttons,
-                Details = "Reading Info",
-                State = "Being Epic",
-                Timestamps = Timestamps.Now,
-                Assets = new Assets()
-                {
-                    LargeImageKey = "aio2",
-                    LargeImageText = "Forza Mods AIO",
-                    SmallImageKey = "home",
-                    SmallImageText = "Reading Info"
-                }
-            });
         }
         private void MainWindow_Load(object sender, EventArgs e)
         {
@@ -157,7 +137,8 @@ namespace Forza_Mods_AIO
                     }
                 }
             }
-            File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip");
+            if(File.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip"))
+                File.Delete(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp\xW2ye4iaCGSekMth.zip");
 
             string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
             bool Exists = File.Exists(SettingsPath);
@@ -169,20 +150,22 @@ namespace Forza_Mods_AIO
                 Settings["Settings"]["Rainbow Speed"] = "1";
                 Settings["Settings"]["Volume Control"] = "False";
                 Settings["Settings"]["Volume"] = "5";
+                Settings["Settings"]["Discord Rich Presence"] = "True";
                 SettingsParser.SaveFile(SettingsPath, Settings);
                 Settings = SettingsParser.ReadFile(SettingsPath);
                 float Speed = Convert.ToSingle(Settings["Settings"]["Rainbow Speed"]);
                 string TC = Settings["Settings"]["Theme Colour"];
+                ToolInfo.t.RPCBox.Enabled = true;
                 ToolInfo.Rainbowspeed = Speed;
                 ToolInfo.RainbowSpeed.Value = (decimal)Speed;
                 ToolInfo.VolNum.Value = int.Parse(Settings["Settings"]["Volume"]);
                 ToolInfo.RainbowSpeed.Enabled = false;
-                MainWindow.ThemeColour = TC;
-                ToolInfo.UpdateThemeColour(ColorTranslator.FromHtml(MainWindow.ThemeColour));
-                ToolInfo.ColourPicker.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
-                ToolInfo.ColourSlider.ColorHSL = new HslColor(ColorTranslator.FromHtml(MainWindow.ThemeColour));
-                ToolInfo.ColourPicker.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
-                ToolInfo.ColourSlider.ColorRGB = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                ThemeColour = TC;
+                ToolInfo.UpdateThemeColour(ColorTranslator.FromHtml(ThemeColour));
+                ToolInfo.ColourPicker.ColorHSL = new HslColor(ColorTranslator.FromHtml(ThemeColour));
+                ToolInfo.ColourSlider.ColorHSL = new HslColor(ColorTranslator.FromHtml(ThemeColour));
+                ToolInfo.ColourPicker.ColorRGB = ColorTranslator.FromHtml(ThemeColour);
+                ToolInfo.ColourSlider.ColorRGB = ColorTranslator.FromHtml(ThemeColour);
             }
             else
             {
@@ -211,6 +194,8 @@ namespace Forza_Mods_AIO
                 ToolInfo.VolNum.Value = int.Parse(Settings["Settings"]["Volume"]);
                 if (bool.Parse(Settings["Settings"]["Volume Control"]))
                     ToolInfo.Mute.Checked = true;
+                if (bool.Parse(Settings["Settings"]["Discord Rich Presence"]))
+                    ToolInfo.RPCBox.Checked = true;
             }
         }
 
@@ -307,7 +292,7 @@ namespace Forza_Mods_AIO
                 {
                     BTN_TabInfo.PerformClick();
                 }
-                if(ToolInfo.Visible == true)
+                if(ToolInfo.Visible == true && RPCclient.IsInitialized)
                 {
                     RPCclient.UpdateDetails("Reading Info");
                     RPCclient.UpdateSmallAsset("home", "reading info");
@@ -640,9 +625,12 @@ namespace Forza_Mods_AIO
             ClearTabItems();
             this.TabHolder.Controls.Add(ToolInfo);
             ToolInfo.Visible = true;
-            RPCclient.UpdateDetails("Reading Info");
-            RPCclient.UpdateSmallAsset("home", "reading info");
-            RPCclient.SynchronizeState();
+            if(RPCclient.IsInitialized)
+            {
+                RPCclient.UpdateDetails("Reading Info");
+                RPCclient.UpdateSmallAsset("home", "reading info");
+                RPCclient.SynchronizeState();
+            }
         }
         private void BTN_TabAddCars_Click(object sender, EventArgs e)
         {
@@ -656,9 +644,12 @@ namespace Forza_Mods_AIO
                 ClearTabItems();
                 this.TabHolder.Controls.Add(AddCars);
                 AddCars.Visible = true;
-                RPCclient.UpdateDetails("Editing Garage/Autoshow");
-                RPCclient.UpdateSmallAsset("car", "adding cars");
-                RPCclient.SynchronizeState();
+                if (RPCclient.IsInitialized)
+                {
+                    RPCclient.UpdateDetails("Editing Garage/Autoshow");
+                    RPCclient.UpdateSmallAsset("car", "adding cars");
+                    RPCclient.SynchronizeState();
+                }
             }
             else
             {
@@ -677,9 +668,12 @@ namespace Forza_Mods_AIO
                 ClearTabItems();
                 this.TabHolder.Controls.Add(StatsEditor);
                 StatsEditor.Visible = true;
-                RPCclient.UpdateDetails("Editing Stats");
-                RPCclient.UpdateSmallAsset("stats", "editing stats");
-                RPCclient.SynchronizeState();
+                if (RPCclient.IsInitialized)
+                {
+                    RPCclient.UpdateDetails("Editing Stats");
+                    RPCclient.UpdateSmallAsset("stats", "editing stats");
+                    RPCclient.SynchronizeState();
+                }
             }
             else
             {
@@ -695,10 +689,12 @@ namespace Forza_Mods_AIO
             ClearTabItems();
             this.TabHolder.Controls.Add(Saveswapper);
             Saveswapper.Visible = true;
-            RPCclient.UpdateDetails("Save Swapping (For Free)");
-            RPCclient.UpdateSmallAsset("save", "save swapping");
-            RPCclient.SynchronizeState();
-
+            if (RPCclient.IsInitialized)
+            {
+                RPCclient.UpdateDetails("Save Swapping (For Free)");
+                RPCclient.UpdateSmallAsset("save", "save swapping");
+                RPCclient.SynchronizeState();
+            }
         }
         private void BTN_TabLiveTuning_Click(object sender, EventArgs e)
         {
@@ -719,9 +715,12 @@ namespace Forza_Mods_AIO
                 TabForms.LiveTuningForms.Gears.g.GearsRefresh();
                 TabForms.LiveTuningForms.Alignment.a.CamberRefresh();
                 TabForms.LiveTuningForms.Alignment.a.ToeRefresh();
-                RPCclient.UpdateDetails("Live Tuning");
-                RPCclient.UpdateSmallAsset("tuning", "tuning");
-                RPCclient.SynchronizeState();
+                if (RPCclient.IsInitialized)
+                {
+                    RPCclient.UpdateDetails("Live Tuning");
+                    RPCclient.UpdateSmallAsset("tuning", "tuning");
+                    RPCclient.SynchronizeState();
+                }
             }
             else
             {
@@ -739,9 +738,12 @@ namespace Forza_Mods_AIO
                 ClearTabItems();
                 TabHolder.Controls.Add(speedhack);
                 speedhack.Visible = true;
-                RPCclient.UpdateDetails("Vroooming");
-                RPCclient.UpdateSmallAsset("speed", "Vroom");
-                RPCclient.SynchronizeState();
+                if (RPCclient.IsInitialized)
+                {
+                    RPCclient.UpdateDetails("Vroooming");
+                    RPCclient.UpdateSmallAsset("speed", "Vroom");
+                    RPCclient.SynchronizeState();
+                }
                 if(FirstLoad)
                     speedhack.ReadSpeedDefaultValues(); speedhack.SHReset(); FirstLoad = false;
             }
