@@ -340,6 +340,8 @@ namespace Forza_Mods_AIO
                         Speedhack.VolumeSetup();
                         Speedhack.BaseAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.Base, true, true)).FirstOrDefault() + 10656;
                         Speedhack.BaseAddr = Speedhack.BaseAddrLong.ToString("X");
+                        Speedhack.WorldRGBAddrLong = Speedhack.BaseAddrLong - 422832;
+                        Speedhack.WorldRGBAddr = Speedhack.WorldRGBAddrLong.ToString("X");
                     }
                     else if (Speedhack.Base3Addr == "FFFFFFFFFFFFF300" || Speedhack.Base3Addr == null || Speedhack.Base3Addr == "0")
                     {

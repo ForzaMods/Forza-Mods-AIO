@@ -372,6 +372,12 @@
     <Compile Include="TabForms\LiveTuningForms\Aero.designer.cs">
       <DependentUpon>Aero.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabForms\PopupForms\RGB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForms\PopupForms\RGB.Designer.cs">
+      <DependentUpon>RGB.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabForms\PopupForms\Error.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -465,6 +471,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TabForms\LiveTuningForms\Tyres.resx">
       <DependentUpon>Tyres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabForms\PopupForms\RGB.resx">
+      <DependentUpon>RGB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabForms\PopupForms\Error.resx">
       <DependentUpon>Error.cs</DependentUpon>

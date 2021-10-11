@@ -136,6 +136,7 @@ namespace Forza_Mods_AIO.TabForms
             this.WeirdWorker = new System.ComponentModel.BackgroundWorker();
             this.GravityWorker = new System.ComponentModel.BackgroundWorker();
             this.OOBWorker = new System.ComponentModel.BackgroundWorker();
+            this.WorldRGButton = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHWallNoClip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).BeginInit();
@@ -284,6 +285,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel7.Controls.Add(this.SaveSHDefault);
             this.panel7.Controls.Add(this.LoadSHDefault);
             this.panel7.Controls.Add(this.FOVScan_BTN);
+            this.panel7.Controls.Add(this.WorldRGButton);
             this.panel7.Controls.Add(this.TPButton);
             this.panel7.Controls.Add(this.LBL_Misc);
             this.panel7.Controls.Add(this.label10);
@@ -1788,6 +1790,20 @@ namespace Forza_Mods_AIO.TabForms
             this.OOBWorker.WorkerSupportsCancellation = true;
             this.OOBWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.OOBworker_DoWork);
             // 
+            // WorldRGButton
+            // 
+            this.WorldRGButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.WorldRGButton.FlatAppearance.BorderSize = 0;
+            this.WorldRGButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.WorldRGButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WorldRGButton.Location = new System.Drawing.Point(6, 102);
+            this.WorldRGButton.Name = "WorldRGButton";
+            this.WorldRGButton.Size = new System.Drawing.Size(75, 34);
+            this.WorldRGButton.TabIndex = 37;
+            this.WorldRGButton.Text = "RGB";
+            this.WorldRGButton.UseVisualStyleBackColor = false;
+            this.WorldRGButton.Click += new System.EventHandler(this.WorldRGButton_Click);
+            // 
             // Speedhack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -1972,5 +1988,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.ComponentModel.BackgroundWorker WeirdWorker;
         private System.ComponentModel.BackgroundWorker GravityWorker;
         private System.ComponentModel.BackgroundWorker OOBWorker;
+        private System.Windows.Forms.Button WorldRGButton;
     }
 }
