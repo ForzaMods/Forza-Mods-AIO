@@ -16,6 +16,7 @@ using SharpDX.DirectInput;
 using System.Globalization;
 using Forza_Mods_AIO.Properties;
 using System.Collections;
+using Forza_Mods_AIO.TabForms.PopupForms;
 
 namespace Forza_Mods_AIO.TabForms
 {
@@ -55,6 +56,7 @@ namespace Forza_Mods_AIO.TabForms
         public static long CurrentIDAddrLong;
         public static long OOBnopAddrLong;
         public static long SuperCarAddrLong;
+        public static long WorldRGBAddrLong;
 
         public static string Base;
         public static string Car1;
@@ -98,6 +100,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string allocationstring;
         public static string OOBnopAddr;
         public static string SuperCarAddr;
+        public static string WorldRGBAddr;
         public static string InPauseAddr;
         public static string CheckPointBaseAddr = null; public static string WayPointBaseAddr = null;
         public static string XPaddr = null; public static long XPaddrLong = 0; public static string XPAmountaddr = null; public static long XPAmountaddrLong = 0;
@@ -149,6 +152,7 @@ namespace Forza_Mods_AIO.TabForms
         static extern short GetAsyncKeyState(Keys vKey);
         [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(Int32 vKey);
+        public TabForms.PopupForms.RGB RGB = new TabForms.PopupForms.RGB();
         #endregion
 
         public Speedhack()
@@ -2088,6 +2092,12 @@ namespace Forza_Mods_AIO.TabForms
                         e.Cancel = true;
                 }
             }
+        }
+
+        private void WorldRGButton_Click(object sender, EventArgs e)
+        {
+            if (!Application.OpenForms.Cast<Form>().Any(form => form.Name == "RGB"))
+                RGB.Show();
         }
     }
 }
