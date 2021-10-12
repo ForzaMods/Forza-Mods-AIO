@@ -32,6 +32,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RGB));
             this.LBL_Title = new System.Windows.Forms.Label();
             this.TopPanel = new System.Windows.Forms.Panel();
+            this.BTN_Close = new System.Windows.Forms.Button();
             this.RedLBL = new System.Windows.Forms.Label();
             this.GreenLBL = new System.Windows.Forms.Label();
             this.BlueLBL = new System.Windows.Forms.Label();
@@ -39,8 +40,10 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.BlueBar = new LimitlessUI.Slider_WOC();
             this.GreenBar = new LimitlessUI.Slider_WOC();
             this.ResetButton = new System.Windows.Forms.Button();
-            this.BTN_Close = new System.Windows.Forms.Button();
+            this.SunAids = new Telerik.WinControls.UI.RadCheckBox();
+            this.SunAidsWorker = new System.ComponentModel.BackgroundWorker();
             this.TopPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SunAids)).BeginInit();
             this.SuspendLayout();
             // 
             // LBL_Title
@@ -75,6 +78,24 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.TopPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseDown);
             this.TopPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseMove);
             this.TopPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseUp);
+            // 
+            // BTN_Close
+            // 
+            this.BTN_Close.BackColor = System.Drawing.Color.Black;
+            this.BTN_Close.FlatAppearance.BorderSize = 0;
+            this.BTN_Close.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.BTN_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_Close.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Bold);
+            this.BTN_Close.ForeColor = System.Drawing.Color.Red;
+            this.BTN_Close.Location = new System.Drawing.Point(244, 0);
+            this.BTN_Close.Margin = new System.Windows.Forms.Padding(0);
+            this.BTN_Close.Name = "BTN_Close";
+            this.BTN_Close.Size = new System.Drawing.Size(35, 35);
+            this.BTN_Close.TabIndex = 9;
+            this.BTN_Close.TabStop = false;
+            this.BTN_Close.Text = "X";
+            this.BTN_Close.UseVisualStyleBackColor = false;
+            this.BTN_Close.Click += new System.EventHandler(this.BTN_Close_Click);
             // 
             // RedLBL
             // 
@@ -178,23 +199,44 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.ResetButton.UseVisualStyleBackColor = false;
             this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
-            // BTN_Close
+            // SunAids
             // 
-            this.BTN_Close.BackColor = System.Drawing.Color.Black;
-            this.BTN_Close.FlatAppearance.BorderSize = 0;
-            this.BTN_Close.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.BTN_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_Close.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Bold);
-            this.BTN_Close.ForeColor = System.Drawing.Color.Red;
-            this.BTN_Close.Location = new System.Drawing.Point(244, 0);
-            this.BTN_Close.Margin = new System.Windows.Forms.Padding(0);
-            this.BTN_Close.Name = "BTN_Close";
-            this.BTN_Close.Size = new System.Drawing.Size(35, 35);
-            this.BTN_Close.TabIndex = 9;
-            this.BTN_Close.TabStop = false;
-            this.BTN_Close.Text = "X";
-            this.BTN_Close.UseVisualStyleBackColor = false;
-            this.BTN_Close.Click += new System.EventHandler(this.BTN_Close_Click);
+            this.SunAids.DisplayStyle = Telerik.WinControls.DisplayStyle.Text;
+            this.SunAids.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.SunAids.Location = new System.Drawing.Point(183, 120);
+            this.SunAids.Name = "SunAids";
+            this.SunAids.Size = new System.Drawing.Size(89, 22);
+            this.SunAids.TabIndex = 39;
+            this.SunAids.Text = "Aids mode";
+            this.SunAids.ThemeName = "FluentDark";
+            this.SunAids.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.SunAids_ToggleStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.SunAids.GetChildAt(0))).DisplayStyle = Telerik.WinControls.DisplayStyle.Text;
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.SunAids.GetChildAt(0))).Text = "Aids mode";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // SunAidsWorker
+            // 
+            this.SunAidsWorker.WorkerReportsProgress = true;
+            this.SunAidsWorker.WorkerSupportsCancellation = true;
+            this.SunAidsWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SunAidsWorker_DoWork);
             // 
             // RGB
             // 
@@ -203,6 +245,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(279, 158);
             this.ControlBox = false;
+            this.Controls.Add(this.SunAids);
             this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.BlueBar);
             this.Controls.Add(this.GreenBar);
@@ -220,6 +263,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.Load += new System.EventHandler(this.RGB_Load);
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SunAids)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,5 +281,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
         public LimitlessUI.Slider_WOC GreenBar;
         private System.Windows.Forms.Button ResetButton;
         public System.Windows.Forms.Button BTN_Close;
+        public Telerik.WinControls.UI.RadCheckBox SunAids;
+        private System.ComponentModel.BackgroundWorker SunAidsWorker;
     }
 }

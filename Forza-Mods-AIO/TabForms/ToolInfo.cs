@@ -15,6 +15,7 @@ using Forza_Mods_AIO.TabForms.LiveTuningForms;
 using Forza_Mods_AIO.Properties;
 using System.Web;
 using DiscordRPC;
+using Forza_Mods_AIO.TabForms.PopupForms;
 
 namespace Forza_Mods_AIO
 {
@@ -337,6 +338,9 @@ namespace Forza_Mods_AIO
             Alignment.a.RearCamberBar.ForeColor = color;
             Alignment.a.FrontToeBar.ForeColor = color;
             Alignment.a.RearToeBar.ForeColor = color;
+            RGB.r.RedBar.ForeColor = color;
+            RGB.r.GreenBar.ForeColor = color;
+            RGB.r.BlueBar.ForeColor = color;
             /*
             double luminance = (0.299 * color.R + 0.587 * color.G + 0.114 * color.B) / 255;
             if (luminance > 0.5)
@@ -437,7 +441,7 @@ namespace Forza_Mods_AIO
                 DiscordRPC.Button[] Buttons = new DiscordRPC.Button[]
                 {
                     new DiscordRPC.Button() { Label = "Discord Link", Url = "https://discord.gg/N3m6E5V" },
-                    new DiscordRPC.Button() { Label = "Download", Url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
+                    new DiscordRPC.Button() { Label = "Download", Url = "https://github.com/Yeethan69/AIO" }
                 };
                 MainWindow.main.RPCclient.SetPresence(new RichPresence()
                 {
