@@ -115,7 +115,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
                 MainWindow.m.WriteMemory((Speedhack.WorldRGBAddrLong + 4).ToString("X"), "float", (GreenBar.Value / 1000000000000).ToString());
                 MainWindow.m.WriteMemory((Speedhack.WorldRGBAddrLong + 8).ToString("X"), "float", (BlueBar.Value / 1000000000000).ToString());
                 Thread.Sleep(10);
-                i += (float)(0.001);
+                i += (float)(AidsSpeed.Value / 10000);
                 if (SunAidsWorker.CancellationPending)
                     e.Cancel = true;
             }

@@ -2096,8 +2096,8 @@ namespace Forza_Mods_AIO.TabForms
 
         private void WorldRGButton_Click(object sender, EventArgs e)
         {
-            if (!Application.OpenForms.Cast<Form>().Any(form => form.Name == "RGB"))
-                RGB.Show();
+            RGB.Show();
+            RGB.Focus();
         }
     }
 }

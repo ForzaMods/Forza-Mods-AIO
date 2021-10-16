@@ -42,8 +42,10 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.ResetButton = new System.Windows.Forms.Button();
             this.SunAids = new Telerik.WinControls.UI.RadCheckBox();
             this.SunAidsWorker = new System.ComponentModel.BackgroundWorker();
+            this.AidsSpeed = new DarkUI.Controls.DarkNumericUpDown();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SunAids)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AidsSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // LBL_Title
@@ -191,7 +193,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.ResetButton.FlatAppearance.BorderSize = 0;
             this.ResetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ResetButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ResetButton.Location = new System.Drawing.Point(102, 114);
+            this.ResetButton.Location = new System.Drawing.Point(7, 118);
             this.ResetButton.Name = "ResetButton";
             this.ResetButton.Size = new System.Drawing.Size(75, 34);
             this.ResetButton.TabIndex = 38;
@@ -203,22 +205,22 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             // 
             this.SunAids.DisplayStyle = Telerik.WinControls.DisplayStyle.Text;
             this.SunAids.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.SunAids.Location = new System.Drawing.Point(183, 120);
+            this.SunAids.Location = new System.Drawing.Point(190, 124);
             this.SunAids.Name = "SunAids";
-            this.SunAids.Size = new System.Drawing.Size(89, 22);
+            this.SunAids.Size = new System.Drawing.Size(92, 20);
             this.SunAids.TabIndex = 39;
             this.SunAids.Text = "Aids mode";
             this.SunAids.ThemeName = "FluentDark";
             this.SunAids.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.SunAids_ToggleStateChanged);
             ((Telerik.WinControls.UI.RadCheckBoxElement)(this.SunAids.GetChildAt(0))).DisplayStyle = Telerik.WinControls.DisplayStyle.Text;
             ((Telerik.WinControls.UI.RadCheckBoxElement)(this.SunAids.GetChildAt(0))).Text = "Aids mode";
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
             ((Telerik.WinControls.Primitives.TextPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
             ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
@@ -238,6 +240,19 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.SunAidsWorker.WorkerSupportsCancellation = true;
             this.SunAidsWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SunAidsWorker_DoWork);
             // 
+            // AidsSpeed
+            // 
+            this.AidsSpeed.Location = new System.Drawing.Point(88, 124);
+            this.AidsSpeed.Name = "AidsSpeed";
+            this.AidsSpeed.Size = new System.Drawing.Size(96, 22);
+            this.AidsSpeed.TabIndex = 40;
+            this.AidsSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.AidsSpeed.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            // 
             // RGB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -245,6 +260,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(279, 158);
             this.ControlBox = false;
+            this.Controls.Add(this.AidsSpeed);
             this.Controls.Add(this.SunAids);
             this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.BlueBar);
@@ -264,6 +280,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SunAids)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AidsSpeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,5 +300,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
         public System.Windows.Forms.Button BTN_Close;
         public Telerik.WinControls.UI.RadCheckBox SunAids;
         private System.ComponentModel.BackgroundWorker SunAidsWorker;
+        public DarkUI.Controls.DarkNumericUpDown AidsSpeed;
     }
 }

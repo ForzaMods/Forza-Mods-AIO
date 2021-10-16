@@ -90,6 +90,7 @@ namespace Forza_Mods_AIO
                 Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
                 Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
                 Settings["Settings"]["Volume"] = VolNum.Value.ToString();
+                Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
                 if (!Volumeworker.IsBusy)
                     Volumeworker.RunWorkerAsync();
@@ -260,6 +261,7 @@ namespace Forza_Mods_AIO
                 Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
                 Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
                 Settings["Settings"]["Volume"] = VolNum.Value.ToString();
+                Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
             }
             else if (ColourPickerBox.Checked)
@@ -271,6 +273,7 @@ namespace Forza_Mods_AIO
                 Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
                 Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
                 Settings["Settings"]["Volume"] = VolNum.Value.ToString();
+                Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
                 //((Telerik.WinControls.Primitives.FillPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = color;
                 ((Telerik.WinControls.Primitives.BorderPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
@@ -501,6 +504,7 @@ namespace Forza_Mods_AIO
                 Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
                 Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
                 Settings["Settings"]["Volume"] = VolNum.Value.ToString();
+                Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
                 MainWindow.ThemeColour = RainbowColour;
                 UpdateThemeColour(ColorTranslator.FromHtml(RainbowColour));
