@@ -550,7 +550,6 @@ namespace Forza_Mods_AIO
         private Telerik.WinControls.UI.RadCheckBox ColourPickerBox;
         public MechanikaDesign.WinForms.UI.ColorPicker.ColorSliderVertical ColourSlider;
         public MechanikaDesign.WinForms.UI.ColorPicker.ColorBox2D ColourPicker;
-        private System.ComponentModel.BackgroundWorker RainbowWorker;
         private System.Windows.Forms.Label RainbowLabel;
         public Telerik.WinControls.UI.RadCheckBox RainbowBox;
         private Telerik.WinControls.Themes.Office2010BlackTheme office2010BlackTheme1;
@@ -566,5 +565,6 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.PictureBox DonoPic2D;
         private System.Windows.Forms.PictureBox DonoPicD;
         public Telerik.WinControls.UI.RadCheckBox RPCBox;
+        public System.ComponentModel.BackgroundWorker RainbowWorker;
     }
 }
