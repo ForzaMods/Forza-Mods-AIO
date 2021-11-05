@@ -35,6 +35,8 @@ namespace Forza_Mods_AIO
         //1 = ms store
         //2 = steam
         //3 = default
+        //4 = FH5 MS store
+        //5 = FH5 STEAM
         public int platform = 3;
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
@@ -232,7 +234,7 @@ namespace Forza_Mods_AIO
             while (true)
             {
                 Thread.Sleep(1);
-                if (!m.OpenProcess("ForzaHorizon4"))
+                if (!m.OpenProcess("ForzaHorizon4") && !m.OpenProcess("ForzaHorizon5"))
                 {
                     Speedhack.IsAttached = false;
                     ToolInfo.AOBScanProgress.Hide();
@@ -240,7 +242,7 @@ namespace Forza_Mods_AIO
                     Thread.Sleep(1000);
                     continue;
                 }
-                else if (Speedhack.done == false)
+                else if (Speedhack.done == false && !m.OpenProcess("ForzaHorizon5") )
                 {
                     DisableButtons();
                     if(count)
@@ -250,9 +252,14 @@ namespace Forza_Mods_AIO
                     }
                     count = false;
                 }
-                else
+                else if (m.OpenProcess("ForzaHorizon4"))
                 {
                     Speedhack.IsAttached = true;
+                    Thread.Sleep(500);
+                    InitialBGworker.ReportProgress(0);
+                }
+                else if (m.OpenProcess("ForzaHorizon5"))
+                {
                     Thread.Sleep(500);
                     InitialBGworker.ReportProgress(0);
                 }
@@ -276,37 +283,57 @@ namespace Forza_Mods_AIO
         */
         private void InitialBGworker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (Speedhack.IsAttached)
+            if (m.OpenProcess("ForzaHorizon5"))
             {
-                if (Speedhack.done == true)
-                {
-                    ToolInfo.LBL_Attached.Text = "Attached to FH4";
-                    ToolInfo.LBL_Attached.ForeColor = Color.Green;
-                    EnableButtons();
-                    ToolInfo.AOBScanProgress.Hide();
-                    Thread.Sleep(1);
-                }
-            }
-            else
-            {
-                ToolInfo.LBL_Attached.Text = "Not Attached to FH4";
-                ToolInfo.LBL_Attached.ForeColor = Color.Red;
-                DisableButtons();
-                if (!ToolInfo.Visible && !Saveswapper.Visible)
-                {
-                    BTN_TabInfo.PerformClick();
-                }
-                if(ToolInfo.Visible == true && RPCclient.IsInitialized)
+                ToolInfo.LBL_Attached.Text = "Attached to FH5";
+                ToolInfo.LBL_Attached.ForeColor = Color.Green;
+                ToolInfo.AOBScanProgress.Hide();
+                BTN_TabAddCars.Enabled = true;
+                BTN_TabSaveswap.Enabled = false;
+                Speedhack.IsAttached = true;
+                Thread.Sleep(1);
+                if (ToolInfo.Visible)
                 {
                     RPCclient.UpdateDetails("Reading Info");
                     RPCclient.UpdateSmallAsset("home", "reading info");
                     RPCclient.SynchronizeState();
                 }
-                Speedhack.FrontAddr = "0"; Speedhack.DashAddr = "0"; Speedhack.LowAddr = "0"; Speedhack.BonnetAddr = "0"; Speedhack.FirstPersonAddr = "0";
-                Speedhack.FrontAddrLong = 0; Speedhack.DashAddrLong = 0; Speedhack.LowAddrLong = 0; Speedhack.BonnetAddrLong = 0; Speedhack.FirstPersonAddrLong = 0;
-                Speedhack.cycles = 0;
-                Thread.Sleep(1);
             }
+            else if (m.OpenProcess("ForzaHorizon4"))
+            {
+                if (Speedhack.IsAttached)
+                {
+                    if (Speedhack.done == true)
+                    {
+                        ToolInfo.LBL_Attached.Text = "Attached to FH4";
+                        ToolInfo.LBL_Attached.ForeColor = Color.Green;
+                        EnableButtons();
+                        ToolInfo.AOBScanProgress.Hide();
+                        Thread.Sleep(1);
+                    }
+                }
+                else
+                {
+                    ToolInfo.LBL_Attached.Text = "Not Attached to FH4";
+                    ToolInfo.LBL_Attached.ForeColor = Color.Red;
+                    DisableButtons();
+                    if (!ToolInfo.Visible && !Saveswapper.Visible)
+                    {
+                        BTN_TabInfo.PerformClick();
+                    }
+                    if (ToolInfo.Visible == true && RPCclient.IsInitialized)
+                    {
+                        RPCclient.UpdateDetails("Reading Info");
+                        RPCclient.UpdateSmallAsset("home", "reading info");
+                        RPCclient.SynchronizeState();
+                    }
+                    Speedhack.FrontAddr = "0"; Speedhack.DashAddr = "0"; Speedhack.LowAddr = "0"; Speedhack.BonnetAddr = "0"; Speedhack.FirstPersonAddr = "0";
+                    Speedhack.FrontAddrLong = 0; Speedhack.DashAddrLong = 0; Speedhack.LowAddrLong = 0; Speedhack.BonnetAddrLong = 0; Speedhack.FirstPersonAddrLong = 0;
+                    Speedhack.cycles = 0;
+                    Thread.Sleep(1);
+                }
+            }
+
         }
         private void InitialBGworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
