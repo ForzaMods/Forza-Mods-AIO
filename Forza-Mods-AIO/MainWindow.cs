@@ -292,7 +292,7 @@ namespace Forza_Mods_AIO
                 BTN_TabSaveswap.Enabled = false;
                 Speedhack.IsAttached = true;
                 Thread.Sleep(1);
-                if (ToolInfo.Visible)
+                if (ToolInfo.Visible == true && RPCclient.IsInitialized)
                 {
                     RPCclient.UpdateDetails("Reading Info");
                     RPCclient.UpdateSmallAsset("home", "reading info");
