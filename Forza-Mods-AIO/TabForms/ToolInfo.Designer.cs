@@ -86,9 +86,9 @@ namespace Forza_Mods_AIO
             this.LBL_Attached.Location = new System.Drawing.Point(6, 2);
             this.LBL_Attached.Margin = new System.Windows.Forms.Padding(3);
             this.LBL_Attached.Name = "LBL_Attached";
-            this.LBL_Attached.Size = new System.Drawing.Size(163, 22);
+            this.LBL_Attached.Size = new System.Drawing.Size(178, 22);
             this.LBL_Attached.TabIndex = 16;
-            this.LBL_Attached.Text = "Not Attached to FH4";
+            this.LBL_Attached.Text = "Not Attached to FH4/5";
             // 
             // DraffsYT
             // 

@@ -314,7 +314,7 @@ namespace Forza_Mods_AIO
                 }
                 else
                 {
-                    ToolInfo.LBL_Attached.Text = "Not Attached to FH4";
+                    ToolInfo.LBL_Attached.Text = "Not Attached to FH4/5";
                     ToolInfo.LBL_Attached.ForeColor = Color.Red;
                     DisableButtons();
                     if (!ToolInfo.Visible && !Saveswapper.Visible)
