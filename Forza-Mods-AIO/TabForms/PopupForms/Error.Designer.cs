@@ -34,7 +34,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.TopPanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.Continue = new System.Windows.Forms.Button();
-            this.Devs = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
@@ -87,26 +86,13 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.Continue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.Continue.FlatAppearance.BorderSize = 0;
             this.Continue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Continue.Location = new System.Drawing.Point(107, 99);
+            this.Continue.Location = new System.Drawing.Point(18, 99);
             this.Continue.Name = "Continue";
             this.Continue.Size = new System.Drawing.Size(65, 22);
             this.Continue.TabIndex = 18;
             this.Continue.Text = "Continue";
             this.Continue.UseVisualStyleBackColor = false;
             this.Continue.Click += new System.EventHandler(this.Continue_Click);
-            // 
-            // Devs
-            // 
-            this.Devs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Devs.FlatAppearance.BorderSize = 0;
-            this.Devs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Devs.Location = new System.Drawing.Point(12, 99);
-            this.Devs.Name = "Devs";
-            this.Devs.Size = new System.Drawing.Size(89, 22);
-            this.Devs.TabIndex = 18;
-            this.Devs.Text = "Send to devs";
-            this.Devs.UseVisualStyleBackColor = false;
-            this.Devs.Click += new System.EventHandler(this.Devs_Click);
             // 
             // Exit
             // 
@@ -129,7 +115,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.ClientSize = new System.Drawing.Size(279, 133);
             this.ControlBox = false;
             this.Controls.Add(this.Exit);
-            this.Controls.Add(this.Devs);
             this.Controls.Add(this.Continue);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TopPanel);
@@ -153,7 +138,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
         private System.Windows.Forms.Panel TopPanel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Continue;
-        private System.Windows.Forms.Button Devs;
         private System.Windows.Forms.Button Exit;
     }
 }
