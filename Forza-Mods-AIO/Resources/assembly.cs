@@ -140,6 +140,8 @@ namespace Forza_Mods_AIO
             byte[] jmpBackBytes = longToByteArray(Speedhack.WayPointxASMAddrLong + 7 - (long)(CodeCave + 19)); // (address + jmp code) - address of end of code cave
             Array.Reverse(jmpBackBytes);
             string InsideCaveCodeString = "48893D22000000" + "0F1097A0030000E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty); // move reg to address within code cave + original code + jump back
+            if(!MainWindow.main.ForzaFour)
+                InsideCaveCodeString = "48893D22000000" + "0F109790020000E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
             byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
 
             MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
@@ -152,7 +154,7 @@ namespace Forza_Mods_AIO
             if (WayPointBaseAddr == "000000000000" && Speedhack.s.AutoWayPoint.Checked == false)
                 MessageBox.Show("Make a new waypoint");
 
-            while (WayPointBaseAddr == "000000000000" && !Speedhack.s.WayPointWorker.CancellationPending)
+            while ((WayPointBaseAddr == "000000000000" || WayPointBaseAddr == null) && !Speedhack.s.WayPointWorker.CancellationPending)
             {
                 WayBaseAddrArray = MainWindow.m.ReadBytes(((long)CodeCave + 41).ToString("X"), 6);
                 Array.Reverse(WayBaseAddrArray);
@@ -160,13 +162,13 @@ namespace Forza_Mods_AIO
             }
             if(!Speedhack.s.WayPointWorker.CancellationPending)
             {
-                Speedhack.WayPointxAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 928).ToString("X");
-                Speedhack.WayPointyAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 932).ToString("X");
-                Speedhack.WayPointzAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 936).ToString("X");
+                Speedhack.WayPointxAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 656).ToString("X");
+                Speedhack.WayPointyAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 660).ToString("X");
+                Speedhack.WayPointzAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 664).ToString("X");
                 float WayPointX = MainWindow.m.ReadFloat(Speedhack.WayPointxAddr, round: false);
-                float WayPointY = MainWindow.m.ReadFloat(Speedhack.WayPointyAddr, round: false);
+                float WayPointY = MainWindow.m.ReadFloat(Speedhack.WayPointyAddr, round: false) + 3;
                 float WayPointZ = MainWindow.m.ReadFloat(Speedhack.WayPointzAddr, round: false);
-                if (WayPointX != 0 && WayPointX != 0 && WayPointX != 0)
+                if ((WayPointX != 0 && WayPointX != 0 && WayPointX != 0) && !Speedhack.s.AutoWayPoint.Checked)
                 {
                     MainWindow.m.WriteMemory(Speedhack.xAddr, "float", WayPointX.ToString());
                     MainWindow.m.WriteMemory(Speedhack.yAddr, "float", WayPointY.ToString());
@@ -174,7 +176,7 @@ namespace Forza_Mods_AIO
                 }
             }
 
-            byte[] WayPointCodeBefore = new byte[7] { 0x0F, 0x10, 0x97, 0xA0, 0x03, 0x00, 0x00};
+            byte[] WayPointCodeBefore = new byte[7] { 0x0F, 0x10, 0x97, 0x90, 0x02, 0x00, 0x00};
             MainWindow.m.WriteBytes(Speedhack.WayPointxASMAddr, WayPointCodeBefore);
         }
 
@@ -224,6 +226,8 @@ namespace Forza_Mods_AIO
             byte[] jmpBackBytes = longToByteArray(Speedhack.XPaddrLong + 7 - (long)(CodeCave3 + 16));
             Array.Reverse(jmpBackBytes);
             string InsideCaveCodeString = "F30F2CC6C745B8" + BitConverter.ToString(XPAmountArray).Replace("-", String.Empty) + "E9" + (BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty)).Replace("FFFFFFFF", String.Empty);
+            if(!MainWindow.main.ForzaFour)
+                InsideCaveCodeString = "F30F2CC6C745B0" + BitConverter.ToString(XPAmountArray).Replace("-", String.Empty) + "E9" + (BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty)).Replace("FFFFFFFF", String.Empty);
             byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
 
             MainWindow.m.WriteBytes(Speedhack.XPAmountaddr, OnePoint);

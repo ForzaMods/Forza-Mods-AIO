@@ -62,9 +62,12 @@ namespace Forza_Mods_AIO.TabForms
                 string nameColumnName = "Name";
                 string valueColumnName = "Type";
                 string Type = null;
-                long ScanStartAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 30000000000;
+                long ScanStartAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 50000000000;
                 long ScanEndAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 20000000000;
-                yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "F8 5F ? ? ? 7F 00 00", true, true)).ToList();
+                if(MainWindow.main.ForzaFour)
+                    yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "F8 5F ? ? ? 7F 00 00", true, true)).ToList();
+                else
+                    yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "58 13 ? ? ? 7F 00 00", true, true)).ToList();
                 foreach (var item in yeet)
                 {
                     if (MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true).Length > 1
@@ -97,6 +100,7 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     StatsTableData.Rows.Add(yeetstring[i], yeetstring2[i]);
                 }
+                System.IO.File.WriteAllLines("Stats.txt", yeetstring);
                 File.Delete(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"));
                 StatsTable.DataSource = StatsTableData;
                 StatsTable.Update();

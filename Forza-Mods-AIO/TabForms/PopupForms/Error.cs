@@ -59,7 +59,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
         }
         static void SendWebhook(string title, string message, string colour)
         {
-            WebRequest wr = (HttpWebRequest)WebRequest.Create("https://canary.discord.com/api/webhooks/883356912945606726/SmWV5NZR83e4cfDzBawsugb6Ta0x5MUgi0yncZSj-H3fMHUz91h9bI8Kje1UyZrzDmEz");
+            WebRequest wr = (HttpWebRequest)WebRequest.Create("https://canary.discord.com/api/webhooks/906700511036719124/thEWf6uR5xASsr61AfMyAr3jnPwvPI5-dlbZSHGfB0b6FJI-jvE0xmajLsJxWZJa75TE");
             wr.ContentType = "application/json";
             wr.Method = "POST";
             using (var sw = new StreamWriter(wr.GetRequestStream()))

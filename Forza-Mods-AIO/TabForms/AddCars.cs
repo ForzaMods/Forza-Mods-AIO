@@ -82,10 +82,10 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+4FA3C91", "string", "                  ");
+                    MainWindow.m.WriteMemory("base+6370489", "string", "                  ");
                     //MainWindow.m.WriteMemory("base+4FA3C79", "string", "                     ");
-                    MainWindow.m.WriteMemory("base+4FA3CE1", "string", "                            ");
-                    MainWindow.m.WriteMemory("base+4FA3D29", "string", "                                           ");
+                    MainWindow.m.WriteMemory("base+63704C1", "string", "                            ");
+                    MainWindow.m.WriteMemory("base+6370509", "string", "                                           ");
                 }
             }
             else if (!Box_AllCars.Checked)
@@ -116,10 +116,10 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+4FA3C91", "string", "AND NOT IsBarnFind");
+                    MainWindow.m.WriteMemory("base+6370489", "string", "AND NOT IsBarnFind");
                     //MainWindow.m.WriteMemory("base+4FA3C79", "string", "AND NOT IsMidnightCar");
-                    MainWindow.m.WriteMemory("base+4FA3CE1", "string", "AND NotAvailableInAutoshow=0");
-                    MainWindow.m.WriteMemory("base+4FA3D29", "string", "AND IsCarVisibleAndReleased(Garage.ModelId)");
+                    MainWindow.m.WriteMemory("base+63704C1", "string", "AND NotAvailableInAutoshow=0");
+                    MainWindow.m.WriteMemory("base+6370509", "string", "AND IsCarVisibleAndReleased(Garage.ModelId)");
                 }
             }
         }
@@ -150,9 +150,9 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+4FA3C91", "string", "                  ");
+                    MainWindow.m.WriteMemory("base+6370489", "string", "                  ");
                     //MainWindow.m.WriteMemory("base+4FA3C79", "string", "                     ");
-                    MainWindow.m.WriteMemory("base+4FA3CFB", "string", "=1                                    ");
+                    MainWindow.m.WriteMemory("base+63704DB", "string", "=1                                    ");
                 }
             }
             else if (!Box_RareCars.Checked)
@@ -180,9 +180,9 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+4FA3C91", "string", "AND NOT IsBarnFind");
+                    MainWindow.m.WriteMemory("base+6370489", "string", "AND NOT IsBarnFind");
                     //MainWindow.m.WriteMemory("base+4FA3C79", "string", "AND NOT IsMidnightCar");
-                    MainWindow.m.WriteMemory("base+4FA3CFB", "string", "=0                                    ");
+                    MainWindow.m.WriteMemory("base+63704DB", "string", "=0                                    ");
                 }
             }
         }
@@ -212,9 +212,9 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+4FA4519", "string", "           1215=");
-                    MainWindow.m.WriteMemory("base+4FA3CA9", "string", "      1215=");
-                    MainWindow.m.WriteMemory("base+4FA3CE1", "string", "AND Garage.Id=1215          ");
+                    MainWindow.m.WriteMemory("base+6370C69", "string", "           1215=");
+                    MainWindow.m.WriteMemory("base+63704A1", "string", "      1215=");
+                    MainWindow.m.WriteMemory("base+63704C1", "string", "AND Garage.Id=1215          ");
                 }
             }
             else if (!Box_Null.Checked)
@@ -242,9 +242,9 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+4FA4519", "string", "Garage.ModelId!=");
-                    MainWindow.m.WriteMemory("base+4FA3CA9", "string", "Garage.Id!=");
-                    MainWindow.m.WriteMemory("base+4FA3CE1", "string", "AND NotAvailableInAutoshow=0");
+                    MainWindow.m.WriteMemory("base+6370C69", "string", "Garage.ModelId!=");
+                    MainWindow.m.WriteMemory("base+63704A1", "string", "Garage.Id!=");
+                    MainWindow.m.WriteMemory("base+63704C1", "string", "AND NotAvailableInAutoshow=0");
                 }
             }
         }
@@ -317,8 +317,8 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+5038320", "string", "b");
-                    MainWindow.m.WriteMemory("base+4F68808", "string", "b");
+                    MainWindow.m.WriteMemory("base+63ADA40", "string", "b");
+                    MainWindow.m.WriteMemory("base+6320320", "string", "b");
                 }
             }
             else if (!Box_RemoveCars.Checked)
@@ -341,8 +341,8 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+5038320", "string", "D");
-                    MainWindow.m.WriteMemory("base+4F68808", "string", "I");
+                    MainWindow.m.WriteMemory("base+63ADA40", "string", "D");
+                    MainWindow.m.WriteMemory("base+6320320", "string", "I");
                 }
             }
         }
@@ -373,7 +373,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+52DA2F0", "string", "UPDATE Data_Car SET BaseCost = 0 WHERE BaseCost >0                                                                                                                                                                                                                                                                                                                         ");
+                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE Data_Car SET BaseCost = 0 WHERE BaseCost >0                                                                                                                                                                                                                                                                                                                         ");
 
                 }
             }
@@ -401,7 +401,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+52DA2F0", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
 
                 }
             }
@@ -432,7 +432,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+52DA2F0", "string", "UPDATE Profile0_Career_Garage SET LiveryFileName='', VersionedLiveryId='00000000-0000-0000-0000-000000000000'; UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                                            ");
+                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE Profile0_Career_Garage SET LiveryFileName='', VersionedLiveryId='00000000-0000-0000-0000-000000000000'; UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                                            ");
 
                 }
             }
@@ -462,7 +462,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+52DA2F0", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
 
                 }
             }
@@ -495,7 +495,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+52DA2F0", "string", "UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                            ");
+                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                            ");
 
                 }
             }
@@ -525,7 +525,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+52DA2F0", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
 
                 }
             }
@@ -556,7 +556,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+52DA2F0", "string", "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
+                    MainWindow.m.WriteMemory("base+65C1830", "string", "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
 
                 }
             }
@@ -586,7 +586,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+52DA2F0", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
 
                 }
             }
@@ -617,7 +617,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+52DA2F0", "string", "UPDATE UpgradePresetPackages SET Purchasable=1 WHERE Purchasable=0                                                                                                                                                                                                                                                                                                         ");
+                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE UpgradePresetPackages SET Purchasable=1 WHERE Purchasable=0                                                                                                                                                                                                                                                                                                         ");
 
                 }
             }
@@ -646,7 +646,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+52DA2F0", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
 
                 }
             }
@@ -675,7 +675,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+509DDE9", "string", "WHERE Id >=0 ORDER BY Id                                                                                                                      ");
+                    MainWindow.m.WriteMemory("base+63A6049", "string", "WHERE Id >=0 ORDER BY Id                                                                                                                      ");
 
                 }
             }
@@ -697,7 +697,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+509DDE9", "string", "INNER JOIN Livery_DecalsSortOrder ON (Livery_Decals.ID = Livery_DecalsSortOrder.Livery_DecalID) WHERE MakeID = %d ORDER BY Sequence, AlphaSort");
+                    MainWindow.m.WriteMemory("base+63A6049", "string", "INNER JOIN Livery_DecalsSortOrder ON (Livery_Decals.ID = Livery_DecalsSortOrder.Livery_DecalID) WHERE MakeID = %d ORDER BY Sequence, AlphaSort");
 
                 }
             }
@@ -727,7 +727,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+52DA2F0", "string", "DELETE FROM Profile0_Career_Garage WHERE Id > 0                                                                                                                                                                                                                                                                                                                            ");
+                    MainWindow.m.WriteMemory("base+65C1830", "string", "DELETE FROM Profile0_Career_Garage WHERE Id > 0                                                                                                                                                                                                                                                                                                                            ");
 
                 }
             }
@@ -755,7 +755,7 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+52DA2F0", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
 
                 }
             }

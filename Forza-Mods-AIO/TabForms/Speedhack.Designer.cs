@@ -137,6 +137,8 @@ namespace Forza_Mods_AIO.TabForms
             this.WeirdWorker = new System.ComponentModel.BackgroundWorker();
             this.GravityWorker = new System.ComponentModel.BackgroundWorker();
             this.OOBWorker = new System.ComponentModel.BackgroundWorker();
+            this.g2gWorker = new System.ComponentModel.BackgroundWorker();
+            this.SuperCarCheck = new System.ComponentModel.BackgroundWorker();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHWallNoClip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).BeginInit();
@@ -1804,6 +1806,18 @@ namespace Forza_Mods_AIO.TabForms
             this.OOBWorker.WorkerSupportsCancellation = true;
             this.OOBWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.OOBworker_DoWork);
             // 
+            // g2gWorker
+            // 
+            this.g2gWorker.WorkerReportsProgress = true;
+            this.g2gWorker.WorkerSupportsCancellation = true;
+            this.g2gWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.g2gWorker_DoWork);
+            // 
+            // SuperCarCheck
+            // 
+            this.SuperCarCheck.WorkerReportsProgress = true;
+            this.SuperCarCheck.WorkerSupportsCancellation = true;
+            this.SuperCarCheck.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SuperCarCheck_DoWork);
+            // 
             // Speedhack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -1989,5 +2003,7 @@ namespace Forza_Mods_AIO.TabForms
         private System.ComponentModel.BackgroundWorker GravityWorker;
         private System.ComponentModel.BackgroundWorker OOBWorker;
         private System.Windows.Forms.Button WorldRGButton;
+        private System.ComponentModel.BackgroundWorker g2gWorker;
+        private System.ComponentModel.BackgroundWorker SuperCarCheck;
     }
 }
