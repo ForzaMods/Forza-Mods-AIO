@@ -78,6 +78,8 @@ namespace Forza_Mods_AIO
                     //MainWindow.m.WriteMemory("base+4CB0D79", "string", "                     ");
                     MainWindow.m.WriteMemory("base+60BAB11", "string", "                            ");
                     MainWindow.m.WriteMemory("base+60BAB59", "string", "                                           ");
+                    MainWindow.m.WriteMemory("base+60050F0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
+                    
 
                 }
                 else if (MainWindow.main.platform == 5)
@@ -86,6 +88,7 @@ namespace Forza_Mods_AIO
                     //MainWindow.m.WriteMemory("base+4FA3C79", "string", "                     ");
                     MainWindow.m.WriteMemory("base+63704C1", "string", "                            ");
                     MainWindow.m.WriteMemory("base+6370509", "string", "                                           ");
+                    MainWindow.m.WriteMemory("base+62BAAA0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
                 }
             }
             else if (!Box_AllCars.Checked)
@@ -113,6 +116,7 @@ namespace Forza_Mods_AIO
                     //MainWindow.m.WriteMemory("base+4CB0D79", "string", "AND NOT IsMidnightCar");
                     MainWindow.m.WriteMemory("base+60BAB11", "string", "AND NotAvailableInAutoshow=0");
                     MainWindow.m.WriteMemory("base+60BAB59", "string", "AND IsCarVisibleAndReleased(Garage.ModelId)");
+                    MainWindow.m.WriteMemory("base+60050F0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
@@ -120,6 +124,7 @@ namespace Forza_Mods_AIO
                     //MainWindow.m.WriteMemory("base+4FA3C79", "string", "AND NOT IsMidnightCar");
                     MainWindow.m.WriteMemory("base+63704C1", "string", "AND NotAvailableInAutoshow=0");
                     MainWindow.m.WriteMemory("base+6370509", "string", "AND IsCarVisibleAndReleased(Garage.ModelId)");
+                    MainWindow.m.WriteMemory("base+62BAAA0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
                 }
             }
         }
@@ -147,12 +152,14 @@ namespace Forza_Mods_AIO
                     MainWindow.m.WriteMemory("base+60BAAD9", "string", "                  ");
                     //MainWindow.m.WriteMemory("base+4CB0D79", "string", "                     ");
                     MainWindow.m.WriteMemory("base+60BAB2B", "string", "=1                                    ");
+                    MainWindow.m.WriteMemory("base+60050F0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
                     MainWindow.m.WriteMemory("base+6370489", "string", "                  ");
                     //MainWindow.m.WriteMemory("base+4FA3C79", "string", "                     ");
                     MainWindow.m.WriteMemory("base+63704DB", "string", "=1                                    ");
+                    MainWindow.m.WriteMemory("base+62BAAA0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
                 }
             }
             else if (!Box_RareCars.Checked)
@@ -177,12 +184,14 @@ namespace Forza_Mods_AIO
                     MainWindow.m.WriteMemory("base+60BAAD9", "string", "AND NOT IsBarnFind");
                     //MainWindow.m.WriteMemory("base+4CB0D79", "string", "AND NOT IsMidnightCar");
                     MainWindow.m.WriteMemory("base+60BAB2B", "string", "=0                                    ");
+                    MainWindow.m.WriteMemory("base+60050F0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
                     MainWindow.m.WriteMemory("base+6370489", "string", "AND NOT IsBarnFind");
                     //MainWindow.m.WriteMemory("base+4FA3C79", "string", "AND NOT IsMidnightCar");
                     MainWindow.m.WriteMemory("base+63704DB", "string", "=0                                    ");
+                    MainWindow.m.WriteMemory("base+62BAAA0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
                 }
             }
         }
@@ -209,12 +218,14 @@ namespace Forza_Mods_AIO
                     MainWindow.m.WriteMemory("base+60BB2B9", "string", "           1215=");
                     MainWindow.m.WriteMemory("base+60BAAF1", "string", "      1215=");
                     MainWindow.m.WriteMemory("base+60BAB11", "string", "AND Garage.Id=1215          ");
+                    MainWindow.m.WriteMemory("base+60050F0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
                     MainWindow.m.WriteMemory("base+6370C69", "string", "           1215=");
                     MainWindow.m.WriteMemory("base+63704A1", "string", "      1215=");
                     MainWindow.m.WriteMemory("base+63704C1", "string", "AND Garage.Id=1215          ");
+                    MainWindow.m.WriteMemory("base+62BAAA0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
                 }
             }
             else if (!Box_Null.Checked)
@@ -239,12 +250,14 @@ namespace Forza_Mods_AIO
                     MainWindow.m.WriteMemory("base+60BB2B9", "string", "Garage.ModelId!=");
                     MainWindow.m.WriteMemory("base+60BAAF1", "string", "Garage.Id!=");
                     MainWindow.m.WriteMemory("base+60BAB11", "string", "AND NotAvailableInAutoshow=0");
+                    MainWindow.m.WriteMemory("base+60050F0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
                     MainWindow.m.WriteMemory("base+6370C69", "string", "Garage.ModelId!=");
                     MainWindow.m.WriteMemory("base+63704A1", "string", "Garage.Id!=");
                     MainWindow.m.WriteMemory("base+63704C1", "string", "AND NotAvailableInAutoshow=0");
+                    MainWindow.m.WriteMemory("base+62BAAA0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
                 }
             }
         }
