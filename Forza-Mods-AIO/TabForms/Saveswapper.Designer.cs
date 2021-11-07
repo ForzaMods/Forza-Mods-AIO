@@ -30,41 +30,22 @@ namespace Forza_Mods_AIO.TabForms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Saveswapper));
-            this.Radio_MS = new System.Windows.Forms.RadioButton();
-            this.Radio_Steam = new System.Windows.Forms.RadioButton();
             this.LST_Accounts = new System.Windows.Forms.ListBox();
             this.LST_Savegames = new System.Windows.Forms.ListBox();
-            this.TB_ACAutoshow = new System.Windows.Forms.CheckBox();
-            this.TXT_ACGuide = new System.Windows.Forms.RichTextBox();
+            this.TXT_SaveInfo = new System.Windows.Forms.RichTextBox();
             this.BTN_SwapSave = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.LBL_ACSortingMethod = new System.Windows.Forms.Label();
+            this.BTN_Backup = new System.Windows.Forms.Button();
+            this.LBL_Account = new System.Windows.Forms.Label();
             this.GamertagResolve = new System.ComponentModel.BackgroundWorker();
+            this.HiddenRadio = new System.Windows.Forms.RadioButton();
+            this.GamebarAttach = new System.ComponentModel.BackgroundWorker();
+            this.BTN_ACCRefresh = new System.Windows.Forms.Button();
+            this.BTN_Help = new System.Windows.Forms.Button();
+            this.LST_Resolved = new System.Windows.Forms.Label();
+            this.ResolvingWorker = new System.ComponentModel.BackgroundWorker();
+            this.TB_Backup = new Telerik.WinControls.UI.RadCheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.TB_Backup)).BeginInit();
             this.SuspendLayout();
-            // 
-            // Radio_MS
-            // 
-            this.Radio_MS.AutoSize = true;
-            this.Radio_MS.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Radio_MS.Location = new System.Drawing.Point(60, 68);
-            this.Radio_MS.Name = "Radio_MS";
-            this.Radio_MS.Size = new System.Drawing.Size(129, 23);
-            this.Radio_MS.TabIndex = 28;
-            this.Radio_MS.TabStop = true;
-            this.Radio_MS.Text = "Microsoft Store";
-            this.Radio_MS.UseVisualStyleBackColor = true;
-            // 
-            // Radio_Steam
-            // 
-            this.Radio_Steam.AutoSize = true;
-            this.Radio_Steam.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Radio_Steam.Location = new System.Drawing.Point(60, 93);
-            this.Radio_Steam.Name = "Radio_Steam";
-            this.Radio_Steam.Size = new System.Drawing.Size(69, 23);
-            this.Radio_Steam.TabIndex = 29;
-            this.Radio_Steam.TabStop = true;
-            this.Radio_Steam.Text = "Steam";
-            this.Radio_Steam.UseVisualStyleBackColor = true;
             // 
             // LST_Accounts
             // 
@@ -87,49 +68,27 @@ namespace Forza_Mods_AIO.TabForms
             this.LST_Savegames.ForeColor = System.Drawing.Color.White;
             this.LST_Savegames.FormattingEnabled = true;
             this.LST_Savegames.ItemHeight = 18;
-            this.LST_Savegames.Items.AddRange(new object[] {
-            "save1",
-            "save2",
-            "save3",
-            "=================",
-            "customsave1",
-            "customsave2",
-            "customsave3",
-            "=================",
-            "autobackup1",
-            "autobackup2",
-            "autobackup3"});
             this.LST_Savegames.Location = new System.Drawing.Point(254, 12);
             this.LST_Savegames.Name = "LST_Savegames";
             this.LST_Savegames.Size = new System.Drawing.Size(234, 414);
             this.LST_Savegames.TabIndex = 31;
+            this.LST_Savegames.SelectedIndexChanged += new System.EventHandler(this.LST_Savegames_SelectedIndexChanged);
             // 
-            // TB_ACAutoshow
+            // TXT_SaveInfo
             // 
-            this.TB_ACAutoshow.AutoSize = true;
-            this.TB_ACAutoshow.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TB_ACAutoshow.Location = new System.Drawing.Point(51, 122);
-            this.TB_ACAutoshow.Name = "TB_ACAutoshow";
-            this.TB_ACAutoshow.Size = new System.Drawing.Size(147, 23);
-            this.TB_ACAutoshow.TabIndex = 33;
-            this.TB_ACAutoshow.Text = "Auto Backup Save";
-            this.TB_ACAutoshow.UseVisualStyleBackColor = true;
-            // 
-            // TXT_ACGuide
-            // 
-            this.TXT_ACGuide.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.TXT_ACGuide.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TXT_ACGuide.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.TXT_ACGuide.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TXT_ACGuide.ForeColor = System.Drawing.Color.White;
-            this.TXT_ACGuide.Location = new System.Drawing.Point(491, 1);
-            this.TXT_ACGuide.Margin = new System.Windows.Forms.Padding(0);
-            this.TXT_ACGuide.Name = "TXT_ACGuide";
-            this.TXT_ACGuide.ReadOnly = true;
-            this.TXT_ACGuide.Size = new System.Drawing.Size(511, 425);
-            this.TXT_ACGuide.TabIndex = 34;
-            this.TXT_ACGuide.TabStop = false;
-            this.TXT_ACGuide.Text = resources.GetString("TXT_ACGuide.Text");
+            this.TXT_SaveInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.TXT_SaveInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TXT_SaveInfo.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TXT_SaveInfo.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TXT_SaveInfo.ForeColor = System.Drawing.Color.White;
+            this.TXT_SaveInfo.Location = new System.Drawing.Point(491, 1);
+            this.TXT_SaveInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.TXT_SaveInfo.Name = "TXT_SaveInfo";
+            this.TXT_SaveInfo.ReadOnly = true;
+            this.TXT_SaveInfo.Size = new System.Drawing.Size(500, 425);
+            this.TXT_SaveInfo.TabIndex = 34;
+            this.TXT_SaveInfo.TabStop = false;
+            this.TXT_SaveInfo.Text = resources.GetString("TXT_SaveInfo.Text");
             // 
             // BTN_SwapSave
             // 
@@ -149,33 +108,137 @@ namespace Forza_Mods_AIO.TabForms
             this.BTN_SwapSave.UseVisualStyleBackColor = false;
             this.BTN_SwapSave.Click += new System.EventHandler(this.BTN_SwapSave_Click);
             // 
-            // button1
+            // BTN_Backup
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Open Sans", 11F);
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(12, 151);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(236, 50);
-            this.button1.TabIndex = 35;
-            this.button1.TabStop = false;
-            this.button1.Text = "Backup Save";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.BTN_Backup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.BTN_Backup.FlatAppearance.BorderSize = 0;
+            this.BTN_Backup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
+            this.BTN_Backup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.BTN_Backup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_Backup.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.BTN_Backup.ForeColor = System.Drawing.Color.White;
+            this.BTN_Backup.Location = new System.Drawing.Point(12, 97);
+            this.BTN_Backup.Name = "BTN_Backup";
+            this.BTN_Backup.Size = new System.Drawing.Size(236, 50);
+            this.BTN_Backup.TabIndex = 35;
+            this.BTN_Backup.TabStop = false;
+            this.BTN_Backup.Text = "Backup Save";
+            this.BTN_Backup.UseVisualStyleBackColor = false;
+            this.BTN_Backup.Click += new System.EventHandler(this.BTN_Backup_Click);
             // 
-            // LBL_ACSortingMethod
+            // LBL_Account
             // 
-            this.LBL_ACSortingMethod.AutoSize = true;
-            this.LBL_ACSortingMethod.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_ACSortingMethod.Location = new System.Drawing.Point(12, 278);
-            this.LBL_ACSortingMethod.Name = "LBL_ACSortingMethod";
-            this.LBL_ACSortingMethod.Size = new System.Drawing.Size(116, 19);
-            this.LBL_ACSortingMethod.TabIndex = 36;
-            this.LBL_ACSortingMethod.Text = "Choose Account";
+            this.LBL_Account.AutoSize = true;
+            this.LBL_Account.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBL_Account.Location = new System.Drawing.Point(12, 278);
+            this.LBL_Account.Name = "LBL_Account";
+            this.LBL_Account.Size = new System.Drawing.Size(116, 19);
+            this.LBL_Account.TabIndex = 36;
+            this.LBL_Account.Text = "Choose Account";
+            // 
+            // GamertagResolve
+            // 
+            this.GamertagResolve.DoWork += new System.ComponentModel.DoWorkEventHandler(this.GamertagResolve_DoWork);
+            // 
+            // HiddenRadio
+            // 
+            this.HiddenRadio.AutoSize = true;
+            this.HiddenRadio.Checked = true;
+            this.HiddenRadio.Font = new System.Drawing.Font("Open Sans", 1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HiddenRadio.Location = new System.Drawing.Point(731, 319);
+            this.HiddenRadio.Name = "HiddenRadio";
+            this.HiddenRadio.Size = new System.Drawing.Size(21, 13);
+            this.HiddenRadio.TabIndex = 37;
+            this.HiddenRadio.TabStop = true;
+            this.HiddenRadio.Text = " ";
+            this.HiddenRadio.UseVisualStyleBackColor = true;
+            // 
+            // GamebarAttach
+            // 
+            this.GamebarAttach.DoWork += new System.ComponentModel.DoWorkEventHandler(this.GamebarAttach_DoWork);
+            this.GamebarAttach.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.GamebarAttach_RunWorkerCompleted);
+            // 
+            // BTN_ACCRefresh
+            // 
+            this.BTN_ACCRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.BTN_ACCRefresh.FlatAppearance.BorderSize = 0;
+            this.BTN_ACCRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
+            this.BTN_ACCRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.BTN_ACCRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_ACCRefresh.Font = new System.Drawing.Font("Open Sans", 8F);
+            this.BTN_ACCRefresh.ForeColor = System.Drawing.Color.White;
+            this.BTN_ACCRefresh.Location = new System.Drawing.Point(130, 267);
+            this.BTN_ACCRefresh.Name = "BTN_ACCRefresh";
+            this.BTN_ACCRefresh.Size = new System.Drawing.Size(118, 30);
+            this.BTN_ACCRefresh.TabIndex = 38;
+            this.BTN_ACCRefresh.TabStop = false;
+            this.BTN_ACCRefresh.Text = "Refresh Accounts";
+            this.BTN_ACCRefresh.UseVisualStyleBackColor = false;
+            this.BTN_ACCRefresh.Click += new System.EventHandler(this.BTN_ACCRefresh_Click);
+            // 
+            // BTN_Help
+            // 
+            this.BTN_Help.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.BTN_Help.FlatAppearance.BorderSize = 0;
+            this.BTN_Help.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
+            this.BTN_Help.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.BTN_Help.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_Help.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.BTN_Help.ForeColor = System.Drawing.Color.White;
+            this.BTN_Help.Location = new System.Drawing.Point(12, 153);
+            this.BTN_Help.Name = "BTN_Help";
+            this.BTN_Help.Size = new System.Drawing.Size(236, 50);
+            this.BTN_Help.TabIndex = 39;
+            this.BTN_Help.TabStop = false;
+            this.BTN_Help.Text = "Help/Use Guide";
+            this.BTN_Help.UseVisualStyleBackColor = false;
+            this.BTN_Help.Click += new System.EventHandler(this.BTN_Help_Click);
+            // 
+            // LST_Resolved
+            // 
+            this.LST_Resolved.AutoSize = true;
+            this.LST_Resolved.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.LST_Resolved.Location = new System.Drawing.Point(128, 244);
+            this.LST_Resolved.Name = "LST_Resolved";
+            this.LST_Resolved.Size = new System.Drawing.Size(0, 20);
+            this.LST_Resolved.TabIndex = 40;
+            // 
+            // ResolvingWorker
+            // 
+            this.ResolvingWorker.WorkerReportsProgress = true;
+            this.ResolvingWorker.WorkerSupportsCancellation = true;
+            this.ResolvingWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ReolvingWorker_DoWork);
+            // 
+            // TB_Backup
+            // 
+            this.TB_Backup.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.TB_Backup.Location = new System.Drawing.Point(35, 68);
+            this.TB_Backup.Name = "TB_Backup";
+            this.TB_Backup.Size = new System.Drawing.Size(173, 20);
+            this.TB_Backup.TabIndex = 41;
+            this.TB_Backup.Text = "Backup while swapping";
+            this.TB_Backup.ThemeName = "FluentDark";
+            this.TB_Backup.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.TB_Backup_ToggleStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.TB_Backup.GetChildAt(0))).Text = "Backup while swapping";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TB_Backup.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
             // Saveswapper
             // 
@@ -183,35 +246,43 @@ namespace Forza_Mods_AIO.TabForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
-            this.Controls.Add(this.LBL_ACSortingMethod);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.TXT_ACGuide);
-            this.Controls.Add(this.TB_ACAutoshow);
+            this.Controls.Add(this.TB_Backup);
+            this.Controls.Add(this.LST_Resolved);
+            this.Controls.Add(this.BTN_Help);
+            this.Controls.Add(this.BTN_ACCRefresh);
+            this.Controls.Add(this.LBL_Account);
+            this.Controls.Add(this.BTN_Backup);
+            this.Controls.Add(this.TXT_SaveInfo);
             this.Controls.Add(this.LST_Savegames);
             this.Controls.Add(this.LST_Accounts);
-            this.Controls.Add(this.Radio_Steam);
-            this.Controls.Add(this.Radio_MS);
             this.Controls.Add(this.BTN_SwapSave);
+            this.Controls.Add(this.HiddenRadio);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Saveswapper";
             this.Text = "Saveswapper";
+            this.Load += new System.EventHandler(this.Saveswapper_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.TB_Backup)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.RadioButton Radio_MS;
-        private System.Windows.Forms.RadioButton Radio_Steam;
         private System.Windows.Forms.ListBox LST_Accounts;
         private System.Windows.Forms.ListBox LST_Savegames;
-        private System.Windows.Forms.CheckBox TB_ACAutoshow;
-        private System.Windows.Forms.RichTextBox TXT_ACGuide;
+        private System.Windows.Forms.RichTextBox TXT_SaveInfo;
         private System.Windows.Forms.Button BTN_SwapSave;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label LBL_ACSortingMethod;
+        private System.Windows.Forms.Button BTN_Backup;
+        private System.Windows.Forms.Label LBL_Account;
         private System.ComponentModel.BackgroundWorker GamertagResolve;
+        private System.Windows.Forms.RadioButton HiddenRadio;
+        private System.ComponentModel.BackgroundWorker GamebarAttach;
+        private System.Windows.Forms.Button BTN_ACCRefresh;
+        private System.Windows.Forms.Button BTN_Help;
+        private System.Windows.Forms.Label LST_Resolved;
+        private System.ComponentModel.BackgroundWorker ResolvingWorker;
+        public Telerik.WinControls.UI.RadCheckBox TB_Backup;
     }
 }

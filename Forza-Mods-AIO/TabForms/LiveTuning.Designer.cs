@@ -56,6 +56,7 @@ namespace Forza_Mods_AIO.TabForms
             // BTN_Damping
             // 
             this.BTN_Damping.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_Damping.Enabled = false;
             this.BTN_Damping.FlatAppearance.BorderSize = 0;
             this.BTN_Damping.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_Damping.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -90,10 +91,13 @@ namespace Forza_Mods_AIO.TabForms
             this.BTN_Alignment.Text = "Alignment";
             this.BTN_Alignment.UseVisualStyleBackColor = false;
             this.BTN_Alignment.Click += new System.EventHandler(this.BTN_Alignment_Click);
+            this.BTN_Alignment.MouseEnter += new System.EventHandler(this.BTN_Alignment_MouseEnter);
+            this.BTN_Alignment.MouseLeave += new System.EventHandler(this.BTN_Alignment_MouseLeave);
             // 
             // BTN_ARB
             // 
             this.BTN_ARB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_ARB.Enabled = false;
             this.BTN_ARB.FlatAppearance.BorderSize = 0;
             this.BTN_ARB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_ARB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -113,6 +117,7 @@ namespace Forza_Mods_AIO.TabForms
             // BTN_Springs
             // 
             this.BTN_Springs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_Springs.Enabled = false;
             this.BTN_Springs.FlatAppearance.BorderSize = 0;
             this.BTN_Springs.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_Springs.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -148,7 +153,7 @@ namespace Forza_Mods_AIO.TabForms
             this.BTN_Gears.UseVisualStyleBackColor = false;
             this.BTN_Gears.Click += new System.EventHandler(this.BTN_Gears_Click);
             this.BTN_Gears.MouseEnter += new System.EventHandler(this.BTN_Gears_MouseEnter);
-            this.BTN_Gears.MouseLeave += new System.EventHandler(this.BTN_Tyres_MouseLeave);
+            this.BTN_Gears.MouseLeave += new System.EventHandler(this.BTN_Gears_MouseLeave);
             // 
             // BTN_Tyres
             // 
@@ -236,6 +241,7 @@ namespace Forza_Mods_AIO.TabForms
             // BTN_Aero
             // 
             this.BTN_Aero.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_Aero.Enabled = false;
             this.BTN_Aero.FlatAppearance.BorderSize = 0;
             this.BTN_Aero.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_Aero.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -264,6 +270,7 @@ namespace Forza_Mods_AIO.TabForms
             // BTN_Brake
             // 
             this.BTN_Brake.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_Brake.Enabled = false;
             this.BTN_Brake.FlatAppearance.BorderSize = 0;
             this.BTN_Brake.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_Brake.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -292,6 +299,7 @@ namespace Forza_Mods_AIO.TabForms
             // BTN_Differential
             // 
             this.BTN_Differential.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_Differential.Enabled = false;
             this.BTN_Differential.FlatAppearance.BorderSize = 0;
             this.BTN_Differential.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_Differential.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));

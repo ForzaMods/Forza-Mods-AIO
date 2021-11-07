@@ -49,6 +49,7 @@ namespace Forza_Mods_AIO
             this.TabHolder = new System.Windows.Forms.Panel();
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
             this.InitialBGworker = new System.ComponentModel.BackgroundWorker();
+            this.windows8Theme1 = new Telerik.WinControls.Themes.Windows8Theme();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -127,6 +128,7 @@ namespace Forza_Mods_AIO
             // BTN_TabAddCars
             // 
             this.BTN_TabAddCars.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_TabAddCars.Enabled = false;
             this.BTN_TabAddCars.FlatAppearance.BorderSize = 0;
             this.BTN_TabAddCars.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabAddCars.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -139,7 +141,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabAddCars.Size = new System.Drawing.Size(166, 30);
             this.BTN_TabAddCars.TabIndex = 2;
             this.BTN_TabAddCars.TabStop = false;
-            this.BTN_TabAddCars.Text = "Add Cars";
+            this.BTN_TabAddCars.Text = "Autoshow/Garage";
             this.BTN_TabAddCars.UseVisualStyleBackColor = false;
             this.BTN_TabAddCars.Click += new System.EventHandler(this.BTN_TabAddCars_Click);
             this.BTN_TabAddCars.MouseEnter += new System.EventHandler(this.BTN_TabAddCars_MouseEnter);
@@ -148,6 +150,7 @@ namespace Forza_Mods_AIO
             // BTN_TabLiveTuning
             // 
             this.BTN_TabLiveTuning.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_TabLiveTuning.Enabled = false;
             this.BTN_TabLiveTuning.FlatAppearance.BorderSize = 0;
             this.BTN_TabLiveTuning.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabLiveTuning.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -190,6 +193,7 @@ namespace Forza_Mods_AIO
             // BTN_TabStatsEditor
             // 
             this.BTN_TabStatsEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_TabStatsEditor.Enabled = false;
             this.BTN_TabStatsEditor.FlatAppearance.BorderSize = 0;
             this.BTN_TabStatsEditor.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabStatsEditor.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -211,6 +215,7 @@ namespace Forza_Mods_AIO
             // BTN_TabSpeedhack
             // 
             this.BTN_TabSpeedhack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_TabSpeedhack.Enabled = false;
             this.BTN_TabSpeedhack.FlatAppearance.BorderSize = 0;
             this.BTN_TabSpeedhack.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
             this.BTN_TabSpeedhack.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
@@ -223,7 +228,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabSpeedhack.Size = new System.Drawing.Size(164, 30);
             this.BTN_TabSpeedhack.TabIndex = 6;
             this.BTN_TabSpeedhack.TabStop = false;
-            this.BTN_TabSpeedhack.Text = "Speedhack";
+            this.BTN_TabSpeedhack.Text = "Cool Shit";
             this.BTN_TabSpeedhack.UseVisualStyleBackColor = false;
             this.BTN_TabSpeedhack.Click += new System.EventHandler(this.BTN_TabSpeedhack_Click);
             this.BTN_TabSpeedhack.MouseEnter += new System.EventHandler(this.BTN_TabSpeedhack_MouseEnter);
@@ -316,10 +321,6 @@ namespace Forza_Mods_AIO
             this.InitialBGworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.InitialBGworker_ProgressChanged);
             this.InitialBGworker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.InitialBGworker_RunWorkerCompleted);
             // 
-            // CheckAttachedworker
-            // 
-            this.CheckAttachedworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CheckAttachedworker_DoWork);
-            // 
             // MainWindow
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
@@ -379,6 +380,7 @@ namespace Forza_Mods_AIO
         public System.Windows.Forms.Panel TabHolder;
         public System.ComponentModel.BackgroundWorker CheckAttachedworker;
         public System.ComponentModel.BackgroundWorker InitialBGworker;
+        private Telerik.WinControls.Themes.Windows8Theme windows8Theme1;
     }
 }
 

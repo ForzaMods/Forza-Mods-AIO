@@ -41,7 +41,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             Gear8Val = MainWindow.m.ReadFloat(LiveTuning.Gear8Addr); Gear8NUD.Value = Convert.ToDecimal(Gear8Val); Gear8Bar.Value = Convert.ToInt32(Gear8Val * 100);
             Gear9Val = MainWindow.m.ReadFloat(LiveTuning.Gear9Addr); Gear9NUD.Value = Convert.ToDecimal(Gear9Val); Gear9Bar.Value = Convert.ToInt32(Gear9Val * 100);
         }
-        private void FinalGearBar_Scroll(object sender, EventArgs e)
+        private void FinalGearBar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             FinalGearNUD.Value = Convert.ToDecimal(FinalGearBar.Value) / 100;
             FinalGearVal = (float)FinalGearNUD.Value;
@@ -53,7 +53,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             FinalGearVal = (float)FinalGearNUD.Value;
             MainWindow.m.WriteMemory(LiveTuning.GearFinalAddr, "float", FinalGearVal.ToString());
         }
-        private void Gear1Bar_Scroll(object sender, EventArgs e)
+        private void Gear1Bar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             Gear1NUD.Value = Convert.ToDecimal(Gear1Bar.Value) / 100;
             Gear1Val = (float)Gear1NUD.Value;
@@ -65,7 +65,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             Gear1Val = (float)Gear1NUD.Value;
             MainWindow.m.WriteMemory(LiveTuning.Gear1Addr, "float", Gear1Val.ToString());
         }
-        private void Gear2Bar_Scroll(object sender, EventArgs e)
+        private void Gear2Bar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             Gear2NUD.Value = Convert.ToDecimal(Gear2Bar.Value) / 100;
             Gear2Val = (float)Gear2NUD.Value;
@@ -77,7 +77,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             Gear2Val = (float)Gear2NUD.Value;
             MainWindow.m.WriteMemory(LiveTuning.Gear2Addr, "float", Gear2Val.ToString());
         }
-        private void Gear3Bar_Scroll(object sender, EventArgs e)
+        private void Gear3Bar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             Gear3NUD.Value = Convert.ToDecimal(Gear3Bar.Value) / 100;
             Gear3Val = (float)Gear3NUD.Value;
@@ -89,7 +89,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             Gear3Val = (float)Gear3NUD.Value;
             MainWindow.m.WriteMemory(LiveTuning.Gear3Addr, "float", Gear3Val.ToString());
         }
-        private void Gear4Bar_Scroll(object sender, EventArgs e)
+        private void Gear4Bar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             Gear4NUD.Value = Convert.ToDecimal(Gear4Bar.Value) / 100;
             Gear4Val = (float)Gear4NUD.Value;
@@ -101,7 +101,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             Gear4Val = (float)Gear4NUD.Value;
             MainWindow.m.WriteMemory(LiveTuning.Gear4Addr, "float", Gear4Val.ToString());
         }
-        private void Gear5Bar_Scroll(object sender, EventArgs e)
+        private void Gear5Bar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             Gear5NUD.Value = Convert.ToDecimal(Gear5Bar.Value) / 100;
             Gear5Val = (float)Gear5NUD.Value;
@@ -113,7 +113,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             Gear5Val = (float)Gear5NUD.Value;
             MainWindow.m.WriteMemory(LiveTuning.Gear5Addr, "float", Gear5Val.ToString());
         }
-        private void Gear6Bar_Scroll(object sender, EventArgs e)
+        private void Gear6Bar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             Gear6NUD.Value = Convert.ToDecimal(Gear6Bar.Value) / 100;
             Gear6Val = (float)Gear6NUD.Value;
@@ -125,7 +125,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             Gear6Val = (float)Gear6NUD.Value;
             MainWindow.m.WriteMemory(LiveTuning.Gear6Addr, "float", Gear6Val.ToString());
         }
-        private void Gear7Bar_Scroll(object sender, EventArgs e)
+        private void Gear7Bar_Scroll(LimitlessUI.Slider_WOC slider, float valuee)
         {
             Gear7NUD.Value = Convert.ToDecimal(Gear7Bar.Value) / 100;
             Gear7Val = (float)Gear7NUD.Value;
@@ -137,7 +137,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             Gear7Val = (float)Gear7NUD.Value;
             MainWindow.m.WriteMemory(LiveTuning.Gear7Addr, "float", Gear7Val.ToString());
         }
-        private void Gear8Bar_Scroll(object sender, EventArgs e)
+        private void Gear8Bar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             Gear8NUD.Value = Convert.ToDecimal(Gear8Bar.Value) / 100;
             Gear8Val = (float)Gear8NUD.Value;
@@ -149,7 +149,7 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             Gear8Val = (float)Gear8NUD.Value;
             MainWindow.m.WriteMemory(LiveTuning.Gear8Addr, "float", Gear8Val.ToString());
         }
-        private void Gear9Bar_Scroll(object sender, EventArgs e)
+        private void Gear9Bar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             Gear9NUD.Value = Convert.ToDecimal(Gear9Bar.Value) / 100;
             Gear9Val = (float)Gear9NUD.Value;
@@ -161,7 +161,6 @@ namespace Forza_Mods_AIO.TabForms.LiveTuningForms
             Gear9Val = (float)Gear9NUD.Value;
             MainWindow.m.WriteMemory(LiveTuning.Gear9Addr, "float", Gear9Val.ToString());
         }
-
         private void BTN_Refresh_Click(object sender, EventArgs e)
         {
             GearsRefresh();
