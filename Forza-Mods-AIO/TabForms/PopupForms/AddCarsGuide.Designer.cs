@@ -95,7 +95,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.label1.Location = new System.Drawing.Point(9, 47);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(773, 330);
+            this.label1.Size = new System.Drawing.Size(773, 440);
             this.label1.TabIndex = 10;
             this.label1.Text = resources.GetString("label1.Text");
             // 

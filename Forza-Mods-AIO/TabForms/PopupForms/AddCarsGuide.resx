@@ -132,7 +132,12 @@ For the third section with six buttons: You can only select one at a time.
 Tick the box you want the changes for and open the autoshow then exit the autoshow and untick the 
 box. View the impacted area to see changes.
 These changes will be in place for the session and will reset when you restart the game.
-(The thumbnail and series s|x fixes are permanent)</value>
+(The thumbnail and series s|x fixes are permanent)
+
+For the last section with 2 buttons on the right: Same as before with only setting one at a time.
+Tick the box you want the changes for and open up the tuning panel inside a festival or house.
+Change any slide any amount, exit and save, then untick the box.
+These changes will stay for the rest of the session.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

@@ -430,9 +430,14 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_Presets.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (AddCars.a.Box_ClearGarage.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.Box_ClearGarage.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.FreePerfBox.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (AddCars.a.FreeVisBox.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             DraffsYTLink.ForeColor = color;
             UCPostLink.ForeColor = color;
             DiscordLink.ForeColor = color;
+            AddCars.a.Url.ForeColor = color;
         }
         private void RPCBox_ToggleStateChanged(object sender, EventArgs e)
         {

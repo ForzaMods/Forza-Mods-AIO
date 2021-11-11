@@ -117,36 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="CheckAttachedworker.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="CheckAttachedworker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>139, 25</value>
-  </data>
-  <data name="InitialBGworker.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="InitialBGworker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>15, 23</value>
-  </data>
-  <data name="Volumeworker.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="Volumeworker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>310, 25</value>
-  </data>
+  </metadata>
   <data name="label1.Text" xml:space="preserve">
-    <value>This tool was last updated on: 7/11/2021.
+    <value>This tool was last updated on: 10/11/2021.
 If a new series has started since this date then there may be an update available.
 
 Tool Credits:
 Draff - UI, Adding cars, Saveswapping, Backend.
 Weebthan - Theming, Stat editor, Live tuning, Cool shit, Backend.
 Mark - More backend help.
+Boosted - Bought Weebthan the game and made porting cool shit possible
 </value>
   </data>
-  <data name="fluentDarkTheme1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="fluentDarkTheme1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>441, 25</value>
-  </data>
-  <data name="RainbowWorker.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="RainbowWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>593, 25</value>
-  </data>
-  <data name="office2010BlackTheme1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="office2010BlackTheme1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>732, 25</value>
-  </data>
-  <data name="ToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="ToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>912, 25</value>
-  </data>
+  </metadata>
 </root>

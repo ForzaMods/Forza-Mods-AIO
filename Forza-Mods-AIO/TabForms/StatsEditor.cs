@@ -21,11 +21,19 @@ namespace Forza_Mods_AIO.TabForms
         DataTable StatsTableData = new DataTable();
         public static StatsEditor s;
         private static CultureInfo resourceCulture;
+        string Version;
         internal static byte[] TqS77kzQrU
         {
             get
             {
                 return (byte[])Resources.ResourceManager.GetObject("TqS77kzQrU", resourceCulture);
+            }
+        }
+        internal static byte[] jTZka9MUBu
+        {
+            get
+            {
+                return (byte[])Resources.ResourceManager.GetObject("jTZka9MUBu", resourceCulture);
             }
         }
         public StatsEditor()
@@ -58,7 +66,16 @@ namespace Forza_Mods_AIO.TabForms
                 StatScanButton.Enabled = false;
                 ScanMarquee.Visible = true;
                 ScanMarquee.StartWaiting();
-                File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"), TqS77kzQrU);
+                if (MainWindow.main.ForzaFour)
+                {
+                    Version = "TqS77kzQrU.csv";
+                    File.WriteAllBytes(Path.Combine(Path.GetTempPath(), Version), TqS77kzQrU);
+                }
+                else
+                {
+                    Version = "jTZka9MUBu.csv";
+                    File.WriteAllBytes(Path.Combine(Path.GetTempPath(), Version), jTZka9MUBu);
+                }
                 string nameColumnName = "Name";
                 string valueColumnName = "Type";
                 string Type = null;
@@ -73,7 +90,7 @@ namespace Forza_Mods_AIO.TabForms
                     if (MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true).Length > 1
                         && Regex.IsMatch(MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true), @"^[a-zA-Z]+$"))
                     {
-                        using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv")), hasHeaders: true))
+                        using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), Version)), hasHeaders: true))
                         {
                             int nameColumnIndex = csvReader.GetFieldIndex(nameColumnName);
                             int valueColumnIndex = csvReader.GetFieldIndex(valueColumnName);
@@ -89,7 +106,7 @@ namespace Forza_Mods_AIO.TabForms
                         }
                         yeetstring.Add(MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true));
                         if (Type == "Float")
-                            yeetstring2.Add(MainWindow.m.ReadFloat((item + 8).ToString("X"), round: false).ToString());
+                            yeetstring2.Add((MainWindow.m.ReadFloat((item + 8).ToString("X"), round: false)*100).ToString());
                         else
                             yeetstring2.Add(MainWindow.m.ReadInt((item + 8).ToString("X")).ToString());
                         AddrList.Add(item);
@@ -101,7 +118,8 @@ namespace Forza_Mods_AIO.TabForms
                     StatsTableData.Rows.Add(yeetstring[i], yeetstring2[i]);
                 }
                 System.IO.File.WriteAllLines("Stats.txt", yeetstring);
-                File.Delete(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"));
+                try { File.Delete(Path.Combine(Path.GetTempPath(), Version)); }
+                catch { }
                 StatsTable.DataSource = StatsTableData;
                 StatsTable.Update();
                 StatsTable.Refresh();
@@ -119,7 +137,8 @@ namespace Forza_Mods_AIO.TabForms
             }
             catch
             {
-                File.Delete(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"));
+                try { File.Delete(Path.Combine(Path.GetTempPath(), Version)); }
+                catch { }
                 StatsTable.DataSource = StatsTableData;
                 StatsTable.Update();
                 StatsTable.Refresh();
@@ -152,13 +171,20 @@ namespace Forza_Mods_AIO.TabForms
         private void SendWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             int i = 0;
-            File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"), TqS77kzQrU);
+            if (MainWindow.main.ForzaFour)
+            {
+                File.WriteAllBytes(Path.Combine(Path.GetTempPath(), Version), TqS77kzQrU);
+            }
+            else
+            {
+                File.WriteAllBytes(Path.Combine(Path.GetTempPath(), Version), jTZka9MUBu);
+            }
             foreach (var item in AddrList)
             {
                 string nameColumnName = "Name";
                 string valueColumnName = "Type";
                 string Type = null;
-                using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv")), hasHeaders: true))
+                using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), Version)), hasHeaders: true))
                 {
                     int nameColumnIndex = csvReader.GetFieldIndex(nameColumnName);
                     int valueColumnIndex = csvReader.GetFieldIndex(valueColumnName);
@@ -173,14 +199,14 @@ namespace Forza_Mods_AIO.TabForms
                     }
                 }
                 if (Type == "Float")
-                    try { MainWindow.m.WriteMemory((item + 8).ToString("X"), "float", StatsTableData.Rows[i][1].ToString()); } catch { }
+                    try { MainWindow.m.WriteMemory((item + 8).ToString("X"), "float", ((float)StatsTableData.Rows[i][1] / 100).ToString()); } catch { }
                 else
                     try { MainWindow.m.WriteMemory((item + 8).ToString("X"), "int", StatsTableData.Rows[i][1].ToString()); } catch { }
                 int progress = (int)(100 * i / AddrList.Count);
                 SendWorker.ReportProgress(progress);
                 i++;
             }
-            File.Delete(Path.Combine(Path.GetTempPath(), "TqS77kzQrU.csv"));
+            File.Delete(Path.Combine(Path.GetTempPath(), Version));
             SendWorker.ReportProgress(100);
             StatScanButton.Enabled = true;
             SendButton.Enabled = true;

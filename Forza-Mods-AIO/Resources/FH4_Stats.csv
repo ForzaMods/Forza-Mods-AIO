@@ -320,7 +320,7 @@ MenuMusic,Bool
 MaxRightFrontTireTemp,Float
 PrivateLicensePlate,Invite
 AvgRightFrontTireTemp,Float
-DistanceDriven,Int
+DistanceDriven,Float
 IsXPIntroduced,Bool
 Subtitles,Bool
 VOVolume,Int
@@ -479,7 +479,7 @@ BiggestAir,Int
 TimeInCarChampionshipEvents,Int
 BeautySpotsDiscovered,Int
 OnlineInfectedGamesEntered,Int
-OnlineRoadTripDistanceDriven,Int
+OnlineRoadTripDistanceDriven,Float
 TotalLineUpFansEarned,Int
 CarManufacturersOwned,Int
 MidnightBattlesWon,Int
@@ -505,7 +505,7 @@ CarChampionshipEventPodiums,Int
 OnlineEventsFinished,Int
 TimesSpokenToAnna,Int
 TimeInRaceEncounters,Int
-RoadTripDistanceDriven,Int
+RoadTripDistanceDriven,Float
 TotalCoOpFansEarned,Int
 CarChampionshipsCompleted,Int
 OnlineStreetRacesEntered,Int

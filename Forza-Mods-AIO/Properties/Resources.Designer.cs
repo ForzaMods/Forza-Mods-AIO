@@ -93,6 +93,16 @@ namespace Forza_Mods_AIO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] jTZka9MUBu {
+            get {
+                object obj = ResourceManager.GetObject("jTZka9MUBu", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] OpenSans_Regular {
             get {
                 object obj = ResourceManager.GetObject("OpenSans_Regular", resourceCulture);

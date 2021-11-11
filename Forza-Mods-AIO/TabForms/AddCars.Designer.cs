@@ -58,6 +58,12 @@ namespace Forza_Mods_AIO
             this.Box_FreeCars = new Telerik.WinControls.UI.RadCheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.BTN_Help = new System.Windows.Forms.Button();
+            this.Url = new System.Windows.Forms.Label();
+            this.FreePerfBox = new Telerik.WinControls.UI.RadCheckBox();
+            this.FreeVisBox = new Telerik.WinControls.UI.RadCheckBox();
+            this.FreePerfLabel = new System.Windows.Forms.Label();
+            this.FreeVisLabel = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Box_Null)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Box_RareCars)).BeginInit();
@@ -73,6 +79,9 @@ namespace Forza_Mods_AIO
             ((System.ComponentModel.ISupportInitialize)(this.Box_Presets)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Box_ThumbsFix)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Box_FreeCars)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FreePerfBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FreeVisBox)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
@@ -104,7 +113,7 @@ namespace Forza_Mods_AIO
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Open Sans", 10F);
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(17, 40);
+            this.label4.Location = new System.Drawing.Point(12, 40);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(260, 19);
@@ -116,7 +125,7 @@ namespace Forza_Mods_AIO
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Open Sans", 10F);
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(332, 40);
+            this.label5.Location = new System.Drawing.Point(272, 40);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(279, 38);
@@ -129,7 +138,7 @@ namespace Forza_Mods_AIO
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Open Sans", 10F);
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(63, 125);
+            this.label6.Location = new System.Drawing.Point(58, 125);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(164, 19);
@@ -141,7 +150,7 @@ namespace Forza_Mods_AIO
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Open Sans", 10F);
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(708, 40);
+            this.label7.Location = new System.Drawing.Point(550, 40);
             this.label7.Margin = new System.Windows.Forms.Padding(0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(235, 19);
@@ -153,7 +162,7 @@ namespace Forza_Mods_AIO
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Open Sans", 10F);
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(343, 125);
+            this.label8.Location = new System.Drawing.Point(283, 125);
             this.label8.Margin = new System.Windows.Forms.Padding(0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(253, 19);
@@ -282,7 +291,7 @@ namespace Forza_Mods_AIO
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Open Sans", 10F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(708, 125);
+            this.label1.Location = new System.Drawing.Point(550, 125);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(225, 19);
@@ -447,13 +456,13 @@ namespace Forza_Mods_AIO
             this.panel2.Controls.Add(this.label8);
             this.panel2.Location = new System.Drawing.Point(12, 223);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(976, 180);
+            this.panel2.Size = new System.Drawing.Size(789, 180);
             this.panel2.TabIndex = 20;
             // 
             // Box_Traffic
             // 
             this.Box_Traffic.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_Traffic.Location = new System.Drawing.Point(742, 13);
+            this.Box_Traffic.Location = new System.Drawing.Point(584, 13);
             this.Box_Traffic.Name = "Box_Traffic";
             this.Box_Traffic.Size = new System.Drawing.Size(152, 20);
             this.Box_Traffic.TabIndex = 30;
@@ -484,7 +493,7 @@ namespace Forza_Mods_AIO
             // Box_SeriesFix
             // 
             this.Box_SeriesFix.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_SeriesFix.Location = new System.Drawing.Point(379, 13);
+            this.Box_SeriesFix.Location = new System.Drawing.Point(319, 13);
             this.Box_SeriesFix.Name = "Box_SeriesFix";
             this.Box_SeriesFix.Size = new System.Drawing.Size(179, 20);
             this.Box_SeriesFix.TabIndex = 30;
@@ -515,7 +524,7 @@ namespace Forza_Mods_AIO
             // Box_ClearGarage
             // 
             this.Box_ClearGarage.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_ClearGarage.Location = new System.Drawing.Point(757, 99);
+            this.Box_ClearGarage.Location = new System.Drawing.Point(599, 99);
             this.Box_ClearGarage.Name = "Box_ClearGarage";
             this.Box_ClearGarage.Size = new System.Drawing.Size(104, 20);
             this.Box_ClearGarage.TabIndex = 30;
@@ -546,7 +555,7 @@ namespace Forza_Mods_AIO
             // Box_Presets
             // 
             this.Box_Presets.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_Presets.Location = new System.Drawing.Point(373, 99);
+            this.Box_Presets.Location = new System.Drawing.Point(313, 99);
             this.Box_Presets.Name = "Box_Presets";
             this.Box_Presets.Size = new System.Drawing.Size(169, 20);
             this.Box_Presets.TabIndex = 30;
@@ -577,7 +586,7 @@ namespace Forza_Mods_AIO
             // Box_ThumbsFix
             // 
             this.Box_ThumbsFix.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_ThumbsFix.Location = new System.Drawing.Point(80, 99);
+            this.Box_ThumbsFix.Location = new System.Drawing.Point(75, 99);
             this.Box_ThumbsFix.Name = "Box_ThumbsFix";
             this.Box_ThumbsFix.Size = new System.Drawing.Size(120, 20);
             this.Box_ThumbsFix.TabIndex = 30;
@@ -608,7 +617,7 @@ namespace Forza_Mods_AIO
             // Box_FreeCars
             // 
             this.Box_FreeCars.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.Box_FreeCars.Location = new System.Drawing.Point(92, 13);
+            this.Box_FreeCars.Location = new System.Drawing.Point(87, 13);
             this.Box_FreeCars.Name = "Box_FreeCars";
             this.Box_FreeCars.Size = new System.Drawing.Size(82, 20);
             this.Box_FreeCars.TabIndex = 30;
@@ -645,9 +654,9 @@ namespace Forza_Mods_AIO
             this.label13.Margin = new System.Windows.Forms.Padding(0);
             this.label13.Name = "label13";
             this.label13.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.label13.Size = new System.Drawing.Size(127, 23);
+            this.label13.Size = new System.Drawing.Size(101, 23);
             this.label13.TabIndex = 24;
-            this.label13.Text = "Video Guide: N/A";
+            this.label13.Text = "Video Guide: ";
             // 
             // BTN_Help
             // 
@@ -663,13 +672,127 @@ namespace Forza_Mods_AIO
             this.BTN_Help.UseVisualStyleBackColor = false;
             this.BTN_Help.Click += new System.EventHandler(this.BTN_Help_Click);
             // 
+            // Url
+            // 
+            this.Url.AutoSize = true;
+            this.Url.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.Url.ForeColor = System.Drawing.Color.White;
+            this.Url.Location = new System.Drawing.Point(104, 413);
+            this.Url.Margin = new System.Windows.Forms.Padding(0);
+            this.Url.Name = "Url";
+            this.Url.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.Url.Size = new System.Drawing.Size(231, 23);
+            this.Url.TabIndex = 24;
+            this.Url.Text = "https://youtu.be/hmMxhMHiLtg";
+            this.Url.Click += new System.EventHandler(this.Url_Click);
+            // 
+            // FreePerfBox
+            // 
+            this.FreePerfBox.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.FreePerfBox.Location = new System.Drawing.Point(18, 13);
+            this.FreePerfBox.Name = "FreePerfBox";
+            this.FreePerfBox.Size = new System.Drawing.Size(147, 20);
+            this.FreePerfBox.TabIndex = 41;
+            this.FreePerfBox.Text = "Free Perf Upgrades";
+            this.FreePerfBox.ThemeName = "FluentDark";
+            this.FreePerfBox.CheckStateChanged += new System.EventHandler(this.FreePerfBox_CheckStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.FreePerfBox.GetChildAt(0))).Text = "Free Perf Upgrades";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreePerfBox.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // FreeVisBox
+            // 
+            this.FreeVisBox.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.FreeVisBox.Location = new System.Drawing.Point(18, 99);
+            this.FreeVisBox.Name = "FreeVisBox";
+            this.FreeVisBox.Size = new System.Drawing.Size(159, 20);
+            this.FreeVisBox.TabIndex = 42;
+            this.FreeVisBox.Text = "Free Visual Upgrades";
+            this.FreeVisBox.ThemeName = "FluentDark";
+            this.FreeVisBox.CheckStateChanged += new System.EventHandler(this.FreeVisBox_CheckStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.FreeVisBox.GetChildAt(0))).Text = "Free Visual Upgrades";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreeVisBox.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // FreePerfLabel
+            // 
+            this.FreePerfLabel.AutoSize = true;
+            this.FreePerfLabel.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.FreePerfLabel.ForeColor = System.Drawing.Color.White;
+            this.FreePerfLabel.Location = new System.Drawing.Point(13, 39);
+            this.FreePerfLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.FreePerfLabel.Name = "FreePerfLabel";
+            this.FreePerfLabel.Size = new System.Drawing.Size(157, 19);
+            this.FreePerfLabel.TabIndex = 39;
+            this.FreePerfLabel.Text = "All perf upgrades free";
+            // 
+            // FreeVisLabel
+            // 
+            this.FreeVisLabel.AutoSize = true;
+            this.FreeVisLabel.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.FreeVisLabel.ForeColor = System.Drawing.Color.White;
+            this.FreeVisLabel.Location = new System.Drawing.Point(5, 125);
+            this.FreeVisLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.FreeVisLabel.Name = "FreeVisLabel";
+            this.FreeVisLabel.Size = new System.Drawing.Size(168, 19);
+            this.FreeVisLabel.TabIndex = 40;
+            this.FreeVisLabel.Text = "All visual upgrades free";
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel3.Controls.Add(this.FreePerfBox);
+            this.panel3.Controls.Add(this.FreeVisLabel);
+            this.panel3.Controls.Add(this.FreeVisBox);
+            this.panel3.Controls.Add(this.FreePerfLabel);
+            this.panel3.Location = new System.Drawing.Point(807, 223);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(181, 180);
+            this.panel3.TabIndex = 43;
+            // 
             // AddCars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.BTN_Help);
+            this.Controls.Add(this.Url);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -699,6 +822,10 @@ namespace Forza_Mods_AIO
             ((System.ComponentModel.ISupportInitialize)(this.Box_Presets)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Box_ThumbsFix)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Box_FreeCars)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FreePerfBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FreeVisBox)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -734,5 +861,11 @@ namespace Forza_Mods_AIO
         public Telerik.WinControls.UI.RadCheckBox Box_ThumbsFix;
         public Telerik.WinControls.UI.RadCheckBox Box_FreeCars;
         public Telerik.WinControls.UI.RadCheckBox Box_ClearGarage;
+        public System.Windows.Forms.Label Url;
+        public Telerik.WinControls.UI.RadCheckBox FreePerfBox;
+        public Telerik.WinControls.UI.RadCheckBox FreeVisBox;
+        private System.Windows.Forms.Label FreePerfLabel;
+        private System.Windows.Forms.Label FreeVisLabel;
+        private System.Windows.Forms.Panel panel3;
     }
 }
