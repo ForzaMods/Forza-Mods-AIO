@@ -57,11 +57,10 @@ namespace Forza_Mods_AIO.TabForms
             this.LBL_Misc = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.XBChange = new System.Windows.Forms.Button();
-            this.KBChange = new System.Windows.Forms.Button();
+            this.JumpAmountBar = new LimitlessUI.Slider_WOC();
+            this.JumpLabel = new System.Windows.Forms.Label();
+            this.JumpAmountBox = new DarkUI.Controls.DarkNumericUpDown();
+            this.JumpAmountLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.GravitySet = new Telerik.WinControls.UI.RadCheckBox();
             this.WeirdSet = new Telerik.WinControls.UI.RadCheckBox();
@@ -80,12 +79,14 @@ namespace Forza_Mods_AIO.TabForms
             this.label12 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.TurnAssistButton = new Telerik.WinControls.UI.RadCheckBox();
+            this.JumpHackToggle = new Telerik.WinControls.UI.RadCheckBox();
             this.StopAllWheelsButton = new Telerik.WinControls.UI.RadCheckBox();
             this.SuperCarBox = new Telerik.WinControls.UI.RadCheckBox();
             this.WheelSpeedButton = new Telerik.WinControls.UI.RadCheckBox();
             this.SuperBreakButton = new Telerik.WinControls.UI.RadCheckBox();
             this.VelHackButton = new Telerik.WinControls.UI.RadCheckBox();
             this.LBL_Toggles = new System.Windows.Forms.Label();
+            this.KeyBinds = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.LimitBox = new DarkUI.Controls.DarkNumericUpDown();
             this.Speed3Box = new DarkUI.Controls.DarkNumericUpDown();
@@ -140,6 +141,9 @@ namespace Forza_Mods_AIO.TabForms
             this.OOBWorker = new System.ComponentModel.BackgroundWorker();
             this.g2gWorker = new System.ComponentModel.BackgroundWorker();
             this.SuperCarCheck = new System.ComponentModel.BackgroundWorker();
+            this.KeyboardChangeWorker = new System.ComponentModel.BackgroundWorker();
+            this.ControllerChangeWorker = new System.ComponentModel.BackgroundWorker();
+            this.JumpHackWorker = new System.ComponentModel.BackgroundWorker();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHWallNoClip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).BeginInit();
@@ -154,6 +158,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.AutoWayPoint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CheckpointBox)).BeginInit();
             this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.JumpAmountBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GravitySet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WeirdSet)).BeginInit();
@@ -164,6 +169,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TurnAssistButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.JumpHackToggle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopAllWheelsButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperCarBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WheelSpeedButton)).BeginInit();
@@ -763,75 +769,83 @@ namespace Forza_Mods_AIO.TabForms
             // panel9
             // 
             this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.panel9.Controls.Add(this.label2);
-            this.panel9.Controls.Add(this.label13);
-            this.panel9.Controls.Add(this.label14);
-            this.panel9.Controls.Add(this.XBChange);
-            this.panel9.Controls.Add(this.KBChange);
+            this.panel9.Controls.Add(this.JumpAmountBar);
+            this.panel9.Controls.Add(this.JumpLabel);
+            this.panel9.Controls.Add(this.JumpAmountBox);
+            this.panel9.Controls.Add(this.JumpAmountLabel);
             this.panel9.Location = new System.Drawing.Point(12, 100);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(190, 105);
             this.panel9.TabIndex = 7;
             // 
-            // label2
+            // JumpAmountBar
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(30, 1);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 27);
-            this.label2.TabIndex = 34;
-            this.label2.Text = "Control Keys";
+            this.JumpAmountBar.BackLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.JumpAmountBar.BackLineThikness = 3F;
+            this.JumpAmountBar.CircleSize = 10F;
+            this.JumpAmountBar.DrawCircle = true;
+            this.JumpAmountBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.JumpAmountBar.FrontLineThikness = 3F;
+            this.JumpAmountBar.Location = new System.Drawing.Point(3, 68);
+            this.JumpAmountBar.MaxValue = 1000000F;
+            this.JumpAmountBar.MinValue = 100000F;
+            this.JumpAmountBar.Name = "JumpAmountBar";
+            this.JumpAmountBar.Rounded = false;
+            this.JumpAmountBar.Size = new System.Drawing.Size(184, 23);
+            this.JumpAmountBar.TabIndex = 36;
+            this.JumpAmountBar.Text = "VelMultBar";
+            this.JumpAmountBar.Value = 1000000F;
+            this.JumpAmountBar.OnValueChanged += new LimitlessUI.Slider_WOC.OnValueChangedEvent(this.JumpAmountBar_Scroll);
             // 
-            // label13
+            // JumpLabel
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(-1, 36);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(73, 19);
-            this.label13.TabIndex = 12;
-            this.label13.Text = "Keyboard";
+            this.JumpLabel.AutoSize = true;
+            this.JumpLabel.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JumpLabel.Location = new System.Drawing.Point(39, 0);
+            this.JumpLabel.Name = "JumpLabel";
+            this.JumpLabel.Size = new System.Drawing.Size(111, 27);
+            this.JumpLabel.TabIndex = 34;
+            this.JumpLabel.Text = "Jump Hack";
             // 
-            // label14
+            // JumpAmountBox
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(0, 76);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(76, 19);
-            this.label14.TabIndex = 13;
-            this.label14.Text = "Controller";
+            this.JumpAmountBox.DecimalPlaces = 5;
+            this.JumpAmountBox.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            196608});
+            this.JumpAmountBox.Location = new System.Drawing.Point(91, 45);
+            this.JumpAmountBox.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.JumpAmountBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.JumpAmountBox.Name = "JumpAmountBox";
+            this.JumpAmountBox.Size = new System.Drawing.Size(68, 22);
+            this.JumpAmountBox.TabIndex = 35;
+            this.JumpAmountBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.JumpAmountBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.JumpAmountBox.ValueChanged += new System.EventHandler(this.JumpAmountBox_ValueChanged);
             // 
-            // XBChange
+            // JumpAmountLabel
             // 
-            this.XBChange.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.XBChange.FlatAppearance.BorderSize = 0;
-            this.XBChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.XBChange.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.XBChange.Location = new System.Drawing.Point(78, 71);
-            this.XBChange.Name = "XBChange";
-            this.XBChange.Size = new System.Drawing.Size(97, 27);
-            this.XBChange.TabIndex = 37;
-            this.XBChange.UseVisualStyleBackColor = false;
-            this.XBChange.Click += new System.EventHandler(this.XBChange_Click);
-            this.XBChange.MouseEnter += new System.EventHandler(this.XBChange_MouseEnter);
-            this.XBChange.MouseLeave += new System.EventHandler(this.XBChange_MouseLeave);
-            // 
-            // KBChange
-            // 
-            this.KBChange.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.KBChange.FlatAppearance.BorderSize = 0;
-            this.KBChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.KBChange.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KBChange.Location = new System.Drawing.Point(78, 36);
-            this.KBChange.Name = "KBChange";
-            this.KBChange.Size = new System.Drawing.Size(97, 27);
-            this.KBChange.TabIndex = 37;
-            this.KBChange.UseVisualStyleBackColor = false;
-            this.KBChange.Click += new System.EventHandler(this.KBChange_Click);
-            this.KBChange.MouseEnter += new System.EventHandler(this.KBChange_MouseEnter);
-            this.KBChange.MouseLeave += new System.EventHandler(this.KBChange_MouseLeave);
+            this.JumpAmountLabel.AutoSize = true;
+            this.JumpAmountLabel.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JumpAmountLabel.Location = new System.Drawing.Point(21, 45);
+            this.JumpAmountLabel.Name = "JumpAmountLabel";
+            this.JumpAmountLabel.Size = new System.Drawing.Size(62, 19);
+            this.JumpAmountLabel.TabIndex = 11;
+            this.JumpAmountLabel.Text = "Amount";
             // 
             // panel1
             // 
@@ -1045,7 +1059,6 @@ namespace Forza_Mods_AIO.TabForms
             0,
             0,
             0});
-            this.VelLimitBox.ValueChanged += new System.EventHandler(this.VelMultBox_ValueChanged);
             // 
             // VelMultBox
             // 
@@ -1057,7 +1070,7 @@ namespace Forza_Mods_AIO.TabForms
             196608});
             this.VelMultBox.Location = new System.Drawing.Point(91, 33);
             this.VelMultBox.Maximum = new decimal(new int[] {
-            2,
+            10,
             0,
             0,
             0});
@@ -1111,12 +1124,14 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             this.panel4.Controls.Add(this.TurnAssistButton);
+            this.panel4.Controls.Add(this.JumpHackToggle);
             this.panel4.Controls.Add(this.StopAllWheelsButton);
             this.panel4.Controls.Add(this.SuperCarBox);
             this.panel4.Controls.Add(this.WheelSpeedButton);
             this.panel4.Controls.Add(this.SuperBreakButton);
             this.panel4.Controls.Add(this.VelHackButton);
             this.panel4.Controls.Add(this.LBL_Toggles);
+            this.panel4.Controls.Add(this.KeyBinds);
             this.panel4.Location = new System.Drawing.Point(208, 12);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(532, 111);
@@ -1125,7 +1140,7 @@ namespace Forza_Mods_AIO.TabForms
             // TurnAssistButton
             // 
             this.TurnAssistButton.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.TurnAssistButton.Location = new System.Drawing.Point(401, 71);
+            this.TurnAssistButton.Location = new System.Drawing.Point(401, 73);
             this.TurnAssistButton.Name = "TurnAssistButton";
             this.TurnAssistButton.Size = new System.Drawing.Size(93, 20);
             this.TurnAssistButton.TabIndex = 29;
@@ -1153,10 +1168,41 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.TurnAssistButton.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
+            // JumpHackToggle
+            // 
+            this.JumpHackToggle.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.JumpHackToggle.Location = new System.Drawing.Point(289, 73);
+            this.JumpHackToggle.Name = "JumpHackToggle";
+            this.JumpHackToggle.Size = new System.Drawing.Size(92, 20);
+            this.JumpHackToggle.TabIndex = 29;
+            this.JumpHackToggle.Text = "Jump Hack";
+            this.JumpHackToggle.ThemeName = "FluentDark";
+            this.JumpHackToggle.CheckStateChanged += new System.EventHandler(this.JumpHackToggle_CheckStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.JumpHackToggle.GetChildAt(0))).Text = "Jump Hack";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.JumpHackToggle.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
             // StopAllWheelsButton
             // 
             this.StopAllWheelsButton.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.StopAllWheelsButton.Location = new System.Drawing.Point(218, 73);
+            this.StopAllWheelsButton.Location = new System.Drawing.Point(161, 73);
             this.StopAllWheelsButton.Name = "StopAllWheelsButton";
             this.StopAllWheelsButton.Size = new System.Drawing.Size(119, 20);
             this.StopAllWheelsButton.TabIndex = 29;
@@ -1187,7 +1233,7 @@ namespace Forza_Mods_AIO.TabForms
             // SuperCarBox
             // 
             this.SuperCarBox.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.SuperCarBox.Location = new System.Drawing.Point(401, 38);
+            this.SuperCarBox.Location = new System.Drawing.Point(401, 42);
             this.SuperCarBox.Name = "SuperCarBox";
             this.SuperCarBox.Size = new System.Drawing.Size(87, 20);
             this.SuperCarBox.TabIndex = 29;
@@ -1249,7 +1295,7 @@ namespace Forza_Mods_AIO.TabForms
             // SuperBreakButton
             // 
             this.SuperBreakButton.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.SuperBreakButton.Location = new System.Drawing.Point(218, 40);
+            this.SuperBreakButton.Location = new System.Drawing.Point(218, 42);
             this.SuperBreakButton.Name = "SuperBreakButton";
             this.SuperBreakButton.Size = new System.Drawing.Size(102, 20);
             this.SuperBreakButton.TabIndex = 29;
@@ -1316,6 +1362,20 @@ namespace Forza_Mods_AIO.TabForms
             this.LBL_Toggles.Size = new System.Drawing.Size(83, 27);
             this.LBL_Toggles.TabIndex = 4;
             this.LBL_Toggles.Text = "Toggles";
+            // 
+            // KeyBinds
+            // 
+            this.KeyBinds.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.KeyBinds.FlatAppearance.BorderSize = 0;
+            this.KeyBinds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.KeyBinds.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KeyBinds.Location = new System.Drawing.Point(7, 8);
+            this.KeyBinds.Name = "KeyBinds";
+            this.KeyBinds.Size = new System.Drawing.Size(87, 29);
+            this.KeyBinds.TabIndex = 37;
+            this.KeyBinds.Text = "KeyBinds";
+            this.KeyBinds.UseVisualStyleBackColor = false;
+            this.KeyBinds.Click += new System.EventHandler(this.KeyBinds_Click);
             // 
             // panel6
             // 
@@ -1845,6 +1905,24 @@ namespace Forza_Mods_AIO.TabForms
             this.SuperCarCheck.WorkerSupportsCancellation = true;
             this.SuperCarCheck.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SuperCarCheck_DoWork);
             // 
+            // KeyboardChangeWorker
+            // 
+            this.KeyboardChangeWorker.WorkerReportsProgress = true;
+            this.KeyboardChangeWorker.WorkerSupportsCancellation = true;
+            this.KeyboardChangeWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.KeyboardChangeWorker_DoWork);
+            // 
+            // ControllerChangeWorker
+            // 
+            this.ControllerChangeWorker.WorkerReportsProgress = true;
+            this.ControllerChangeWorker.WorkerSupportsCancellation = true;
+            this.ControllerChangeWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ControllerChangeWorker_DoWork);
+            // 
+            // JumpHackWorker
+            // 
+            this.JumpHackWorker.WorkerReportsProgress = true;
+            this.JumpHackWorker.WorkerSupportsCancellation = true;
+            this.JumpHackWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.JumpHackWorker_DoWork);
+            // 
             // Speedhack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -1881,6 +1959,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.CheckpointBox)).EndInit();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.JumpAmountBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GravitySet)).EndInit();
@@ -1894,6 +1973,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TurnAssistButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.JumpHackToggle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopAllWheelsButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperCarBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WheelSpeedButton)).EndInit();
@@ -1934,9 +2014,7 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Label LBL_Misc;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label JumpLabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label AcelLabel;
         private System.Windows.Forms.Label label16;
@@ -1975,8 +2053,6 @@ namespace Forza_Mods_AIO.TabForms
         private System.Windows.Forms.Button GravityPull;
         private System.Windows.Forms.Button WeirdPull;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button KBChange;
-        private System.Windows.Forms.Button XBChange;
         private System.ComponentModel.BackgroundWorker WayPointTPworker;
         private System.Windows.Forms.Label TimerLabel;
         private System.ComponentModel.BackgroundWorker TimerWorker;
@@ -2034,5 +2110,13 @@ namespace Forza_Mods_AIO.TabForms
         private DarkUI.Controls.DarkNumericUpDown VelLimitBox;
         private System.Windows.Forms.Label VelLimit;
         public System.ComponentModel.BackgroundWorker NoClipWorker;
+        public System.ComponentModel.BackgroundWorker KeyboardChangeWorker;
+        public System.ComponentModel.BackgroundWorker ControllerChangeWorker;
+        private System.Windows.Forms.Button KeyBinds;
+        public LimitlessUI.Slider_WOC JumpAmountBar;
+        private DarkUI.Controls.DarkNumericUpDown JumpAmountBox;
+        private System.Windows.Forms.Label JumpAmountLabel;
+        public Telerik.WinControls.UI.RadCheckBox JumpHackToggle;
+        private System.ComponentModel.BackgroundWorker JumpHackWorker;
     }
 }

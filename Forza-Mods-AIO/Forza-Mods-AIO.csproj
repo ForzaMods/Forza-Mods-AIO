@@ -390,6 +390,12 @@
     <Compile Include="TabForms\PopupForms\AddCarsGuide.Designer.cs">
       <DependentUpon>AddCarsGuide.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabForms\PopupForms\Controls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForms\PopupForms\Controls.Designer.cs">
+      <DependentUpon>Controls.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabForms\PopupForms\SaveswappingGuide.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -480,6 +486,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TabForms\PopupForms\AddCarsGuide.resx">
       <DependentUpon>AddCarsGuide.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabForms\PopupForms\Controls.resx">
+      <DependentUpon>Controls.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabForms\PopupForms\SaveswappingGuide.resx">
       <DependentUpon>SaveswappingGuide.cs</DependentUpon>

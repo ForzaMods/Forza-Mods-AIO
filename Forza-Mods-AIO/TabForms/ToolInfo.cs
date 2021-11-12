@@ -323,6 +323,7 @@ namespace Forza_Mods_AIO
             StatsEditor.s.waitingBarIndicatorElement2.BackColor2 = color;
             StatsEditor.s.waitingBarIndicatorElement2.BackColor3 = color;
             StatsEditor.s.waitingBarIndicatorElement2.BackColor4 = color;
+            Speedhack.s.JumpAmountBar.ForeColor = color;
             Speedhack.s.VelMultBar.ForeColor = color;
             Speedhack.s.FOVBar.ForeColor = color;
             Tyres.t.FrontTyreBar.ForeColor = color;
@@ -402,6 +403,8 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.SuperCarBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.FOV.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.FOV.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.JumpHackToggle.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.WeirdSet.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.GravitySet.Checked)

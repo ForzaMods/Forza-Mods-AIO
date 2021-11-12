@@ -33,6 +33,7 @@ namespace Forza_Mods_AIO.TabForms
         bool BreakStart = false;
         bool VelHackStart = false;
         bool VelHackToggle = false;
+        bool JumpHackToggleToggle = false;
         bool SpeedHackToggle = false;
         bool SpeedHackStart = false;
         bool TurnAssistToggle = false;
@@ -46,7 +47,7 @@ namespace Forza_Mods_AIO.TabForms
         bool OOB = false;
         public bool g2g = false;
         public static bool done = false;
-        public static bool Velstart = false; public static bool NCstart = false; public static bool FOVstart = false; public static bool Timestart = false; public static bool Breakstart = false; public static bool Speedstart = false; public static bool Turnstart = false;
+        public static bool JumpStart = false; public static bool Velstart = false; public static bool NCstart = false; public static bool FOVstart = false; public static bool Timestart = false; public static bool Breakstart = false; public static bool Speedstart = false; public static bool Turnstart = false;
         bool FovIncreaseStart = false; bool FovDecreaseStart = false;
         bool TimeToggle = false;  bool TimeForwardStart = false; bool TimeBackStart = false;
         bool GravityFreeze = false; bool WeirdFreeze = false;
@@ -81,7 +82,9 @@ namespace Forza_Mods_AIO.TabForms
         public static string OOBaob;
         public static string SuperCaraob;
 
-        public static string KBKeyString = "LShiftKey"; public static string XBKeyString = "LeftShoulder";
+        public static string KBSpeedKey = "LShiftKey"; public static string XBSpeedKey = "LeftShoulder";
+        public static string KBBrakeKey = "Space"; public static string XBBrakeKey = "A";
+        public static string KBJumpKey = "LControlKey"; public static string XBJumpKey = "RightThumb";
         public static string GravityAddr; public static string WeirdAddr;
         public static string BaseAddr; public static string Base2Addr; public static string Base3Addr; public static string Base4Addr;
         public static string Car1Addr; public static string Car2Addr; public static string FOVnopOutAddr; public static string FOVnopInAddr;
@@ -116,6 +119,7 @@ namespace Forza_Mods_AIO.TabForms
         float BoostSpeed1; float BoostSpeed2; float BoostSpeed3; float BoostLim;
         float TurnRatio; float TurnStrength; public float boost;
         float VelMult = 1; float FOVVal;
+        float JumpAmount = 1;
         float LastWPx = 0; float LastWPy = 0; float LastWPz = 0;
         float WeirdVal; float NewWeirdVal; float GravityVal; float NewGravityVal;
         float basegrav;
@@ -154,7 +158,8 @@ namespace Forza_Mods_AIO.TabForms
         static extern short GetAsyncKeyState(Keys vKey);
         [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(Int32 vKey);
-        public TabForms.PopupForms.RGB RGB = new TabForms.PopupForms.RGB();
+        public RGB RGB = new RGB();
+        public Controls ControlsPopUp = new Controls();
         #endregion
 
         public Speedhack()
@@ -162,8 +167,6 @@ namespace Forza_Mods_AIO.TabForms
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             ControllerWorker.RunWorkerAsync();
-            KBChange.Text = KBKeyString;
-            XBChange.Text = XBKeyString;
             s = this;
         }
         public static void Addresses()
@@ -317,8 +320,10 @@ namespace Forza_Mods_AIO.TabForms
                 }
                 if (controller == null)
                 {
-                    XBChange.Enabled = false;
-                    if(count == 0)
+                    PopupForms.Controls.c.XBChangeSpeed.Enabled = false;
+                    PopupForms.Controls.c.XBChangeBrake.Enabled = false;
+                    PopupForms.Controls.c.XBChangeJump.Enabled = false;
+                    if (count == 0)
                         Debug.WriteLine("No XInput controller installed");
                     count++;
                     Thread.Sleep(100);
@@ -328,7 +333,9 @@ namespace Forza_Mods_AIO.TabForms
                             joystickGuid = deviceInstance.InstanceGuid;
                         if (joystickGuid != Guid.Empty)
                         {
-                            XBChange.Enabled = true;
+                            PopupForms.Controls.c.XBChangeSpeed.Enabled = true;
+                            PopupForms.Controls.c.XBChangeBrake.Enabled = true;
+                            PopupForms.Controls.c.XBChangeJump.Enabled = true;
                             joystick = new Joystick(directInput, joystickGuid);
                             joystick.Properties.BufferSize = 128;
                             joystick.Acquire();
@@ -352,11 +359,13 @@ namespace Forza_Mods_AIO.TabForms
                     try
                     {
                         count = 0;
-                        Debug.WriteLine("Found a XInput controller available");
+                        Debug.WriteLine("Found an XInput controller available");
                         var previousState = controller.GetState();
                         while (controller.IsConnected)
                         {
-                            XBChange.Enabled = true;
+                            PopupForms.Controls.c.XBChangeSpeed.Enabled = true;
+                            PopupForms.Controls.c.XBChangeBrake.Enabled = true;
+                            PopupForms.Controls.c.XBChangeJump.Enabled = true;
                             var state = controller.GetState();
                             if (previousState.PacketNumber != state.PacketNumber)
                                 Debug.WriteLine(state.Gamepad);
@@ -376,7 +385,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             while (Velstart)
             {
-                Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBKeyString);
+                Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBSpeedKey);
                 //float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (g2g)//if (PastStart == 1)
                 {
@@ -384,9 +393,9 @@ namespace Forza_Mods_AIO.TabForms
                     {
                         var XBState = controller.GetState();
                         if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
-                        || XBState.Gamepad.Buttons.ToString().Contains(XBKeyString)
-                        || XBKeyString == "LeftTrigger" && Convert.ToInt64(XBState.Gamepad.LeftTrigger) >= 235
-                        || XBKeyString == "RightTrigger" && Convert.ToInt64(XBState.Gamepad.RightTrigger) >= 235)
+                        || XBState.Gamepad.Buttons.ToString().Contains(XBSpeedKey)
+                        || XBSpeedKey == "LeftTrigger" && Convert.ToInt64(XBState.Gamepad.LeftTrigger) >= 235
+                        || XBSpeedKey == "RightTrigger" && Convert.ToInt64(XBState.Gamepad.RightTrigger) >= 235)
                         {
                             SpeedHackVel();
                         }
@@ -395,15 +404,15 @@ namespace Forza_Mods_AIO.TabForms
                     {
                         var datas = joystick.GetCurrentState();
                         bool[] ControllerButtonstate = datas.Buttons;
-                        int test = DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key;
+                        int test = DInputmap.SingleOrDefault(x => x.Value == XBSpeedKey).Key;
                         if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
-                            || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key]
-                            || XBKeyString == "LeftTrigger" && datas.Z > 50000
-                            || XBKeyString == "RightTrigger" && datas.Z < 20000
-                            || XBKeyString == "DpadUp" && datas.PointOfViewControllers[0] == 0
-                            || XBKeyString == "DpadRight" && datas.PointOfViewControllers[0] == 90000
-                            || XBKeyString == "DpadDown" && datas.PointOfViewControllers[0] == 18000
-                            || XBKeyString == "DpadLeft" && datas.PointOfViewControllers[0] == 27000)
+                            || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBSpeedKey).Key]
+                            || XBSpeedKey == "LeftTrigger" && datas.Z > 50000
+                            || XBSpeedKey == "RightTrigger" && datas.Z < 20000
+                            || XBSpeedKey == "DpadUp" && datas.PointOfViewControllers[0] == 0
+                            || XBSpeedKey == "DpadRight" && datas.PointOfViewControllers[0] == 90000
+                            || XBSpeedKey == "DpadDown" && datas.PointOfViewControllers[0] == 18000
+                            || XBSpeedKey == "DpadLeft" && datas.PointOfViewControllers[0] == 27000)
                         {
                             SpeedHackVel();
                         }
@@ -461,7 +470,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             while (Speedstart)
             {
-                Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBKeyString);
+                Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBSpeedKey);
                 //float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 boost = MainWindow.m.ReadFloat(FrontLeftAddr);
                 if (g2g)//(PastStart == 1)
@@ -470,9 +479,9 @@ namespace Forza_Mods_AIO.TabForms
                     {
                         var XBState = controller.GetState();
                         while (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
-                        || XBState.Gamepad.Buttons.ToString().Contains(XBKeyString)
-                        || XBKeyString == "LeftTrigger" && Convert.ToInt64(XBState.Gamepad.LeftTrigger) >= 235
-                        || XBKeyString == "RightTrigger" && Convert.ToInt64(XBState.Gamepad.RightTrigger) >= 235)
+                        || XBState.Gamepad.Buttons.ToString().Contains(XBSpeedKey)
+                        || XBSpeedKey == "LeftTrigger" && Convert.ToInt64(XBState.Gamepad.LeftTrigger) >= 235
+                        || XBSpeedKey == "RightTrigger" && Convert.ToInt64(XBState.Gamepad.RightTrigger) >= 235)
                         {
                             XBState = controller.GetState();
                             SpeedHack();
@@ -482,15 +491,15 @@ namespace Forza_Mods_AIO.TabForms
                     {
                         var datas = joystick.GetCurrentState();
                         bool[] ControllerButtonstate = datas.Buttons;
-                        int test = DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key;
+                        int test = DInputmap.SingleOrDefault(x => x.Value == XBSpeedKey).Key;
                         if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
-                            || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key]
-                            || XBKeyString == "LeftTrigger" && datas.Z > 50000
-                            || XBKeyString == "RightTrigger" && datas.Z < 20000
-                            || XBKeyString == "UpDpad" && datas.PointOfViewControllers[0] == 0
-                            || XBKeyString == "RightDpad" && datas.PointOfViewControllers[0] == 90000
-                            || XBKeyString == "DownDpad" && datas.PointOfViewControllers[0] == 18000
-                            || XBKeyString == "LeftDpad" && datas.PointOfViewControllers[0] == 27000)
+                            || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBSpeedKey).Key]
+                            || XBSpeedKey == "LeftTrigger" && datas.Z > 50000
+                            || XBSpeedKey == "RightTrigger" && datas.Z < 20000
+                            || XBSpeedKey == "UpDpad" && datas.PointOfViewControllers[0] == 0
+                            || XBSpeedKey == "RightDpad" && datas.PointOfViewControllers[0] == 90000
+                            || XBSpeedKey == "DownDpad" && datas.PointOfViewControllers[0] == 18000
+                            || XBSpeedKey == "LeftDpad" && datas.PointOfViewControllers[0] == 27000)
                         {
                             SpeedHack();
                         }
@@ -578,13 +587,14 @@ namespace Forza_Mods_AIO.TabForms
         {
             while (Breakstart)
             {
+                Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBBrakeKey);
                 //float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (g2g)//if (true)//(PastStart == 1)
                 {
                     if (controller != null)
                     {
                         var XBState = controller.GetState();
-                        if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue || XBState.Gamepad.Buttons.ToString().Contains("A"))
+                        if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue || XBState.Gamepad.Buttons.ToString().Contains(XBBrakeKey))
                         {
                             SuperBreak();
                         }
@@ -593,13 +603,20 @@ namespace Forza_Mods_AIO.TabForms
                     {
                         var datas = joystick.GetCurrentState();
                         bool[] ControllerButtonstate = datas.Buttons;
-                        int test = DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key;
-                        if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue || ControllerButtonstate[0])
+                        int test = DInputmap.SingleOrDefault(x => x.Value == XBBrakeKey).Key;
+                        if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
+                            || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBBrakeKey).Key]
+                            || XBBrakeKey == "LeftTrigger" && datas.Z > 50000
+                            || XBBrakeKey == "RightTrigger" && datas.Z < 20000
+                            || XBBrakeKey == "UpDpad" && datas.PointOfViewControllers[0] == 0
+                            || XBBrakeKey == "RightDpad" && datas.PointOfViewControllers[0] == 90000
+                            || XBBrakeKey == "DownDpad" && datas.PointOfViewControllers[0] == 18000
+                            || XBBrakeKey == "LeftDpad" && datas.PointOfViewControllers[0] == 27000)
                         {
                             SuperBreak();
                         }
                     }
-                    else if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue)
+                    else if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue)
                     {
                         SuperBreak();
                     }
@@ -617,13 +634,14 @@ namespace Forza_Mods_AIO.TabForms
         {
             while (StopToggle)
             {
+                Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBBrakeKey);
                 //float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
                 if (g2g)//if (true)//(PastStart == 1)
                 {
                     if (controller != null)
                     {
                         var XBState = controller.GetState();
-                        if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue || XBState.Gamepad.Buttons.ToString().Contains("A"))
+                        if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue || XBState.Gamepad.Buttons.ToString().Contains(XBBrakeKey))
                         {
                             StopAllWheels();
                         }
@@ -632,13 +650,20 @@ namespace Forza_Mods_AIO.TabForms
                     {
                         var datas = joystick.GetCurrentState();
                         bool[] ControllerButtonstate = datas.Buttons;
-                        int test = DInputmap.SingleOrDefault(x => x.Value == XBKeyString).Key;
-                        if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue || ControllerButtonstate[0])
+                        int test = DInputmap.SingleOrDefault(x => x.Value == XBSpeedKey).Key;
+                        if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
+                            || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBBrakeKey).Key]
+                            || XBBrakeKey == "LeftTrigger" && datas.Z > 50000
+                            || XBBrakeKey == "RightTrigger" && datas.Z < 20000
+                            || XBBrakeKey == "UpDpad" && datas.PointOfViewControllers[0] == 0
+                            || XBBrakeKey == "RightDpad" && datas.PointOfViewControllers[0] == 90000
+                            || XBBrakeKey == "DownDpad" && datas.PointOfViewControllers[0] == 18000
+                            || XBBrakeKey == "LeftDpad" && datas.PointOfViewControllers[0] == 27000)
                         {
                             StopAllWheels();
                         }
                     }
-                    else if (GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue)
+                    else if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue)
                     {
                         StopAllWheels();
                     }
@@ -842,8 +867,8 @@ namespace Forza_Mods_AIO.TabForms
                         e.Cancel = true;
                         WayPointTPToggle = false;
                     }
-                    Thread.Sleep(50);
                 }
+                Thread.Sleep(1);
             }
         }
         private void OOBworker_DoWork(object sender, DoWorkEventArgs e)
@@ -885,6 +910,56 @@ namespace Forza_Mods_AIO.TabForms
                 catch
                 {
                     MainWindow.m.WriteBytes(OOBnopAddr, before);
+                }
+                Thread.Sleep(1);
+            }
+        }
+        private void JumpHackWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (JumpStart)
+            {
+                Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBJumpKey);
+                //float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
+                if (g2g)//if (PastStart == 1)
+                {
+                    if (controller != null)
+                    {
+                        var XBState = controller.GetState();
+                        if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
+                        || XBState.Gamepad.Buttons.ToString().Contains(XBJumpKey)
+                        || XBJumpKey == "LeftTrigger" && Convert.ToInt64(XBState.Gamepad.LeftTrigger) >= 235
+                        || XBJumpKey == "RightTrigger" && Convert.ToInt64(XBState.Gamepad.RightTrigger) >= 235)
+                        {
+                            JumpHack();
+                        }
+                    }
+                    else if (joystickGuid != Guid.Empty)
+                    {
+                        var datas = joystick.GetCurrentState();
+                        bool[] ControllerButtonstate = datas.Buttons;
+                        int test = DInputmap.SingleOrDefault(x => x.Value == XBJumpKey).Key;
+                        if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue
+                            || ControllerButtonstate[DInputmap.SingleOrDefault(x => x.Value == XBJumpKey).Key]
+                            || XBJumpKey == "LeftTrigger" && datas.Z > 50000
+                            || XBJumpKey == "RightTrigger" && datas.Z < 20000
+                            || XBJumpKey == "DpadUp" && datas.PointOfViewControllers[0] == 0
+                            || XBJumpKey == "DpadRight" && datas.PointOfViewControllers[0] == 90000
+                            || XBJumpKey == "DpadDown" && datas.PointOfViewControllers[0] == 18000
+                            || XBJumpKey == "DpadLeft" && datas.PointOfViewControllers[0] == 27000)
+                        {
+                            JumpHack();
+                        }
+                    }
+                    else if (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue)
+                    {
+                        JumpHack();
+                    }
+                    if (VelHackWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        JumpStart = false;
+                    }
+                    Thread.Sleep(1);
                 }
                 Thread.Sleep(1);
             }
@@ -952,6 +1027,31 @@ namespace Forza_Mods_AIO.TabForms
         }
         #endregion
 
+        #region Jump Hack
+        private void JumpHackToggle_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (JumpHackToggle.Checked == false)
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
+                JumpHackToggleToggle = false;
+                if (JumpHackToggleToggle == false)
+                {
+                    JumpHackWorker.CancelAsync();
+                }
+            }
+            else
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                JumpHackToggleToggle = true;
+                JumpStart = true;
+                if (JumpHackWorker.IsBusy == false)
+                {
+                    JumpHackWorker.RunWorkerAsync();
+                }
+            }
+        }
+        #endregion
+
         #region Speed Hack
         private void VelHackButton_CheckedChanged(object sender, EventArgs e)
         {
@@ -1010,6 +1110,11 @@ namespace Forza_Mods_AIO.TabForms
                 //MainWindow.m.WriteMemory(yAddr, "float", y.ToString());
                 Thread.Sleep(50);
             }
+        }
+        public void JumpHack()
+        {
+            MainWindow.m.WriteMemory(yVelocityAddr, "float", (MainWindow.m.ReadFloat(yVelocityAddr, round:false) + (float)JumpAmountBox.Value).ToString());
+            Thread.Sleep(50);
         }
         public void SpeedHack()
         {
@@ -1374,17 +1479,21 @@ namespace Forza_Mods_AIO.TabForms
         #endregion
 
         #region Key Change Buttons
-        private void KBChange_MouseEnter(object sender, EventArgs e)
-        {
-            KBChange.Text = "Change";
-        }
-        private void KBChange_MouseLeave(object sender, EventArgs e)
-        {
-            KBChange.Text = KBKeyString;
-        }
-        private void KBChange_Click(object sender, EventArgs e)
+        public void KeyboardChangeWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             bool done = false;
+            if ((int)e.Argument == 1)
+            {
+                PopupForms.Controls.c.KBChangeSpeed.Text = "Press Key";
+            }
+            if ((int)e.Argument == 2)
+            {
+                PopupForms.Controls.c.KBChangeBrake.Text = "Press Key";
+            }
+            if ((int)e.Argument == 3)
+            {
+                PopupForms.Controls.c.KBChangeJump.Text = "Press Key";
+            }
             while (!done)
             {
                 string keyBuffer = string.Empty;
@@ -1407,27 +1516,43 @@ namespace Forza_Mods_AIO.TabForms
                         keyBuffer = "LControlKey";
                     if (keyBuffer == "AltKeyLAltKey")
                         keyBuffer = "LAltKey";
-                    KBChange.Text = keyBuffer;
-                    KBKeyString = keyBuffer;
+                    if((int)e.Argument == 1)
+                    {
+                        PopupForms.Controls.c.KBChangeSpeed.Text = keyBuffer;
+                        KBSpeedKey = keyBuffer;
+                    }
+                    if ((int)e.Argument == 2)
+                    {
+                        PopupForms.Controls.c.KBChangeBrake.Text = keyBuffer;
+                        KBBrakeKey = keyBuffer;
+                    }
+                    if ((int)e.Argument == 3)
+                    {
+                        PopupForms.Controls.c.KBChangeJump.Text = keyBuffer;
+                        KBJumpKey = keyBuffer;
+                    }
                     done = true;
                 }
                 Thread.Sleep(1);
             }
         }
-        private void XBChange_MouseEnter(object sender, EventArgs e)
+        private void ControllerChangeWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            XBChange.Text = "Change";
-        }
-        private void XBChange_MouseLeave(object sender, EventArgs e)
-        {
-            XBChange.Text = XBKeyString;
-        }
-        private void XBChange_Click(object sender, EventArgs e)
-        {
-            bool done = false;
-            if (controller !=null)
+            if ((int)e.Argument == 1)
             {
-                XBChange.Text = "Press the button\n you want";
+                PopupForms.Controls.c.XBChangeSpeed.Text = "Press button";
+            }
+            if ((int)e.Argument == 2)
+            {
+                PopupForms.Controls.c.XBChangeBrake.Text = "Press button";
+            }
+            if ((int)e.Argument == 3)
+            {
+                PopupForms.Controls.c.XBChangeJump.Text = "Press button";
+            }
+            bool done = false;
+            if (controller != null)
+            {
                 while (!done)
                 {
                     var State = controller.GetState();
@@ -1436,26 +1561,65 @@ namespace Forza_Mods_AIO.TabForms
                     long ControllerLTstate = Convert.ToInt64(State.Gamepad.LeftTrigger);
                     if (ControllerButtonstate != "None")
                     {
-                        XBChange.Text = ControllerButtonstate;
-                        XBKeyString = ControllerButtonstate;
+                        if ((int)e.Argument == 1)
+                        {
+                            PopupForms.Controls.c.XBChangeSpeed.Text = ControllerButtonstate;
+                            XBSpeedKey = ControllerButtonstate;
+                        }
+                        if ((int)e.Argument == 2)
+                        {
+                            PopupForms.Controls.c.XBChangeBrake.Text = ControllerButtonstate;
+                            XBBrakeKey = ControllerButtonstate;
+                        }
+                        if ((int)e.Argument == 3)
+                        {
+                            PopupForms.Controls.c.XBChangeJump.Text = ControllerButtonstate;
+                            XBJumpKey = ControllerButtonstate;
+                        }
                         done = true;
                     }
                     if (ControllerRTstate > 240)
                     {
-                        XBChange.Text = "RightTrigger";
-                        XBKeyString = "RightTrigger";
+                        if ((int)e.Argument == 1)
+                        {
+                            PopupForms.Controls.c.XBChangeSpeed.Text = "RightTrigger";
+                            XBSpeedKey = "RightTrigger";
+                        }
+                        if ((int)e.Argument == 2)
+                        {
+                            PopupForms.Controls.c.XBChangeBrake.Text = "RightTrigger";
+                            XBBrakeKey = "RightTrigger";
+                        }
+                        if ((int)e.Argument == 3)
+                        {
+                            PopupForms.Controls.c.XBChangeJump.Text = "RightTrigger";
+                            XBJumpKey = "RightTrigger";
+                        }
                         done = true;
                     }
                     if (ControllerLTstate > 240)
                     {
-                        XBChange.Text = "LeftTrigger";
-                        XBKeyString = "LeftTrigger";
+                        if ((int)e.Argument == 1)
+                        {
+                            PopupForms.Controls.c.XBChangeSpeed.Text = "LeftTrigger";
+                            XBSpeedKey = "LeftTrigger";
+                        }
+                        if ((int)e.Argument == 2)
+                        {
+                            PopupForms.Controls.c.XBChangeBrake.Text = "LeftTrigger";
+                            XBBrakeKey = "LeftTrigger";
+                        }
+                        if ((int)e.Argument == 3)
+                        {
+                            PopupForms.Controls.c.XBChangeJump.Text = "LeftTrigger";
+                            XBJumpKey = "LeftTrigger";
+                        }
                         done = true;
                     }
-                    Thread.Sleep(1);
+                    Thread.Sleep(10);
                 }
             }
-            else if(joystickGuid != Guid.Empty)
+            else if (joystickGuid != Guid.Empty)
             {
                 while (!done)
                 {
@@ -1466,12 +1630,12 @@ namespace Forza_Mods_AIO.TabForms
                         List<int> indices = new List<int>();
                         for (int i = 0; i < 9; ++i)
                         {
-                            if (datas.Z > 50000) { XBKeyString = "LeftTrigger"; done = true; }
-                            if (datas.Z < 20000) { XBKeyString = "RightTrigger"; done = true; }
-                            if (datas.PointOfViewControllers[0] == 0) { XBKeyString = "DpadUp"; done = true; }
-                            if (datas.PointOfViewControllers[0] == 9000) { XBKeyString = "DpadRight"; done = true; }
-                            if (datas.PointOfViewControllers[0] == 18000) { XBKeyString = "DpadDown"; done = true; }
-                            if (datas.PointOfViewControllers[0] == 27000) { XBKeyString = "DpadLeft"; done = true; }
+                            if (datas.Z > 50000) { XBSpeedKey = "LeftTrigger"; done = true; }
+                            if (datas.Z < 20000) { XBSpeedKey = "RightTrigger"; done = true; }
+                            if (datas.PointOfViewControllers[0] == 0) { XBSpeedKey = "DpadUp"; done = true; }
+                            if (datas.PointOfViewControllers[0] == 9000) { XBSpeedKey = "DpadRight"; done = true; }
+                            if (datas.PointOfViewControllers[0] == 18000) { XBSpeedKey = "DpadDown"; done = true; }
+                            if (datas.PointOfViewControllers[0] == 27000) { XBSpeedKey = "DpadLeft"; done = true; }
                             if (ControllerButtonstate[i])
                             {
                                 indices.Add(i);
@@ -1480,10 +1644,23 @@ namespace Forza_Mods_AIO.TabForms
                         if (indices.Count == 1)
                         {
                             int XBButtonIndex = indices[0];
-                            if(XBButtonIndex <= 9)
+                            if (XBButtonIndex <= 9)
                             {
-                                XBKeyString = DInputmap[XBButtonIndex];
-                                XBChange.Text = XBKeyString;
+                                if ((int)e.Argument == 1)
+                                {
+                                    PopupForms.Controls.c.XBChangeSpeed.Text = DInputmap[XBButtonIndex];
+                                    XBSpeedKey = DInputmap[XBButtonIndex];
+                                }
+                                if ((int)e.Argument == 2)
+                                {
+                                    PopupForms.Controls.c.XBChangeBrake.Text = DInputmap[XBButtonIndex];
+                                    XBBrakeKey = DInputmap[XBButtonIndex];
+                                }
+                                if ((int)e.Argument == 3)
+                                {
+                                    PopupForms.Controls.c.XBChangeJump.Text = DInputmap[XBButtonIndex];
+                                    XBJumpKey = DInputmap[XBButtonIndex];
+                                }
                                 done = true;
                             }
                         }
@@ -1834,6 +2011,16 @@ namespace Forza_Mods_AIO.TabForms
             VelMultBar.Value = Decimal.ToInt32(VelMultBox.Value * 100000);
             VelMult = Decimal.ToSingle(VelMultBox.Value);
         }
+        private void JumpAmountBar_Scroll(LimitlessUI.Slider_WOC slider, float value)
+        {
+            JumpAmountBox.Value = Convert.ToDecimal(Math.Round(JumpAmountBar.Value)) / 100000;
+            VelMult = Decimal.ToSingle(VelMultBox.Value);
+        }
+        private void JumpAmountBox_ValueChanged(object sender, EventArgs e)
+        {
+            JumpAmountBar.Value = Decimal.ToInt32(JumpAmountBox.Value * 100000);
+            VelMult = Decimal.ToSingle(VelMultBox.Value);
+        }
         #endregion
 
         #region FOV
@@ -2098,8 +2285,6 @@ namespace Forza_Mods_AIO.TabForms
         #region Save / Load
         public void SHReset()
         {
-            KBChange.Text = KBKeyString;
-            XBChange.Text = XBKeyString;
             TurnIntervalBox.Value = TurnInterval;
             RatioBox.Value = Convert.ToDecimal(TurnRatio);
             TurnStrengthBox.Value = Convert.ToDecimal(TurnStrength);
@@ -2117,6 +2302,8 @@ namespace Forza_Mods_AIO.TabForms
             Boost4Box.Value = Convert.ToDecimal(times4);
             VelMultBox.Value = Convert.ToDecimal(VelMult);
             VelMultBar.Value = Decimal.ToInt32(VelMultBox.Value * 100000);
+            JumpAmountBox.Value = Convert.ToDecimal(JumpAmount);
+            JumpAmountBar.Value = Decimal.ToInt32(JumpAmountBox.Value * 100000);
             FOVVal = (float)FOVBar.Value / 100;
             LST_TeleportLocation.Text = "Waypoint";
         }
@@ -2128,8 +2315,6 @@ namespace Forza_Mods_AIO.TabForms
             {
                 var SpeedHackparser = new FileIniDataParser();
                 IniData SpeedHack = SpeedHackparser.ReadFile("SpeedHackDefault.ini");
-                string KBString = SpeedHack["Keys"]["Keyboard"]; KBKeyString = KBString;
-                string XBString = SpeedHack["Keys"]["Controller"]; XBKeyString = XBString;
                 string CarNoClipStr = SpeedHack["No-Clip"]["Car"]; TB_SHCarNoClip.Checked = bool.Parse(CarNoClipStr);
                 string WallNoClipStr = SpeedHack["No-Clip"]["Wall"]; TB_SHWallNoClip.Checked = bool.Parse(WallNoClipStr);
                 string VelocityToggleStr = SpeedHack["Velocity"]["On"]; VelHackButton.Checked = bool.Parse(VelocityToggleStr);
@@ -2157,6 +2342,23 @@ namespace Forza_Mods_AIO.TabForms
                 string AutoTPStr = SpeedHack["Teleports"]["Auto-Tp to waypoint"]; AutoWayPoint.Checked = bool.Parse(AutoTPStr);
                 try { string VelocityLimitStr = SpeedHack["Velocity"]["Limit"]; VelLimitBox.Value = decimal.Parse(VelocityLimitStr); }
                 catch { VelLimitBox.Value = 445; WriteSpeedDefaultValues(); }
+                if (SpeedHack["Keys"].ContainsKey("SpeedHack Keyboard"))
+                {
+                    string KBSpeedKeyStr = SpeedHack["Keys"]["SpeedHack Keyboard"]; KBSpeedKey = KBSpeedKeyStr;
+                    string XBSpeedKeyStr = SpeedHack["Keys"]["SpeedHack Controller"]; XBSpeedKey = XBSpeedKeyStr;
+                    string KBBrakeKeyStr = SpeedHack["Keys"]["SuperBrake Keyboard"]; KBBrakeKey = KBBrakeKeyStr;
+                    string XBBrakeKeyStr = SpeedHack["Keys"]["SuperBrake Controller"]; XBBrakeKey = XBBrakeKeyStr;
+                    string KBJumpKeyStr = SpeedHack["Keys"]["Jump Keyboard"]; KBJumpKey = KBJumpKeyStr;
+                    string XBJumpKeyStr = SpeedHack["Keys"]["Jump Controller"]; XBJumpKey = XBJumpKeyStr;
+                    string JumpHackStr = SpeedHack["JumpHack"]["On"]; JumpHackToggle.Checked = bool.Parse(JumpHackStr);
+                    string JumpAmountStr = SpeedHack["JumpHack"]["Amount"]; JumpAmount = float.Parse(JumpAmountStr);
+                }
+                else
+                {
+                    JumpHackToggle.Checked = false;
+                    JumpAmount = 1;
+                    WriteSpeedDefaultValues();
+                }
             }
             else
             {
@@ -2168,8 +2370,12 @@ namespace Forza_Mods_AIO.TabForms
         {
             var SpeedHackparser = new FileIniDataParser();
             IniData SpeedHack = new IniData();
-            SpeedHack["Keys"]["Keyboard"] = KBKeyString;
-            SpeedHack["Keys"]["Controller"] = XBKeyString;
+            SpeedHack["Keys"]["SpeedHack Keyboard"] = KBSpeedKey;
+            SpeedHack["Keys"]["SpeedHack Controller"] = XBSpeedKey;
+            SpeedHack["Keys"]["SuperBrake Keyboard"] = KBBrakeKey;
+            SpeedHack["Keys"]["SuperBrake Controller"] = XBBrakeKey;
+            SpeedHack["Keys"]["Jump Keyboard"] = KBJumpKey;
+            SpeedHack["Keys"]["Jump Controller"] = XBJumpKey;
             SpeedHack["No-Clip"]["Car"] = TB_SHCarNoClip.Checked.ToString();
             SpeedHack["No-Clip"]["Wall"] = TB_SHWallNoClip.Checked.ToString();
             SpeedHack["Velocity"]["On"] = VelHackButton.Checked.ToString();
@@ -2188,6 +2394,8 @@ namespace Forza_Mods_AIO.TabForms
             SpeedHack["SpeedHack"]["Boost up to speed 2"] = times2.ToString();
             SpeedHack["SpeedHack"]["Boost up to speed 3"] = times3.ToString();
             SpeedHack["SpeedHack"]["Boost above speed 3"] = times4.ToString();
+            SpeedHack["JumpHack"]["On"] = JumpHackToggle.Checked.ToString();
+            SpeedHack["JumpHack"]["Amount"] = JumpAmount.ToString();
             SpeedHack["Break"]["Superbreak on"] = SuperBreakButton.Checked.ToString();
             SpeedHack["Break"]["Stop all wheels on"] = StopAllWheelsButton.Checked.ToString();
             SpeedHack["Turn assist"]["On"] = TurnAssistButton.Checked.ToString();
@@ -2202,8 +2410,12 @@ namespace Forza_Mods_AIO.TabForms
         {
             var SpeedHackparser = new FileIniDataParser();
             IniData SpeedHack = new IniData();
-            SpeedHack["Keys"]["Keyboard"] = "LShiftKey";
-            SpeedHack["Keys"]["Controller"] = "LeftShoulder";
+            SpeedHack["Keys"]["SpeedHack Keyboard"] = "LShiftKey";
+            SpeedHack["Keys"]["SpeedHack Controller"] = "LeftShoulder";
+            SpeedHack["Keys"]["SuperBrake Keyboard"] = "Space";
+            SpeedHack["Keys"]["SuperBrake Controller"] = "A";
+            SpeedHack["Keys"]["Jump Keyboard"] = "LControlKey";
+            SpeedHack["Keys"]["Jump Controller"] = "RightThumb";
             SpeedHack["No-Clip"]["Car"] = "false";
             SpeedHack["No-Clip"]["Wall"] = "false";
             SpeedHack["Velocity"]["On"] = "false";
@@ -2222,6 +2434,8 @@ namespace Forza_Mods_AIO.TabForms
             SpeedHack["SpeedHack"]["Boost up to speed 2"] = "0";
             SpeedHack["SpeedHack"]["Boost up to speed 3"] = "0";
             SpeedHack["SpeedHack"]["Boost above speed 3"] = "0";
+            SpeedHack["JumpHack"]["On"] = "false";
+            SpeedHack["JumpHack"]["Amount"] = "1";
             SpeedHack["Break"]["Superbreak on"] = "false";
             SpeedHack["Break"]["Stop all wheels on"] = "false";
             SpeedHack["Turn assist"]["On"] = "false";
@@ -2388,6 +2602,12 @@ namespace Forza_Mods_AIO.TabForms
                 SuperCarBox.Checked = false;
                 SuperCarBox.Checked = true;
             }
+        }
+
+        private void KeyBinds_Click(object sender, EventArgs e)
+        {
+            ControlsPopUp.Show();
+            ControlsPopUp.Focus();
         }
     }
 }
