@@ -364,7 +364,12 @@ namespace Forza_Mods_AIO
                     {
                         ToolInfo.LBL_Attached.Text = "Attached to FH4";
                         ToolInfo.LBL_Attached.ForeColor = Color.Green;
-                        EnableButtons();
+                        if(platform == 1)
+                            EnableButtons();
+                        else
+                        {
+                            BTN_TabStatsEditor.Enabled = true;
+                        }
                         ToolInfo.AOBScanProgress.Hide();
                         Thread.Sleep(1);
                     }
@@ -559,8 +564,16 @@ namespace Forza_Mods_AIO
                     }
                     else
                     {
+                        Speedhack.AobsSteam();
                         platform = 2;
-                        Speedhack.done = true;
+                        if (!ToolInfo.AOBScanProgress.Visible)
+                            ToolInfo.AOBScanProgress.Show();
+                        Thread.Sleep(1);
+                        if (Speedhack.BaseAddr == "1F5" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0")
+                        {
+                            Speedhack.BaseAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.Base, true, true)).FirstOrDefault() + 501;
+                            Speedhack.BaseAddr = Speedhack.BaseAddrLong.ToString("X");
+                        }
                     }
                     if (TargetProcess.MainModule.FileName.Contains("Microsoft.SunriseBaseGame") && (Speedhack.BaseAddr == "29A0" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0"
                         || Speedhack.Base2Addr == "3B40" || Speedhack.Base2Addr == null || Speedhack.Base2Addr == "0"
@@ -580,6 +593,10 @@ namespace Forza_Mods_AIO
                         || Speedhack.OOBnopAddr == null || Speedhack.OOBnopAddr == "0"
                         || Speedhack.SuperCarAddr == null || Speedhack.SuperCarAddr == "0")
                         )
+                    {
+                        ;
+                    }
+                    else if(!TargetProcess.MainModule.FileName.Contains("Microsoft.SunriseBaseGame") && (Speedhack.BaseAddr == "1F5" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0"))
                     {
                         ;
                     }
@@ -621,6 +638,13 @@ namespace Forza_Mods_AIO
                             LiveTuning.Addresses();
                             Speedhack.Addresses();
                             Speedhack.s.ReadSpeedDefaultValues();
+                            Speedhack.done = true;
+                        }
+                        else
+                        {
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 100; i++)
+                            { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
+                            Speedhack.AddressesSteam();
                             Speedhack.done = true;
                         }
                     }
@@ -725,8 +749,24 @@ namespace Forza_Mods_AIO
                     }
                     else
                     {
+                        Speedhack.AobsFiveSteam();
                         platform = 2;
-                        Speedhack.done = true;
+                        if (!ToolInfo.AOBScanProgress.Visible)
+                            ToolInfo.AOBScanProgress.Show();
+                        Thread.Sleep(1);
+                        if (Speedhack.BaseAddr == "FFFFFFFFFFFFFC88" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0")
+                        {
+                            Speedhack.BaseAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.Base, true, true)).FirstOrDefault() - 888;
+                            Speedhack.BaseAddr = Speedhack.BaseAddrLong.ToString("X");
+                            Speedhack.Base2AddrLong = Speedhack.BaseAddrLong + 23768;
+                            Speedhack.Base2Addr = Speedhack.Base2AddrLong.ToString("X");
+                            Speedhack.Base3AddrLong = Speedhack.BaseAddrLong + 10792;
+                            Speedhack.Base3Addr = Speedhack.Base3AddrLong.ToString("X");
+                            Speedhack.WorldRGBAddrLong = Speedhack.BaseAddrLong + 10360;
+                            Speedhack.WorldRGBAddr = Speedhack.WorldRGBAddrLong.ToString("X");
+                            Speedhack.CurrentIDAddrLong = Speedhack.BaseAddrLong - 15274840;
+                            Speedhack.CurrentIDAddr = Speedhack.CurrentIDAddrLong.ToString("X");
+                        }
                     }
                     if (TargetProcess.MainModule.FileName.Contains("Microsoft.624F8B84B80") && (Speedhack.BaseAddr == "8A0" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0"
                         || Speedhack.XPaddr == null || Speedhack.XPaddr == "0"
@@ -740,6 +780,10 @@ namespace Forza_Mods_AIO
                         || Speedhack.CheckPointxASMAddr == null || Speedhack.CheckPointxASMAddr == "0"
                         || Speedhack.OOBnopAddr == "31" || Speedhack.OOBnopAddr == null || Speedhack.OOBnopAddr == "0")
                         )
+                    {
+                        ;
+                    }
+                    else if(!TargetProcess.MainModule.FileName.Contains("Microsoft.624F8B84B80") && (Speedhack.BaseAddr == "FFFFFFFFFFFFFC88" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0"))
                     {
                         ;
                     }
@@ -780,6 +824,13 @@ namespace Forza_Mods_AIO
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.AddressesFive();
                             Speedhack.s.ReadSpeedDefaultValues();
+                            Speedhack.done = true;
+                        }
+                        else
+                        {
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 100; i++)
+                            { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
+                            Speedhack.AddressesFiveSteam();
                             Speedhack.done = true;
                         }
                     }

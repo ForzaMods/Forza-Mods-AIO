@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -82,9 +83,19 @@ namespace Forza_Mods_AIO.TabForms
                 long ScanStartAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 50000000000;
                 long ScanEndAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 20000000000;
                 if(MainWindow.main.ForzaFour)
-                    yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "F8 5F ? ? ? 7F 00 00", true, true)).ToList();
+                {
+                    if (Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.FileName.Contains("Microsoft.SunriseBaseGame"))
+                        yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "F8 5F ? ? ? 7F 00 00", true, true)).ToList();
+                    else
+                        yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "80 BF ? ? ? 7F 00 00", true, true)).ToList();
+                }
                 else
-                    yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "58 13 ? ? ? 7F 00 00", true, true)).ToList();
+                {
+                    if (Process.GetProcessesByName("ForzaHorizon5")[0].MainModule.FileName.Contains("Microsoft.624F8B84B80"))
+                        yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "58 13 ? ? ? 7F 00 00", true, true)).ToList();
+                    else
+                        yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "88 87 ? ? ? 7F 00 00", true, true)).ToList();
+                }
                 foreach (var item in yeet)
                 {
                     if (MainWindow.m.ReadString((item - 76).ToString("X"), zeroTerminated: true).Length > 1

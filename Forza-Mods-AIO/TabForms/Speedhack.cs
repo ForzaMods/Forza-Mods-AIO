@@ -214,6 +214,10 @@ namespace Forza_Mods_AIO.TabForms
             s.LST_TeleportLocation.Items.Add("Top of Mountain");
             s.g2gWorker.RunWorkerAsync();
         }
+        public static void AddressesSteam()
+        {
+            FrontRightAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,0xD20,0xC");
+        }
         public static void AddressesFive()
         {
             FrontLeftAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,0x10");
@@ -256,6 +260,10 @@ namespace Forza_Mods_AIO.TabForms
             s.LST_TeleportLocation.Items.Add("Top Of Volcano");
             s.g2gWorker.RunWorkerAsync();
         }
+        public static void AddressesFiveSteam()
+        {
+            FrontRightAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,0xA80");
+        }
         public static void VolumeSetup()
         {
             PastIntroAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x21820");
@@ -284,6 +292,10 @@ namespace Forza_Mods_AIO.TabForms
             OOBaob = "0F 11 ? ? ? ? ? 0F 5C ? 0F 59 ? 0F 28 ? 0F C6 CA ? F3 0F";
             SuperCaraob = "0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 48 83 C2 ? 0F 11 ? ? 48 83 C1 ? E8 ? ? ? ? 0F 10";
     }
+        public static void AobsSteam()
+        {
+            Base = "7F ? 00 01 00 00 00 03 00 00 00 01 00 00 00 00 00 00 00 64";
+        }
         public static void AobsFive()
         {
             Base = "E8 ? ? ? ? 7F ? 00 CD A0";
@@ -298,6 +310,10 @@ namespace Forza_Mods_AIO.TabForms
             FOVJmp = "76 ? 0F 10 ? ? 0F 28 ? 0F 10";
             OOBaob = "0F 28 ? 0F 28 ? 0F C6 D1 ? 0F 59 ? ? ? ? ? 0F C6 C1 ? 0F 59 ? ? ? ? ? 0F C6 C9 ? 0F 59 ? ? ? ? ? 0F 58 ? 0F 58 ? 0F 58 ? ? 0F 11";
             CheckPointxASMsig = "0F 11 ? ? ? ? ? C3 90 E6 ? A8";
+        }
+        public static void AobsFiveSteam()
+        {
+            Base = "67 86 ? ? ? ? ? 95 00 48";
         }
 
         #region BG Workers

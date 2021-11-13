@@ -272,7 +272,7 @@ InitialExperienceState,Int
 TotalSkills,Int
 Horns,Int
 Crowds,Int
-HDRSaturation,Int
+HDRSaturation,Float
 NumSkillTokens,Int
 Color,Int
 Captions,Int
