@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Forza_Mods_AIO.TabForms.PopupForms;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -9,6 +10,7 @@ namespace Forza_Mods_AIO
     public partial class AddCars : Form
     {
         public static AddCars a = new AddCars();
+        public QuickAddCars QuickAddCars = new QuickAddCars();
         public AddCars()
         {
             InitializeComponent();
@@ -906,6 +908,12 @@ namespace Forza_Mods_AIO
                     MainWindow.m.WriteBytes("base+65C2270", OriginalData);
                 }
             }
+        }
+
+        private void QuickAdd_Click(object sender, EventArgs e)
+        {
+            QuickAddCars.Show();
+            QuickAddCars.Focus();
         }
     }
 }

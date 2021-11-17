@@ -129,7 +129,6 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     StatsTableData.Rows.Add(yeetstring[i], yeetstring2[i]);
                 }
-                System.IO.File.WriteAllLines("Stats.txt", yeetstring);
                 try { File.Delete(Path.Combine(Path.GetTempPath(), Version)); }
                 catch { }
                 StatsTable.DataSource = StatsTableData;
@@ -259,6 +258,7 @@ namespace Forza_Mods_AIO.TabForms
                 FilterBox.Text = "Filter";
                 FilterBox.Text.PadLeft(FilterBox.Text.Length + 15);
                 StatsTableData.DefaultView.RowFilter = String.Empty;
+                StatsScrollBar.Maximum = StatsTable.Rows.Count - 17;
             }
         }
 
