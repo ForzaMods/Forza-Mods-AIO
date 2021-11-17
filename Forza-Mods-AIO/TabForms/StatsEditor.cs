@@ -94,7 +94,8 @@ namespace Forza_Mods_AIO.TabForms
                     if (Process.GetProcessesByName("ForzaHorizon5")[0].MainModule.FileName.Contains("Microsoft.624F8B84B80"))
                         yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "58 13 ? ? ? 7F 00 00", true, true)).ToList();
                     else
-                        yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "88 87 ? ? ? 7F 00 00", true, true)).ToList();
+                        yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "48 93 ? ? ? 7F 00 00", true, true)).ToList();
+                    
                 }
                 foreach (var item in yeet)
                 {

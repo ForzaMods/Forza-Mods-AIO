@@ -313,7 +313,7 @@ namespace Forza_Mods_AIO.TabForms
         }
         public static void AobsFiveSteam()
         {
-            Base = "67 86 ? ? ? ? ? 95 00 48";
+            Base = "FF 90 ? ? ? ? 7F ? 00 00 00 00 00 00 00 00 00 18";
         }
 
         #region BG Workers

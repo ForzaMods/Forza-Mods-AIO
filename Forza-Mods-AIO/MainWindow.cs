@@ -754,9 +754,9 @@ namespace Forza_Mods_AIO
                         if (!ToolInfo.AOBScanProgress.Visible)
                             ToolInfo.AOBScanProgress.Show();
                         Thread.Sleep(1);
-                        if (Speedhack.BaseAddr == "378" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0")
+                        if (Speedhack.BaseAddr == "389" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0")
                         {
-                            Speedhack.BaseAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.Base, true, true)).FirstOrDefault() + 888;
+                            Speedhack.BaseAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.Base, true, true)).FirstOrDefault() + 905;
                             Speedhack.BaseAddr = Speedhack.BaseAddrLong.ToString("X");
                             Speedhack.Base2AddrLong = Speedhack.BaseAddrLong + 23768;
                             Speedhack.Base2Addr = Speedhack.Base2AddrLong.ToString("X");
