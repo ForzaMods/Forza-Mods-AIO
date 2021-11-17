@@ -59,6 +59,7 @@ namespace Forza_Mods_AIO.TabForms
         public static long OOBnopAddrLong;
         public static long SuperCarAddrLong;
         public static long WorldRGBAddrLong;
+        public static long DLCPatchAddrLong;
 
         public static string Base;
         public static string Car1;
@@ -81,6 +82,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string CurrentIDaob;
         public static string OOBaob;
         public static string SuperCaraob;
+        public static string DLCPatchaob;
 
         public static string KBSpeedKey = "LShiftKey"; public static string XBSpeedKey = "LeftShoulder";
         public static string KBBrakeKey = "Space"; public static string XBBrakeKey = "A";
@@ -107,11 +109,12 @@ namespace Forza_Mods_AIO.TabForms
         public static string SuperCarAddr;
         public static string WorldRGBAddr;
         public static string InPauseAddr;
+        public static string DLCPatchAddr;
         public static string CheckPointBaseAddr = null; public static string WayPointBaseAddr = null;
         public static string XPaddr = null; public static long XPaddrLong = 0; public static string XPAmountaddr = null; public static long XPAmountaddrLong = 0;
 
-        public static IntPtr CCBA = (IntPtr)0; public static IntPtr CCBA2 = (IntPtr)0; public static IntPtr CCBA3 = (IntPtr)0; public static IntPtr CCBA4 = (IntPtr)0;
-        public static IntPtr CodeCave = (IntPtr)0; public static IntPtr CodeCave2 = (IntPtr)0; public static IntPtr CodeCave3 = (IntPtr)0; public static IntPtr CodeCave4 = (IntPtr)0;
+        public static IntPtr CCBA = (IntPtr)0; public static IntPtr CCBA2 = (IntPtr)0; public static IntPtr CCBA3 = (IntPtr)0; public static IntPtr CCBA4 = (IntPtr)0; public static IntPtr CCBA5 = (IntPtr)0;
+        public static IntPtr CodeCave = (IntPtr)0; public static IntPtr CodeCave2 = (IntPtr)0; public static IntPtr CodeCave3 = (IntPtr)0; public static IntPtr CodeCave4 = (IntPtr)0; public static IntPtr CodeCave5 = (IntPtr)0;
         public static IntPtr InjectAddress;
         float xVelocityVal; float yVelocityVal; float zVelocityVal;
         float x; float y; float z;
@@ -298,7 +301,7 @@ namespace Forza_Mods_AIO.TabForms
         }
         public static void AobsFive()
         {
-            Base = "E8 ? ? ? ? 7F ? 00 CD A0";
+            Base = "7F ? 00 AC ? ? ? ? ? 6E 27 00 24";
             XPaob = "F3 0F ? ? 89 45 ? 48 8D ? ? ? ? ? 41 83";
             XPAmountaob = "8B 89 ? ? ? ? 85 C9 0F 8E";
             Car1 = "0F 84 ? ? ? ? 4C 8B ? ? ? ? ? ? 45 0F ? ? 4C 8B";
@@ -309,7 +312,8 @@ namespace Forza_Mods_AIO.TabForms
             WayPointxASMsig = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50 C1 83 E0 07 3C 07";
             FOVJmp = "76 ? 0F 10 ? ? 0F 28 ? 0F 10";
             OOBaob = "0F 28 ? 0F 28 ? 0F C6 D1 ? 0F 59 ? ? ? ? ? 0F C6 C1 ? 0F 59 ? ? ? ? ? 0F C6 C9 ? 0F 59 ? ? ? ? ? 0F 58 ? 0F 58 ? 0F 58 ? ? 0F 11";
-            CheckPointxASMsig = "0F 11 ? ? ? ? ? C3 90 E6 ? A8";
+            CheckPointxASMsig = "48 85 ? 74 ? 48 89 ? ? ? 48 C7 0F";
+            DLCPatchaob = "41 8B ? 83 E9 ? 74 ? 83 E9 ? 74 ? 83 E9 ? 74 ? 83 F9 ? 75 ? 49 83 78 28 ? 49 8D ? ? 72 ? 48 8B ? FF 15 ? ? ? ? 8B F8";
         }
         public static void AobsFiveSteam()
         {
@@ -1919,7 +1923,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             byte[] original = new byte[7]{ 0x0F, 0x28, 0x89, 0x60, 0x02, 0x00, 0x00 };
             if(!MainWindow.main.ForzaFour)
-                original = new byte[7] { 0x0F, 0x11, 0x89, 0x60, 0x03, 0x00, 0x00 };
+                original = new byte[7] { 0x0F, 0x11, 0x81, 0x30, 0x02, 0x00, 0x00 };
             if (CheckpointBox.Checked == false)
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);

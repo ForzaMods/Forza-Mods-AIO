@@ -64,6 +64,7 @@ namespace Forza_Mods_AIO
             this.FreePerfLabel = new System.Windows.Forms.Label();
             this.FreeVisLabel = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.QuickAdd = new System.Windows.Forms.Button();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Box_Null)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Box_RareCars)).BeginInit();
@@ -784,6 +785,20 @@ namespace Forza_Mods_AIO
             this.panel3.Size = new System.Drawing.Size(181, 180);
             this.panel3.TabIndex = 43;
             // 
+            // QuickAdd
+            // 
+            this.QuickAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.QuickAdd.FlatAppearance.BorderSize = 0;
+            this.QuickAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.QuickAdd.Font = new System.Drawing.Font("Open Sans", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.QuickAdd.Location = new System.Drawing.Point(880, 407);
+            this.QuickAdd.Name = "QuickAdd";
+            this.QuickAdd.Size = new System.Drawing.Size(108, 34);
+            this.QuickAdd.TabIndex = 38;
+            this.QuickAdd.Text = "Quick add cars";
+            this.QuickAdd.UseVisualStyleBackColor = false;
+            this.QuickAdd.Click += new System.EventHandler(this.QuickAdd_Click);
+            // 
             // AddCars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -791,6 +806,7 @@ namespace Forza_Mods_AIO
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
             this.Controls.Add(this.panel3);
+            this.Controls.Add(this.QuickAdd);
             this.Controls.Add(this.BTN_Help);
             this.Controls.Add(this.Url);
             this.Controls.Add(this.label13);
@@ -867,5 +883,6 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Label FreePerfLabel;
         private System.Windows.Forms.Label FreeVisLabel;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button QuickAdd;
     }
 }
