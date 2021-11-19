@@ -59,10 +59,11 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
                     "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
                     " INSERT INTO Profile0_FreeCars SELECT Id, 1 FROM Data_Car WHERE Id NOT IN (SELECT CarId AS Id FROM Profile0_FreeCars WHERE CarID IS NOT NULL);" +
                     " UPDATE ContentOffersMapping SET IsAutoRedeem = 1 ;" +
+                    " UPDATE ContentOffersMapping SET Quantity = 9999 ;" +
                     " UPDATE Profile0_FreeCars SET FreeCount = 1;" +
-                    " UPDATE Profile0_FreeCars SET FreeCount = 0 WHERE CarId IN (SELECT ContentId AS CarId FROM ContentOffersMapping WHERE ReleaseDateUTC > '" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString() + " 0000');" +
                     " UPDATE Profile0_FreeCars SET FreeCount = 0 WHERE CarId IN (" + CarList + ");" +
-                    " UPDATE Profile0_FreeCars SET FreeCount = 0 WHERE CarId IN (SELECT Id AS CarId FROM Data_Car WHERE NotAvailableInAutoshow = 0);";
+                    " UPDATE Profile0_FreeCars SET FreeCount = 0 WHERE CarId IN (SELECT Id AS CarId FROM Data_Car WHERE NotAvailableInAutoshow = 0);" +
+                    " UPDATE Profile0_FreeCars SET FreeCount = 1 WHERE CarId IN (SELECT ContentId AS CarId FROM ContentOffersMapping WHERE ReleaseDateUTC <= '" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString() + " 0000');";
                 ((Telerik.WinControls.Primitives.BorderPrimitive)AddRare.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 AddAll.Enabled = false;
                 if (MainWindow.main.platform == 1)
@@ -128,6 +129,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
                     "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
                     " INSERT INTO Profile0_FreeCars SELECT ContentId, 0 FROM ContentOffersMapping;" +
                     " UPDATE ContentOffersMapping SET IsAutoRedeem = 1 ;" +
+                    " UPDATE ContentOffersMapping SET Quantity = 9999 ;" +
                     " UPDATE Profile0_FreeCars SET FreeCount = 1 WHERE CarId IN (SELECT ContentId AS CarId FROM ContentOffersMapping WHERE ReleaseDateUTC <= '" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString() + " 0000' OR ReleaseDateUTC IS NULL);" +
                     " UPDATE Profile0_FreeCars SET FreeCount = 0 WHERE CarId IN (" + CarList + ");" +
                     " UPDATE Profile0_FreeCars SET FreeCount = 0 WHERE CarId IN (SELECT CarId FROM Profile0_Career_Garage WHERE CarId IS NOT NULL);";

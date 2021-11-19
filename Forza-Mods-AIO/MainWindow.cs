@@ -920,6 +920,7 @@ namespace Forza_Mods_AIO
                 var scbefore4 = new byte[] { 0x0F, 0x11, 0x49, 0x40 };
                 if (!ForzaFour)
                 {
+                    WayPointCodeBefore = new byte[7] { 0x0F, 0x10, 0x97, 0x90, 0x02, 0x00, 0x00 };
                     Jmp1before = new byte[6] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 };
                     Jmp2before = new byte[6] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 };
                     Jmp3before = new byte[6] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 };
@@ -937,7 +938,7 @@ namespace Forza_Mods_AIO
                     Speedhack.s.TB_SHWallNoClip.Checked = false;
                     if (Speedhack.s.NoClipWorker.IsBusy)
                         Speedhack.s.NoClipWorker.CancelAsync();
-                    Thread.Sleep(25);
+                    Thread.Sleep(50);
                     m.WriteBytes(Speedhack.Wall1Addr, Jmp1before);
                     m.WriteBytes(Speedhack.Wall2Addr, Jmp2before);
                     m.WriteBytes(Speedhack.Car1Addr, Jmp3before);
@@ -947,7 +948,7 @@ namespace Forza_Mods_AIO
                     Speedhack.s.AutoWayPoint.Checked = false;
                     if (Speedhack.s.WayPointWorker.IsBusy)
                         Speedhack.s.WayPointWorker.CancelAsync();
-                    Thread.Sleep(25);
+                    Thread.Sleep(50);
                     m.WriteBytes(Speedhack.WayPointxASMAddr, WayPointCodeBefore);
                     m.WriteBytes(Speedhack.CheckPointxASMAddr, original);
                     m.WriteBytes((Speedhack.SuperCarAddrLong + 4).ToString("X"), scbefore1);
