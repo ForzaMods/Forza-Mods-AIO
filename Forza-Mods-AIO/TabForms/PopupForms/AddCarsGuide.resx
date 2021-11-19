@@ -137,7 +137,14 @@ These changes will be in place for the session and will reset when you restart t
 For the last section with 2 buttons on the right: Same as before with only setting one at a time.
 Tick the box you want the changes for and open up the tuning panel inside a festival or house.
 Change any slide any amount, exit and save, then untick the box.
-These changes will stay for the rest of the session.</value>
+These changes will stay for the rest of the session.
+
+For quick add: Click the bottom right button to open the tab containing the switches.
+Enable which ever option you would like, and open up the tuning menu.
+Change any slide any amount, exit and save, then uncheck the box.
+For all cars, it can take a while to give you the cars, so be patient and wait for the message.
+P.S. All cars adds ONLY un-owned cars,
+rare cars adds every released rare car, can be used multiple times.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

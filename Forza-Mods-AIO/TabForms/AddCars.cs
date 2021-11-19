@@ -78,21 +78,21 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+60BAAD9", "string", "                  ");
+                    MainWindow.m.WriteMemory("base+60BB6C9", "string", "                  ");
                     //MainWindow.m.WriteMemory("base+4CB0D79", "string", "                     ");
-                    MainWindow.m.WriteMemory("base+60BAB11", "string", "                            ");
-                    MainWindow.m.WriteMemory("base+60BAB59", "string", "                                           ");
-                    MainWindow.m.WriteMemory("base+60050F0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
+                    MainWindow.m.WriteMemory("base+60BB701", "string", "                            ");
+                    MainWindow.m.WriteMemory("base+60BB749", "string", "                                           ");
+                    MainWindow.m.WriteMemory("base+6005CE0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
 
 
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+6370489", "string", "                  ");
+                    MainWindow.m.WriteMemory("base+6371059", "string", "                  ");
                     //MainWindow.m.WriteMemory("base+4FA3C79", "string", "                     ");
-                    MainWindow.m.WriteMemory("base+63704C1", "string", "                            ");
-                    MainWindow.m.WriteMemory("base+6370509", "string", "                                           ");
-                    MainWindow.m.WriteMemory("base+62BAAA0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
+                    MainWindow.m.WriteMemory("base+6371091", "string", "                            ");
+                    MainWindow.m.WriteMemory("base+63710D9", "string", "                                           ");
+                    MainWindow.m.WriteMemory("base+62BB670", "string", "    Garage.IsInstalled            AS PurchasableCar,");
                 }
             }
             else if (!Box_AllCars.Checked)
@@ -116,19 +116,19 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+60BAAD9", "string", "AND NOT IsBarnFind");
+                    MainWindow.m.WriteMemory("base+60BB6C9", "string", "AND NOT IsBarnFind");
                     //MainWindow.m.WriteMemory("base+4CB0D79", "string", "AND NOT IsMidnightCar");
-                    MainWindow.m.WriteMemory("base+60BAB11", "string", "AND NotAvailableInAutoshow=0");
-                    MainWindow.m.WriteMemory("base+60BAB59", "string", "AND IsCarVisibleAndReleased(Garage.ModelId)");
-                    MainWindow.m.WriteMemory("base+60050F0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
+                    MainWindow.m.WriteMemory("base+60BB701", "string", "AND NotAvailableInAutoshow=0");
+                    MainWindow.m.WriteMemory("base+60BB749", "string", "AND IsCarVisibleAndReleased(Garage.ModelId)");
+                    MainWindow.m.WriteMemory("base+6005CE0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+6370489", "string", "AND NOT IsBarnFind");
+                    MainWindow.m.WriteMemory("base+6371059", "string", "AND NOT IsBarnFind");
                     //MainWindow.m.WriteMemory("base+4FA3C79", "string", "AND NOT IsMidnightCar");
-                    MainWindow.m.WriteMemory("base+63704C1", "string", "AND NotAvailableInAutoshow=0");
-                    MainWindow.m.WriteMemory("base+6370509", "string", "AND IsCarVisibleAndReleased(Garage.ModelId)");
-                    MainWindow.m.WriteMemory("base+62BAAA0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
+                    MainWindow.m.WriteMemory("base+6371091", "string", "AND NotAvailableInAutoshow=0");
+                    MainWindow.m.WriteMemory("base+63710D9", "string", "AND IsCarVisibleAndReleased(Garage.ModelId)");
+                    MainWindow.m.WriteMemory("base+62BB670", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
                 }
             }
         }
@@ -154,17 +154,17 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+60BAAD9", "string", "                  ");
+                    MainWindow.m.WriteMemory("base+60BB6C9", "string", "                  ");
                     //MainWindow.m.WriteMemory("base+4CB0D79", "string", "                     ");
-                    MainWindow.m.WriteMemory("base+60BAB2B", "string", "=1                                    ");
-                    MainWindow.m.WriteMemory("base+60050F0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
+                    MainWindow.m.WriteMemory("base+60BB71B", "string", "=1                                    ");
+                    MainWindow.m.WriteMemory("base+6005CE0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+6370489", "string", "                  ");
+                    MainWindow.m.WriteMemory("base+6371059", "string", "                  ");
                     //MainWindow.m.WriteMemory("base+4FA3C79", "string", "                     ");
-                    MainWindow.m.WriteMemory("base+63704DB", "string", "=1                                    ");
-                    MainWindow.m.WriteMemory("base+62BAAA0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
+                    MainWindow.m.WriteMemory("base+63710AB", "string", "=1                                    ");
+                    MainWindow.m.WriteMemory("base+62BB670", "string", "    Garage.IsInstalled            AS PurchasableCar,");
                 }
             }
             else if (!Box_RareCars.Checked)
@@ -186,17 +186,17 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+60BAAD9", "string", "AND NOT IsBarnFind");
+                    MainWindow.m.WriteMemory("base+60BB6C9", "string", "AND NOT IsBarnFind");
                     //MainWindow.m.WriteMemory("base+4CB0D79", "string", "AND NOT IsMidnightCar");
-                    MainWindow.m.WriteMemory("base+60BAB2B", "string", "=0                                    ");
-                    MainWindow.m.WriteMemory("base+60050F0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
+                    MainWindow.m.WriteMemory("base+60BB71B", "string", "=0                                    ");
+                    MainWindow.m.WriteMemory("base+6005CE0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+6370489", "string", "AND NOT IsBarnFind");
+                    MainWindow.m.WriteMemory("base+6371059", "string", "AND NOT IsBarnFind");
                     //MainWindow.m.WriteMemory("base+4FA3C79", "string", "AND NOT IsMidnightCar");
-                    MainWindow.m.WriteMemory("base+63704DB", "string", "=0                                    ");
-                    MainWindow.m.WriteMemory("base+62BAAA0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
+                    MainWindow.m.WriteMemory("base+63710AB", "string", "=0                                    ");
+                    MainWindow.m.WriteMemory("base+62BB670", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
                 }
             }
         }
@@ -221,17 +221,17 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+60BB2B9", "string", "           1215=");
-                    MainWindow.m.WriteMemory("base+60BAAF1", "string", "      1215=");
-                    MainWindow.m.WriteMemory("base+60BAB11", "string", "AND Garage.Id=1215          ");
-                    MainWindow.m.WriteMemory("base+60050F0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
+                    MainWindow.m.WriteMemory("base+60BBEA9", "string", "           1215=");
+                    MainWindow.m.WriteMemory("base+60BB6E1", "string", "      1215=");
+                    MainWindow.m.WriteMemory("base+60BB701", "string", "AND Garage.Id=1215          ");
+                    MainWindow.m.WriteMemory("base+6005CE0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+6370C69", "string", "           1215=");
-                    MainWindow.m.WriteMemory("base+63704A1", "string", "      1215=");
-                    MainWindow.m.WriteMemory("base+63704C1", "string", "AND Garage.Id=1215          ");
-                    MainWindow.m.WriteMemory("base+62BAAA0", "string", "    Garage.IsInstalled            AS PurchasableCar,");
+                    MainWindow.m.WriteMemory("base+6371839", "string", "           1215=");
+                    MainWindow.m.WriteMemory("base+6371071", "string", "      1215=");
+                    MainWindow.m.WriteMemory("base+6371091", "string", "AND Garage.Id=1215          ");
+                    MainWindow.m.WriteMemory("base+62BB670", "string", "    Garage.IsInstalled            AS PurchasableCar,");
                 }
             }
             else if (!Box_Null.Checked)
@@ -253,17 +253,17 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+60BB2B9", "string", "Garage.ModelId!=");
-                    MainWindow.m.WriteMemory("base+60BAAF1", "string", "Garage.Id!=");
-                    MainWindow.m.WriteMemory("base+60BAB11", "string", "AND NotAvailableInAutoshow=0");
-                    MainWindow.m.WriteMemory("base+60050F0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
+                    MainWindow.m.WriteMemory("base+60BBEA9", "string", "Garage.ModelId!=");
+                    MainWindow.m.WriteMemory("base+60BB6E1", "string", "Garage.Id!=");
+                    MainWindow.m.WriteMemory("base+60BB701", "string", "AND NotAvailableInAutoshow=0");
+                    MainWindow.m.WriteMemory("base+6005CE0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+6370C69", "string", "Garage.ModelId!=");
-                    MainWindow.m.WriteMemory("base+63704A1", "string", "Garage.Id!=");
-                    MainWindow.m.WriteMemory("base+63704C1", "string", "AND NotAvailableInAutoshow=0");
-                    MainWindow.m.WriteMemory("base+62BAAA0", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
+                    MainWindow.m.WriteMemory("base+6371839", "string", "Garage.ModelId!=");
+                    MainWindow.m.WriteMemory("base+6371071", "string", "Garage.Id!=");
+                    MainWindow.m.WriteMemory("base+6371091", "string", "AND NotAvailableInAutoshow=0");
+                    MainWindow.m.WriteMemory("base+62BB670", "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
                 }
             }
         }
@@ -333,13 +333,13 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+60F8090", "string", "b");
-                    MainWindow.m.WriteMemory("base+606A970", "string", "b");
+                    MainWindow.m.WriteMemory("base+60F8C80", "string", "b");
+                    MainWindow.m.WriteMemory("base+606B560", "string", "b");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+63ADA40", "string", "b");
-                    MainWindow.m.WriteMemory("base+6320320", "string", "b");
+                    MainWindow.m.WriteMemory("base+63AE610", "string", "b");
+                    MainWindow.m.WriteMemory("base+6320EF0", "string", "b");
                 }
             }
             else if (!Box_RemoveCars.Checked)
@@ -357,13 +357,13 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+60F8090", "string", "D");
-                    MainWindow.m.WriteMemory("base+606A970", "string", "I");
+                    MainWindow.m.WriteMemory("base+60F8C80", "string", "D");
+                    MainWindow.m.WriteMemory("base+606B560", "string", "I");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+63ADA40", "string", "D");
-                    MainWindow.m.WriteMemory("base+6320320", "string", "I");
+                    MainWindow.m.WriteMemory("base+63AE610", "string", "D");
+                    MainWindow.m.WriteMemory("base+6320EF0", "string", "I");
                 }
             }
         }
@@ -391,11 +391,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C020", "string", "UPDATE Data_Car SET BaseCost = 0 WHERE BaseCost >0                                                                                                                                                                                                                                                                                                                         ");
+                    MainWindow.m.WriteMemory("base+630C540", "string", "UPDATE Data_Car SET BaseCost = 0 WHERE BaseCost >0                                                                                                                                                                                                                                                                                                                         ");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE Data_Car SET BaseCost = 0 WHERE BaseCost >0                                                                                                                                                                                                                                                                                                                         ");
+                    MainWindow.m.WriteMemory("base+65C1D80", "string", "UPDATE Data_Car SET BaseCost = 0 WHERE BaseCost >0                                                                                                                                                                                                                                                                                                                         ");
 
                 }
             }
@@ -419,11 +419,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C020", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+630C540", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+65C1D80", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
 
                 }
             }
@@ -451,11 +451,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C020", "string", "UPDATE Profile0_Career_Garage SET LiveryFileName='', VersionedLiveryId='00000000-0000-0000-0000-000000000000'; UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                                            ");
+                    MainWindow.m.WriteMemory("base+630C540", "string", "UPDATE Profile0_Career_Garage SET LiveryFileName='', VersionedLiveryId='00000000-0000-0000-0000-000000000000'; UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                                            ");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE Profile0_Career_Garage SET LiveryFileName='', VersionedLiveryId='00000000-0000-0000-0000-000000000000'; UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                                            ");
+                    MainWindow.m.WriteMemory("base+65C1D80", "string", "UPDATE Profile0_Career_Garage SET LiveryFileName='', VersionedLiveryId='00000000-0000-0000-0000-000000000000'; UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                                            ");
 
                 }
             }
@@ -481,11 +481,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C020", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+630C540", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+65C1D80", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
 
                 }
             }
@@ -515,11 +515,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C020", "string", "UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                            ");
+                    MainWindow.m.WriteMemory("base+630C540", "string", "UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                            ");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                            ");
+                    MainWindow.m.WriteMemory("base+65C1D80", "string", "UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                            ");
 
                 }
             }
@@ -545,11 +545,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C020", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+630C540", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+65C1D80", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
 
                 }
             }
@@ -577,11 +577,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C020", "string", "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
+                    MainWindow.m.WriteMemory("base+630C540", "string", "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1830", "string", "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
+                    MainWindow.m.WriteMemory("base+65C1D80", "string", "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
 
                 }
             }
@@ -607,11 +607,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C020", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+630C540", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+65C1D80", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
 
                 }
             }
@@ -639,11 +639,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C020", "string", "UPDATE UpgradePresetPackages SET Purchasable=1 WHERE Purchasable=0                                                                                                                                                                                                                                                                                                         ");
+                    MainWindow.m.WriteMemory("base+630C540", "string", "UPDATE UpgradePresetPackages SET Purchasable=1 WHERE Purchasable=0                                                                                                                                                                                                                                                                                                         ");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE UpgradePresetPackages SET Purchasable=1 WHERE Purchasable=0                                                                                                                                                                                                                                                                                                         ");
+                    MainWindow.m.WriteMemory("base+65C1D80", "string", "UPDATE UpgradePresetPackages SET Purchasable=1 WHERE Purchasable=0                                                                                                                                                                                                                                                                                                         ");
 
                 }
             }
@@ -668,11 +668,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C020", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+630C540", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+65C1D80", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
 
                 }
             }
@@ -751,11 +751,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C020", "string", "DELETE FROM Profile0_Career_Garage WHERE Id > 0                                                                                                                                                                                                                                                                                                                            ");
+                    MainWindow.m.WriteMemory("base+630C540", "string", "DELETE FROM Profile0_Career_Garage WHERE Id > 0                                                                                                                                                                                                                                                                                                                            ");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1830", "string", "DELETE FROM Profile0_Career_Garage WHERE Id > 0                                                                                                                                                                                                                                                                                                                            ");
+                    MainWindow.m.WriteMemory("base+65C1D80", "string", "DELETE FROM Profile0_Career_Garage WHERE Id > 0                                                                                                                                                                                                                                                                                                                            ");
 
                 }
             }
@@ -779,11 +779,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C020", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+630C540", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1830", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.m.WriteMemory("base+65C1D80", "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
 
                 }
             }
@@ -819,15 +819,15 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C510", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
+                    MainWindow.m.WriteMemory("base+630CA30", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
                     MainWindow.m.WriteBytes("base+630CD0F", new byte[] { 0x00 });
-                    MainWindow.m.WriteMemory("base+630C510", "string", "UPDATE List_UpgradeAntiSwayFront SET price=0;UPDATE List_UpgradeAntiSwayRear SET price=0;UPDATE List_UpgradeBrakes SET price=0;UPDATE List_UpgradeCarBodyChassisStiffness SET price=0;UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyTireWidthFront SET price=0;UPDATE List_UpgradeCarBodyTireWidthRear SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingFront SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingRear SET price=0;UPDATE List_UpgradeCarBodyWeight SET price=0;UPDATE List_UpgradeDrivetrain SET price=0;UPDATE List_UpgradeDrivetrainClutch SET price=0;UPDATE List_UpgradeDrivetrainDifferential  SET price=0;UPDATE List_UpgradeDrivetrainDriveline SET price=0;UPDATE List_UpgradeDrivetrainTransmission SET price=0;UPDATE List_UpgradeEngine SET price=0;UPDATE List_UpgradeEngineCamshaft SET price=0;UPDATE List_UpgradeEngineCSC SET price=0;UPDATE List_UpgradeEngineDisplacement SET price=0;UPDATE List_UpgradeEngineDSC SET price=0;UPDATE List_UpgradeEngineExhaust SET price=0;UPDATE List_UpgradeEngineFlywheel SET price=0;UPDATE List_UpgradeEngineFuelSystem SET price=0;UPDATE List_UpgradeEngineIgnition SET price=0;UPDATE List_UpgradeEngineIntake SET price=0;UPDATE List_UpgradeEngineIntercooler SET price=0;UPDATE List_UpgradeEngineManifold SET price=0;UPDATE List_UpgradeEngineOilCooling SET price=0;UPDATE List_UpgradeEnginePistonsCompression SET price=0;UPDATE List_UpgradeEngineRestrictorPlate SET price=0;UPDATE List_UpgradeEngineTurboQuad SET price=0;UPDATE List_UpgradeEngineTurboSingle SET price=0;UPDATE List_UpgradeEngineTurboTwin SET price=0;UPDATE List_UpgradeEngineValves SET price=0;UPDATE List_UpgradeMotor SET price=0;UPDATE List_UpgradeMotorParts SET price=0;UPDATE List_UpgradeSpringDamper SET price=0;UPDATE List_UpgradeTireCompound SET price=0;UPDATE List_VariableTiming SET price=0;UPDATE List_Wheels SET price=1;");
+                    MainWindow.m.WriteMemory("base+630CA30", "string", "UPDATE List_UpgradeAntiSwayFront SET price=0;UPDATE List_UpgradeAntiSwayRear SET price=0;UPDATE List_UpgradeBrakes SET price=0;UPDATE List_UpgradeCarBodyChassisStiffness SET price=0;UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyTireWidthFront SET price=0;UPDATE List_UpgradeCarBodyTireWidthRear SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingFront SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingRear SET price=0;UPDATE List_UpgradeCarBodyWeight SET price=0;UPDATE List_UpgradeDrivetrain SET price=0;UPDATE List_UpgradeDrivetrainClutch SET price=0;UPDATE List_UpgradeDrivetrainDifferential  SET price=0;UPDATE List_UpgradeDrivetrainDriveline SET price=0;UPDATE List_UpgradeDrivetrainTransmission SET price=0;UPDATE List_UpgradeEngine SET price=0;UPDATE List_UpgradeEngineCamshaft SET price=0;UPDATE List_UpgradeEngineCSC SET price=0;UPDATE List_UpgradeEngineDisplacement SET price=0;UPDATE List_UpgradeEngineDSC SET price=0;UPDATE List_UpgradeEngineExhaust SET price=0;UPDATE List_UpgradeEngineFlywheel SET price=0;UPDATE List_UpgradeEngineFuelSystem SET price=0;UPDATE List_UpgradeEngineIgnition SET price=0;UPDATE List_UpgradeEngineIntake SET price=0;UPDATE List_UpgradeEngineIntercooler SET price=0;UPDATE List_UpgradeEngineManifold SET price=0;UPDATE List_UpgradeEngineOilCooling SET price=0;UPDATE List_UpgradeEnginePistonsCompression SET price=0;UPDATE List_UpgradeEngineRestrictorPlate SET price=0;UPDATE List_UpgradeEngineTurboQuad SET price=0;UPDATE List_UpgradeEngineTurboSingle SET price=0;UPDATE List_UpgradeEngineTurboTwin SET price=0;UPDATE List_UpgradeEngineValves SET price=0;UPDATE List_UpgradeMotor SET price=0;UPDATE List_UpgradeMotorParts SET price=0;UPDATE List_UpgradeSpringDamper SET price=0;UPDATE List_UpgradeTireCompound SET price=0;UPDATE List_VariableTiming SET price=0;UPDATE List_Wheels SET price=1;");
                 }
                 if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1D20", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
-                    MainWindow.m.WriteBytes("base+65C251F", new byte[] { 0x00 });
-                    MainWindow.m.WriteMemory("base+65C1D20", "string", "UPDATE List_UpgradeAntiSwayFront SET price=0;UPDATE List_UpgradeAntiSwayRear SET price=0;UPDATE List_UpgradeBrakes SET price=0;UPDATE List_UpgradeCarBodyChassisStiffness SET price=0;UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyTireWidthFront SET price=0;UPDATE List_UpgradeCarBodyTireWidthRear SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingFront SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingRear SET price=0;UPDATE List_UpgradeCarBodyWeight SET price=0;UPDATE List_UpgradeDrivetrain SET price=0;UPDATE List_UpgradeDrivetrainClutch SET price=0;UPDATE List_UpgradeDrivetrainDifferential  SET price=0;UPDATE List_UpgradeDrivetrainDriveline SET price=0;UPDATE List_UpgradeDrivetrainTransmission SET price=0;UPDATE List_UpgradeEngine SET price=0;UPDATE List_UpgradeEngineCamshaft SET price=0;UPDATE List_UpgradeEngineCSC SET price=0;UPDATE List_UpgradeEngineDisplacement SET price=0;UPDATE List_UpgradeEngineDSC SET price=0;UPDATE List_UpgradeEngineExhaust SET price=0;UPDATE List_UpgradeEngineFlywheel SET price=0;UPDATE List_UpgradeEngineFuelSystem SET price=0;UPDATE List_UpgradeEngineIgnition SET price=0;UPDATE List_UpgradeEngineIntake SET price=0;UPDATE List_UpgradeEngineIntercooler SET price=0;UPDATE List_UpgradeEngineManifold SET price=0;UPDATE List_UpgradeEngineOilCooling SET price=0;UPDATE List_UpgradeEnginePistonsCompression SET price=0;UPDATE List_UpgradeEngineRestrictorPlate SET price=0;UPDATE List_UpgradeEngineTurboQuad SET price=0;UPDATE List_UpgradeEngineTurboSingle SET price=0;UPDATE List_UpgradeEngineTurboTwin SET price=0;UPDATE List_UpgradeEngineValves SET price=0;UPDATE List_UpgradeMotor SET price=0;UPDATE List_UpgradeMotorParts SET price=0;UPDATE List_UpgradeSpringDamper SET price=0;UPDATE List_UpgradeTireCompound SET price=0;UPDATE List_VariableTiming SET price=0;UPDATE List_Wheels SET price=1;");
+                    MainWindow.m.WriteMemory("base+65C2270", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
+                    MainWindow.m.WriteBytes("base+65C2A6F", new byte[] { 0x00 });
+                    MainWindow.m.WriteMemory("base+65C2270", "string", "UPDATE List_UpgradeAntiSwayFront SET price=0;UPDATE List_UpgradeAntiSwayRear SET price=0;UPDATE List_UpgradeBrakes SET price=0;UPDATE List_UpgradeCarBodyChassisStiffness SET price=0;UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyTireWidthFront SET price=0;UPDATE List_UpgradeCarBodyTireWidthRear SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingFront SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingRear SET price=0;UPDATE List_UpgradeCarBodyWeight SET price=0;UPDATE List_UpgradeDrivetrain SET price=0;UPDATE List_UpgradeDrivetrainClutch SET price=0;UPDATE List_UpgradeDrivetrainDifferential  SET price=0;UPDATE List_UpgradeDrivetrainDriveline SET price=0;UPDATE List_UpgradeDrivetrainTransmission SET price=0;UPDATE List_UpgradeEngine SET price=0;UPDATE List_UpgradeEngineCamshaft SET price=0;UPDATE List_UpgradeEngineCSC SET price=0;UPDATE List_UpgradeEngineDisplacement SET price=0;UPDATE List_UpgradeEngineDSC SET price=0;UPDATE List_UpgradeEngineExhaust SET price=0;UPDATE List_UpgradeEngineFlywheel SET price=0;UPDATE List_UpgradeEngineFuelSystem SET price=0;UPDATE List_UpgradeEngineIgnition SET price=0;UPDATE List_UpgradeEngineIntake SET price=0;UPDATE List_UpgradeEngineIntercooler SET price=0;UPDATE List_UpgradeEngineManifold SET price=0;UPDATE List_UpgradeEngineOilCooling SET price=0;UPDATE List_UpgradeEnginePistonsCompression SET price=0;UPDATE List_UpgradeEngineRestrictorPlate SET price=0;UPDATE List_UpgradeEngineTurboQuad SET price=0;UPDATE List_UpgradeEngineTurboSingle SET price=0;UPDATE List_UpgradeEngineTurboTwin SET price=0;UPDATE List_UpgradeEngineValves SET price=0;UPDATE List_UpgradeMotor SET price=0;UPDATE List_UpgradeMotorParts SET price=0;UPDATE List_UpgradeSpringDamper SET price=0;UPDATE List_UpgradeTireCompound SET price=0;UPDATE List_VariableTiming SET price=0;UPDATE List_Wheels SET price=1;");
                 }
             }
             else if (!FreePerfBox.Checked)
@@ -845,11 +845,11 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteBytes("base+630C510", OriginalData);
+                    MainWindow.m.WriteBytes("base+630CA30", OriginalData);
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteBytes("base+65C1D20", OriginalData);
+                    MainWindow.m.WriteBytes("base+65C2270", OriginalData);
                 }
             }
         }
@@ -874,15 +874,15 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630C510", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
+                    MainWindow.m.WriteMemory("base+630CA30", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
                     MainWindow.m.WriteBytes("base+630CD0F", new byte[] { 0x00 });
-                    MainWindow.m.WriteMemory("base+630C510", "string", "UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyFrontBumper SET price=0;UPDATE List_UpgradeCarBodyHood SET price=0;UPDATE List_UpgradeCarBodyRearBumper SET price=0;UPDATE List_UpgradeCarBodySideSkirt SET price=0;UPDATE List_UpgradeRearWing SET price=0;UPDATE List_Wheels SET price=1");
+                    MainWindow.m.WriteMemory("base+630CA30", "string", "UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyFrontBumper SET price=0;UPDATE List_UpgradeCarBodyHood SET price=0;UPDATE List_UpgradeCarBodyRearBumper SET price=0;UPDATE List_UpgradeCarBodySideSkirt SET price=0;UPDATE List_UpgradeRearWing SET price=0;UPDATE List_Wheels SET price=1");
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C1D20", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
-                    MainWindow.m.WriteBytes("base+65C251F", new byte[] { 0x00 });
-                    MainWindow.m.WriteMemory("base+65C1D20", "string", "UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyFrontBumper SET price=0;UPDATE List_UpgradeCarBodyHood SET price=0;UPDATE List_UpgradeCarBodyRearBumper SET price=0;UPDATE List_UpgradeCarBodySideSkirt SET price=0;UPDATE List_UpgradeRearWing SET price=0;UPDATE List_Wheels SET price=1");
+                    MainWindow.m.WriteMemory("base+65C2270", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
+                    MainWindow.m.WriteBytes("base+65C2A6F", new byte[] { 0x00 });
+                    MainWindow.m.WriteMemory("base+65C2270", "string", "UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyFrontBumper SET price=0;UPDATE List_UpgradeCarBodyHood SET price=0;UPDATE List_UpgradeCarBodyRearBumper SET price=0;UPDATE List_UpgradeCarBodySideSkirt SET price=0;UPDATE List_UpgradeRearWing SET price=0;UPDATE List_Wheels SET price=1");
                 }
             }
             else if (!FreeVisBox.Checked)
@@ -901,17 +901,18 @@ namespace Forza_Mods_AIO
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteBytes("base+630C510", OriginalData);
+                    MainWindow.m.WriteBytes("base+630CA30", OriginalData);
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteBytes("base+65C1D20", OriginalData);
+                    MainWindow.m.WriteBytes("base+65C2270", OriginalData);
                 }
             }
         }
 
         private void QuickAdd_Click(object sender, EventArgs e)
         {
+            QuickAddCars.StartPosition = FormStartPosition.CenterParent;
             QuickAddCars.Show();
             QuickAddCars.Focus();
         }

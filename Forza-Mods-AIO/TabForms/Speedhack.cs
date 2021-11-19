@@ -317,7 +317,7 @@ namespace Forza_Mods_AIO.TabForms
         }
         public static void AobsFiveSteam()
         {
-            Base = "67 86 ? ? ? ? ? 95 00 48";
+            Base = "26 21 ? ? 0F ? 00 48";
         }
 
         #region BG Workers
@@ -974,7 +974,7 @@ namespace Forza_Mods_AIO.TabForms
                     {
                         JumpHack();
                     }
-                    if (VelHackWorker.CancellationPending)
+                    if (JumpHackWorker.CancellationPending)
                     {
                         e.Cancel = true;
                         JumpStart = false;
@@ -1054,6 +1054,7 @@ namespace Forza_Mods_AIO.TabForms
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)JumpHackToggle.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
                 JumpHackToggleToggle = false;
+                JumpStart = false;
                 if (JumpHackToggleToggle == false)
                 {
                     JumpHackWorker.CancelAsync();
@@ -2280,6 +2281,7 @@ namespace Forza_Mods_AIO.TabForms
             else
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)XPBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                MessageBox.Show("WARNING:\nThere have been reports of bans when using XP hacks.\nUse at your own risk.");
                 a.StartXPtool(CodeCave3);
                 XPnup.Enabled = false;
             }

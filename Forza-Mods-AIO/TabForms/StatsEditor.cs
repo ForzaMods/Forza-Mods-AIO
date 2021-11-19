@@ -82,7 +82,7 @@ namespace Forza_Mods_AIO.TabForms
                 string Type = null;
                 long ScanStartAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 50000000000;
                 long ScanEndAddr = (long)MainWindow.m.GetCode(Speedhack.FrontRightAddr) - 20000000000;
-                if(MainWindow.main.ForzaFour)
+                if (MainWindow.main.ForzaFour)
                 {
                     if (Process.GetProcessesByName("ForzaHorizon4")[0].MainModule.FileName.Contains("Microsoft.SunriseBaseGame"))
                         yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "F8 5F ? ? ? 7F 00 00", true, true)).ToList();
@@ -92,9 +92,9 @@ namespace Forza_Mods_AIO.TabForms
                 else
                 {
                     if (Process.GetProcessesByName("ForzaHorizon5")[0].MainModule.FileName.Contains("Microsoft.624F8B84B80"))
-                        yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "58 13 ? ? ? 7F 00 00", true, true)).ToList();
+                        yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "28 1F ? ? ? 7F 00 00", true, true)).ToList();
                     else
-                        yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "88 87 ? ? ? 7F 00 00", true, true)).ToList();
+                        yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "48 93 ? ? ? 7F 00 00", true, true)).ToList();
                 }
                 foreach (var item in yeet)
                 {

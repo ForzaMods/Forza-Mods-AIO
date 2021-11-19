@@ -42,7 +42,7 @@ namespace Forza_Mods_AIO
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
         Version NewVer = null;
-        public static Version CurrVer = new Version("0.0.0.15");
+        public static Version CurrVer = new Version("0.0.0.17");
         string MOTDstring = "";
         private static CultureInfo resourceCulture;
         internal static byte[] SOk8LBUrRl
@@ -769,9 +769,9 @@ namespace Forza_Mods_AIO
                         if (!ToolInfo.AOBScanProgress.Visible)
                             ToolInfo.AOBScanProgress.Show();
                         Thread.Sleep(1);
-                        if (Speedhack.BaseAddr == "378" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0")
+                        if (Speedhack.BaseAddr == "36E" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0")
                         {
-                            Speedhack.BaseAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.Base, true, true)).FirstOrDefault() + 888;
+                            Speedhack.BaseAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.Base, true, true)).FirstOrDefault() + 878;
                             Speedhack.BaseAddr = Speedhack.BaseAddrLong.ToString("X");
                         }
                     }
@@ -791,7 +791,7 @@ namespace Forza_Mods_AIO
                     {
                         ;
                     }
-                    else if(!TargetProcess.MainModule.FileName.Contains("Microsoft.624F8B84B80") && (Speedhack.BaseAddr == "378" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0"))
+                    else if(!TargetProcess.MainModule.FileName.Contains("Microsoft.624F8B84B80") && (Speedhack.BaseAddr == "36E" || Speedhack.BaseAddr == null || Speedhack.BaseAddr == "0"))
                     {
                         ;
                     }
@@ -929,7 +929,7 @@ namespace Forza_Mods_AIO
                     scbefore3 = new byte[] { 0x0F, 0x11, 0x49, 0x40 };
                     scbefore4 = new byte[] { 0x0F, 0x11, 0x41, 0x50 };
                     OOBbefore = new byte[] {  0x0F, 0x11, 0x51, 0x50  };
-                    original = new byte[7] { 0x0F, 0x11, 0x89, 0x60, 0x03, 0x00, 0x00 };
+                    original = new byte[7] { 0x0F, 0x11, 0x81, 0x30, 0x02, 0x00, 0x00 };
                 }
                 if (Speedhack.done)
                 {

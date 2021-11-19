@@ -95,7 +95,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.label1.Location = new System.Drawing.Point(9, 47);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(773, 440);
+            this.label1.Size = new System.Drawing.Size(773, 594);
             this.label1.TabIndex = 10;
             this.label1.Text = resources.GetString("label1.Text");
             // 
@@ -104,7 +104,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(800, 519);
+            this.ClientSize = new System.Drawing.Size(800, 651);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TopPanel);
