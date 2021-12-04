@@ -62,6 +62,8 @@ namespace Forza_Mods_AIO.TabForms
         public static long DLCPatchAddrLong;
 
         public static string Base;
+        public static string Base2;
+        public static string RGBAob;
         public static string Car1;
         public static string Car2;
         public static string Wall1;
@@ -83,6 +85,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string OOBaob;
         public static string SuperCaraob;
         public static string DLCPatchaob;
+        public static string CarIdAob;
 
         public static string KBSpeedKey = "LShiftKey"; public static string XBSpeedKey = "LeftShoulder";
         public static string KBBrakeKey = "Space"; public static string XBBrakeKey = "A";
@@ -302,6 +305,8 @@ namespace Forza_Mods_AIO.TabForms
         public static void AobsFive()
         {
             Base = "7F ? 00 AC ? ? ? ? ? 6E 27 00 24";
+            RGBAob = "81 80 80 3B 81 80 ? ? ? ? 80 3B ? 80 80 3B D5 36 00";
+            Base2 = "E0 ? 41 ? E1 ? 00 00";
             XPaob = "F3 0F ? ? 89 45 ? 48 8D ? ? ? ? ? 41 83";
             XPAmountaob = "8B 89 ? ? ? ? 85 C9 0F 8E";
             Car1 = "0F 84 ? ? ? ? 4C 8B ? ? ? ? ? ? 45 0F ? ? 4C 8B";
@@ -312,14 +317,19 @@ namespace Forza_Mods_AIO.TabForms
             WayPointxASMsig = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50 C1 83 E0 07 3C 07";
             FOVJmp = "76 ? 0F 10 ? ? 0F 28 ? 0F 10";
             OOBaob = "0F 28 ? 0F 28 ? 0F C6 D1 ? 0F 59 ? ? ? ? ? 0F C6 C1 ? 0F 59 ? ? ? ? ? 0F C6 C9 ? 0F 59 ? ? ? ? ? 0F 58 ? 0F 58 ? 0F 58 ? ? 0F 11";
-            CheckPointxASMsig = "48 85 ? 74 ? 48 89 ? ? ? 48 C7 0F";
-            DLCPatchaob = "41 8B ? 83 E9 ? 74 ? 83 E9 ? 74 ? 83 E9 ? 74 ? 83 F9 ? 75 ? 49 83 78 28 ? 49 8D ? ? 72 ? 48 8B ? FF 15 ? ? ? ? 8B F8";
+            CheckPointxASMsig = "48 85 ? 74 ? 48 ? ? ? ? ? C7 0F";
+            CarIdAob = "00 B0 ? ? ? ? 7F ? 00 D8 6E";
         }
         public static void AobsFiveSteam()
         {
             Base = "26 21 ? ? 0F ? 00 48";
         }
-
+        public static void StartSetupFive()
+        {
+            xAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x25F0");
+            SpeedAddr = (Base2Addr + ",0x50,0x470,0xC48,0xFA8,0x7B8,0xC0,0x88");
+            WeirdAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x2634");
+        }
         #region BG Workers
         public void ControllerWorker_DoWork(object sender, DoWorkEventArgs e)
         {
