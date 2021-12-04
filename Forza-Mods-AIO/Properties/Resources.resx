@@ -11013,4 +11013,7 @@
   <data name="jTZka9MUBu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FH5_Stats.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="cYdXosu7SL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FH5_Cars.csv;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

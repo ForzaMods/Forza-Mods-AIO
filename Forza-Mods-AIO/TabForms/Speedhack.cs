@@ -153,6 +153,13 @@ namespace Forza_Mods_AIO.TabForms
                 return (byte[])Resources.ResourceManager.GetObject("FclvYGRQ1w", resourceCulture);
             }
         }
+        internal static byte[] cYdXosu7SL
+        {
+            get
+            {
+                return (byte[])Resources.ResourceManager.GetObject("cYdXosu7SL", resourceCulture);
+            }
+        }
         private static Dictionary<int, string> DInputmap = new Dictionary<int, string>()
         {
             { 0, "X" },{ 1, "Circle" },{ 2, "Square" },{ 3, "Triangle" },
@@ -317,7 +324,8 @@ namespace Forza_Mods_AIO.TabForms
             WayPointxASMsig = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50 C1 83 E0 07 3C 07";
             FOVJmp = "76 ? 0F 10 ? ? 0F 28 ? 0F 10";
             OOBaob = "0F 28 ? 0F 28 ? 0F C6 D1 ? 0F 59 ? ? ? ? ? 0F C6 C1 ? 0F 59 ? ? ? ? ? 0F C6 C9 ? 0F 59 ? ? ? ? ? 0F 58 ? 0F 58 ? 0F 58 ? ? 0F 11";
-            CheckPointxASMsig = "48 85 ? 74 ? 48 ? ? ? ? ? C7 0F";
+            //CheckPointxASMsig = "48 85 ? 74 ? 48 ? ? ? ? ? C7 0F";
+            CheckPointxASMsig = "89 91 ? ? ? ? C3 90 ED C0 EE";
             CarIdAob = "00 B0 ? ? ? ? 7F ? 00 D8 6E";
         }
         public static void AobsFiveSteam()
@@ -787,12 +795,21 @@ namespace Forza_Mods_AIO.TabForms
                             {
                                 stopWatch.Stop();
                                 TimerIndicator.BackColor = Color.Red;
-
+                                string FileName = "";
                                 string CurrentID = MainWindow.m.Read2Byte(CurrentIDAddr).ToString();
-                                File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "FclvYGRQ1w.csv"), FclvYGRQ1w);
+                                if(MainWindow.main.ForzaFour)
+                                {
+                                    File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "FclvYGRQ1w.csv"), FclvYGRQ1w);
+                                    FileName = "FclvYGRQ1w.csv";
+                                }
+                                else
+                                {
+                                    File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "cYdXosu7SL.csv"), cYdXosu7SL);
+                                    FileName = "cYdXosu7SL.csv";
+                                }
                                 string nameColumnName = "ID";
                                 string valueColumnName = "Short Name";
-                                using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), "FclvYGRQ1w.csv")), hasHeaders: true))
+                                using (CsvReader csvReader = new CsvReader(new StreamReader(Path.Combine(Path.GetTempPath(), FileName)), hasHeaders: true))
                                 {
                                     int nameColumnIndex = csvReader.GetFieldIndex(nameColumnName);
                                     int valueColumnIndex = csvReader.GetFieldIndex(valueColumnName);
@@ -811,7 +828,7 @@ namespace Forza_Mods_AIO.TabForms
                                         }
                                     }
                                 }
-                                File.Delete(Path.Combine(Path.GetTempPath(), "FH4_Cars.csv"));
+                                File.Delete(Path.Combine(Path.GetTempPath(), FileName));
                                 if (!File.Exists(path))
                                     using (FileStream fs = File.Create(path)) ;
 
@@ -873,7 +890,10 @@ namespace Forza_Mods_AIO.TabForms
                     float NewWPx = MainWindow.m.ReadFloat(WayPointxAddr, round: false);
                     float NewWPy = MainWindow.m.ReadFloat(WayPointyAddr, round: false);
                     float NewWPz = MainWindow.m.ReadFloat(WayPointzAddr, round: false);
-                    if ((LastWPx != NewWPx || LastWPy != NewWPy || LastWPz != NewWPz) && (NewWPx != 0 && NewWPy != 0 && NewWPz != 0))
+                    if ((LastWPx != NewWPx || LastWPy != NewWPy || LastWPz != NewWPz) && (NewWPx != 0 && NewWPy != 0 && NewWPz != 0
+                    && NewWPx < 10000 && NewWPx > -10000
+                    && NewWPy < 1000 && NewWPy > -1000
+                    && NewWPz < 10000 && NewWPz > -10000))
                     {
                         try
                         {
@@ -1144,7 +1164,8 @@ namespace Forza_Mods_AIO.TabForms
         }
         public void JumpHack()
         {
-            MainWindow.m.WriteMemory(yVelocityAddr, "float", (MainWindow.m.ReadFloat(yVelocityAddr, round:false) + (float)JumpAmountBox.Value).ToString());
+            if(MainWindow.m.ReadFloat(InPauseAddr) != 1)
+                MainWindow.m.WriteMemory(yVelocityAddr, "float", (MainWindow.m.ReadFloat(yVelocityAddr, round:false) + (float)JumpAmountBox.Value).ToString());
             Thread.Sleep(50);
         }
         public void SpeedHack()
@@ -1330,6 +1351,7 @@ namespace Forza_Mods_AIO.TabForms
                 float InRace = MainWindow.m.ReadFloat(InRaceAddr);
                 if (InRace == 1)
                 {
+                    Thread.Sleep(4000);
                     while (InRace == 1)
                     {
                         try
@@ -1341,9 +1363,9 @@ namespace Forza_Mods_AIO.TabForms
                                 break;
                             }
                             a.GetCheckXAddr(CodeCave, out CheckPointBaseAddr);
-                            CheckPointxAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 608).ToString("X");
-                            CheckPointyAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 612).ToString("X");
-                            CheckPointzAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 616).ToString("X");
+                            CheckPointxAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 544).ToString("X");
+                            CheckPointyAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 548).ToString("X");
+                            CheckPointzAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 552).ToString("X");
                             InRace = MainWindow.m.ReadFloat(InRaceAddr);
                             if(MainWindow.m.ReadFloat(CheckPointxAddr) != 0 && MainWindow.m.ReadFloat(CheckPointyAddr) != 0 && MainWindow.m.ReadFloat(CheckPointzAddr) != 0)
                                 CheckPointTP();
@@ -1378,11 +1400,20 @@ namespace Forza_Mods_AIO.TabForms
         }
         public void CheckPointTP()
         {
-            Thread.Sleep(500);
-            MainWindow.m.WriteMemory(xAddr, "float", (MainWindow.m.ReadFloat(CheckPointxAddr)).ToString());
-            MainWindow.m.WriteMemory(yAddr, "float", (MainWindow.m.ReadFloat(CheckPointyAddr) + 2).ToString());
-            MainWindow.m.WriteMemory(zAddr, "float", (MainWindow.m.ReadFloat(CheckPointzAddr)).ToString());
-            MainWindow.m.FreezeValue(yAngVelAddr, "float", "100");
+            if(Math.Abs(MainWindow.m.ReadFloat(xAddr) - MainWindow.m.ReadFloat(CheckPointxAddr)) < 2000
+                && Math.Abs(MainWindow.m.ReadFloat(yAddr) - MainWindow.m.ReadFloat(CheckPointyAddr)) < 2000
+                && Math.Abs(MainWindow.m.ReadFloat(zAddr) - MainWindow.m.ReadFloat(CheckPointzAddr)) < 2000)
+            {
+                Thread.Sleep(500);
+                MainWindow.m.WriteMemory(xAddr, "float", (MainWindow.m.ReadFloat(CheckPointxAddr)).ToString());
+                if(MainWindow.main.ForzaFour)
+                    MainWindow.m.WriteMemory(yAddr, "float", (MainWindow.m.ReadFloat(CheckPointyAddr) + 4).ToString());
+                else
+                    MainWindow.m.WriteMemory(yAddr, "float", (MainWindow.m.ReadFloat(CheckPointyAddr)).ToString());
+                MainWindow.m.WriteMemory(zAddr, "float", (MainWindow.m.ReadFloat(CheckPointzAddr)).ToString());
+                MainWindow.m.FreezeValue(yAngVelAddr, "float", "100");
+            }
+            Thread.Sleep(1);
         }
         #endregion
 
@@ -1934,7 +1965,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             byte[] original = new byte[7]{ 0x0F, 0x28, 0x89, 0x60, 0x02, 0x00, 0x00 };
             if(!MainWindow.main.ForzaFour)
-                original = new byte[7] { 0x0F, 0x11, 0x81, 0x30, 0x02, 0x00, 0x00 };
+                original = new byte[7] { 0x0F, 0x11, 0x89, 0x20, 0x02, 0x00, 0x00 };
             if (CheckpointBox.Checked == false)
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);

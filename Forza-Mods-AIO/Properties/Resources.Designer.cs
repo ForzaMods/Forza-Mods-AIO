@@ -71,6 +71,16 @@ namespace Forza_Mods_AIO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] cYdXosu7SL {
+            get {
+                object obj = ResourceManager.GetObject("cYdXosu7SL", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap default_orange {

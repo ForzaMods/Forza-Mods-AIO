@@ -42,7 +42,7 @@ namespace Forza_Mods_AIO
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
         Version NewVer = null;
-        public static Version CurrVer = new Version("0.0.0.17");
+        public static Version CurrVer = new Version("0.0.0.18");
         string MOTDstring = "";
         private static CultureInfo resourceCulture;
         internal static byte[] SOk8LBUrRl
@@ -806,11 +806,11 @@ namespace Forza_Mods_AIO
                             Speedhack.WayPointxASMAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.WayPointxASMsig, true, true)).FirstOrDefault();
                             Speedhack.WayPointxASMAddr = Speedhack.WayPointxASMAddrLong.ToString("X");
                         }
-                        else if ((Speedhack.CheckPointxASMAddr == "C" || Speedhack.CheckPointxASMAddr == null || Speedhack.CheckPointxASMAddr == "0") && g2g && g2g2)
+                        else if ((Speedhack.CheckPointxASMAddr == "FFFFFFFFFFFFFF4A" || Speedhack.CheckPointxASMAddr == null || Speedhack.CheckPointxASMAddr == "0") && g2g && g2g2)
                         {
                             for (int i = ToolInfo.AOBScanProgress.Value1; i <= 86; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
-                            Speedhack.CheckPointxASMAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.CheckPointxASMsig, true, true)).FirstOrDefault() + 12;
+                            Speedhack.CheckPointxASMAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.CheckPointxASMsig, true, true)).FirstOrDefault() - 68;
                             Speedhack.CheckPointxASMAddr = Speedhack.CheckPointxASMAddrLong.ToString("X");
                         }
                         else if ((Speedhack.OOBnopAddr == "31" || Speedhack.OOBnopAddr == null || Speedhack.OOBnopAddr == "0") && g2g && g2g2)
@@ -842,7 +842,7 @@ namespace Forza_Mods_AIO
                         || Speedhack.TimeNOPAddr == null || Speedhack.TimeNOPAddr == "0" || Speedhack.TimeNOPAddr == "1"
                         || Speedhack.SuperCarAddr == null || Speedhack.SuperCarAddr == "0"
                         || Speedhack.WayPointxASMAddr == null || Speedhack.WayPointxASMAddr == "0"
-                        || Speedhack.CheckPointxASMAddr == "C" || Speedhack.CheckPointxASMAddr == null || Speedhack.CheckPointxASMAddr == "0"
+                        || Speedhack.CheckPointxASMAddr == "FFFFFFFFFFFFFFBC" || Speedhack.CheckPointxASMAddr == null || Speedhack.CheckPointxASMAddr == "0"
                         || Speedhack.OOBnopAddr == "31" || Speedhack.OOBnopAddr == null || Speedhack.OOBnopAddr == "0"
                         || Speedhack.Base2Addr == null || Speedhack.Base2Addr == "0"
                         || Speedhack.WorldRGBAddr == null || Speedhack.WorldRGBAddr == "0"

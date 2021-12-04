@@ -551,6 +551,7 @@
     <None Include="Resources\default-orange.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\FH5_Cars.csv" />
     <None Include="Resources\FH5_Stats.csv" />
     <None Include="Resources\Updater.exe" />
   </ItemGroup>

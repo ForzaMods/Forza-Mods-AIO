@@ -49,21 +49,47 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             if (AddRare.Checked)
             {
                 string CarList = "";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 12, 1)) < 0)
-                    CarList = CarList + "3196";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 11, 24)) < 0)
-                    CarList = CarList + ", 3194";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 11, 18)) < 0)
-                    CarList = CarList + ", 2119";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + "2105";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 257";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 1319";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 1320";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 2235";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 1601";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 1583";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 3289";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 2068";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 2987";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 3005";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 295";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 2656";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 2743";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 291";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 2474";
                 string String = "" +
                     "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
                     " INSERT INTO Profile0_FreeCars SELECT Id, 1 FROM Data_Car WHERE Id NOT IN (SELECT CarId AS Id FROM Profile0_FreeCars WHERE CarID IS NOT NULL);" +
-                    " UPDATE ContentOffersMapping SET IsAutoRedeem = 1 ;" +
                     " UPDATE ContentOffersMapping SET Quantity = 9999 ;" +
                     " UPDATE Profile0_FreeCars SET FreeCount = 1;" +
-                    " UPDATE Profile0_FreeCars SET FreeCount = 0 WHERE CarId IN (" + CarList + ");" +
-                    " UPDATE Profile0_FreeCars SET FreeCount = 0 WHERE CarId IN (SELECT Id AS CarId FROM Data_Car WHERE NotAvailableInAutoshow = 0);" +
-                    " UPDATE Profile0_FreeCars SET FreeCount = 1 WHERE CarId IN (SELECT ContentId AS CarId FROM ContentOffersMapping WHERE ReleaseDateUTC <= '" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString() + " 0000');";
+                    " UPDATE ContentOffersMapping SET IsAutoRedeem = 1" +
+                    " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(" + CarList + ");" +
+                    " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(SELECT Id AS ContentId FROM Data_Car WHERE NotAvailableInAutoshow = 0);" +
+                    " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(SELECT ContentId FROM ContentOffersMapping WHERE ReleaseDateUTC > '" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00") + " 00:00');";
                 ((Telerik.WinControls.Primitives.BorderPrimitive)AddRare.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 AddAll.Enabled = false;
                 if (MainWindow.main.platform == 1)
@@ -80,15 +106,15 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630CA30", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
-                    MainWindow.m.WriteBytes("base+630D22F", new byte[] { 0x00 });
-                    MainWindow.m.WriteMemory("base+630CA30", "string", String);
+                    MainWindow.m.WriteMemory("base+638EC30", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
+                    MainWindow.m.WriteBytes("base+638F42F", new byte[] { 0x00 });
+                    MainWindow.m.WriteMemory("base+638EC30", "string", String);
                 }
                 if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C2270", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
-                    MainWindow.m.WriteBytes("base+65C2A6F", new byte[] { 0x00 });
-                    MainWindow.m.WriteMemory("base+65C2270", "string", String);
+                    MainWindow.m.WriteMemory("base+66444E0", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
+                    MainWindow.m.WriteBytes("base+6644CDF", new byte[] { 0x00 });
+                    MainWindow.m.WriteMemory("base+66444E0", "string", String);
                 }
             }
             else if (!AddRare.Checked)
@@ -106,11 +132,11 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteBytes("base+630CA30", OriginalData);
+                    MainWindow.m.WriteBytes("base+638EC30", OriginalData);
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteBytes("base+65C2270", OriginalData);
+                    MainWindow.m.WriteBytes("base+66444E0", OriginalData);
                 }
             }
         }
@@ -119,20 +145,45 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             if (AddAll.Checked)
             {
                 string CarList = "";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 12, 1)) < 0)
-                    CarList = CarList + "3196";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 11, 24)) < 0)
-                    CarList = CarList + ", 3194";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 11, 18)) < 0)
-                    CarList = CarList + ", 2119";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + "2105";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 257";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 1319";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 1320";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 2235";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 1601";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 1583";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 3289";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 2068";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 2987";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 3005";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 295";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 2656";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 2743";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 291";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
+                    CarList = CarList + ", 2474";
                 string String = "" +
                     "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
-                    " INSERT INTO Profile0_FreeCars SELECT ContentId, 0 FROM ContentOffersMapping;" +
-                    " UPDATE ContentOffersMapping SET IsAutoRedeem = 1 ;" +
-                    " UPDATE ContentOffersMapping SET Quantity = 9999 ;" +
-                    " UPDATE Profile0_FreeCars SET FreeCount = 1 WHERE CarId IN (SELECT ContentId AS CarId FROM ContentOffersMapping WHERE ReleaseDateUTC <= '" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString() + " 0000' OR ReleaseDateUTC IS NULL);" +
-                    " UPDATE Profile0_FreeCars SET FreeCount = 0 WHERE CarId IN (" + CarList + ");" +
-                    " UPDATE Profile0_FreeCars SET FreeCount = 0 WHERE CarId IN (SELECT CarId FROM Profile0_Career_Garage WHERE CarId IS NOT NULL);";
+                    " INSERT INTO Profile0_FreeCars SELECT ContentId, 1 FROM ContentOffersMapping;" +
+                    " UPDATE ContentOffersMapping SET IsAutoRedeem = 1 WHERE ContentId NOT IN(SELECT ContentId FROM ContentOffersMapping WHERE ReleaseDateUTC > '" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00") + " 00:00');" +
+                    " UPDATE ContentOffersMapping SET Quantity = 1 ;" +
+                    " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(" + CarList + ");" +
+                    " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(SELECT CarId AS ContentId FROM Profile0_Career_Garage WHERE CarId IS NOT NULL);";
                 ((Telerik.WinControls.Primitives.BorderPrimitive)AddAll.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 AddRare.Enabled = false;
                 if (MainWindow.main.platform == 1)
@@ -149,15 +200,15 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteMemory("base+630CA30", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
-                    MainWindow.m.WriteBytes("base+630D22F", new byte[] { 0x00 });
-                    MainWindow.m.WriteMemory("base+630CA30", "string", String);
+                    MainWindow.m.WriteMemory("base+638EC30", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
+                    MainWindow.m.WriteBytes("base+638F42F", new byte[] { 0x00 });
+                    MainWindow.m.WriteMemory("base+638EC30", "string", String);
                 }
                 if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteMemory("base+65C2270", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
-                    MainWindow.m.WriteBytes("base+65C2A6F", new byte[] { 0x00 });
-                    MainWindow.m.WriteMemory("base+65C2270", "string", String);
+                    MainWindow.m.WriteMemory("base+66444E0", "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
+                    MainWindow.m.WriteBytes("base+6644CDF", new byte[] { 0x00 });
+                    MainWindow.m.WriteMemory("base+66444E0", "string", String);
                 }
             }
             else if (!AddAll.Checked)
@@ -175,11 +226,11 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
                 }
                 else if (MainWindow.main.platform == 4)
                 {
-                    MainWindow.m.WriteBytes("base+630CA30", OriginalData);
+                    MainWindow.m.WriteBytes("base+638EC30", OriginalData);
                 }
                 else if (MainWindow.main.platform == 5)
                 {
-                    MainWindow.m.WriteBytes("base+65C2270", OriginalData);
+                    MainWindow.m.WriteBytes("base+66444E0", OriginalData);
                 }
             }
         }

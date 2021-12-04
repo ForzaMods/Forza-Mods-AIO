@@ -107,7 +107,7 @@ namespace Forza_Mods_AIO
             Array.Reverse(jmpBackBytes);
             string InsideCaveCodeString = "48890D21000000" + "0F288960020000E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty); // move reg to address within code cave + original code + jump back
             if (!MainWindow.main.ForzaFour)
-                InsideCaveCodeString = "48890D21000000" + "0F118130020000E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+                InsideCaveCodeString = "48890D21000000" + "0F118920020000E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
             byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
 
             MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
@@ -143,7 +143,7 @@ namespace Forza_Mods_AIO
             Array.Reverse(jmpBackBytes);
             string InsideCaveCodeString = "48893D22000000" + "0F1097A0030000E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty); // move reg to address within code cave + original code + jump back
             if (!MainWindow.main.ForzaFour)
-                InsideCaveCodeString = "48893D22000000" + "0F109790020000E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+                InsideCaveCodeString = "48893D22000000" + "0F109750020000E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
             byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
 
             MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
@@ -175,14 +175,17 @@ namespace Forza_Mods_AIO
                 Speedhack.WayPointzAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 936).ToString("X");
                 if (!MainWindow.main.ForzaFour)
                 {
-                    Speedhack.WayPointxAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 656).ToString("X");
-                    Speedhack.WayPointyAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 660).ToString("X");
-                    Speedhack.WayPointzAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 664).ToString("X");
+                    Speedhack.WayPointxAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 592).ToString("X");
+                    Speedhack.WayPointyAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 596).ToString("X");
+                    Speedhack.WayPointzAddr = (Int64.Parse(WayPointBaseAddr, NumberStyles.HexNumber) + 600).ToString("X");
                 }
                 float WayPointX = MainWindow.m.ReadFloat(Speedhack.WayPointxAddr, round: false);
                 float WayPointY = MainWindow.m.ReadFloat(Speedhack.WayPointyAddr, round: false) + 3;
                 float WayPointZ = MainWindow.m.ReadFloat(Speedhack.WayPointzAddr, round: false);
-                if ((WayPointX != 0 && WayPointX != 0 && WayPointX != 0) && !Speedhack.s.AutoWayPoint.Checked)
+                if ((WayPointX != 0 && WayPointY != 0 && WayPointZ != 0
+                    && WayPointX < 10000 && WayPointX > -10000
+                    && WayPointY < 1000 && WayPointY > -1000
+                    && WayPointZ < 10000 && WayPointZ > -10000) && !Speedhack.s.AutoWayPoint.Checked)
                 {
                     MainWindow.m.WriteMemory(Speedhack.xAddr, "float", WayPointX.ToString());
                     MainWindow.m.WriteMemory(Speedhack.yAddr, "float", WayPointY.ToString());
@@ -192,7 +195,7 @@ namespace Forza_Mods_AIO
 
             byte[] WayPointCodeBefore = new byte[7] { 0x0F, 0x10, 0xA0, 0x90, 0x03, 0x00, 0x00 };
             if (!MainWindow.main.ForzaFour)
-                WayPointCodeBefore = new byte[7] { 0x0F, 0x10, 0x97, 0x90, 0x02, 0x00, 0x00 };
+                WayPointCodeBefore = new byte[7] { 0x0F, 0x10, 0x97, 0x50, 0x02, 0x00, 0x00 };
             MainWindow.m.WriteBytes(Speedhack.WayPointxASMAddr, WayPointCodeBefore);
         }
 
