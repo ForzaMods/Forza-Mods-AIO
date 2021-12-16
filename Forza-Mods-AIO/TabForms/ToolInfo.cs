@@ -91,6 +91,7 @@ namespace Forza_Mods_AIO
                 Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
                 Settings["Settings"]["Volume"] = VolNum.Value.ToString();
                 Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
+                Settings["Settings"]["Skip Intro"] = SkipIntroBox.Checked.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
                 if (!Volumeworker.IsBusy)
                     Volumeworker.RunWorkerAsync();
@@ -206,6 +207,7 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
                 RainbowBox.Visible = false;
                 RainbowSpeed.Visible = false;
+                SkipIntroBox.Visible = false;
                 ColourPicker.Visible = true;
                 ColourSlider.Visible = true;
             }
@@ -215,6 +217,7 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(30, 30, 33);
                 RainbowBox.Visible = true;
                 RainbowSpeed.Visible = true;
+                SkipIntroBox.Visible = true;
                 ColourPicker.Visible = false;
                 ColourSlider.Visible = false;
             }
@@ -262,6 +265,7 @@ namespace Forza_Mods_AIO
                 Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
                 Settings["Settings"]["Volume"] = VolNum.Value.ToString();
                 Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
+                Settings["Settings"]["Skip Intro"] = SkipIntroBox.Checked.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
             }
             else if (ColourPickerBox.Checked)
@@ -274,6 +278,7 @@ namespace Forza_Mods_AIO
                 Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
                 Settings["Settings"]["Volume"] = VolNum.Value.ToString();
                 Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
+                Settings["Settings"]["Skip Intro"] = SkipIntroBox.Checked.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
                 //((Telerik.WinControls.Primitives.FillPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0)).BackColor = color;
                 ((Telerik.WinControls.Primitives.BorderPrimitive)ColourPickerBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
@@ -291,6 +296,8 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)RainbowBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Mute.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Mute.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (SkipIntroBox.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             ((Telerik.WinControls.UI.ProgressIndicatorElement)AOBScanProgress.GetChildAt(0).GetChildAt(0)).BackColor2 = color;
             ((Telerik.WinControls.UI.ProgressIndicatorElement)AOBScanProgress.GetChildAt(0).GetChildAt(0)).BackColor3 = color;
             ((Telerik.WinControls.UI.ProgressIndicatorElement)AOBScanProgress.GetChildAt(0).GetChildAt(0)).BackColor4 = color;
@@ -439,6 +446,14 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (AddCars.a.FreeVisBox.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)AddCars.a.FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)AddCars.a.ScanProgress.GetChildAt(0).GetChildAt(0)).BackColor2 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)AddCars.a.ScanProgress.GetChildAt(0).GetChildAt(0)).BackColor3 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)AddCars.a.ScanProgress.GetChildAt(0).GetChildAt(0)).BackColor4 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)AddCars.a.ScanProgress.GetChildAt(0).GetChildAt(0)).BackColor = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)AddCars.a.ScanProgress.GetChildAt(0).GetChildAt(1)).BackColor2 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)AddCars.a.ScanProgress.GetChildAt(0).GetChildAt(1)).BackColor3 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)AddCars.a.ScanProgress.GetChildAt(0).GetChildAt(1)).BackColor4 = color;
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)AddCars.a.ScanProgress.GetChildAt(0).GetChildAt(1)).BackColor = color;
             DraffsYTLink.ForeColor = color;
             UCPostLink.ForeColor = color;
             DiscordLink.ForeColor = color;
@@ -478,12 +493,14 @@ namespace Forza_Mods_AIO
                 Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
                 Settings["Settings"]["Volume"] = VolNum.Value.ToString();
                 Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
+                Settings["Settings"]["Skip Intro"] = SkipIntroBox.Checked.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
             }
             else
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(30, 30, 33);
-                MainWindow.main.RPCclient.Deinitialize(); string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
+                MainWindow.main.RPCclient.Deinitialize();
+                string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
                 var SettingsParser = new FileIniDataParser();
                 IniData Settings = new IniData();
                 Settings["Settings"]["Theme Colour"] = MainWindow.ThemeColour;
@@ -491,6 +508,7 @@ namespace Forza_Mods_AIO
                 Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
                 Settings["Settings"]["Volume"] = VolNum.Value.ToString();
                 Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
+                Settings["Settings"]["Skip Intro"] = SkipIntroBox.Checked.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
             }
         }
@@ -515,6 +533,7 @@ namespace Forza_Mods_AIO
                 Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
                 Settings["Settings"]["Volume"] = VolNum.Value.ToString();
                 Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
+                Settings["Settings"]["Skip Intro"] = SkipIntroBox.Checked.ToString();
                 SettingsParser.WriteFile(SettingsPath, Settings);
                 MainWindow.ThemeColour = RainbowColour;
                 UpdateThemeColour(ColorTranslator.FromHtml(RainbowColour));
@@ -569,9 +588,33 @@ namespace Forza_Mods_AIO
         private void SkipIntroBox_CheckStateChanged(object sender, EventArgs e)
         {
             if (SkipIntroBox.Checked)
+            {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
+                var SettingsParser = new FileIniDataParser();
+                IniData Settings = new IniData();
+                Settings["Settings"]["Theme Colour"] = MainWindow.ThemeColour;
+                Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
+                Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
+                Settings["Settings"]["Volume"] = VolNum.Value.ToString();
+                Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
+                Settings["Settings"]["Skip Intro"] = SkipIntroBox.Checked.ToString();
+                SettingsParser.WriteFile(SettingsPath, Settings);
+            }
             else
+            {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(30, 30, 33);
+                string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
+                var SettingsParser = new FileIniDataParser();
+                IniData Settings = new IniData();
+                Settings["Settings"]["Theme Colour"] = MainWindow.ThemeColour;
+                Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
+                Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
+                Settings["Settings"]["Volume"] = VolNum.Value.ToString();
+                Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
+                Settings["Settings"]["Skip Intro"] = SkipIntroBox.Checked.ToString();
+                SettingsParser.WriteFile(SettingsPath, Settings);
+            }
         }
     }
 }

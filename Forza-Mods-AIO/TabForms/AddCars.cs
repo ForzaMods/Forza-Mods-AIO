@@ -99,35 +99,48 @@ namespace Forza_Mods_AIO
                 long scanend = (long)(TargetProcess.MainModule.BaseAddress + TargetProcess.MainModule.ModuleMemorySize);
                 ScanProgress.Value1 = 0;
                 ScanProgress.Visible = true;
-                
                 sql1 = (await MainWindow.m.AoBScan(scanstart, scanend, "4E 4F 54 20 47 61 72 61 67 65 2E 4E 6F 74 41 76 61 69 6C 61 62 6C 65 49 6E 41 75 74 6F 73 68 6F 77 20 41 53 20 50 75 72 63 68 61 73 61 62 6C 65 43 61 72 2C", true, true)).FirstOrDefault().ToString("X");
-                ScanProgress.Value1 = 7;
+                for (int i = ScanProgress.Value1; i <= 7; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql2 = (await MainWindow.m.AoBScan(scanstart, scanend, "49 73 42 61 72 6E 46 69 6E 64", true, true)).FirstOrDefault().ToString("X");
-                ScanProgress.Value1 = 14;
+                for (int i = ScanProgress.Value1; i <= 14; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql3 = (await MainWindow.m.AoBScan(scanstart, scanend, "41 4E 44 20 4E 4F 54 20 49 73 42 61 72 6E 46 69 6E 64", true, true)).FirstOrDefault().ToString("X");
-                ScanProgress.Value1 = 21;
+                for (int i = ScanProgress.Value1; i <= 21; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql4 = (await MainWindow.m.AoBScan(scanstart, scanend, "47 61 72 61 67 65 2E 49 64 21 3D", true, true)).FirstOrDefault().ToString("X");
-                ScanProgress.Value1 = 28;
+                for (int i = ScanProgress.Value1; i <= 28; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql5 = (await MainWindow.m.AoBScan(scanstart, scanend, "41 4E 44 20 4E 6F 74 41 76 61 69 6C 61 62 6C 65 49 6E 41 75 74 6F 73 68 6F 77 3D 30", true, true)).FirstOrDefault().ToString("X");
-                ScanProgress.Value1 = 35;
+                for (int i = ScanProgress.Value1; i <= 35; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql6 = ((await MainWindow.m.AoBScan(scanstart, scanend, "41 4E 44 20 4E 6F 74 41 76 61 69 6C 61 62 6C 65 49 6E 41 75 74 6F 73 68 6F 77 3D 30", true, true)).FirstOrDefault() + 26).ToString("X");
-                ScanProgress.Value1 = 42;
+                for (int i = ScanProgress.Value1; i <= 42; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql7 = (await MainWindow.m.AoBScan(scanstart, scanend, "41 4E 44 20 49 73 43 61 72 56 69 73 69 62 6C 65 41 6E 64 52 65 6C 65 61 73 65 64 28 47 61 72 61 67 65 2E 4D 6F 64 65 6C 49 64 29 00 00 00 00 20", true, true)).FirstOrDefault().ToString("X");
-                ScanProgress.Value1 = 49;
+                for (int i = ScanProgress.Value1; i <= 49; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql8 = (await MainWindow.m.AoBScan(scanstart, scanend, "47 61 72 61 67 65 2E 4D 6F 64 65 6C 49 64 21 3D", true, true)).FirstOrDefault().ToString("X");
-                ScanProgress.Value1 = 56;
+                for (int i = ScanProgress.Value1; i <= 56; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql9 = (await MainWindow.m.AoBScan(scanstart, scanend, "41 4E 44 20 55 6E 6F 62 74 61 69 6E 61 62 6C 65 43 61 72 73 2E 4F 72 64 69 6E 61 6C 20 49 53 20 4E 55 4C 4C", true, true)).FirstOrDefault().ToString("X");
-                ScanProgress.Value1 = 63;
+                for (int i = ScanProgress.Value1; i <= 63; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql10 = (await MainWindow.m.AoBScan(scanstart, scanend, "49 4E 4E 45 52 20 4A 4F 49 4E 20 4C 69 76 65 72 79 5F 44 65 63 61 6C 73 53 6F 72 74 4F 72 64 65 72 20 4F 4E 20 28 4C 69 76 65 72 79 5F 44 65 63 61 6C 73 2E 49 44 20 3D 20 4C 69 76 65 72 79 5F 44 65 63 61 6C 73 53 6F 72 74 4F 72 64 65 72 2E 4C 69 76 65 72 79 5F 44 65 63 61 6C 49 44 29 20 57 48 45 52 45 20 4D 61 6B 65 49 44 20 3D 20 25 64 20 4F 52 44 45 52 20 42 59 20 53 65 71 75 65 6E 63 65 2C 20 41 6C 70 68 61 53 6F 72 74", true, true)).FirstOrDefault().ToString("X");
-                ScanProgress.Value1 = 70;
+                for (int i = ScanProgress.Value1; i <= 70; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql11 = (await MainWindow.m.AoBScan(scanstart, scanend, "44 6F 4E 6F 74 41 6C 6C 6F 77 52 65 6D 6F 76 61 6C 46 72 6F 6D 47 61 72 61 67 65 00 00 00 00 00", true, true)).FirstOrDefault().ToString("X");
-                ScanProgress.Value1 = 77;
+                for (int i = ScanProgress.Value1; i <= 77; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql12 = (await MainWindow.m.AoBScan(scanstart, scanend, "55 50 44 41 54 45 20 25 73 20 53 45 54 20 54 6F 70 53 70 65 65 64 3D 25 66", true, true)).FirstOrDefault().ToString("X");
-                ScanProgress.Value1 = 84;
+                for (int i = ScanProgress.Value1; i <= 84; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql13 = (await MainWindow.m.AoBScan(scanstart, scanend, "55 50 44 41 54 45 20 25 73 43 61 72 65 65 72 5F 47 61 72 61 67 65 20 53 45 54 20 54 75 6E 69 6E 67 5F 66 72 6F 6E 74 44 6F 77 6E 66 6F 72 63 65 20 3D 20 25 31 2E 38 65 2C 20 54 75 6E 69 6E 67 5F 72 65 61 72 44 6F 77 6E 66 6F 72 63 65 20 3D 20 25 31 2E 38 65 2C", true, true)).FirstOrDefault().ToString("X");
-                ScanProgress.Value1 = 91;
+                for (int i = ScanProgress.Value1; i <= 91; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 sql14 = ((await MainWindow.m.AoBScan(scanstart, scanend, "55 50 44 41 54 45 20 25 73 43 61 72 65 65 72 5F 47 61 72 61 67 65 20 53 45 54 20 54 75 6E 69 6E 67 5F 66 72 6F 6E 74 44 6F 77 6E 66 6F 72 63 65 20 3D 20 25 31 2E 38 65 2C 20 54 75 6E 69 6E 67 5F 72 65 61 72 44 6F 77 6E 66 6F 72 63 65 20 3D 20 25 31 2E 38 65 2C", true, true)).FirstOrDefault()+2047).ToString("X");
-                ScanProgress.Value1 = 100;
+                for (int i = ScanProgress.Value1; i <= 100; i++)
+                { Thread.Sleep(15); ScanProgress.Value1 = i; }
                 ScanProgress.Visible = false;
                 LBL_complete.Visible = true;
                 Box_AllCars.Enabled = true;
@@ -213,7 +226,7 @@ namespace Forza_Mods_AIO
                 {
                     SQLscan();
                 }
-                
+
             }
 
         }
