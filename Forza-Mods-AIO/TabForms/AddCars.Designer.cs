@@ -65,6 +65,8 @@ namespace Forza_Mods_AIO
             this.FreeVisLabel = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.QuickAdd = new System.Windows.Forms.Button();
+            this.ScanProgress = new Telerik.WinControls.UI.RadProgressBar();
+            this.LBL_complete = new System.Windows.Forms.Label();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Box_Null)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Box_RareCars)).BeginInit();
@@ -83,6 +85,7 @@ namespace Forza_Mods_AIO
             ((System.ComponentModel.ISupportInitialize)(this.FreePerfBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FreeVisBox)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ScanProgress)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -186,6 +189,7 @@ namespace Forza_Mods_AIO
             // 
             // Box_Null
             // 
+            this.Box_Null.Enabled = false;
             this.Box_Null.Location = new System.Drawing.Point(761, 23);
             this.Box_Null.Name = "Box_Null";
             this.Box_Null.Size = new System.Drawing.Size(75, 20);
@@ -216,6 +220,7 @@ namespace Forza_Mods_AIO
             // 
             // Box_RareCars
             // 
+            this.Box_RareCars.Enabled = false;
             this.Box_RareCars.Location = new System.Drawing.Point(443, 23);
             this.Box_RareCars.Name = "Box_RareCars";
             this.Box_RareCars.Size = new System.Drawing.Size(85, 20);
@@ -246,6 +251,7 @@ namespace Forza_Mods_AIO
             // 
             // Box_AllCars
             // 
+            this.Box_AllCars.Enabled = false;
             this.Box_AllCars.Location = new System.Drawing.Point(92, 23);
             this.Box_AllCars.Name = "Box_AllCars";
             this.Box_AllCars.Size = new System.Drawing.Size(69, 20);
@@ -351,6 +357,7 @@ namespace Forza_Mods_AIO
             // 
             // Box_Decals
             // 
+            this.Box_Decals.Enabled = false;
             this.Box_Decals.Location = new System.Drawing.Point(749, 19);
             this.Box_Decals.Name = "Box_Decals";
             this.Box_Decals.Size = new System.Drawing.Size(113, 20);
@@ -381,6 +388,7 @@ namespace Forza_Mods_AIO
             // 
             // Box_RemoveCars
             // 
+            this.Box_RemoveCars.Enabled = false;
             this.Box_RemoveCars.Location = new System.Drawing.Point(422, 19);
             this.Box_RemoveCars.Name = "Box_RemoveCars";
             this.Box_RemoveCars.Size = new System.Drawing.Size(129, 20);
@@ -411,6 +419,7 @@ namespace Forza_Mods_AIO
             // 
             // Box_LegoPaint
             // 
+            this.Box_LegoPaint.Enabled = false;
             this.Box_LegoPaint.Font = new System.Drawing.Font("Open Sans", 10F);
             this.Box_LegoPaint.Location = new System.Drawing.Point(73, 19);
             this.Box_LegoPaint.Name = "Box_LegoPaint";
@@ -462,6 +471,7 @@ namespace Forza_Mods_AIO
             // 
             // Box_Traffic
             // 
+            this.Box_Traffic.Enabled = false;
             this.Box_Traffic.Font = new System.Drawing.Font("Open Sans", 10F);
             this.Box_Traffic.Location = new System.Drawing.Point(584, 13);
             this.Box_Traffic.Name = "Box_Traffic";
@@ -493,6 +503,7 @@ namespace Forza_Mods_AIO
             // 
             // Box_SeriesFix
             // 
+            this.Box_SeriesFix.Enabled = false;
             this.Box_SeriesFix.Font = new System.Drawing.Font("Open Sans", 10F);
             this.Box_SeriesFix.Location = new System.Drawing.Point(319, 13);
             this.Box_SeriesFix.Name = "Box_SeriesFix";
@@ -524,6 +535,7 @@ namespace Forza_Mods_AIO
             // 
             // Box_ClearGarage
             // 
+            this.Box_ClearGarage.Enabled = false;
             this.Box_ClearGarage.Font = new System.Drawing.Font("Open Sans", 10F);
             this.Box_ClearGarage.Location = new System.Drawing.Point(599, 99);
             this.Box_ClearGarage.Name = "Box_ClearGarage";
@@ -555,6 +567,7 @@ namespace Forza_Mods_AIO
             // 
             // Box_Presets
             // 
+            this.Box_Presets.Enabled = false;
             this.Box_Presets.Font = new System.Drawing.Font("Open Sans", 10F);
             this.Box_Presets.Location = new System.Drawing.Point(313, 99);
             this.Box_Presets.Name = "Box_Presets";
@@ -586,6 +599,7 @@ namespace Forza_Mods_AIO
             // 
             // Box_ThumbsFix
             // 
+            this.Box_ThumbsFix.Enabled = false;
             this.Box_ThumbsFix.Font = new System.Drawing.Font("Open Sans", 10F);
             this.Box_ThumbsFix.Location = new System.Drawing.Point(75, 99);
             this.Box_ThumbsFix.Name = "Box_ThumbsFix";
@@ -617,6 +631,7 @@ namespace Forza_Mods_AIO
             // 
             // Box_FreeCars
             // 
+            this.Box_FreeCars.Enabled = false;
             this.Box_FreeCars.Font = new System.Drawing.Font("Open Sans", 10F);
             this.Box_FreeCars.Location = new System.Drawing.Point(87, 13);
             this.Box_FreeCars.Name = "Box_FreeCars";
@@ -689,6 +704,7 @@ namespace Forza_Mods_AIO
             // 
             // FreePerfBox
             // 
+            this.FreePerfBox.Enabled = false;
             this.FreePerfBox.Font = new System.Drawing.Font("Open Sans", 10F);
             this.FreePerfBox.Location = new System.Drawing.Point(18, 13);
             this.FreePerfBox.Name = "FreePerfBox";
@@ -720,6 +736,7 @@ namespace Forza_Mods_AIO
             // 
             // FreeVisBox
             // 
+            this.FreeVisBox.Enabled = false;
             this.FreeVisBox.Font = new System.Drawing.Font("Open Sans", 10F);
             this.FreeVisBox.Location = new System.Drawing.Point(18, 99);
             this.FreeVisBox.Name = "FreeVisBox";
@@ -788,6 +805,7 @@ namespace Forza_Mods_AIO
             // QuickAdd
             // 
             this.QuickAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.QuickAdd.Enabled = false;
             this.QuickAdd.FlatAppearance.BorderSize = 0;
             this.QuickAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.QuickAdd.Font = new System.Drawing.Font("Open Sans", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -799,12 +817,76 @@ namespace Forza_Mods_AIO
             this.QuickAdd.UseVisualStyleBackColor = false;
             this.QuickAdd.Click += new System.EventHandler(this.QuickAdd_Click);
             // 
+            // ScanProgress
+            // 
+            this.ScanProgress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.ScanProgress.Location = new System.Drawing.Point(621, 413);
+            this.ScanProgress.Name = "ScanProgress";
+            this.ScanProgress.Size = new System.Drawing.Size(155, 23);
+            this.ScanProgress.TabIndex = 26;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).Text = "";
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).ClipText = false;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.ScanProgress.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.ProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.UpperProgressIndicatorElement)(this.ScanProgress.GetChildAt(0).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.UI.SeparatorsElement)(this.ScanProgress.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.ProgressBarTextElement)(this.ScanProgress.GetChildAt(0).GetChildAt(3))).Text = "";
+            // 
+            // LBL_complete
+            // 
+            this.LBL_complete.AutoSize = true;
+            this.LBL_complete.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.LBL_complete.ForeColor = System.Drawing.Color.Green;
+            this.LBL_complete.Location = new System.Drawing.Point(639, 413);
+            this.LBL_complete.Name = "LBL_complete";
+            this.LBL_complete.Size = new System.Drawing.Size(109, 20);
+            this.LBL_complete.TabIndex = 44;
+            this.LBL_complete.Text = "Scan Complete";
+            this.LBL_complete.Visible = false;
+            // 
             // AddCars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.LBL_complete);
+            this.Controls.Add(this.ScanProgress);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.QuickAdd);
             this.Controls.Add(this.BTN_Help);
@@ -842,6 +924,7 @@ namespace Forza_Mods_AIO
             ((System.ComponentModel.ISupportInitialize)(this.FreeVisBox)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ScanProgress)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -884,5 +967,7 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.Label FreeVisLabel;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button QuickAdd;
+        public Telerik.WinControls.UI.RadProgressBar ScanProgress;
+        private System.Windows.Forms.Label LBL_complete;
     }
 }

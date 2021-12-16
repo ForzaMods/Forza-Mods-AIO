@@ -314,6 +314,9 @@ namespace Forza_Mods_AIO
             this.TabHolder.Size = new System.Drawing.Size(1000, 445);
             this.TabHolder.TabIndex = 15;
             // 
+            // CheckAttachedworker
+            // 
+            // 
             // InitialBGworker
             // 
             this.InitialBGworker.WorkerReportsProgress = true;

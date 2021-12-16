@@ -272,6 +272,7 @@ namespace Forza_Mods_AIO
                     Thread.Sleep(500);
                     InitialBGworker.ReportProgress(0);
                 }
+
                 if (Speedhack.done == false)
                 {
                     DisableButtons();
@@ -335,6 +336,8 @@ namespace Forza_Mods_AIO
                 }
                 else
                 {
+                    AddCars.gamescanned = 3;
+                    AddCars.disablebuttons();
                     ForzaFour = true;
                     ToolInfo.LBL_Attached.Text = "Not Attached to FH4/5";
                     ToolInfo.LBL_Attached.ForeColor = Color.Red;
@@ -1052,6 +1055,8 @@ namespace Forza_Mods_AIO
                     }
                 }
             }
+            if (platform == 4 || platform == 5)
+                AddCars.Resetmem();
             Environment.Exit(0);
         }
         private void BTN_MIN_Click(object sender, EventArgs e)
