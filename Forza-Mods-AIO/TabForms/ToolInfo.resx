@@ -127,15 +127,14 @@
     <value>310, 25</value>
   </metadata>
   <data name="label1.Text" xml:space="preserve">
-    <value>This tool was last updated on: 18/11/2021.
+    <value>This tool was last updated on: 15/12/2021.
 If a new series has started since this date then there may be an update available.
 
 Tool Credits:
 Draff - UI, Adding cars, Saveswapping, Backend.
 Weebthan - Theming, Stat editor, Live tuning, Cool shit, Backend.
 Mark - More backend help.
-Boosted - Bought Weebthan the game and made porting cool shit possible
-</value>
+Boosted - Bought Weebthan the game and made porting cool shit possible.</value>
   </data>
   <metadata name="fluentDarkTheme1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>441, 25</value>

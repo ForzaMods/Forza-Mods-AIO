@@ -60,6 +60,7 @@ namespace Forza_Mods_AIO.TabForms
         public static long SuperCarAddrLong;
         public static long WorldRGBAddrLong;
         public static long DLCPatchAddrLong;
+        public static long DiscoverRoadsAddrLong;
 
         public static string Base;
         public static string Base2;
@@ -86,6 +87,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string SuperCaraob;
         public static string DLCPatchaob;
         public static string CarIdAob;
+        public static string DiscoverRoadsAob;
 
         public static string KBSpeedKey = "LShiftKey"; public static string XBSpeedKey = "LeftShoulder";
         public static string KBBrakeKey = "Space"; public static string XBBrakeKey = "A";
@@ -114,6 +116,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string InPauseAddr;
         public static string DLCPatchAddr;
         public static string CheckPointBaseAddr = null; public static string WayPointBaseAddr = null;
+        public static string DiscoverRoadsAddr = null;
         public static string XPaddr = null; public static long XPaddrLong = 0; public static string XPAmountaddr = null; public static long XPAmountaddrLong = 0;
 
         public static IntPtr CCBA = (IntPtr)0; public static IntPtr CCBA2 = (IntPtr)0; public static IntPtr CCBA3 = (IntPtr)0; public static IntPtr CCBA4 = (IntPtr)0; public static IntPtr CCBA5 = (IntPtr)0;
@@ -304,7 +307,8 @@ namespace Forza_Mods_AIO.TabForms
             CurrentIDaob = "00 00 50 4C 41 59 45 52 5F 43 41 52 00 00";
             OOBaob = "0F 11 ? ? ? ? ? 0F 5C ? 0F 59 ? 0F 28 ? 0F C6 CA ? F3 0F";
             SuperCaraob = "0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 48 83 C2 ? 0F 11 ? ? 48 83 C1 ? E8 ? ? ? ? 0F 10";
-    }
+            DiscoverRoadsAob = "00 96 42 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 40 1C 45 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 03 00";
+        }
         public static void AobsSteam()
         {
             Base = "7F ? 00 01 00 00 00 03 00 00 00 01 00 00 00 00 00 00 00 64";
@@ -312,7 +316,7 @@ namespace Forza_Mods_AIO.TabForms
         public static void AobsFive()
         {
             Base = "7F ? 00 AC ? ? ? ? ? 6E 27 00 24";
-            RGBAob = "81 80 80 3B 81 80 ? ? ? ? 80 3B ? 80 80 3B D5 36 00";
+            RGBAob = "0A D7 23 3C ? 00 00 3F 9A ? ? ? ? ? ? 00";
             Base2 = "E0 ? 41 ? E1 ? 00 00";
             XPaob = "F3 0F ? ? 89 45 ? 48 8D ? ? ? ? ? 41 83";
             XPAmountaob = "8B 89 ? ? ? ? 85 C9 0F 8E";
@@ -325,8 +329,9 @@ namespace Forza_Mods_AIO.TabForms
             FOVJmp = "76 ? 0F 10 ? ? 0F 28 ? 0F 10";
             OOBaob = "0F 28 ? 0F 28 ? 0F C6 D1 ? 0F 59 ? ? ? ? ? 0F C6 C1 ? 0F 59 ? ? ? ? ? 0F C6 C9 ? 0F 59 ? ? ? ? ? 0F 58 ? 0F 58 ? 0F 58 ? ? 0F 11";
             //CheckPointxASMsig = "48 85 ? 74 ? 48 ? ? ? ? ? C7 0F";
-            CheckPointxASMsig = "89 91 ? ? ? ? C3 90 ED C0 EE";
+            CheckPointxASMsig = "33 C0 48 89 ? 48 89 ? ? 48 E9 ? ? ? ? 90 40 F3";
             CarIdAob = "00 B0 ? ? ? ? 7F ? 00 D8 6E";
+            DiscoverRoadsAob = "63 70 ? B7 ? 5D";
         }
         public static void AobsFiveSteam()
         {
@@ -931,7 +936,7 @@ namespace Forza_Mods_AIO.TabForms
                 nop = new byte[] { 0x90, 0x90, 0x90, 0x90 };
             }
             Stopwatch stopWatch = new Stopwatch();
-            string LastID = MainWindow.m.Read2Byte(CurrentIDAddr).ToString();
+            //string LastID = MainWindow.m.Read2Byte(CurrentIDAddr).ToString();
             MainWindow.m.WriteBytes(OOBnopAddr, nop);
             while (OOB)
             {
@@ -1363,9 +1368,9 @@ namespace Forza_Mods_AIO.TabForms
                                 break;
                             }
                             a.GetCheckXAddr(CodeCave, out CheckPointBaseAddr);
-                            CheckPointxAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 544).ToString("X");
-                            CheckPointyAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 548).ToString("X");
-                            CheckPointzAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 552).ToString("X");
+                            CheckPointxAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 608).ToString("X");
+                            CheckPointyAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 612).ToString("X");
+                            CheckPointzAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 616).ToString("X");
                             InRace = MainWindow.m.ReadFloat(InRaceAddr);
                             if(MainWindow.m.ReadFloat(CheckPointxAddr) != 0 && MainWindow.m.ReadFloat(CheckPointyAddr) != 0 && MainWindow.m.ReadFloat(CheckPointzAddr) != 0)
                                 CheckPointTP();
@@ -1400,19 +1405,11 @@ namespace Forza_Mods_AIO.TabForms
         }
         public void CheckPointTP()
         {
-            if(Math.Abs(MainWindow.m.ReadFloat(xAddr) - MainWindow.m.ReadFloat(CheckPointxAddr)) < 2000
-                && Math.Abs(MainWindow.m.ReadFloat(yAddr) - MainWindow.m.ReadFloat(CheckPointyAddr)) < 2000
-                && Math.Abs(MainWindow.m.ReadFloat(zAddr) - MainWindow.m.ReadFloat(CheckPointzAddr)) < 2000)
-            {
-                Thread.Sleep(500);
-                MainWindow.m.WriteMemory(xAddr, "float", (MainWindow.m.ReadFloat(CheckPointxAddr)).ToString());
-                if(MainWindow.main.ForzaFour)
-                    MainWindow.m.WriteMemory(yAddr, "float", (MainWindow.m.ReadFloat(CheckPointyAddr) + 4).ToString());
-                else
-                    MainWindow.m.WriteMemory(yAddr, "float", (MainWindow.m.ReadFloat(CheckPointyAddr)).ToString());
-                MainWindow.m.WriteMemory(zAddr, "float", (MainWindow.m.ReadFloat(CheckPointzAddr)).ToString());
-                MainWindow.m.FreezeValue(yAngVelAddr, "float", "100");
-            }
+            Thread.Sleep(100);
+            MainWindow.m.WriteMemory(xAddr, "float", (MainWindow.m.ReadFloat(CheckPointxAddr)).ToString());
+            MainWindow.m.WriteMemory(yAddr, "float", (MainWindow.m.ReadFloat(CheckPointyAddr) + 4).ToString());
+            MainWindow.m.WriteMemory(zAddr, "float", (MainWindow.m.ReadFloat(CheckPointzAddr)).ToString());
+            MainWindow.m.FreezeValue(yAngVelAddr, "float", "100");
             Thread.Sleep(1);
         }
         #endregion
@@ -1743,178 +1740,153 @@ namespace Forza_Mods_AIO.TabForms
         # region Teleports
         private void LST_TeleportLocation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            #region fh4
-            if (LST_TeleportLocation.Text == "Adventure Park")
+            switch (LST_TeleportLocation.Text)
             {
-                x = (float)2267.335449;
-                y = (float)304.2393494;
-                z = (float)-2611.638428;
+                #region fh4
+                case "Adventure Park":
+                    x = (float)2267.335449;
+                    y = (float)304.2393494;
+                    z = (float)-2611.638428;
+                    break;
+                case "Ambleside":
+                    x = (float)-5112.047363;
+                    y = (float)154.1546478;
+                    z = (float)-3534.503906;
+                    break;
+                case "Beach":
+                    x = (float)4874.382812;
+                    y = (float)124.9019775;
+                    z = (float)-1392.215454;
+                    break;
+                case "Broadway":
+                    x = (float)-237.2871857;
+                    y = (float)239.5045471;
+                    z = (float)-5816.858398;
+                    break;
+                case "Dam":
+                    x = (float)-854.6953125;
+                    y = (float)209.1066284;
+                    z = (float)-2031.137329;
+                    break;
+                case "Edinburgh":
+                    x = (float)2045.383179;
+                    y = (float)204.0559845;
+                    z = (float)2511.078613;
+                    break;
+                case "Festival":
+                    x = (float)-2753.350098;
+                    y = (float)349.7218018;
+                    z = (float)-4357.629883;
+                    break;
+                case "Greendale Airstrip":
+                    x = (float)3409.570068;
+                    y = (float)159.2418976;
+                    z = (float)661.2498779;
+                    break;
+                case "Lake Island":
+                    x = (float)-4001.890869;
+                    y = (float)175.7261353;
+                    z = (float)-196.6170197;
+                    break;
+                case "Mortimer Gardens":
+                    x = (float)-4314.36377;
+                    y = (float)153.261261;
+                    z = (float)1804.139282;
+                    break;
+                case "Quarry":
+                    x = (float)-1569.987305;
+                    y = (float)206.0023804;
+                    z = (float)-2843.05249;
+                    break;
+                case "Railyard":
+                    x = (float)-935.0923462;
+                    y = (float)161.055069;
+                    z = (float)1745.383667;
+                    break;
+                case "Start of Motorway":
+                    x = (float)2657.887451;
+                    y = (float)270.7128906;
+                    z = (float)-4353.087402;
+                    break;
+                case "Top of Mountain":
+                    x = (float)-2285.739746;
+                    y = (float)364.6417236;
+                    z = (float)2576.946533;
+                    break;
+                #endregion
+                #region fh5
+                case "Top Of Volcano":
+                    x = (float)-5594.330078;
+                    y = (float)1023.229919;
+                    z = (float)2392.037109;
+                    break;
+                case "Stadium":
+                    x = (float)-762.8079834;
+                    y = (float)169.0338593;
+                    z = (float)1615.112183;
+                    break;
+                case "Guanajuato (Main City)":
+                    x = (float)355.9811096;
+                    y = (float)258.8370056;
+                    z = (float)3135.321533;
+                    break;
+                case "Bridge":
+                    x = (float)-5820.825684;
+                    y = (float)122.3475876;
+                    z = (float)-2550.383545;
+                    break;
+                case "Golf Course":
+                    x = (float)-8316.630859;
+                    y = (float)125.8156357;
+                    z = (float)-1150.103271;
+                    break;
+                case "Dunes":
+                    x = (float)-8615.027344;
+                    y = (float)143.9117279;
+                    z = (float)1966.912109;
+                    break;
+                case "Motorway":
+                    x = (float)2855.958252;
+                    y = (float)195.1608429;
+                    z = (float)1465.902954;
+                    break;
+                case "Airstrip":
+                    x = (float)-3891.084717;
+                    y = (float)174.4389496;
+                    z = (float)-3841.428467;
+                    break;
+                case "Mulege":
+                    x = (float)-4174.963867;
+                    y = (float)122.9130783;
+                    z = (float)-2227.120605;
+                    break;
+                case "Temple":
+                    x = (float)3643.609375;
+                    y = (float)230.227066;
+                    z = (float)-2646.405029;
+                    break;
+                case "River":
+                    x = (float)923.4258423;
+                    y = (float)246.7331696;
+                    z = (float)-2980.020264;
+                    break;
+                case "Dirt Circuit":
+                    x = (float)-8344.927734;
+                    y = (float)200.0671387;
+                    z = (float)3197.32959;
+                    break;
+                case "Pllaya Azul":
+                    x = (float)5550.070801;
+                    y = (float)105.1047897;
+                    z = (float)497.8027649;
+                    break;
+                case "Temple Drag":
+                    x = (float)751.5328979;
+                    y = (float)190.3298645;
+                    z = (float)-110.3424072;
+                    break;
+                #endregion
             }
-            if (LST_TeleportLocation.Text == "Ambleside")
-            {
-                x = (float)-5112.047363;
-                y = (float)154.1546478;
-                z = (float)-3534.503906;
-            }
-            if (LST_TeleportLocation.Text == "Beach")
-            {
-                x = (float)4874.382812;
-                y = (float)124.9019775;
-                z = (float)-1392.215454;
-            }
-            if (LST_TeleportLocation.Text == "Broadway")
-            {
-                x = (float)-237.2871857;
-                y = (float)239.5045471;
-                z = (float)-5816.858398;
-            }
-            if (LST_TeleportLocation.Text == "Dam")
-            {
-                x = (float)-854.6953125;
-                y = (float)209.1066284;
-                z = (float)-2031.137329;
-            }
-            if (LST_TeleportLocation.Text == "Edinburgh")
-            {
-                x = (float)2045.383179;
-                y = (float)204.0559845;
-                z = (float)2511.078613;
-            }
-            if (LST_TeleportLocation.Text == "Festival")
-            {
-                x = (float)-2753.350098;
-                y = (float)349.7218018;
-                z = (float)-4357.629883;
-            }
-            if (LST_TeleportLocation.Text == "Greendale Airstrip")
-            {
-                x = (float)3409.570068;
-                y = (float)159.2418976;
-                z = (float)661.2498779;
-            }
-            if (LST_TeleportLocation.Text == "Lake Island")
-            {
-                x = (float)-4001.890869;
-                y = (float)175.7261353;
-                z = (float)-196.6170197;
-            }
-            if (LST_TeleportLocation.Text == "Mortimer Gardens")
-            {
-                x = (float)-4314.36377;
-                y = (float)153.261261;
-                z = (float)1804.139282;
-            }
-            if (LST_TeleportLocation.Text == "Quarry")
-            {
-                x = (float)-1569.987305;
-                y = (float)206.0023804;
-                z = (float)-2843.05249;
-            }
-            if (LST_TeleportLocation.Text == "Railyard")
-            {
-                x = (float)-935.0923462;
-                y = (float)161.055069;
-                z = (float)1745.383667;
-            }
-            if (LST_TeleportLocation.Text == "Start of Motorway")
-            {
-                x = (float)2657.887451;
-                y = (float)270.7128906;
-                z = (float)-4353.087402;
-            }
-            if (LST_TeleportLocation.Text == "Top of Mountain")
-            {
-                x = (float)-2285.739746;
-                y = (float)364.6417236;
-                z = (float)2576.946533;
-            }
-            #endregion
-            #region fh5
-            if (LST_TeleportLocation.Text == "Top Of Volcano")
-            {
-                x = (float)-5594.330078;
-                y = (float)1023.229919;
-                z = (float)2392.037109;
-            }
-            if (LST_TeleportLocation.Text == "Stadium")
-            {
-                x = (float)-762.8079834;
-                y = (float)169.0338593;
-                z = (float)1615.112183;
-            }
-            if (LST_TeleportLocation.Text == "Guanajuato (Main City)")
-            {
-                x = (float)355.9811096;
-                y = (float)258.8370056;
-                z = (float)3135.321533;
-            }
-            if (LST_TeleportLocation.Text == "Bridge")
-            {
-                x = (float)-5820.825684;
-                y = (float)122.3475876;
-                z = (float)-2550.383545;
-            }
-            if (LST_TeleportLocation.Text == "Golf Course")
-            {
-                x = (float)-8316.630859;
-                y = (float)125.8156357;
-                z = (float)-1150.103271;
-            }
-            if (LST_TeleportLocation.Text == "Dunes")
-            {
-                x = (float)-8615.027344;
-                y = (float)143.9117279;
-                z = (float)1966.912109;
-            }
-            if (LST_TeleportLocation.Text == "Motorway")
-            {
-                x = (float)2855.958252;
-                y = (float)195.1608429;
-                z = (float)1465.902954;
-            }
-            if (LST_TeleportLocation.Text == "Airstrip")
-            {
-                x = (float)-3891.084717;
-                y = (float)174.4389496;
-                z = (float)-3841.428467;
-            }
-            if (LST_TeleportLocation.Text == "Mulege")
-            {
-                x = (float)-4174.963867;
-                y = (float)122.9130783;
-                z = (float)-2227.120605;
-            }
-            if (LST_TeleportLocation.Text == "Temple")
-            {
-                x = (float)3643.609375;
-                y = (float)230.227066;
-                z = (float)-2646.405029;
-            }
-            if (LST_TeleportLocation.Text == "River")
-            {
-                x = (float)923.4258423;
-                y = (float)246.7331696;
-                z = (float)-2980.020264;
-            }
-            if (LST_TeleportLocation.Text == "Dirt Circuit")
-            {
-                x = (float)-8344.927734;
-                y = (float)200.0671387;
-                z = (float)3197.32959;
-            }
-            if (LST_TeleportLocation.Text == "Pllaya Azul")
-            {
-                x = (float)5550.070801;
-                y = (float)105.1047897;
-                z = (float)497.8027649;
-            }
-            if (LST_TeleportLocation.Text == "Temple Drag")
-            {
-                x = (float)751.5328979;
-                y = (float)190.3298645;
-                z = (float)-110.3424072;
-            }
-            #endregion
         }
         private void TPButton_Click(object sender, EventArgs e)
         {
@@ -1965,7 +1937,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             byte[] original = new byte[7]{ 0x0F, 0x28, 0x89, 0x60, 0x02, 0x00, 0x00 };
             if(!MainWindow.main.ForzaFour)
-                original = new byte[7] { 0x0F, 0x11, 0x89, 0x20, 0x02, 0x00, 0x00 };
+                original = new byte[7] { 0x0F, 0x10, 0x89, 0x60, 0x02, 0x00, 0x00 };
             if (CheckpointBox.Checked == false)
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)CheckpointBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
@@ -2671,6 +2643,31 @@ namespace Forza_Mods_AIO.TabForms
         {
             ControlsPopUp.Show();
             ControlsPopUp.Focus();
+        }
+
+        private void DiscoverRoadsBox_CheckStateChanged(object sender, EventArgs e)
+        {
+            if(DiscoverRoadsBox.Checked)
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)DiscoverRoadsBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                long BytesOne = (long)MainWindow.m.GetCode(DiscoverRoadsAddr);
+                long BytesTwo = BytesOne + 24;
+                long BytesThree = BytesOne + 119;
+                if (!MainWindow.main.ForzaFour)
+                {
+                    BytesOne += 675;
+                    BytesTwo += 675;
+                    BytesThree += 675;
+                }
+                if (MainWindow.m.ReadBytes(BytesOne.ToString("X"), 3).SequenceEqual(new byte[] { 0x00, 0x96, 0x42 }))
+                {
+                    MainWindow.m.WriteBytes(BytesOne.ToString("X"), new byte[] { 0x1B, 0x37, 0x49 });
+                    MainWindow.m.WriteBytes(BytesTwo.ToString("X"), new byte[] { 0x24, 0x74, 0x48 });
+                    MainWindow.m.WriteBytes(BytesThree.ToString("X"), new byte[] { 0x30, 0x75 });
+                }
+            }
+            else
+                ((Telerik.WinControls.Primitives.BorderPrimitive)DiscoverRoadsBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
         }
     }
 }

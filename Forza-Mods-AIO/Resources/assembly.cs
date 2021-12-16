@@ -107,7 +107,7 @@ namespace Forza_Mods_AIO
             Array.Reverse(jmpBackBytes);
             string InsideCaveCodeString = "48890D21000000" + "0F288960020000E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty); // move reg to address within code cave + original code + jump back
             if (!MainWindow.main.ForzaFour)
-                InsideCaveCodeString = "48890D21000000" + "0F118920020000E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+                InsideCaveCodeString = "48890D21000000" + "0F108960020000E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
             byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
 
             MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);

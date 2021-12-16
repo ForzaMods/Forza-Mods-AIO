@@ -35,9 +35,11 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.TopPanel = new System.Windows.Forms.Panel();
             this.AddAll = new Telerik.WinControls.UI.RadCheckBox();
             this.AddRare = new Telerik.WinControls.UI.RadCheckBox();
+            this.UnReleasedBox = new Telerik.WinControls.UI.RadCheckBox();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddAll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AddRare)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UnReleasedBox)).BeginInit();
             this.SuspendLayout();
             // 
             // BTN_Close
@@ -48,7 +50,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.BTN_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_Close.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Bold);
             this.BTN_Close.ForeColor = System.Drawing.Color.Red;
-            this.BTN_Close.Location = new System.Drawing.Point(230, 0);
+            this.BTN_Close.Location = new System.Drawing.Point(363, 0);
             this.BTN_Close.Margin = new System.Windows.Forms.Padding(0);
             this.BTN_Close.Name = "BTN_Close";
             this.BTN_Close.Size = new System.Drawing.Size(35, 35);
@@ -65,7 +67,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.LBL_Title.BackColor = System.Drawing.Color.Transparent;
             this.LBL_Title.Font = new System.Drawing.Font("Open Sans", 16F);
             this.LBL_Title.ForeColor = System.Drawing.Color.White;
-            this.LBL_Title.Location = new System.Drawing.Point(7, 0);
+            this.LBL_Title.Location = new System.Drawing.Point(88, 0);
             this.LBL_Title.Margin = new System.Windows.Forms.Padding(0);
             this.LBL_Title.Name = "LBL_Title";
             this.LBL_Title.Size = new System.Drawing.Size(223, 30);
@@ -85,7 +87,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.TopPanel.Location = new System.Drawing.Point(0, 0);
             this.TopPanel.Margin = new System.Windows.Forms.Padding(0);
             this.TopPanel.Name = "TopPanel";
-            this.TopPanel.Size = new System.Drawing.Size(265, 35);
+            this.TopPanel.Size = new System.Drawing.Size(398, 35);
             this.TopPanel.TabIndex = 8;
             this.TopPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseDown);
             this.TopPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TopPanel_MouseMove);
@@ -153,13 +155,45 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.AddRare.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.AddRare.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
+            // UnReleasedBox
+            // 
+            this.UnReleasedBox.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.UnReleasedBox.Location = new System.Drawing.Point(277, 39);
+            this.UnReleasedBox.Name = "UnReleasedBox";
+            this.UnReleasedBox.Size = new System.Drawing.Size(127, 38);
+            this.UnReleasedBox.TabIndex = 30;
+            this.UnReleasedBox.Text = "Add un-owned\r\ncar pass cars";
+            this.UnReleasedBox.ThemeName = "FluentDark";
+            this.UnReleasedBox.CheckStateChanged += new System.EventHandler(this.UnReleasedBox_CheckStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.UnReleasedBox.GetChildAt(0))).Text = "Add un-owned\r\ncar pass cars";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.UnReleasedBox.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
             // QuickAddCars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(265, 81);
+            this.ClientSize = new System.Drawing.Size(398, 81);
             this.ControlBox = false;
+            this.Controls.Add(this.UnReleasedBox);
             this.Controls.Add(this.AddRare);
             this.Controls.Add(this.AddAll);
             this.Controls.Add(this.TopPanel);
@@ -175,6 +209,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.TopPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddAll)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AddRare)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UnReleasedBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -187,5 +222,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
         private System.Windows.Forms.Panel TopPanel;
         public Telerik.WinControls.UI.RadCheckBox AddAll;
         public Telerik.WinControls.UI.RadCheckBox AddRare;
+        public Telerik.WinControls.UI.RadCheckBox UnReleasedBox;
     }
 }

@@ -65,6 +65,7 @@ namespace Forza_Mods_AIO
             this.DonoPic2D = new System.Windows.Forms.PictureBox();
             this.DonoPicD = new System.Windows.Forms.PictureBox();
             this.RPCBox = new Telerik.WinControls.UI.RadCheckBox();
+            this.SkipIntroBox = new Telerik.WinControls.UI.RadCheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.AOBScanProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColourPickerBox)).BeginInit();
@@ -76,6 +77,7 @@ namespace Forza_Mods_AIO
             ((System.ComponentModel.ISupportInitialize)(this.DonoPic2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DonoPicD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RPCBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SkipIntroBox)).BeginInit();
             this.SuspendLayout();
             // 
             // LBL_Attached
@@ -228,9 +230,9 @@ namespace Forza_Mods_AIO
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Open Sans", 13F);
-            this.label1.Location = new System.Drawing.Point(6, 62);
+            this.label1.Location = new System.Drawing.Point(6, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(758, 204);
+            this.label1.Size = new System.Drawing.Size(758, 221);
             this.label1.TabIndex = 26;
             this.label1.Text = resources.GetString("label1.Text");
             // 
@@ -478,6 +480,31 @@ namespace Forza_Mods_AIO
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.RPCBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
             // 
+            // SkipIntroBox
+            // 
+            this.SkipIntroBox.Location = new System.Drawing.Point(720, 39);
+            this.SkipIntroBox.Name = "SkipIntroBox";
+            this.SkipIntroBox.Size = new System.Drawing.Size(71, 18);
+            this.SkipIntroBox.TabIndex = 28;
+            this.SkipIntroBox.Text = "Skip Intro";
+            this.SkipIntroBox.ThemeName = "FluentDark";
+            this.SkipIntroBox.CheckStateChanged += new System.EventHandler(this.SkipIntroBox_CheckStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.SkipIntroBox.GetChildAt(0))).Text = "Skip Intro";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            // 
             // ToolInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -494,10 +521,10 @@ namespace Forza_Mods_AIO
             this.Controls.Add(this.VolNum);
             this.Controls.Add(this.ColourSlider);
             this.Controls.Add(this.RainbowBox);
+            this.Controls.Add(this.SkipIntroBox);
             this.Controls.Add(this.RPCBox);
             this.Controls.Add(this.ColourPickerBox);
             this.Controls.Add(this.Mute);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.AOBScanProgress);
             this.Controls.Add(this.MOTD);
             this.Controls.Add(this.VersionLabel);
@@ -510,6 +537,7 @@ namespace Forza_Mods_AIO
             this.Controls.Add(this.DraffsYTLink);
             this.Controls.Add(this.RainbowLabel);
             this.Controls.Add(this.RainbowSpeed);
+            this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -526,6 +554,7 @@ namespace Forza_Mods_AIO
             ((System.ComponentModel.ISupportInitialize)(this.DonoPic2D)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DonoPicD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RPCBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SkipIntroBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -566,5 +595,6 @@ namespace Forza_Mods_AIO
         private System.Windows.Forms.PictureBox DonoPicD;
         public Telerik.WinControls.UI.RadCheckBox RPCBox;
         public System.ComponentModel.BackgroundWorker RainbowWorker;
+        public Telerik.WinControls.UI.RadCheckBox SkipIntroBox;
     }
 }

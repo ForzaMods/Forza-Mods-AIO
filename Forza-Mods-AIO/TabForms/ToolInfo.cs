@@ -409,6 +409,8 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.WeirdSet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.GravitySet.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.DiscoverRoadsBox.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.DiscoverRoadsBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Saveswapper.s.TB_Backup.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Saveswapper.s.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (AddCars.a.Box_AllCars.Checked)
@@ -562,6 +564,14 @@ namespace Forza_Mods_AIO
         private void DonoPic2_ClickD(object sender, EventArgs e)
         {
             Process.Start("explorer.exe", "\"https://www.paypal.com/donate?hosted_button_id=H37GURADQ2SXU\"");
+        }
+
+        private void SkipIntroBox_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (SkipIntroBox.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+            else
+                ((Telerik.WinControls.Primitives.BorderPrimitive)SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(30, 30, 33);
         }
     }
 }
