@@ -69,6 +69,9 @@ namespace Forza_Mods_AIO
                 Box_ThumbsFix.Enabled = true;
                 Box_Traffic.Enabled = true;
                 QuickAdd.Enabled = true;
+                FreePerfBox.Enabled = true;
+                FreeVisBox.Enabled = true;
+                Box_LegoPaint.Enabled = true;
                 gamescanned = MainWindow.main.platform;
             }
             else if (MainWindow.main.platform == 2)
@@ -88,6 +91,9 @@ namespace Forza_Mods_AIO
                 Box_ThumbsFix.Enabled = true;
                 Box_Traffic.Enabled = true;
                 QuickAdd.Enabled = true;
+                FreePerfBox.Enabled = true;
+                FreeVisBox.Enabled = true;
+                Box_LegoPaint.Enabled = true;
                 gamescanned = MainWindow.main.platform;
             }
             else if (MainWindow.main.platform == 4 || MainWindow.main.platform==5)
@@ -155,6 +161,8 @@ namespace Forza_Mods_AIO
                 Box_ThumbsFix.Enabled = true;
                 Box_Traffic.Enabled = true;
                 QuickAdd.Enabled = true;
+                FreePerfBox.Enabled = true;
+                FreeVisBox.Enabled = true;
                 gamescanned = MainWindow.main.platform;
             }
 
@@ -206,6 +214,10 @@ namespace Forza_Mods_AIO
                 {
                     MainWindow.main.platform = 2;
                 }
+                if (gamescanned != MainWindow.main.platform)
+                {
+                    SQLscan();
+                }
             }
 
 
@@ -222,12 +234,13 @@ namespace Forza_Mods_AIO
                     Box_LegoPaint.Enabled = false;
                     MainWindow.main.platform = 5;
                 }
-                if (gamescanned!=MainWindow.main.platform)
+                if (gamescanned != MainWindow.main.platform)
                 {
                     SQLscan();
                 }
 
             }
+
 
         }
         private void Box_AllCars_CheckedChanged(object sender, EventArgs e)
