@@ -477,7 +477,7 @@ namespace Forza_Mods_AIO
                             Thread.Sleep(1);
                             if (introcount == 0 && ToolInfo.t.SkipIntroBox.Checked)
                             {
-                                long introskip = (await m.AoBScan(scanstart, scanend, "43 4D 73 67 43 61 72 52 61 6D 6D 69 6E 67 00 00 43 4D 73 67 43 61 72 54 72 61 6E 73 6D 69 73 73 69 6F 6E 54 79 70 65", true, true)).FirstOrDefault() + 128;
+                                long introskip = (await m.AoBScan(scanstart, scanend, "43 4D 73 67 43 61 72 52 61 6D 6D", true, true)).FirstOrDefault() + 128;
                                 string introskipaddr = introskip.ToString("X");
                                 m.WriteMemory(introskipaddr, "string", "                                         ");
                                 introcount++;
@@ -612,7 +612,7 @@ namespace Forza_Mods_AIO
                             Thread.Sleep(1);
                             if (introcount == 0 && ToolInfo.t.SkipIntroBox.Checked)
                             {
-                                long introskip = (await m.AoBScan(scanstart, scanend, "43 4D 73 67 43 61 72 52 61 6D 6D 69 6E 67 00 00 43 4D 73 67 43 61 72 54 72 61 6E 73 6D 69 73 73 69 6F 6E 54 79 70 65", true, true)).FirstOrDefault() + 128;
+                                long introskip = (await m.AoBScan(scanstart, scanend, "43 4D 73 67 43 61 72 52 61 6D 6D", true, true)).FirstOrDefault() + 128;
                                 string introskipaddr = introskip.ToString("X");
                                 m.WriteMemory(introskipaddr, "string", "                                         ");
                                 introcount++;
@@ -728,7 +728,7 @@ namespace Forza_Mods_AIO
                             Thread.Sleep(1);
                             if (introcount == 0 && ToolInfo.t.SkipIntroBox.Checked)
                             {
-                                long introskip = (await m.AoBScan(scanstart, scanend, "43 4D 73 67 43 61 72 52 61 6D 6D 69 6E 67 00 00 43 4D 73 67 43 61 72 54 72 61 6E 73 6D 69 73 73 69 6F 6E 54 79 70 65", true, true)).FirstOrDefault() + 128;
+                                long introskip = (await m.AoBScan(scanstart, scanend, "43 4D 73 67 43 61 72 52 61 6D 6D", true, true)).FirstOrDefault() + 128;
                                 string introskipaddr = introskip.ToString("X");
                                 m.WriteMemory(introskipaddr, "string", "                                         ");
                                 introcount++;
@@ -895,7 +895,7 @@ namespace Forza_Mods_AIO
                             Thread.Sleep(1);
                             if (introcount == 0 && ToolInfo.t.SkipIntroBox.Checked)
                             {
-                                long introskip = (await m.AoBScan(scanstart, scanend, "43 4D 73 67 43 61 72 52 61 6D 6D 69 6E 67 00 00 43 4D 73 67 43 61 72 54 72 61 6E 73 6D 69 73 73 69 6F 6E 54 79 70 65", true, true)).FirstOrDefault() + 128;
+                                long introskip = (await m.AoBScan(scanstart, scanend, "43 4D 73 67 43 61 72 52 61 6D 6D", true, true)).FirstOrDefault() + 128;
                                 string introskipaddr = introskip.ToString("X");
                                 m.WriteMemory(introskipaddr, "string", "                                         ");
                                 introcount++;
