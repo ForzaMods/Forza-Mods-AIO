@@ -114,6 +114,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddCarsGuide";
             this.Text = "AddCarsGuide";
+            this.Load += new System.EventHandler(this.AddCarsGuide_Load);
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();
             this.ResumeLayout(false);

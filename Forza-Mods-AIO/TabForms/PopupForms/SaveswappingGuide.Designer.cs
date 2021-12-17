@@ -114,6 +114,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.MinimizeBox = false;
             this.Name = "SaveswappingGuide";
             this.Text = "Saveswapper Help";
+            this.Load += new System.EventHandler(this.SaveswappingGuide_Load);
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();
             this.ResumeLayout(false);

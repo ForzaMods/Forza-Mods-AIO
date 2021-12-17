@@ -205,6 +205,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.MinimizeBox = false;
             this.Name = "QuickAddCars";
             this.Text = "Saveswapper Help";
+            this.Load += new System.EventHandler(this.QuickAddCars_Load);
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddAll)).EndInit();

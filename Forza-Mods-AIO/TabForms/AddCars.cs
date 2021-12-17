@@ -853,7 +853,25 @@ namespace Forza_Mods_AIO
 
         private void BTN_Help_Click(object sender, EventArgs e)
         {
-            AddCarsGuide.Show();
+            FormCollection fc = Application.OpenForms;
+            int i = 0;
+            foreach (Form frm in fc)
+            {
+                i++;
+                if (frm.Name == "AddCarsGuide")
+                {
+                    AddCarsGuide.Focus();
+                    return;
+                }
+                else if (i==fc.Count)
+                {
+                    TabForms.PopupForms.AddCarsGuide AddCarsGuide = new TabForms.PopupForms.AddCarsGuide();
+                    AddCarsGuide.StartPosition = FormStartPosition.CenterParent;
+                    AddCarsGuide.Show(this);
+                    AddCarsGuide.Focus();
+                    return;
+                }
+            }
         }
 
         private void Url_Click(object sender, EventArgs e)
@@ -955,9 +973,25 @@ namespace Forza_Mods_AIO
 
         private void QuickAdd_Click(object sender, EventArgs e)
         {
-            QuickAddCars.StartPosition = FormStartPosition.CenterParent;
-            QuickAddCars.Show();
-            QuickAddCars.Focus();
+            FormCollection fc = Application.OpenForms;
+            int i = 0;
+            foreach (Form frm in fc)
+            {
+                i++;
+                if (frm.Name == "QuickAddCars")
+                {
+                    QuickAddCars.Focus();
+                    return;
+                }
+                else if (i == fc.Count)
+                {
+                    TabForms.PopupForms.QuickAddCars QuickAddCars = new TabForms.PopupForms.QuickAddCars();
+                    QuickAddCars.StartPosition = FormStartPosition.CenterParent;
+                    QuickAddCars.Show(this);
+                    QuickAddCars.Focus();
+                    return;
+                }
+            }
         }
     }
 }

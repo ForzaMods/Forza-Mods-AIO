@@ -42,7 +42,7 @@ namespace Forza_Mods_AIO
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
         Version NewVer = null;
-        public static Version CurrVer = new Version("0.0.0.19");
+        public static Version CurrVer = new Version("0.0.0.21");
         string MOTDstring = "";
         private static CultureInfo resourceCulture;
         internal static byte[] SOk8LBUrRl
@@ -210,7 +210,7 @@ namespace Forza_Mods_AIO
                 {
                     Settings["Settings"]["Theme Colour"] = ThemeColour;
                     Settings["Settings"]["Rainbow Speed"] = ToolInfo.Rainbowspeed.ToString();
-                    Settings["Settings"]["Volume Control"] = ToolInfo.VolNum.Value.ToString();
+                    Settings["Settings"]["Volume Control"] = ToolInfo.Mute.Checked.ToString();
                     Settings["Settings"]["Volume"] = ToolInfo.VolNum.Value.ToString();
                     Settings["Settings"]["Discord Rich Presence"] = "True";
                     Settings["Settings"]["Skip Intro"] = "False";
@@ -226,7 +226,7 @@ namespace Forza_Mods_AIO
                 {
                     Settings["Settings"]["Theme Colour"] = ThemeColour;
                     Settings["Settings"]["Rainbow Speed"] = ToolInfo.Rainbowspeed.ToString();
-                    Settings["Settings"]["Volume Control"] = ToolInfo.VolNum.Value.ToString();
+                    Settings["Settings"]["Volume Control"] = ToolInfo.Mute.Checked.ToString();
                     Settings["Settings"]["Volume"] = ToolInfo.VolNum.Value.ToString();
                     Settings["Settings"]["Discord Rich Presence"] = ToolInfo.RPCBox.Checked.ToString();
                     Settings["Settings"]["Skip Intro"] = "False";

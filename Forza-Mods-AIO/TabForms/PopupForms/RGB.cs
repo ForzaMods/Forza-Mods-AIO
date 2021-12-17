@@ -25,8 +25,9 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
         }
         private void RGB_Load(object sender, EventArgs e)
         {
-            Left = MainWindow.main.Left + ((MainWindow.main.Width - Width) / 2);
-            Top = MainWindow.main.Top + ((MainWindow.main.Height - Height) / 2);
+            if (Owner != null)
+                Location = new Point(Owner.Location.X + Owner.Width / 2 - Width / 2,
+                    Owner.Location.Y + Owner.Height / 2 - Height / 2);
             RedBar.Value = MainWindow.m.ReadFloat(Speedhack.WorldRGBAddr, round:false) * 1000000000000;
             GreenBar.Value = MainWindow.m.ReadFloat((Speedhack.WorldRGBAddrLong + 4).ToString("X"), round: false) * 1000000000000;
             BlueBar.Value = MainWindow.m.ReadFloat((Speedhack.WorldRGBAddrLong + 8).ToString("X"), round: false) * 1000000000000;

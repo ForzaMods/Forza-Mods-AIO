@@ -32,8 +32,9 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
 
         private void Error_Load(object sender, EventArgs e)
         {
-            Left = MainWindow.main.Left + ((MainWindow.main.Width - Width) / 2);
-            Top = MainWindow.main.Top + ((MainWindow.main.Height - Height) / 2);
+            if (Owner != null)
+                Location = new Point(Owner.Location.X + Owner.Width / 2 - Width / 2,
+                    Owner.Location.Y + Owner.Height / 2 - Height / 2);
         }
 
         private bool dragging = false;

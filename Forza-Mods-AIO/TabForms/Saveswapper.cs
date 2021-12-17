@@ -383,7 +383,7 @@ namespace Forza_Mods_AIO.TabForms
 
         void BTN_Help_Click(object sender, EventArgs e)
         {
-            SaveswapGuide.Show();
+            SaveswapGuide.Show(this);
         }
 
         private void ReolvingWorker_DoWork(object sender, DoWorkEventArgs e)

@@ -2612,7 +2612,7 @@ namespace Forza_Mods_AIO.TabForms
 
         private void WorldRGButton_Click(object sender, EventArgs e)
         {
-            RGB.Show();
+            RGB.Show(this);
             RGB.Focus();
         }
 
@@ -2641,7 +2641,7 @@ namespace Forza_Mods_AIO.TabForms
 
         private void KeyBinds_Click(object sender, EventArgs e)
         {
-            ControlsPopUp.Show();
+            ControlsPopUp.Show(this);
             ControlsPopUp.Focus();
         }
 
