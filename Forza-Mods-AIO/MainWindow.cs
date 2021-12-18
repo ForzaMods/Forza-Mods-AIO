@@ -42,7 +42,7 @@ namespace Forza_Mods_AIO
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
         Version NewVer = null;
-        public static Version CurrVer = new Version("0.0.0.22");
+        public static Version CurrVer = new Version("0.0.0.23");
         string MOTDstring = "";
         private static CultureInfo resourceCulture;
         internal static byte[] SOk8LBUrRl
@@ -64,6 +64,7 @@ namespace Forza_Mods_AIO
         }
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            ToolInfo.t.RefreshVisible(false);
             if (!Directory.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs"))
                 BTN_TabSaveswap.Enabled = false;
             ToolInfo.AOBScanProgress.Hide();
@@ -445,6 +446,7 @@ namespace Forza_Mods_AIO
 
         public async void AoBscan()
         {
+            ToolInfo.t.RefreshVisible(true);
             int introcount = 0;
             int offsetfive = 4107;
             int offsetfivetwo = 28675;
@@ -709,6 +711,7 @@ namespace Forza_Mods_AIO
                                 { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                                 Speedhack.AddressesSteam();
                                 Speedhack.done = true;
+                                ToolInfo.t.Refresh.Visible = false;
                             }
                         }
                         Thread.Sleep(1);
@@ -784,7 +787,7 @@ namespace Forza_Mods_AIO
                             offsetfivetwo += 16;
                             try
                             {
-                                if (m.ReadFloat(Speedhack.SpeedAddr, round: false) != 0)
+                                if (m.ReadFloat(Speedhack.InRaceAddr) == 0)
                                 {
                                     g2g2 = true;
                                 }
@@ -876,7 +879,7 @@ namespace Forza_Mods_AIO
                             if (TargetProcess.MainModule.FileName.Contains("Microsoft.624F8B84B80"))
                                 Speedhack.CheckPointxASMAddrLong = (await m.AoBScan(scanstart, scanend, "33 C0 48 89 ? 48 89 ? ? 48 E9 ? ? ? ? 90 40 F3", true, true)).FirstOrDefault() + 169;
                             else
-                                Speedhack.CheckPointxASMAddrLong = (await m.AoBScan(scanstart, scanend, "48 8D ? ? 48 89 ? ? 4C 89 ? EB", true, true)).FirstOrDefault() + 169;
+                                Speedhack.CheckPointxASMAddrLong = (await m.AoBScan(scanstart, scanend, "32 86 ? ? ? ? 7E ? 79", true, true)).FirstOrDefault() + 40;
                             Speedhack.CheckPointxASMAddr = Speedhack.CheckPointxASMAddrLong.ToString("X");
                         }
                         else if ((Speedhack.OOBnopAddr == "31" || Speedhack.OOBnopAddr == null || Speedhack.OOBnopAddr == "0") && g2g && g2g2)
@@ -970,6 +973,7 @@ namespace Forza_Mods_AIO
                             Speedhack.AddressesFive();
                             Speedhack.s.ReadSpeedDefaultValues();
                             Speedhack.done = true;
+                            ToolInfo.t.RefreshVisible(false);
                         }
                         Thread.Sleep(1);
                     }
@@ -1107,7 +1111,7 @@ namespace Forza_Mods_AIO
         {
             this.WindowState = FormWindowState.Minimized;
         }
-        private void BTN_TabInfo_Click(object sender, EventArgs e)
+        public void BTN_TabInfo_Click(object sender, EventArgs e)
         {
             ClearColours();
             BTN_TabInfo.BackColor = Color.FromArgb(45, 45, 48);

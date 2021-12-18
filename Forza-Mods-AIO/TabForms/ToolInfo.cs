@@ -618,5 +618,19 @@ namespace Forza_Mods_AIO
                 SettingsParser.WriteFile(SettingsPath, Settings);
             }
         }
+
+        private void Refresh_Click(object sender, EventArgs e)
+        {
+            MainWindow.main.BTN_TabInfo_Click(sender, e);
+            MainWindow.main.ClearColours();
+            MainWindow.main.ClearTabItems();
+            MainWindow.main.ToolInfo.Visible = false;
+            MainWindow.main.ToolInfo.Visible = true;
+        }
+
+        public void RefreshVisible(bool Bool)
+        {
+            Refresh.Visible = Bool;
+        }
     }
 }

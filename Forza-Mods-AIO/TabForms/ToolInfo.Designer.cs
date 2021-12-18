@@ -66,6 +66,7 @@ namespace Forza_Mods_AIO
             this.DonoPicD = new System.Windows.Forms.PictureBox();
             this.RPCBox = new Telerik.WinControls.UI.RadCheckBox();
             this.SkipIntroBox = new Telerik.WinControls.UI.RadCheckBox();
+            this.Refresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.AOBScanProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColourPickerBox)).BeginInit();
@@ -156,9 +157,9 @@ namespace Forza_Mods_AIO
             this.DiscordLink.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
             this.DiscordLink.Location = new System.Drawing.Point(183, 312);
             this.DiscordLink.Name = "DiscordLink";
-            this.DiscordLink.Size = new System.Drawing.Size(284, 24);
+            this.DiscordLink.Size = new System.Drawing.Size(265, 24);
             this.DiscordLink.TabIndex = 19;
-            this.DiscordLink.Text = "https://discord.gg/PQNxeYWUy9";
+            this.DiscordLink.Text = "https://discord.gg/2szBrzRTH9";
             this.DiscordLink.Click += new System.EventHandler(this.DiscordLink_Click);
             // 
             // Volumeworker
@@ -505,12 +506,27 @@ namespace Forza_Mods_AIO
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.SkipIntroBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
             // 
+            // Refresh
+            // 
+            this.Refresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.Refresh.FlatAppearance.BorderSize = 0;
+            this.Refresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Refresh.Font = new System.Drawing.Font("Open Sans", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Refresh.Location = new System.Drawing.Point(187, 11);
+            this.Refresh.Name = "Refresh";
+            this.Refresh.Size = new System.Drawing.Size(101, 34);
+            this.Refresh.TabIndex = 43;
+            this.Refresh.Text = "Refresh";
+            this.Refresh.UseVisualStyleBackColor = false;
+            this.Refresh.Click += new System.EventHandler(this.Refresh_Click);
+            // 
             // ToolInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 445);
+            this.Controls.Add(this.Refresh);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.DonoPic2D);
             this.Controls.Add(this.DonoPicD);
@@ -596,5 +612,6 @@ namespace Forza_Mods_AIO
         public Telerik.WinControls.UI.RadCheckBox RPCBox;
         public System.ComponentModel.BackgroundWorker RainbowWorker;
         public Telerik.WinControls.UI.RadCheckBox SkipIntroBox;
+        public System.Windows.Forms.Button Refresh;
     }
 }

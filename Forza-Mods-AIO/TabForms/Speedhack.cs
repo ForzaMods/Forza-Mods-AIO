@@ -108,7 +108,6 @@ namespace Forza_Mods_AIO.TabForms
         public static string YawAddr; public static string RollAddr; public static string PitchAddr; public static string yAngVelAddr;
         public static string GasAddr;
         public static string FOVHighAddr; public static string FOVInAddr; public static string FirstPersonAddr; public static string DashAddr; public static string FrontAddr; public static string BonnetAddr; public static string LowAddr; public static string LowCompare;
-        public static string SpeedAddr;
         public static string CurrentIDAddr;
         public static string TimeAddrAddr;
         public static string allocationstring;
@@ -215,7 +214,6 @@ namespace Forza_Mods_AIO.TabForms
             FOVHighAddr = (BaseAddr + ",0x568,0x270,0x258,0xB8,0x348,0x70,0x5B0");
             WeirdAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x554");
             GravityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x558");
-            SpeedAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0xDC8");
             s.LST_TeleportLocation.Items.Clear();
             s.LST_TeleportLocation.Items.Add("Waypoint");
             s.LST_TeleportLocation.Items.Add("Adventure Park");
@@ -261,7 +259,6 @@ namespace Forza_Mods_AIO.TabForms
             InRaceAddr = (Base2Addr + ",0x50,0x3D8");
             InPauseAddr = (Base2Addr + ",0x50,0x480");
             //FOVHighAddr = (Base3Addr + ",0x5C0,0x60,0x6F0");
-            SpeedAddr = (Base2Addr + ",0x68,0x30,0xF80,0x200,0x190,0xA0");
             TotalXpAddr = (Base3Addr + ",0x8B8,0xC58,0xEF0,0xC08,0x28,0x30,0x598");
             s.LST_TeleportLocation.Items.Clear();
             s.LST_TeleportLocation.Items.Add("Waypoint");
@@ -280,10 +277,6 @@ namespace Forza_Mods_AIO.TabForms
             s.LST_TeleportLocation.Items.Add("Temple Drag");
             s.LST_TeleportLocation.Items.Add("Top Of Volcano");
             s.g2gWorker.RunWorkerAsync();
-        }
-        public static void AddressesFiveSteam()
-        {
-            FrontRightAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,0xA80");
         }
         public static void VolumeSetup()
         {
@@ -348,9 +341,8 @@ namespace Forza_Mods_AIO.TabForms
         public static void StartSetupFive()
         {
             xAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x25F0");
-            SpeedAddr = (Base2Addr + ",0x50,0x470,0xC48,0xFA8,0x7B8,0xC0,0x88");
             WeirdAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x2634");
-            //TotalXpAddr = (Base3Addr + ",0xEE8,0x408,0x70,0x28,0x30,0x20,0x270");
+            InRaceAddr = (Base2Addr + ",0x50,0x3D8");
         }
         #region BG Workers
         public void ControllerWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -438,8 +430,7 @@ namespace Forza_Mods_AIO.TabForms
             while (Velstart)
             {
                 Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBSpeedKey);
-                //float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
-                if (g2g)//if (PastStart == 1)
+                if (g2g)
                 {
                     if (controller != null)
                     {
@@ -790,12 +781,12 @@ namespace Forza_Mods_AIO.TabForms
                 if (g2g)//(PastStart == 1)
                 {
                     string value = null;
-                    float Speed = MainWindow.m.ReadFloat(SpeedAddr, round: false);
+                    float Speed = (float)(Math.Sqrt(Math.Pow(MainWindow.m.ReadFloat(xVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(yVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(zVelocityAddr, round: false), 2)) * 2.23694);
                     if (Speed < 0.01)
                         under = true;
                     while (under)
                     {
-                        Speed = MainWindow.m.ReadFloat(SpeedAddr, round: false);
+                        Speed = (float)(Math.Sqrt(Math.Pow(MainWindow.m.ReadFloat(xVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(yVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(zVelocityAddr, round: false), 2)) * 2.23694);
                         if (Speed > 0.05 && Speed < 0.5)
                         {
                             stopWatch.Reset();
@@ -804,7 +795,7 @@ namespace Forza_Mods_AIO.TabForms
                         }
                         while (Speed > 0.05 && Speed < 61 && under && stopWatch.IsRunning)
                         {
-                            Speed = MainWindow.m.ReadFloat(SpeedAddr, round: false);
+                            Speed = (float)(Math.Sqrt(Math.Pow(MainWindow.m.ReadFloat(xVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(yVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(zVelocityAddr, round: false), 2)) * 2.23694);
                             if (Speed >= 60)
                             {
                                 stopWatch.Stop();
@@ -958,14 +949,14 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     if(MainWindow.main.ForzaFour)
                     {
-                        if (MainWindow.m.ReadFloat(InPauseAddr) == 1 || (MainWindow.m.ReadFloat(OnGroundAddr) == 0 && MainWindow.m.ReadFloat(SpeedAddr) == 0))
+                        if (MainWindow.m.ReadFloat(InPauseAddr) == 1 || (MainWindow.m.ReadFloat(OnGroundAddr) == 0 && (float)(Math.Sqrt(Math.Pow(MainWindow.m.ReadFloat(xVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(yVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(zVelocityAddr, round: false), 2)) * 2.23694) == 0))
                             MainWindow.m.WriteBytes(OOBnopAddr, before);
                         else
                             MainWindow.m.WriteBytes(OOBnopAddr, nop);
                     }
                     else
                     {
-                        if (MainWindow.m.ReadFloat(InPauseAddr) == 1 || (MainWindow.m.ReadFloat(OnGroundAddr) > 0 && MainWindow.m.ReadFloat(SpeedAddr) == 0))
+                        if (MainWindow.m.ReadFloat(InPauseAddr) == 1 || (MainWindow.m.ReadFloat(OnGroundAddr) > 0 && (float)(Math.Sqrt(Math.Pow(MainWindow.m.ReadFloat(xVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(yVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(zVelocityAddr, round: false), 2)) * 2.23694) == 0))
                             MainWindow.m.WriteBytes(OOBnopAddr, before);
                         else
                             MainWindow.m.WriteBytes(OOBnopAddr, nop);
@@ -1164,7 +1155,7 @@ namespace Forza_Mods_AIO.TabForms
         }
         public void SpeedHackVel()
         {
-            var speed = MainWindow.m.ReadFloat(SpeedAddr, round: false);
+            var speed = (float)(Math.Sqrt(Math.Pow(MainWindow.m.ReadFloat(xVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(yVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(zVelocityAddr, round: false), 2)) * 2.23694);
             if (speed < (float)VelLimitBox.Value)
             {
                 xVelocityVal = MainWindow.m.ReadFloat(xVelocityAddr) * (float)VelMult;
@@ -1185,7 +1176,7 @@ namespace Forza_Mods_AIO.TabForms
         public void SpeedHack()
         {
             MainWindow.m.WriteMemory(GasAddr, "float", "1");
-            float speed = MainWindow.m.ReadFloat(SpeedAddr, "float", round:false);
+            float speed = (float)(Math.Sqrt(Math.Pow(MainWindow.m.ReadFloat(xVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(yVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(zVelocityAddr, round: false), 2)) * 2.23694);
             if (speed < BoostSpeed1)
             {
                 for (int i = 0; i < times1; i++)
