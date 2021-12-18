@@ -61,6 +61,7 @@ namespace Forza_Mods_AIO.TabForms
         public static long WorldRGBAddrLong;
         public static long DLCPatchAddrLong;
         public static long DiscoverRoadsAddrLong;
+        public static long WaterAddrLong;
 
         public static string Base;
         public static string Base2;
@@ -88,6 +89,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string DLCPatchaob;
         public static string CarIdAob;
         public static string DiscoverRoadsAob;
+        public static string WaterAob;
 
         public static string KBSpeedKey = "LShiftKey"; public static string XBSpeedKey = "LeftShoulder";
         public static string KBBrakeKey = "Space"; public static string XBBrakeKey = "A";
@@ -117,6 +119,8 @@ namespace Forza_Mods_AIO.TabForms
         public static string DLCPatchAddr;
         public static string CheckPointBaseAddr = null; public static string WayPointBaseAddr = null;
         public static string DiscoverRoadsAddr = null;
+        public static string TotalXpAddr = null;
+        public static string WaterAddr = null;
         public static string XPaddr = null; public static long XPaddrLong = 0; public static string XPAmountaddr = null; public static long XPAmountaddrLong = 0;
 
         public static IntPtr CCBA = (IntPtr)0; public static IntPtr CCBA2 = (IntPtr)0; public static IntPtr CCBA3 = (IntPtr)0; public static IntPtr CCBA4 = (IntPtr)0; public static IntPtr CCBA5 = (IntPtr)0;
@@ -128,7 +132,6 @@ namespace Forza_Mods_AIO.TabForms
         float BoostSpeed1; float BoostSpeed2; float BoostSpeed3; float BoostLim;
         float TurnRatio; float TurnStrength; public float boost;
         float VelMult = 1; float FOVVal;
-        float JumpAmount = 1;
         float LastWPx = 0; float LastWPy = 0; float LastWPz = 0;
         float WeirdVal; float NewWeirdVal; float GravityVal; float NewGravityVal;
         float basegrav;
@@ -183,6 +186,7 @@ namespace Forza_Mods_AIO.TabForms
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             ControllerWorker.RunWorkerAsync();
+            ToolTip.SetToolTip(TimerButton, @"Logs go to \Documents\Forza Mods Tool\Cool Shit\[GAME]\0-60 Logs\");
             s = this;
         }
         public static void Addresses()
@@ -256,8 +260,9 @@ namespace Forza_Mods_AIO.TabForms
             yAngVelAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x260C");
             InRaceAddr = (Base2Addr + ",0x50,0x3D8");
             InPauseAddr = (Base2Addr + ",0x50,0x480");
-            FOVHighAddr = (Base3Addr + ",0x5C0,0x60,0x6F0");
-            SpeedAddr = (Base2Addr + ",0x50,0x470,0xC48,0xFA8,0x7B8,0xC0,0x88");
+            //FOVHighAddr = (Base3Addr + ",0x5C0,0x60,0x6F0");
+            SpeedAddr = (Base2Addr + ",0x68,0x30,0xF80,0x200,0x190,0xA0");
+            TotalXpAddr = (Base3Addr + ",0x8B8,0xC58,0xEF0,0xC08,0x28,0x30,0x598");
             s.LST_TeleportLocation.Items.Clear();
             s.LST_TeleportLocation.Items.Add("Waypoint");
             s.LST_TeleportLocation.Items.Add("Airstrip");
@@ -308,6 +313,7 @@ namespace Forza_Mods_AIO.TabForms
             OOBaob = "0F 11 ? ? ? ? ? 0F 5C ? 0F 59 ? 0F 28 ? 0F C6 CA ? F3 0F";
             SuperCaraob = "0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 48 83 C2 ? 0F 11 ? ? 48 83 C1 ? E8 ? ? ? ? 0F 10";
             DiscoverRoadsAob = "00 96 42 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 40 1C 45 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 03 00";
+            WaterAob = "3D ? ? ? ? 00 00 A0 ? ? ? ? ? ? ? ? 3F 00 00";
         }
         public static void AobsSteam()
         {
@@ -332,6 +338,8 @@ namespace Forza_Mods_AIO.TabForms
             CheckPointxASMsig = "33 C0 48 89 ? 48 89 ? ? 48 E9 ? ? ? ? 90 40 F3";
             CarIdAob = "00 B0 ? ? ? ? 7F ? 00 D8 6E";
             DiscoverRoadsAob = "63 70 ? B7 ? 5D";
+            WaterAob = "3D ? ? ? ? 00 00 A0 ? ? ? ? ? ? ? ? 3F 00 00";
+            //TotalXpAddr = (Base3Addr + ",0xEE8,0x408,0x70,0x28,0x30,0x20,0x270");
         }
         public static void AobsFiveSteam()
         {
@@ -342,6 +350,7 @@ namespace Forza_Mods_AIO.TabForms
             xAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x25F0");
             SpeedAddr = (Base2Addr + ",0x50,0x470,0xC48,0xFA8,0x7B8,0xC0,0x88");
             WeirdAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x2634");
+            //TotalXpAddr = (Base3Addr + ",0xEE8,0x408,0x70,0x28,0x30,0x20,0x270");
         }
         #region BG Workers
         public void ControllerWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -1356,7 +1365,7 @@ namespace Forza_Mods_AIO.TabForms
                 float InRace = MainWindow.m.ReadFloat(InRaceAddr);
                 if (InRace == 1)
                 {
-                    Thread.Sleep(4000);
+                    Thread.Sleep(5000);
                     while (InRace == 1)
                     {
                         try
@@ -1372,7 +1381,14 @@ namespace Forza_Mods_AIO.TabForms
                             CheckPointyAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 612).ToString("X");
                             CheckPointzAddr = (Int64.Parse(CheckPointBaseAddr, NumberStyles.HexNumber) + 616).ToString("X");
                             InRace = MainWindow.m.ReadFloat(InRaceAddr);
-                            if(MainWindow.m.ReadFloat(CheckPointxAddr) != 0 && MainWindow.m.ReadFloat(CheckPointyAddr) != 0 && MainWindow.m.ReadFloat(CheckPointzAddr) != 0)
+                            Thread.Sleep(200);
+                            if (MainWindow.m.ReadFloat(CheckPointxAddr) != 0 && MainWindow.m.ReadFloat(CheckPointyAddr) != 0 && MainWindow.m.ReadFloat(CheckPointzAddr) != 0
+                                && MainWindow.m.ReadFloat(CheckPointxAddr) > -9800 && MainWindow.m.ReadFloat(CheckPointxAddr) < 6600
+                                && MainWindow.m.ReadFloat(CheckPointyAddr) > 0 && MainWindow.m.ReadFloat(CheckPointyAddr) < 1000
+                                && MainWindow.m.ReadFloat(CheckPointzAddr) > -4300 && MainWindow.m.ReadFloat(CheckPointzAddr) < 5700
+                                && Math.Abs(MainWindow.m.ReadFloat(CheckPointxAddr) - MainWindow.m.ReadFloat(xAddr)) < 750
+                                && Math.Abs(MainWindow.m.ReadFloat(CheckPointyAddr) - MainWindow.m.ReadFloat(yAddr)) < 750
+                                && Math.Abs(MainWindow.m.ReadFloat(CheckPointzAddr) - MainWindow.m.ReadFloat(zAddr)) < 750)
                                 CheckPointTP();
                         }
                         catch
@@ -1405,7 +1421,6 @@ namespace Forza_Mods_AIO.TabForms
         }
         public void CheckPointTP()
         {
-            Thread.Sleep(100);
             MainWindow.m.WriteMemory(xAddr, "float", (MainWindow.m.ReadFloat(CheckPointxAddr)).ToString());
             MainWindow.m.WriteMemory(yAddr, "float", (MainWindow.m.ReadFloat(CheckPointyAddr) + 4).ToString());
             MainWindow.m.WriteMemory(zAddr, "float", (MainWindow.m.ReadFloat(CheckPointzAddr)).ToString());
@@ -2048,12 +2063,10 @@ namespace Forza_Mods_AIO.TabForms
         private void JumpAmountBar_Scroll(LimitlessUI.Slider_WOC slider, float value)
         {
             JumpAmountBox.Value = Convert.ToDecimal(Math.Round(JumpAmountBar.Value)) / 100000;
-            VelMult = Decimal.ToSingle(VelMultBox.Value);
         }
         private void JumpAmountBox_ValueChanged(object sender, EventArgs e)
         {
             JumpAmountBar.Value = Decimal.ToInt32(JumpAmountBox.Value * 100000);
-            VelMult = Decimal.ToSingle(VelMultBox.Value);
         }
         #endregion
 
@@ -2337,7 +2350,7 @@ namespace Forza_Mods_AIO.TabForms
             Boost4Box.Value = Convert.ToDecimal(times4);
             VelMultBox.Value = Convert.ToDecimal(VelMult);
             VelMultBar.Value = Decimal.ToInt32(VelMultBox.Value * 100000);
-            JumpAmountBox.Value = Convert.ToDecimal(JumpAmount);
+            JumpAmountBox.Value = Convert.ToDecimal(JumpAmountBox.Value);
             JumpAmountBar.Value = Decimal.ToInt32(JumpAmountBox.Value * 100000);
             FOVVal = (float)FOVBar.Value / 100;
             LST_TeleportLocation.Text = "Waypoint";
@@ -2386,12 +2399,12 @@ namespace Forza_Mods_AIO.TabForms
                     string KBJumpKeyStr = SpeedHack["Keys"]["Jump Keyboard"]; KBJumpKey = KBJumpKeyStr;
                     string XBJumpKeyStr = SpeedHack["Keys"]["Jump Controller"]; XBJumpKey = XBJumpKeyStr;
                     string JumpHackStr = SpeedHack["JumpHack"]["On"]; JumpHackToggle.Checked = bool.Parse(JumpHackStr);
-                    string JumpAmountStr = SpeedHack["JumpHack"]["Amount"]; JumpAmount = float.Parse(JumpAmountStr);
+                    string JumpAmountStr = SpeedHack["JumpHack"]["Amount"]; JumpAmountBox.Value = decimal.Parse(JumpAmountStr);
                 }
                 else
                 {
                     JumpHackToggle.Checked = false;
-                    JumpAmount = 1;
+                    JumpAmountBox.Value = 1;
                     WriteSpeedDefaultValues();
                 }
             }
@@ -2430,7 +2443,7 @@ namespace Forza_Mods_AIO.TabForms
             SpeedHack["SpeedHack"]["Boost up to speed 3"] = times3.ToString();
             SpeedHack["SpeedHack"]["Boost above speed 3"] = times4.ToString();
             SpeedHack["JumpHack"]["On"] = JumpHackToggle.Checked.ToString();
-            SpeedHack["JumpHack"]["Amount"] = JumpAmount.ToString();
+            SpeedHack["JumpHack"]["Amount"] = JumpAmountBox.Value.ToString();
             SpeedHack["Break"]["Superbreak on"] = SuperBreakButton.Checked.ToString();
             SpeedHack["Break"]["Stop all wheels on"] = StopAllWheelsButton.Checked.ToString();
             SpeedHack["Turn assist"]["On"] = TurnAssistButton.Checked.ToString();
@@ -2558,14 +2571,6 @@ namespace Forza_Mods_AIO.TabForms
             }
         }
 
-        private void TimerButton_MouseHover(object sender, EventArgs e)
-        {
-            if(MainWindow.main.ForzaFour)
-                ToolTip.Show(@"Logs go to \Documents\Forza Mods Tool\Cool Shit\FH4\0-60 Logs\", TimerButton);
-            else
-                ToolTip.Show(@"Logs go to \Documents\Forza Mods Tool\Cool Shit\FH5\0-60 Logs\", TimerButton);
-        }
-
         private void TimeCheckBox_MouseHover(object sender, EventArgs e)
         {
             ToolTip.Show(@"Numpad 4 to go back, 6 to go forward, ctrl to go faster", TimeCheckBox);
@@ -2649,25 +2654,49 @@ namespace Forza_Mods_AIO.TabForms
         {
             if(DiscoverRoadsBox.Checked)
             {
-                ((Telerik.WinControls.Primitives.BorderPrimitive)DiscoverRoadsBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
-                long BytesOne = (long)MainWindow.m.GetCode(DiscoverRoadsAddr);
-                long BytesTwo = BytesOne + 24;
-                long BytesThree = BytesOne + 119;
-                if (!MainWindow.main.ForzaFour)
+                DialogResult dialogResult = MessageBox.Show("If you don't have one house and one outpost, your game will crash.\nDo", "Discover all roads", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
                 {
-                    BytesOne += 675;
-                    BytesTwo += 675;
-                    BytesThree += 675;
+                    ((Telerik.WinControls.Primitives.BorderPrimitive)DiscoverRoadsBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                    long BytesOne = (long)MainWindow.m.GetCode(DiscoverRoadsAddr);
+                    long BytesTwo = BytesOne + 24;
+                    long BytesThree = BytesOne + 119;
+                    if (!MainWindow.main.ForzaFour)
+                    {
+                        BytesOne += 675;
+                        BytesTwo += 675;
+                        BytesThree += 675;
+                    }
+                    if (MainWindow.m.ReadBytes(BytesOne.ToString("X"), 3).SequenceEqual(new byte[] { 0x00, 0x96, 0x42 }))
+                    {
+                        MainWindow.m.WriteBytes(BytesOne.ToString("X"), new byte[] { 0x1B, 0x37, 0x49 });
+                        MainWindow.m.WriteBytes(BytesTwo.ToString("X"), new byte[] { 0x24, 0x74, 0x48 });
+                        MainWindow.m.WriteBytes(BytesThree.ToString("X"), new byte[] { 0x30, 0x75 });
+                    }
                 }
-                if (MainWindow.m.ReadBytes(BytesOne.ToString("X"), 3).SequenceEqual(new byte[] { 0x00, 0x96, 0x42 }))
+                else if (dialogResult == DialogResult.No)
                 {
-                    MainWindow.m.WriteBytes(BytesOne.ToString("X"), new byte[] { 0x1B, 0x37, 0x49 });
-                    MainWindow.m.WriteBytes(BytesTwo.ToString("X"), new byte[] { 0x24, 0x74, 0x48 });
-                    MainWindow.m.WriteBytes(BytesThree.ToString("X"), new byte[] { 0x30, 0x75 });
+                    DiscoverRoadsBox.Checked = false;
                 }
             }
             else
                 ((Telerik.WinControls.Primitives.BorderPrimitive)DiscoverRoadsBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
+        }
+
+        private void WaterBox_CheckStateChanged(object sender, EventArgs e)
+        {
+            byte[] Enable = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+            byte[] Disable = new byte[] { 0xCD, 0xCC, 0x4C, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x67, 0x45, 0x00, 0xF0, 0x52, 0x46, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x3F, 0x00, 0x00, 0x00, 0x00, 0xCD, 0xCC, 0xCC, 0x3D, 0x00, 0x00, 0x00, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0xC4, 0x44, 0x00, 0x00, 0xFF, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x42, 0x00, 0x00, 0xC8, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x00, 0x00, 0x70, 0x41 };
+            if (WaterBox.Checked)
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)WaterBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                MainWindow.m.WriteBytes(WaterAddr, Enable);
+            }
+            else
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)WaterBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
+                MainWindow.m.WriteBytes(WaterAddr, Disable);
+            }
         }
     }
 }

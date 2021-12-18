@@ -418,6 +418,8 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.GravitySet.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.DiscoverRoadsBox.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.DiscoverRoadsBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.WaterBox.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.WaterBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Saveswapper.s.TB_Backup.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Saveswapper.s.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (AddCars.a.Box_AllCars.Checked)
