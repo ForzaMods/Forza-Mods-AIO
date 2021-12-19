@@ -342,7 +342,6 @@ namespace Forza_Mods_AIO.TabForms
         {
             xAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x25F0");
             WeirdAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x2634");
-            InRaceAddr = (Base2Addr + ",0x50,0x3D8");
         }
         #region BG Workers
         public void ControllerWorker_DoWork(object sender, DoWorkEventArgs e)

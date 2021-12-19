@@ -511,10 +511,10 @@ namespace Forza_Mods_AIO
             this.Refresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
             this.Refresh.FlatAppearance.BorderSize = 0;
             this.Refresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Refresh.Font = new System.Drawing.Font("Open Sans", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Refresh.Location = new System.Drawing.Point(187, 11);
+            this.Refresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.Refresh.Location = new System.Drawing.Point(171, 27);
             this.Refresh.Name = "Refresh";
-            this.Refresh.Size = new System.Drawing.Size(101, 34);
+            this.Refresh.Size = new System.Drawing.Size(64, 23);
             this.Refresh.TabIndex = 43;
             this.Refresh.Text = "Refresh";
             this.Refresh.UseVisualStyleBackColor = false;

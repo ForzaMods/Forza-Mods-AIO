@@ -42,7 +42,7 @@ namespace Forza_Mods_AIO
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
         Version NewVer = null;
-        public static Version CurrVer = new Version("0.0.0.23");
+        public static Version CurrVer = new Version("0.0.0.24");
         string MOTDstring = "";
         private static CultureInfo resourceCulture;
         internal static byte[] SOk8LBUrRl
@@ -787,7 +787,7 @@ namespace Forza_Mods_AIO
                             offsetfivetwo += 16;
                             try
                             {
-                                if (m.ReadFloat(Speedhack.InRaceAddr) == 0)
+                                if (m.ReadFloat(Speedhack.Base2Addr + ",0x50,0x41D") == 2)
                                 {
                                     g2g2 = true;
                                 }

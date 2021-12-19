@@ -60,7 +60,7 @@ namespace Forza_Mods_AIO
         }
         private void DiscordLink_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", "https://discord.gg/PQNxeYWUy9");
+            Process.Start("explorer.exe", "https://discord.gg/2szBrzRTH9");
         }
 
         private void Mute_CheckedChanged(object sender, EventArgs e)
@@ -470,7 +470,7 @@ namespace Forza_Mods_AIO
                 MainWindow.main.RPCclient.Initialize();
                 DiscordRPC.Button[] Buttons = new DiscordRPC.Button[]
                 {
-                    new DiscordRPC.Button() { Label = "Discord Link", Url = "https://discord.gg/N3m6E5V" },
+                    new DiscordRPC.Button() { Label = "Discord Link", Url = "https://discord.gg/2szBrzRTH9" },
                     new DiscordRPC.Button() { Label = "Download", Url = "https://github.com/Yeethan69/AIO" }
                 };
                 MainWindow.main.RPCclient.SetPresence(new RichPresence()
