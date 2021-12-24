@@ -115,6 +115,8 @@ namespace Forza_Mods_AIO.TabForms
         public static string SuperCarAddr;
         public static string WorldRGBAddr;
         public static string InPauseAddr;
+        public static string InHouseAddr;
+        public static string TestAddr;
         public static string DLCPatchAddr;
         public static string CheckPointBaseAddr = null; public static string WayPointBaseAddr = null;
         public static string DiscoverRoadsAddr = null;
@@ -258,6 +260,8 @@ namespace Forza_Mods_AIO.TabForms
             yAngVelAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x260C");
             InRaceAddr = (Base2Addr + ",0x50,0x3D8");
             InPauseAddr = (Base2Addr + ",0x50,0x480");
+            InHouseAddr = (Base2Addr + ",0x50,0x368");
+            TestAddr = (Base2Addr + ",0x50,0x218");
             //FOVHighAddr = (Base3Addr + ",0x5C0,0x60,0x6F0");
             TotalXpAddr = (Base3Addr + ",0x8B8,0xC58,0xEF0,0xC08,0x28,0x30,0x598");
             s.LST_TeleportLocation.Items.Clear();
@@ -342,6 +346,10 @@ namespace Forza_Mods_AIO.TabForms
         {
             xAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x25F0");
             WeirdAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x2634");
+            InRaceAddr = (Base2Addr + ",0x50,0x3D8");
+            InPauseAddr = (Base2Addr + ",0x50,0x480");
+            InHouseAddr = (Base2Addr + ",0x50,0x368");
+            TestAddr = (Base2Addr + ",0x50,0x218");
         }
         #region BG Workers
         public void ControllerWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -1176,40 +1184,34 @@ namespace Forza_Mods_AIO.TabForms
         {
             MainWindow.m.WriteMemory(GasAddr, "float", "1");
             float speed = (float)(Math.Sqrt(Math.Pow(MainWindow.m.ReadFloat(xVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(yVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(zVelocityAddr, round: false), 2)) * 2.23694);
+            float diameter = (float)((1056 * speed) / (boost * Math.PI));
             if (speed < BoostSpeed1)
             {
-                for (int i = 0; i < times1; i++)
+                /*for (int i = 0; i < times1; i++)
                 {
                     boost++;
-                }
+                }*/
+                boost += times1;
                 Thread.Sleep(BoostInterval1);
             }
             else if (speed < BoostSpeed2)
             {
-                for (int i = 0; i < times2; i++)
-                {
-                    boost++;
-                }
+                boost += times2;
                 Thread.Sleep(BoostInterval2);
             }
             else if (speed < BoostSpeed3)
             {
-                for (int i = 0; i < times3; i++)
-                {
-                    boost++;
-                }
+                boost += times3;
                 Thread.Sleep(BoostInterval3);
             }
             else
             {
-                for (int i = 0; i < times4; i++)
-                {
-                    boost++;
-                }
+                boost += times4;
                 Thread.Sleep(BoostInterval4);
             }
             if (speed >= BoostLim)
             {
+                boost = BoostLim;
                 boost = BoostLim;
             }
             try
