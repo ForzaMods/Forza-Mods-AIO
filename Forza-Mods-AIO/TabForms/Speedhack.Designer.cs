@@ -82,6 +82,7 @@ namespace Forza_Mods_AIO.TabForms
             this.TurnAssistButton = new Telerik.WinControls.UI.RadCheckBox();
             this.JumpHackToggle = new Telerik.WinControls.UI.RadCheckBox();
             this.StopAllWheelsButton = new Telerik.WinControls.UI.RadCheckBox();
+            this.FreezeAIBox = new Telerik.WinControls.UI.RadCheckBox();
             this.SuperCarBox = new Telerik.WinControls.UI.RadCheckBox();
             this.WheelSpeedButton = new Telerik.WinControls.UI.RadCheckBox();
             this.WaterBox = new Telerik.WinControls.UI.RadCheckBox();
@@ -146,6 +147,7 @@ namespace Forza_Mods_AIO.TabForms
             this.KeyboardChangeWorker = new System.ComponentModel.BackgroundWorker();
             this.ControllerChangeWorker = new System.ComponentModel.BackgroundWorker();
             this.JumpHackWorker = new System.ComponentModel.BackgroundWorker();
+            this.FreezeAIWorker = new System.ComponentModel.BackgroundWorker();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHWallNoClip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).BeginInit();
@@ -174,6 +176,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.TurnAssistButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.JumpHackToggle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopAllWheelsButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FreezeAIBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperCarBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WheelSpeedButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WaterBox)).BeginInit();
@@ -1161,6 +1164,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel4.Controls.Add(this.TurnAssistButton);
             this.panel4.Controls.Add(this.JumpHackToggle);
             this.panel4.Controls.Add(this.StopAllWheelsButton);
+            this.panel4.Controls.Add(this.FreezeAIBox);
             this.panel4.Controls.Add(this.SuperCarBox);
             this.panel4.Controls.Add(this.WheelSpeedButton);
             this.panel4.Controls.Add(this.WaterBox);
@@ -1265,6 +1269,37 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            // 
+            // FreezeAIBox
+            // 
+            this.FreezeAIBox.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.FreezeAIBox.Location = new System.Drawing.Point(401, 14);
+            this.FreezeAIBox.Name = "FreezeAIBox";
+            this.FreezeAIBox.Size = new System.Drawing.Size(82, 20);
+            this.FreezeAIBox.TabIndex = 29;
+            this.FreezeAIBox.Text = "Freeze AI";
+            this.FreezeAIBox.ThemeName = "FluentDark";
+            this.FreezeAIBox.CheckStateChanged += new System.EventHandler(this.FreezeAIBox_CheckStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.FreezeAIBox.GetChildAt(0))).Text = "Freeze AI";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
             // SuperCarBox
             // 
@@ -1990,6 +2025,12 @@ namespace Forza_Mods_AIO.TabForms
             this.JumpHackWorker.WorkerSupportsCancellation = true;
             this.JumpHackWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.JumpHackWorker_DoWork);
             // 
+            // FreezeAIWorker
+            // 
+            this.FreezeAIWorker.WorkerReportsProgress = true;
+            this.FreezeAIWorker.WorkerSupportsCancellation = true;
+            this.FreezeAIWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.FreezeAIWorker_DoWork);
+            // 
             // Speedhack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -2043,6 +2084,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.TurnAssistButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.JumpHackToggle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopAllWheelsButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FreezeAIBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperCarBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WheelSpeedButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WaterBox)).EndInit();
@@ -2189,5 +2231,7 @@ namespace Forza_Mods_AIO.TabForms
         private System.ComponentModel.BackgroundWorker JumpHackWorker;
         public Telerik.WinControls.UI.RadCheckBox DiscoverRoadsBox;
         public Telerik.WinControls.UI.RadCheckBox WaterBox;
+        public Telerik.WinControls.UI.RadCheckBox FreezeAIBox;
+        public System.ComponentModel.BackgroundWorker FreezeAIWorker;
     }
 }

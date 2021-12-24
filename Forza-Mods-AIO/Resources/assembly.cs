@@ -127,6 +127,39 @@ namespace Forza_Mods_AIO
             }
         }
 
+        public void GetAIXAddr(IntPtr CodeCave6)
+        {
+            string CodeCaveAddrString = ((long)CodeCave6).ToString("X"); // CodeCave address
+            string CodeCavejmpString = ((long)CodeCave6 - (Speedhack.AIXAobAddrLong + 5)).ToString("X"); // address to calculate jump from
+            if (CodeCavejmpString.Length % 2 != 0)
+                CodeCavejmpString = "0" + CodeCavejmpString;
+            byte[] CodeCaveAddr = StringToBytes(CodeCavejmpString);
+            Array.Reverse(CodeCaveAddr);
+
+            string JmpToCodeCaveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "9090"; // code that replaces original code - 90 = nop, as many as these as you need
+            byte[] JmpToCodeCaveCode = StringToBytes(JmpToCodeCaveCodeString);
+
+            byte[] jmpBackBytes = longToByteArray(Speedhack.AIXAobAddrLong + 7 - (long)(CodeCave6 + 30)); // (address + jmp code) - address of end of code cave
+            Array.Reverse(jmpBackBytes);
+            string InsideCaveCodeString = "58488B052D000000488B00483B414075040F114140488BFA50E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty); // move reg to address within code cave + original code + jump back
+            if (!MainWindow.main.ForzaFour)
+                InsideCaveCodeString = "58488B052D000000488B00483B415075040F1141504889CB50E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
+
+            MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
+            MainWindow.m.WriteBytes(Speedhack.AIXAobAddr, JmpToCodeCaveCode);
+
+            while (Speedhack.s.FreezeAIBox.Checked)
+            {
+                if (Speedhack.s.FreezeAIWorker.CancellationPending)
+                    break;
+                byte[] MyAddr = StringToBytes("0" + ((long)MainWindow.m.Get64BitCode(Speedhack.xAddr)).ToString("X"));
+                Array.Reverse(MyAddr);
+                MainWindow.m.WriteBytes(((long)CodeCave6 + 53).ToString("X"), MyAddr);
+                Thread.Sleep(100);
+            }
+        }
+
         public void GetWayPointXAddr(IntPtr CodeCave4, out string WayPointBaseAddr)
         {
             string CodeCaveAddrString = ((long)CodeCave4).ToString("X"); // CodeCave address

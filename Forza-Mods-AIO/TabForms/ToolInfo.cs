@@ -77,6 +77,16 @@ namespace Forza_Mods_AIO
                     VolumeMixer.SetApplicationVolume(Process.GetProcessesByName("ForzaHorizon4")[0].Id, (float)VolNum.Value);
                 }
                 catch { }
+                string SettingsPath = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Settings.ini";
+                var SettingsParser = new FileIniDataParser();
+                IniData Settings = new IniData();
+                Settings["Settings"]["Theme Colour"] = MainWindow.ThemeColour;
+                Settings["Settings"]["Rainbow Speed"] = Rainbowspeed.ToString();
+                Settings["Settings"]["Volume Control"] = Mute.Checked.ToString();
+                Settings["Settings"]["Volume"] = VolNum.Value.ToString();
+                Settings["Settings"]["Discord Rich Presence"] = RPCBox.Checked.ToString();
+                Settings["Settings"]["Skip Intro"] = SkipIntroBox.Checked.ToString();
+                SettingsParser.WriteFile(SettingsPath, Settings);
             }
             else
             {
