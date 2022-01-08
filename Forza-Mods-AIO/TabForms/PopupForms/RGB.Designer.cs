@@ -207,7 +207,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.SunAids.Font = new System.Drawing.Font("Open Sans", 10F);
             this.SunAids.Location = new System.Drawing.Point(190, 124);
             this.SunAids.Name = "SunAids";
-            this.SunAids.Size = new System.Drawing.Size(92, 20);
+            this.SunAids.Size = new System.Drawing.Size(89, 22);
             this.SunAids.TabIndex = 39;
             this.SunAids.Text = "Aids mode";
             this.SunAids.ThemeName = "FluentDark";
@@ -275,7 +275,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RGB";
-            this.Text = "Error";
+            this.Text = "RGB";
             this.Load += new System.EventHandler(this.RGB_Load);
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();

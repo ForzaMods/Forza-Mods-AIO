@@ -95,7 +95,6 @@ namespace Forza_Mods_AIO.TabForms
                         yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "68 12 ? ? ? 7F 00 00", true, true)).ToList();
                     else
                         yeet = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "08 97 ? ? ? 7F 00 00", true, true)).ToList();
-                    
                 }
                 foreach (var item in yeet)
                 {

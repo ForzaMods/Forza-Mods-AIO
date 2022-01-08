@@ -113,7 +113,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddCarsGuide";
-            this.Text = "AddCarsGuide";
+            this.Text = "Add Cars Guide";
             this.Load += new System.EventHandler(this.AddCarsGuide_Load);
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();

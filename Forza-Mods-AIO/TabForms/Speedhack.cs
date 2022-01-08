@@ -182,6 +182,7 @@ namespace Forza_Mods_AIO.TabForms
         [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(Int32 vKey);
         public RGB RGB = new RGB();
+        public Map map = new Map();
         public Controls ControlsPopUp = new Controls();
         #endregion
 
@@ -372,7 +373,7 @@ namespace Forza_Mods_AIO.TabForms
                         controller = selectControler;
                         break;
                     }
-                    Thread.Sleep(100);
+                    Thread.Sleep(500);
                 }
                 if (controller == null)
                 {
@@ -382,7 +383,7 @@ namespace Forza_Mods_AIO.TabForms
                     if (count == 0)
                         Debug.WriteLine("No XInput controller installed");
                     count++;
-                    Thread.Sleep(100);
+                    Thread.Sleep(500);
                     try
                     {
                         foreach (var deviceInstance in directInput.GetDevices(SharpDX.DirectInput.DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices))
@@ -401,7 +402,7 @@ namespace Forza_Mods_AIO.TabForms
                             while (directInput.IsDeviceAttached(joystickGuid))
                             {
                                 datas = joystick.GetCurrentState().Buttons;
-                                Thread.Sleep(10);
+                                Thread.Sleep(100);
                             }
                         }
                     }
@@ -434,7 +435,7 @@ namespace Forza_Mods_AIO.TabForms
                         controller = null;
                     }
                 }
-                Thread.Sleep(100);
+                Thread.Sleep(500);
             }
         }
         public void VelHackWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -2719,6 +2720,12 @@ namespace Forza_Mods_AIO.TabForms
         private void FreezeAIWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             a.GetAIXAddr(CodeCave6);
+        }
+
+        private void MapButton_Click(object sender, EventArgs e)
+        {
+            map.Show(this);
+            map.Focus();
         }
     }
 }

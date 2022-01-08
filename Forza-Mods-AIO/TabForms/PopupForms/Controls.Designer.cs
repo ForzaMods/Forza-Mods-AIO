@@ -300,7 +300,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Controls";
-            this.Text = "Saveswapper Help";
+            this.Text = "Controls";
             this.Load += new System.EventHandler(this.Controls_Load);
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();

@@ -340,7 +340,7 @@ namespace Forza_Mods_AIO
                         BTN_TabSaveswap.Enabled = false;
                         Speedhack.IsAttached = true;
                         Speedhack.s.FOVScan_BTN.Enabled = false;
-                        Thread.Sleep(1);
+                        Thread.Sleep(100);
                     }
                     if (ToolInfo.Visible == true && RPCclient.IsInitialized)
                     {
@@ -371,7 +371,7 @@ namespace Forza_Mods_AIO
                     Speedhack.FrontAddr = "0"; Speedhack.DashAddr = "0"; Speedhack.LowAddr = "0"; Speedhack.BonnetAddr = "0"; Speedhack.FirstPersonAddr = "0";
                     Speedhack.FrontAddrLong = 0; Speedhack.DashAddrLong = 0; Speedhack.LowAddrLong = 0; Speedhack.BonnetAddrLong = 0; Speedhack.FirstPersonAddrLong = 0;
                     Speedhack.cycles = 0;
-                    Thread.Sleep(1);
+                    Thread.Sleep(100);
                 }
             }
             else if (m.OpenProcess("ForzaHorizon4"))
@@ -391,7 +391,7 @@ namespace Forza_Mods_AIO
                             BTN_TabStatsEditor.Enabled = true;
                         }
                         ToolInfo.AOBScanProgress.Hide();
-                        Thread.Sleep(1);
+                        Thread.Sleep(100);
                     }
                 }
                 else
@@ -413,7 +413,7 @@ namespace Forza_Mods_AIO
                     Speedhack.FrontAddr = "0"; Speedhack.DashAddr = "0"; Speedhack.LowAddr = "0"; Speedhack.BonnetAddr = "0"; Speedhack.FirstPersonAddr = "0";
                     Speedhack.FrontAddrLong = 0; Speedhack.DashAddrLong = 0; Speedhack.LowAddrLong = 0; Speedhack.BonnetAddrLong = 0; Speedhack.FirstPersonAddrLong = 0;
                     Speedhack.cycles = 0;
-                    Thread.Sleep(1);
+                    Thread.Sleep(100);
                 }
             }
             else
@@ -436,7 +436,7 @@ namespace Forza_Mods_AIO
                 Speedhack.FrontAddrLong = 0; Speedhack.DashAddrLong = 0; Speedhack.LowAddrLong = 0; Speedhack.BonnetAddrLong = 0; Speedhack.FirstPersonAddrLong = 0;
                 Speedhack.cycles = 0; Speedhack.done = false;
                 ToolInfo.AOBScanProgress.Value1 = 0;
-                Thread.Sleep(1);
+                Thread.Sleep(100);
             }
         }
         private void InitialBGworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

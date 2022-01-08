@@ -362,6 +362,7 @@ namespace Forza_Mods_AIO
             RGB.r.RedBar.ForeColor = color;
             RGB.r.GreenBar.ForeColor = color;
             RGB.r.BlueBar.ForeColor = color;
+            Map.map.Colour = color;
             /*
             double luminance = (0.299 * color.R + 0.587 * color.G + 0.114 * color.B) / 255;
             if (luminance > 0.5)

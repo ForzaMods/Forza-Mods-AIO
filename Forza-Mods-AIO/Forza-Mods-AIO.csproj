@@ -371,6 +371,12 @@
     <Compile Include="TabForms\LiveTuningForms\Aero.designer.cs">
       <DependentUpon>Aero.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabForms\PopupForms\Map.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForms\PopupForms\Map.Designer.cs">
+      <DependentUpon>Map.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabForms\PopupForms\QuickAddCars.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -483,6 +489,9 @@
     <EmbeddedResource Include="TabForms\LiveTuningForms\Tyres.resx">
       <DependentUpon>Tyres.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TabForms\PopupForms\Map.resx">
+      <DependentUpon>Map.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TabForms\PopupForms\QuickAddCars.resx">
       <DependentUpon>QuickAddCars.cs</DependentUpon>
     </EmbeddedResource>
@@ -528,6 +537,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Resources\OpenSans-Regular.ttf" />
+    <None Include="Resources\Coords.json" />
     <None Include="Resources\FH4_Cars.csv" />
     <None Include="Resources\FH4_Stats.csv" />
   </ItemGroup>
@@ -556,6 +566,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FMT.ico" />
+    <None Include="Resources\RectangleMap.png" />
     <None Include="Resources\paypal-grey.bmp" />
     <None Include="Resources\bmac-grey.bmp" />
     <None Include="Resources\paypal.bmp" />

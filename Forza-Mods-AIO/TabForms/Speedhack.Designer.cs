@@ -89,6 +89,7 @@ namespace Forza_Mods_AIO.TabForms
             this.SuperBreakButton = new Telerik.WinControls.UI.RadCheckBox();
             this.VelHackButton = new Telerik.WinControls.UI.RadCheckBox();
             this.LBL_Toggles = new System.Windows.Forms.Label();
+            this.MapButton = new System.Windows.Forms.Button();
             this.KeyBinds = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.LimitBox = new DarkUI.Controls.DarkNumericUpDown();
@@ -1171,6 +1172,7 @@ namespace Forza_Mods_AIO.TabForms
             this.panel4.Controls.Add(this.SuperBreakButton);
             this.panel4.Controls.Add(this.VelHackButton);
             this.panel4.Controls.Add(this.LBL_Toggles);
+            this.panel4.Controls.Add(this.MapButton);
             this.panel4.Controls.Add(this.KeyBinds);
             this.panel4.Location = new System.Drawing.Point(208, 12);
             this.panel4.Name = "panel4";
@@ -1464,6 +1466,20 @@ namespace Forza_Mods_AIO.TabForms
             this.LBL_Toggles.Size = new System.Drawing.Size(83, 27);
             this.LBL_Toggles.TabIndex = 4;
             this.LBL_Toggles.Text = "Toggles";
+            // 
+            // MapButton
+            // 
+            this.MapButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.MapButton.FlatAppearance.BorderSize = 0;
+            this.MapButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MapButton.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MapButton.Location = new System.Drawing.Point(100, 8);
+            this.MapButton.Name = "MapButton";
+            this.MapButton.Size = new System.Drawing.Size(87, 29);
+            this.MapButton.TabIndex = 37;
+            this.MapButton.Text = "Map";
+            this.MapButton.UseVisualStyleBackColor = false;
+            this.MapButton.Click += new System.EventHandler(this.MapButton_Click);
             // 
             // KeyBinds
             // 
@@ -2233,5 +2249,6 @@ namespace Forza_Mods_AIO.TabForms
         public Telerik.WinControls.UI.RadCheckBox WaterBox;
         public Telerik.WinControls.UI.RadCheckBox FreezeAIBox;
         public System.ComponentModel.BackgroundWorker FreezeAIWorker;
+        private System.Windows.Forms.Button MapButton;
     }
 }

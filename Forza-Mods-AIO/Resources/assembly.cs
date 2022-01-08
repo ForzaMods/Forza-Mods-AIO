@@ -156,7 +156,7 @@ namespace Forza_Mods_AIO
                 byte[] MyAddr = StringToBytes("0" + ((long)MainWindow.m.Get64BitCode(Speedhack.xAddr)).ToString("X"));
                 Array.Reverse(MyAddr);
                 MainWindow.m.WriteBytes(((long)CodeCave6 + 53).ToString("X"), MyAddr);
-                Thread.Sleep(100);
+                Thread.Sleep(1000);
             }
         }
 

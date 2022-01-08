@@ -98,7 +98,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.AddAll.Font = new System.Drawing.Font("Open Sans", 10F);
             this.AddAll.Location = new System.Drawing.Point(12, 47);
             this.AddAll.Name = "AddAll";
-            this.AddAll.Size = new System.Drawing.Size(98, 20);
+            this.AddAll.Size = new System.Drawing.Size(95, 22);
             this.AddAll.TabIndex = 30;
             this.AddAll.Text = "Add all cars";
             this.AddAll.ThemeName = "FluentDark";
@@ -129,7 +129,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.AddRare.Font = new System.Drawing.Font("Open Sans", 10F);
             this.AddRare.Location = new System.Drawing.Point(147, 47);
             this.AddRare.Name = "AddRare";
-            this.AddRare.Size = new System.Drawing.Size(109, 20);
+            this.AddRare.Size = new System.Drawing.Size(106, 22);
             this.AddRare.TabIndex = 30;
             this.AddRare.Text = "Add rare cars";
             this.AddRare.ThemeName = "FluentDark";
@@ -160,7 +160,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.UnReleasedBox.Font = new System.Drawing.Font("Open Sans", 10F);
             this.UnReleasedBox.Location = new System.Drawing.Point(277, 39);
             this.UnReleasedBox.Name = "UnReleasedBox";
-            this.UnReleasedBox.Size = new System.Drawing.Size(127, 38);
+            this.UnReleasedBox.Size = new System.Drawing.Size(124, 40);
             this.UnReleasedBox.TabIndex = 30;
             this.UnReleasedBox.Text = "Add un-owned\r\ncar pass cars";
             this.UnReleasedBox.ThemeName = "FluentDark";
@@ -204,7 +204,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "QuickAddCars";
-            this.Text = "Saveswapper Help";
+            this.Text = "Quick Add Cars";
             this.Load += new System.EventHandler(this.QuickAddCars_Load);
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();
