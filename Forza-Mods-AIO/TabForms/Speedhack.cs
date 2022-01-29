@@ -192,6 +192,7 @@ namespace Forza_Mods_AIO.TabForms
         public Speedhack()
         {
             InitializeComponent();
+            FOVWaitingBar.Visible = false;
             CheckForIllegalCrossThreadCalls = false;
             ControllerWorker.RunWorkerAsync();
             ToolTip.SetToolTip(TimerButton, @"Logs go to \Documents\Forza Mods Tool\Cool Shit\[GAME]\0-60 Logs\");
@@ -531,7 +532,6 @@ namespace Forza_Mods_AIO.TabForms
             {
                 Keys KBKey = (Keys)Enum.Parse(typeof(Keys), KBSpeedKey);
                 //float PastStart = MainWindow.m.ReadFloat(PastStartAddr);
-                boost = MainWindow.m.ReadFloat(FrontLeftAddr);
                 if (g2g)//(PastStart == 1)
                 {
                     if (controller != null)
@@ -544,6 +544,7 @@ namespace Forza_Mods_AIO.TabForms
                         {
                             XBState = controller.GetState();
                             SpeedHack();
+                            continue;
                         }
                     }
                     else if (joystickGuid != Guid.Empty)
@@ -561,12 +562,15 @@ namespace Forza_Mods_AIO.TabForms
                             || XBSpeedKey == "LeftDpad" && datas.PointOfViewControllers[0] == 27000)
                         {
                             SpeedHack();
+                            continue;
                         }
                     }
                     else while (GetAsyncKeyState(KBKey) is 1 or Int16.MinValue)
                     {
                         SpeedHack();
+                        continue;
                     }
+                    boost = MainWindow.m.ReadFloat(FrontLeftAddr);
                     if (SpeedHackWorker.CancellationPending)
                     {
                         e.Cancel = true;
@@ -623,12 +627,12 @@ namespace Forza_Mods_AIO.TabForms
                 {
                     if (GetAsyncKeyState(Keys.NumPad6) is 1 or Int16.MinValue)
                     {
-                        Thread.Sleep(20);
+                        Thread.Sleep(1);
                         FOVIncrease();
                     }
                     if (GetAsyncKeyState(Keys.NumPad4) is 1 or Int16.MinValue)
                     {
-                        Thread.Sleep(20);
+                        Thread.Sleep(1);
                         FOVdecrease();
                     }
                     if (FOVWorker.CancellationPending)
@@ -1193,7 +1197,6 @@ namespace Forza_Mods_AIO.TabForms
         {
             MainWindow.m.WriteMemory(GasAddr, "float", "1");
             float speed = (float)(Math.Sqrt(Math.Pow(MainWindow.m.ReadFloat(xVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(yVelocityAddr, round: false), 2) + Math.Pow(MainWindow.m.ReadFloat(zVelocityAddr, round: false), 2)) * 2.23694);
-            float diameter = (float)((1056 * speed) / (boost * Math.PI));
             if (speed < BoostSpeed1)
             {
                 /*for (int i = 0; i < times1; i++)
@@ -1218,17 +1221,15 @@ namespace Forza_Mods_AIO.TabForms
                 boost += times4;
                 Thread.Sleep(BoostInterval4);
             }
-            if (speed >= BoostLim)
-            {
-                boost = BoostLim;
-                boost = BoostLim;
-            }
             try
             {
-                MainWindow.m.WriteMemory(FrontLeftAddr, "float", boost.ToString());
-                MainWindow.m.WriteMemory(FrontRightAddr, "float", boost.ToString());
-                MainWindow.m.WriteMemory(BackLeftAddr, "float", boost.ToString());
-                MainWindow.m.WriteMemory(BackRightAddr, "float", boost.ToString());
+                if(speed < BoostLim)
+                {
+                    MainWindow.m.WriteMemory(FrontLeftAddr, "float", boost.ToString());
+                    MainWindow.m.WriteMemory(FrontRightAddr, "float", boost.ToString());
+                    MainWindow.m.WriteMemory(BackLeftAddr, "float", boost.ToString());
+                    MainWindow.m.WriteMemory(BackRightAddr, "float", boost.ToString());
+                }
             }
             catch { }
         }
@@ -1703,14 +1704,15 @@ namespace Forza_Mods_AIO.TabForms
                         var datas = joystick.GetCurrentState();
                         bool[] ControllerButtonstate = datas.Buttons;
                         List<int> indices = new List<int>();
+                        string Analogue = null;
                         for (int i = 0; i < 9; ++i)
                         {
-                            if (datas.Z > 50000) { XBSpeedKey = "LeftTrigger"; done = true; }
-                            if (datas.Z < 20000) { XBSpeedKey = "RightTrigger"; done = true; }
-                            if (datas.PointOfViewControllers[0] == 0) { XBSpeedKey = "DpadUp"; done = true; }
-                            if (datas.PointOfViewControllers[0] == 9000) { XBSpeedKey = "DpadRight"; done = true; }
-                            if (datas.PointOfViewControllers[0] == 18000) { XBSpeedKey = "DpadDown"; done = true; }
-                            if (datas.PointOfViewControllers[0] == 27000) { XBSpeedKey = "DpadLeft"; done = true; }
+                            if (datas.Z > 50000) { Analogue = "LeftTrigger"; }
+                            if (datas.Z < 20000) { Analogue = "RightTrigger"; }
+                            if (datas.PointOfViewControllers[0] == 0) { Analogue = "DpadUp"; }
+                            if (datas.PointOfViewControllers[0] == 9000) { Analogue = "DpadRight"; }
+                            if (datas.PointOfViewControllers[0] == 18000) { Analogue = "DpadDown"; }
+                            if (datas.PointOfViewControllers[0] == 27000) { Analogue = "DpadLeft"; }
                             if (ControllerButtonstate[i])
                             {
                                 indices.Add(i);
@@ -1738,6 +1740,25 @@ namespace Forza_Mods_AIO.TabForms
                                 }
                                 done = true;
                             }
+                        }
+                        else if (Analogue != null)
+                        {
+                            if ((int)e.Argument == 1)
+                            {
+                                PopupForms.Controls.c.XBChangeSpeed.Text = Analogue;
+                                XBSpeedKey = Analogue;
+                            }
+                            if ((int)e.Argument == 2)
+                            {
+                                PopupForms.Controls.c.XBChangeBrake.Text = Analogue;
+                                XBBrakeKey = Analogue;
+                            }
+                            if ((int)e.Argument == 3)
+                            {
+                                PopupForms.Controls.c.XBChangeJump.Text = Analogue;
+                                XBJumpKey = Analogue;
+                            }
+                            done = true;
                         }
                         indices = null;
                         Thread.Sleep(1);
@@ -2078,7 +2099,29 @@ namespace Forza_Mods_AIO.TabForms
             FOVVal = (float)FOVBar.Value / 100;
             if (FOV.Checked == true)
             {
-                if(MainWindow.main.ForzaFour)
+                if (MainWindow.main.ForzaFour)
+                {
+                    MainWindow.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
+                    MainWindow.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
+                    MainWindow.m.FreezeValue(DashAddr, "float", FOVVal.ToString());
+                    MainWindow.m.FreezeValue(LowAddr, "float", FOVVal.ToString());
+                    MainWindow.m.FreezeValue(BonnetAddr, "float", FOVVal.ToString());
+                    MainWindow.m.FreezeValue(FrontAddr, "float", FOVVal.ToString());
+                }
+                else
+                {
+                    foreach (string address in RearAddresses)
+                    {
+                        MainWindow.m.UnfreezeValue(address);
+                        MainWindow.m.FreezeValue(address, "float", FOVVal.ToString());
+                    }
+                    foreach (string address in RestAddresses)
+                    {
+                        MainWindow.m.UnfreezeValue(address);
+                        MainWindow.m.FreezeValue(address, "float", FOVVal.ToString());
+                    }
+                }
+                /*if(MainWindow.main.ForzaFour)
                 {
                     MainWindow.m.UnfreezeValue(FOVHighAddr); MainWindow.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
                     MainWindow.m.UnfreezeValue(FirstPersonAddr); MainWindow.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
@@ -2099,118 +2142,140 @@ namespace Forza_Mods_AIO.TabForms
                         MainWindow.m.UnfreezeValue(address);
                         MainWindow.m.FreezeValue(address, "float", FOVVal.ToString());
                     }
-                }
+                }*/
             }
-            SHReset();
         }
         private async void FOVScan_BTN_Click(object sender, EventArgs e)
         {
-            ScanStartAddr = (long)MainWindow.m.GetCode(InPauseAddr) - 3500000000;//ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;
-            ScanEndAddr = (long)MainWindow.m.GetCode(InPauseAddr) + 3500000000;//ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 2000000000;
-            FOVScan_BTN.Hide();
-            FOVScan_bar.Show();
-            bool scan = true;
-            cycles = 0;
-            if(MainWindow.main.ForzaFour)
+            try
             {
-                while (scan)
+                FOVScan_BTN.Hide();
+                bool scan = true;
+                cycles = 0;
+                if (MainWindow.main.ForzaFour)
                 {
-                    Thread.Sleep(1);
-                    if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null || FirstPersonAddr == "0")
+                    FOVScan_bar.Show();
+                    while (scan)
                     {
-                        FirstPersonAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, FirstPerson, true, true)).FirstOrDefault() - 75;
-                        FirstPersonAddr = FirstPersonAddrLong.ToString("X");
-                    }
-                    else if (DashAddr == "FFFFFFFFFFFFFF45" || DashAddr == null || DashAddr == "0")
-                    {
-                        for (int i = FOVScan_bar.Value1; i <= 20; i++)
-                        { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
-                        DashAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Dash, true, true)).FirstOrDefault() - 187;
-                        DashAddr = DashAddrLong.ToString("X");
-                    }
-                    else if (FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0")
-                    {
-                        for (int i = FOVScan_bar.Value1; i <= 40; i++)
-                        { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
-                        FrontAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Front, true, true)).FirstOrDefault() - 190;
-                        FrontAddr = FrontAddrLong.ToString("X");
-                    }
-                    else if (LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0")
-                    {
-                        for (int i = FOVScan_bar.Value1; i <= 60; i++)
-                        { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
-                        LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).FirstOrDefault() - 183;
-                        LowCompare = LowAddrLong.ToString();
-                        if (LowCompare == MainWindow.m.GetCode(FOVHighAddr).ToString())
+                        Thread.Sleep(1);
+                        if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null || FirstPersonAddr == "0")
                         {
-                            LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).LastOrDefault() - 183;
+                            FirstPersonAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, FirstPerson, true, true)).FirstOrDefault() - 75;
+                            FirstPersonAddr = FirstPersonAddrLong.ToString("X");
                         }
-                        LowAddr = LowAddrLong.ToString("X");
+                        else if (DashAddr == "FFFFFFFFFFFFFF45" || DashAddr == null || DashAddr == "0")
+                        {
+                            for (int i = FOVScan_bar.Value1; i <= 20; i++)
+                            { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
+                            DashAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Dash, true, true)).FirstOrDefault() - 187;
+                            DashAddr = DashAddrLong.ToString("X");
+                        }
+                        else if (FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0")
+                        {
+                            for (int i = FOVScan_bar.Value1; i <= 40; i++)
+                            { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
+                            FrontAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Front, true, true)).FirstOrDefault() - 190;
+                            FrontAddr = FrontAddrLong.ToString("X");
+                        }
+                        else if (LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0")
+                        {
+                            for (int i = FOVScan_bar.Value1; i <= 60; i++)
+                            { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
+                            LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).FirstOrDefault() - 183;
+                            LowCompare = LowAddrLong.ToString();
+                            if (LowCompare == MainWindow.m.GetCode(FOVHighAddr).ToString())
+                            {
+                                LowAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Low, true, true)).LastOrDefault() - 183;
+                            }
+                            LowAddr = LowAddrLong.ToString("X");
+                        }
+                        else if (BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || DashAddr == "0")
+                        {
+                            for (int i = FOVScan_bar.Value1; i <= 80; i++)
+                            { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
+                            BonnetAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Bonnet, true, true)).FirstOrDefault() - 189;
+                            BonnetAddr = BonnetAddrLong.ToString("X");
+                        }
+                        if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null || FirstPersonAddr == "0"
+                            || DashAddr == "FFFFFFFFFFFFFF45" || DashAddr == null || DashAddr == "0"
+                            || FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0"
+                            || LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0"
+                            || BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || BonnetAddr == "0")
+                        {
+                            ;
+                        }
+                        else
+                        {
+                            for (int i = FOVScan_bar.Value1; i <= 100; i++)
+                            { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
+                            Thread.Sleep(1000);
+                            FOVScan_bar.Hide();
+                            //FOVScan_BTN.Enabled = false;
+                            FOV.Show();//FOV.Enabled = true;
+                            scan = false;
+                        }
                     }
-                    else if (BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || DashAddr == "0")
+                }
+                else
+                {
+                    FOVWaitingBar.Visible = true;
+                    FOVWaitingBar.StartWaiting();
+                    RearAddresses.Clear();
+                    RestAddresses.Clear();
+                    int count = 0;
+                    ScanStartAddr = (long)MainWindow.m.GetCode(InPauseAddr) - 50000000000;//ScanStartAddr = (long)MainWindow.m.GetCode(FOVHighAddr) - 2000000000;
+                    ScanEndAddr = (long)MainWindow.m.GetCode(InPauseAddr) - 49000000000;//ScanEndAddr = (long)MainWindow.m.GetCode(FOVHighAddr) + 2000000000;
+                    while (scan)
                     {
-                        for (int i = FOVScan_bar.Value1; i <= 80; i++)
-                        { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
-                        BonnetAddrLong = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, Bonnet, true, true)).FirstOrDefault() - 189;
-                        BonnetAddr = BonnetAddrLong.ToString("X");
-                    }
-                    if (FirstPersonAddr == "FFFFFFFFFFFFFFB5" || FirstPersonAddr == null || FirstPersonAddr == "0"
-                        || DashAddr == "FFFFFFFFFFFFFF45" || DashAddr == null || DashAddr == "0"
-                        || FrontAddr == "FFFFFFFFFFFFFF42" || FrontAddr == null || FrontAddr == "0"
-                        || LowAddr == "FFFFFFFFFFFFFF49" || LowAddr == null || LowAddr == "0"
-                        || BonnetAddr == "FFFFFFFFFFFFFF43" || BonnetAddr == null || BonnetAddr == "0")
-                    {
-                        ;
-                    }
-                    else
-                    {
-                        for (int i = FOVScan_bar.Value1; i <= 100; i++)
-                        { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
-                        Thread.Sleep(1000);
-                        FOVScan_bar.Hide();
-                        //FOVScan_BTN.Enabled = false;
-                        FOV.Show();//FOV.Enabled = true;
-                        scan = false;
+                        while (count < 100)
+                        {
+                            Thread.Sleep(1);
+                            List<long> Outside = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "EC 41 00 00 80 3F 00 00 20 41", true, true)).ToList();
+                            List<long> Rest = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "16 43 00 00 C0 3F 00 00 20 41", true, true)).ToList();
+                            if(Outside.Count != 0)
+                            {
+                                foreach (long address in Outside)
+                                {
+                                    RearAddresses.Add((address - 38).ToString("X"));
+                                }
+                            }
+                            if (Outside.Count != 0)
+                            {
+                                foreach (long address in Rest)
+                                {
+                                    RestAddresses.Add((address - 38).ToString("X"));
+                                }
+
+                            }
+                            ScanStartAddr +=  1000000000;
+                            ScanEndAddr += 1000000000;
+                            count++;
+                            if (count == 100 || (RearAddresses.Count == 4 && RestAddresses.Count == 8))
+                            {
+                                if (RearAddresses.Count >= 2 && RestAddresses.Count >= 4)
+                                {
+                                    FOVWaitingBar.Hide();
+                                    FOV.Show();
+                                    scan = false;
+                                }
+                                else
+                                {
+                                    FOVScan_BTN.Show();
+                                    //FOVScan_BTN.Enabled = false;
+                                    FOVWaitingBar.Hide();
+                                    MessageBox.Show("FOV could not be found, sowwy");
+                                    scan = false;
+                                }
+                            }
+                        }
                     }
                 }
             }
-            else
+            catch (Exception error)
             {
-                while(scan)
-                {
-                    List<long> Outside = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "EC 41 00 00 80 3F 00 00 20 41", true, true)).ToList();
-                    List<long> Rest = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "16 43 00 00 C0 3F 00 00 20 41", true, true)).ToList();
-                    if (Outside.Count == 0)
-                        continue;
-                    else
-                    {
-                        foreach(long address in Outside)
-                        {
-                            RearAddresses.Add((address - 38).ToString("X"));
-                        }
-                        for (int i = FOVScan_bar.Value1; i <= 33; i++)
-                        { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
-
-                        RestAddresses.Add((Rest[0] - 38).ToString("X"));
-                        for (int i = FOVScan_bar.Value1; i <= 50; i++)
-                        { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
-
-                        RestAddresses.Add((Rest[2] - 38).ToString("X"));
-                        for (int i = FOVScan_bar.Value1; i <= 67; i++)
-                        { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
-
-                        RestAddresses.Add((Rest[4] - 38).ToString("X"));
-                        for (int i = FOVScan_bar.Value1; i <= 83; i++)
-                        { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
-
-                        RestAddresses.Add((Rest[6] - 38).ToString("X"));
-                        for (int i = FOVScan_bar.Value1; i <= 100; i++)
-                        { Thread.Sleep(15); FOVScan_bar.Value1 = i; }
-                        FOVScan_bar.Hide();
-                        FOV.Show();
-                        scan = false;
-                    }
-                }
+                FOVScan_BTN.Show();
+                FOVScan_bar.Hide();
+                MessageBox.Show("Error: " + error.Data);
             }
         }
         private void FOV_CheckedChanged(object sender, EventArgs e)
@@ -2275,12 +2340,28 @@ namespace Forza_Mods_AIO.TabForms
         }
         private void FOVIncrease()
         {
-            IncreaseCycles++;
             if (FOVBar.Value > 149)
                 FOVBar.Value = 149;
-            FOVBar.Value = FOVBar.Value + 1;
-            FOVVal = (float)FOVBar.Value / 100;
-            if (MainWindow.main.ForzaFour)
+            FOVBar.Value++;
+            FOVBar.OnMouseMove(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+            //FOVVal = (float)FOVBar.Value / 100;
+            /*if (MainWindow.main.ForzaFour)
+            {
+                MainWindow.m.WriteMemory(FOVHighAddr, "float", FOVVal.ToString());
+                MainWindow.m.WriteMemory(FirstPersonAddr, "float", FOVVal.ToString());
+                MainWindow.m.WriteMemory(DashAddr, "float", FOVVal.ToString());
+                MainWindow.m.WriteMemory(LowAddr, "float", FOVVal.ToString());
+                MainWindow.m.WriteMemory(BonnetAddr, "float", FOVVal.ToString());
+                MainWindow.m.WriteMemory(FrontAddr, "float", FOVVal.ToString());
+            }
+            else
+            {
+                foreach (string address in RearAddresses)
+                    MainWindow.m.WriteMemory(address, "float", FOVVal.ToString());
+                foreach (string address in RestAddresses)
+                    MainWindow.m.WriteMemory(address, "float", FOVVal.ToString());
+            }*/
+            /*if (MainWindow.main.ForzaFour)
             {
                 MainWindow.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
                 MainWindow.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
@@ -2295,16 +2376,32 @@ namespace Forza_Mods_AIO.TabForms
                     MainWindow.m.FreezeValue(address, "float", FOVVal.ToString());
                 foreach (string address in RestAddresses)
                     MainWindow.m.FreezeValue(address, "float", FOVVal.ToString());
-            }
+            }*/
         }
         private void FOVdecrease()
         {
-            DecreaseCycles++;
             if (FOVBar.Value < -94)
                 FOVBar.Value = -94;
-            FOVBar.Value = FOVBar.Value - 1;
-            FOVVal = (float)FOVBar.Value / 100;
-            if (MainWindow.main.ForzaFour)
+            FOVBar.Value--;
+            FOVBar.OnMouseMove(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+            //FOVVal = (float)FOVBar.Value / 100;
+            /*if (MainWindow.main.ForzaFour)
+            {
+                MainWindow.m.WriteMemory(FOVHighAddr, "float", FOVVal.ToString());
+                MainWindow.m.WriteMemory(FirstPersonAddr, "float", FOVVal.ToString());
+                MainWindow.m.WriteMemory(DashAddr, "float", FOVVal.ToString());
+                MainWindow.m.WriteMemory(LowAddr, "float", FOVVal.ToString());
+                MainWindow.m.WriteMemory(BonnetAddr, "float", FOVVal.ToString());
+                MainWindow.m.WriteMemory(FrontAddr, "float", FOVVal.ToString());
+            }
+            else
+            {
+                foreach (string address in RearAddresses)
+                    MainWindow.m.WriteMemory(address, "float", FOVVal.ToString());
+                foreach (string address in RestAddresses)
+                    MainWindow.m.WriteMemory(address, "float", FOVVal.ToString());
+            }*/
+            /*if (MainWindow.main.ForzaFour)
             {
                 MainWindow.m.FreezeValue(FOVHighAddr, "float", FOVVal.ToString());
                 MainWindow.m.FreezeValue(FirstPersonAddr, "float", FOVVal.ToString());
@@ -2319,7 +2416,7 @@ namespace Forza_Mods_AIO.TabForms
                     MainWindow.m.FreezeValue(address, "float", FOVVal.ToString());
                 foreach (string address in RestAddresses)
                     MainWindow.m.FreezeValue(address, "float", FOVVal.ToString());
-            }
+            }*/
         }
         #endregion
 

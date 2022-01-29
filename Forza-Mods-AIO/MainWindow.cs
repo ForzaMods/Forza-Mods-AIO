@@ -340,7 +340,7 @@ namespace Forza_Mods_AIO
                         BTN_TabSaveswap.Enabled = false;
                         Speedhack.IsAttached = true;
                         //Speedhack.s.FOVScan_BTN.Enabled = false;
-                        Thread.Sleep(100);
+                        Thread.Sleep(1);
                     }
                     if (ToolInfo.Visible == true && RPCclient.IsInitialized)
                     {

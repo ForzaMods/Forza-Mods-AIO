@@ -332,6 +332,14 @@ namespace Forza_Mods_AIO
             ((Telerik.WinControls.UI.ProgressIndicatorElement)Speedhack.s.FOVScan_bar.GetChildAt(0).GetChildAt(1)).BackColor3 = color;
             ((Telerik.WinControls.UI.ProgressIndicatorElement)Speedhack.s.FOVScan_bar.GetChildAt(0).GetChildAt(1)).BackColor4 = color;
             ((Telerik.WinControls.UI.ProgressIndicatorElement)Speedhack.s.FOVScan_bar.GetChildAt(0).GetChildAt(1)).BackColor = color;
+            Speedhack.s.waitingBarIndicatorElement1.BackColor = color;
+            Speedhack.s.waitingBarIndicatorElement1.BackColor2 = color;
+            Speedhack.s.waitingBarIndicatorElement1.BackColor3 = color;
+            Speedhack.s.waitingBarIndicatorElement1.BackColor4 = color;
+            Speedhack.s.waitingBarIndicatorElement2.BackColor = color;
+            Speedhack.s.waitingBarIndicatorElement2.BackColor2 = color;
+            Speedhack.s.waitingBarIndicatorElement2.BackColor3 = color;
+            Speedhack.s.waitingBarIndicatorElement2.BackColor4 = color;
             StatsEditor.s.waitingBarIndicatorElement1.BackColor = color;
             StatsEditor.s.waitingBarIndicatorElement1.BackColor2 = color;
             StatsEditor.s.waitingBarIndicatorElement1.BackColor3 = color;
