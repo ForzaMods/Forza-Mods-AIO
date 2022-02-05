@@ -168,6 +168,12 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Reloaded.Memory, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Reloaded.Memory.1.4.1\lib\net47\Reloaded.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="Reloaded.Memory.Sigscan, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Reloaded.Memory.Sigscan.1.2.1\lib\netstandard2.0\Reloaded.Memory.Sigscan.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
     </Reference>
@@ -209,8 +215,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Interactive.Async, Version=5.1.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Interactive.Async.5.1.0\lib\net461\System.Interactive.Async.dll</HintPath>
+    <Reference Include="System.Interactive.Async, Version=6.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.6.0.1\lib\netstandard2.0\System.Interactive.Async.dll</HintPath>
     </Reference>
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
@@ -243,8 +249,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Linq.Async, Version=5.1.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Linq.Async.5.1.0\lib\net461\System.Linq.Async.dll</HintPath>
+    <Reference Include="System.Linq.Async, Version=6.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Async.6.0.1\lib\netstandard2.0\System.Linq.Async.dll</HintPath>
     </Reference>
     <Reference Include="System.Linq.Expressions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Linq.Expressions.4.3.0\lib\net463\System.Linq.Expressions.dll</HintPath>
@@ -355,16 +361,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Resources\assembly.cs" />
-    <Compile Include="Resources\Base.cs" />
-    <Compile Include="Resources\BaseN.cs" />
-    <Compile Include="Resources\BinaryReaderHelper.cs" />
-    <Compile Include="Resources\ContainerReader.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Custom\assembly.cs" />
+    <Compile Include="Resources\Base\Base.cs" />
+    <Compile Include="Resources\Base\BaseN.cs" />
+    <Compile Include="Resources\BinaryReaderHelper.cs" />
+    <Compile Include="Resources\ContainerReader.cs" />
+    <Compile Include="Resources\Memory.dll\memory.cs" />
+    <Compile Include="Resources\Memory.dll\Methods\AoB.cs" />
+    <Compile Include="Resources\Memory.dll\Methods\Read.cs" />
+    <Compile Include="Resources\Memory.dll\Methods\Write.cs" />
+    <Compile Include="Resources\Memory.dll\Structures\Imports.cs" />
+    <Compile Include="Resources\Memory.dll\Structures\MemoryRegionResult.cs" />
+    <Compile Include="Resources\Memory.dll\Structures\Process.cs" />
     <Compile Include="TabForms\AddCars.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -553,8 +566,8 @@
     </Compile>
     <EmbeddedResource Include="Resources\OpenSans-Regular.ttf" />
     <None Include="Resources\Coords.json" />
-    <None Include="Resources\FH4_Cars.csv" />
-    <None Include="Resources\FH4_Stats.csv" />
+    <None Include="Resources\CSV%27s\FH4_Cars.csv" />
+    <None Include="Resources\CSV%27s\FH4_Stats.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -572,19 +585,19 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\default-orange.bmp" />
+    <None Include="Resources\Images\default-orange.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\FH5_Cars.csv" />
-    <None Include="Resources\FH5_Stats.csv" />
-    <None Include="Resources\Updater.exe" />
+    <None Include="Resources\CSV%27s\FH5_Cars.csv" />
+    <None Include="Resources\CSV%27s\FH5_Stats.csv" />
+    <None Include="Resources\Custom\Updater.exe" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FMT.ico" />
-    <None Include="Resources\RectangleMap.png" />
-    <None Include="Resources\paypal-grey.bmp" />
-    <None Include="Resources\bmac-grey.bmp" />
-    <None Include="Resources\paypal.bmp" />
+    <None Include="Resources\Images\RectangleMap.png" />
+    <None Include="Resources\Images\paypal-grey.bmp" />
+    <None Include="Resources\Images\bmac-grey.bmp" />
+    <None Include="Resources\Images\paypal.bmp" />
     <None Include="Resources\Tool Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

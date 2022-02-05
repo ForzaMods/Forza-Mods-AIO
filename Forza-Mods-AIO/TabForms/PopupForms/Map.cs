@@ -23,20 +23,20 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
         public Color Colour = new Color();
         public float[,] CoordArray = new float[21285, 3];
         private static CultureInfo resourceCulture;
-        internal static byte[] b6aQzDZP7w
+        /*internal static byte[] b6aQzDZP7w
         {
             get
             {
                 return (byte[])Resources.ResourceManager.GetObject("b6aQzDZP7w", resourceCulture);
             }
-        }
+        }*/
 
         public static Map map;
         public Map()
         {
             InitializeComponent();
             map = this;
-            MapBox.Image = Properties.Resources.RectangleMap;
+            //MapBox.Image = Properties.Resources.RectangleMap;
         }
         private bool dragging = false;
         private Point dragCursorPoint;
@@ -71,17 +71,17 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             //refresh the picture box
             pb.Refresh();
             //create a graphics object
-            Bitmap Image = Properties.Resources.RectangleMap;
-            Graphics g = Graphics.FromImage(Image);
+            //Bitmap Image = Properties.Resources.RectangleMap;
+            //Graphics g = Graphics.FromImage(Image);
             //create a pen object;
             Pen p = new Pen(Colour, 5);
             //draw Ellipse
-            g.DrawEllipse(p, x, y, 5, 5);
-            pb.Image = Image;
+            //g.DrawEllipse(p, x, y, 5, 5);
+            //pb.Image = Image;
             pb.SizeMode = PictureBoxSizeMode.StretchImage;
             //dispose pen and graphics object
             p.Dispose();
-            g.Dispose();
+            //g.Dispose();
         }
 
         private void UpdateMapWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -90,7 +90,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             {
                 XCoord = (int)Math.Round(MainWindow.m.ReadFloat(Speedhack.xAddr));
                 ZCoord = (int)Math.Round(MainWindow.m.ReadFloat(Speedhack.zAddr));
-                CoordsLabel.Text = "X: " + XCoord + "\nZ: " + ZCoord;
                 drawEllipse(MapBox, (int)Math.Round(XCoord / 11.2) + 1195, - (int)Math.Round(ZCoord / 11.2) + 615);
                 if (UpdateMapWorker.CancellationPending)
                     break;
@@ -109,7 +108,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
         {
             if(!UpdateMapWorker.IsBusy)
                 UpdateMapWorker.RunWorkerAsync();
-            File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "b6aQzDZP7w.json"), b6aQzDZP7w);
+            //File.WriteAllBytes(Path.Combine(Path.GetTempPath(), "b6aQzDZP7w.json"), b6aQzDZP7w);
             string Filename = Path.Combine(Path.GetTempPath(), "b6aQzDZP7w.json");
             string JsonText = File.ReadAllText(Filename).Replace("\r\n", string.Empty);
             JArray Coords = JArray.Parse(JsonText);
@@ -146,7 +145,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
 
         private void MapBox_MouseClick(object sender, MouseEventArgs e)
         {
-            MouseCoordsLabel.Text = "Mouse X: " + e.X.ToString() + "\nMouse Z: " + e.Y.ToString();
             float X = (float)(((e.X * 2) - 1195) * 11.2);
             float Z = (float)(((e.Y * 2) - 615) * -11.2);
             List<float> Distances = new List<float>();

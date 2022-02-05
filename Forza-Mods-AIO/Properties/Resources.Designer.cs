@@ -61,16 +61,6 @@ namespace Forza_Mods_AIO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] b6aQzDZP7w {
-            get {
-                object obj = ResourceManager.GetObject("b6aQzDZP7w", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap bmac_grey {
@@ -146,16 +136,6 @@ namespace Forza_Mods_AIO.Properties {
         internal static System.Drawing.Bitmap paypal_grey {
             get {
                 object obj = ResourceManager.GetObject("paypal-grey", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap RectangleMap {
-            get {
-                object obj = ResourceManager.GetObject("RectangleMap", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

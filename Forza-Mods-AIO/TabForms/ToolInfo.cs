@@ -370,6 +370,8 @@ namespace Forza_Mods_AIO
             RGB.r.RedBar.ForeColor = color;
             RGB.r.GreenBar.ForeColor = color;
             RGB.r.BlueBar.ForeColor = color;
+            if(RGB.r.SunAids.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)RGB.r.SunAids.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
             Map.map.Colour = color;
             /*
             double luminance = (0.299 * color.R + 0.587 * color.G + 0.114 * color.B) / 255;
@@ -439,6 +441,8 @@ namespace Forza_Mods_AIO
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.DiscoverRoadsBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Speedhack.s.WaterBox.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.WaterBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
+            if (Speedhack.s.UnlockCosmetics.Checked)
+                ((Telerik.WinControls.Primitives.BorderPrimitive)Speedhack.s.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (Saveswapper.s.TB_Backup.Checked)
                 ((Telerik.WinControls.Primitives.BorderPrimitive)Saveswapper.s.TB_Backup.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = color;
             if (AddCars.a.Box_AllCars.Checked)

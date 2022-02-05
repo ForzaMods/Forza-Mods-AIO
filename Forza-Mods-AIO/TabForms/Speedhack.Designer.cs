@@ -35,6 +35,9 @@ namespace Forza_Mods_AIO.TabForms
             this.TB_SHCarNoClip = new Telerik.WinControls.UI.RadCheckBox();
             this.LBL_SHNoClip = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.FOVWaitingBar = new Telerik.WinControls.UI.RadWaitingBar();
+            this.waitingBarIndicatorElement2 = new Telerik.WinControls.UI.WaitingBarIndicatorElement();
+            this.waitingBarIndicatorElement1 = new Telerik.WinControls.UI.WaitingBarIndicatorElement();
             this.XPLabel = new System.Windows.Forms.Label();
             this.LST_TeleportLocation = new DarkUI.Controls.DarkComboBox();
             this.FOVBar = new LimitlessUI.Slider_WOC();
@@ -79,10 +82,11 @@ namespace Forza_Mods_AIO.TabForms
             this.VelLimit = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.FreezeAIBox = new Telerik.WinControls.UI.RadCheckBox();
             this.TurnAssistButton = new Telerik.WinControls.UI.RadCheckBox();
             this.JumpHackToggle = new Telerik.WinControls.UI.RadCheckBox();
             this.StopAllWheelsButton = new Telerik.WinControls.UI.RadCheckBox();
-            this.FreezeAIBox = new Telerik.WinControls.UI.RadCheckBox();
+            this.UnlockCosmetics = new Telerik.WinControls.UI.RadCheckBox();
             this.SuperCarBox = new Telerik.WinControls.UI.RadCheckBox();
             this.WheelSpeedButton = new Telerik.WinControls.UI.RadCheckBox();
             this.WaterBox = new Telerik.WinControls.UI.RadCheckBox();
@@ -149,13 +153,11 @@ namespace Forza_Mods_AIO.TabForms
             this.ControllerChangeWorker = new System.ComponentModel.BackgroundWorker();
             this.JumpHackWorker = new System.ComponentModel.BackgroundWorker();
             this.FreezeAIWorker = new System.ComponentModel.BackgroundWorker();
-            this.FOVWaitingBar = new Telerik.WinControls.UI.RadWaitingBar();
-            this.waitingBarIndicatorElement2 = new Telerik.WinControls.UI.WaitingBarIndicatorElement();
-            this.waitingBarIndicatorElement1 = new Telerik.WinControls.UI.WaitingBarIndicatorElement();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHWallNoClip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).BeginInit();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FOVWaitingBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FOVScan_bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPnup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bypassoob)).BeginInit();
@@ -177,10 +179,11 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.VelLimitBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).BeginInit();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FreezeAIBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnAssistButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.JumpHackToggle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopAllWheelsButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FreezeAIBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UnlockCosmetics)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperCarBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WheelSpeedButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WaterBox)).BeginInit();
@@ -203,7 +206,6 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.TurnStrengthBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FOVWaitingBar)).BeginInit();
             this.SuspendLayout();
             // 
             // panel3
@@ -317,6 +319,120 @@ namespace Forza_Mods_AIO.TabForms
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(242, 421);
             this.panel7.TabIndex = 12;
+            // 
+            // FOVWaitingBar
+            // 
+            this.FOVWaitingBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.FOVWaitingBar.Location = new System.Drawing.Point(47, 305);
+            this.FOVWaitingBar.Name = "FOVWaitingBar";
+            this.FOVWaitingBar.Size = new System.Drawing.Size(159, 34);
+            this.FOVWaitingBar.TabIndex = 47;
+            this.FOVWaitingBar.WaitingIndicators.Add(this.waitingBarIndicatorElement2);
+            this.FOVWaitingBar.WaitingIndicators.Add(this.waitingBarIndicatorElement1);
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).Text = "";
+            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            // 
+            // waitingBarIndicatorElement2
+            // 
+            this.waitingBarIndicatorElement2.AutoSize = true;
+            this.waitingBarIndicatorElement2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement2.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement2.BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement2.BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement2.BorderBottomColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderBottomShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderLeftColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderLeftShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderRightColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderRightShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderTopColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.BorderTopShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            this.waitingBarIndicatorElement2.ElementColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.ElementColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.EnableFocusBorder = false;
+            this.waitingBarIndicatorElement2.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.Name = "waitingBarIndicatorElement2";
+            this.waitingBarIndicatorElement2.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement2.StretchHorizontally = false;
+            this.waitingBarIndicatorElement2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            this.waitingBarIndicatorElement2.UseCompatibleTextRendering = false;
+            // 
+            // waitingBarIndicatorElement1
+            // 
+            this.waitingBarIndicatorElement1.AutoSize = true;
+            this.waitingBarIndicatorElement1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement1.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement1.BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement1.BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
+            this.waitingBarIndicatorElement1.BorderBottomColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderBottomShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderLeftColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderLeftShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderRightColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderRightShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderTopColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.BorderTopShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            this.waitingBarIndicatorElement1.ElementColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.ElementColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.EnableFocusBorder = false;
+            this.waitingBarIndicatorElement1.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.Name = "waitingBarIndicatorElement1";
+            this.waitingBarIndicatorElement1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.waitingBarIndicatorElement1.StretchHorizontally = false;
+            this.waitingBarIndicatorElement1.StretchVertically = true;
+            this.waitingBarIndicatorElement1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            this.waitingBarIndicatorElement1.UseCompatibleTextRendering = false;
             // 
             // XPLabel
             // 
@@ -1167,10 +1283,11 @@ namespace Forza_Mods_AIO.TabForms
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            this.panel4.Controls.Add(this.FreezeAIBox);
             this.panel4.Controls.Add(this.TurnAssistButton);
             this.panel4.Controls.Add(this.JumpHackToggle);
             this.panel4.Controls.Add(this.StopAllWheelsButton);
-            this.panel4.Controls.Add(this.FreezeAIBox);
+            this.panel4.Controls.Add(this.UnlockCosmetics);
             this.panel4.Controls.Add(this.SuperCarBox);
             this.panel4.Controls.Add(this.WheelSpeedButton);
             this.panel4.Controls.Add(this.WaterBox);
@@ -1183,6 +1300,37 @@ namespace Forza_Mods_AIO.TabForms
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(532, 111);
             this.panel4.TabIndex = 9;
+            // 
+            // FreezeAIBox
+            // 
+            this.FreezeAIBox.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.FreezeAIBox.Location = new System.Drawing.Point(401, 14);
+            this.FreezeAIBox.Name = "FreezeAIBox";
+            this.FreezeAIBox.Size = new System.Drawing.Size(82, 20);
+            this.FreezeAIBox.TabIndex = 29;
+            this.FreezeAIBox.Text = "Freeze AI";
+            this.FreezeAIBox.ThemeName = "FluentDark";
+            this.FreezeAIBox.CheckStateChanged += new System.EventHandler(this.FreezeAIBox_CheckStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.FreezeAIBox.GetChildAt(0))).Text = "Freeze AI";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
             // TurnAssistButton
             // 
@@ -1277,36 +1425,36 @@ namespace Forza_Mods_AIO.TabForms
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.StopAllWheelsButton.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
-            // FreezeAIBox
+            // UnlockCosmetics
             // 
-            this.FreezeAIBox.Font = new System.Drawing.Font("Open Sans", 10F);
-            this.FreezeAIBox.Location = new System.Drawing.Point(401, 14);
-            this.FreezeAIBox.Name = "FreezeAIBox";
-            this.FreezeAIBox.Size = new System.Drawing.Size(82, 20);
-            this.FreezeAIBox.TabIndex = 29;
-            this.FreezeAIBox.Text = "Freeze AI";
-            this.FreezeAIBox.ThemeName = "FluentDark";
-            this.FreezeAIBox.CheckStateChanged += new System.EventHandler(this.FreezeAIBox_CheckStateChanged);
-            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.FreezeAIBox.GetChildAt(0))).Text = "Freeze AI";
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
-            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
-            ((Telerik.WinControls.Primitives.TextPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
-            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
-            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
-            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
-            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
-            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
-            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.FreezeAIBox.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
+            this.UnlockCosmetics.Font = new System.Drawing.Font("Open Sans", 10F);
+            this.UnlockCosmetics.Location = new System.Drawing.Point(289, 14);
+            this.UnlockCosmetics.Name = "UnlockCosmetics";
+            this.UnlockCosmetics.Size = new System.Drawing.Size(119, 20);
+            this.UnlockCosmetics.TabIndex = 29;
+            this.UnlockCosmetics.Text = "Unlock Clothes";
+            this.UnlockCosmetics.ThemeName = "FluentDark";
+            this.UnlockCosmetics.CheckStateChanged += new System.EventHandler(this.UnlockCosmetics_CheckStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.UnlockCosmetics.GetChildAt(0))).Text = "Unlock Clothes";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(0))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).LineLimit = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Open Sans", 10F);
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1))).SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).CheckPrimitiveStyle = Telerik.WinControls.Enumerations.CheckPrimitiveStyleEnum.Win8;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).AutoSize = true;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.CheckPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Image = null;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).ForeColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).BackColor = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(3))).Enabled = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.UnlockCosmetics.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
             // SuperCarBox
             // 
@@ -1466,7 +1614,7 @@ namespace Forza_Mods_AIO.TabForms
             // 
             this.LBL_Toggles.AutoSize = true;
             this.LBL_Toggles.Font = new System.Drawing.Font("Open Sans", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_Toggles.Location = new System.Drawing.Point(225, 5);
+            this.LBL_Toggles.Location = new System.Drawing.Point(189, 5);
             this.LBL_Toggles.Name = "LBL_Toggles";
             this.LBL_Toggles.Size = new System.Drawing.Size(83, 27);
             this.LBL_Toggles.TabIndex = 4;
@@ -1484,6 +1632,7 @@ namespace Forza_Mods_AIO.TabForms
             this.MapButton.TabIndex = 37;
             this.MapButton.Text = "Map";
             this.MapButton.UseVisualStyleBackColor = false;
+            this.MapButton.Visible = false;
             this.MapButton.Click += new System.EventHandler(this.MapButton_Click);
             // 
             // KeyBinds
@@ -2052,117 +2201,6 @@ namespace Forza_Mods_AIO.TabForms
             this.FreezeAIWorker.WorkerSupportsCancellation = true;
             this.FreezeAIWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.FreezeAIWorker_DoWork);
             // 
-            // FOVWaitingBar
-            // 
-            this.FOVWaitingBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.FOVWaitingBar.Location = new System.Drawing.Point(47, 305);
-            this.FOVWaitingBar.Name = "FOVWaitingBar";
-            this.FOVWaitingBar.Size = new System.Drawing.Size(159, 34);
-            this.FOVWaitingBar.TabIndex = 47;
-            this.FOVWaitingBar.WaitingIndicators.Add(this.waitingBarIndicatorElement2);
-            this.FOVWaitingBar.WaitingIndicators.Add(this.waitingBarIndicatorElement1);
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            ((Telerik.WinControls.UI.RadWaitingBarElement)(this.FOVWaitingBar.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            ((Telerik.WinControls.UI.WaitingBarSeparatorElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).Text = "";
-            ((Telerik.WinControls.UI.WaitingBarTextElement)(this.FOVWaitingBar.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            // 
-            // waitingBarIndicatorElement2
-            // 
-            this.waitingBarIndicatorElement2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            this.waitingBarIndicatorElement2.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            this.waitingBarIndicatorElement2.BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            this.waitingBarIndicatorElement2.BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            this.waitingBarIndicatorElement2.BorderBottomColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderBottomShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderLeftColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderLeftShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderRightColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderRightShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderTopColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.BorderTopShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.waitingBarIndicatorElement2.ElementColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.ElementColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.EnableFocusBorder = false;
-            this.waitingBarIndicatorElement2.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.Name = "waitingBarIndicatorElement2";
-            this.waitingBarIndicatorElement2.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement2.StretchHorizontally = false;
-            this.waitingBarIndicatorElement2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.waitingBarIndicatorElement2.UseCompatibleTextRendering = false;
-            // 
-            // waitingBarIndicatorElement1
-            // 
-            this.waitingBarIndicatorElement1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            this.waitingBarIndicatorElement1.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            this.waitingBarIndicatorElement1.BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            this.waitingBarIndicatorElement1.BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(11)))), ((int)(((byte)(166)))));
-            this.waitingBarIndicatorElement1.BorderBottomColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderBottomShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderInnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderInnerColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderInnerColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderInnerColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderLeftColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderLeftShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderRightColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderRightShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderTopColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.BorderTopShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.waitingBarIndicatorElement1.ElementColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.ElementColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.EnableFocusBorder = false;
-            this.waitingBarIndicatorElement1.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.Name = "waitingBarIndicatorElement1";
-            this.waitingBarIndicatorElement1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(33)))));
-            this.waitingBarIndicatorElement1.StretchHorizontally = false;
-            this.waitingBarIndicatorElement1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.waitingBarIndicatorElement1.UseCompatibleTextRendering = false;
-            // 
             // Speedhack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -2188,6 +2226,7 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.TB_SHCarNoClip)).EndInit();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FOVWaitingBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FOVScan_bar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPnup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bypassoob)).EndInit();
@@ -2213,10 +2252,11 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.VelMultBox)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FreezeAIBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnAssistButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.JumpHackToggle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopAllWheelsButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FreezeAIBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UnlockCosmetics)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperCarBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WheelSpeedButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WaterBox)).EndInit();
@@ -2241,7 +2281,6 @@ namespace Forza_Mods_AIO.TabForms
             ((System.ComponentModel.ISupportInitialize)(this.TurnStrengthBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RatioBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TurnIntervalBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FOVWaitingBar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2370,5 +2409,6 @@ namespace Forza_Mods_AIO.TabForms
         public Telerik.WinControls.UI.RadWaitingBar FOVWaitingBar;
         public Telerik.WinControls.UI.WaitingBarIndicatorElement waitingBarIndicatorElement2;
         public Telerik.WinControls.UI.WaitingBarIndicatorElement waitingBarIndicatorElement1;
+        public Telerik.WinControls.UI.RadCheckBox UnlockCosmetics;
     }
 }

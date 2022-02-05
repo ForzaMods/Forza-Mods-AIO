@@ -63,6 +63,7 @@ namespace Forza_Mods_AIO.TabForms
         public static long DiscoverRoadsAddrLong;
         public static long WaterAddrLong;
         public static long AIXAobAddrLong;
+        public static long CosmeticUnlockAddrLong;
 
         public static string Base;
         public static string Base2;
@@ -92,6 +93,7 @@ namespace Forza_Mods_AIO.TabForms
         public static string DiscoverRoadsAob;
         public static string WaterAob;
         public static string AIXAob;
+        public static string CosmeticUnlockAob;
 
         public static string KBSpeedKey = "LShiftKey"; public static string XBSpeedKey = "LeftShoulder";
         public static string KBBrakeKey = "Space"; public static string XBBrakeKey = "A";
@@ -125,10 +127,11 @@ namespace Forza_Mods_AIO.TabForms
         public static string TotalXpAddr = null;
         public static string WaterAddr = null;
         public static string AIXAobAddr = null;
+        public static string CosmeticUnlockAddr = null;
         public static string XPaddr = null; public static long XPaddrLong = 0; public static string XPAmountaddr = null; public static long XPAmountaddrLong = 0;
 
-        public static IntPtr CCBA = (IntPtr)0; public static IntPtr CCBA2 = (IntPtr)0; public static IntPtr CCBA3 = (IntPtr)0; public static IntPtr CCBA4 = (IntPtr)0; public static IntPtr CCBA5 = (IntPtr)0; public static IntPtr CCBA6 = (IntPtr)0;
-        public static IntPtr CodeCave = (IntPtr)0; public static IntPtr CodeCave2 = (IntPtr)0; public static IntPtr CodeCave3 = (IntPtr)0; public static IntPtr CodeCave4 = (IntPtr)0; public static IntPtr CodeCave5 = (IntPtr)0; public static IntPtr CodeCave6 = (IntPtr)0;
+        public static IntPtr CCBA = (IntPtr)0; public static IntPtr CCBA2 = (IntPtr)0; public static IntPtr CCBA3 = (IntPtr)0; public static IntPtr CCBA4 = (IntPtr)0; public static IntPtr CCBA5 = (IntPtr)0; public static IntPtr CCBA6 = (IntPtr)0; public static IntPtr CCBA7 = (IntPtr)0;
+        public static IntPtr CodeCave = (IntPtr)0; public static IntPtr CodeCave2 = (IntPtr)0; public static IntPtr CodeCave3 = (IntPtr)0; public static IntPtr CodeCave4 = (IntPtr)0; public static IntPtr CodeCave5 = (IntPtr)0; public static IntPtr CodeCave6 = (IntPtr)0; public static IntPtr CodeCave7 = (IntPtr)0;
         public static IntPtr InjectAddress;
         float xVelocityVal; float yVelocityVal; float zVelocityVal;
         float x; float y; float z;
@@ -187,6 +190,7 @@ namespace Forza_Mods_AIO.TabForms
         public RGB RGB = new RGB();
         public Map map = new Map();
         public Controls ControlsPopUp = new Controls();
+        public Memory.Memory Memory = new Memory.Memory();
         #endregion
 
         public Speedhack()
@@ -344,7 +348,8 @@ namespace Forza_Mods_AIO.TabForms
             CarIdAob = "00 B0 ? ? ? ? 7F ? 00 D8 6E";
             DiscoverRoadsAob = "63 70 ? B7 ? 5D";
             WaterAob = "3D ? ? ? ? 00 00 A0 ? ? ? ? ? ? ? ? 3F 00 00";
-            AIXAob = "48 89 ? ? ? 57 48 83 EC ? 0F 10 ? 48 8B ? 0F 11 ? ? 48 8B";
+            AIXAob = "48 89 ? ? ? 57 48 83 EC ? 0F 10 ? 48 8B ? 0F 11 ? ?";
+            CosmeticUnlockAob = "83 F8 02 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 49 8D";
             //TotalXpAddr = (Base3Addr + ",0xEE8,0x408,0x70,0x28,0x30,0x20,0x270");
         }
         public static void AobsFiveSteam()
@@ -2230,7 +2235,7 @@ namespace Forza_Mods_AIO.TabForms
                         while (count < 100)
                         {
                             Thread.Sleep(1);
-                            List<long> Outside = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "EC 41 00 00 80 3F 00 00 20 41", true, true)).ToList();
+                            List<long> Outside = (await Memory.AoBScan(ScanStartAddr, ScanEndAddr, "EC 41 00 00 80 3F 00 00 20 41", true, true)).ToList();
                             List<long> Rest = (await MainWindow.m.AoBScan(ScanStartAddr, ScanEndAddr, "16 43 00 00 C0 3F 00 00 20 41", true, true)).ToList();
                             if(Outside.Count != 0)
                             {
@@ -2860,9 +2865,9 @@ namespace Forza_Mods_AIO.TabForms
                     long BytesThree = BytesOne + 119;
                     if (!MainWindow.main.ForzaFour)
                     {
-                        BytesOne += 675;
-                        BytesTwo += 675;
-                        BytesThree += 675;
+                        BytesOne += 595;
+                        BytesTwo += 595;
+                        BytesThree += 595;
                     }
                     if (MainWindow.m.ReadBytes(BytesOne.ToString("X"), 3).SequenceEqual(new byte[] { 0x00, 0x96, 0x42 }))
                     {
@@ -2925,6 +2930,21 @@ namespace Forza_Mods_AIO.TabForms
         {
             map.Show(this);
             map.Focus();
+        }
+
+        private void UnlockCosmetics_CheckStateChanged(object sender, EventArgs e)
+        {
+            byte[] Disable = new byte[] { 0x8B, 0x73, 0x58, 0x8B, 0x43, 0x64};
+            if (UnlockCosmetics.Checked)
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                a.CosmeticUnlocker(CodeCave7);
+            }
+            else
+            {
+                ((Telerik.WinControls.Primitives.BorderPrimitive)UnlockCosmetics.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = Color.FromArgb(45, 45, 48);
+                MainWindow.m.WriteBytes(CosmeticUnlockAddr, Disable);
+            }
         }
     }
 }

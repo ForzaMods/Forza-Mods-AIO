@@ -49,34 +49,12 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             if (AddRare.Checked)
             {
                 string CarList = "3300";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 12, 16)) < 0)
-                    CarList = CarList + ", 2188";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 12, 16)) < 0)
-                    CarList = CarList + ", 3562";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 12, 23)) < 0)
-                    CarList = CarList + ", 1319";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 12, 23)) < 0)
-                    CarList = CarList + ", 3570";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 12, 30)) < 0)
-                    CarList = CarList + ", 1601";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 12, 30)) < 0)
-                    CarList = CarList + ", 3005";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 12, 30)) < 0)
-                    CarList = CarList + ", 257";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2021, 12, 30)) < 0)
-                    CarList = CarList + ", 3289";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 3005";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 295";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 2656";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 2743";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 291";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 2474";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 02, 10)) < 0)
+                    CarList = CarList + ", 3548";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 02, 17)) < 0)
+                    CarList = CarList + ", 2297";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 24)) < 0)
+                    CarList = CarList + ", 2173";
                 string String = "" +
                     "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
                     " INSERT INTO Profile0_FreeCars SELECT Id, 1 FROM Data_Car WHERE Id NOT IN (SELECT CarId AS Id FROM Profile0_FreeCars WHERE CarID IS NOT NULL);" +
@@ -133,38 +111,12 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             if (AddAll.Checked)
             {
                 string CarList = "3300";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 2105";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 257";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 1319";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 1320";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 2235";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 1601";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 1583";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 3289";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 2068";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 2987";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 3005";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 295";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 2656";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 2743";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 291";
-                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 1)) < 0)
-                    CarList = CarList + ", 2474";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 02, 10)) < 0)
+                    CarList = CarList + ", 3548";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 02, 17)) < 0)
+                    CarList = CarList + ", 2297";
+                if (DateTime.Compare(DateTime.Now, new DateTime(2022, 12, 24)) < 0)
+                    CarList = CarList + ", 2173";
                 string String = "" +
                     "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
                     " INSERT INTO Profile0_FreeCars SELECT ContentId, 1 FROM ContentOffersMapping;" +

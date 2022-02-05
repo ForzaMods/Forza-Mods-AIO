@@ -16,6 +16,8 @@ using IniParser;
 using IniParser.Model;
 using MechanikaDesign.WinForms.UI.ColorPicker;
 using System.IO.Compression;
+using Reloaded.Memory.Sigscan;
+//using Reloaded.Memory.Sigscan;
 
 namespace Forza_Mods_AIO
 {
@@ -336,6 +338,9 @@ namespace Forza_Mods_AIO
                             BTN_TabSpeedhack.Enabled = true;
                         }
                         catch { }
+                        speedhack.FreezeAIBox.Enabled = false;
+                        speedhack.CheckpointBox.Enabled = false;
+                        speedhack.SuperCarBox.Enabled = false;
                         BTN_TabStatsEditor.Enabled = true;
                         BTN_TabSaveswap.Enabled = false;
                         Speedhack.IsAttached = true;
@@ -390,6 +395,7 @@ namespace Forza_Mods_AIO
                             BTN_TabAddCars.Enabled = true;
                             BTN_TabStatsEditor.Enabled = true;
                         }
+                        speedhack.UnlockCosmetics.Visible = false;
                         ToolInfo.AOBScanProgress.Hide();
                         Thread.Sleep(100);
                     }
@@ -783,13 +789,17 @@ namespace Forza_Mods_AIO
                         {
                             Speedhack.BaseAddr = (Speedhack.BaseAddrLong + offsetfive).ToString("X");
                             Speedhack.StartSetupFive();
-                            offsetfive += 16;
+                            offsetfive += 8;
                             try
                             {
                                 if (m.ReadFloat(Speedhack.xAddr) != 0
                                     && !float.IsInfinity(m.ReadFloat(Speedhack.xAddr))
                                     && m.ReadFloat(Speedhack.xAddr) > -10000000
                                     && m.ReadFloat(Speedhack.xAddr) < 10000000
+                                    && m.ReadFloat(Speedhack.yAddr) > -10000
+                                    && m.ReadFloat(Speedhack.yAddr) < 10000
+                                    && m.ReadFloat(Speedhack.zAddr) > -10000000
+                                    && m.ReadFloat(Speedhack.zAddr) < 10000000
                                     && m.ReadFloat(Speedhack.WeirdAddr) < 0.2
                                     && m.ReadFloat(Speedhack.WeirdAddr) > 0.01)
                                 {
@@ -804,11 +814,11 @@ namespace Forza_Mods_AIO
                         }
                         else if ((Speedhack.BaseAddrLong != null || Speedhack.BaseAddrLong != offsetfivetwo || Speedhack.BaseAddrLong != 0) && g2g && !g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 6; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 5; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.Base2Addr = (Speedhack.BaseAddrLong + offsetfivetwo).ToString("X");
                             Speedhack.StartSetupFive();
-                            offsetfivetwo += 16;
+                            offsetfivetwo += 8;
                             try
                             {
                                 if ((m.ReadFloat(Speedhack.InPauseAddr) == 1 && m.ReadFloat(Speedhack.InHouseAddr) == 0)
@@ -825,14 +835,14 @@ namespace Forza_Mods_AIO
                         }
                         else if ((Speedhack.FOVJmpAddr == null || Speedhack.FOVJmpAddr == "0" || Speedhack.FOVJmpAddr == "3") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 12; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 11; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.FOVJmpAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.FOVJmp, true, true)).FirstOrDefault() + 3;
                             Speedhack.FOVJmpAddr = Speedhack.FOVJmpAddrLong.ToString("X");
                         }
                         if ((Speedhack.WorldRGBAddr == null || Speedhack.WorldRGBAddr == "0" || Speedhack.WorldRGBAddr == "2D8") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 18; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 16; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.WorldRGBAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.RGBAob, true, true)).FirstOrDefault() + 728;
                             Speedhack.WorldRGBAddr = Speedhack.WorldRGBAddrLong.ToString("X");
@@ -846,97 +856,106 @@ namespace Forza_Mods_AIO
                         }*/
                         else if ((Speedhack.Car1Addr == null || Speedhack.Car1Addr == "0") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 24; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 22; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.Car1AddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.Car1, true, true)).FirstOrDefault();
                             Speedhack.Car1Addr = Speedhack.Car1AddrLong.ToString("X");
                         }
                         else if ((Speedhack.Wall1Addr == null || Speedhack.Wall1Addr == "0") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 29; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 27; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.Wall1AddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.Wall1, true, true)).FirstOrDefault();
                             Speedhack.Wall1Addr = Speedhack.Wall1AddrLong.ToString("X");
                         }
                         else if ((Speedhack.Wall2Addr == null || Speedhack.Wall2Addr == "0") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 35; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 33; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.Wall2AddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.Wall2, true, true)).FirstOrDefault();
                             Speedhack.Wall2Addr = Speedhack.Wall2AddrLong.ToString("X");
                         }
                         else if ((Speedhack.TimeNOPAddr == null || Speedhack.TimeNOPAddr == "0" || Speedhack.TimeNOPAddr == "1") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 41; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 38; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.TimeNOPAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.Timesig, true, true)).FirstOrDefault() + 1;
                             Speedhack.TimeNOPAddr = Speedhack.TimeNOPAddrLong.ToString("X");
                         }
                         else if ((Speedhack.XPaddr == null || Speedhack.XPaddr == "0") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 47; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 44; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.XPaddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.XPaob, true, true)).FirstOrDefault();
                             Speedhack.XPaddr = Speedhack.XPaddrLong.ToString("X");
                         }
                         else if ((Speedhack.XPAmountaddr == null || Speedhack.XPAmountaddr == "0") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 53; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 49; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.XPAmountaddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.XPAmountaob, true, true)).FirstOrDefault();
                             Speedhack.XPAmountaddr = Speedhack.XPAmountaddrLong.ToString("X");
                         }
                         else if ((Speedhack.SuperCarAddr == null || Speedhack.SuperCarAddr == "0") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 59; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 55; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.SuperCarAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.SuperCaraob, true, true)).FirstOrDefault();
                             Speedhack.SuperCarAddr = Speedhack.SuperCarAddrLong.ToString("X");
                         }
                         else if ((Speedhack.WayPointxASMAddr == null || Speedhack.WayPointxASMAddr == "0") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 65; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 60; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.WayPointxASMAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.WayPointxASMsig, true, true)).FirstOrDefault();
                             Speedhack.WayPointxASMAddr = Speedhack.WayPointxASMAddrLong.ToString("X");
                         }
                         else if ((Speedhack.CheckPointxASMAddr == "A9" || Speedhack.CheckPointxASMAddr == null || Speedhack.CheckPointxASMAddr == "0") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 71; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 66; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             if (TargetProcess.MainModule.FileName.Contains("Microsoft.624F8B84B80"))
-                                Speedhack.CheckPointxASMAddrLong = (await m.AoBScan(scanstart, scanend, "33 C0 48 89 ? 48 89 ? ? 48 E9 ? ? ? ? 90 40 F3", true, true)).FirstOrDefault() + 169;
+                                Speedhack.CheckPointxASMAddrLong = (await m.AoBScan(scanstart, scanend, "33 C0 48 89 ? 48 89 ? ? 48 E9 ? ? ? ? 90", true, true)).FirstOrDefault() + 169;
                             else
                                 Speedhack.CheckPointxASMAddrLong = (await m.AoBScan(scanstart, scanend, "32 86 ? ? ? ? 7E ? 79", true, true)).FirstOrDefault() + 40;
                             Speedhack.CheckPointxASMAddr = Speedhack.CheckPointxASMAddrLong.ToString("X");
                         }
                         else if ((Speedhack.OOBnopAddr == "31" || Speedhack.OOBnopAddr == null || Speedhack.OOBnopAddr == "0") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 76; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 71; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.OOBnopAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.OOBaob, true, true)).LastOrDefault() + 49;
                             Speedhack.OOBnopAddr = Speedhack.OOBnopAddrLong.ToString("X");
                         }
                         else if ((Speedhack.DiscoverRoadsAddr == null || Speedhack.DiscoverRoadsAddr == "0") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 82; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 77; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.DiscoverRoadsAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.DiscoverRoadsAob, true, true)).FirstOrDefault();
                             Speedhack.DiscoverRoadsAddr = Speedhack.DiscoverRoadsAddrLong.ToString("X");
                         }
                         else if ((Speedhack.WaterAddr == "135" || Speedhack.WaterAddr == null || Speedhack.WaterAddr == "0") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 88; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 82; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.WaterAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.WaterAob, true, true)).FirstOrDefault() + 309;
                             Speedhack.WaterAddr = Speedhack.WaterAddrLong.ToString("X");
                         }
                         else if ((Speedhack.AIXAobAddr == "10" || Speedhack.AIXAobAddr == null || Speedhack.AIXAobAddr == "0") && g2g && g2g2)
                         {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 94; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 88; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
-                            Speedhack.AIXAobAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.AIXAob, true, true)).FirstOrDefault() + 16;
+                            Speedhack.AIXAobAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.AIXAob, true, true)).ElementAtOrDefault(5) + 16;
                             Speedhack.AIXAobAddr = Speedhack.AIXAobAddrLong.ToString("X");
+                        }
+                        else if ((Speedhack.CosmeticUnlockAddr == "FFFFFFFFFFFFFFFA" || Speedhack.CosmeticUnlockAddr == null || Speedhack.CosmeticUnlockAddr == "0") && g2g && g2g2)
+                        {
+                            var scanner = new Scanner(TargetProcess, TargetProcess.MainModule);
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 93; i++)
+                            { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
+                            //Speedhack.CosmeticUnlockAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.CosmeticUnlockAob, true, true)).ElementAtOrDefault(5) - 6;
+                            Speedhack.CosmeticUnlockAddrLong = scanstart + scanner.CompiledFindPattern(Speedhack.CosmeticUnlockAob).Offset - 6;
+                            Speedhack.CosmeticUnlockAddr = Speedhack.CosmeticUnlockAddrLong.ToString("X");
                         }
                         if ((Speedhack.XPaddr == null || Speedhack.XPaddr == "0"//(TargetProcess.MainModule.FileName.Contains("Microsoft.624F8B84B80") && (Speedhack.XPaddr == null || Speedhack.XPaddr == "0"
                             || Speedhack.XPAmountaddr == null || Speedhack.XPAmountaddr == "0"
@@ -954,6 +973,7 @@ namespace Forza_Mods_AIO
                             || Speedhack.WaterAddr == "135" || Speedhack.WaterAddr == null || Speedhack.WaterAddr == "0"
                             || Speedhack.AIXAobAddr == "10" || Speedhack.AIXAobAddr == null || Speedhack.AIXAobAddr == "0"
                             || Speedhack.FOVJmpAddr == null || Speedhack.FOVJmpAddr == "0" || Speedhack.FOVJmpAddr == "3"
+                            || Speedhack.CosmeticUnlockAddr == "FFFFFFFFFFFFFFFA" || Speedhack.CosmeticUnlockAddr == null || Speedhack.CosmeticUnlockAddr == "0"
                             /*|| Speedhack.CurrentIDAddr == "39" || Speedhack.CurrentIDAddr == null || Speedhack.CurrentIDAddr == "39"*/)
                             )
                         {
@@ -968,7 +988,7 @@ namespace Forza_Mods_AIO
                                 Speedhack.CCBA += 500000;
                                 Speedhack.CodeCave = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 95; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 94; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.CCBA2 = Process.GetProcessesByName(Game)[0].MainModule.BaseAddress;
                             Speedhack.CodeCave2 = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
@@ -977,7 +997,7 @@ namespace Forza_Mods_AIO
                                 Speedhack.CCBA2 += 500000;
                                 Speedhack.CodeCave2 = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 96; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 95; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.CCBA3 = Process.GetProcessesByName(Game)[0].MainModule.BaseAddress;
                             Speedhack.CodeCave3 = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
@@ -986,7 +1006,7 @@ namespace Forza_Mods_AIO
                                 Speedhack.CCBA3 += 500000;
                                 Speedhack.CodeCave3 = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 97; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 96; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.CCBA4 = Process.GetProcessesByName(Game)[0].MainModule.BaseAddress;
                             Speedhack.CodeCave4 = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
@@ -995,7 +1015,7 @@ namespace Forza_Mods_AIO
                                 Speedhack.CCBA4 += 500000;
                                 Speedhack.CodeCave4 = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 98; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 97; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.CCBA5 = Process.GetProcessesByName(Game)[0].MainModule.BaseAddress;
                             Speedhack.CodeCave5 = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
@@ -1004,7 +1024,7 @@ namespace Forza_Mods_AIO
                                 Speedhack.CCBA5 += 500000;
                                 Speedhack.CodeCave5 = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 99; i++)
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 98; i++)
                             { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
                             Speedhack.CCBA6 = Process.GetProcessesByName(Game)[0].MainModule.BaseAddress;
                             Speedhack.CodeCave6 = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
@@ -1012,6 +1032,16 @@ namespace Forza_Mods_AIO
                             {
                                 Speedhack.CCBA6 += 500000;
                                 Speedhack.CodeCave6 = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA6, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                            }
+                            Speedhack.s.FOVScan_BTN.Show(); Speedhack.s.FOVScan_bar.Hide(); Speedhack.s.FOV.Hide();
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 99; i++)
+                            { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
+                            Speedhack.CCBA7 = Process.GetProcessesByName(Game)[0].MainModule.BaseAddress;
+                            Speedhack.CodeCave7 = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA7, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                            while (Speedhack.CodeCave7 == (IntPtr)0)
+                            {
+                                Speedhack.CCBA7 += 500000;
+                                Speedhack.CodeCave7 = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA7, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
                             Speedhack.s.FOVScan_BTN.Show(); Speedhack.s.FOVScan_bar.Hide(); Speedhack.s.FOV.Hide();
                             for (int i = ToolInfo.AOBScanProgress.Value1; i <= 100; i++)
@@ -1102,6 +1132,7 @@ namespace Forza_Mods_AIO
                 var scbefore4 = new byte[] { 0x0F, 0x11, 0x49, 0x40 };
                 byte[] DisableWater = new byte[] { 0xCD, 0xCC, 0x4C, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x67, 0x45, 0x00, 0xF0, 0x52, 0x46, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x3F, 0x00, 0x00, 0x00, 0x00, 0xCD, 0xCC, 0xCC, 0x3D, 0x00, 0x00, 0x00, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0xC4, 0x44, 0x00, 0x00, 0xFF, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x42, 0x00, 0x00, 0xC8, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x00, 0x00, 0x70, 0x41 };
                 byte[] DisableFreeze = new byte[] { 0x0F, 0x11, 0x41, 0x50, 0x48, 0x8B, 0xFA };
+                byte[] CosmeticDisable = new byte[] { 0x8B, 0x73, 0x58, 0x8B, 0x43, 0x64 };
                 if (!ForzaFour)
                 {
                     WayPointCodeBefore = new byte[7] { 0x0F, 0x10, 0x97, 0x90, 0x02, 0x00, 0x00 };
@@ -1153,7 +1184,10 @@ namespace Forza_Mods_AIO
                         m.WriteBytes(Speedhack.FOVnopInAddr, nopinbefore);
                     }
                     else
+                    {
+                        m.WriteBytes(Speedhack.CosmeticUnlockAddr, CosmeticDisable);
                         m.WriteMemory(Speedhack.FOVJmpAddr, "byte", "0x76");
+                    }
                     m.WriteBytes(Speedhack.Car1Addr, Jmp3before);
                     m.WriteBytes(Speedhack.WaterAddr, DisableWater);
                     m.WriteBytes(Speedhack.AIXAobAddr, DisableFreeze);

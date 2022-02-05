@@ -35,8 +35,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.TopPanel = new System.Windows.Forms.Panel();
             this.MapBox = new System.Windows.Forms.PictureBox();
             this.UpdateMapWorker = new System.ComponentModel.BackgroundWorker();
-            this.CoordsLabel = new System.Windows.Forms.Label();
-            this.MouseCoordsLabel = new System.Windows.Forms.Label();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MapBox)).BeginInit();
             this.SuspendLayout();
@@ -95,7 +93,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             // MapBox
             // 
             this.MapBox.BackColor = System.Drawing.Color.White;
-            this.MapBox.BackgroundImage = global::Forza_Mods_AIO.Properties.Resources.RectangleMap;
             this.MapBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.MapBox.Location = new System.Drawing.Point(10, 45);
             this.MapBox.Name = "MapBox";
@@ -110,24 +107,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.UpdateMapWorker.WorkerSupportsCancellation = true;
             this.UpdateMapWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.UpdateMapWorker_DoWork);
             // 
-            // CoordsLabel
-            // 
-            this.CoordsLabel.AutoSize = true;
-            this.CoordsLabel.Location = new System.Drawing.Point(21, 57);
-            this.CoordsLabel.Name = "CoordsLabel";
-            this.CoordsLabel.Size = new System.Drawing.Size(16, 30);
-            this.CoordsLabel.TabIndex = 10;
-            this.CoordsLabel.Text = "X:\r\nZ:";
-            // 
-            // MouseCoordsLabel
-            // 
-            this.MouseCoordsLabel.AutoSize = true;
-            this.MouseCoordsLabel.Location = new System.Drawing.Point(21, 102);
-            this.MouseCoordsLabel.Name = "MouseCoordsLabel";
-            this.MouseCoordsLabel.Size = new System.Drawing.Size(54, 30);
-            this.MouseCoordsLabel.TabIndex = 10;
-            this.MouseCoordsLabel.Text = "Mouse X:\r\nMouse Z:";
-            // 
             // Map
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
@@ -135,8 +114,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1044, 566);
             this.ControlBox = false;
-            this.Controls.Add(this.MouseCoordsLabel);
-            this.Controls.Add(this.CoordsLabel);
             this.Controls.Add(this.MapBox);
             this.Controls.Add(this.TopPanel);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -153,7 +130,6 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             this.TopPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MapBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -164,7 +140,5 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
         private System.Windows.Forms.Panel TopPanel;
         private System.Windows.Forms.PictureBox MapBox;
         private System.ComponentModel.BackgroundWorker UpdateMapWorker;
-        public System.Windows.Forms.Label CoordsLabel;
-        public System.Windows.Forms.Label MouseCoordsLabel;
     }
 }
