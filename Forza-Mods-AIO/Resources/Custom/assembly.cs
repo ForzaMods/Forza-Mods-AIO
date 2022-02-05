@@ -143,7 +143,8 @@ namespace Forza_Mods_AIO
             Array.Reverse(jmpBackBytes);
             string InsideCaveCodeString = "58488B052D000000488B00483B414075040F114140488BFA50E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty); // move reg to address within code cave + original code + jump back
             if (!MainWindow.main.ForzaFour)
-                InsideCaveCodeString = "58488B052D000000488B00483B415075040F1141504889CB50E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+                //FH5
+                InsideCaveCodeString = "58488B052D000000488B00483B415075040F1141500F28EB50E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
             byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
 
             MainWindow.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
@@ -153,9 +154,13 @@ namespace Forza_Mods_AIO
             {
                 if (Speedhack.s.FreezeAIWorker.CancellationPending)
                     break;
-                byte[] MyAddr = StringToBytes("0" + ((long)MainWindow.m.Get64BitCode(Speedhack.xAddr)).ToString("X"));
-                Array.Reverse(MyAddr);
-                MainWindow.m.WriteBytes(((long)CodeCave6 + 53).ToString("X"), MyAddr);
+                try
+                {
+                    byte[] MyAddr = StringToBytes("0" + ((long)MainWindow.m.Get64BitCode(Speedhack.xAddr)).ToString("X"));
+                    Array.Reverse(MyAddr);
+                    MainWindow.m.WriteBytes(((long)CodeCave6 + 53).ToString("X"), MyAddr);
+                }
+                catch { }
                 Thread.Sleep(10);
             }
         }

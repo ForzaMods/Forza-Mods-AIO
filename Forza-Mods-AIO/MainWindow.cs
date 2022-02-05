@@ -44,7 +44,7 @@ namespace Forza_Mods_AIO
         public static string ThemeColour = "#960ba6";
         DialogResult UpdateYesNo;
         Version NewVer = null;
-        public static Version CurrVer = new Version("0.0.0.27");
+        public static Version CurrVer = new Version("0.0.0.29");
         string MOTDstring = "";
         private static CultureInfo resourceCulture;
         internal static byte[] SOk8LBUrRl
@@ -338,9 +338,16 @@ namespace Forza_Mods_AIO
                             BTN_TabSpeedhack.Enabled = true;
                         }
                         catch { }
-                        speedhack.FreezeAIBox.Enabled = false;
                         speedhack.CheckpointBox.Enabled = false;
                         speedhack.SuperCarBox.Enabled = false;
+                        if (Speedhack.CosmeticUnlockAddr == "FFFFFFFFFFFFFFFA" || Speedhack.CosmeticUnlockAddr == null || Speedhack.CosmeticUnlockAddr == "0")
+                        {
+                            speedhack.FreezeAIBox.Enabled = false;
+                        }
+                        if (Speedhack.CosmeticUnlockAddr == "FFFFFFFFFFFFFFFA" || Speedhack.CosmeticUnlockAddr == null || Speedhack.CosmeticUnlockAddr == "0")
+                        {
+                            speedhack.UnlockCosmetics.Enabled = false;
+                        }
                         BTN_TabStatsEditor.Enabled = true;
                         BTN_TabSaveswap.Enabled = false;
                         Speedhack.IsAttached = true;
@@ -941,22 +948,6 @@ namespace Forza_Mods_AIO
                             Speedhack.WaterAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.WaterAob, true, true)).FirstOrDefault() + 309;
                             Speedhack.WaterAddr = Speedhack.WaterAddrLong.ToString("X");
                         }
-                        else if ((Speedhack.AIXAobAddr == "10" || Speedhack.AIXAobAddr == null || Speedhack.AIXAobAddr == "0") && g2g && g2g2)
-                        {
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 88; i++)
-                            { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
-                            Speedhack.AIXAobAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.AIXAob, true, true)).ElementAtOrDefault(5) + 16;
-                            Speedhack.AIXAobAddr = Speedhack.AIXAobAddrLong.ToString("X");
-                        }
-                        else if ((Speedhack.CosmeticUnlockAddr == "FFFFFFFFFFFFFFFA" || Speedhack.CosmeticUnlockAddr == null || Speedhack.CosmeticUnlockAddr == "0") && g2g && g2g2)
-                        {
-                            var scanner = new Scanner(TargetProcess, TargetProcess.MainModule);
-                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 93; i++)
-                            { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
-                            //Speedhack.CosmeticUnlockAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.CosmeticUnlockAob, true, true)).ElementAtOrDefault(5) - 6;
-                            Speedhack.CosmeticUnlockAddrLong = scanstart + scanner.CompiledFindPattern(Speedhack.CosmeticUnlockAob).Offset - 6;
-                            Speedhack.CosmeticUnlockAddr = Speedhack.CosmeticUnlockAddrLong.ToString("X");
-                        }
                         if ((Speedhack.XPaddr == null || Speedhack.XPaddr == "0"//(TargetProcess.MainModule.FileName.Contains("Microsoft.624F8B84B80") && (Speedhack.XPaddr == null || Speedhack.XPaddr == "0"
                             || Speedhack.XPAmountaddr == null || Speedhack.XPAmountaddr == "0"
                             || Speedhack.Car1Addr == null || Speedhack.Car1Addr == "0"
@@ -971,9 +962,7 @@ namespace Forza_Mods_AIO
                             || Speedhack.WorldRGBAddr == null || Speedhack.WorldRGBAddr == "0" || Speedhack.WorldRGBAddr == "2D8"
                             || Speedhack.DiscoverRoadsAddr == null || Speedhack.DiscoverRoadsAddr == "0"
                             || Speedhack.WaterAddr == "135" || Speedhack.WaterAddr == null || Speedhack.WaterAddr == "0"
-                            || Speedhack.AIXAobAddr == "10" || Speedhack.AIXAobAddr == null || Speedhack.AIXAobAddr == "0"
                             || Speedhack.FOVJmpAddr == null || Speedhack.FOVJmpAddr == "0" || Speedhack.FOVJmpAddr == "3"
-                            || Speedhack.CosmeticUnlockAddr == "FFFFFFFFFFFFFFFA" || Speedhack.CosmeticUnlockAddr == null || Speedhack.CosmeticUnlockAddr == "0"
                             /*|| Speedhack.CurrentIDAddr == "39" || Speedhack.CurrentIDAddr == null || Speedhack.CurrentIDAddr == "39"*/)
                             )
                         {
@@ -981,6 +970,14 @@ namespace Forza_Mods_AIO
                         }
                         else
                         {
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 88; i++)
+                            { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
+                            Speedhack.AIXAobAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.AIXAob, true, true)).FirstOrDefault();
+                            Speedhack.AIXAobAddr = Speedhack.AIXAobAddrLong.ToString("X");
+                            for (int i = ToolInfo.AOBScanProgress.Value1; i <= 93; i++)
+                            { Thread.Sleep(15); ToolInfo.AOBScanProgress.Value1 = i; }
+                            Speedhack.CosmeticUnlockAddrLong = (await m.AoBScan(scanstart, scanend, Speedhack.CosmeticUnlockAob, true, true)).FirstOrDefault();
+                            Speedhack.CosmeticUnlockAddr = Speedhack.CosmeticUnlockAddrLong.ToString("X");
                             Speedhack.CCBA = Process.GetProcessesByName(Game)[0].MainModule.BaseAddress;
                             Speedhack.CodeCave = assembly.VirtualAllocEx(Process.GetProcessesByName(Game)[0].Handle, Speedhack.CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             while (Speedhack.CodeCave == (IntPtr)0)

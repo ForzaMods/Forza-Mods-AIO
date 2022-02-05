@@ -42,7 +42,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             }
             else
             {
-                if(Process.GetProcessesByName(Game)[0].MainModule.FileName.Contains("Microsoft.SunriseBaseGame"))
+                if(Process.GetProcessesByName(Game)[0].MainModule.FileName.Contains("Microsoft.624F8B84B80"))
                 {
                     RedBar.Value = MainWindow.m.ReadFloat(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960).ToString("X"), round: false) * 1000000000000;
                     GreenBar.Value = MainWindow.m.ReadFloat(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960 + 4).ToString("X"), round: false) * 1000000000000;
@@ -81,17 +81,52 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
 
         private void RedBar_OnValueChanged(LimitlessUI.Slider_WOC slider, float value)
         {
-            RedBar.Value = MainWindow.m.ReadFloat(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960).ToString("X"), round: false) * 1000000000000;
+            if (Process.GetProcessesByName(Game)[0].MainModule.FileName.Contains("Microsoft.624F8B84B80"))
+            {
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 96632320).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+            }
+            else
+            {
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 151675968 + 4).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 99480448 + 4).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+            }
         }
 
         private void GreenBar_OnValueChanged(LimitlessUI.Slider_WOC slider, float value)
         {
-            GreenBar.Value = MainWindow.m.ReadFloat(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960 + 4).ToString("X"), round: false) * 1000000000000;
+            if (Process.GetProcessesByName(Game)[0].MainModule.FileName.Contains("Microsoft.624F8B84B80"))
+            {
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960 + 8).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 96632320 + 8).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+            }
+            else
+            {
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 151675968 + 8).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 99480448 + 8).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+            }
         }
 
         private void BlueBar_OnValueChanged(LimitlessUI.Slider_WOC slider, float value)
         {
-            BlueBar.Value = MainWindow.m.ReadFloat(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960 + 8).ToString("X"), round: false) * 1000000000000;
+            if (Process.GetProcessesByName(Game)[0].MainModule.FileName.Contains("Microsoft.624F8B84B80"))
+            {
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960 + 4).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960 + 8).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 96632320).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 96632320 + 4).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 96632320 + 8).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+            }
+            else
+            {
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 151675968).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 151675968 + 4).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 151675968 + 8).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 99480448).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 99480448 + 4).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+                MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 99480448 + 8).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
+            }
         }
 
         private void ResetButton_Click(object sender, EventArgs e)
@@ -107,7 +142,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
             }
             else
             {
-                if (Process.GetProcessesByName(Game)[0].MainModule.FileName.Contains("Microsoft.SunriseBaseGame"))
+                if (Process.GetProcessesByName(Game)[0].MainModule.FileName.Contains("Microsoft.624F8B84B80"))
                 {
                     MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
                     MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960 + 4).ToString("X"), "float", ((float)3.921569E+09 / 1000000000000).ToString());
@@ -170,7 +205,7 @@ namespace Forza_Mods_AIO.TabForms.PopupForms
                 }
                 else
                 {
-                    if (Process.GetProcessesByName(Game)[0].MainModule.FileName.Contains("Microsoft.SunriseBaseGame"))
+                    if (Process.GetProcessesByName(Game)[0].MainModule.FileName.Contains("Microsoft.624F8B84B80"))
                     {
                         MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960).ToString("X"), "float", (RedBar.Value / 1000000000000).ToString());
                         MainWindow.m.WriteMemory(((long)Process.GetProcessesByName(Game)[0].MainModule.BaseAddress + 147792960 + 4).ToString("X"), "float", (GreenBar.Value / 1000000000000).ToString());

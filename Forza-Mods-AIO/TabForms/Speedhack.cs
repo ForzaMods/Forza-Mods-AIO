@@ -348,8 +348,8 @@ namespace Forza_Mods_AIO.TabForms
             CarIdAob = "00 B0 ? ? ? ? 7F ? 00 D8 6E";
             DiscoverRoadsAob = "63 70 ? B7 ? 5D";
             WaterAob = "3D ? ? ? ? 00 00 A0 ? ? ? ? ? ? ? ? 3F 00 00";
-            AIXAob = "48 89 ? ? ? 57 48 83 EC ? 0F 10 ? 48 8B ? 0F 11 ? ?";
-            CosmeticUnlockAob = "83 F8 02 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 49 8D";
+            AIXAob = "0F 11 41 50 0F 28 EB";
+            CosmeticUnlockAob = "8B 73 58 8B 43 64";
             //TotalXpAddr = (Base3Addr + ",0xEE8,0x408,0x70,0x28,0x30,0x20,0x270");
         }
         public static void AobsFiveSteam()
@@ -2905,7 +2905,7 @@ namespace Forza_Mods_AIO.TabForms
         {
             byte[] Disable = new byte[] { 0x0F, 0x11, 0x41, 0x40, 0x48, 0x8B, 0xFA };
             if (!MainWindow.main.ForzaFour)
-                Disable = new byte[] { 0x0F, 0x11, 0x41, 0x50, 0x48, 0x8B, 0xD9 };
+                Disable = new byte[] { 0x0F, 0x11, 0x41, 0x50, 0x0F, 0x28, 0xEb };
             if (FreezeAIBox.Checked)
             {
                 ((Telerik.WinControls.Primitives.BorderPrimitive)FreezeAIBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
