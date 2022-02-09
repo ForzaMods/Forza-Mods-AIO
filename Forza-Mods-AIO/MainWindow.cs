@@ -33,6 +33,7 @@ namespace Forza_Mods_AIO
         public Saveswapper Saveswapper = new Saveswapper() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         public LiveTuning LiveTuning = new LiveTuning() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         public Speedhack speedhack = new Speedhack() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+        public Misc Misc = new Misc() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
         public bool IsRPCInitialized = false; public bool FirstLoad = true;
         //1 = ms store
         //2 = steam
@@ -1343,6 +1344,23 @@ namespace Forza_Mods_AIO
                 ;
             }
         }
+
+        private void BTN_TabMisc_Click(object sender, EventArgs e)
+        {
+            ClearColours();
+            BTN_TabMisc.BackColor = Color.FromArgb(45, 45, 48);
+            if (ThemeColour != "Rainbow")
+                Panel_Misc.BackColor = ColorTranslator.FromHtml(ThemeColour);
+            ClearTabItems();
+            TabHolder.Controls.Add(Misc);
+            Misc.Visible = true;
+            if (RPCclient.IsInitialized)
+            {
+                RPCclient.UpdateDetails("Doing Stuff");
+                RPCclient.UpdateSmallAsset("speed", "Vroom");
+                RPCclient.SynchronizeState();
+            }
+        }
         private void BTN_TabInfo_MouseEnter(object sender, EventArgs e)
         {
             if (ToolInfo.Visible==false)
@@ -1403,5 +1421,16 @@ namespace Forza_Mods_AIO
             if (speedhack.Visible == false)
                 Panel_Speedhack.BackColor = Color.FromArgb(28, 28, 28);
         }
+        private void BTN_TabMisc_MouseEnter(object sender, EventArgs e)
+        {
+            if (speedhack.Visible == false)
+                Panel_Misc.BackColor = Color.FromArgb(93, 93, 100);
+        }
+        private void BTN_TabMisc_MouseLeave(object sender, EventArgs e)
+        {
+            if (speedhack.Visible == false)
+                Panel_Misc.BackColor = Color.FromArgb(28, 28, 28);
+        }
+
     }
 }

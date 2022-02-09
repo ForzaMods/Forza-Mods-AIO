@@ -50,7 +50,7 @@ namespace Forza_Mods_AIO
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
             this.InitialBGworker = new System.ComponentModel.BackgroundWorker();
             this.windows8Theme1 = new Telerik.WinControls.Themes.Windows8Theme();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BTN_TabMisc = new System.Windows.Forms.Button();
             this.Panel_Misc = new System.Windows.Forms.Panel();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
@@ -323,23 +323,26 @@ namespace Forza_Mods_AIO
             this.InitialBGworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.InitialBGworker_ProgressChanged);
             this.InitialBGworker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.InitialBGworker_RunWorkerCompleted);
             // 
-            // button1
+            // BTN_TabMisc
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Open Sans", 11F);
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(572, 35);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(143, 30);
-            this.button1.TabIndex = 18;
-            this.button1.TabStop = false;
-            this.button1.Text = "Misc";
-            this.button1.UseVisualStyleBackColor = false;
+            this.BTN_TabMisc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.BTN_TabMisc.FlatAppearance.BorderSize = 0;
+            this.BTN_TabMisc.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
+            this.BTN_TabMisc.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.BTN_TabMisc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_TabMisc.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.BTN_TabMisc.ForeColor = System.Drawing.Color.White;
+            this.BTN_TabMisc.Location = new System.Drawing.Point(572, 35);
+            this.BTN_TabMisc.Margin = new System.Windows.Forms.Padding(0);
+            this.BTN_TabMisc.Name = "BTN_TabMisc";
+            this.BTN_TabMisc.Size = new System.Drawing.Size(143, 30);
+            this.BTN_TabMisc.TabIndex = 18;
+            this.BTN_TabMisc.TabStop = false;
+            this.BTN_TabMisc.Text = "Misc";
+            this.BTN_TabMisc.UseVisualStyleBackColor = false;
+            this.BTN_TabMisc.Click += new System.EventHandler(this.BTN_TabMisc_Click);
+            this.BTN_TabMisc.MouseEnter += new System.EventHandler(this.BTN_TabMisc_MouseEnter);
+            this.BTN_TabMisc.MouseLeave += new System.EventHandler(this.BTN_TabMisc_MouseLeave);
             // 
             // Panel_Misc
             // 
@@ -361,7 +364,7 @@ namespace Forza_Mods_AIO
             this.Controls.Add(this.Panel_Misc);
             this.Controls.Add(this.Panel_Saveswap);
             this.Controls.Add(this.Panel_StatsEditor);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BTN_TabMisc);
             this.Controls.Add(this.TabHolder);
             this.Controls.Add(this.BTN_TabStatsEditor);
             this.Controls.Add(this.Panel_AddCars);
@@ -412,7 +415,7 @@ namespace Forza_Mods_AIO
         public System.ComponentModel.BackgroundWorker CheckAttachedworker;
         public System.ComponentModel.BackgroundWorker InitialBGworker;
         private Telerik.WinControls.Themes.Windows8Theme windows8Theme1;
-        public System.Windows.Forms.Button button1;
+        public System.Windows.Forms.Button BTN_TabMisc;
         public System.Windows.Forms.Panel Panel_Misc;
     }
 }

@@ -399,6 +399,12 @@
     <Compile Include="TabForms\LiveTuningForms\Aero.designer.cs">
       <DependentUpon>Aero.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabForms\Misc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabForms\Misc.Designer.cs">
+      <DependentUpon>Misc.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabForms\PopupForms\Map.cs">
       <SubType>Form</SubType>
     </Compile>
