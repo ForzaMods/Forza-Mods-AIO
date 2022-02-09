@@ -50,6 +50,8 @@ namespace Forza_Mods_AIO
             this.CheckAttachedworker = new System.ComponentModel.BackgroundWorker();
             this.InitialBGworker = new System.ComponentModel.BackgroundWorker();
             this.windows8Theme1 = new Telerik.WinControls.Themes.Windows8Theme();
+            this.button1 = new System.Windows.Forms.Button();
+            this.Panel_Misc = new System.Windows.Forms.Panel();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,7 +118,7 @@ namespace Forza_Mods_AIO
             this.BTN_TabInfo.Location = new System.Drawing.Point(0, 35);
             this.BTN_TabInfo.Margin = new System.Windows.Forms.Padding(0);
             this.BTN_TabInfo.Name = "BTN_TabInfo";
-            this.BTN_TabInfo.Size = new System.Drawing.Size(172, 30);
+            this.BTN_TabInfo.Size = new System.Drawing.Size(143, 30);
             this.BTN_TabInfo.TabIndex = 1;
             this.BTN_TabInfo.TabStop = false;
             this.BTN_TabInfo.Text = "Tool Information";
@@ -135,10 +137,10 @@ namespace Forza_Mods_AIO
             this.BTN_TabAddCars.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TabAddCars.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_TabAddCars.ForeColor = System.Drawing.Color.White;
-            this.BTN_TabAddCars.Location = new System.Drawing.Point(172, 35);
+            this.BTN_TabAddCars.Location = new System.Drawing.Point(143, 35);
             this.BTN_TabAddCars.Margin = new System.Windows.Forms.Padding(0);
             this.BTN_TabAddCars.Name = "BTN_TabAddCars";
-            this.BTN_TabAddCars.Size = new System.Drawing.Size(166, 30);
+            this.BTN_TabAddCars.Size = new System.Drawing.Size(143, 30);
             this.BTN_TabAddCars.TabIndex = 2;
             this.BTN_TabAddCars.TabStop = false;
             this.BTN_TabAddCars.Text = "Autoshow/Garage";
@@ -157,10 +159,10 @@ namespace Forza_Mods_AIO
             this.BTN_TabLiveTuning.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TabLiveTuning.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_TabLiveTuning.ForeColor = System.Drawing.Color.White;
-            this.BTN_TabLiveTuning.Location = new System.Drawing.Point(670, 35);
+            this.BTN_TabLiveTuning.Location = new System.Drawing.Point(429, 35);
             this.BTN_TabLiveTuning.Margin = new System.Windows.Forms.Padding(0);
             this.BTN_TabLiveTuning.Name = "BTN_TabLiveTuning";
-            this.BTN_TabLiveTuning.Size = new System.Drawing.Size(166, 30);
+            this.BTN_TabLiveTuning.Size = new System.Drawing.Size(143, 30);
             this.BTN_TabLiveTuning.TabIndex = 3;
             this.BTN_TabLiveTuning.TabStop = false;
             this.BTN_TabLiveTuning.Text = "Live Tuning";
@@ -178,10 +180,10 @@ namespace Forza_Mods_AIO
             this.BTN_TabSaveswap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TabSaveswap.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_TabSaveswap.ForeColor = System.Drawing.Color.White;
-            this.BTN_TabSaveswap.Location = new System.Drawing.Point(504, 35);
+            this.BTN_TabSaveswap.Location = new System.Drawing.Point(715, 35);
             this.BTN_TabSaveswap.Margin = new System.Windows.Forms.Padding(0);
             this.BTN_TabSaveswap.Name = "BTN_TabSaveswap";
-            this.BTN_TabSaveswap.Size = new System.Drawing.Size(166, 30);
+            this.BTN_TabSaveswap.Size = new System.Drawing.Size(143, 30);
             this.BTN_TabSaveswap.TabIndex = 4;
             this.BTN_TabSaveswap.TabStop = false;
             this.BTN_TabSaveswap.Text = "Saveswapper";
@@ -200,10 +202,10 @@ namespace Forza_Mods_AIO
             this.BTN_TabStatsEditor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TabStatsEditor.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_TabStatsEditor.ForeColor = System.Drawing.Color.White;
-            this.BTN_TabStatsEditor.Location = new System.Drawing.Point(338, 35);
+            this.BTN_TabStatsEditor.Location = new System.Drawing.Point(857, 35);
             this.BTN_TabStatsEditor.Margin = new System.Windows.Forms.Padding(0);
             this.BTN_TabStatsEditor.Name = "BTN_TabStatsEditor";
-            this.BTN_TabStatsEditor.Size = new System.Drawing.Size(166, 30);
+            this.BTN_TabStatsEditor.Size = new System.Drawing.Size(143, 30);
             this.BTN_TabStatsEditor.TabIndex = 5;
             this.BTN_TabStatsEditor.TabStop = false;
             this.BTN_TabStatsEditor.Text = "Stats Editor";
@@ -222,10 +224,10 @@ namespace Forza_Mods_AIO
             this.BTN_TabSpeedhack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TabSpeedhack.Font = new System.Drawing.Font("Open Sans", 11F);
             this.BTN_TabSpeedhack.ForeColor = System.Drawing.Color.White;
-            this.BTN_TabSpeedhack.Location = new System.Drawing.Point(836, 35);
+            this.BTN_TabSpeedhack.Location = new System.Drawing.Point(286, 35);
             this.BTN_TabSpeedhack.Margin = new System.Windows.Forms.Padding(0);
             this.BTN_TabSpeedhack.Name = "BTN_TabSpeedhack";
-            this.BTN_TabSpeedhack.Size = new System.Drawing.Size(164, 30);
+            this.BTN_TabSpeedhack.Size = new System.Drawing.Size(143, 30);
             this.BTN_TabSpeedhack.TabIndex = 6;
             this.BTN_TabSpeedhack.TabStop = false;
             this.BTN_TabSpeedhack.Text = "Cool Shit";
@@ -258,52 +260,52 @@ namespace Forza_Mods_AIO
             this.Panel_Info.Location = new System.Drawing.Point(0, 65);
             this.Panel_Info.Margin = new System.Windows.Forms.Padding(0);
             this.Panel_Info.Name = "Panel_Info";
-            this.Panel_Info.Size = new System.Drawing.Size(172, 5);
+            this.Panel_Info.Size = new System.Drawing.Size(143, 5);
             this.Panel_Info.TabIndex = 9;
             // 
             // Panel_StatsEditor
             // 
             this.Panel_StatsEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.Panel_StatsEditor.Location = new System.Drawing.Point(338, 65);
+            this.Panel_StatsEditor.Location = new System.Drawing.Point(857, 65);
             this.Panel_StatsEditor.Margin = new System.Windows.Forms.Padding(0);
             this.Panel_StatsEditor.Name = "Panel_StatsEditor";
-            this.Panel_StatsEditor.Size = new System.Drawing.Size(166, 5);
+            this.Panel_StatsEditor.Size = new System.Drawing.Size(143, 5);
             this.Panel_StatsEditor.TabIndex = 10;
             // 
             // Panel_Speedhack
             // 
             this.Panel_Speedhack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.Panel_Speedhack.Location = new System.Drawing.Point(834, 65);
+            this.Panel_Speedhack.Location = new System.Drawing.Point(286, 65);
             this.Panel_Speedhack.Margin = new System.Windows.Forms.Padding(0);
             this.Panel_Speedhack.Name = "Panel_Speedhack";
-            this.Panel_Speedhack.Size = new System.Drawing.Size(166, 5);
+            this.Panel_Speedhack.Size = new System.Drawing.Size(143, 5);
             this.Panel_Speedhack.TabIndex = 11;
             // 
             // Panel_AddCars
             // 
             this.Panel_AddCars.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.Panel_AddCars.Location = new System.Drawing.Point(172, 65);
+            this.Panel_AddCars.Location = new System.Drawing.Point(143, 65);
             this.Panel_AddCars.Margin = new System.Windows.Forms.Padding(0);
             this.Panel_AddCars.Name = "Panel_AddCars";
-            this.Panel_AddCars.Size = new System.Drawing.Size(166, 5);
+            this.Panel_AddCars.Size = new System.Drawing.Size(143, 5);
             this.Panel_AddCars.TabIndex = 11;
             // 
             // Panel_Saveswap
             // 
             this.Panel_Saveswap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.Panel_Saveswap.Location = new System.Drawing.Point(504, 65);
+            this.Panel_Saveswap.Location = new System.Drawing.Point(715, 65);
             this.Panel_Saveswap.Margin = new System.Windows.Forms.Padding(0);
             this.Panel_Saveswap.Name = "Panel_Saveswap";
-            this.Panel_Saveswap.Size = new System.Drawing.Size(166, 5);
+            this.Panel_Saveswap.Size = new System.Drawing.Size(143, 5);
             this.Panel_Saveswap.TabIndex = 11;
             // 
             // Panel_LiveTuning
             // 
             this.Panel_LiveTuning.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.Panel_LiveTuning.Location = new System.Drawing.Point(670, 65);
+            this.Panel_LiveTuning.Location = new System.Drawing.Point(429, 65);
             this.Panel_LiveTuning.Margin = new System.Windows.Forms.Padding(0);
             this.Panel_LiveTuning.Name = "Panel_LiveTuning";
-            this.Panel_LiveTuning.Size = new System.Drawing.Size(166, 5);
+            this.Panel_LiveTuning.Size = new System.Drawing.Size(143, 5);
             this.Panel_LiveTuning.TabIndex = 11;
             // 
             // TabHolder
@@ -314,15 +316,39 @@ namespace Forza_Mods_AIO
             this.TabHolder.Size = new System.Drawing.Size(1000, 445);
             this.TabHolder.TabIndex = 15;
             // 
-            // CheckAttachedworker
-            // 
-            // 
             // InitialBGworker
             // 
             this.InitialBGworker.WorkerReportsProgress = true;
             this.InitialBGworker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.InitialBGworker_DoWork);
             this.InitialBGworker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.InitialBGworker_ProgressChanged);
             this.InitialBGworker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.InitialBGworker_RunWorkerCompleted);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(75)))));
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Open Sans", 11F);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(572, 35);
+            this.button1.Margin = new System.Windows.Forms.Padding(0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(143, 30);
+            this.button1.TabIndex = 18;
+            this.button1.TabStop = false;
+            this.button1.Text = "Misc";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // Panel_Misc
+            // 
+            this.Panel_Misc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.Panel_Misc.Location = new System.Drawing.Point(572, 65);
+            this.Panel_Misc.Margin = new System.Windows.Forms.Padding(0);
+            this.Panel_Misc.Name = "Panel_Misc";
+            this.Panel_Misc.Size = new System.Drawing.Size(143, 5);
+            this.Panel_Misc.TabIndex = 12;
             // 
             // MainWindow
             // 
@@ -332,19 +358,21 @@ namespace Forza_Mods_AIO
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(1000, 515);
             this.ControlBox = false;
-            this.Controls.Add(this.TabHolder);
+            this.Controls.Add(this.Panel_Misc);
             this.Controls.Add(this.Panel_Saveswap);
+            this.Controls.Add(this.Panel_StatsEditor);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.TabHolder);
+            this.Controls.Add(this.BTN_TabStatsEditor);
             this.Controls.Add(this.Panel_AddCars);
+            this.Controls.Add(this.BTN_TabSaveswap);
             this.Controls.Add(this.Panel_LiveTuning);
             this.Controls.Add(this.Panel_Speedhack);
-            this.Controls.Add(this.Panel_StatsEditor);
             this.Controls.Add(this.Panel_Info);
+            this.Controls.Add(this.BTN_TabAddCars);
+            this.Controls.Add(this.BTN_TabLiveTuning);
             this.Controls.Add(this.BTN_Close);
             this.Controls.Add(this.BTN_TabSpeedhack);
-            this.Controls.Add(this.BTN_TabStatsEditor);
-            this.Controls.Add(this.BTN_TabSaveswap);
-            this.Controls.Add(this.BTN_TabLiveTuning);
-            this.Controls.Add(this.BTN_TabAddCars);
             this.Controls.Add(this.BTN_TabInfo);
             this.Controls.Add(this.TopPanel);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -384,6 +412,8 @@ namespace Forza_Mods_AIO
         public System.ComponentModel.BackgroundWorker CheckAttachedworker;
         public System.ComponentModel.BackgroundWorker InitialBGworker;
         private Telerik.WinControls.Themes.Windows8Theme windows8Theme1;
+        public System.Windows.Forms.Button button1;
+        public System.Windows.Forms.Panel Panel_Misc;
     }
 }
 

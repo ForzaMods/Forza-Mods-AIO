@@ -16,7 +16,7 @@ using IniParser;
 using IniParser.Model;
 using MechanikaDesign.WinForms.UI.ColorPicker;
 using System.IO.Compression;
-using Reloaded.Memory.Sigscan;
+//using Reloaded.Memory.Sigscan;
 //using Reloaded.Memory.Sigscan;
 
 namespace Forza_Mods_AIO
