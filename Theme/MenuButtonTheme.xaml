@@ -22,10 +22,10 @@
             <Setter Property="BorderThickness" Value="0"/> 
         </Style.Setters>
 
-        <Style.Triggers>
+        <!-- <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="#141414"/>
             </Trigger>
-        </Style.Triggers>
+        </Style.Triggers> -->
     </Style>
 </ResourceDictionary>
