@@ -22,8 +22,8 @@
             CornerRadius="20">
         <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" MaxWidth="200"/>
-                <ColumnDefinition x:Name="MainColumn"/>
+                <ColumnDefinition x:Name="LeftColumn" Width="200" MaxWidth="200"/>
+                <ColumnDefinition x:Name="MainColumn" Width="600" MaxWidth="600" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -43,13 +43,14 @@
                    Margin="20,14,0,0"/>
 
             <StackPanel x:Name="ButtonStack" Grid.Row="2" >
-                <RadioButton x:Name="InfoButton"
+                <RadioButton x:Name="Info"
                              Content="AIO Info"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click"/>
-                <RadioButton Content="Autoshow/garage"
+                <RadioButton x:Name="AutoShow"
+                             Content="Autoshow/garage"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
@@ -121,6 +122,8 @@
                     SmallChange="1"
                     LargeChange="10"
                     Value="100"/>
+            <StackPanel/>
+            <Frame x:Name="AutoShowFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AutoShow.xaml" Visibility="Hidden"  />
 
         </Grid>
     </Border>

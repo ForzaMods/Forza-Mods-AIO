@@ -215,6 +215,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tabs\AutoShow.xaml.cs">
+      <DependentUpon>AutoShow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Theme\Monet.cs" />
     <Compile Include="Margins.cs" />
     <Compile Include="Core\ObservableObject.cs" />
@@ -223,6 +226,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Tabs\AutoShow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Theme\MenuButtonTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -260,9 +267,6 @@
     <Folder Include="MVVM\Model\" />
     <Folder Include="MVVM\ViewModel\" />
     <Folder Include="MVVM\View\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\corner.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
