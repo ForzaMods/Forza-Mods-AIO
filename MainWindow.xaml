@@ -15,9 +15,9 @@
         WindowStyle="None"
         ResizeMode="CanResize"
         Background="Transparent"
-        AllowsTransparency="True" MouseDown="Window_MouseDown">
-    <Window.Resources>
-    </Window.Resources>
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown"
+        Closing="Window_Closing">
     <Border x:Name="Background" Background="#111111"
             CornerRadius="20">
         <Grid x:Name="grid">
@@ -55,7 +55,8 @@
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click"/>
-                <RadioButton Content="Cool Shit"
+                <RadioButton x:Name="Self_Vehicle"
+                             Content="Self/Vehicle"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
@@ -110,20 +111,22 @@
                     Grid.Column="1"
                     Content="Wall Colour"
                     Height="40"
-                    Width="120" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="WallButton_Click"/>
+                    Width="120" Margin="470,324,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="WallButton_Click" BorderBrush="{x:Null}"/>
             <Slider x:Name="LightnessSlider"
                     Grid.Column="1"
                     HorizontalAlignment="Left"
-                    Margin="10,55,0,0"
+                    Margin="470,377,0,0"
                     Grid.Row="2"
                     VerticalAlignment="Top"
                     Width="120"
                     Maximum="100"
                     SmallChange="1"
                     LargeChange="10"
-                    Value="100"/>
+                    Value="100"
+                    Style="{StaticResource SliderTheme}" Height="13" Foreground="#FF0800FF" Background="Red" Visibility="Visible"/>
             <StackPanel/>
             <Frame x:Name="AutoShowFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AutoShow.xaml" Visibility="Hidden"  />
+            <Label x:Name="AttachedLabel" Grid.Column="1" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" FontFamily="Manrope"/>
 
         </Grid>
     </Border>

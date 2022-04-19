@@ -108,6 +108,14 @@ namespace WPF_Mockup.CustomTheming
             MainWindow.mw.Background.Background = MainColour;
             MainWindow.mw.TopBar1.Background = DarkerColour;
             MainWindow.mw.TopBar2.Background = DarkerColour;
+
+            foreach (FrameworkElement Element in MainWindow.mw.Window.GetChildren(true))
+            {
+                if (Element.GetType() == typeof(System.Windows.Controls.Button))
+                    Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
+                if (Element.GetType() == typeof(System.Windows.Controls.Slider))
+                    Element.GetType().GetProperty("Foreground").SetValue(Element, DarkerColour);
+            }
         }
         #endregion
     }

@@ -1,8 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Memory;
 
 namespace WPF_Mockup
 {
@@ -22,15 +27,30 @@ namespace WPF_Mockup
 
     public partial class MainWindow : Window
     {
+        public class GameVerPlat
+        {
+            public string Name { get; set; }
+            public string Plat { get; set; }
+            public Process Process { get; set; }
+            public GameVerPlat(string name, string plat, Process process)
+            {
+                Name = name; Plat = plat; Process = process; 
+            }
+        }
         #region Variables
-        public MainWindow mw = new MainWindow();
-        List<Page> windows = new List<Page>() { new Tabs.AutoShow() };
+        public static MainWindow mw = new MainWindow();
+        Mem m = new Mem();
+        List<Page> tabs = new List<Page>() { new Tabs.AutoShow() };
+        private readonly BackgroundWorker IsAttachedWorker = new BackgroundWorker();
+        public GameVerPlat gvp = new GameVerPlat(null, null, null);
         #endregion
         #region Starting
         public MainWindow()
         {
             InitializeComponent();
             mw = this;
+            IsAttachedWorker.DoWork += IsAttachedWorker_DoWork;
+            IsAttachedWorker.RunWorkerAsync();
         }
         #endregion
         #region Dragging
@@ -52,12 +72,12 @@ namespace WPF_Mockup
                 if ((bool)rb.IsChecked)
                 {
                     rb.Background = CustomTheming.Monet.DarkerColour;
-                    foreach(Page w in windows)
-                        if(w.Title == rb.Name)
+                    foreach (Page w in tabs)
+                        if (w.Title == rb.Name)
                         {
-                            foreach(FrameworkElement Element in Window.GetChildren(true))
+                            foreach (FrameworkElement Element in Window.GetChildren(true))
                             {
-                                if(Element.Name == rb.Name + "Frame")
+                                if (Element.Name == rb.Name + "Frame")
                                     Element.Visibility = Visibility.Visible;
                             }
                         }
@@ -69,6 +89,49 @@ namespace WPF_Mockup
         private void WallButton_Click(object sender, RoutedEventArgs e)
         {
             CustomTheming.Monet.ApplyMonet();
+        }
+        #endregion
+        #region Attaching/Behaviour
+        private void IsAttachedWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                if(m.OpenProcess("ForzaHorizon5"))
+                {
+                    gvpMaker(5);
+                    Dispatcher.BeginInvoke((Action)delegate () {
+                        AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, has been detected, attaching now (be in-game)";
+                    });
+                }
+                else if (m.OpenProcess("ForzaHorizon4"))
+                {
+                    gvpMaker(4);
+                    Dispatcher.BeginInvoke((Action)delegate () {
+                        AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, has been detected, attaching now (be in-game)";
+                    });
+                }
+                else
+                {
+                    AttachedLabel.Content = "Launch FH4/5";
+                }
+            }
+        }
+        private void gvpMaker(int Ver)
+        {
+            Process process = Process.GetProcessesByName("ForzaHorizon" + Ver.ToString())[0];
+            string platform;
+            if (process.MainModule.FileName.Contains("Microsoft.624F8B84B80") || process.MainModule.FileName.Contains("Microsoft.SunriseBaseGame"))
+                platform = "MS";
+            else
+                platform = "Steam";
+            gvp = new GameVerPlat("Forza Horizon " + Ver.ToString(), platform, process);
+        }
+        #endregion
+        #region Exit Handling
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            //TODO Cleanup here
+            Environment.Exit(0);
         }
         #endregion
     }
