@@ -3,12 +3,10 @@
 <Window x:Class="WPF_Mockup.MainWindow"
         x:Name="Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:math="http://hexinnovation.com/math"
-        xmlns:local="clr-namespace:WPF_Mockup"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Height="450" Width="800"
         MinHeight="450" MinWidth="800"
@@ -81,9 +79,7 @@
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click"/>
-
             </StackPanel>
-
             <Label x:Name="ExitButton"
                    Grid.Column="1"
                    Content="X"
@@ -115,19 +111,16 @@
             <Slider x:Name="LightnessSlider"
                     Grid.Column="1"
                     HorizontalAlignment="Left"
-                    Margin="470,377,0,0"
+                    Margin="470,369,0,0"
                     Grid.Row="2"
                     VerticalAlignment="Top"
                     Width="120"
                     Maximum="100"
                     SmallChange="1"
                     LargeChange="10"
-                    Value="100"
-                    Style="{StaticResource SliderTheme}" Height="13" Foreground="#FF0800FF" Background="Red" Visibility="Visible"/>
-            <StackPanel/>
+                    Value="100" Style="{DynamicResource MaterialDesignDiscreteSlider}" Foreground="#FF2E3440" Minimum="40" BorderBrush="{x:Null}" CacheMode="{x:Null}"/>
+            <Label x:Name="AttachedLabel" Grid.Column="1" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" FontFamily="Manrope" Foreground="White"/>
             <Frame x:Name="AutoShowFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AutoShow.xaml" Visibility="Hidden"  />
-            <Label x:Name="AttachedLabel" Grid.Column="1" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" FontFamily="Manrope"/>
-
         </Grid>
     </Border>
 </Window>

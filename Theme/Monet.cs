@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace WPF_Mockup.CustomTheming
 {
@@ -80,6 +81,7 @@ namespace WPF_Mockup.CustomTheming
         }
         public static void ApplyMonet()
         {
+            
             var colorThief = new ColorThief();
             Bitmap DesktopWallpaper = CaptureWindow(GetShellWindow());
             DesktopWallpaper.Save("test.bmp");
@@ -89,33 +91,36 @@ namespace WPF_Mockup.CustomTheming
 
             double H; double S; double V1; double V2;
 
-            ColorToHSV(ColorTranslator.FromHtml(Colour2.ToHexString()), out H, out S, out V1);
-            V2 = V1;
-            V1 *= MainWindow.mw.LightnessSlider.Value / MainWindow.mw.LightnessSlider.Maximum;
-            if (V1 < 0) V1 = 0;
-            V2 *= (MainWindow.mw.LightnessSlider.Value / 2) / MainWindow.mw.LightnessSlider.Maximum;
-            if (V2 < 0) V2 = 0;
-
-            System.Drawing.Color FinalColour1 = ColorFromHSV(H, S, V1);
-            System.Drawing.Color FinalColour2 = ColorFromHSV(H, S, V2);
-            string ColourHex1 = ColorTranslator.ToHtml(FinalColour1);
-            string ColourHex2 = ColorTranslator.ToHtml(FinalColour2);
-
-            var converter = new BrushConverter();
-            MainColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex1);
-            DarkerColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex2);
-
-            MainWindow.mw.Background.Background = MainColour;
-            MainWindow.mw.TopBar1.Background = DarkerColour;
-            MainWindow.mw.TopBar2.Background = DarkerColour;
-
-            foreach (FrameworkElement Element in MainWindow.mw.Window.GetChildren(true))
+            MainWindow.mw.Dispatcher.BeginInvoke((Action)delegate ()
             {
-                if (Element.GetType() == typeof(System.Windows.Controls.Button))
-                    Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
-                if (Element.GetType() == typeof(System.Windows.Controls.Slider))
-                    Element.GetType().GetProperty("Foreground").SetValue(Element, DarkerColour);
-            }
+                ColorToHSV(ColorTranslator.FromHtml(Colour2.ToHexString()), out H, out S, out V1);
+                V2 = V1;
+                V1 *= MainWindow.mw.LightnessSlider.Value / MainWindow.mw.LightnessSlider.Maximum;
+                if (V1 < 0) V1 = 0;
+                V2 *= (MainWindow.mw.LightnessSlider.Value / 2) / MainWindow.mw.LightnessSlider.Maximum;
+                if (V2 < 0) V2 = 0;
+
+                System.Drawing.Color FinalColour1 = ColorFromHSV(H, S, V1);
+                System.Drawing.Color FinalColour2 = ColorFromHSV(H, S, V2);
+                string ColourHex1 = ColorTranslator.ToHtml(FinalColour1);
+                string ColourHex2 = ColorTranslator.ToHtml(FinalColour2);
+
+                var converter = new BrushConverter();
+                MainColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex1);
+                DarkerColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex2);
+            
+                MainWindow.mw.Background.Background = MainColour;
+                MainWindow.mw.TopBar1.Background = DarkerColour;
+                MainWindow.mw.TopBar2.Background = DarkerColour;
+            
+                foreach (FrameworkElement Element in MainWindow.mw.Window.GetChildren(true))
+                {
+                    if (Element.GetType() == typeof(System.Windows.Controls.Button))
+                        Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
+                    if (Element.GetType() == typeof(System.Windows.Controls.Slider))
+                        Element.GetType().GetProperty("Foreground").SetValue(Element, DarkerColour);
+                }
+            });
         }
         #endregion
     }

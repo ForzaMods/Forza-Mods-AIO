@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
 using Memory;
 
 namespace WPF_Mockup
@@ -88,7 +91,7 @@ namespace WPF_Mockup
         }
         private void WallButton_Click(object sender, RoutedEventArgs e)
         {
-            CustomTheming.Monet.ApplyMonet();
+            Task.Run(() => { CustomTheming.Monet.ApplyMonet(); } );
         }
         #endregion
         #region Attaching/Behaviour
@@ -112,19 +115,29 @@ namespace WPF_Mockup
                 }
                 else
                 {
-                    AttachedLabel.Content = "Launch FH4/5";
+                    Dispatcher.BeginInvoke((Action)delegate () {
+                        AttachedLabel.Content = "Launch FH4/5";
+                    });
                 }
+                Thread.Sleep(10);
             }
         }
         private void gvpMaker(int Ver)
         {
-            Process process = Process.GetProcessesByName("ForzaHorizon" + Ver.ToString())[0];
+            string name;
             string platform;
-            if (process.MainModule.FileName.Contains("Microsoft.624F8B84B80") || process.MainModule.FileName.Contains("Microsoft.SunriseBaseGame"))
-                platform = "MS";
-            else
-                platform = "Steam";
-            gvp = new GameVerPlat("Forza Horizon " + Ver.ToString(), platform, process);
+            Process process;
+            try
+            {
+                process = Process.GetProcessesByName("ForzaHorizon" + Ver.ToString())[0];
+                if (process.MainModule.FileName.Contains("Microsoft.624F8B84B80") || process.MainModule.FileName.Contains("Microsoft.SunriseBaseGame"))
+                    platform = "MS";
+                else
+                    platform = "Steam";
+                name = "Forza Horizon " + Ver.ToString();
+            }
+            catch { name = null; platform = null; process = null; }
+            gvp = new GameVerPlat(name, platform, process);
         }
         #endregion
         #region Exit Handling
