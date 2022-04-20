@@ -37,6 +37,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
             {"EnvironmentButton", false },
             {"LiveTuningButton", false }
         };
+        bool AnimCompleted = true;
         
         public Self_Vehicle()
         {
@@ -51,47 +52,59 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Animate(sender, IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()]);
-            IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()] = !IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()];
+            if(AnimCompleted)
+            {
+                Animate(sender, IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()]);
+                IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()] = !IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()];
+            }
         }
 
         private void Animate(object sender, bool AlreadyOpen)
         {
+            AnimCompleted = false;
             foreach (FrameworkElement Element in this.GetChildren(true))
             {
                 DoubleAnimation DanimationPage;
                 ThicknessAnimation TanimationPage;
                 ThicknessAnimation TanimationButton;
                 Storyboard storyboard = new Storyboard();
-                if (Element.GetType().GetProperty("Name").GetValue(Element).ToString().Contains("Page"))
+                storyboard.Completed += (s, e) => { AnimCompleted = true; };
+
+                double Duration = 0.1;
+
+                string SenderName = sender.GetType().GetProperty("Name").GetValue(sender).ToString();
+                string ElementName = Element.GetType().GetProperty("Name").GetValue(Element).ToString();
+
+                if (ElementName.Contains("Page"))
                 {
+                    
                     Thickness Start = (Thickness)Element.GetType().GetProperty("Margin").GetValue(Element);
                     Thickness End = new Thickness(Start.Left, Start.Top + 25, Start.Right, Start.Bottom);
                     if (AlreadyOpen)
                         End = new Thickness(Start.Left, Start.Top - 25, Start.Right, Start.Bottom);
-                    TanimationPage = new ThicknessAnimation(End, new Duration(TimeSpan.FromSeconds(0.5)));
-                    DanimationPage = new DoubleAnimation(Sizes[sender.GetType().GetProperty("Name").GetValue(sender).ToString()], new Duration(TimeSpan.FromSeconds(0.5)));
+                    TanimationPage = new ThicknessAnimation(End, new Duration(TimeSpan.FromSeconds(Duration)));
+                    DanimationPage = new DoubleAnimation(Sizes[SenderName], new Duration(TimeSpan.FromSeconds(Duration)));
                     if (AlreadyOpen)
-                        DanimationPage = new DoubleAnimation(25, new Duration(TimeSpan.FromSeconds(0.5)));
+                        DanimationPage = new DoubleAnimation(25, new Duration(TimeSpan.FromSeconds(Duration)));
                     
-                    Storyboard.SetTargetName(TanimationPage, Element.GetType().GetProperty("Name").GetValue(Element).ToString());
+                    Storyboard.SetTargetName(TanimationPage, ElementName);
                     Storyboard.SetTargetProperty(TanimationPage, new PropertyPath(Frame.MarginProperty));
                     storyboard.Children.Add(TanimationPage);
 
-                    Storyboard.SetTargetName(DanimationPage, Element.GetType().GetProperty("Name").GetValue(Element).ToString());
+                    Storyboard.SetTargetName(DanimationPage, ElementName);
                     Storyboard.SetTargetProperty(DanimationPage, new PropertyPath(Frame.HeightProperty));
                     storyboard.Children.Add(DanimationPage);
                     storyboard.Begin(Element);
                 }
-                else if (Element.GetType() == typeof(Button) && (object)Element != sender && !Element.GetType().GetProperty("Name").GetValue(Element).ToString().Contains("ScanButton"))
+                else if (Element.GetType() == typeof(Button) && (object)Element != sender && !ElementName.Contains("ScanButton"))
                 {
                     Thickness Start = (Thickness)Element.GetType().GetProperty("Margin").GetValue(Element);
-                    Thickness End = new Thickness(Start.Left, Start.Top + Sizes[sender.GetType().GetProperty("Name").GetValue(sender).ToString()], Start.Right, Start.Bottom);
+                    Thickness End = new Thickness(Start.Left, Start.Top + Sizes[SenderName], Start.Right, Start.Bottom);
                     if (AlreadyOpen)
-                        End = new Thickness(Start.Left, Start.Top - Sizes[sender.GetType().GetProperty("Name").GetValue(sender).ToString()], Start.Right, Start.Bottom);
-                    TanimationButton = new ThicknessAnimation(End, new Duration(TimeSpan.FromSeconds(0.5)));
+                        End = new Thickness(Start.Left, Start.Top - Sizes[SenderName], Start.Right, Start.Bottom);
+                    TanimationButton = new ThicknessAnimation(End, new Duration(TimeSpan.FromSeconds(Duration)));
 
-                    Storyboard.SetTargetName(TanimationButton, Element.GetType().GetProperty("Name").GetValue(Element).ToString());
+                    Storyboard.SetTargetName(TanimationButton, ElementName);
                     Storyboard.SetTargetProperty(TanimationButton, new PropertyPath(Button.MarginProperty));
                     storyboard.Children.Add(TanimationButton);
                     storyboard.Begin(Element);
