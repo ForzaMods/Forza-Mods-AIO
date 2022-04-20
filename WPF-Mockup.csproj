@@ -374,6 +374,9 @@
       <DependentUpon>AutoShow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tabs\Self-Vehicle\assembly.cs" />
+    <Compile Include="Tabs\Self-Vehicle\DropDownTabs\SpeedHacksPage.xaml.cs">
+      <DependentUpon>SpeedHacksPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\Self-Vehicle\Self-Vehicle-Addrs.cs" />
     <Compile Include="Tabs\Self-Vehicle\Self-Vehicle-Functions.cs" />
     <Compile Include="Tabs\Self-Vehicle\Self-Vehicle.xaml.cs">
@@ -392,6 +395,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tabs\AutoShow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\Self-Vehicle\DropDownTabs\SpeedHacksPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

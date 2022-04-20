@@ -90,9 +90,12 @@ namespace WPF_Mockup
                             {
                                 foreach (FrameworkElement Element in Window.GetChildren(true))
                                 {
+                                    string Source = "";
+                                    if( Element.GetType() == typeof(Frame) )
+                                        Source = Element.GetType().GetProperty("Name").GetValue(Element).ToString();
                                     if (Element.Name == rb.Name + "Frame")
                                         Element.Visibility = Visibility.Visible;
-                                    else if (Element.GetType() == typeof(Frame))
+                                    else if (Element.GetType() == typeof(Frame) && Source.Contains("Frame"))
                                         Element.Visibility = Visibility.Hidden;
                                 }
                             }

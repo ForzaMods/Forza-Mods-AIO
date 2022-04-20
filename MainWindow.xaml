@@ -63,32 +63,21 @@
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
-                <RadioButton Content="Live Tuning"
-                             Height="40"
-                             Foreground="White"
-                             FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
-                <RadioButton Content="Misc"
-                             Height="40"
-                             Foreground="White"
-                             FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
                 <RadioButton Content="Saveswapper"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
-                <RadioButton Content="Stats Editor"
-                             Height="40"
-                             Foreground="White"
-                             FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
             </StackPanel>
-            <iconPacks:PackIconBootstrapIcons x:Name="ExitIcon" Kind="XLg" Grid.Column="1" Margin="570,16,0,0" Focusable="False" />
             <Label x:Name="AttachedLabel" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" FontFamily="Manrope" Foreground="White" FontSize="10" Height="20" Grid.Column="1"/>
             <Frame x:Name="AIO_InfoFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AIO-Info/AIO-Info.xaml" Visibility="Visible" Focusable="False"/>
             <Frame x:Name="AutoShowFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AutoShow.xaml" Visibility="Hidden"/>
             <Frame x:Name="Self_VehicleFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Self-Vehicle/Self-Vehicle.xaml" Visibility="Hidden"  />
+            <iconPacks:PackIconBootstrapIcons x:Name="ExitIcon" Kind="XLg" Grid.Column="1" Margin="570,16,0,0" Focusable="False" />
+            <iconPacks:PackIconBootstrapIcons Kind="InfoCircleFill" Margin="174,10,0,0" Grid.Row="2" />
+            <iconPacks:PackIconMaterial Kind="CarSports" Margin="175,51,0,0" Grid.Row="2" />
+            <iconPacks:PackIconSimpleIcons Kind="Speedtest" Margin="174,90,0,0" Grid.Row="2"/>
+            <iconPacks:PackIconBootstrapIcons Kind="SaveFill" Margin="174,130,0,0" Grid.Row="2" />
             <Rectangle x:Name="ExitBox" Grid.Column="1" HorizontalAlignment="Left" Height="16" Margin="570,16,0,0" VerticalAlignment="Top" Width="16" MouseDown="ExitButton_MouseDown">
                 <Rectangle.Fill>
                     <SolidColorBrush Color="Black" Opacity="0"/>
