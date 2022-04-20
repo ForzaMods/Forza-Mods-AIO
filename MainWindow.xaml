@@ -1,21 +1,24 @@
 ﻿<!-- RESIZE {Binding ActualHeight, ElementName=grid, Converter={StaticResource math}, ConverterParameter=(x-50)/7} -->
 
-<Window x:Class="WPF_Mockup.MainWindow"
+<mah:MetroWindow x:Class="WPF_Mockup.MainWindow"
         x:Name="Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Height="450" Width="800"
         MinHeight="450" MinWidth="800"
         WindowStyle="None"
-        ResizeMode="CanResize"
+        ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown"
-        Closing="Window_Closing">
+        Closing="Window_Closing"
+        ShowTitleBar="False" ShowCloseButton="False" BorderThickness="0"
+        WindowTransitionsEnabled="False">
     <Border x:Name="Background" Background="#111111"
             CornerRadius="20">
         <Grid x:Name="grid">
@@ -38,89 +41,54 @@
                    HorizontalAlignment="Left"
                    Foreground="White"
                    FontSize="16"
-                   Margin="20,14,0,0"/>
+                   Margin="20,15,0,0" FontFamily="Manrope" Height="20"/>
 
             <StackPanel x:Name="ButtonStack" Grid.Row="2" >
-                <RadioButton x:Name="Info"
+                <RadioButton x:Name="AIO_Info"
                              Content="AIO Info"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click"/>
+                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
                 <RadioButton x:Name="AutoShow"
                              Content="Autoshow/garage"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click"/>
+                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
                 <RadioButton x:Name="Self_Vehicle"
                              Content="Self/Vehicle"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click"/>
+                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
                 <RadioButton Content="Live Tuning"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click"/>
+                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
                 <RadioButton Content="Misc"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click"/>
+                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
                 <RadioButton Content="Saveswapper"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click"/>
+                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
                 <RadioButton Content="Stats Editor"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click"/>
+                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
             </StackPanel>
-            <Label x:Name="ExitButton"
-                   Grid.Column="1"
-                   Content="X"
-                   HorizontalAlignment="Left"
-                   Margin="573,10,0,0"
-                   VerticalAlignment="Top"
-                   FontFamily="Automania"
-                   FontWeight="Thin"
-                   FontSize="20"
-                   Padding="0,0,0,0"
-                   MouseDown="Exit_MouseDown">
-                <Label.Style>
-                    <Style TargetType="Label">
-                        <Setter Property="Foreground" Value="White" />
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="Red" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Label.Style>
-            </Label>
-            <Button x:Name="WallButton"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Content="Wall Colour"
-                    Height="40"
-                    Width="120" Margin="470,324,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="WallButton_Click" BorderBrush="{x:Null}"/>
-            <Slider x:Name="LightnessSlider"
-                    Grid.Column="1"
-                    HorizontalAlignment="Left"
-                    Margin="470,369,0,0"
-                    Grid.Row="2"
-                    VerticalAlignment="Top"
-                    Width="120"
-                    Maximum="100"
-                    SmallChange="1"
-                    LargeChange="10"
-                    Value="100" Style="{DynamicResource MaterialDesignDiscreteSlider}" Foreground="#FF2E3440" Minimum="40" BorderBrush="{x:Null}" CacheMode="{x:Null}"/>
-            <Label x:Name="AttachedLabel" Grid.Column="1" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" FontFamily="Manrope" Foreground="White"/>
-            <Frame x:Name="AutoShowFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AutoShow.xaml" Visibility="Hidden"  />
+            <iconPacks:PackIconBootstrapIcons x:Name="ExitButton" Kind="XLg" Grid.Column="1" Margin="570,16,0,0" MouseDown="Exit_MouseDown" Focusable="False" />
+            <Label x:Name="AttachedLabel" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" FontFamily="Manrope" Foreground="White" FontSize="10" Height="20" Grid.Column="1"/>
+            <Frame x:Name="AIO_InfoFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AIO-Info/AIO-Info.xaml" Visibility="Visible" Focusable="False"/>
+            <Frame x:Name="AutoShowFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AutoShow.xaml" Visibility="Hidden"/>
+            <Frame x:Name="Self_VehicleFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Self-Vehicle/Self-Vehicle.xaml" Visibility="Hidden"  />
+            <Rectangle x:Name="ExitBox" Grid.Column="1" HorizontalAlignment="Left" Height="16" Margin="570,16,0,0" VerticalAlignment="Top" Width="16" KeyDown="Exit_MouseDown"/>
         </Grid>
     </Border>
-</Window>
+</mah:MetroWindow>

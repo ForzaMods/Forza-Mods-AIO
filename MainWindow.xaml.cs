@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using MaterialDesignColors;
-using MaterialDesignThemes.Wpf;
+using ControlzEx.Theming;
+using MahApps.Metro.Controls;
 using Memory;
 
 namespace WPF_Mockup
@@ -28,7 +29,7 @@ namespace WPF_Mockup
      * 
      */
 
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public class GameVerPlat
         {
@@ -40,10 +41,14 @@ namespace WPF_Mockup
                 Name = name; Plat = plat; Process = process; 
             }
         }
+
+        [DllImport("user32.dll")]
+        public static extern int SetForegroundWindow(int hwnd);
+
         #region Variables
         public static MainWindow mw = new MainWindow();
-        Mem m = new Mem();
-        List<Page> tabs = new List<Page>() { new Tabs.AutoShow() };
+        public Mem m = new Mem();
+        List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle() };
         private readonly BackgroundWorker IsAttachedWorker = new BackgroundWorker();
         public GameVerPlat gvp = new GameVerPlat(null, null, null);
         #endregion
@@ -54,6 +59,8 @@ namespace WPF_Mockup
             mw = this;
             IsAttachedWorker.DoWork += IsAttachedWorker_DoWork;
             IsAttachedWorker.RunWorkerAsync();
+            ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
+            ThemeManager.Current.ChangeTheme(Application.Current, "AccentCol");
         }
         #endregion
         #region Dragging
@@ -68,30 +75,32 @@ namespace WPF_Mockup
         {
             this.Close();
         }
-        private void CategoryButton_Click(object sender, RoutedEventArgs e)
+        public void CategoryButton_Click(object sender, RoutedEventArgs e)
         {
             foreach (RadioButton rb in ButtonStack.Children)
             {
                 if ((bool)rb.IsChecked)
                 {
                     rb.Background = CustomTheming.Monet.DarkerColour;
-                    foreach (Page w in tabs)
-                        if (w.Title == rb.Name)
+                    foreach (Page t in tabs)
+                        if (t.Title == rb.Name)
                         {
-                            foreach (FrameworkElement Element in Window.GetChildren(true))
+                            try
                             {
-                                if (Element.Name == rb.Name + "Frame")
-                                    Element.Visibility = Visibility.Visible;
+                                foreach (FrameworkElement Element in Window.GetChildren(true))
+                                {
+                                    if (Element.Name == rb.Name + "Frame")
+                                        Element.Visibility = Visibility.Visible;
+                                    else if (Element.GetType() == typeof(Frame))
+                                        Element.Visibility = Visibility.Hidden;
+                                }
                             }
+                            catch { }
                         }
                 }
                 else
                     rb.Background = CustomTheming.Monet.MainColour;
             }
-        }
-        private void WallButton_Click(object sender, RoutedEventArgs e)
-        {
-            Task.Run(() => { CustomTheming.Monet.ApplyMonet(); } );
         }
         #endregion
         #region Attaching/Behaviour
@@ -103,15 +112,17 @@ namespace WPF_Mockup
                 {
                     gvpMaker(5);
                     Dispatcher.BeginInvoke((Action)delegate () {
-                        AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, has been detected, attaching now (be in-game)";
+                        AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}";
                     });
+                    SetForegroundWindow(gvp.Process.Handle.ToInt32());
                 }
                 else if (m.OpenProcess("ForzaHorizon4"))
                 {
                     gvpMaker(4);
                     Dispatcher.BeginInvoke((Action)delegate () {
-                        AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, has been detected, attaching now (be in-game)";
+                        AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}";
                     });
+                    SetForegroundWindow(gvp.Process.Handle.ToInt32());
                 }
                 else
                 {
@@ -119,7 +130,7 @@ namespace WPF_Mockup
                         AttachedLabel.Content = "Launch FH4/5";
                     });
                 }
-                Thread.Sleep(10);
+                Thread.Sleep(500);
             }
         }
         private void gvpMaker(int Ver)
@@ -162,7 +173,7 @@ namespace WPF_Mockup
                     // Retrieve child visual at specified index value.
                     var child = VisualTreeHelper.GetChild(parent, i) as Visual;
 
-                    if (child != null)
+                    if (child != null && !child.GetType().ToString().Contains("MahApps.Metro.IconPacks"))
                     {
                         yield return child;
 

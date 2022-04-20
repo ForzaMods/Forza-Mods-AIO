@@ -1,0 +1,28 @@
+﻿<Page x:Class="WPF_Mockup.Tabs.AIO_Info.AIO_Info"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPF_Mockup.Tabs.AIO_Info"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="600"
+      Title="AIO_Info">
+
+    <Grid>
+        <Button x:Name="WallButton"
+            Content="Wall Colour"
+            Height="26"
+            Width="86" Margin="504,335,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="WallButton_Click" Foreground="White" Background="#FF2E3440"
+            BorderThickness="0" Focusable="False" FontFamily="Manrope"/>
+        <Slider x:Name="LightnessSlider"
+            HorizontalAlignment="Left"
+            Margin="504,366,0,0"
+            VerticalAlignment="Top"
+            Width="86"
+            Maximum="100"
+            SmallChange="1"
+            LargeChange="10"
+            Value="100" Foreground="#FF2E3440" Minimum="40" BorderBrush="{x:Null}" Focusable="False"/>
+        <Label Content="Lightness" HorizontalAlignment="Left" Margin="444,366,0,0" VerticalAlignment="Top" Height="24" FontFamily="Manrope" Foreground="White"/>
+    </Grid>
+</Page>

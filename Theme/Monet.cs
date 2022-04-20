@@ -1,10 +1,12 @@
 ﻿using ColorThiefDotNet;
+using ControlzEx.Theming;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using WPF_Mockup.Tabs.AIO_Info;
 
 namespace WPF_Mockup.CustomTheming
 {
@@ -12,6 +14,7 @@ namespace WPF_Mockup.CustomTheming
     {
         #region Variables
         public static System.Windows.Media.Brush MainColour = null;
+        public static System.Windows.Media.Brush DarkColour = null;
         public static System.Windows.Media.Brush DarkerColour = null;
         #endregion
         #region DLL imports
@@ -89,36 +92,48 @@ namespace WPF_Mockup.CustomTheming
             QuantizedColor Colour = colorThief.GetColor(DesktopWallpaper);
             ColorThiefDotNet.Color Colour2 = Colour.Color;
 
-            double H; double S; double V1; double V2;
+            double H; double S; double V1; double V2; double V3;
 
             MainWindow.mw.Dispatcher.BeginInvoke((Action)delegate ()
             {
                 ColorToHSV(ColorTranslator.FromHtml(Colour2.ToHexString()), out H, out S, out V1);
                 V2 = V1;
-                V1 *= MainWindow.mw.LightnessSlider.Value / MainWindow.mw.LightnessSlider.Maximum;
+                V3 = V1;
+                V1 *= AIO_Info.ai.LightnessSlider.Value / AIO_Info.ai.LightnessSlider.Maximum;
                 if (V1 < 0) V1 = 0;
-                V2 *= (MainWindow.mw.LightnessSlider.Value / 2) / MainWindow.mw.LightnessSlider.Maximum;
+                V2 *= (AIO_Info.ai.LightnessSlider.Value / 1.5) / AIO_Info.ai.LightnessSlider.Maximum;
                 if (V2 < 0) V2 = 0;
+                V3 *= (AIO_Info.ai.LightnessSlider.Value / 2) / AIO_Info.ai.LightnessSlider.Maximum;
+                if (V3 < 0) V3 = 0;
 
                 System.Drawing.Color FinalColour1 = ColorFromHSV(H, S, V1);
                 System.Drawing.Color FinalColour2 = ColorFromHSV(H, S, V2);
+                System.Drawing.Color FinalColour3 = ColorFromHSV(H, S, V3);
                 string ColourHex1 = ColorTranslator.ToHtml(FinalColour1);
                 string ColourHex2 = ColorTranslator.ToHtml(FinalColour2);
+                string ColourHex3 = ColorTranslator.ToHtml(FinalColour3);
 
                 var converter = new BrushConverter();
                 MainColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex1);
-                DarkerColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex2);
+                DarkColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex2);
+                DarkerColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex3);
             
                 MainWindow.mw.Background.Background = MainColour;
-                MainWindow.mw.TopBar1.Background = DarkerColour;
-                MainWindow.mw.TopBar2.Background = DarkerColour;
-            
+                MainWindow.mw.TopBar1.Background = DarkColour;
+                MainWindow.mw.TopBar2.Background = DarkColour;
+
+                string RandName = Guid.NewGuid().ToString();
+                ThemeManager.Current.AddTheme(new Theme(RandName, RandName, "Dark", "Red", (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(ColourHex3), DarkerColour, true, false));
+                ThemeManager.Current.ChangeTheme(Application.Current, RandName);
+
+                MainWindow.mw.CategoryButton_Click(new Object(), new RoutedEventArgs());
                 foreach (FrameworkElement Element in MainWindow.mw.Window.GetChildren(true))
                 {
-                    if (Element.GetType() == typeof(System.Windows.Controls.Button))
+                    if(Element.GetType() == typeof(System.Windows.Controls.Button))
+                    {
                         Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
-                    if (Element.GetType() == typeof(System.Windows.Controls.Slider))
-                        Element.GetType().GetProperty("Foreground").SetValue(Element, DarkerColour);
+                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
+                    }
                 }
             });
         }
