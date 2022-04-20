@@ -33,6 +33,7 @@
                 <RowDefinition x:Name="MainRow"/>
             </Grid.RowDefinitions>
 
+            <Border x:Name="SideBar" Grid.RowSpan="2" Grid.Row="1" Grid.Column="0" CornerRadius="20"/>
             <Border x:Name="TopBar1" Grid.RowSpan="2" Grid.ColumnSpan="2" CornerRadius="20"/>
             <Border x:Name="TopBar2" Grid.Row="1" Grid.ColumnSpan="2"/>
 
@@ -83,12 +84,16 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
             </StackPanel>
-            <iconPacks:PackIconBootstrapIcons x:Name="ExitButton" Kind="XLg" Grid.Column="1" Margin="570,16,0,0" MouseDown="Exit_MouseDown" Focusable="False" />
+            <iconPacks:PackIconBootstrapIcons x:Name="ExitIcon" Kind="XLg" Grid.Column="1" Margin="570,16,0,0" Focusable="False" />
             <Label x:Name="AttachedLabel" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" FontFamily="Manrope" Foreground="White" FontSize="10" Height="20" Grid.Column="1"/>
             <Frame x:Name="AIO_InfoFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AIO-Info/AIO-Info.xaml" Visibility="Visible" Focusable="False"/>
             <Frame x:Name="AutoShowFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AutoShow.xaml" Visibility="Hidden"/>
             <Frame x:Name="Self_VehicleFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Self-Vehicle/Self-Vehicle.xaml" Visibility="Hidden"  />
-            <Rectangle x:Name="ExitBox" Grid.Column="1" HorizontalAlignment="Left" Height="16" Margin="570,16,0,0" VerticalAlignment="Top" Width="16" KeyDown="Exit_MouseDown"/>
+            <Rectangle x:Name="ExitBox" Grid.Column="1" HorizontalAlignment="Left" Height="16" Margin="570,16,0,0" VerticalAlignment="Top" Width="16" MouseDown="ExitButton_MouseDown">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="Black" Opacity="0"/>
+                </Rectangle.Fill>
+            </Rectangle>
         </Grid>
     </Border>
 </mah:MetroWindow>

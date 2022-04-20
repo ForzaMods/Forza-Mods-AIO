@@ -15,6 +15,7 @@ namespace WPF_Mockup.CustomTheming
         #region Variables
         public static System.Windows.Media.Brush MainColour = null;
         public static System.Windows.Media.Brush DarkColour = null;
+        public static System.Windows.Media.Brush DarkishColour = null;
         public static System.Windows.Media.Brush DarkerColour = null;
         #endregion
         #region DLL imports
@@ -92,38 +93,45 @@ namespace WPF_Mockup.CustomTheming
             QuantizedColor Colour = colorThief.GetColor(DesktopWallpaper);
             ColorThiefDotNet.Color Colour2 = Colour.Color;
 
-            double H; double S; double V1; double V2; double V3;
+            double H; double S; double V1; double V2; double V3; double V4;
 
             MainWindow.mw.Dispatcher.BeginInvoke((Action)delegate ()
             {
                 ColorToHSV(ColorTranslator.FromHtml(Colour2.ToHexString()), out H, out S, out V1);
                 V2 = V1;
                 V3 = V1;
+                V4 = V1;
                 V1 *= AIO_Info.ai.LightnessSlider.Value / AIO_Info.ai.LightnessSlider.Maximum;
                 if (V1 < 0) V1 = 0;
-                V2 *= (AIO_Info.ai.LightnessSlider.Value / 1.5) / AIO_Info.ai.LightnessSlider.Maximum;
+                V2 *= (AIO_Info.ai.LightnessSlider.Value / 1.25) / AIO_Info.ai.LightnessSlider.Maximum;
                 if (V2 < 0) V2 = 0;
-                V3 *= (AIO_Info.ai.LightnessSlider.Value / 2) / AIO_Info.ai.LightnessSlider.Maximum;
+                V3 *= (AIO_Info.ai.LightnessSlider.Value / 1.5) / AIO_Info.ai.LightnessSlider.Maximum;
                 if (V3 < 0) V3 = 0;
+                V4 *= (AIO_Info.ai.LightnessSlider.Value / 2) / AIO_Info.ai.LightnessSlider.Maximum;
+                if (V4 < 0) V4 = 0;
 
                 System.Drawing.Color FinalColour1 = ColorFromHSV(H, S, V1);
                 System.Drawing.Color FinalColour2 = ColorFromHSV(H, S, V2);
                 System.Drawing.Color FinalColour3 = ColorFromHSV(H, S, V3);
+                System.Drawing.Color FinalColour4 = ColorFromHSV(H, S, V4);
                 string ColourHex1 = ColorTranslator.ToHtml(FinalColour1);
                 string ColourHex2 = ColorTranslator.ToHtml(FinalColour2);
                 string ColourHex3 = ColorTranslator.ToHtml(FinalColour3);
+                string ColourHex4 = ColorTranslator.ToHtml(FinalColour4);
 
                 var converter = new BrushConverter();
                 MainColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex1);
-                DarkColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex2);
-                DarkerColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex3);
+                DarkishColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex2);
+                DarkColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex3);
+                DarkerColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex4);
             
                 MainWindow.mw.Background.Background = MainColour;
+                MainWindow.mw.SideBar.Background = DarkishColour;
                 MainWindow.mw.TopBar1.Background = DarkColour;
                 MainWindow.mw.TopBar2.Background = DarkColour;
 
                 string RandName = Guid.NewGuid().ToString();
-                ThemeManager.Current.AddTheme(new Theme(RandName, RandName, "Dark", "Red", (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(ColourHex3), DarkerColour, true, false));
+                ThemeManager.Current.AddTheme(new Theme(RandName, RandName, "Dark", "Red", (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(ColourHex4), DarkerColour, true, false));
                 ThemeManager.Current.ChangeTheme(Application.Current, RandName);
 
                 MainWindow.mw.CategoryButton_Click(new Object(), new RoutedEventArgs());

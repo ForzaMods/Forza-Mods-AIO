@@ -61,6 +61,7 @@ namespace WPF_Mockup
             IsAttachedWorker.RunWorkerAsync();
             ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
             ThemeManager.Current.ChangeTheme(Application.Current, "AccentCol");
+            AIO_Info.IsChecked = true;
         }
         #endregion
         #region Dragging
@@ -71,7 +72,7 @@ namespace WPF_Mockup
         }
         #endregion
         #region Buttons
-        private void Exit_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ExitButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
         }
@@ -99,7 +100,7 @@ namespace WPF_Mockup
                         }
                 }
                 else
-                    rb.Background = CustomTheming.Monet.MainColour;
+                    rb.Background = CustomTheming.Monet.DarkishColour;
             }
         }
         #endregion

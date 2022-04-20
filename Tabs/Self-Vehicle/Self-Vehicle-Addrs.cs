@@ -571,7 +571,6 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
                     while (MainAOBScanDone == false)
                     {
                         AobsFive();
-                        Thread.Sleep(1);
                         if (offsetfive >= 12299)
                             offsetfive = 4107;
                         if (offsetfive == 4107 || BaseAddrLong == 0)
