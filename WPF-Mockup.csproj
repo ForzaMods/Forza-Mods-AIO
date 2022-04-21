@@ -16,8 +16,6 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
     <DisableFody Condition="'$(Configuration)' == 'Debug'">true</DisableFody>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -374,6 +372,12 @@
       <DependentUpon>AutoShow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tabs\Self-Vehicle\assembly.cs" />
+    <Compile Include="Tabs\Self-Vehicle\DropDownTabs\CameraPage.xaml.cs">
+      <DependentUpon>CameraPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\Self-Vehicle\DropDownTabs\UnlocksPage.xaml.cs">
+      <DependentUpon>UnlocksPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\Self-Vehicle\DropDownTabs\SpeedHacksPage.xaml.cs">
       <DependentUpon>SpeedHacksPage.xaml</DependentUpon>
     </Compile>
@@ -397,6 +401,14 @@
     <Page Include="Tabs\AutoShow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\Self-Vehicle\DropDownTabs\CameraPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Tabs\Self-Vehicle\DropDownTabs\UnlocksPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Tabs\Self-Vehicle\DropDownTabs\SpeedHacksPage.xaml">
       <SubType>Designer</SubType>
@@ -452,17 +464,6 @@
     <Folder Include="MVVM\View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
-    <Error Condition="!Exists('packages\Xamarin.Forms.5.0.0.2401\build\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Xamarin.Forms.5.0.0.2401\build\Xamarin.Forms.props'))" />
-    <Error Condition="!Exists('packages\Xamarin.Forms.5.0.0.2401\build\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Xamarin.Forms.5.0.0.2401\build\Xamarin.Forms.targets'))" />
-    <Error Condition="!Exists('packages\Fody.6.6.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Fody.6.6.0\build\Fody.targets'))" />
-    <Error Condition="!Exists('packages\Costura.Fody.5.7.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.5.7.0\build\Costura.Fody.props'))" />
-    <Error Condition="!Exists('packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.5.7.0\build\Costura.Fody.targets'))" />
-  </Target>
   <Import Project="packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="packages\Xamarin.Forms.5.0.0.2401\build\Xamarin.Forms.targets" Condition="Exists('packages\Xamarin.Forms.5.0.0.2401\build\Xamarin.Forms.targets')" />
   <Import Project="packages\Fody.6.6.0\build\Fody.targets" Condition="Exists('packages\Fody.6.6.0\build\Fody.targets')" />

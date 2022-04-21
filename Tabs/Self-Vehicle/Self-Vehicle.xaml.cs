@@ -25,11 +25,14 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
         Self_Vehicle_Addrs sva = new Self_Vehicle_Addrs();
         readonly Dictionary<string, double> Sizes = new Dictionary<string, double>()
         {
-            { "SpeedHacksButton" , 200}
+            { "SpeedHacksButton" , 200},
+            { "UnlocksButton" , 200},
+            { "CameraButton" , 200}
         };
         Dictionary<string, bool> IsClicked = new Dictionary<string,bool>()
         {
             {"SpeedHacksButton", false },
+            {"UnlocksButton", false },
             {"CameraButton", false },
             {"ModifiersButton", false },
             {"StatsButton", false },
@@ -75,14 +78,16 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
                 string SenderName = sender.GetType().GetProperty("Name").GetValue(sender).ToString();
                 string ElementName = Element.GetType().GetProperty("Name").GetValue(Element).ToString();
 
-                if (ElementName.Contains("Page"))
+                if (ElementName.Contains("Page") && ElementName.Contains(SenderName.Replace("Button", String.Empty)))
                 {
-                    
+                    //Page move height of button
                     Thickness Start = (Thickness)Element.GetType().GetProperty("Margin").GetValue(Element);
                     Thickness End = new Thickness(Start.Left, Start.Top + 25, Start.Right, Start.Bottom);
                     if (AlreadyOpen)
                         End = new Thickness(Start.Left, Start.Top - 25, Start.Right, Start.Bottom);
                     TanimationPage = new ThicknessAnimation(End, new Duration(TimeSpan.FromSeconds(Duration)));
+                    
+                    //Page change height
                     DanimationPage = new DoubleAnimation(Sizes[SenderName], new Duration(TimeSpan.FromSeconds(Duration)));
                     if (AlreadyOpen)
                         DanimationPage = new DoubleAnimation(25, new Duration(TimeSpan.FromSeconds(Duration)));
@@ -96,8 +101,15 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
                     storyboard.Children.Add(DanimationPage);
                     storyboard.Begin(Element);
                 }
-                else if (Element.GetType() == typeof(Button) && (object)Element != sender && !ElementName.Contains("ScanButton"))
+                else if ((Element.GetType() == typeof(Button)
+                    && (object)Element != sender // Button is not the button that was clicked
+                    && !ElementName.Contains("ScanButton") // Button is not the scan button
+                    && IsClicked.Keys.ToList().IndexOf(ElementName) > IsClicked.Keys.ToList().IndexOf(SenderName)) // Button is below the button that was clicked
+                    || (Element.GetType() == typeof(Frame)
+                    && !ElementName.Contains(SenderName.Replace("Button", String.Empty)) // Page isnt the one being shown
+                    && IsClicked.Keys.ToList().IndexOf(ElementName.Replace("Page", "Button")) > IsClicked.Keys.ToList().IndexOf(SenderName)))// Page is below the button that was clicked
                 {
+                    //Move all buttons down by size of page opened
                     Thickness Start = (Thickness)Element.GetType().GetProperty("Margin").GetValue(Element);
                     Thickness End = new Thickness(Start.Left, Start.Top + Sizes[SenderName], Start.Right, Start.Bottom);
                     if (AlreadyOpen)

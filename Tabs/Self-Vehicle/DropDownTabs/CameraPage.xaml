@@ -1,4 +1,4 @@
-﻿<Page x:Class="WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs.SpeedHacksPage"
+﻿<Page x:Class="WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs.CameraPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,10 +6,10 @@
       xmlns:local="clr-namespace:WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs"
       mc:Ignorable="d" 
       d:DesignHeight="200" d:DesignWidth="580"
-      Title="SpeedHacksPage">
+      Title="CameraPage">
 
     <Grid>
         <Border BorderBrush="White" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10"/>
-        <Rectangle HorizontalAlignment="Left" Height="100" Margin="107,29,0,0" Stroke="White" VerticalAlignment="Top" Width="100" Fill="Red"/>
+        <Rectangle HorizontalAlignment="Left" Height="100" Margin="321,62,0,0" Stroke="White" VerticalAlignment="Top" Width="100" Fill="Red"/>
     </Grid>
 </Page>
