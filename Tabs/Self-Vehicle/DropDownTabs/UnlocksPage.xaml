@@ -9,7 +9,7 @@
       Title="UnlocksPage">
 
     <Grid>
-        <Border BorderBrush="White" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10"/>
+        <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10"/>
         <Rectangle HorizontalAlignment="Left" Height="100" Margin="441,90,0,0" Stroke="White" VerticalAlignment="Top" Width="100" Fill="Red"/>
     </Grid>
 </Page>

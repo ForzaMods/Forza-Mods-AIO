@@ -28,9 +28,9 @@
                     FontFamily="Manrope"
                     Height="25"/>
             <!-- Small Buttons -->
-            <Frame x:Name="SpeedHacksPage" Content="Frame" Width="580" Source="DropDownTabs/SpeedHacksPage.xaml" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" />
-            <Frame x:Name="UnlocksPage" Content="Frame" Width="580" Source="DropDownTabs/UnlocksPage.xaml" Margin="10,45,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" />
-            <Frame x:Name="CameraPage" Content="Frame" Width="580" Source="DropDownTabs/CameraPage.xaml" Margin="10,80,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" />
+            <Frame x:Name="SpeedHacksPage" Content="Frame" Width="580" Source="DropDownTabs/SpeedHacksPage.xaml" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" />
+            <Frame x:Name="UnlocksPage" Content="Frame" Width="580" Source="DropDownTabs/UnlocksPage.xaml" Margin="10,45,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" />
+            <Frame x:Name="CameraPage" Content="Frame" Width="580" Source="DropDownTabs/CameraPage.xaml" Margin="10,80,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" />
             <Button x:Name="SpeedHacksButton" Content="Speed Hacks" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click">
                 <!-- Animation in xaml<Button.Triggers>
                     <EventTrigger RoutedEvent="Button.Click">

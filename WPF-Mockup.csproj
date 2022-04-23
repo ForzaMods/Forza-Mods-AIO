@@ -11,6 +11,7 @@
     <RootNamespace>WPF_Mockup</RootNamespace>
     <AssemblyName>WPF-Mockup</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <LangVersion>9.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -34,6 +35,7 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
+    <LangVersion>9.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -43,7 +45,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
@@ -53,7 +55,7 @@
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
@@ -368,7 +370,10 @@
     <Compile Include="Tabs\AIO-Info\AIO-Info.xaml.cs">
       <DependentUpon>AIO-Info.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\AutoShow.xaml.cs">
+    <Compile Include="Tabs\AIO-Info\Overlay.xaml.cs">
+      <DependentUpon>Overlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\AutoShow\AutoShow.xaml.cs">
       <DependentUpon>AutoShow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tabs\Self-Vehicle\assembly.cs" />
@@ -382,7 +387,6 @@
       <DependentUpon>SpeedHacksPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tabs\Self-Vehicle\Self-Vehicle-Addrs.cs" />
-    <Compile Include="Tabs\Self-Vehicle\Self-Vehicle-Functions.cs" />
     <Compile Include="Tabs\Self-Vehicle\Self-Vehicle.xaml.cs">
       <DependentUpon>Self-Vehicle.xaml</DependentUpon>
     </Compile>
@@ -398,7 +402,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Tabs\AutoShow.xaml">
+    <Page Include="Tabs\AIO-Info\Overlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\AutoShow\AutoShow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

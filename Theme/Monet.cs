@@ -88,7 +88,6 @@ namespace WPF_Mockup.CustomTheming
             
             var colorThief = new ColorThief();
             Bitmap DesktopWallpaper = CaptureWindow(GetShellWindow());
-            DesktopWallpaper.Save("test.bmp");
 
             QuantizedColor Colour = colorThief.GetColor(DesktopWallpaper);
             ColorThiefDotNet.Color Colour2 = Colour.Color;
@@ -126,6 +125,7 @@ namespace WPF_Mockup.CustomTheming
                 DarkerColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex4);
             
                 MainWindow.mw.Background.Background = MainColour;
+                MainWindow.mw.FrameBorder.Background = MainColour;
                 MainWindow.mw.SideBar.Background = DarkishColour;
                 MainWindow.mw.TopBar1.Background = DarkColour;
                 MainWindow.mw.TopBar2.Background = DarkColour;
@@ -140,6 +140,10 @@ namespace WPF_Mockup.CustomTheming
                     if(Element.GetType() == typeof(System.Windows.Controls.Button))
                     {
                         Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
+                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
+                    }
+                    if (Element.GetType() == typeof(System.Windows.Controls.Border))
+                    {
                         Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
                     }
                 }

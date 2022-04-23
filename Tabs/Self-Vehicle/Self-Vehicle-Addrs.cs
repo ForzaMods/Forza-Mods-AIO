@@ -769,9 +769,10 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
                                 CodeCave8 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA8, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
                             AddProgress(100);
+                            Thread.Sleep(100);
                             AddressesFive();
                             MainAOBScanDone = true;
-                            await Self_Vehicle.sv.Dispatcher.BeginInvoke((Action)delegate () {
+                            Self_Vehicle.sv.Dispatcher.Invoke(delegate () {
                                 Self_Vehicle.sv.AOBProgressBar.Visibility = System.Windows.Visibility.Hidden;
                                 Self_Vehicle.sv.ScanButton.Content = "Done";
                                 Self_Vehicle.sv.ScanButton.IsEnabled = false;
@@ -786,21 +787,20 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
                 }
             }
         }
-        private async void AddProgress(int Prog)
+        private void AddProgress(int Prog)
         {
             int CurrentProg = 0;
-            await Self_Vehicle.sv.Dispatcher.BeginInvoke((Action)delegate () {
+            Self_Vehicle.sv.Dispatcher.Invoke(delegate () {
                 CurrentProg = (int)Self_Vehicle.sv.AOBProgressBar.Value;
             });
 
             for (int i = CurrentProg; i <= Prog; i++)
             {
-                await Self_Vehicle.sv.Dispatcher.BeginInvoke((Action)delegate () {
+                Self_Vehicle.sv.Dispatcher.Invoke(delegate () {
                     Self_Vehicle.sv.AOBProgressBar.Value = i;
                 });
                 Thread.Sleep(15);
             }
-            
         }
     }
 }

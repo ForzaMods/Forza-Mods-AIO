@@ -21,11 +21,12 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
     /// </summary>
     public partial class Self_Vehicle : Page
     {
+        #region Variables
         public static Self_Vehicle sv;
         Self_Vehicle_Addrs sva = new Self_Vehicle_Addrs();
         readonly Dictionary<string, double> Sizes = new Dictionary<string, double>()
         {
-            { "SpeedHacksButton" , 200},
+            { "SpeedHacksButton" , 200}, // Button name for page, height of page
             { "UnlocksButton" , 200},
             { "CameraButton" , 200}
         };
@@ -41,18 +42,17 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
             {"LiveTuningButton", false }
         };
         bool AnimCompleted = true;
-        
+        #endregion
         public Self_Vehicle()
         {
             InitializeComponent();
             sv = this;
         }
-
+        #region Buttons
         private void ScanButton_Click(object sender, RoutedEventArgs e)
         {
             Task.Run(() => sva.AoBscan());
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if(AnimCompleted)
@@ -61,7 +61,8 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
                 IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()] = !IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()];
             }
         }
-
+        #endregion
+        #region Functions
         private void Animate(object sender, bool AlreadyOpen)
         {
             AnimCompleted = false;
@@ -71,7 +72,6 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
                 ThicknessAnimation TanimationPage;
                 ThicknessAnimation TanimationButton;
                 Storyboard storyboard = new Storyboard();
-                storyboard.Completed += (s, e) => { AnimCompleted = true; };
 
                 double Duration = 0.1;
 
@@ -80,6 +80,13 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
 
                 if (ElementName.Contains("Page") && ElementName.Contains(SenderName.Replace("Button", String.Empty)))
                 {
+                    storyboard.Completed += (s, e) =>
+                    {
+                        AnimCompleted = true;
+                        if (AlreadyOpen)
+                            Element.Visibility = Visibility.Hidden;
+                    };
+                    Element.Visibility = Visibility.Visible;
                     //Page move height of button
                     Thickness Start = (Thickness)Element.GetType().GetProperty("Margin").GetValue(Element);
                     Thickness End = new Thickness(Start.Left, Start.Top + 25, Start.Right, Start.Bottom);
@@ -91,7 +98,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
                     DanimationPage = new DoubleAnimation(Sizes[SenderName], new Duration(TimeSpan.FromSeconds(Duration)));
                     if (AlreadyOpen)
                         DanimationPage = new DoubleAnimation(25, new Duration(TimeSpan.FromSeconds(Duration)));
-                    
+
                     Storyboard.SetTargetName(TanimationPage, ElementName);
                     Storyboard.SetTargetProperty(TanimationPage, new PropertyPath(Frame.MarginProperty));
                     storyboard.Children.Add(TanimationPage);
@@ -124,5 +131,6 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
 
             }
         }
+        #endregion
     }
 }

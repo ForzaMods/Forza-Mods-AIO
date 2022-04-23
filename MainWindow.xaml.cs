@@ -49,7 +49,6 @@ namespace WPF_Mockup
         public static MainWindow mw = new MainWindow();
         public Mem m = new Mem();
         List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle() };
-        private readonly BackgroundWorker IsAttachedWorker = new BackgroundWorker();
         public GameVerPlat gvp = new GameVerPlat(null, null, null);
         #endregion
         #region Starting
@@ -57,8 +56,7 @@ namespace WPF_Mockup
         {
             InitializeComponent();
             mw = this;
-            IsAttachedWorker.DoWork += IsAttachedWorker_DoWork;
-            IsAttachedWorker.RunWorkerAsync();
+            Task.Run(() => IsAttached());
             ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
             ThemeManager.Current.ChangeTheme(Application.Current, "AccentCol");
             AIO_Info.IsChecked = true;
@@ -108,7 +106,7 @@ namespace WPF_Mockup
         }
         #endregion
         #region Attaching/Behaviour
-        private void IsAttachedWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void IsAttached()
         {
             while (true)
             {
@@ -118,7 +116,6 @@ namespace WPF_Mockup
                     Dispatcher.BeginInvoke((Action)delegate () {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}";
                     });
-                    SetForegroundWindow(gvp.Process.Handle.ToInt32());
                 }
                 else if (m.OpenProcess("ForzaHorizon4"))
                 {
@@ -126,7 +123,6 @@ namespace WPF_Mockup
                     Dispatcher.BeginInvoke((Action)delegate () {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}";
                     });
-                    SetForegroundWindow(gvp.Process.Handle.ToInt32());
                 }
                 else
                 {

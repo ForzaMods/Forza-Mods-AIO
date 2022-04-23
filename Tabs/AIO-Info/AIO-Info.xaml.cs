@@ -21,6 +21,7 @@ namespace WPF_Mockup.Tabs.AIO_Info
     public partial class AIO_Info : Page
     {
         public static AIO_Info ai;
+        Window OverlayWindow = new Overlay();
         public AIO_Info()
         {
             InitializeComponent();
@@ -29,6 +30,14 @@ namespace WPF_Mockup.Tabs.AIO_Info
         private void WallButton_Click(object sender, RoutedEventArgs e)
         {
             Task.Run(() => { CustomTheming.Monet.ApplyMonet(); });
+        }
+
+        private void OverlaySwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            if(OverlaySwitch.IsOn)
+                Overlay.o.OverlayToggle(true);
+            else
+                Overlay.o.OverlayToggle(false);
         }
     }
 }
