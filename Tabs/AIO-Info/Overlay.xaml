@@ -10,9 +10,9 @@
         AllowsTransparency="True" ShowInTaskbar="False" Loaded="Window_Loaded" Focusable="False" FontWeight="Bold">
     <Grid IsHitTestVisible="False">
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="TopSection" Height="*"/>
-            <RowDefinition x:Name="MainSection" Height="7*"/>
-            <RowDefinition x:Name="BottomSection" Height="*"/>
+            <RowDefinition x:Name="TopSection" Height="15"/>
+            <RowDefinition x:Name="MainSection"/>
+            <RowDefinition x:Name="BottomSection" Height="15"/>
         </Grid.RowDefinitions>
         <Border x:Name="Border" Grid.RowSpan="3" Grid.Column="1" BorderBrush="Black" BorderThickness="5,5,5,5"/>
         <TextBlock x:Name="OptionsBlock"

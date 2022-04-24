@@ -29,10 +29,10 @@ namespace WPF_Mockup.Tabs.AIO_Info
         #region DLLImports
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
-        
+
         [DllImport("user32.dll")]
         static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
-        
+
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
@@ -103,11 +103,41 @@ namespace WPF_Mockup.Tabs.AIO_Info
         static CancellationTokenSource cts = null;
         public static Overlay o;
         int SelectedOptionIndex = 0;
-        List<string> MainOptions = new List<string>()
+        int LevelIndex = 0;
+        string CurrentMenu = "MainOptions";
+        bool Hidden = false;
+        Dictionary<string, List<string>> AllMenus = new Dictionary<string, List<string>>()
+        {
+            { "MainOptions" ,MainOptions },
+            { "SelfCarsOptions" , SelfCarsOptions},
+            { "SpeedhacksOptions" , SpeedhacksOptions}
+        };
+        Dictionary<int, string> History = new Dictionary<int, string>()
+        {
+            {  0 ,"MainOptions" }
+        };
+        static List<string> MainOptions = new List<string>()
         { 
             "AutoShow",
             "Self/Cars",
             "Settings" 
+        };
+        static List<string> SelfCarsOptions = new List<string>()
+        {
+            "Speedhacks",
+            "Unlocks",
+            "Camera",
+            "Modifiers",
+            "Stats",
+            "Teleports",
+            "Environments",
+            "Tuning"
+        };
+        static List<string> SpeedhacksOptions = new List<string>()
+        {
+            "Option1",
+            "Option2",
+            "Option3"
         };
         private uint _blurBackgroundColor = 0x990000;
         bool UpKeyDown = false;
@@ -133,7 +163,7 @@ namespace WPF_Mockup.Tabs.AIO_Info
                 cts = new CancellationTokenSource();
                 Task.Run(() => OverlayPos(cts.Token));
                 Task.Run(() => UpdateMenuOptions(cts.Token));
-                Task.Run(() => KeyUpDownHandler(cts.Token));
+                Task.Run(() => KeyHandler(cts.Token));
                 Task.Run(() => ChangeSelection(cts.Token));
             }
             else
@@ -165,7 +195,7 @@ namespace WPF_Mockup.Tabs.AIO_Info
                 {
                     Dispatcher.Invoke(delegate ()
                     {
-                        if (Visibility == Visibility.Hidden)
+                        if (Visibility == Visibility.Hidden && !Hidden)
                             Show();
                         Top = PosTop;
                         Left = PosLeft;
@@ -176,7 +206,7 @@ namespace WPF_Mockup.Tabs.AIO_Info
                 {
                     Dispatcher.Invoke(delegate ()
                     {
-                        this.Hide();
+                        Hide();
                     });
                 }
                 Thread.Sleep(1);
@@ -188,45 +218,73 @@ namespace WPF_Mockup.Tabs.AIO_Info
             {
                 if (ct.IsCancellationRequested)
                     return;
-                string OptionsBlockText = "";
+                Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Clear(); });
                 int index = 0;
-                foreach (string item in MainOptions)
+                foreach (string item in AllMenus[CurrentMenu])
                 {
                     if (index == SelectedOptionIndex)
-                        OptionsBlockText += $"<{item}> \n";
+                        Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Add(new Run($"<{item}>") { Foreground = Brushes.Green }); });
                     else
-                        OptionsBlockText += $"{item} \n";
+                        Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Add($"{item}"); });
+                    if (AllMenus[CurrentMenu].IndexOf(item) != AllMenus[CurrentMenu].Count -1)
+                        Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Add("\n"); });
                     index++;
                 }
                 Dispatcher.Invoke(delegate ()
                 {
-                    OptionsBlock.Text = OptionsBlockText.TrimEnd('\n');
                     Height = OptionsBlock.ActualHeight + TopSection.ActualHeight + BottomSection.ActualHeight;
                 });
                 Thread.Sleep(10);
             }
         }
-        void KeyUpDownHandler(CancellationToken ct)
+        void KeyHandler(CancellationToken ct)
         {
             while(true)
             {
                 if (ct.IsCancellationRequested)
                     return;
                 if (GetAsyncKeyState(Keys.NumPad2) is 1 or Int16.MinValue && !DownKeyDown)
-                {
                     DownKeyDown = true;
-                }
                 if (GetAsyncKeyState(Keys.NumPad2) is not 1 and not Int16.MinValue && DownKeyDown)
-                {
                     DownKeyDown = false;
-                }
                 if (GetAsyncKeyState(Keys.NumPad8) is 1 or Int16.MinValue && !UpKeyDown)
-                {
                     UpKeyDown = true;
-                }
                 if (GetAsyncKeyState(Keys.NumPad8) is not 1 and not Int16.MinValue && UpKeyDown)
-                {
                     UpKeyDown = false;
+
+                if (GetAsyncKeyState(Keys.NumPad5) is 1 or Int16.MinValue)
+                {
+                    LevelIndex++;
+                    CurrentMenu = AllMenus[CurrentMenu][SelectedOptionIndex].Replace("<", string.Empty).Replace("<", string.Empty).Replace("/", string.Empty) + "Options";
+                    History.Add(LevelIndex, CurrentMenu);
+                    SelectedOptionIndex = 0;
+                    while (GetAsyncKeyState(Keys.NumPad5) is 1 or Int16.MinValue)
+                        Thread.Sleep(10);
+                }
+                if (GetAsyncKeyState(Keys.NumPad0) is 1 or Int16.MinValue)
+                {
+                    if(LevelIndex == 0)
+                    {
+                        Dispatcher.Invoke(delegate { Hide(); });
+                        Hidden = true;
+                        continue;
+                    }
+                    LevelIndex--;
+                    CurrentMenu = History[LevelIndex];
+                    History.Remove(LevelIndex + 1);
+                    SelectedOptionIndex = 0;
+                    while (GetAsyncKeyState(Keys.NumPad0) is 1 or Int16.MinValue)
+                        Thread.Sleep(10);
+                }
+                if (GetAsyncKeyState(Keys.Subtract) is 1 or Int16.MinValue)
+                {
+                    if (Visibility == Visibility.Visible && !Hidden)
+                        Dispatcher.Invoke(delegate { Hide(); });
+                    else
+                        Dispatcher.Invoke(delegate { Show(); });
+                    Hidden = !Hidden;
+                    while (GetAsyncKeyState(Keys.Subtract) is 1 or Int16.MinValue)
+                        Thread.Sleep(10);
                 }
                 Thread.Sleep(10);
             }
@@ -240,7 +298,7 @@ namespace WPF_Mockup.Tabs.AIO_Info
                 if (DownKeyDown)
                 {
                     SelectedOptionIndex++;
-                    if (SelectedOptionIndex > MainOptions.Count - 1)
+                    if (SelectedOptionIndex > AllMenus[CurrentMenu].Count - 1)
                         SelectedOptionIndex = 0;
 
                     Timer timer = new Timer();
@@ -248,19 +306,19 @@ namespace WPF_Mockup.Tabs.AIO_Info
                     timer.Tick += delegate
                     {
                         SelectedOptionIndex++;
-                        if (SelectedOptionIndex > MainOptions.Count - 1)
+                        if (SelectedOptionIndex > AllMenus[CurrentMenu].Count - 1)
                             SelectedOptionIndex = 0;
                         Thread.Sleep(1);
                     };
                     Dispatcher.Invoke(delegate { timer.Start(); });
                     while (DownKeyDown) { Thread.Sleep(1); }
-                    timer.Dispose();
+                    Dispatcher.Invoke(delegate { timer.Dispose(); });
                 }
                 if (UpKeyDown)
                 {
                     SelectedOptionIndex--;
                     if (SelectedOptionIndex < 0)
-                        SelectedOptionIndex = MainOptions.Count - 1;
+                        SelectedOptionIndex = AllMenus[CurrentMenu].Count - 1;
 
                     Timer timer = new Timer();
                     timer.Interval = 100;
@@ -268,12 +326,12 @@ namespace WPF_Mockup.Tabs.AIO_Info
                     {
                         SelectedOptionIndex--;
                         if (SelectedOptionIndex < 0)
-                            SelectedOptionIndex = MainOptions.Count - 1;
+                            SelectedOptionIndex = AllMenus[CurrentMenu].Count - 1;
                         Thread.Sleep(1);
                     };
                     Dispatcher.Invoke(delegate { timer.Start(); });
                     while (UpKeyDown) { Thread.Sleep(1); }
-                    timer.Dispose();
+                    Dispatcher.Invoke(delegate { timer.Dispose(); });
                 }
                 Thread.Sleep(1);
             }
