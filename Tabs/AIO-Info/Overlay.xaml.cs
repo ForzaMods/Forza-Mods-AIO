@@ -106,21 +106,29 @@ namespace WPF_Mockup.Tabs.AIO_Info
         int LevelIndex = 0;
         string CurrentMenu = "MainOptions";
         bool Hidden = false;
-        Dictionary<string, List<string>> AllMenus = new Dictionary<string, List<string>>()
-        {
-            { "MainOptions" ,MainOptions },
-            { "SelfCarsOptions" , SelfCarsOptions},
-            { "SpeedhacksOptions" , SpeedhacksOptions}
-        };
         Dictionary<int, string> History = new Dictionary<int, string>()
         {
             {  0 ,"MainOptions" }
         };
+        private uint _blurBackgroundColor = 0x990000;
+        bool UpKeyDown = false;
+        bool DownKeyDown = false;
+        #endregion
+        #region Menus
+
+        Dictionary<string, List<string>> AllMenus = new Dictionary<string, List<string>>()
+        {
+            { "MainOptions" ,MainOptions },
+            { "SelfCarsOptions" , SelfCarsOptions},
+            { "SpeedhacksOptions" , SpeedhacksOptions},
+            { "UnlocksOptions" , UnlocksOptions}
+        };
+        
         static List<string> MainOptions = new List<string>()
-        { 
+        {
             "AutoShow",
             "Self/Cars",
-            "Settings" 
+            "Settings"
         };
         static List<string> SelfCarsOptions = new List<string>()
         {
@@ -135,14 +143,18 @@ namespace WPF_Mockup.Tabs.AIO_Info
         };
         static List<string> SpeedhacksOptions = new List<string>()
         {
-            "Option1",
-            "Option2",
-            "Option3"
+            "Velocity",
+            "Wheel Speed",
+            "Super Car"
         };
-        private uint _blurBackgroundColor = 0x990000;
-        bool UpKeyDown = false;
-        bool DownKeyDown = false;
+        static List<string> UnlocksOptions = new List<string>()
+        {
+            "Clothes",
+            "Horns",
+            "Emotes"
+        };
         #endregion
+
         public Overlay()
         {
             InitializeComponent();
@@ -223,7 +235,7 @@ namespace WPF_Mockup.Tabs.AIO_Info
                 foreach (string item in AllMenus[CurrentMenu])
                 {
                     if (index == SelectedOptionIndex)
-                        Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Add(new Run($"<{item}>") { Foreground = Brushes.Green }); });
+                        Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Add(new Run($"[{item}]") { Foreground = Brushes.Green }); });
                     else
                         Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Add($"{item}"); });
                     if (AllMenus[CurrentMenu].IndexOf(item) != AllMenus[CurrentMenu].Count -1)

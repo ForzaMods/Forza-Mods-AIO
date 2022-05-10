@@ -3,9 +3,9 @@ using ControlzEx.Theming;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Threading;
 using WPF_Mockup.Tabs.AIO_Info;
 
 namespace WPF_Mockup.CustomTheming
@@ -22,11 +22,22 @@ namespace WPF_Mockup.CustomTheming
         [DllImport("User32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
-
         [DllImport("user32.dll")]
         static extern bool GetWindowRect(IntPtr handle, ref System.Drawing.Rectangle rect);
         [DllImport("user32.dll", SetLastError = false)]
         static extern IntPtr GetShellWindow();
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool EnumChildWindows(IntPtr hwndParent, EnumWindowsProc lpEnumFunc, IntPtr lParam);
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        static extern int GetWindowTextLength(IntPtr hWnd);        
+
+        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
         #endregion
         #region Functions
         public static Bitmap CaptureWindow(IntPtr handle)
@@ -85,9 +96,30 @@ namespace WPF_Mockup.CustomTheming
         }
         public static void ApplyMonet()
         {
+            IntPtr Window = IntPtr.Zero;
+            var Windows = EnumWindows(new EnumWindowsProc((hwnd, lParam) =>
+            {
+                IntPtr ParentHandle = hwnd;
+                EnumChildWindows(hwnd, new EnumWindowsProc((hwnd, lParam) =>
+                {
+                    var sb = new StringBuilder(GetWindowTextLength(hwnd) + 1);
+                    GetWindowText(hwnd, sb, sb.Capacity);
+                    if (sb.ToString().Contains("WPE"))
+                    {
+                        Window = ParentHandle;
+                        return true;
+                    }
+                    return true;
+                }), (IntPtr)0);
+                return true;
+            }), (IntPtr)0);
             
             var colorThief = new ColorThief();
-            Bitmap DesktopWallpaper = CaptureWindow(GetShellWindow());
+            if (Window == IntPtr.Zero)
+                Window = GetShellWindow();
+            Bitmap DesktopWallpaper = CaptureWindow(Window);
+            Bitmap Test = CaptureWindow((IntPtr)0xA019E);
+            Test.Save("Test.bmp");
 
             QuantizedColor Colour = colorThief.GetColor(DesktopWallpaper);
             ColorThiefDotNet.Color Colour2 = Colour.Color;
