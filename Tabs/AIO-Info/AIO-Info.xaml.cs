@@ -21,7 +21,7 @@ namespace WPF_Mockup.Tabs.AIO_Info
     public partial class AIO_Info : Page
     {
         public static AIO_Info ai;
-        Window OverlayWindow = new Overlay();
+        Window OverlayWindow = new Overlay.Overlay();
         public AIO_Info()
         {
             InitializeComponent();
@@ -35,9 +35,9 @@ namespace WPF_Mockup.Tabs.AIO_Info
         private void OverlaySwitch_Toggled(object sender, RoutedEventArgs e)
         {
             if(OverlaySwitch.IsOn)
-                Overlay.o.OverlayToggle(true);
+                Overlay.Overlay.o.OverlayToggle(true);
             else
-                Overlay.o.OverlayToggle(false);
+                Overlay.Overlay.o.OverlayToggle(false);
         }
     }
 }

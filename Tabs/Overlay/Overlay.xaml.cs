@@ -19,13 +19,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Timer = System.Windows.Forms.Timer;
 
-namespace WPF_Mockup.Tabs.AIO_Info
+namespace WPF_Mockup.Tabs.Overlay
 {
     /// <summary>
     /// Interaction logic for Overlay.xaml
     /// </summary>
     public partial class Overlay : Window
     {
+        public class MenuOption
+        {
+            public string Name { get; }
+            public string Type { get; }
+            public string Value { get; set; }
+
+            public MenuOption(string name, string type, string value)
+            {
+                Name = name;
+                Type = type;
+                Value = value;
+            }
+
+        }      
         #region DLLImports
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
@@ -115,43 +129,37 @@ namespace WPF_Mockup.Tabs.AIO_Info
         bool DownKeyDown = false;
         #endregion
         #region Menus
-
-        Dictionary<string, List<string>> AllMenus = new Dictionary<string, List<string>>()
+        Dictionary<string, List<MenuOption>> AllMenus = new Dictionary<string, List<MenuOption>>()
         {
-            { "MainOptions" ,MainOptions },
-            { "SelfCarsOptions" , SelfCarsOptions},
+            { "MainOptions" , MainOptions },
+            { "SelfCarsOptions" , SelfCarMenu.SelfCarMenu.SelfCarsOptions},
             { "SpeedhacksOptions" , SpeedhacksOptions},
-            { "UnlocksOptions" , UnlocksOptions}
+            { "UnlocksOptions" , UnlocksOptions},
+            { "CameraOptions" , CameraOptions},
+            { "ModifiersOptions" , SelfCarMenu.ModifiersMenu.ModifiersMenu.ModifiersOptions},
+            { "GravityOptions" , SelfCarMenu.ModifiersMenu.ModifiersMenu.GravityOptions}
         };
-        
-        static List<string> MainOptions = new List<string>()
+        static List<MenuOption> MainOptions = new List<MenuOption>()
         {
-            "AutoShow",
-            "Self/Cars",
-            "Settings"
+            new MenuOption("Autoshow", "MenuButton", null),
+            new MenuOption("Self/Cars", "MenuButton", null),
+            new MenuOption("Settings", "MenuButton", null)
         };
-        static List<string> SelfCarsOptions = new List<string>()
+        static List<MenuOption> SpeedhacksOptions = new List<MenuOption>()
         {
-            "Speedhacks",
-            "Unlocks",
-            "Camera",
-            "Modifiers",
-            "Stats",
-            "Teleports",
-            "Environments",
-            "Tuning"
+            new MenuOption("Velocity", "MenuButton", null),
+            new MenuOption("Wheel Speed", "MenuButton", null),
+            new MenuOption("Super Car", "MenuButton", null)
         };
-        static List<string> SpeedhacksOptions = new List<string>()
+        static List<MenuOption> UnlocksOptions = new List<MenuOption>()
         {
-            "Velocity",
-            "Wheel Speed",
-            "Super Car"
+            new MenuOption("Clothes", "MenuButton", null),
+            new MenuOption("Horns", "MenuButton", null),
+            new MenuOption("Emotes", "MenuButton", null)
         };
-        static List<string> UnlocksOptions = new List<string>()
+        static List<MenuOption> CameraOptions = new List<MenuOption>()
         {
-            "Clothes",
-            "Horns",
-            "Emotes"
+            new MenuOption("FOV", "MenuButton", null)
         };
         #endregion
 
@@ -174,7 +182,7 @@ namespace WPF_Mockup.Tabs.AIO_Info
             {
                 cts = new CancellationTokenSource();
                 Task.Run(() => OverlayPos(cts.Token));
-                Task.Run(() => UpdateMenuOptions(cts.Token));
+                Task.Run(() => UpdateMenuOptionsAsync(cts.Token));
                 Task.Run(() => KeyHandler(cts.Token));
                 Task.Run(() => ChangeSelection(cts.Token));
             }
@@ -224,7 +232,7 @@ namespace WPF_Mockup.Tabs.AIO_Info
                 Thread.Sleep(1);
             }
         }
-        void UpdateMenuOptions(CancellationToken ct)
+        void UpdateMenuOptionsAsync(CancellationToken ct)
         {
             while(true)
             {
@@ -232,20 +240,38 @@ namespace WPF_Mockup.Tabs.AIO_Info
                     return;
                 Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Clear(); });
                 int index = 0;
-                foreach (string item in AllMenus[CurrentMenu])
+                
+                foreach (MenuOption item in AllMenus[CurrentMenu])
                 {
+                    string Item = string.Empty;
+                    SolidColorBrush Colour = Brushes.White;
                     if (index == SelectedOptionIndex)
-                        Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Add(new Run($"[{item}]") { Foreground = Brushes.Green }); });
+                    {
+                        Item += $"[{item.Name}]";
+                        Colour = Brushes.Green;
+                    }
                     else
-                        Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Add($"{item}"); });
-                    if (AllMenus[CurrentMenu].IndexOf(item) != AllMenus[CurrentMenu].Count -1)
+                        Item += $"{item.Name}";
+
+                    if (item.Type == "Bool" && item.Value == "True")
+                        Item += "   ■";
+                    else if (item.Type == "Bool" && item.Value == "False")
+                        Item += "   □";
+                    else if (item.Type == "Float")
+                        Item += $"  {item.Value}";
+                    
+                    Dispatcher.BeginInvoke((Action<string, SolidColorBrush>) ((string value1, SolidColorBrush Value2) =>
+                    {
+                        OptionsBlock.Inlines.Add(new Run(value1) { Foreground = Value2 });
+                    }), Item, Colour);
+                    
+                    if (AllMenus[CurrentMenu].IndexOf(item) != AllMenus[CurrentMenu].Count - 1)
                         Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Add("\n"); });
                     index++;
                 }
-                Dispatcher.Invoke(delegate ()
-                {
-                    Height = OptionsBlock.ActualHeight + TopSection.ActualHeight + BottomSection.ActualHeight;
-                });
+
+                Dispatcher.Invoke(delegate () { Height = OptionsBlock.ActualHeight + TopSection.ActualHeight + BottomSection.ActualHeight; });
+                
                 Thread.Sleep(10);
             }
         }
@@ -266,10 +292,20 @@ namespace WPF_Mockup.Tabs.AIO_Info
 
                 if (GetAsyncKeyState(Keys.NumPad5) is 1 or Int16.MinValue)
                 {
-                    LevelIndex++;
-                    CurrentMenu = AllMenus[CurrentMenu][SelectedOptionIndex].Replace("<", string.Empty).Replace("<", string.Empty).Replace("/", string.Empty) + "Options";
-                    History.Add(LevelIndex, CurrentMenu);
-                    SelectedOptionIndex = 0;
+                    if(AllMenus[CurrentMenu][SelectedOptionIndex].Type == "MenuButton")
+                    {
+                        LevelIndex++;
+                        CurrentMenu = AllMenus[CurrentMenu][SelectedOptionIndex].Name.Replace("<", string.Empty).Replace("<", string.Empty).Replace("/", string.Empty) + "Options";
+                        History.Add(LevelIndex, CurrentMenu);
+                        SelectedOptionIndex = 0;
+                    }
+                    else if(AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Bool")
+                    {
+                        if (AllMenus[CurrentMenu][SelectedOptionIndex].Value == "True")
+                            AllMenus[CurrentMenu][SelectedOptionIndex].Value = "False";
+                        else
+                            AllMenus[CurrentMenu][SelectedOptionIndex].Value = "True";
+                    }
                     while (GetAsyncKeyState(Keys.NumPad5) is 1 or Int16.MinValue)
                         Thread.Sleep(10);
                 }

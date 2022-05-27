@@ -28,7 +28,8 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
         {
             { "SpeedHacksButton" , 200}, // Button name for page, height of page
             { "UnlocksButton" , 200},
-            { "CameraButton" , 200}
+            { "CameraButton" , 200},
+            { "ModifiersButton" , 200}
         };
         Dictionary<string, bool> IsClicked = new Dictionary<string,bool>()
         {
@@ -87,6 +88,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
                             Element.Visibility = Visibility.Hidden;
                     };
                     Element.Visibility = Visibility.Visible;
+                    
                     //Page move height of button
                     Thickness Start = (Thickness)Element.GetType().GetProperty("Margin").GetValue(Element);
                     Thickness End = new Thickness(Start.Left, Start.Top + 25, Start.Right, Start.Bottom);
@@ -109,12 +111,12 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
                     storyboard.Begin(Element);
                 }
                 else if ((Element.GetType() == typeof(Button)
-                    && (object)Element != sender // Button is not the button that was clicked
-                    && !ElementName.Contains("ScanButton") // Button is not the scan button
-                    && IsClicked.Keys.ToList().IndexOf(ElementName) > IsClicked.Keys.ToList().IndexOf(SenderName)) // Button is below the button that was clicked
+                    && (object)Element != sender                                                                                                // Button is not the button that was clicked
+                    && !ElementName.Contains("ScanButton")                                                                                      // Button is not the scan button
+                    && IsClicked.Keys.ToList().IndexOf(ElementName) > IsClicked.Keys.ToList().IndexOf(SenderName))                              // Button is below the button that was clicked
                     || (Element.GetType() == typeof(Frame)
-                    && !ElementName.Contains(SenderName.Replace("Button", String.Empty)) // Page isnt the one being shown
-                    && IsClicked.Keys.ToList().IndexOf(ElementName.Replace("Page", "Button")) > IsClicked.Keys.ToList().IndexOf(SenderName)))// Page is below the button that was clicked
+                    && !ElementName.Contains(SenderName.Replace("Button", String.Empty))                                                        // Page isnt the one being shown
+                    && IsClicked.Keys.ToList().IndexOf(ElementName.Replace("Page", "Button")) > IsClicked.Keys.ToList().IndexOf(SenderName)))   // Page is below the button that was clicked
                 {
                     //Move all buttons down by size of page opened
                     Thickness Start = (Thickness)Element.GetType().GetProperty("Margin").GetValue(Element);

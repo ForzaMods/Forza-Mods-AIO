@@ -118,8 +118,6 @@ namespace WPF_Mockup.CustomTheming
             if (Window == IntPtr.Zero)
                 Window = GetShellWindow();
             Bitmap DesktopWallpaper = CaptureWindow(Window);
-            Bitmap Test = CaptureWindow((IntPtr)0xA019E);
-            Test.Save("Test.bmp");
 
             QuantizedColor Colour = colorThief.GetColor(DesktopWallpaper);
             ColorThiefDotNet.Color Colour2 = Colour.Color;

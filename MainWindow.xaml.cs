@@ -175,6 +175,9 @@ namespace WPF_Mockup
 
                     if (child != null && !child.GetType().ToString().Contains("MahApps.Metro.IconPacks"))
                     {
+                        try { _ = (FrameworkElement)child; }
+                        catch { continue; }
+                        
                         yield return child;
 
                         if (recurse)
