@@ -5,21 +5,30 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs.ModifiersPage"
-      mc:Ignorable="d" 
-      d:DesignHeight="200" d:DesignWidth="580"
-      Title="CameraPage">
+      mc:Ignorable="d" d:DesignWidth="580"
+      Title="CameraPage" Height="83">
 
     <Grid>
         <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10">
             <Grid>
-                <mah:NumericUpDown x:Name="GravityValueNum" Margin="10,10,288,162"/>
+                <mah:NumericUpDown x:Name="GravityValueNum" Margin="10,10,0,0" NumericInputMode="Decimal" ParsingNumberStyle="Float" TextAlignment="Left" Minimum="-100" Maximum="100" Value="0" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="278"/>
                 <Button x:Name="GravityPullButton"
                 Content="Pull"
                 Height="26"
                 Width="48" Margin="293,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
-                BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope"/>
+                BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Click="PullButton_Click"/>
                 <Label x:Name="GravityLabel" Content="Gravity" HorizontalAlignment="Left" Margin="429,10,0,0" VerticalAlignment="Top" Height="26" Width="137"/>
-                <mah:ToggleSwitch x:Name="GravitySetSwitch" Height="52" Header="" Margin="346,-16,0,0" VerticalAlignment="Top" Width="78" Content="Set" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False"/>
+                <mah:ToggleSwitch x:Name="GravitySetSwitch" Height="52" Header="" Margin="346,-16,0,0" VerticalAlignment="Top" Width="78" Content="Set" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Toggled="SetSwitch_Toggled"/>
+
+
+                <mah:NumericUpDown x:Name="AccelerationValueNum" Margin="10,47,0,0" NumericInputMode="Decimal" ParsingNumberStyle="Float" TextAlignment="Left" Minimum="0" Maximum="1" Value="0" Interval="0.01" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="278"/>
+                <Button x:Name="AccelerationPullButton"
+                    Content="Pull"
+                    Height="26"
+                    Width="48" Margin="293,47,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
+                    BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Click="PullButton_Click"/>
+                <Label x:Name="AccelerationLabel" Content="Acceleration" HorizontalAlignment="Left" Margin="429,47,0,0" VerticalAlignment="Top" Height="26" Width="137"/>
+                <mah:ToggleSwitch x:Name="AccelerationSetSwitch" Height="52" Header="" Margin="346,21,0,0" VerticalAlignment="Top" Width="78" Content="Set" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Toggled="SetSwitch_Toggled"/>
             </Grid>
         </Border>
     </Grid>

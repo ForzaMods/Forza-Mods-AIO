@@ -7,7 +7,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Height="450" Width="800"
         MinHeight="450" MinWidth="800"
@@ -79,16 +78,53 @@
                 <Frame x:Name="Self_VehicleFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Self-Vehicle/Self-Vehicle.xaml" Visibility="Hidden"  />
             </Grid>
             <Label x:Name="AttachedLabel" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" FontFamily="Manrope" Foreground="White" FontSize="10" Height="20" Grid.Column="1"/>
-            <iconPacks:PackIconBootstrapIcons x:Name="ExitIcon" Kind="XLg" Grid.Column="1" Margin="570,16,0,0" Focusable="False" />
-            <iconPacks:PackIconBootstrapIcons Kind="InfoCircleFill" Margin="174,10,0,0" Grid.Row="2" />
-            <iconPacks:PackIconMaterial Kind="CarSports" Margin="175,51,0,0" Grid.Row="2" />
-            <iconPacks:PackIconSimpleIcons Kind="Speedtest" Margin="174,90,0,0" Grid.Row="2"/>
-            <iconPacks:PackIconBootstrapIcons Kind="SaveFill" Margin="174,130,0,0" Grid.Row="2" />
             <Rectangle x:Name="ExitBox" Grid.Column="1" HorizontalAlignment="Left" Height="16" Margin="570,16,0,0" VerticalAlignment="Top" Width="16" MouseDown="ExitButton_MouseDown">
                 <Rectangle.Fill>
                     <SolidColorBrush Color="Black" Opacity="0"/>
                 </Rectangle.Fill>
             </Rectangle>
+            <Path x:Name="ExitIcon"
+                Data="M259.7625 259.7625A9.375 9.375 0 0 0 259.7625 246.4875L53.5125 40.2375A9.375 9.375 0 0 0 40.2375 53.5125L246.4875 259.7625000000001A9.375 9.375 0 0 0 259.7625 259.7625000000001zM40.2375 259.7625A9.375 9.375 0 0 1 40.2375 246.4875L246.4875 40.2375A9.375 9.375 0 0 1 259.7625000000001 53.5125L53.5125 259.7625000000001A9.375 9.375 0 0 1 40.2375 259.7625000000001z"
+                Fill="White" Stretch="Fill"
+                Width="16" Height="16"
+                Margin="570,16,0,0" Grid.Column="1" Focusable="False" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <Path x:Name="InfoCircleFill"
+                Data="M150 0A150 150 0 1 1 150 300A150 150 0 0 1 150 0zM167.4375 176.475L148.6875 88.25625C147.375 81.88125 149.23125 78.2625 154.3875 78.2625C158.025 78.2625 163.51875 79.575 167.25 82.875L165.6 75.075C160.21875 68.5875 148.35 63.8625 138.13125 63.8625C124.95 63.8625 119.34375 71.775 122.98125 88.59375L136.81875 153.61875C138.01875 159.1125000000001 136.93125 161.1 131.4375 162.43125L122.98125 163.95L124.51875 171.09375L167.45625 176.475zM150 196.875A18.75 18.75 0 1 0 150 234.375A18.75 18.75 0 0 0 150 196.875z"
+                Fill="White" Stretch="Fill"
+                Width="16" Height="16"
+                Margin="174,10,0,0" Grid.Row="2" Focusable="False" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" >
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="-1"/>
+                    </TransformGroup>
+                </Path.RenderTransform>
+            </Path>
+            <Path x:Name="CarSports"
+                Data="M12,8.5H7L4,11H3C1.89,11 1,11.89 1,13V16H3.17C3.6,17.2 4.73,18 6,18C7.27,18 8.4,17.2 8.82,16H15.17C15.6,17.2 16.73,18 18,18C19.27,18 20.4,17.2 20.82,16H23V15C23,13.89 21.97,13.53 21,13L12,8.5M5.25,12L7.5,10H11.5L15.5,12H5.25M6,13.5A1.5,1.5 0 0,1 7.5,15A1.5,1.5 0 0,1 6,16.5A1.5,1.5 0 0,1 4.5,15A1.5,1.5 0 0,1 6,13.5M18,13.5A1.5,1.5 0 0,1 19.5,15A1.5,1.5 0 0,1 18,16.5A1.5,1.5 0 0,1 16.5,15A1.5,1.5 0 0,1 18,13.5Z"
+                Fill="White" Stretch="Fill"
+                Width="16" Height="7"
+                Margin="175,57,0,0" Grid.Row="2" Focusable="False" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" >
+            </Path>
+            <Path x:Name="Speedtest"
+                Data="M11.628 16.186l-2.047-2.14 6.791-5.953 1.21 1.302zm8.837 6.047c2.14-2.14 3.535-5.117 3.535-8.466 0-6.604-5.395-12-12-12s-12 5.396-12 12c0 3.35 1.302 6.326 3.535 8.466l1.674-1.675c-1.767-1.767-2.79-4.093-2.79-6.79A9.568 9.568 0 0 1 12 4.185a9.568 9.568 0 0 1 9.581 9.581c0 2.605-1.116 5.024-2.79 6.791Z"
+                Fill="White" Stretch="Fill"
+                Width="16" Height="14"
+                Margin="174,91,0,0" Grid.Row="2" Focusable="False" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" >
+            </Path>
+            <Path x:Name="SaveFill"
+                Data="M159.375 271.875A28.125 28.125 0 0 0 187.5 300H262.5A37.5 37.5 0 0 0 300 262.5V37.5A37.5 37.5 0 0 0 262.5 0H37.5A37.5 37.5 0 0 0 0 37.5V262.5A37.5 37.5 0 0 0 37.5 300H150C144.1125 292.1625 140.625 282.43125 140.625 271.875V125.75625L91.0125 175.3875A9.375 9.375 0 1 1 77.7375 162.1125L143.3625 96.4875A9.375 9.375 0 0 1 156.6375 96.4875L222.2625 162.1125A9.375 9.375 0 0 1 208.9875 175.3875L159.375 125.75625V271.875z"
+                Fill="White" Stretch="Fill"
+                Width="16" Height="16"
+                Margin="174,130,0,0" Grid.Row="2" Focusable="False" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" >
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Path.RenderTransform>
+            </Path>
         </Grid>
     </Border>
 </mah:MetroWindow>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using ControlzEx.Theming;
 using MahApps.Metro.Controls;
 using Memory;
+using WPF_Mockup.CustomTheming;
 
 namespace WPF_Mockup
 {
@@ -60,6 +61,12 @@ namespace WPF_Mockup
             ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
             ThemeManager.Current.ChangeTheme(Application.Current, "AccentCol");
             AIO_Info.IsChecked = true;
+            Background.Background = Monet.MainColour;
+            FrameBorder.Background = Monet.MainColour;
+            SideBar.Background = Monet.DarkishColour;
+            TopBar1.Background = Monet.DarkColour;
+            TopBar2.Background = Monet.DarkColour;
+            CategoryButton_Click(new Object(), new RoutedEventArgs());
         }
         #endregion
         #region Dragging
@@ -80,7 +87,7 @@ namespace WPF_Mockup
             {
                 if ((bool)rb.IsChecked)
                 {
-                    rb.Background = CustomTheming.Monet.DarkerColour;
+                    rb.Background = Monet.DarkerColour;
                     foreach (Page t in tabs)
                         if (t.Title == rb.Name)
                         {
@@ -101,7 +108,7 @@ namespace WPF_Mockup
                         }
                 }
                 else
-                    rb.Background = CustomTheming.Monet.DarkishColour;
+                    rb.Background = Monet.DarkishColour;
             }
         }
         #endregion

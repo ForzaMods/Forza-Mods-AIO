@@ -1,7 +1,7 @@
 ﻿using ColorThiefDotNet;
 using ControlzEx.Theming;
+using MahApps.Metro.Controls;
 using System;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -13,10 +13,10 @@ namespace WPF_Mockup.CustomTheming
     internal class Monet
     {
         #region Variables
-        public static System.Windows.Media.Brush MainColour = null;
-        public static System.Windows.Media.Brush DarkColour = null;
-        public static System.Windows.Media.Brush DarkishColour = null;
-        public static System.Windows.Media.Brush DarkerColour = null;
+        public static Brush MainColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF111111"));
+        public static Brush DarkishColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF101010"));
+        public static Brush DarkColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF090909"));
+        public static Brush DarkerColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF080808"));
         #endregion
         #region DLL imports
         [DllImport("User32.dll", SetLastError = true)]
@@ -40,7 +40,7 @@ namespace WPF_Mockup.CustomTheming
         private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
         #endregion
         #region Functions
-        public static Bitmap CaptureWindow(IntPtr handle)
+        public static System.Drawing.Bitmap CaptureWindow(IntPtr handle)
         {
             System.Drawing.Rectangle rect = new System.Drawing.Rectangle();
             GetWindowRect(handle, ref rect);
@@ -48,8 +48,8 @@ namespace WPF_Mockup.CustomTheming
             rect.Width = rect.Width - rect.X;
             rect.Height = rect.Height - rect.Y;
 
-            Bitmap bitmap = new Bitmap(rect.Width, rect.Height);
-            using (Graphics g = Graphics.FromImage(bitmap))
+            System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(rect.Width, rect.Height);
+            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(bitmap))
             {
                 IntPtr hdc = g.GetHdc();
                 if (!PrintWindow(handle, hdc, 0))
@@ -117,7 +117,7 @@ namespace WPF_Mockup.CustomTheming
             var colorThief = new ColorThief();
             if (Window == IntPtr.Zero)
                 Window = GetShellWindow();
-            Bitmap DesktopWallpaper = CaptureWindow(Window);
+            System.Drawing.Bitmap DesktopWallpaper = CaptureWindow(Window);
 
             QuantizedColor Colour = colorThief.GetColor(DesktopWallpaper);
             ColorThiefDotNet.Color Colour2 = Colour.Color;
@@ -126,7 +126,7 @@ namespace WPF_Mockup.CustomTheming
 
             MainWindow.mw.Dispatcher.BeginInvoke((Action)delegate ()
             {
-                ColorToHSV(ColorTranslator.FromHtml(Colour2.ToHexString()), out H, out S, out V1);
+                ColorToHSV(System.Drawing.ColorTranslator.FromHtml(Colour2.ToHexString()), out H, out S, out V1);
                 V2 = V1;
                 V3 = V1;
                 V4 = V1;
@@ -143,16 +143,16 @@ namespace WPF_Mockup.CustomTheming
                 System.Drawing.Color FinalColour2 = ColorFromHSV(H, S, V2);
                 System.Drawing.Color FinalColour3 = ColorFromHSV(H, S, V3);
                 System.Drawing.Color FinalColour4 = ColorFromHSV(H, S, V4);
-                string ColourHex1 = ColorTranslator.ToHtml(FinalColour1);
-                string ColourHex2 = ColorTranslator.ToHtml(FinalColour2);
-                string ColourHex3 = ColorTranslator.ToHtml(FinalColour3);
-                string ColourHex4 = ColorTranslator.ToHtml(FinalColour4);
+                string ColourHex1 = System.Drawing.ColorTranslator.ToHtml(FinalColour1);
+                string ColourHex2 = System.Drawing.ColorTranslator.ToHtml(FinalColour2);
+                string ColourHex3 = System.Drawing.ColorTranslator.ToHtml(FinalColour3);
+                string ColourHex4 = System.Drawing.ColorTranslator.ToHtml(FinalColour4);
 
                 var converter = new BrushConverter();
-                MainColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex1);
-                DarkishColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex2);
-                DarkColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex3);
-                DarkerColour = (System.Windows.Media.Brush)converter.ConvertFromString(ColourHex4);
+                MainColour = (Brush)converter.ConvertFromString(ColourHex1);
+                DarkishColour = (Brush)converter.ConvertFromString(ColourHex2);
+                DarkColour = (Brush)converter.ConvertFromString(ColourHex3);
+                DarkerColour = (Brush)converter.ConvertFromString(ColourHex4);
             
                 MainWindow.mw.Background.Background = MainColour;
                 MainWindow.mw.FrameBorder.Background = MainColour;
@@ -161,7 +161,7 @@ namespace WPF_Mockup.CustomTheming
                 MainWindow.mw.TopBar2.Background = DarkColour;
 
                 string RandName = Guid.NewGuid().ToString();
-                ThemeManager.Current.AddTheme(new Theme(RandName, RandName, "Dark", "Red", (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(ColourHex4), DarkerColour, true, false));
+                ThemeManager.Current.AddTheme(new Theme(RandName, RandName, "Dark", "Red", (System.Windows.Media.Color)ColorConverter.ConvertFromString(ColourHex4), DarkerColour, true, false));
                 ThemeManager.Current.ChangeTheme(Application.Current, RandName);
 
                 MainWindow.mw.CategoryButton_Click(new Object(), new RoutedEventArgs());
@@ -174,6 +174,11 @@ namespace WPF_Mockup.CustomTheming
                     }
                     if (Element.GetType() == typeof(System.Windows.Controls.Border))
                     {
+                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
+                    }
+                    if (Element.GetType() == typeof(NumericUpDown))
+                    {
+                        Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
                         Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
                     }
                 }

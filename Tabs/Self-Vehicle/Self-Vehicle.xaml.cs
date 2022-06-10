@@ -29,7 +29,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
             { "SpeedHacksButton" , 200}, // Button name for page, height of page
             { "UnlocksButton" , 200},
             { "CameraButton" , 200},
-            { "ModifiersButton" , 200}
+            { "ModifiersButton" , 83}
         };
         Dictionary<string, bool> IsClicked = new Dictionary<string,bool>()
         {

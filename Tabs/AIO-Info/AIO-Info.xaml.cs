@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPF_Mockup.Tabs.AIO_Info
 {
@@ -21,7 +10,7 @@ namespace WPF_Mockup.Tabs.AIO_Info
     public partial class AIO_Info : Page
     {
         public static AIO_Info ai;
-        Window OverlayWindow = new Overlay.Overlay();
+        //static Overlay.Overlay o = new Overlay.Overlay();
         public AIO_Info()
         {
             InitializeComponent();
@@ -34,6 +23,8 @@ namespace WPF_Mockup.Tabs.AIO_Info
 
         private void OverlaySwitch_Toggled(object sender, RoutedEventArgs e)
         {
+            if (Overlay.Overlay.o == null)
+                _ = new Overlay.Overlay();
             if(OverlaySwitch.IsOn)
                 Overlay.Overlay.o.OverlayToggle(true);
             else
