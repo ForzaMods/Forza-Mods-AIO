@@ -67,7 +67,7 @@ namespace WPF_Mockup.Overlay
                 Value = value;
                 Description = description;
             }
-            //Method
+            //method
             public MenuOption(string name, string type, Action value, string description = null)
             {
                 Name = name;
@@ -75,7 +75,7 @@ namespace WPF_Mockup.Overlay
                 Value = value;
                 Description = description;
             }
-            //null
+            //null value
             public MenuOption(string name, string type, string description = null)
             {
                 Name = name;
@@ -396,12 +396,31 @@ namespace WPF_Mockup.Overlay
                     {
                         try
                         {
-                            OptionsBlock.Inlines.Add(new Run(Text) { Foreground = FColour, FontSize = yRes / 45 });
-                            ValueBlock.Inlines.Add(new Run(Value) { Foreground = FColour, FontSize = yRes / 45 });
-                            if (Description != string.Empty && idx == SelectedOptionIndex)
-                                { DescriptionBlock.Text = Description; DescriptionBlock.FontSize = yRes / 45; DescriptionBlock.Foreground = Brushes.White; }
-                            else if (idx == SelectedOptionIndex)
-                                DescriptionBlock.Text = string.Empty;
+                            if (item.Type != "SubHeader")
+                            {
+                                OptionsBlock.Inlines.Add(new Run(Text) { Foreground = FColour, FontSize = yRes / 45 });
+                                ValueBlock.Inlines.Add(new Run(Value) { Foreground = FColour, FontSize = yRes / 45 });
+                                if (Description != string.Empty && idx == SelectedOptionIndex)
+                                    { DescriptionBlock.Text = Description; DescriptionBlock.FontSize = yRes / 45; DescriptionBlock.Foreground = Brushes.White; }
+                                else if (idx == SelectedOptionIndex)
+                                    DescriptionBlock.Text = string.Empty;
+                            }
+                            else
+                            {
+                                OptionsBlock.Inlines.Add(new InlineUIContainer
+                                {
+                                    Child = new TextBlock
+                                    {
+                                        Text = Text,
+                                        Foreground = FColour,
+                                        FontSize = yRes / 45,
+                                        Width = Overlay.o.Width - 10,
+                                        HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                                        TextAlignment = TextAlignment.Center
+                                    }
+                                });
+                                ValueBlock.Inlines.Add(new Run("") { FontSize = yRes / 45 });
+                            }
                         }
                         catch { }
                     }, index);
@@ -479,7 +498,6 @@ namespace WPF_Mockup.Overlay
                         foreach (string item in NameSplit)
                             CurrentMenu += char.ToUpper(item[0]) + item.Substring(1);
                         CurrentMenu += "Options";
-                        //CurrentMenu = AllMenus[CurrentMenu][SelectedOptionIndex].Name.Replace("<", string.Empty).Replace("<", string.Empty).Replace("/", string.Empty) + "Options";
                         History.Add(LevelIndex, CurrentMenu);
                         SelectedOptionIndex = 0;
                     }

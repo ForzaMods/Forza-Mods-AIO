@@ -101,10 +101,12 @@ namespace WPF_Mockup.Overlay.SettingsMenu
         // Submenu lists
         public static List<Overlay.MenuOption> MainAreaOptions = new List<Overlay.MenuOption>()
         {
+            new Overlay.MenuOption("Background", "SubHeader"),
             MainBackgroundR,
             MainBackgroundG,
             MainBackgroundB,
             MainBackgroundA,
+            new Overlay.MenuOption("Border", "SubHeader"),
             MainBorderR,
             MainBorderG,
             MainBorderB,
@@ -112,10 +114,12 @@ namespace WPF_Mockup.Overlay.SettingsMenu
         };
         public static List<Overlay.MenuOption> DescriptionAreaOptions = new List<Overlay.MenuOption>()
         {
+            new Overlay.MenuOption("Background", "SubHeader"),
             DescriptionBackgroundR,
             DescriptionBackgroundG,
             DescriptionBackgroundB,
             DescriptionBackgroundA,
+            new Overlay.MenuOption("Border", "SubHeader"),
             DescriptionBorderR,
             DescriptionBorderG,
             DescriptionBorderB,
