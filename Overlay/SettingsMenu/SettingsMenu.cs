@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -7,6 +8,9 @@ namespace WPF_Mockup.Overlay.SettingsMenu
 {
     public class SettingsMenu
     {
+        // Header Option
+        static Overlay.MenuOption HeaderImage = new Overlay.MenuOption("Header", "Int", 1);
+
         // Background options
         static Overlay.MenuOption MainBackgroundR = new Overlay.MenuOption("Background R", "Int", 255);
         static Overlay.MenuOption MainBackgroundG = new Overlay.MenuOption("Background G", "Int", 255);
@@ -32,6 +36,8 @@ namespace WPF_Mockup.Overlay.SettingsMenu
         // Subscribes menu options to event handlers
         public void InitiateSubMenu()
         {
+            HeaderImage.ValueChangedHandler += new EventHandler(HeaderValueChanged);
+
             MainBackgroundR.ValueChangedHandler += new EventHandler(ColourValueChanged);
             MainBackgroundG.ValueChangedHandler += new EventHandler(ColourValueChanged);
             MainBackgroundB.ValueChangedHandler += new EventHandler(ColourValueChanged);
@@ -41,7 +47,7 @@ namespace WPF_Mockup.Overlay.SettingsMenu
             DescriptionBackgroundG.ValueChangedHandler += new EventHandler(ColourValueChanged);
             DescriptionBackgroundB.ValueChangedHandler += new EventHandler(ColourValueChanged);
             DescriptionBackgroundA.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            
+
             MainBorderR.ValueChangedHandler += new EventHandler(ColourValueChanged);
             MainBorderG.ValueChangedHandler += new EventHandler(ColourValueChanged);
             MainBorderB.ValueChangedHandler += new EventHandler(ColourValueChanged);
@@ -56,7 +62,7 @@ namespace WPF_Mockup.Overlay.SettingsMenu
         // Event handlers
         void ColourValueChanged(object s, EventArgs e)
         {
-            if((int)s.GetType().GetProperty("Value").GetValue(s) < 0)
+            if ((int)s.GetType().GetProperty("Value").GetValue(s) < 0)
                 s.GetType().GetProperty("Value").SetValue(s, 255);
             if ((int)s.GetType().GetProperty("Value").GetValue(s) > 255)
                 s.GetType().GetProperty("Value").SetValue(s, 0);
@@ -90,10 +96,20 @@ namespace WPF_Mockup.Overlay.SettingsMenu
                 }
             });
         }
+        void HeaderValueChanged(object s, EventArgs e)
+        {
+            int HeaderCount = Directory.GetFiles(Environment.CurrentDirectory + @"\Headers").Length;
+            if ((int)s.GetType().GetProperty("Value").GetValue(s) < 1)
+                s.GetType().GetProperty("Value").SetValue(s, HeaderCount);
+            if ((int)s.GetType().GetProperty("Value").GetValue(s) > HeaderCount)
+                s.GetType().GetProperty("Value").SetValue(s, 1);
+            Overlay.o.HeaderIndex = (int)s.GetType().GetProperty("Value").GetValue(s) - 1;
+        }
 
         // Menu list for this section
         public static List<Overlay.MenuOption> SettingsOptions = new List<Overlay.MenuOption>()
         {
+            HeaderImage,
             new Overlay.MenuOption("Main area", "MenuButton"),
             new Overlay.MenuOption("Description area", "MenuButton")
         };

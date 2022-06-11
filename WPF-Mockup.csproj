@@ -44,9 +44,6 @@
     <Resource Include="Fonts\Manrope-Medium.ttf" />
     <Resource Include="Fonts\Manrope-Regular.ttf" />
     <Resource Include="Fonts\Manrope-SemiBold.ttf" />
-    <Resource Include="Images\pog header 2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ksemenenko.ColorThief" Version="1.1.1.4" />
@@ -72,11 +69,24 @@
     <EmbeddedResource Remove="Theme\MenuButtonTheme.xaml" />
     <EmbeddedResource Remove="Theme\MetroTheming.xaml" />
     <None Remove="Images\header.png" />
-    <None Remove="Images\pog header 2.png" />
     <Page Remove="Theme\MetroTheming.xaml" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Images\pog header 2.png">
+      <Link>Headers\pog header 2.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\pog header 3.png">
+      <Link>Headers\pog header 3.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\pog header.png">
+      <Link>Headers\pog header 1.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Tabs\Self-Vehicle\DropDownTabs\ModifiersPage.xaml">

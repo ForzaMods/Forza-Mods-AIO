@@ -15,7 +15,7 @@
             <RowDefinition x:Name="MainSection"/>
             <RowDefinition x:Name="DescriptionSection" Height="50"/>
         </Grid.RowDefinitions>
-        <Image x:Name="Header" Height="100" Width="400" Source="/Images/pog header 2.png" Stretch="UniformToFill"/>
+        <Image x:Name="Header" Height="100" Width="400" Source="/Images/pog header.png" Stretch="UniformToFill"/>
         <Border x:Name="MainBorder" Grid.Column="0" Grid.Row="1" BorderBrush="Black" BorderThickness="5,5,5,5"/>
         <TextBlock x:Name="OptionsBlock"
                        Grid.Row="1"

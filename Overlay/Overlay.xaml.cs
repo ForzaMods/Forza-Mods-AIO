@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Timer = System.Windows.Forms.Timer;
 
@@ -187,6 +190,9 @@ namespace WPF_Mockup.Overlay
         public Brush DescriptionBackColour = Brushes.Transparent;
         public Brush MainBorderColour = Brushes.Black;
         public Brush DescriptionBorderColour = Brushes.Black;
+        public int HeaderIndex = 0;
+        public List<object[]> Headers = new();
+        public BitmapImage HeaderImage; 
         
         #endregion
         #region Menus
@@ -296,6 +302,26 @@ namespace WPF_Mockup.Overlay
                 double HeaderY = yRes / 10.8;
                 double HeaderX = HeaderY * 4;
 
+                // Cache headers
+                string[] MenuHeaders = Directory.GetFiles(Environment.CurrentDirectory + @"\Headers");
+                foreach (string header in MenuHeaders)
+                {
+                    bool InCachedBitmaps = false;
+                    foreach (object[] item in Headers)
+                    {
+                        if (item[0].ToString().Contains(header.Split('\\').Last().Split('.').First()))
+                        {
+                            InCachedBitmaps = true;
+                            break;
+                        }
+                    }
+                    if (!InCachedBitmaps)
+                    {
+                        Headers.Add(new object[] { header.Split('\\').Last().Split('.').First(), new BitmapImage(new Uri(header)) });
+                    }
+                }
+                HeaderImage = (BitmapImage)Headers.Find(x => x[0].ToString().Contains(MenuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))[1];
+                HeaderImage.Freeze();
 
                 if (MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow())
                 {
@@ -303,7 +329,7 @@ namespace WPF_Mockup.Overlay
                     {
                         if (Visibility == Visibility.Hidden && !Hidden)
                             Show();
-
+                        
                         // Set position
                         Top = PosTop;
                         Left = PosLeft;
@@ -327,6 +353,11 @@ namespace WPF_Mockup.Overlay
                             Height = TopSection.ActualHeight + MainSection.ActualHeight + DescriptionSection.ActualHeight;
                         }
 
+                        // Set menu header image
+                        //Header.Source = (BitmapImage)Overlay.o.Headers.Find(x => x[0].ToString().Contains(MenuHeaders[Overlay.o.HeaderIndex].Split('\\').Last().Split('.').First()))[1];
+                        Header.Source = Overlay.o.HeaderImage;
+
+
                         // Set colours of menu
                         MainBorder.Background = MainBackColour;
                         MainBorder.BorderBrush = MainBorderColour;
@@ -336,6 +367,7 @@ namespace WPF_Mockup.Overlay
                     });
                 }
                 else { Dispatcher.Invoke(delegate() { Hide(); }); }
+                HeaderImage = HeaderImage.Clone();
                 Thread.Sleep(1);
             }
         }
