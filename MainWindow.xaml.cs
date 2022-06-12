@@ -115,29 +115,39 @@ namespace WPF_Mockup
         #region Attaching/Behaviour
         private void IsAttached()
         {
+            bool attached = false;
             while (true)
             {
-                if(m.OpenProcess("ForzaHorizon5"))
+                Thread.Sleep(500);
+                if (m.OpenProcess("ForzaHorizon5"))
                 {
+                    if (attached)
+                        continue;
                     gvpMaker(5);
                     Dispatcher.BeginInvoke((Action)delegate () {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}";
                     });
+                    attached = true;
                 }
                 else if (m.OpenProcess("ForzaHorizon4"))
                 {
+                    if (attached)
+                        continue;
                     gvpMaker(4);
                     Dispatcher.BeginInvoke((Action)delegate () {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}";
                     });
+                    attached = true;
                 }
                 else
                 {
+                    if (!attached)
+                        continue;
                     Dispatcher.BeginInvoke((Action)delegate () {
                         AttachedLabel.Content = "Launch FH4/5";
                     });
+                    attached = false;
                 }
-                Thread.Sleep(500);
             }
         }
         private void gvpMaker(int Ver)

@@ -117,9 +117,10 @@ namespace WPF_Mockup.CustomTheming
             var colorThief = new ColorThief();
             if (Window == IntPtr.Zero)
                 Window = GetShellWindow();
-            System.Drawing.Bitmap DesktopWallpaper = CaptureWindow(Window);
 
+            System.Drawing.Bitmap DesktopWallpaper = CaptureWindow(Window);
             QuantizedColor Colour = colorThief.GetColor(DesktopWallpaper);
+            DesktopWallpaper.Dispose();
             ColorThiefDotNet.Color Colour2 = Colour.Color;
 
             double H; double S; double V1; double V2; double V3; double V4;
@@ -153,7 +154,10 @@ namespace WPF_Mockup.CustomTheming
                 DarkishColour = (Brush)converter.ConvertFromString(ColourHex2);
                 DarkColour = (Brush)converter.ConvertFromString(ColourHex3);
                 DarkerColour = (Brush)converter.ConvertFromString(ColourHex4);
-            
+
+                if (MainWindow.mw.Background.Background.ToString() == MainColour.ToString())
+                    return;
+
                 MainWindow.mw.Background.Background = MainColour;
                 MainWindow.mw.FrameBorder.Background = MainColour;
                 MainWindow.mw.SideBar.Background = DarkishColour;
@@ -161,13 +165,14 @@ namespace WPF_Mockup.CustomTheming
                 MainWindow.mw.TopBar2.Background = DarkColour;
 
                 string RandName = Guid.NewGuid().ToString();
+                ThemeManager.Current.ClearThemes();
                 ThemeManager.Current.AddTheme(new Theme(RandName, RandName, "Dark", "Red", (System.Windows.Media.Color)ColorConverter.ConvertFromString(ColourHex4), DarkerColour, true, false));
                 ThemeManager.Current.ChangeTheme(Application.Current, RandName);
 
                 MainWindow.mw.CategoryButton_Click(new Object(), new RoutedEventArgs());
                 foreach (FrameworkElement Element in MainWindow.mw.Window.GetChildren(true))
                 {
-                    if(Element.GetType() == typeof(System.Windows.Controls.Button))
+                    if (Element.GetType() == typeof(System.Windows.Controls.Button))
                     {
                         Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
                         Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
