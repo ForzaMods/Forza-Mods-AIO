@@ -16,19 +16,19 @@
             <RowDefinition x:Name="DescriptionSection" Height="50"/>
         </Grid.RowDefinitions>
         <Image x:Name="Header" Height="100" Width="400" Source="/Images/pog header.png" Stretch="UniformToFill"/>
-        <Border x:Name="MainBorder" Grid.Column="0" Grid.Row="1" BorderBrush="Black" BorderThickness="5,5,5,5"/>
+        <Border x:Name="MainBorder" Grid.Column="0" Grid.Row="1" BorderBrush="Black" BorderThickness="5,5,5,5" Panel.ZIndex="0"/>
         <TextBlock x:Name="OptionsBlock"
                        Grid.Row="1"
                        TextWrapping="Wrap"
                        Text="Options" FontFamily="Manrope" Foreground="Black" FontSize="24"
                        HorizontalAlignment="Left" VerticalAlignment="Top"
-                       TextAlignment="Left" Margin="15,5,0,5"/>
+                       TextAlignment="Left" Margin="15,5,0,5" Panel.ZIndex="2"/>
         <TextBlock x:Name="ValueBlock"
                        Grid.Row="1"
                        TextWrapping="Wrap"
                        Text="Values" FontFamily="Manrope" Foreground="Black" FontSize="24"
                        HorizontalAlignment="Right" VerticalAlignment="Top"
-                       TextAlignment="Right" Margin="0,5,15,5"/>
+                       TextAlignment="Right" Margin="0,5,15,5" Panel.ZIndex="2"/>
         <Border x:Name="DescriptionBorder" Grid.Column="0" Grid.Row="2" BorderBrush="Black" BorderThickness="5,5,5,5" Margin="0,5,0,0"/>
         <TextBlock x:Name="DescriptionBlock"
                        Grid.Row="2"

@@ -375,10 +375,23 @@ namespace WPF_Mockup.Overlay
         // Updates the menu, eg selected option, values etc
         void UpdateMenuOptions(CancellationToken ct)
         {
-            while(true)
+            string LastMenu = string.Empty;
+            int LastSelectedOptionIndex = -1;
+            object LastValue = null;
+            Size MenuSize = new Size();
+            while (true)
             {
                 if (ct.IsCancellationRequested)
                     return;
+                
+                Thread.Sleep(10);
+
+                if (CurrentMenu == LastMenu
+                    && SelectedOptionIndex == LastSelectedOptionIndex
+                    && (AllMenus[CurrentMenu][SelectedOptionIndex].Value == LastValue)
+                    && RenderSize == MenuSize
+                    || Visibility != Visibility.Visible)
+                    continue;
                 
                 // Clears the menu
                 Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Clear(); ValueBlock.Inlines.Clear(); });
@@ -392,6 +405,40 @@ namespace WPF_Mockup.Overlay
                 GetClientRect(MainWindow.mw.gvp.Process.MainWindowHandle, out ForzaClientWindow);
 
                 double yRes = ForzaClientWindow.Bottom - ((ForzaWindow.Bottom - ForzaWindow.Top - ForzaClientWindow.Bottom) / 1.3);
+
+                // Selected option background
+                Dispatcher.Invoke((Action)delegate ()
+                {
+                    if (OptionsBlock.Inlines.Count > 1)
+                    {
+                        // Remove previous highlight box
+                        foreach (UIElement Child in Layout.Children)
+                        {
+                            if (Child.GetType().GetProperty("Name").GetValue(Child) == "Highlight")
+                            {
+                                Layout.Children.Remove(Child);
+                                break;
+                            }
+                        }
+                        // Create new highlight box
+                        float height = (float)(((OptionsBlock.ActualHeight / AllMenus[CurrentMenu].Count) * SelectedOptionIndex) + 5);
+                        Border Highlighted = new Border()
+                        {
+                            Name = "Highlight",
+                            VerticalAlignment = VerticalAlignment.Top,
+                            Background = Brushes.Black,
+                            Width = Layout.ActualWidth,
+                            Height = OptionsBlock.ActualHeight / AllMenus[CurrentMenu].Count,
+                            Margin = new Thickness(0, height, 0, 0)
+                        };
+                        Grid.SetColumn(Highlighted, 0);
+                        Grid.SetRow(Highlighted, 1);
+
+                        // Put highlight box behind text, add to layout
+                        System.Windows.Controls.Panel.SetZIndex(Highlighted, 1);
+                        Layout.Children.Add(Highlighted);
+                    }
+                });
 
                 // Adds all menu options to the menu
                 foreach (MenuOption item in AllMenus[CurrentMenu])
@@ -461,38 +508,11 @@ namespace WPF_Mockup.Overlay
                         Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Add("\n"); ValueBlock.Inlines.Add("\n"); });
                     index++;
                 }
-
-                // Selected option background
-                Dispatcher.Invoke((Action)delegate ()
-                {
-                    if(OptionsBlock.Inlines.Count > 1)
-                    {
-                        foreach (UIElement Child in Layout.Children)
-                        {
-                            if (Child.GetType().GetProperty("Name").GetValue(Child) == "Highlight")
-                            {
-                                Layout.Children.Remove(Child);
-                                break;
-                            }
-                        }
-                        float height = (float)(((OptionsBlock.ActualHeight / AllMenus[CurrentMenu].Count) * SelectedOptionIndex) + 5 );
-                        Border Highlighted = new Border()
-                        {
-                            Name = "Highlight",
-                            VerticalAlignment = VerticalAlignment.Top,
-                            Background = Brushes.Black,
-                            Width = Layout.ActualWidth,
-                            Height = OptionsBlock.ActualHeight / AllMenus[CurrentMenu].Count,
-                            Margin = new Thickness(0, height, 0, 0)
-                        };
-                        Grid.SetColumn(Highlighted, 0);
-                        Grid.SetRow(Highlighted, 1);
-                        System.Windows.Controls.Panel.SetZIndex(Highlighted, System.Windows.Controls.Panel.GetZIndex(OptionsBlock) - 1);
-                        Layout.Children.Add(Highlighted);
-                    }
-                });
-
-                Thread.Sleep(10);
+                
+                LastMenu = CurrentMenu;
+                LastSelectedOptionIndex = SelectedOptionIndex;
+                LastValue = AllMenus[CurrentMenu][SelectedOptionIndex].Value;
+                MenuSize = RenderSize;
             }
         }
 
@@ -646,7 +666,7 @@ namespace WPF_Mockup.Overlay
                     timer.Interval = 250;
                     timer.Tick += delegate
                     {
-                        if (count > 3)
+                        if (count > 0)
                             timer.Interval = 5;
                         Inc();
                         count++;
@@ -675,7 +695,7 @@ namespace WPF_Mockup.Overlay
                     timer.Interval = 250;
                     timer.Tick += delegate
                     {
-                        if (count > 3)
+                        if (count > 0)
                             timer.Interval = 5;
                         Dec();
                         count++;
