@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Timer = System.Windows.Forms.Timer;
 
-namespace WPF_Mockup.Overlay
+namespace Forza_Mods_AIO.Overlay
 {
     /// <summary>
     /// Interaction logic for Overlay.xaml
@@ -176,11 +176,11 @@ namespace WPF_Mockup.Overlay
         {
             {  0 ,"MainOptions" }
         };
-        
+
         // Opacity vars (not used with fast blur mode)
         private uint _blurBackgroundColor = 0x990000;
         private uint _blurOpacity = 0x4B;
-        
+
         // Key vars
         bool UpKeyDown = false;
         bool DownKeyDown = false;
@@ -194,8 +194,8 @@ namespace WPF_Mockup.Overlay
         public Brush DescriptionBorderColour = Brushes.Black;
         public int HeaderIndex = 0;
         public List<object[]> Headers = new();
-        public BitmapImage HeaderImage; 
-        
+        public BitmapImage HeaderImage;
+
         #endregion
         #region Menus
         // Every single menu/submenu has to be put in here to work
@@ -316,7 +316,7 @@ namespace WPF_Mockup.Overlay
                 GetClientRect(MainWindow.mw.gvp.Process.MainWindowHandle, out ForzaClientWindow);
 
                 double Offset = ForzaClientWindow.Bottom / 20;
-                
+
                 // Forza window x and y coords
                 double PosTop = ForzaWindow.Top + ((ForzaWindow.Bottom - ForzaWindow.Top - ForzaClientWindow.Bottom) / 1.3) + Offset;
                 double PosLeft = ForzaWindow.Left + ((ForzaWindow.Right - ForzaWindow.Left - ForzaClientWindow.Right) / 2) + Offset;
@@ -327,9 +327,9 @@ namespace WPF_Mockup.Overlay
                 // Calculate the right numbers for the menu to scale to resolution
                 double HeaderY = yRes / 10.8;
                 double HeaderX = HeaderY * 4;
-                
+
                 // Select header
-                if (HeaderImage == null || HeaderImage.UriSource.LocalPath != MenuHeaders[HeaderIndex] )
+                if (HeaderImage == null || HeaderImage.UriSource.LocalPath != MenuHeaders[HeaderIndex])
                 {
                     if (HeaderImage != null && HeaderImage.IsFrozen)
                         HeaderImage = HeaderImage.Clone();
@@ -340,7 +340,7 @@ namespace WPF_Mockup.Overlay
                 if (MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow())
                 {
                     Dispatcher.Invoke(delegate ()
-                    {                        
+                    {
                         // Set position
                         Top = PosTop;
                         Left = PosLeft;
@@ -374,12 +374,12 @@ namespace WPF_Mockup.Overlay
 
                         DescriptionBorder.Background = DescriptionBackColour;
                         DescriptionBorder.BorderBrush = DescriptionBorderColour;
-                        
+
                         if (Visibility == Visibility.Hidden && !Hidden)
                             Show();
                     });
                 }
-                else { Dispatcher.Invoke(delegate() { Hide(); }); }
+                else { Dispatcher.Invoke(delegate () { Hide(); }); }
             }
         }
 
@@ -394,9 +394,9 @@ namespace WPF_Mockup.Overlay
             {
                 if (ct.IsCancellationRequested)
                     return;
-                
+
                 Thread.Sleep(10);
-                
+
                 // Clears the menu
                 Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Clear(); ValueBlock.Inlines.Clear(); });
                 int index = 0;
@@ -484,7 +484,7 @@ namespace WPF_Mockup.Overlay
                                 OptionsBlock.Inlines.Add(new Run(Text) { Foreground = FColour, FontSize = yRes / 45 });
                                 ValueBlock.Inlines.Add(new Run(Value) { Foreground = FColour, FontSize = yRes / 45 });
                                 if (Description != string.Empty && idx == SelectedOptionIndex)
-                                    { DescriptionBlock.Text = Description; DescriptionBlock.FontSize = yRes / 45; DescriptionBlock.Foreground = Brushes.White; }
+                                { DescriptionBlock.Text = Description; DescriptionBlock.FontSize = yRes / 45; DescriptionBlock.Foreground = Brushes.White; }
                                 else if (idx == SelectedOptionIndex)
                                     DescriptionBlock.Text = string.Empty;
                             }
@@ -512,7 +512,7 @@ namespace WPF_Mockup.Overlay
                         Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Add("\n"); ValueBlock.Inlines.Add("\n"); });
                     index++;
                 }
-                
+
                 LastMenu = CurrentMenu;
                 LastSelectedOptionIndex = SelectedOptionIndex;
                 LastValue = AllMenus[CurrentMenu][SelectedOptionIndex].Value;
@@ -523,7 +523,7 @@ namespace WPF_Mockup.Overlay
         // Handles the input
         void KeyHandler(CancellationToken ct)
         {
-            while(true)
+            while (true)
             {
                 if (ct.IsCancellationRequested)
                     return;
@@ -536,7 +536,7 @@ namespace WPF_Mockup.Overlay
                 if (GetAsyncKeyState(Keys.NumPad8) is not 1 and not Int16.MinValue && UpKeyDown)
                     UpKeyDown = false;
                 if (GetAsyncKeyState(Keys.NumPad4) is 1 or Int16.MinValue && !LeftKeyDown)
-                    LeftKeyDown= true;
+                    LeftKeyDown = true;
                 if (GetAsyncKeyState(Keys.NumPad4) is not 1 and not Int16.MinValue && LeftKeyDown)
                     LeftKeyDown = false;
                 if (GetAsyncKeyState(Keys.NumPad6) is 1 or Int16.MinValue && !RightKeyDown)
@@ -549,7 +549,7 @@ namespace WPF_Mockup.Overlay
                     if (AllMenus[CurrentMenu][SelectedOptionIndex].Type == "MenuButton")
                     {
                         LevelIndex++;
-                        string[] NameSplit = AllMenus[CurrentMenu][SelectedOptionIndex].Name.Split(new char[] {' ', '/', '[', ']'});
+                        string[] NameSplit = AllMenus[CurrentMenu][SelectedOptionIndex].Name.Split(new char[] { ' ', '/', '[', ']' });
                         CurrentMenu = string.Empty;
                         foreach (string item in NameSplit)
                             CurrentMenu += char.ToUpper(item[0]) + item.Substring(1);
@@ -557,7 +557,7 @@ namespace WPF_Mockup.Overlay
                         History.Add(LevelIndex, CurrentMenu);
                         SelectedOptionIndex = 0;
                     }
-                    else if(AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Bool")
+                    else if (AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Bool")
                     {
                         if ((bool)AllMenus[CurrentMenu][SelectedOptionIndex].Value == true)
                             AllMenus[CurrentMenu][SelectedOptionIndex].Value = false;
@@ -573,7 +573,7 @@ namespace WPF_Mockup.Overlay
                 }
                 if (GetAsyncKeyState(Keys.NumPad0) is 1 or Int16.MinValue)
                 {
-                    if(LevelIndex == 0)
+                    if (LevelIndex == 0)
                     {
                         Dispatcher.Invoke(delegate { Hide(); });
                         Hidden = true;
@@ -654,7 +654,7 @@ namespace WPF_Mockup.Overlay
                 if (RightKeyDown)
                 {
                     int count = 0;
-                    var Inc = delegate () 
+                    var Inc = delegate ()
                     {
                         if (AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Float" || AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Int")
                         {
@@ -665,7 +665,7 @@ namespace WPF_Mockup.Overlay
                         }
                     };
                     Inc();
-                    
+
                     Timer timer = new Timer();
                     timer.Interval = 250;
                     timer.Tick += delegate

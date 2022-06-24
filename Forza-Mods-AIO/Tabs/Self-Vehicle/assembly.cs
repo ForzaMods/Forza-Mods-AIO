@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace WPF_Mockup.Tabs.Self_Vehicle
+namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 {
     class assembly
     {

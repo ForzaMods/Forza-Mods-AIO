@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_Mockup.Tabs
+namespace Forza_Mods_AIO.Tabs
 {
     /// <summary>
     /// Interaction logic for Page1.xaml

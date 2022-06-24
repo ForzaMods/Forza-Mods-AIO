@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace WPF_Mockup.Core
+namespace Forza_Mods_AIO.Core
 {
     class RelayCommand : ICommand
     {

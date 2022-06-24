@@ -7,7 +7,7 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <EnableCompressionInSingleFile>false</EnableCompressionInSingleFile>
     <PublishReadyToRun>true</PublishReadyToRun>
-    <RootNamespace>WPF_Mockup</RootNamespace>
+    <RootNamespace>Forza_Mods_AIO</RootNamespace>
     <LangVersion>9.0</LangVersion>
     <DisableFody Condition="'$(Configuration)' == 'Debug'">true</DisableFody>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WPF_Mockup.Overlay.SelfCarMenu
+namespace Forza_Mods_AIO.Overlay.SelfCarMenu
 {
     public class SelfCarMenu
     {

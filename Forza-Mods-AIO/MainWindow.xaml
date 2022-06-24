@@ -1,6 +1,6 @@
 ﻿<!-- RESIZE {Binding ActualHeight, ElementName=grid, Converter={StaticResource math}, ConverterParameter=(x-50)/7} -->
 
-<mah:MetroWindow x:Class="WPF_Mockup.MainWindow"
+<mah:MetroWindow x:Class="Forza_Mods_AIO.MainWindow"
         x:Name="Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

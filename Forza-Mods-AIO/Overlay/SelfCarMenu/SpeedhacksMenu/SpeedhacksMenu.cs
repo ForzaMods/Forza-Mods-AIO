@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WPF_Mockup.Overlay.SelfCarMenu.SpeedhacksMenu
+namespace Forza_Mods_AIO.Overlay.SelfCarMenu.SpeedhacksMenu
 {
     public class SpeedhacksMenu
     {

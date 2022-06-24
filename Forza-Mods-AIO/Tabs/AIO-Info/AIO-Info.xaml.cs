@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WPF_Mockup.Tabs.AIO_Info
+namespace Forza_Mods_AIO.Tabs.AIO_Info
 {
     /// <summary>
     /// Interaction logic for AIO_Info.xaml
@@ -25,7 +25,7 @@ namespace WPF_Mockup.Tabs.AIO_Info
         {
             if (Overlay.Overlay.o == null)
                 _ = new Overlay.Overlay();
-            if(OverlaySwitch.IsOn)
+            if (OverlaySwitch.IsOn)
                 Overlay.Overlay.o.OverlayToggle(true);
             else
                 Overlay.Overlay.o.OverlayToggle(false);

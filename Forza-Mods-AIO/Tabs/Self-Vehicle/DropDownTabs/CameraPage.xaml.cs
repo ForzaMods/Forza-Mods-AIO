@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
+namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 {
     /// <summary>
     /// Interaction logic for SpeedHacksPage.xaml

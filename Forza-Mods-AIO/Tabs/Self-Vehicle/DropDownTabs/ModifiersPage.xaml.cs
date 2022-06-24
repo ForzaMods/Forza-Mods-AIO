@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
+namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 {
     /// <summary>
     /// Interaction logic for SpeedHacksPage.xaml
     /// </summary>
-    
+
     public partial class ModifiersPage : Page
     {
         public static ModifiersPage mp;
@@ -32,7 +32,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
             float original;
             string Addr;
             string Type;
-            if(sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity"))
+            if (sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity"))
             {
                 Type = "Gravity";
                 Addr = Self_Vehicle_Addrs.GravityAddr;
@@ -43,11 +43,11 @@ namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
                 Addr = Self_Vehicle_Addrs.WeirdAddr;
             }
 
-            if((bool)sender.GetType().GetProperty("IsOn").GetValue(sender))
+            if ((bool)sender.GetType().GetProperty("IsOn").GetValue(sender))
             {
                 Task.Run(() =>
                 {
-                    original = MainWindow.mw.m.ReadFloat(Addr, round:false);
+                    original = MainWindow.mw.m.ReadFloat(Addr, round: false);
                     while (true)
                     {
                         bool Toggled = true;
@@ -83,7 +83,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
                         catch
                         {
                             //Car Changed
-                            while(true)
+                            while (true)
                             {
                                 try
                                 {

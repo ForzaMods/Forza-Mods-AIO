@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace WPF_Mockup.Overlay.SettingsMenu
+namespace Forza_Mods_AIO.Overlay.SettingsMenu
 {
     public class SettingsMenu
     {
@@ -115,7 +115,7 @@ namespace WPF_Mockup.Overlay.SettingsMenu
             new Overlay.MenuOption("Main area", "MenuButton"),
             new Overlay.MenuOption("Description area", "MenuButton")
         };
-        
+
         // Submenu lists
         public static List<Overlay.MenuOption> MainAreaOptions = new List<Overlay.MenuOption>()
         {

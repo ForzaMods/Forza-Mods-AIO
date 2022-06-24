@@ -12,9 +12,9 @@ using System.Windows.Media;
 using ControlzEx.Theming;
 using MahApps.Metro.Controls;
 using Memory;
-using WPF_Mockup.CustomTheming;
+using Forza_Mods_AIO.CustomTheming;
 
-namespace WPF_Mockup
+namespace Forza_Mods_AIO
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -39,7 +39,7 @@ namespace WPF_Mockup
             public Process Process { get; set; }
             public GameVerPlat(string name, string plat, Process process)
             {
-                Name = name; Plat = plat; Process = process; 
+                Name = name; Plat = plat; Process = process;
             }
         }
 
@@ -96,7 +96,7 @@ namespace WPF_Mockup
                                 foreach (FrameworkElement Element in Window.GetChildren(true))
                                 {
                                     string Source = "";
-                                    if( Element.GetType() == typeof(Frame) )
+                                    if (Element.GetType() == typeof(Frame))
                                         Source = Element.GetType().GetProperty("Name").GetValue(Element).ToString();
                                     if (Element.Name == rb.Name + "Frame")
                                         Element.Visibility = Visibility.Visible;
@@ -124,7 +124,8 @@ namespace WPF_Mockup
                     if (attached)
                         continue;
                     gvpMaker(5);
-                    Dispatcher.BeginInvoke((Action)delegate () {
+                    Dispatcher.BeginInvoke((Action)delegate ()
+                    {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}";
                     });
                     attached = true;
@@ -134,7 +135,8 @@ namespace WPF_Mockup
                     if (attached)
                         continue;
                     gvpMaker(4);
-                    Dispatcher.BeginInvoke((Action)delegate () {
+                    Dispatcher.BeginInvoke((Action)delegate ()
+                    {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}";
                     });
                     attached = true;
@@ -143,7 +145,8 @@ namespace WPF_Mockup
                 {
                     if (!attached)
                         continue;
-                    Dispatcher.BeginInvoke((Action)delegate () {
+                    Dispatcher.BeginInvoke((Action)delegate ()
+                    {
                         AttachedLabel.Content = "Launch FH4/5";
                     });
                     attached = false;
@@ -194,7 +197,7 @@ namespace WPF_Mockup
                     {
                         try { _ = (FrameworkElement)child; }
                         catch { continue; }
-                        
+
                         yield return child;
 
                         if (recurse)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 
-namespace WPF_Mockup.Overlay.SelfCarMenu.ModifiersMenu
+namespace Forza_Mods_AIO.Overlay.SelfCarMenu.ModifiersMenu
 {
     public class ModifiersMenu
     {
@@ -11,20 +11,22 @@ namespace WPF_Mockup.Overlay.SelfCarMenu.ModifiersMenu
         static Overlay.MenuOption GravityToggle = new Overlay.MenuOption("Enable", "Bool", false);
         static Overlay.MenuOption GravityPull = new Overlay.MenuOption("Pull", "Button", new Action(() =>  // This one has a method for its value
         {
-            Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.Dispatcher.Invoke(delegate () {
+            Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.Dispatcher.Invoke(delegate ()
+            {
                 object sender = Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.GravityPullButton;
                 RoutedEventArgs e = new RoutedEventArgs();
                 Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.PullButton_Click(sender, e);
                 GravityValue.Value = (float)Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.GravityValueNum.Value;
             });
         }));
-        
+
         // Acceleration menu options
         static Overlay.MenuOption AccelerationValue = new Overlay.MenuOption("Value", "Float", 0f);
         static Overlay.MenuOption AccelerationToggle = new Overlay.MenuOption("Enable", "Bool", false);
         static Overlay.MenuOption AccelerationPull = new Overlay.MenuOption("Pull", "Button", new Action(() =>
         {
-            Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.Dispatcher.Invoke(delegate () {
+            Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.Dispatcher.Invoke(delegate ()
+            {
                 object sender = Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.AccelerationPullButton;
                 RoutedEventArgs e = new RoutedEventArgs();
                 Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.PullButton_Click(sender, e);
@@ -40,11 +42,12 @@ namespace WPF_Mockup.Overlay.SelfCarMenu.ModifiersMenu
             AccelerationValue.ValueChangedHandler += new EventHandler(AccelerationValueChanged);
             AccelerationToggle.ValueChangedHandler += new EventHandler(AccelerationToggleChanged);
         }
-        
+
         // Event handlers
         void GravityValueChanged(object s, EventArgs e)
         {
-            Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.Dispatcher.Invoke(delegate () {
+            Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.Dispatcher.Invoke(delegate ()
+            {
                 if ((float)s.GetType().GetProperty("Value").GetValue(s) > Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.GravityValueNum.Maximum)
                     GravityValue.Value = (float)Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.GravityValueNum.Maximum;
                 else if ((float)s.GetType().GetProperty("Value").GetValue(s) < Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.GravityValueNum.Minimum)
@@ -55,15 +58,17 @@ namespace WPF_Mockup.Overlay.SelfCarMenu.ModifiersMenu
         }
         void GravityToggleChanged(object s, EventArgs e)
         {
-            Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.Dispatcher.Invoke(delegate () {
-                if((bool)GravityToggle.Value)
+            Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.Dispatcher.Invoke(delegate ()
+            {
+                if ((bool)GravityToggle.Value)
                     Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.GravityValueNum.Value = (float)GravityValue.Value;
                 Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.GravitySetSwitch.IsOn = (bool)s.GetType().GetProperty("Value").GetValue(s);
             });
         }
         void AccelerationValueChanged(object s, EventArgs e)
         {
-            Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.Dispatcher.Invoke(delegate () {
+            Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.Dispatcher.Invoke(delegate ()
+            {
                 if ((float)s.GetType().GetProperty("Value").GetValue(s) > Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.AccelerationValueNum.Maximum)
                     AccelerationValue.Value = (float)Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.AccelerationValueNum.Maximum;
                 else if ((float)s.GetType().GetProperty("Value").GetValue(s) < Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.AccelerationValueNum.Minimum)
@@ -74,7 +79,8 @@ namespace WPF_Mockup.Overlay.SelfCarMenu.ModifiersMenu
         }
         void AccelerationToggleChanged(object s, EventArgs e)
         {
-            Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.Dispatcher.Invoke(delegate () {
+            Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.Dispatcher.Invoke(delegate ()
+            {
                 if ((bool)AccelerationToggle.Value)
                     Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.AccelerationValueNum.Value = (float)AccelerationValue.Value;
                 Tabs.Self_Vehicle.DropDownTabs.ModifiersPage.mp.AccelerationSetSwitch.IsOn = (bool)s.GetType().GetProperty("Value").GetValue(s);

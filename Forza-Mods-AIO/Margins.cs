@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace WPF_Mockup
+namespace Forza_Mods_AIO
 {
     public class Margins
     {

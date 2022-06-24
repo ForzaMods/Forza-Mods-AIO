@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WPF_Mockup.Resources
+namespace Forza_Mods_AIO.Resources
 {
     internal class DLLImports
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace WPF_Mockup
+namespace Forza_Mods_AIO
 {
     /// <summary>
     /// Interaction logic for App.xaml

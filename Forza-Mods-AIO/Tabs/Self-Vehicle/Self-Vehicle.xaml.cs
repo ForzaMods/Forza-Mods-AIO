@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_Mockup.Tabs.Self_Vehicle
+namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 {
     /// <summary>
     /// Interaction logic for Self_Vehicle.xaml
@@ -31,7 +31,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
             { "CameraButton" , 200},
             { "ModifiersButton" , 83}
         };
-        Dictionary<string, bool> IsClicked = new Dictionary<string,bool>()
+        Dictionary<string, bool> IsClicked = new Dictionary<string, bool>()
         {
             {"SpeedHacksButton", false },
             {"UnlocksButton", false },
@@ -56,7 +56,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(AnimCompleted)
+            if (AnimCompleted)
             {
                 Animate(sender, IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()]);
                 IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()] = !IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()];
@@ -88,14 +88,14 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
                             Element.Visibility = Visibility.Hidden;
                     };
                     Element.Visibility = Visibility.Visible;
-                    
+
                     //Page move height of button
                     Thickness Start = (Thickness)Element.GetType().GetProperty("Margin").GetValue(Element);
                     Thickness End = new Thickness(Start.Left, Start.Top + 25, Start.Right, Start.Bottom);
                     if (AlreadyOpen)
                         End = new Thickness(Start.Left, Start.Top - 25, Start.Right, Start.Bottom);
                     TanimationPage = new ThicknessAnimation(End, new Duration(TimeSpan.FromSeconds(Duration)));
-                    
+
                     //Page change height
                     DanimationPage = new DoubleAnimation(Sizes[SenderName], new Duration(TimeSpan.FromSeconds(Duration)));
                     if (AlreadyOpen)

@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
-using WPF_Mockup.Tabs.AIO_Info;
+using Forza_Mods_AIO.Tabs.AIO_Info;
 
-namespace WPF_Mockup.CustomTheming
+namespace Forza_Mods_AIO.CustomTheming
 {
     internal class Monet
     {
@@ -35,7 +35,7 @@ namespace WPF_Mockup.CustomTheming
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        static extern int GetWindowTextLength(IntPtr hWnd);        
+        static extern int GetWindowTextLength(IntPtr hWnd);
 
         private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
         #endregion
@@ -113,7 +113,7 @@ namespace WPF_Mockup.CustomTheming
                 }), (IntPtr)0);
                 return true;
             }), (IntPtr)0);
-            
+
             var colorThief = new ColorThief();
             if (Window == IntPtr.Zero)
                 Window = GetShellWindow();

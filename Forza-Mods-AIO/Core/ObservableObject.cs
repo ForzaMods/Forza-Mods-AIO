@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPF_Mockup.Core
+namespace Forza_Mods_AIO.Core
 {
     class ObservableObject : INotifyPropertyChanged
     {

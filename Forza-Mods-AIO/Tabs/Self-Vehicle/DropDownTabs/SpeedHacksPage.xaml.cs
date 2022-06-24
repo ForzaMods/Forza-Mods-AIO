@@ -2,15 +2,15 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using static WPF_Mockup.Tabs.Self_Vehicle.Self_Vehicle_Addrs;
-using static WPF_Mockup.MainWindow;
+using static Forza_Mods_AIO.Tabs.Self_Vehicle.Self_Vehicle_Addrs;
+using static Forza_Mods_AIO.MainWindow;
 using System.Threading;
 using MahApps.Metro.Controls;
 using System.Globalization;
-using WPF_Mockup.Resources;
+using Forza_Mods_AIO.Resources;
 using System.Windows.Forms;
 
-namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
+namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 {
     /// <summary>
     /// Interaction logic for SpeedHacksPage.xaml
@@ -33,7 +33,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
         {
             try { shp.VelocitySlider.Value = (float)e.NewValue; } catch { }
         }
-        
+
         private void VelocitySwitch_Toggled(object sender, RoutedEventArgs e)
         {
             if (VelocitySwitch.IsOn)
@@ -88,7 +88,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
                                         mw.m.WriteMemory(BackLeftAddr, "float", (CurrentWheelSpeed + BoostStrength / 10).ToString());
                                         mw.m.WriteMemory(BackRightAddr, "float", (CurrentWheelSpeed + BoostStrength / 10).ToString());
                                     }
-                                    
+
                                     shp.Dispatcher.Invoke(delegate () { Interval = (int)shp.Var2NumBox.Value; });
                                     break;
                                 }
@@ -100,7 +100,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
                                         float CurrentWheelSpeed = mw.m.ReadFloat(FrontLeftAddr);
                                         float BoostFactor = 0;
                                         shp.Dispatcher.Invoke(delegate () { BoostFactor = (float)shp.Var1NumBox.Value; });
-                                        float BoostStrength = (((BoostFactor/10) - 1 ) + ((CurrentWheelSpeed - 100) / 100) * (-5));
+                                        float BoostStrength = (((BoostFactor / 10) - 1) + ((CurrentWheelSpeed - 100) / 100) * (-5));
                                         if (BoostStrength <= 0)
                                             BoostStrength = 0;
                                         mw.m.WriteMemory(FrontLeftAddr, "float", (CurrentWheelSpeed + BoostStrength).ToString());
@@ -108,7 +108,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
                                         mw.m.WriteMemory(BackLeftAddr, "float", (CurrentWheelSpeed + BoostStrength).ToString());
                                         mw.m.WriteMemory(BackRightAddr, "float", (CurrentWheelSpeed + BoostStrength).ToString());
                                     }
-                                    
+
                                     shp.Dispatcher.Invoke(delegate () { Interval = (int)shp.Var2NumBox.Value; });
                                     break;
                                 }
@@ -124,7 +124,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
             if (SuperCarSwitch.IsOn)
             {
                 var nop = new byte[] { 0x90, 0x90, 0x90, 0x90 };
-                if(mw.gvp.Name == "Forza Horizon 5")
+                if (mw.gvp.Name == "Forza Horizon 5")
                 {
                     mw.m.WriteBytes((SuperCarAddrLong - 4).ToString("X"), nop);
                     mw.m.WriteBytes((SuperCarAddrLong + 4).ToString("X"), nop);
@@ -192,7 +192,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
                         shp.Dispatcher.Invoke(delegate () { Toggled = shp.SuperBrakeSwitch.IsOn; });
                         if (!Toggled)
                             break;
-                        
+
                         if (DLLImports.GetAsyncKeyState(Keys.S) is 1 or Int16.MinValue)
                         {
                             float xVelocityVal = mw.m.ReadFloat(xVelocityAddr) * (float)0.95;
@@ -201,7 +201,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle.DropDownTabs
                             mw.m.WriteMemory(xVelocityAddr, "float", xVelocityVal.ToString());
                             //mw.m.WriteMemory(yVelocityAddr, "float", "0");
                             mw.m.WriteMemory(zVelocityAddr, "float", zVelocityVal.ToString());
-                            mw.m.WriteMemory(yAddr, "float", (Y-0.01).ToString());
+                            mw.m.WriteMemory(yAddr, "float", (Y - 0.01).ToString());
                             //mw.m.WriteMemory(yAngVelAddr, "float", "0");
                         }
                     }
