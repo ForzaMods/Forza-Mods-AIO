@@ -166,6 +166,8 @@ namespace WPF_Mockup.Overlay
         public static Overlay o;
 
         // Menu operational vars
+        string[] MenuHeaders;
+        int MainAOBScanProg = 0;
         int SelectedOptionIndex = 0;
         int LevelIndex = 0;
         public string CurrentMenu = "MainOptions";
@@ -205,6 +207,7 @@ namespace WPF_Mockup.Overlay
                         { "GravityOptions" , SelfCarMenu.ModifiersMenu.ModifiersMenu.GravityOptions},
                         { "AccelerationOptions" , SelfCarMenu.ModifiersMenu.ModifiersMenu.AccelerationOptions},
                     { "SpeedhacksOptions" , SelfCarMenu.SpeedhacksMenu.SpeedhacksMenu.SpeedhacksOptions},
+                        { "VelocityOptions" , SelfCarMenu.SpeedhacksMenu.SpeedhacksMenu.VelocityOptions},
                     { "UnlocksOptions" , UnlocksOptions},
                     { "CameraOptions" , CameraOptions},
                 { "SettingsOptions" , SettingsMenu.SettingsMenu.SettingsOptions},
@@ -275,11 +278,34 @@ namespace WPF_Mockup.Overlay
         #endregion
         #region Functions
 
+        // Caches all the headers
+        public void CacheHeaders()
+        {
+            o.MenuHeaders = Directory.GetFiles(Environment.CurrentDirectory + @"\Headers");
+            foreach (string header in o.MenuHeaders)
+            {
+                bool InCachedBitmaps = false;
+                foreach (object[] item in o.Headers)
+                {
+                    if (item[0].ToString().Contains(header.Split('\\').Last().Split('.').First()))
+                    {
+                        InCachedBitmaps = true;
+                        break;
+                    }
+                }
+                if (!InCachedBitmaps)
+                {
+                    o.Headers.Add(new object[] { header.Split('\\').Last().Split('.').First(), new BitmapImage(new Uri(header)) });
+                }
+            }
+        }
         // Handles the position of the overlay
         void OverlayPosAndScale(CancellationToken ct)
         {
+            CacheHeaders();
             while (true)
             {
+                Thread.Sleep(5);
                 if (ct.IsCancellationRequested)
                     return;
 
@@ -301,35 +327,20 @@ namespace WPF_Mockup.Overlay
                 // Calculate the right numbers for the menu to scale to resolution
                 double HeaderY = yRes / 10.8;
                 double HeaderX = HeaderY * 4;
-
-                // Cache headers
-                string[] MenuHeaders = Directory.GetFiles(Environment.CurrentDirectory + @"\Headers");
-                foreach (string header in MenuHeaders)
+                
+                // Select header
+                if (HeaderImage == null || HeaderImage.UriSource.LocalPath != MenuHeaders[HeaderIndex] )
                 {
-                    bool InCachedBitmaps = false;
-                    foreach (object[] item in Headers)
-                    {
-                        if (item[0].ToString().Contains(header.Split('\\').Last().Split('.').First()))
-                        {
-                            InCachedBitmaps = true;
-                            break;
-                        }
-                    }
-                    if (!InCachedBitmaps)
-                    {
-                        Headers.Add(new object[] { header.Split('\\').Last().Split('.').First(), new BitmapImage(new Uri(header)) });
-                    }
+                    if (HeaderImage != null && HeaderImage.IsFrozen)
+                        HeaderImage = HeaderImage.Clone();
+                    HeaderImage = (BitmapImage)Headers.Find(x => x[0].ToString().Contains(MenuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))[1];
+                    try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
                 }
-                HeaderImage = (BitmapImage)Headers.Find(x => x[0].ToString().Contains(MenuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))[1];
-                HeaderImage.Freeze();
 
                 if (MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow())
                 {
                     Dispatcher.Invoke(delegate ()
-                    {
-                        if (Visibility == Visibility.Hidden && !Hidden)
-                            Show();
-                        
+                    {                        
                         // Set position
                         Top = PosTop;
                         Left = PosLeft;
@@ -354,7 +365,6 @@ namespace WPF_Mockup.Overlay
                         }
 
                         // Set menu header image
-                        //Header.Source = (BitmapImage)Overlay.o.Headers.Find(x => x[0].ToString().Contains(MenuHeaders[Overlay.o.HeaderIndex].Split('\\').Last().Split('.').First()))[1];
                         Header.Source = Overlay.o.HeaderImage;
 
 
@@ -364,11 +374,12 @@ namespace WPF_Mockup.Overlay
 
                         DescriptionBorder.Background = DescriptionBackColour;
                         DescriptionBorder.BorderBrush = DescriptionBorderColour;
+                        
+                        if (Visibility == Visibility.Hidden && !Hidden)
+                            Show();
                     });
                 }
                 else { Dispatcher.Invoke(delegate() { Hide(); }); }
-                HeaderImage = HeaderImage.Clone();
-                Thread.Sleep(1);
             }
         }
 
@@ -385,13 +396,6 @@ namespace WPF_Mockup.Overlay
                     return;
                 
                 Thread.Sleep(10);
-
-                if (CurrentMenu == LastMenu
-                    && SelectedOptionIndex == LastSelectedOptionIndex
-                    && (AllMenus[CurrentMenu][SelectedOptionIndex].Value == LastValue)
-                    && RenderSize == MenuSize
-                    || Visibility != Visibility.Visible)
-                    continue;
                 
                 // Clears the menu
                 Dispatcher.BeginInvoke((Action)delegate () { OptionsBlock.Inlines.Clear(); ValueBlock.Inlines.Clear(); });
@@ -705,7 +709,7 @@ namespace WPF_Mockup.Overlay
                     while (LeftKeyDown) { Thread.Sleep(1); }
                     Dispatcher.Invoke(delegate { timer.Dispose(); });
                 }
-                Thread.Sleep(1);
+                Thread.Sleep(10);
             }
         }
 

@@ -14,7 +14,7 @@ namespace WPF_Mockup.Overlay.SelfCarMenu
             new Overlay.MenuOption("Modifiers", "MenuButton"),
             new Overlay.MenuOption("Stats", "MenuButton"),
             new Overlay.MenuOption("Teleports", "MenuButton"),
-            new Overlay.MenuOption("Environments", "MenuButton"),
+            new Overlay.MenuOption("Environment", "MenuButton"),
             new Overlay.MenuOption("Tuning", "MenuButton")
         };
     }

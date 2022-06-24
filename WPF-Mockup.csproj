@@ -75,6 +75,10 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Images\pog header.png">
+      <Link>Headers\pog header 1.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Images\pog header 2.png">
       <Link>Headers\pog header 2.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -83,8 +87,7 @@
       <Link>Headers\pog header 3.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Images\pog header.png">
-      <Link>Headers\pog header 1.png</Link>
+    <None Update="Images\pog header 4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

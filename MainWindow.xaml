@@ -73,9 +73,9 @@
                 <Grid.OpacityMask>
                     <VisualBrush Visual="{Binding ElementName=FrameBorder}" />
                 </Grid.OpacityMask>
-                <Frame x:Name="AIO_InfoFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AIO-Info/AIO-Info.xaml" Visibility="Visible" Focusable="False"/>
-                <Frame x:Name="AutoShowFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AutoShow/AutoShow.xaml" Visibility="Hidden"/>
-                <Frame x:Name="Self_VehicleFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Self-Vehicle/Self-Vehicle.xaml" Visibility="Hidden"  />
+                <Frame x:Name="AIO_InfoFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AIO-Info/AIO-Info.xaml" Visibility="Visible" Focusable="False" IsTabStop="False"/>
+                <Frame x:Name="AutoShowFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AutoShow/AutoShow.xaml" Visibility="Hidden" IsTabStop="False"/>
+                <Frame x:Name="Self_VehicleFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Self-Vehicle/Self-Vehicle.xaml" Visibility="Hidden" IsTabStop="False"/>
             </Grid>
             <Label x:Name="AttachedLabel" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" FontFamily="Manrope" Foreground="White" FontSize="10" Height="20" Grid.Column="1"/>
             <Path x:Name="ExitIcon"

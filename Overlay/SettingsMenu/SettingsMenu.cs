@@ -98,7 +98,8 @@ namespace WPF_Mockup.Overlay.SettingsMenu
         }
         void HeaderValueChanged(object s, EventArgs e)
         {
-            int HeaderCount = Directory.GetFiles(Environment.CurrentDirectory + @"\Headers").Length;
+            int HeaderCount = Overlay.o.Headers.Count;
+            //int HeaderCount = Directory.GetFiles(Environment.CurrentDirectory + @"\Headers").Length;
             if ((int)s.GetType().GetProperty("Value").GetValue(s) < 1)
                 s.GetType().GetProperty("Value").SetValue(s, HeaderCount);
             if ((int)s.GetType().GetProperty("Value").GetValue(s) > HeaderCount)
@@ -110,6 +111,7 @@ namespace WPF_Mockup.Overlay.SettingsMenu
         public static List<Overlay.MenuOption> SettingsOptions = new List<Overlay.MenuOption>()
         {
             HeaderImage,
+            new Overlay.MenuOption("Refresh Headers", "Button", new Action(delegate { Overlay.o.CacheHeaders(); })),
             new Overlay.MenuOption("Main area", "MenuButton"),
             new Overlay.MenuOption("Description area", "MenuButton")
         };

@@ -26,7 +26,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
         Self_Vehicle_Addrs sva = new Self_Vehicle_Addrs();
         readonly Dictionary<string, double> Sizes = new Dictionary<string, double>()
         {
-            { "SpeedHacksButton" , 200}, // Button name for page, height of page
+            { "SpeedHacksButton" , 118}, // Button name for page, height of page
             { "UnlocksButton" , 200},
             { "CameraButton" , 200},
             { "ModifiersButton" , 83}

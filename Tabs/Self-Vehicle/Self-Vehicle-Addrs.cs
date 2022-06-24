@@ -167,7 +167,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
         List<string> RearAddresses = new List<string>();
         List<string> RestAddresses = new List<string>();
         #endregion
-        bool MainAOBScanDone = false;
+        public bool MainAOBScanDone = false;
         #region Offsets + AOB's
         private static void AddressesFour()
         {
@@ -339,7 +339,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
                 Self_Vehicle.sv.ScanButton.IsEnabled = false;
             });
             
-            if (MainWindow.mw.gvp.Name == "Forza Horizo 4")
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
             {
                 try
                 {
@@ -794,7 +794,7 @@ namespace WPF_Mockup.Tabs.Self_Vehicle
         }
         private void AddProgress(int index)
         {
-            var test4 = (100 / ScanAmount);
+            
             int Prog = (int)(Math.Round((decimal)100 / ScanAmount) * index);
             if(Prog > 100)
                 Prog = 100;

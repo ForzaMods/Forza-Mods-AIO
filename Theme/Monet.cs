@@ -186,6 +186,11 @@ namespace WPF_Mockup.CustomTheming
                         Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
                         Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
                     }
+                    if (Element.GetType() == typeof(System.Windows.Controls.ComboBox))
+                    {
+                        Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
+                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
+                    }
                 }
             });
         }
