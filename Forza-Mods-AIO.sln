@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF-Mockup", "WPF-Mockup.csproj", "{7C988F1B-2467-4E49-9E7D-9064A8F9F004}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forza-Mods-AIO", "Forza-Mods-AIO\Forza-Mods-AIO.csproj", "{7C988F1B-2467-4E49-9E7D-9064A8F9F004}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
