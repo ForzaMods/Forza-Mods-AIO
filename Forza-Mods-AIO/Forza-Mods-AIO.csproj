@@ -61,7 +61,7 @@
     <EmbeddedResource Remove="MainWindow.xaml" />
     <EmbeddedResource Remove="Tabs\AIO-Info\AIO-Info.xaml" />
     <EmbeddedResource Remove="Overlay\Overlay.xaml" />
-    <EmbeddedResource Remove="Tabs\AutoShow\AutoShow.xaml" />
+    <EmbeddedResource Remove="Tabs\AutoShowTab\AutoShow.xaml" />
     <EmbeddedResource Remove="Tabs\Self-Vehicle\DropDownTabs\CameraPage.xaml" />
     <EmbeddedResource Remove="Tabs\Self-Vehicle\DropDownTabs\SpeedHacksPage.xaml" />
     <EmbeddedResource Remove="Tabs\Self-Vehicle\DropDownTabs\UnlocksPage.xaml" />

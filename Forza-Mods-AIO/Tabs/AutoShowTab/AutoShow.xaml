@@ -1,0 +1,21 @@
+﻿<Page x:Class="Forza_Mods_AIO.Tabs.AutoShow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Tabs"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="600"
+      Title="AutoShow">
+
+    <Grid >
+        <mah:MetroProgressBar x:Name="AOBProgressBar" HorizontalAlignment="Left" Height="10" Margin="54,17,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="ScanButton" Content="Scan" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Height="25" Click="ScanButton_Click"/>
+        <mah:ToggleSwitch x:Name="ToggleAllCars" Height="32" Margin="29,125,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleAllCars_Toggled"/>
+        <mah:ToggleSwitch x:Name="ToggleRareCars" Height="32" Margin="110,125,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content=""/>
+        <Label x:Name="LabelAllCars" Content="All Cars" HorizontalAlignment="Left" Margin="29,94,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LabelRareCars" Content="Rare Cars" HorizontalAlignment="Left" Margin="102,94,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Page>
