@@ -27,7 +27,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
         public static string sql14; // sql13 but +2047
         public string sql15; //FH4 HideNormalColors for lego cars
         public string sql16; //FH4 HideSpecialColors for lego cars
-        public string sql17; //AND NOT IsMidnightCar 
+        public string sql17; //FH4 AND NOT IsMidnightCar 
         public string sql18; //FH5 AND CanBuyNewCar(Garage.Id, Garage.NotAvailableInAutoshow)
         public string sql19; //FH5 CanBuyNewCar(Garage.Id, Garage.NotAvailableInAutoshow) AS PurchasableCar,
         public bool read = true;
