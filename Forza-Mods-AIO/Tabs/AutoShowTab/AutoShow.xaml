@@ -13,9 +13,33 @@
     <Grid >
         <mah:MetroProgressBar x:Name="AOBProgressBar" HorizontalAlignment="Left" Height="10" Margin="54,17,0,0" VerticalAlignment="Top" Width="100"/>
         <Button x:Name="ScanButton" Content="Scan" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Height="25" Click="ScanButton_Click"/>
-        <mah:ToggleSwitch x:Name="ToggleAllCars" Height="32" Margin="29,125,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleAllCars_Toggled"/>
-        <mah:ToggleSwitch x:Name="ToggleRareCars" Height="32" Margin="110,125,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleRareCars_Toggled"/>
-        <Label x:Name="LabelAllCars" Content="All Cars" HorizontalAlignment="Left" Margin="29,94,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="LabelRareCars" Content="Rare Cars" HorizontalAlignment="Left" Margin="102,94,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleAllCars" Height="32" Margin="457,41,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleAllCars_Toggled"/>
+        <Label x:Name="LabelAllCars" Content="All Cars" HorizontalAlignment="Left" Margin="457,10,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleRareCars" Height="32" Margin="538,41,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleRareCars_Toggled"/>
+        <Label x:Name="LabelRareCars" Content="Rare Cars" HorizontalAlignment="Left" Margin="530,10,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleFreeCars" Height="32" Margin="50,164,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleFreeCars_Toggled"/>
+        <Label x:Name="LabelFreeCars" Content="Free Cars" HorizontalAlignment="Left" Margin="43,133,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleFreeCars_Copy" Height="32" Margin="188,84,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleFreeCars_Toggled"/>
+        <Label x:Name="LabelFreeCars_Copy" Content="Paint Lego Cars" HorizontalAlignment="Left" Margin="164,58,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleFreeCars_Copy1" Height="32" Margin="51,89,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleFreeCars_Toggled"/>
+        <Label x:Name="LabelFreeCars_Copy1" Content="Rmove Any Car" HorizontalAlignment="Left" Margin="27,58,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleFreeCars_Copy2" Height="32" Margin="320,89,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleFreeCars_Toggled"/>
+        <Label x:Name="LabelFreeCars_Copy2" Content="Unlock Hidden Decals" HorizontalAlignment="Left" Margin="279,58,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleFreeCars_Copy3" Height="32" Margin="51,238,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleFreeCars_Toggled"/>
+        <Label x:Name="LabelFreeCars_Copy3" Content="Show Traffic/HS/Null" HorizontalAlignment="Left" Margin="13,207,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleFreeCars_Copy4" Height="32" Margin="189,317,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleFreeCars_Toggled"/>
+        <Label x:Name="LabelFreeCars_Copy4" Content="Fix Thumbnails" HorizontalAlignment="Left" Margin="167,286,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleFreeCars_Copy5" Height="32" Margin="51,317,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleFreeCars_Toggled"/>
+        <Label x:Name="LabelFreeCars_Copy5" Content="Unlock Hidden Presets" HorizontalAlignment="Left" Margin="8,286,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleFreeCars_Copy6" Height="32" Margin="188,240,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleFreeCars_Toggled"/>
+        <Label x:Name="LabelFreeCars_Copy6" Content="Clear Garage" HorizontalAlignment="Left" Margin="171,207,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleFreeCars_Copy7" Height="32" Margin="375,287,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleFreeCars_Toggled"/>
+        <Label x:Name="LabelFreeCars_Copy7" Content="Free Perf Upgrades" HorizontalAlignment="Left" Margin="342,256,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleFreeCars_Copy8" Height="32" Margin="511,287,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleFreeCars_Toggled"/>
+        <Label x:Name="LabelFreeCars_Copy8" Content="Free Visual Upgrades" HorizontalAlignment="Left" Margin="472,256,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleFreeCars_Copy9" Height="32" Margin="363,364,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleFreeCars_Toggled"/>
+        <Label x:Name="LabelFreeCars_Copy9" Content="Quick Add All Cars" HorizontalAlignment="Left" Margin="331,333,0,0" VerticalAlignment="Top"/>
+        <mah:ToggleSwitch x:Name="ToggleFreeCars_Copy10" Height="32" Margin="511,364,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleFreeCars_Toggled"/>
+        <Label x:Name="LabelFreeCars_Copy10" Content="Quick Add Rare Cars" HorizontalAlignment="Left" Margin="471,333,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

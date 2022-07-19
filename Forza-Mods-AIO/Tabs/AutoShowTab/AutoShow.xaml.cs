@@ -127,5 +127,10 @@ namespace Forza_Mods_AIO.Tabs
                     MainWindow.m.WriteMemory(sql17, "string", "AND NOT IsMidnightCar");
             }*/
         }
+
+        private void ToggleFreeCars_Toggled(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
