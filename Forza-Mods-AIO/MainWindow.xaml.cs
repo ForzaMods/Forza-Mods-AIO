@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ using ControlzEx.Theming;
 using MahApps.Metro.Controls;
 using Memory;
 using Forza_Mods_AIO.CustomTheming;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace Forza_Mods_AIO
 {
@@ -37,9 +40,11 @@ namespace Forza_Mods_AIO
             public string Name { get; set; }
             public string Plat { get; set; }
             public Process Process { get; set; }
-            public GameVerPlat(string name, string plat, Process process)
+            public string Update { get; set; }
+
+            public GameVerPlat(string name, string plat, Process process, string update)
             {
-                Name = name; Plat = plat; Process = process;
+                Name = name; Plat = plat; Process = process; Update = update;
             }
         }
 
@@ -50,7 +55,7 @@ namespace Forza_Mods_AIO
         public static MainWindow mw = new MainWindow();
         public Mem m = new Mem();
         List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle() };
-        public GameVerPlat gvp = new GameVerPlat(null, null, null);
+        public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
         #endregion
         #region Starting
         public MainWindow()
@@ -126,7 +131,7 @@ namespace Forza_Mods_AIO
                     gvpMaker(5);
                     Dispatcher.BeginInvoke((Action)delegate ()
                     {
-                        AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}";
+                        AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
                     });
                     attached = true;
                 }
@@ -137,7 +142,7 @@ namespace Forza_Mods_AIO
                     gvpMaker(4);
                     Dispatcher.BeginInvoke((Action)delegate ()
                     {
-                        AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}";
+                        AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
                     });
                     attached = true;
                 }
@@ -157,18 +162,34 @@ namespace Forza_Mods_AIO
         {
             string name;
             string platform;
+            string update = "unknown";
             Process process;
             try
             {
                 process = Process.GetProcessesByName("ForzaHorizon" + Ver.ToString())[0];
                 if (process.MainModule.FileName.Contains("Microsoft.624F8B84B80") || process.MainModule.FileName.Contains("Microsoft.SunriseBaseGame"))
+                {
                     platform = "MS";
+                    var xml = XElement.Load(process.MainModule.FileName.Substring(0, (process.MainModule.FileName.LastIndexOf("\\"))) + "\\appxmanifest.xml").Elements();
+                    foreach (var VARIABLE in xml)
+                    {
+                        if (VARIABLE.ToString().Contains(" Version=\""))
+                        {
+                            update = VARIABLE.Attribute("Version").ToString().Remove(0, 9);
+                            update = update.Remove((update.Length - 1), 1);
+                        }
+                    }
+                }
                 else
+                {
                     platform = "Steam";
+                    var file = FileVersionInfo.GetVersionInfo(process.MainModule.FileName.ToString());
+                    update = file.FileVersion;
+                }
                 name = "Forza Horizon " + Ver.ToString();
             }
-            catch { name = null; platform = null; process = null; }
-            gvp = new GameVerPlat(name, platform, process);
+            catch { name = null; platform = null; process = null; update = null; }
+            gvp = new GameVerPlat(name, platform, process, update);
         }
         #endregion
         #region Exit Handling
