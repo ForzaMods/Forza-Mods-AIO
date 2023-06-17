@@ -1,0 +1,16 @@
+﻿<Page x:Class="Forza_Mods_AIO.Tabs.Saveswapper.Tabs.Swapper"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="360" d:DesignWidth="600"
+      Title="Swapper">
+
+    <Grid>
+        <Button x:Name="ImportButton" Content="Import save" Height="30" Width="120" BorderThickness="0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15" Click="ImportButton_Click"/>
+        <Button x:Name="BackupButton" Content="Backup save" Height="30" Width="120" BorderThickness="0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15,50" Click="BackupButton_Click"/>
+        <Button x:Name="SwapButton" Content="Swap save" Height="30" Width="120" BorderThickness="0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15, 85" Click="SwapButton_Click"/>
+    </Grid>
+</Page>

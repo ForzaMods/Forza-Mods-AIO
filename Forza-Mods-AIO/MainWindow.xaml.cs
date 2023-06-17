@@ -18,6 +18,8 @@ using System.Xml;
 using System.Xml.Linq;
 using Forza_Mods_AIO.Tabs.AIO_Info;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+using Forza_Mods_AIO.Tabs.Saveswapper.Tabs;
+using Forza_Mods_AIO.Tabs.Saveswapper;
 
 namespace Forza_Mods_AIO
 {
@@ -57,8 +59,9 @@ namespace Forza_Mods_AIO
         public static MainWindow mw = new MainWindow();
         public Mem m = new Mem();
         public static AIO_Info AInfo = new AIO_Info();
+        public static Saveswapper SW = new Saveswapper();
         public static TeleportsPage Teleports = new TeleportsPage();
-        List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle() };
+        List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.Saveswapper.Saveswapper(), };
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
         #endregion
         #region Starting
@@ -170,6 +173,7 @@ namespace Forza_Mods_AIO
                 }
             }
         }
+
         private void gvpMaker(int Ver)
         {
             string name;
