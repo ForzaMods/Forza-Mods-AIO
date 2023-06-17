@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Media;
 using Forza_Mods_AIO.Tabs.AIO_Info;
+using System.Windows.Controls;
 
 namespace Forza_Mods_AIO.CustomTheming
 {
@@ -187,6 +188,11 @@ namespace Forza_Mods_AIO.CustomTheming
                         Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
                     }
                     if (Element.GetType() == typeof(System.Windows.Controls.ComboBox))
+                    {
+                        Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
+                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
+                    }
+                    if (Element.GetType() == typeof(ListBox))
                     {
                         Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
                         Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);

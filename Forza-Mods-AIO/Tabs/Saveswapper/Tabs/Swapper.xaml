@@ -5,12 +5,59 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
-      d:DesignHeight="360" d:DesignWidth="600"
+      d:DesignHeight="390" d:DesignWidth="350"
       Title="Swapper">
 
     <Grid>
-        <Button x:Name="ImportButton" Content="Import save" Height="30" Width="120" BorderThickness="0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15" Click="ImportButton_Click"/>
-        <Button x:Name="BackupButton" Content="Backup save" Height="30" Width="120" BorderThickness="0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15,50" Click="BackupButton_Click"/>
-        <Button x:Name="SwapButton" Content="Swap save" Height="30" Width="120" BorderThickness="0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15, 85" Click="SwapButton_Click"/>
+        <Border BorderBrush="#FF2E3440" BorderThickness="2" CornerRadius="18.5"/>
+        <Button x:Name="ImportButton" Content="Import save" Height="30" Width="160" BorderThickness="0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15" Click="ImportButton_Click"/>
+        <Button x:Name="BackupButton" Content="Backup save" Height="30" Width="160" BorderThickness="0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15,50" Click="BackupButton_Click"/>
+        <Button x:Name="SwapButton" Content="Swap save" Height="30" Width="160" BorderThickness="0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15, 85" Click="SwapButton_Click"/>
+
+        <Label Content="Account List" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,117,0,0"/>
+        <ListBox x:Name="AccountsBox" Height="235" Width="160" Background="#2F2F2F" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="15,0,0,10">
+            <!--#region Corner Radius-->
+            <ListBox.Resources>
+                <Style TargetType="ListBox">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBox">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="5">
+                                    <ScrollViewer>
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.Resources>
+            <!--#endregion-->
+
+        </ListBox>
+
+        <Label Content="Saves List" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="228,2,0,0"/>
+        <ListBox x:Name="SavesBox" Height="350" Width="160" Background="#2F2F2F" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="180,0,0,10">
+            <!--#region Corner Radius-->
+            <ListBox.Resources>
+                <Style TargetType="ListBox">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBox">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="5">
+                                    <ScrollViewer>
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.Resources>
+            <!--#endregion-->
+
+        </ListBox>
     </Grid>
 </Page>

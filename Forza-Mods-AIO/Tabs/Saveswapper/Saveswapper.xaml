@@ -8,12 +8,7 @@
       Title="Saveswapper">
 
     <Grid>
-        <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0, 10">
-            <Button Content="Swapper" Width="70" BorderThickness="0" Focusable="False" Click="SwapperButton"/>
-            <Button Content="Guide" Margin="10,0,0,0" Width="70" BorderThickness="0" Focusable="False" Click="GuideButton"/>
-        </StackPanel>
-
-        <Frame x:Name="SwapperFrame" Source="Tabs/Swapper.xaml" Height="360" VerticalAlignment="Bottom"/>
-        <Frame x:Name="GuideFrame" Source="Tabs/Guide.xaml" Visibility="Hidden" Height="360" VerticalAlignment="Bottom"/>
+        <Frame x:Name="SwapperFrame" Source="Tabs/Swapper.xaml" Visibility="Visible" Height="390" Width="350" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5"/>
+        <Frame x:Name="GuideFrame" Source="Tabs/Guide.xaml" Visibility="Visible" Height="390" Width="235" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5"/>
     </Grid>
 </Page>

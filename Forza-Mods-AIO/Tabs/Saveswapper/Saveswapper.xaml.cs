@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,10 +22,13 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper
     public partial class Saveswapper : Page
     {
         bool SwapperVisibility = true;
-
+        string BaseDirectory = @"C:\Users" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper";
+        string Platform;
+        string FileLink;
         public Saveswapper()
         {
             Task.Run(SwapperBGWorker);
+            DownloadSaves();
             InitializeComponent();
         }
 
@@ -40,29 +46,26 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper
                 {
                     Dispatcher.BeginInvoke((Action)delegate () {
                         SwapperFrame.Visibility = Visibility.Visible;
-                    });
-                }
-                if(!SwapperVisibility)
-                {
-                    Dispatcher.BeginInvoke((Action)delegate () {
-                        SwapperFrame.Visibility = Visibility.Hidden;
+                        GuideFrame.Visibility = Visibility.Visible;
                     });
                 }
                 Thread.Sleep(100);
             }
         }
 
-        public void SwapperButton(object sender, RoutedEventArgs e)
+        void DownloadSaves()
         {
-            SwapperFrame.Visibility = Visibility.Visible;
-            GuideFrame.Visibility = Visibility.Hidden;
-            SwapperVisibility = true;
-        }
-        private void GuideButton(object sender, RoutedEventArgs e)
-        {
-            SwapperFrame.Visibility = Visibility.Hidden;
-            GuideFrame.Visibility = Visibility.Visible;
-            SwapperVisibility = false;
+            if (!File.Exists(BaseDirectory))
+            {
+                using(WebClient client = new WebClient())
+                {
+                    try
+                    {
+                        client.DownloadFile(FileLink,BaseDirectory + "/" + Platform);   
+                    }
+                    catch { }
+                }
+            }
         }
     }
 }

@@ -20,6 +20,7 @@ using Forza_Mods_AIO.Tabs.AIO_Info;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Saveswapper.Tabs;
 using Forza_Mods_AIO.Tabs.Saveswapper;
+using Gameloop.Vdf;
 
 namespace Forza_Mods_AIO
 {
@@ -60,6 +61,7 @@ namespace Forza_Mods_AIO
         public Mem m = new Mem();
         public static AIO_Info AInfo = new AIO_Info();
         public static Saveswapper SW = new Saveswapper();
+        public static string SaveswapperPlatform;
         public static TeleportsPage Teleports = new TeleportsPage();
         List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.Saveswapper.Saveswapper(), };
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
@@ -70,6 +72,7 @@ namespace Forza_Mods_AIO
             InitializeComponent();
             mw = this;
             Task.Run(IsAttached);
+            GetSaveswapperPlatform();
             ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
             ThemeManager.Current.ChangeTheme(Application.Current, "AccentCol");
             AIO_Info.IsChecked = true;
@@ -172,6 +175,43 @@ namespace Forza_Mods_AIO
                     attached = false;
                 }
             }
+        }
+
+        static void GetSaveswapperPlatform()
+        {
+            // Credits to draff. Its his get install path thats used in the mod manager but for FH4.
+            dynamic LibraryFolders = VdfConvert.Deserialize(File.ReadAllText(@"C:\Program Files (x86)\Steam\steamapps\libraryfolders.vdf"));
+            var InstallPathSteam = "";
+            var InstallPathMS = "";
+            var BothInstalled = false;
+
+            foreach (var folder in LibraryFolders.Value)
+            {
+                if (folder.ToString().Contains("\"1551360\""))
+                {
+                    InstallPathSteam = folder.Value.path.ToString() + @"\steamapps\common\ForzaHorizon5";
+                    MessageBox.Show(folder.Value.path.ToString() + @"\steamapps\common\ForzaHorizon5");
+                }
+                if (InstallPathSteam == "nothing")
+                {
+                    string packageName = "Microsoft.624F8B84B80_8wekyb3d8bbwe";
+                    InstallPathMS = GetInstallPath(packageName);
+                }
+            }
+        }
+
+        public static string GetInstallPath(string packageName)
+        {
+            PackageManager packageManager = new PackageManager();
+            var packages = packageManager.FindPackages();
+            foreach (var package in packageManager.FindPackages())
+            {
+                if (package.Id.FamilyName == packageName)
+                {
+                    return package.InstalledLocation.Path;
+                }
+            }
+            return null;
         }
 
         private void gvpMaker(int Ver)

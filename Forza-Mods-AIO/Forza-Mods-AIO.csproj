@@ -46,6 +46,7 @@
     <Resource Include="Fonts\Manrope-SemiBold.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Gameloop.Vdf" Version="0.6.2" />
     <PackageReference Include="ksemenenko.ColorThief" Version="1.1.1.4" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="Memory.dll.x64" Version="1.2.23" />

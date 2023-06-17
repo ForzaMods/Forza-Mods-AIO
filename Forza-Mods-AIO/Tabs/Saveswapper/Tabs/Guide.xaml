@@ -5,10 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Forza_Mods_AIO.Tabs.Saveswapper.Tabs"
       mc:Ignorable="d" 
-      d:DesignHeight="360" d:DesignWidth="600"
+      d:DesignHeight="360" d:DesignWidth="235"
       Title="Guide">
 
     <Grid>
-        <Label Content="guide"/>
+        <Border BorderBrush="#FF2E3440" BorderThickness="2" CornerRadius="18.5"/>
+        <Label Content="Info" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" />
+        <Label Content="Xbox Console Companion must be open." VerticalAlignment="Top" Margin="4.5,20" Height="25"/>
+        <Label Content="Getting the account gamertags makes" VerticalAlignment="Top" Margin="5,43.5" Height="27.5"/>
+        <Label Content="API calls to xbox servers using your auth" VerticalAlignment="Top" Margin="5,70" Height="27.5"/>
+        <Label Content="token so open the app at your own risk" VerticalAlignment="Top" Margin="5,95" Height="27.5"/>
     </Grid>
 </Page>
