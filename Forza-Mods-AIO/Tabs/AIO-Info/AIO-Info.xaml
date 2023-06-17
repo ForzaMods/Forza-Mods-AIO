@@ -25,6 +25,6 @@
             LargeChange="10"
             Value="100" Foreground="#FF2E3440" Minimum="40" BorderBrush="{x:Null}" Focusable="False"/>
         <Label Content="Lightness" HorizontalAlignment="Left" Margin="444,366,0,0" VerticalAlignment="Top" Height="24" FontFamily="Manrope" Foreground="White"/>
-        <mah:ToggleSwitch x:Name="OverlaySwitch" Height="55" Header="Overlay" Margin="504,275,0,0" VerticalAlignment="Top" Width="114" Toggled="OverlaySwitch_Toggled" Focusable="False"/>
+        <mah:ToggleSwitch x:Name="OverlaySwitch" Height="55" Header="Overlay" Margin="504,275,0,0" VerticalAlignment="Top" Width="114" Toggled="OverlaySwitch_Toggled" Focusable="False" IsEnabled="False"/>
     </Grid>
 </Page>

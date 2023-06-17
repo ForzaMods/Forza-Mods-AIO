@@ -16,6 +16,8 @@ using Memory;
 using Forza_Mods_AIO.CustomTheming;
 using System.Xml;
 using System.Xml.Linq;
+using Forza_Mods_AIO.Tabs.AIO_Info;
+using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
 namespace Forza_Mods_AIO
 {
@@ -54,6 +56,8 @@ namespace Forza_Mods_AIO
         #region Variables
         public static MainWindow mw = new MainWindow();
         public Mem m = new Mem();
+        public static AIO_Info AInfo = new AIO_Info();
+        public static TeleportsPage Teleports = new TeleportsPage();
         List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle() };
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
         #endregion
@@ -62,7 +66,7 @@ namespace Forza_Mods_AIO
         {
             InitializeComponent();
             mw = this;
-            Task.Run(() => IsAttached());
+            Task.Run(IsAttached);
             ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
             ThemeManager.Current.ChangeTheme(Application.Current, "AccentCol");
             AIO_Info.IsChecked = true;
@@ -118,12 +122,13 @@ namespace Forza_Mods_AIO
         }
         #endregion
         #region Attaching/Behaviour
+
         private void IsAttached()
         {
             bool attached = false;
             while (true)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 if (m.OpenProcess("ForzaHorizon5"))
                 {
                     if (attached)
@@ -132,6 +137,9 @@ namespace Forza_Mods_AIO
                     Dispatcher.BeginInvoke((Action)delegate ()
                     {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
+                        AInfo.OverlaySwitch.IsEnabled = true;
+                        Teleports.TeleportBox.Visibility = Visibility.Hidden;
+                        Teleports.TeleportBoxFH5.Visibility = Visibility.Visible;
                     });
                     attached = true;
                 }
@@ -143,6 +151,9 @@ namespace Forza_Mods_AIO
                     Dispatcher.BeginInvoke((Action)delegate ()
                     {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
+                        AInfo.OverlaySwitch.IsEnabled = true;
+                        Teleports.TeleportBox.Visibility = Visibility.Visible;
+                        Teleports.TeleportBoxFH5.Visibility = Visibility.Hidden;
                     });
                     attached = true;
                 }
@@ -153,6 +164,7 @@ namespace Forza_Mods_AIO
                     Dispatcher.BeginInvoke((Action)delegate ()
                     {
                         AttachedLabel.Content = "Launch FH4/5";
+                        AInfo.OverlaySwitch.IsEnabled = false;
                     });
                     attached = false;
                 }

@@ -29,7 +29,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             { "SpeedHacksButton" , 118}, // Button name for page, height of page
             { "UnlocksButton" , 200},
             { "CameraButton" , 200},
-            { "ModifiersButton" , 83}
+            { "ModifiersButton" , 83},
+            { "TeleportsButton" , 100}
         };
         Dictionary<string, bool> IsClicked = new Dictionary<string, bool>()
         {

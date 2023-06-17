@@ -32,6 +32,7 @@
             <Frame x:Name="UnlocksPage" Content="Frame" Width="580" Source="DropDownTabs/UnlocksPage.xaml" Margin="10,45,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="CameraPage" Content="Frame" Width="580" Source="DropDownTabs/CameraPage.xaml" Margin="10,80,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="ModifiersPage" Content="Frame" Width="580" Source="DropDownTabs/ModifiersPage.xaml" Margin="10,115,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="TeleportsPage" Content="Frame" Width="580" Source="DropDownTabs/TeleportsPage.xaml" Margin="10,175,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Button x:Name="SpeedHacksButton" Content="Speed Hacks" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click">
                 <!-- Animation in xaml<Button.Triggers>
                     <EventTrigger RoutedEvent="Button.Click">
@@ -91,7 +92,7 @@
             <Button x:Name="CameraButton" Content="Camera" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click"/>
             <Button x:Name="ModifiersButton" Content="Modifiers" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click"/>
             <Button x:Name="StatsButton" Content="Stats" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0"/>
-            <Button x:Name="TeleportsButton" Content="Teleports" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0"/>
+            <Button x:Name="TeleportsButton" Content="Teleports" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click"/>
             <Button x:Name="EnvironmentButton" Content="Environment" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0"/>
             <Button x:Name="LiveTuningButton" Content="Live Tuning" HorizontalAlignment="Center" Margin="0,255,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" />
             <!-- Big Buttons

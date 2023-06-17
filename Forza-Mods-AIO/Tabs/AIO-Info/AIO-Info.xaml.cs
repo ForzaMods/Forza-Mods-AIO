@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,6 +18,7 @@ namespace Forza_Mods_AIO.Tabs.AIO_Info
             InitializeComponent();
             ai = this;
         }
+
         private void WallButton_Click(object sender, RoutedEventArgs e)
         {
             Task.Run(() => { CustomTheming.Monet.ApplyMonet(); });
