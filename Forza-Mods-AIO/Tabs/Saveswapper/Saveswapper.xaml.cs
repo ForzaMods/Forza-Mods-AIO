@@ -28,7 +28,7 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper
         public Saveswapper()
         {
             Task.Run(SwapperBGWorker);
-            DownloadSaves();
+            //DownloadSaves();
             InitializeComponent();
         }
 

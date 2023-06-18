@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Microsoft.Win32;
 using Memory;
+using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace Forza_Mods_AIO.Tabs.Saveswapper.Tabs
 {
@@ -22,13 +24,14 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper.Tabs
         #region Variables
         public static Mem m = new Mem();
         string SelectedFilePath;
-        string Path;
+        public static string BaseDirectory = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper";
         bool Attached = false;
         #endregion
 
         public Swapper()
         {
             InitializeComponent();
+            ImportedSavesImporter();
             Task.Run(XboxAttach);
         }
 
@@ -52,6 +55,23 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper.Tabs
 
         }
 
+        void GamertagResolver()
+        {
+
+        }
+
+        void ImportedSavesImporter()
+        {
+            var ImpSaveDir = BaseDirectory + @"\Imported saves";
+            string[] Files = Directory.GetFiles(ImpSaveDir);
+
+            foreach (string file in Files)
+            {
+                string fileName = Path.GetFileName(file);
+                SavesBox.Items.Add(fileName);
+            }
+        }
+
         private void ImportButton_Click(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog();
@@ -59,7 +79,9 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper.Tabs
             if (openFileDialog.ShowDialog() == true)
             {
                 SelectedFilePath = openFileDialog.FileName;
-                
+                var fileName = Path.GetFileName(SelectedFilePath);
+                SavesBox.Items.Add(fileName);
+                File.Copy(SelectedFilePath, BaseDirectory + @"\Imported Saves" + "/" + fileName);
             }
         }
 

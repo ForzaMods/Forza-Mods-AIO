@@ -61,10 +61,9 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border CornerRadius="2.5" Background="#FF090909" Margin="2.5, 5">
+                                <Border CornerRadius="5" Background="#1F1F1F" Margin="2.5, 5" Height="15">
                                     <ContentPresenter/>
                                 </Border>
-                                
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>

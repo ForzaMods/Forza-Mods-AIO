@@ -19,6 +19,8 @@ using Forza_Mods_AIO.Tabs.AIO_Info;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Saveswapper;
 using Gameloop.Vdf;
+using Forza_Mods_AIO.Tabs.Saveswapper.Tabs;
+using System.Printing.Interop;
 
 namespace Forza_Mods_AIO
 {
@@ -59,7 +61,6 @@ namespace Forza_Mods_AIO
         public Mem m = new Mem();
         public static AIO_Info AInfo = new AIO_Info();
         public static Saveswapper SW = new Saveswapper();
-        public static string SaveswapperPlatform;
         public static TeleportsPage Teleports = new TeleportsPage();
         List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.Saveswapper.Saveswapper(), };
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
@@ -70,11 +71,20 @@ namespace Forza_Mods_AIO
             InitializeComponent();
             mw = this;
             Task.Run(IsAttached);
-            if (!File.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs"))
+            #region Saveswapper stuff
+            if (File.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs"))
             {
                 //Saveswapper.IsEnabled = false;
                 Saveswapper.Foreground = Brushes.DarkGray;
             }
+            else
+            {
+                var BaseDir = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper";
+                if (!File.Exists(BaseDir)) { Directory.CreateDirectory(BaseDir); }
+                if (!File.Exists(BaseDir + @"\Imported saves")) { Directory.CreateDirectory(BaseDir + @"\Imported saves"); }
+                if (!File.Exists(BaseDir + @"\Save backups")) { Directory.CreateDirectory(BaseDir + @"\Save backups"); }
+            }
+            #endregion
             ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
             ThemeManager.Current.ChangeTheme(Application.Current, "AccentCol");
             AIO_Info.IsChecked = true;
