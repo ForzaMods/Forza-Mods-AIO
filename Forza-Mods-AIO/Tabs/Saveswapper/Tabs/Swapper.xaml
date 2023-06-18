@@ -56,8 +56,25 @@
                     </Setter>
                 </Style>
             </ListBox.Resources>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border CornerRadius="2.5" Background="#FF090909" Margin="2.5, 5">
+                                    <ContentPresenter/>
+                                </Border>
+                                
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Margin" Value="2.5, 5"/>
+                    <Setter Property="Background" Value="#FF090909"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <!--#endregion-->
-
+            <ListBoxItem Content="ColaAllCarsV1"/>
+            
         </ListBox>
     </Grid>
 </Page>

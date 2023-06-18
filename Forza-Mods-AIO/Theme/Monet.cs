@@ -197,6 +197,11 @@ namespace Forza_Mods_AIO.CustomTheming
                         Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
                         Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
                     }
+                    if (Element.GetType() == typeof(ListBoxItem))
+                    {
+                        Element.GetType().GetProperty("Background").SetValue(Element, DarkishColour);
+                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkishColour);
+                    }
                 }
             });
         }

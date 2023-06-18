@@ -70,7 +70,7 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper.Tabs
 
         private void SwapButton_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
     }
 }

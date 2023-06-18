@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -23,7 +24,6 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper
     {
         bool SwapperVisibility = true;
         string BaseDirectory = @"C:\Users" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper";
-        string Platform;
         string FileLink;
         public Saveswapper()
         {
@@ -61,7 +61,7 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper
                 {
                     try
                     {
-                        client.DownloadFile(FileLink,BaseDirectory + "/" + Platform);   
+                        client.DownloadFile(FileLink,BaseDirectory);
                     }
                     catch { }
                 }

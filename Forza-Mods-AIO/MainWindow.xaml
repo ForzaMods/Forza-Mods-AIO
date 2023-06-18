@@ -112,7 +112,7 @@
                 Data="M159.375 271.875A28.125 28.125 0 0 0 187.5 300H262.5A37.5 37.5 0 0 0 300 262.5V37.5A37.5 37.5 0 0 0 262.5 0H37.5A37.5 37.5 0 0 0 0 37.5V262.5A37.5 37.5 0 0 0 37.5 300H150C144.1125 292.1625 140.625 282.43125 140.625 271.875V125.75625L91.0125 175.3875A9.375 9.375 0 1 1 77.7375 162.1125L143.3625 96.4875A9.375 9.375 0 0 1 156.6375 96.4875L222.2625 162.1125A9.375 9.375 0 0 1 208.9875 175.3875L159.375 125.75625V271.875z"
                 Fill="White" Stretch="Fill"
                 Width="16" Height="16"
-                Margin="174,130,0,0" Grid.Row="2" Focusable="False" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" >
+                Margin="174,130,0,0" Grid.Row="2" Focusable="False" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
                 <Path.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleY="-1"/>
