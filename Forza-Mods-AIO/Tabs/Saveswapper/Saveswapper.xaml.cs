@@ -49,7 +49,7 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper
                         GuideFrame.Visibility = Visibility.Visible;
                     });
                 }
-                Thread.Sleep(100);
+                Thread.Sleep(250);
             }
         }
 

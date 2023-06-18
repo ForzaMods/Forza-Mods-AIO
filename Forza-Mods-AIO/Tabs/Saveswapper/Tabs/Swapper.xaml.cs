@@ -90,7 +90,7 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper.Tabs
                     }
                     else
                     {
-                        MessageBox.Show("Save with this name already exists in our save folder", "Error");
+                        MessageBox.Show("Save with this name already exists in your save folder", "Error");
                     }
                 }
                 else
@@ -107,7 +107,7 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper.Tabs
 
         private void SwapButton_Click(object sender, RoutedEventArgs e)
         {
-
+            SwapMSSave();
         }
     }
 }
