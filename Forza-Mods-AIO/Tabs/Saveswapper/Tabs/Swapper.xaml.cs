@@ -80,8 +80,23 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper.Tabs
             {
                 SelectedFilePath = openFileDialog.FileName;
                 var fileName = Path.GetFileName(SelectedFilePath);
-                SavesBox.Items.Add(fileName);
-                File.Copy(SelectedFilePath, BaseDirectory + @"\Imported Saves" + "/" + fileName);
+
+                if (string.IsNullOrEmpty(Path.GetExtension(fileName)))
+                {
+                    if (!File.Exists(BaseDirectory + @"\Imported Saves" + "/" + fileName))
+                    {
+                        File.Copy(SelectedFilePath, BaseDirectory + @"\Imported Saves" + "/" + fileName);
+                        SavesBox.Items.Add(fileName);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Save with this name already exists in our save folder", "Error");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Select a valid save first smh", "Error");
+                }
             }
         }
 

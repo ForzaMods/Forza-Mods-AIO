@@ -33,6 +33,24 @@
                     </Setter>
                 </Style>
             </ListBox.Resources>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Grid>
+                                    <Border CornerRadius="3" Background="#1F1F1F" Margin="2.5, 5" Height="20">
+                                    </Border>
+                                    <TextBlock Text="{TemplateBinding Property=Content}"
+                                       VerticalAlignment="Center"
+                                       Margin="5,0,0,0"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Background" Value="#FF090909"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <!--#endregion-->
 
         </ListBox>
@@ -61,19 +79,23 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border CornerRadius="5" Background="#1F1F1F" Margin="2.5, 5" Height="15">
-                                    <ContentPresenter/>
-                                </Border>
+                                <Grid>
+                                    <Border CornerRadius="3" Background="#1F1F1F" Margin="2.5, 5" Height="20">
+                                    </Border>
+                                    <TextBlock Text="{TemplateBinding Property=Content}"
+                                       VerticalAlignment="Center"
+                                       Margin="5,0,0,0"/>
+                                </Grid>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="Margin" Value="2.5, 5"/>
                     <Setter Property="Background" Value="#FF090909"/>
                 </Style>
             </ListBox.ItemContainerStyle>
             <!--#endregion-->
-            <ListBoxItem Content="ColaAllCarsV1"/>
-            
+            <ListBoxItem Content="ColaAllCaraasdwasdwasV1"/>
+            <ListBoxItem Content="ColaAllCaraasdwasdwasV21"/>
+
         </ListBox>
     </Grid>
 </Page>
