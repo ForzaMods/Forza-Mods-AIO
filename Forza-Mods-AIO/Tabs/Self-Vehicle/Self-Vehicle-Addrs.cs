@@ -390,7 +390,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             ToePosStatic = (ToeBaseStatic + 0x4).ToString("X");
             #endregion
 
-            if (MainWindow.mw.gvp.Plat == "MS")
+            if (MainWindow.mw.gvp.Plat == "MS" && MainWindow.mw.gvp.Name == "Forza Horizon 5")
             {
                 TuningTableBase1 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "?0 ? ? ? ? 0? 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 02 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X");
                 //TuningTableBase2 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "", true, true, false)).FirstOrDefault().ToString("X");
@@ -415,7 +415,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 TenthGear = (TuningTableBase1 + ",0x10,0x10,0xC10");
             }
 
-            else if (MainWindow.mw.gvp.Plat == "Steam")
+            else if (MainWindow.mw.gvp.Plat == "Steam" && MainWindow.mw.gvp.Name == "Forza Horizon 5")
             {
                 TuningTableBase1 = ((await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 00 00 FF FF FF FF 10 ? ? ? ? 0? 00 00 00 ? ? ? ? 0? 00 00 ? ? ? ? ? 0? 00 00 00 ?", true, true, false)).FirstOrDefault() + 0x8).ToString("X");
                 TuningTableBase2 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "90 2E ? ? ? 0? 00 00 00 00 80 3F 00 00 00 00 ? ? ? ? ? 0? 00 00", true, true, false)).FirstOrDefault().ToString("X");
