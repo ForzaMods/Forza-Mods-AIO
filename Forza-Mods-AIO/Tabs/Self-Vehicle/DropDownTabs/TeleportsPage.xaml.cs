@@ -17,9 +17,12 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 {
     public partial class TeleportsPage : Page
     {
+        public static TeleportsPage t;
+
         public TeleportsPage()
         {
             InitializeComponent();
+            t = this;
         }
 
         private void TeleportBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -29,15 +32,6 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
             var selectedOption = selectedItem.Content.ToString();
 
 
-        }
-
-        private void TeleportBoxFH5_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox comboBox = (ComboBox)sender;
-            ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
-            var selectedOption = selectedItem.Content.ToString();
-
-            
         }
 
         private void AutoTpToWaypoint_Toggled(object sender, RoutedEventArgs e)

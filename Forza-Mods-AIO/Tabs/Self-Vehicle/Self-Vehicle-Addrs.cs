@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -195,23 +196,22 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             FOVHighAddr = (BaseAddr + ",0x568,0x270,0x258,0xB8,0x348,0x70,0x5B0");
             WeirdAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x554");
             GravityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x558");
-            /*s.LST_TeleportLocation.Items.Clear();
-            s.LST_TeleportLocation.Items.Add("Waypoint");
-            s.LST_TeleportLocation.Items.Add("Adventure Park");
-            s.LST_TeleportLocation.Items.Add("Ambleside");
-            s.LST_TeleportLocation.Items.Add("Beach");
-            s.LST_TeleportLocation.Items.Add("Broadway");
-            s.LST_TeleportLocation.Items.Add("Dam");
-            s.LST_TeleportLocation.Items.Add("Edinburgh");
-            s.LST_TeleportLocation.Items.Add("Festival");
-            s.LST_TeleportLocation.Items.Add("Greendale Airstrip");
-            s.LST_TeleportLocation.Items.Add("Lake Island");
-            s.LST_TeleportLocation.Items.Add("Mortimer Gardens");
-            s.LST_TeleportLocation.Items.Add("Quarry");
-            s.LST_TeleportLocation.Items.Add("Railyard");
-            s.LST_TeleportLocation.Items.Add("Start of Motorway");
-            s.LST_TeleportLocation.Items.Add("Top of Mountain");
-            s.g2gWorker.RunWorkerAsync();*/
+            TeleportsPage.t.TeleportBox.Items.Clear();
+            TeleportsPage.t.TeleportBox.Items.Add("Waypoint");
+            TeleportsPage.t.TeleportBox.Items.Add("Adventure Park");
+            TeleportsPage.t.TeleportBox.Items.Add("Ambleside");
+            TeleportsPage.t.TeleportBox.Items.Add("Beach");
+            TeleportsPage.t.TeleportBox.Items.Add("Broadway");
+            TeleportsPage.t.TeleportBox.Items.Add("Dam");
+            TeleportsPage.t.TeleportBox.Items.Add("Edinburgh");
+            TeleportsPage.t.TeleportBox.Items.Add("Festival");
+            TeleportsPage.t.TeleportBox.Items.Add("Greendale Airstrip");
+            TeleportsPage.t.TeleportBox.Items.Add("Lake Island");
+            TeleportsPage.t.TeleportBox.Items.Add("Mortimer Gardens");
+            TeleportsPage.t.TeleportBox.Items.Add("Quarry");
+            TeleportsPage.t.TeleportBox.Items.Add("Railyard");
+            TeleportsPage.t.TeleportBox.Items.Add("Start of Motorway");
+            TeleportsPage.t.TeleportBox.Items.Add("Top of Mountain");
         }
         private static void AddressesFourSteam()
         {
@@ -242,23 +242,22 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             InHouseAddr = (Base2Addr + ",0x50,0x368");
             TestAddr = (Base2Addr + ",0x50,0x218");
             FOVHighAddr = (Base3Addr + ",0x538,0xF0,0xD80,0x6F0");
-            /*s.LST_TeleportLocation.Items.Clear();
-            s.LST_TeleportLocation.Items.Add("Waypoint");
-            s.LST_TeleportLocation.Items.Add("Airstrip");
-            s.LST_TeleportLocation.Items.Add("Bridge");
-            s.LST_TeleportLocation.Items.Add("Dirt Circuit");
-            s.LST_TeleportLocation.Items.Add("Dunes");
-            s.LST_TeleportLocation.Items.Add("Golf Course");
-            s.LST_TeleportLocation.Items.Add("Guanajuato (Main City)");
-            s.LST_TeleportLocation.Items.Add("Motorway");
-            s.LST_TeleportLocation.Items.Add("Mulege");
-            s.LST_TeleportLocation.Items.Add("Playa Azul");
-            s.LST_TeleportLocation.Items.Add("River");
-            s.LST_TeleportLocation.Items.Add("Stadium");
-            s.LST_TeleportLocation.Items.Add("Temple");
-            s.LST_TeleportLocation.Items.Add("Temple Drag");
-            s.LST_TeleportLocation.Items.Add("Top Of Volcano");
-            s.g2gWorker.RunWorkerAsync();*/
+            TeleportsPage.t.TeleportBox.Items.Clear();
+            TeleportsPage.t.TeleportBox.Items.Add("Waypoint");
+            TeleportsPage.t.TeleportBox.Items.Add("Airstrip");
+            TeleportsPage.t.TeleportBox.Items.Add("Bridge");
+            TeleportsPage.t.TeleportBox.Items.Add("Dirt Circuit");
+            TeleportsPage.t.TeleportBox.Items.Add("Dunes");
+            TeleportsPage.t.TeleportBox.Items.Add("Golf Course");
+            TeleportsPage.t.TeleportBox.Items.Add("Guanajuato (Main City)");
+            TeleportsPage.t.TeleportBox.Items.Add("Motorway");
+            TeleportsPage.t.TeleportBox.Items.Add("Mulege");
+            TeleportsPage.t.TeleportBox.Items.Add("Playa Azul");
+            TeleportsPage.t.TeleportBox.Items.Add("River");
+            TeleportsPage.t.TeleportBox.Items.Add("Stadium");
+            TeleportsPage.t.TeleportBox.Items.Add("Temple");
+            TeleportsPage.t.TeleportBox.Items.Add("Temple Drag");
+            TeleportsPage.t.TeleportBox.Items.Add("Top Of Volcano");
         }
         private static void Aobs()
         {
