@@ -10,7 +10,7 @@
 
     <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10">
         <Grid>
-            <ComboBox x:Name="TeleportBox" SelectionChanged="TeleportBox_SelectionChanged" Height="25" Width="180" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="15" Visibility="Hidden"/>
+            <ComboBox x:Name="TeleportBox" SelectionChanged="TeleportBox_SelectionChanged" Height="25" Width="180" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="15"/>
 
             <mah:ToggleSwitch x:Name="AutoTpToWaypoint" FontSize="14" Toggled="AutoTpToWaypoint_Toggled" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15" Content="Auto teleport to waypoint"/>
             <mah:ToggleSwitch x:Name="BypassOutOfBounds" FontSize="14" Toggled="BypassOutOfBounds_Toggled" VerticalAlignment="Top" Margin="15,52,0,0" Content="Bypass out of bounds TP"/>

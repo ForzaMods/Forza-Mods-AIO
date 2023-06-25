@@ -156,8 +156,6 @@ namespace Forza_Mods_AIO
                     {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
                         AInfo.OverlaySwitch.IsEnabled = true;
-                        Teleports.TeleportBox.Visibility = Visibility.Hidden;
-                        Teleports.TeleportBoxFH5.Visibility = Visibility.Visible;
                     });
                     attached = true;
                 }
@@ -170,8 +168,6 @@ namespace Forza_Mods_AIO
                     {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
                         AInfo.OverlaySwitch.IsEnabled = true;
-                        Teleports.TeleportBox.Visibility = Visibility.Visible;
-                        Teleports.TeleportBoxFH5.Visibility = Visibility.Hidden;
                     });
                     attached = true;
                 }
