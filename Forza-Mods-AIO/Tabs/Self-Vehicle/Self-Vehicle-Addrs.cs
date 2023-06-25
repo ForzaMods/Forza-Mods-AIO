@@ -1,6 +1,7 @@
 ﻿using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
@@ -372,6 +373,69 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             TeleportsPage.t.TeleportBox.Items.Add("Temple");
             TeleportsPage.t.TeleportBox.Items.Add("Temple Drag");
             TeleportsPage.t.TeleportBox.Items.Add("Top Of Volcano");
+        }
+
+        public async static void TuningTable()
+        {
+            var TargetProcess = Process.GetProcessesByName("ForzaHorizon5")[0];
+            long ScanStart = (long)TargetProcess.MainModule.BaseAddress;
+            long ScanEnd = (long)(TargetProcess.MainModule.BaseAddress + TargetProcess.MainModule.ModuleMemorySize);
+
+            if (MainWindow.mw.gvp.Plat == "MS")
+            {
+                TuningTableBase1 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "?0 ? ? ? ? 0? 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 02 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X");
+                //TuningTableBase2 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "", true, true, false)).FirstOrDefault().ToString("X");
+                //TuningTableBase3 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "", true, true, false)).FirstOrDefault().ToString("X");
+            }
+
+            else if (MainWindow.mw.gvp.Plat == "Steam")
+            {
+                TuningTableBase1 = ((await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 00 00 FF FF FF FF 10 ? ? ? ? 0? 00 00 00 ? ? ? ? 0? 00 00 ? ? ? ? ? 0? 00 00 00 ?", true, true, false)).FirstOrDefault() + 0x8).ToString("X");
+                TuningTableBase2 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "90 2E ? ? ? 0? 00 00 00 00 80 3F 00 00 00 00 ? ? ? ? ? 0? 00 00", true, true, false)).FirstOrDefault().ToString("X");
+                TuningTableBase3 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "D0 84 ? ? ? 0? 00 00 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X");
+                CamberBaseStatic = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 ? ? 00 00 ? 4? 00 00 ?0 C? 00 00 ? 4? 00 00 80 3F", true, true, false)).FirstOrDefault();
+                ToeBaseStatic = (CamberBaseStatic + 0x8);
+
+                TireFrontLeft = (TuningTableBase1 + ",0x320,0x10,0x1D0,0x27C8");
+                TireFrontRight = (TuningTableBase1 + ",0x320,0x10,0x1D0,0x3288");
+                TireRearRight = (TuningTableBase1 + ",0x320,0x10,0x1D0,0x3D48");
+                TireRearLeft = (TuningTableBase1 + ",0x320,0x10,0x1D0,0x4808");
+
+                FinalDrive = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xCEC");
+                ReverseGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xB48");
+                FirstGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xB5C");
+                SecondGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xB70");
+                ThirdGear = (TuningTableBase1 + "0x,320,0x10,0x1D0,0xB84");
+                FourthGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xB98");
+                FifthGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xBAC");
+                SixthGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xBC0");
+                SeventhGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xBD4");
+                EighthGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xBE8");
+                NinthGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xBFC");
+                TenthGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xC10");
+
+                CamberNeg = (TuningTableBase2 + ",0x8B0,0x498");
+                CamberPos = (TuningTableBase2 + ",0x8B0,0x49C");
+                CamberNegStatic = CamberBaseStatic.ToString("X");
+                CamberPosStatic = (CamberBaseStatic + 0x4).ToString("X");
+                ToeNeg = (TuningTableBase2 + ",0x8B0,0x4A0");
+                ToePos = (TuningTableBase2 + ",0x8B0,0x4A4");
+                ToeNegStatic = (ToeBaseStatic).ToString("X");
+                ToePosStatic = (ToeBaseStatic + 0x4).ToString("X");
+
+                SpringFrontMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x528");
+                SpringFrontMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x52C");
+                SpringRearMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x67C");
+                SpringRearMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x680");
+
+                FrontRideHeightMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x508");
+                FrontRideHeightMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x50C");
+                RearRideHeightMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x65C");
+                RearRideHeightMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x660");
+
+                FrontRestriction = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x510");
+                RearRestriction = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x664");
+            }
         }
         private static void Aobs()
         {
