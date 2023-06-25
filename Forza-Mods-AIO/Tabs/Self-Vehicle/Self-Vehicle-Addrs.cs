@@ -143,6 +143,120 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static string HornAsmAddr = null;
         public static string XPaddr = null;
         public static string XPAmountaddr = null;
+
+        #region Tuning table port
+        #region Tires
+        public static string TireFrontLeft;
+        public static string TireFrontRight;
+        public static string TireRearLeft;
+        public static string TireRearRight;
+        #endregion
+        #region Gearing
+        public static string FinalDrive;
+        public static string ReverseGear;
+        public static string FirstGear;
+        public static string SecondGear;
+        public static string ThirdGear;
+        public static string FourthGear;
+        public static string FifthGear;
+        public static string SixthGear;
+        public static string SeventhGear;
+        public static string EighthGear;
+        public static string NinthGear;
+        public static string TenthGear;
+        #endregion
+        #region Alignment
+        // Bases
+        public static long CamberBaseStatic;
+        public static long ToeBaseStatic;
+
+        // Camber
+        public static string CamberPos;
+        public static string CamberPosStatic;
+        public static string CamberNeg;
+        public static string CamberNegStatic;
+
+        // Toe
+        public static string ToePos;
+        public static string ToePosStatic;
+        public static string ToeNeg;
+        public static string ToeNegStatic;
+        #endregion
+        #region Springs
+        // Springs
+        public static string SpringFrontMin;
+        public static string SpringFrontMax;
+        public static string SpringRearMin;
+        public static string SpringRearMax;
+
+        // Ride Height
+        public static string FrontRideHeightMin;
+        public static string FrontRideHeightMax;
+        public static string RearRideHeightMin;
+        public static string RearRideHeightMax;
+
+        // Restrictions
+        public static string FrontRestriction;
+        public static string RearRestriction;
+        #endregion
+        #region Damping/Antiroll Bars
+        // Antiroll Bars
+        public static string FrontAntirollMin;
+        public static string FrontAntirollMax;
+        public static string RearAntirollMin;
+        public static string RearAntirollMax;
+
+        // Rebound Stiffness
+        public static string FrontReboundStiffnesMin;
+        public static string FrontReboundStiffnessMax;
+        public static string RearReboundStiffnessMin;
+        public static string RearReboundStiffnessMax;
+
+        // Bump Stiffness
+        public static string FrontBumpStiffnessMin;
+        public static string FrontBumpStiffnessMax;
+        public static string RearBumpStiffnessMin;
+        public static string RearBumpStiffnessMax;
+        #endregion
+        #region Aero
+        public static string FrontAeroMin;
+        public static string FrontAeroMax;
+        public static string RearAeroMin;
+        public static string RearAeroMax;
+        #endregion
+        #region Steering
+        // Max angle values
+        public static string AngleMax;
+        public static string AngleMax2;
+
+        // Velocity / Time Values
+        public static string AngleVelocityStraight;
+        public static string AngleVelocityTurning;
+        public static string AngleVelocityCountersteer;
+        public static string AngleVelocityDynamicPeek;
+        public static string AngleTimeToMaxSteering;
+        #endregion
+        #region Others
+        // Wheelbase
+        public static string Wheelbase;
+        public static string FrontWidth;
+        public static string RearWidth;
+
+        // Spacers
+        public static string FrontSpacer;
+        public static string RearSpacer;
+
+        // Rims
+        public static string RimSizeFront;
+        public static string RimSizeRear;
+        public static string RimRadiusFront;
+        public static string RimRadiusRear;
+        #endregion
+
+        public static string TuningTableBase1;
+        public static string TuningTableBase2;
+        public static string TuningTableBase3;
+        #endregion
         #endregion
         #region Addresses - CodeCaves
         public static IntPtr CCBA = (IntPtr)0;
