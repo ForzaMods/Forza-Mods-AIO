@@ -380,12 +380,43 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             var TargetProcess = Process.GetProcessesByName("ForzaHorizon5")[0];
             long ScanStart = (long)TargetProcess.MainModule.BaseAddress;
             long ScanEnd = (long)(TargetProcess.MainModule.BaseAddress + TargetProcess.MainModule.ModuleMemorySize);
+            #region Camber
+            CamberBaseStatic = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 ? ? 00 00 ? 4? 00 00 ?0 C? 00 00 ? 4? 00 00 80 3F", true, true, false)).FirstOrDefault();
+            ToeBaseStatic = (CamberBaseStatic + 0x8);
+
+            CamberNeg = (TuningTableBase2 + ",0x8B0,0x498");
+            CamberPos = (TuningTableBase2 + ",0x8B0,0x49C");
+            CamberNegStatic = CamberBaseStatic.ToString("X");
+            CamberPosStatic = (CamberBaseStatic + 0x4).ToString("X");
+            ToeNeg = (TuningTableBase2 + ",0x8B0,0x4A0");
+            ToePos = (TuningTableBase2 + ",0x8B0,0x4A4");
+            ToeNegStatic = (ToeBaseStatic).ToString("X");
+            ToePosStatic = (ToeBaseStatic + 0x4).ToString("X");
+            #endregion
 
             if (MainWindow.mw.gvp.Plat == "MS")
             {
                 TuningTableBase1 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "?0 ? ? ? ? 0? 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 02 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X");
                 //TuningTableBase2 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "", true, true, false)).FirstOrDefault().ToString("X");
                 //TuningTableBase3 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "", true, true, false)).FirstOrDefault().ToString("X");
+
+                TireFrontLeft = (TuningTableBase1 + ",0x10,0x10,0x27C8");
+                TireFrontRight = (TuningTableBase1 + ",0x10,0x10,0x3288");
+                TireRearRight = (TuningTableBase1 + ",0x10,0x10,0x3D48");
+                TireRearLeft = (TuningTableBase1 + ",0x10,0x10,0x4808");
+
+                FinalDrive = (TuningTableBase1 + ",0x10,0x10,0xCEC");
+                ReverseGear = (TuningTableBase1 + ",0x10,0x10,0xB48");
+                FirstGear = (TuningTableBase1 + ",0x10,0x10,0xB5C");
+                SecondGear = (TuningTableBase1 + ",0x10,0x10,0xB70");
+                ThirdGear = (TuningTableBase1 + ",0x10,0x10,0xB84");
+                FourthGear = (TuningTableBase1 + ",0x10,0x10,0xB98");
+                FifthGear = (TuningTableBase1 + ",0x10,0x10,0xBAC");
+                SixthGear = (TuningTableBase1 + ",0x10,0x10,0xBC0");
+                SeventhGear = (TuningTableBase1 + ",0x10,0x10,0xBD4");
+                EighthGear = (TuningTableBase1 + ",0x10,0x10,0xBE8");
+                NinthGear = (TuningTableBase1 + ",0x10,0x10,0xBFC");
+                TenthGear = (TuningTableBase1 + ",0x10,0x10,0xC10");
             }
 
             else if (MainWindow.mw.gvp.Plat == "Steam")
@@ -393,8 +424,6 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 TuningTableBase1 = ((await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 00 00 FF FF FF FF 10 ? ? ? ? 0? 00 00 00 ? ? ? ? 0? 00 00 ? ? ? ? ? 0? 00 00 00 ?", true, true, false)).FirstOrDefault() + 0x8).ToString("X");
                 TuningTableBase2 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "90 2E ? ? ? 0? 00 00 00 00 80 3F 00 00 00 00 ? ? ? ? ? 0? 00 00", true, true, false)).FirstOrDefault().ToString("X");
                 TuningTableBase3 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "D0 84 ? ? ? 0? 00 00 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X");
-                CamberBaseStatic = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 ? ? 00 00 ? 4? 00 00 ?0 C? 00 00 ? 4? 00 00 80 3F", true, true, false)).FirstOrDefault();
-                ToeBaseStatic = (CamberBaseStatic + 0x8);
 
                 TireFrontLeft = (TuningTableBase1 + ",0x320,0x10,0x1D0,0x27C8");
                 TireFrontRight = (TuningTableBase1 + ",0x320,0x10,0x1D0,0x3288");
@@ -413,15 +442,6 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 EighthGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xBE8");
                 NinthGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xBFC");
                 TenthGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xC10");
-
-                CamberNeg = (TuningTableBase2 + ",0x8B0,0x498");
-                CamberPos = (TuningTableBase2 + ",0x8B0,0x49C");
-                CamberNegStatic = CamberBaseStatic.ToString("X");
-                CamberPosStatic = (CamberBaseStatic + 0x4).ToString("X");
-                ToeNeg = (TuningTableBase2 + ",0x8B0,0x4A0");
-                ToePos = (TuningTableBase2 + ",0x8B0,0x4A4");
-                ToeNegStatic = (ToeBaseStatic).ToString("X");
-                ToePosStatic = (ToeBaseStatic + 0x4).ToString("X");
 
                 SpringFrontMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x528");
                 SpringFrontMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x52C");
