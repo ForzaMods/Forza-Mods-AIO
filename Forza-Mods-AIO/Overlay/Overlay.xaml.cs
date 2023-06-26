@@ -281,7 +281,7 @@ namespace Forza_Mods_AIO.Overlay
         // Caches all the headers
         public void CacheHeaders()
         {
-            o.MenuHeaders = Directory.GetFiles(Environment.CurrentDirectory + @"\Headers");
+            o.MenuHeaders = Directory.GetFiles(Environment.CurrentDirectory + @"\Overlay\Images");
             foreach (string header in o.MenuHeaders)
             {
                 bool InCachedBitmaps = false;

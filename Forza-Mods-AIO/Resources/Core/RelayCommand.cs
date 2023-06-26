@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Forza_Mods_AIO.Core
+namespace Forza_Mods_AIO.Resources.Core
 {
     class RelayCommand : ICommand
     {

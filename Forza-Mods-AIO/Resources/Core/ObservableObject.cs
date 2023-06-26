@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Forza_Mods_AIO.Core
+namespace Forza_Mods_AIO.Resources.Core
 {
     class ObservableObject : INotifyPropertyChanged
     {
