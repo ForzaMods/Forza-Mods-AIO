@@ -5,7 +5,6 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
 {
     internal class Addresses
     {
-
         #region Vars
         #region Tires
         public static string TireFrontLeft;
@@ -118,14 +117,16 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
         public static string TuningTableBase1;
         public static string TuningTableBase2;
         public static string TuningTableBase3;
+        public static string TuningTableBase4;
         #endregion
 
         public async static void TuningTable()
         {
+            #region Camber,toe (static) and scanning vars
             var TargetProcess = Process.GetProcessesByName("ForzaHorizon5")[0];
             long ScanStart = (long)TargetProcess.MainModule.BaseAddress;
             long ScanEnd = (long)(TargetProcess.MainModule.BaseAddress + TargetProcess.MainModule.ModuleMemorySize);
-            #region Camber
+            
             CamberBaseStatic = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 ? ? 00 00 ? 4? 00 00 ?0 C? 00 00 ? 4? 00 00 80 3F", true, true, false)).FirstOrDefault();
             ToeBaseStatic = (CamberBaseStatic + 0x8);
 
@@ -141,6 +142,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 TuningTableBase1 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "?0 ? ? ? ? 0? 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 02 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X");
                 //TuningTableBase2 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "", true, true, false)).FirstOrDefault().ToString("X");
                 //TuningTableBase3 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "", true, true, false)).FirstOrDefault().ToString("X");
+                //TuningTableBase4 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "", true, true, false)).FirstOrDefault().ToString("X");
 
                 TireFrontLeft = (TuningTableBase1 + ",0x10,0x10,0x27C8");
                 TireFrontRight = (TuningTableBase1 + ",0x10,0x10,0x3288");
@@ -159,6 +161,63 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 EighthGear = (TuningTableBase1 + ",0x10,0x10,0xBE8");
                 NinthGear = (TuningTableBase1 + ",0x10,0x10,0xBFC");
                 TenthGear = (TuningTableBase1 + ",0x10,0x10,0xC10");
+
+                CamberNeg = (TuningTableBase2 + ",0x8B0,0x498");
+                CamberPos = (TuningTableBase2 + ",0x8B0,0x49C");
+                ToeNeg = (TuningTableBase2 + ",0x8B0,0x4A0");
+                ToePos = (TuningTableBase2 + ",0x8B0,0x4A4");
+
+                SpringFrontMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x528");
+                SpringFrontMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x52C");
+                SpringRearMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x67C");
+                SpringRearMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x680");
+
+                FrontRideHeightMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x508");
+                FrontRideHeightMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x50C");
+                RearRideHeightMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x65C");
+                RearRideHeightMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x660");
+
+                FrontRestriction = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x510");
+                RearRestriction = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x664");
+
+                FrontAntirollMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x5C4");
+                FrontAntirollMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x5C8");
+                RearAntirollMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x718");
+                RearAntirollMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x71C");
+
+                FrontReboundStiffnesMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x558");
+                FrontReboundStiffnessMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x55C");
+                RearReboundStiffnessMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x6AC");
+                RearReboundStiffnessMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x68C");
+
+                FrontBumpStiffnessMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x378");
+                FrontBumpStiffnessMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x380");
+                RearBumpStiffnessMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x688");
+                RearBumpStiffnessMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x5C8");
+
+                FrontAeroMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x534");
+                FrontAeroMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x538");
+                RearAeroMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x3D8");
+                RearAeroMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x3E0");
+
+                AngleMax = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x7FC");
+                AngleMax2 = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x800");
+                AngleVelocityStraight = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x804");
+                AngleVelocityTurning = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x808");
+                AngleVelocityCountersteer = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x80C");
+                AngleVelocityDynamicPeek = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x810");
+                AngleTimeToMaxSteering = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x814");
+
+                Wheelbase = (TuningTableBase1 + ",0x330,0x8,0x1E0,0xD0");
+                FrontWidth = (TuningTableBase1 + ",0x330,0x8,0x1E0,0xD4");
+                RearWidth = (TuningTableBase1 + ",0x330,0x8,0x1E0,0xD8");
+                FrontSpacer = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x9D0");
+                RearSpacer = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x9D4");
+
+                RimSizeFront = (TuningTableBase4 + ",0x150,0x300,0x7D8");
+                RimSizeRear = (TuningTableBase4 + ",0x150,0x300,0x7DC");
+                RimRadiusFront = (TuningTableBase4 + ",0x150,0x300,0x7E0");
+                RimRadiusRear = (TuningTableBase4 + ",0x150,0x300,0x7E4");
             }
             #endregion
             #region Steam
