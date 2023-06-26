@@ -32,7 +32,9 @@
             <Frame x:Name="SpringsPage" Content="Frame" Width="580" Source="DropDownTabs/Springs.xaml" Margin="10,115,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="DampingPage" Content="Frame" Width="580" Source="DropDownTabs/Damping.xaml" Margin="10,150,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="AeroPage" Content="Frame" Width="580" Source="DropDownTabs/Aero.xaml" Margin="10,175,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            
+            <Frame x:Name="SteeringPage" Content="Frame" Width="580" Source="DropDownTabs/Aero.xaml" Margin="10,175,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="OthersPage" Content="Frame" Width="580" Source="DropDownTabs/Others.xaml" Margin="10,255,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+
             <Button x:Name="TiresButton" Content="Tires" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click"/>
             <Button x:Name="GearingButton" Content="Gearing" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click"/>
             <Button x:Name="AlignmentButton" Content="Alignment" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click"/>

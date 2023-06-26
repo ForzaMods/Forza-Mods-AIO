@@ -19,7 +19,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             { "DampingButton" , 200},
             { "AeroButton", 150 },
             { "SteeringButton", 100 },
-            { "OthersButton", 100 }
+            { "OthersButton", 200 }
         };
         Dictionary<string, bool> IsClicked = new Dictionary<string, bool>()
         {
