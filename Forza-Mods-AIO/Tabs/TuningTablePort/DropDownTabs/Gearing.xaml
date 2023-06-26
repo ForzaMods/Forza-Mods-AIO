@@ -10,34 +10,34 @@
 
     <Grid>
         <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10"/>
-        
+
         <!--#region Labels -->
-        <Label Content="Final Drive Ratio" Margin="10,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Reverse Gear" Margin="316,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="First Gear" Margin="10,45,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Second Gear" Margin="317,45,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Third Gear" Margin="10,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Fourth Gear" Margin="316,81,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Fifth Gear" Margin="10,120,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Sixth Gear" Margin="316,120,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Seventh Gear" Margin="10,159,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Eighth Gear" Margin="316,159,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Ninth Gear" Margin="10,195,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Tenth Gear" Margin="316,195,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Final Drive Ratio" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Reverse Gear" Margin="316,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="First Gear" Margin="10,49,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Second Gear" Margin="317,49,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Third Gear" Margin="10,84,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Fourth Gear" Margin="316,85,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Fifth Gear" Margin="10,124,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Sixth Gear" Margin="316,124,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Seventh Gear" Margin="10,163,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Eighth Gear" Margin="316,163,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Ninth Gear" Margin="10,199,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Tenth Gear" Margin="316,199,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <!--#endregion-->
         <!--#region Numeric Boxes-->
-        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FinalDriveRatioBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="115,6,300,208" ValueChanged="FinalDriveRatioBox_ValueChanged" StringFormat="0.0000000000"/>
-        <mah:NumericUpDown Maximum="-0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ReverseGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="405,6,10,208" ValueChanged="ReverseGearBox_ValueChanged" StringFormat="0.0000000000"/>
-        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FirstGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="115,45,300,169" ValueChanged="FirstGearBox_ValueChanged" StringFormat="0.0000000000"/>
-        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SecondGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="405,45,10,169" ValueChanged="SecondGearBox_ValueChanged" StringFormat="0.0000000000"/>
-        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ThirdGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="115,81,300,133" ValueChanged="ThirdGearBox_ValueChanged" StringFormat="0.0000000000"/>
-        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FourthGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="405,81,10,133" ValueChanged="FourthGearBox_ValueChanged" StringFormat="0.0000000000"/>
-        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FifthGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="115,120,300,94" ValueChanged="FifthGearBox_ValueChanged" StringFormat="0.0000000000"/>
-        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SixthGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="405,120,10,94" ValueChanged="SixthGearBox_ValueChanged" StringFormat="0.0000000000"/>
-        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SeventhGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="115,159,300,55" ValueChanged="SeventhGearBox_ValueChanged" StringFormat="0.0000000000"/>
-        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="EighthBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="405,159,10,55" ValueChanged="EighthBox_ValueChanged" StringFormat="0.0000000000"/>
-        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="NinthGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="115,195,300,19" ValueChanged="NinthGearBox_ValueChanged" StringFormat="0.0000000000"/>
-        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="TenthGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="405,195,10,19" ValueChanged="TenthGearBox_ValueChanged" StringFormat="0.0000000000"/>
+        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FinalDriveRatioBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="115,10,300,204" ValueChanged="FinalDriveRatioBox_ValueChanged" StringFormat="0.0000000000"/>
+        <mah:NumericUpDown Maximum="-0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ReverseGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="405,10,10,204" ValueChanged="ReverseGearBox_ValueChanged" StringFormat="0.0000000000"/>
+        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FirstGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="115,49,300,165" ValueChanged="FirstGearBox_ValueChanged" StringFormat="0.0000000000"/>
+        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SecondGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="405,49,10,165" ValueChanged="SecondGearBox_ValueChanged" StringFormat="0.0000000000"/>
+        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ThirdGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="115,85,300,129" ValueChanged="ThirdGearBox_ValueChanged" StringFormat="0.0000000000"/>
+        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FourthGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="405,85,10,129" ValueChanged="FourthGearBox_ValueChanged" StringFormat="0.0000000000"/>
+        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FifthGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="115,124,300,90" ValueChanged="FifthGearBox_ValueChanged" StringFormat="0.0000000000"/>
+        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SixthGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="405,124,10,90" ValueChanged="SixthGearBox_ValueChanged" StringFormat="0.0000000000"/>
+        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SeventhGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="115,163,300,51" ValueChanged="SeventhGearBox_ValueChanged" StringFormat="0.0000000000"/>
+        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="EighthBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="405,163,10,51" ValueChanged="EighthBox_ValueChanged" StringFormat="0.0000000000"/>
+        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="NinthGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="115,199,300,15" ValueChanged="NinthGearBox_ValueChanged" StringFormat="0.0000000000"/>
+        <mah:NumericUpDown Minimum="0.1" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="TenthGearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="405,199,10,15" ValueChanged="TenthGearBox_ValueChanged" StringFormat="0.0000000000"/>
         <!--#endregion-->
     </Grid>
 </Page>

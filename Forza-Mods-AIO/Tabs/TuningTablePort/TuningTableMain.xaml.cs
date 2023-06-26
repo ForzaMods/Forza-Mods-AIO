@@ -15,7 +15,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             { "TiresButton" , 150}, // Button name for page, height of page
             { "GearingButton" , 240},
             { "AlignmentButton" , 150},
-            { "SpringsButton" , 83},
+            { "SpringsButton" , 200},
             { "DampingButton" , 100},
             { "AeroButton", 100 },
             { "SteeringButton", 100 },
