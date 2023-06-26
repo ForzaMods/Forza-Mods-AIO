@@ -9,10 +9,12 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
         float FrontPreviousRestrictionValue = 0;
         float RearPreviousValue = 0;
         float RearPreviousRestrictionValue = 0;
+        public static Springs sp;
 
         public Springs()
         {
             InitializeComponent();
+            sp = this;
         }
 
         private void FrontSpringsMinBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)

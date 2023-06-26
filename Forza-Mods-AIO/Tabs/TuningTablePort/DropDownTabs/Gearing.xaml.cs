@@ -5,9 +5,11 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
 {
     public partial class Gearing : Page
     {
+        public static Gearing g;
         public Gearing()
         {
             InitializeComponent();
+            g = this;
         }
 
         private void FinalDriveRatioBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)

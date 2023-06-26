@@ -5,9 +5,11 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
 {
     public partial class Tires : Page
     {
+        public static Tires t;
         public Tires()
         {
             InitializeComponent();
+            t = this;
         }
 
         private void FrontLeftTirePressureBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)

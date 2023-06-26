@@ -5,9 +5,11 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
 {
     public partial class Alignment : Page
     {
+        public static Alignment al;
         public Alignment()
         {
             InitializeComponent();
+            al = this;
         }
 
         private void CamberNegBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
