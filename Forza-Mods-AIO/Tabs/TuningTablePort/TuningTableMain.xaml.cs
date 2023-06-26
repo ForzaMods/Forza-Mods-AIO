@@ -13,6 +13,8 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
 {
     public partial class TuningTableMain : Page
     {
+        public static TuningTableMain TBM;
+
         readonly Dictionary<string, double> Sizes = new Dictionary<string, double>()
         {
             { "TiresButton" , 150}, // Button name for page, height of page
@@ -40,6 +42,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
         public TuningTableMain()
         {
             InitializeComponent();
+            TBM = this;
         }
 
         #region Interaction
