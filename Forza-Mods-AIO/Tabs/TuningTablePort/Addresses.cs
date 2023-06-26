@@ -135,6 +135,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             ToePosStatic = (ToeBaseStatic + 0x4).ToString("X");
             #endregion
 
+            #region MS
             if (MainWindow.mw.gvp.Plat == "MS" && MainWindow.mw.gvp.Name == "Forza Horizon 5")
             {
                 TuningTableBase1 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "?0 ? ? ? ? 0? 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 02 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X");
@@ -159,7 +160,8 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 NinthGear = (TuningTableBase1 + ",0x10,0x10,0xBFC");
                 TenthGear = (TuningTableBase1 + ",0x10,0x10,0xC10");
             }
-
+            #endregion
+            #region Steam
             else if (MainWindow.mw.gvp.Plat == "Steam" && MainWindow.mw.gvp.Name == "Forza Horizon 5")
             {
                 TuningTableBase1 = ((await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 00 00 FF FF FF FF 10 ? ? ? ? 0? 00 00 00 ? ? ? ? 0? 00 00 ? ? ? ? ? 0? 00 00 00 ?", true, true, false)).FirstOrDefault() + 0x8).ToString("X");
@@ -201,7 +203,47 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
 
                 FrontRestriction = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x510");
                 RearRestriction = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x664");
+
+                FrontAntirollMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x5C4");
+                FrontAntirollMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x5C8");
+                RearAntirollMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x718");
+                RearAntirollMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x71C");
+
+                FrontReboundStiffnesMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x558");
+                FrontReboundStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x55C");
+                RearReboundStiffnessMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x6AC");
+                RearReboundStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x68C");
+
+                FrontBumpStiffnessMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x378");
+                FrontBumpStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x380");
+                RearBumpStiffnessMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x688");
+                RearBumpStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x5C8");
+
+                FrontAeroMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x534");
+                FrontAeroMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x538");
+                RearAeroMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x3D8");
+                RearAeroMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x3E0");
+
+                AngleMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x7FC");
+                AngleMax2 = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x800");
+                AngleVelocityStraight = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x804");
+                AngleVelocityTurning = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x808");
+                AngleVelocityCountersteer = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x80C");
+                AngleVelocityDynamicPeek = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x810");
+                AngleTimeToMaxSteering = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x814");
+
+                Wheelbase = (TuningTableBase1 + ",0x340,0x30,0x1E0,0xD0");
+                FrontWidth = (TuningTableBase1 + ",0x340,0x30,0x1E0,0xD4");
+                RearWidth = (TuningTableBase1 + ",0x340,0x30,0x1E0,0xD8");
+                FrontSpacer = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x9D0");
+                RearSpacer = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x9D4");
+
+                RimSizeFront = (TuningTableBase3 + ",0x150,0x300,0x7D8");
+                RimSizeRear = (TuningTableBase3 + ",0x150,0x300,0x7DC");
+                RimRadiusFront = (TuningTableBase3 + ",0x150,0x300,0x7E0");
+                RimRadiusRear = (TuningTableBase3 + ",0x150,0x300,0x7E4");
             }
+            #endregion
         }
     }
 }
