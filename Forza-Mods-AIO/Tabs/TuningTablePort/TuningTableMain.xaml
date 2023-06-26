@@ -1,0 +1,45 @@
+﻿<Page x:Class="Forza_Mods_AIO.Tabs.TuningTablePort.TuningTableMain"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="600"
+      Title="TuningTableMain">
+
+    <ScrollViewer VerticalScrollBarVisibility="Hidden" Focusable="False">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <mah:MetroProgressBar x:Name="AOBProgressBar" HorizontalAlignment="Left" Height="10" Margin="54,17,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button x:Name="ScanButton"
+                    Content="Scan"
+                    HorizontalAlignment="Left"
+                    Margin="10,10,0,0"
+                    VerticalAlignment="Top"
+                    Click="ScanButton_Click"
+                    BorderBrush="#FF2E3440"
+                    Focusable="False"
+                    FontFamily="Manrope"
+                    Height="25"/>
+            <!-- Small Buttons -->
+            <Frame x:Name="TiresPage" Content="Frame" Width="580" Source="DropDownTabs/Tires.xaml" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="GearingPage" Content="Frame" Width="580" Source="DropDownTabs/Gearing.xaml" Margin="10,45,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <!--<Frame x:Name="CameraPage" Content="Frame" Width="580" Source="DropDownTabs/CameraPage.xaml" Margin="10,80,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>        -->
+            <!--<Frame x:Name="ModifiersPage" Content="Frame" Width="580" Source="DropDownTabs/ModifiersPage.xaml" Margin="10,115,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/> -->
+            <!--<Frame x:Name="TeleportsPage" Content="Frame" Width="580" Source="DropDownTabs/TeleportsPage.xaml" Margin="10,175,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/> -->
+            
+            <Button x:Name="TiresButton" Content="Tires" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click"/>
+            <Button x:Name="GearingButton" Content="Gearing" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click"/>
+            <Button x:Name="AlignmentButton" Content="Alignment" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click"/>
+            <Button x:Name="SpringsButton" Content="Springs" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click"/>
+            <Button x:Name="DampingButton" Content="Damping/Antiroll Bars" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0"/>
+            <Button x:Name="AeroButton" Content="Aero" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click"/>
+            <Button x:Name="SteeringButton" Content="Steering" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0"/>
+            <Button x:Name="OthersButton" Content="Others" HorizontalAlignment="Center" Margin="0,255,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" />
+        </Grid>
+    </ScrollViewer>
+</Page>
