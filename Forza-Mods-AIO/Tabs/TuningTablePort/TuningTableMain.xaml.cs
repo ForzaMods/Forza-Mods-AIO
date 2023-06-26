@@ -16,7 +16,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             { "GearingButton" , 240},
             { "AlignmentButton" , 150},
             { "SpringsButton" , 200},
-            { "DampingButton" , 600},
+            { "DampingButton" , 200},
             { "AeroButton", 100 },
             { "SteeringButton", 100 },
             { "OthersButton", 100 }
