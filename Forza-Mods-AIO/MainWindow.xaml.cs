@@ -16,9 +16,7 @@ using Memory;
 using Forza_Mods_AIO.CustomTheming;
 using System.Xml.Linq;
 using Forza_Mods_AIO.Tabs.AIO_Info;
-using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Saveswapper;
-using Forza_Mods_AIO.Tabs.TuningTablePort;
 
 namespace Forza_Mods_AIO
 {
@@ -59,7 +57,6 @@ namespace Forza_Mods_AIO
         public Mem m = new Mem();
         public static AIO_Info AInfo = new AIO_Info();
         public static Saveswapper SW = new Saveswapper();
-        public static TuningTableMain TT = new TuningTableMain();
         List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.TuningTablePort.TuningTableMain(), new Tabs.Saveswapper.Saveswapper() };
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
         #endregion
