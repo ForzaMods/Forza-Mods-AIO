@@ -369,6 +369,5 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             }
         }
             #endregion
-        }
     }
 }
