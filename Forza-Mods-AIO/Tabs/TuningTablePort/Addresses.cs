@@ -140,9 +140,9 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             if (MainWindow.mw.gvp.Plat == "MS" && MainWindow.mw.gvp.Name == "Forza Horizon 5")
             {
                 TuningTableBase1 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "?0 ? ? ? ? 0? 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 02 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X");
-                //TuningTableBase2 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "", true, true, false)).FirstOrDefault().ToString("X");
-                //TuningTableBase3 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "", true, true, false)).FirstOrDefault().ToString("X");
-                //TuningTableBase4 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "", true, true, false)).FirstOrDefault().ToString("X");
+                TuningTableBase2 = ((await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 00 00 FF FF FF FF 10 ? ? ? ? 0? 00 00 00 ? ? ? ? 0? 00 00", true, true, false)).FirstOrDefault() + 0x8).ToString("X");
+                TuningTableBase3 = ((await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 60 45 ? ? ? 0? 00 00 ?0 ? ? ? ? 0? 00 00 00 00 80 3F 00 00", true, true, false)).FirstOrDefault() + 0xA).ToString("X");
+                TuningTableBase4 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "D0 84 ? ? ? 0? 00 00 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X");
 
                 TireFrontLeft = (TuningTableBase1 + ",0x10,0x10,0x27C8");
                 TireFrontRight = (TuningTableBase1 + ",0x10,0x10,0x3288");
