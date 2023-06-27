@@ -324,19 +324,19 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 FrontReboundStiffnesMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x558");
                 FrontReboundStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x55C");
                 RearReboundStiffnessMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x6AC");
-                RearReboundStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x68C");
+                RearReboundStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x6B0");
                 dispatcher.BeginInvoke((Action)delegate () { TuningTableMain.TBM.AOBProgressBar.Value = 62; });
                 Thread.Sleep(100);
 
-                FrontBumpStiffnessMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x378");
-                FrontBumpStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x380");
+                FrontBumpStiffnessMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x534");
+                FrontBumpStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x538");
                 RearBumpStiffnessMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x688");
-                RearBumpStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x5C8");
+                RearBumpStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x68C");
                 dispatcher.BeginInvoke((Action)delegate () { TuningTableMain.TBM.AOBProgressBar.Value = 68; });
                 Thread.Sleep(100);
 
-                FrontAeroMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x534");
-                FrontAeroMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x538");
+                FrontAeroMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x378");
+                FrontAeroMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x380");
                 RearAeroMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x3D8");
                 RearAeroMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x3E0");
                 dispatcher.BeginInvoke((Action)delegate () { TuningTableMain.TBM.AOBProgressBar.Value = 74; });
