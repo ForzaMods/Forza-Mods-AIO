@@ -28,7 +28,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         {
             { "SpeedHacksButton" , 118}, // Button name for page, height of page
             { "UnlocksButton" , 200},
-            { "CameraButton" , 200},
+            { "CameraButton" , 275},
             { "ModifiersButton" , 83},
             { "TeleportsButton" , 100}
         };
