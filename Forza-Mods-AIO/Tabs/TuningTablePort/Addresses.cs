@@ -149,8 +149,8 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             if (MainWindow.mw.gvp.Plat == "MS" && MainWindow.mw.gvp.Name == "Forza Horizon 5")
             {
                 TuningTableBase1 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "?0 ? ? ? ? 0? 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 02 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X");
-                TuningTableBase2 = ((await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 00 00 FF FF FF FF 10 ? ? ? ? 0? 00 00 00 ? ? ? ? 0? 00 00", true, true, false)).FirstOrDefault() + 0x8).ToString("X");
-                TuningTableBase3 = ((await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 60 45 ? ? ? 0? 00 00 ?0 ? ? ? ? 0? 00 00 00 00 80 3F 00 00", true, true, false)).FirstOrDefault() + 0xA).ToString("X");
+                TuningTableBase2 = ((await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 00 00 00 00 00 00 E8 CA 04 B2 C0 6D 9D 40 80 2F ? ? ? 0? 00 00 FF FF FF FF FF FF FF FF FF FF FF FF", true, true, false)).FirstOrDefault() + 0x100).ToString("X");
+                TuningTableBase3 = ((await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 00 00 FF FF FF FF 10 ? ? ? ? 0? 00 00 00 ? ? ? ? 0? 00 00 ? ? ? ? ? 0? 00 00 00 ?", true, true, false)).FirstOrDefault() + 0x8).ToString("X");
                 TuningTableBase4 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "D0 84 ? ? ? 0? 00 00 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X");
                 dispatcher.BeginInvoke((Action)delegate () { TuningTableMain.TBM.AOBProgressBar.Value = 12; });
                 Thread.Sleep(100);
@@ -217,35 +217,35 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 dispatcher.BeginInvoke((Action)delegate () { TuningTableMain.TBM.AOBProgressBar.Value = 62; });
                 Thread.Sleep(100);
 
-                FrontBumpStiffnessMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x378");
-                FrontBumpStiffnessMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x380");
+                FrontBumpStiffnessMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x534");
+                FrontBumpStiffnessMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x538");
                 RearBumpStiffnessMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x688");
-                RearBumpStiffnessMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x5C8");
+                RearBumpStiffnessMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x68C");
                 dispatcher.BeginInvoke((Action)delegate () {TuningTableMain.TBM.AOBProgressBar.Value = 68; });
                 Thread.Sleep(100);
 
-                FrontAeroMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x534");
-                FrontAeroMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x538");
+                FrontAeroMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x378");
+                FrontAeroMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x380");
                 RearAeroMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x3D8");
                 RearAeroMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x3E0");
                 dispatcher.BeginInvoke((Action)delegate () {TuningTableMain.TBM.AOBProgressBar.Value = 74; });
                 Thread.Sleep(100);
 
-                AngleMax = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x7FC");
-                AngleMax2 = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x800");
-                AngleVelocityStraight = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x804");
-                AngleVelocityTurning = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x808");
-                AngleVelocityCountersteer = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x80C");
-                AngleVelocityDynamicPeek = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x810");
-                AngleTimeToMaxSteering = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x814");
+                AngleMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x7FC");
+                AngleMax2 = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x800");
+                AngleVelocityStraight = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x804");
+                AngleVelocityTurning = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x808");
+                AngleVelocityCountersteer = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x80C");
+                AngleVelocityDynamicPeek = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x810");
+                AngleTimeToMaxSteering = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x814");
                 dispatcher.BeginInvoke((Action)delegate () {TuningTableMain.TBM.AOBProgressBar.Value = 80; });
                 Thread.Sleep(100);
 
-                Wheelbase = (TuningTableBase1 + ",0x330,0x8,0x1E0,0xD0");
-                FrontWidth = (TuningTableBase1 + ",0x330,0x8,0x1E0,0xD4");
-                RearWidth = (TuningTableBase1 + ",0x330,0x8,0x1E0,0xD8");
-                FrontSpacer = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x9D0");
-                RearSpacer = (TuningTableBase1 + ",0x330,0x8,0x1E0,0x9D4");
+                Wheelbase = (TuningTableBase3 + ",0x330,0x8,0x1E0,0xD0");
+                FrontWidth = (TuningTableBase3 + ",0x330,0x8,0x1E0,0xD4");
+                RearWidth = (TuningTableBase3 + ",0x330,0x8,0x1E0,0xD8");
+                FrontSpacer = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x9D0");
+                RearSpacer = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x9D4");
                 dispatcher.BeginInvoke((Action)delegate () {TuningTableMain.TBM.AOBProgressBar.Value = 86; });
                 Thread.Sleep(100);
 
