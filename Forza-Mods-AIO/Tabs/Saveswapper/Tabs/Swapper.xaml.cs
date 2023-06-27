@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using Microsoft.Win32;
 using Memory;
 using System.IO;
-using System.Runtime.CompilerServices;
 
 namespace Forza_Mods_AIO.Tabs.Saveswapper.Tabs
 {
@@ -62,8 +52,7 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper.Tabs
 
         void ImportedSavesImporter()
         {
-            var ImpSaveDir = BaseDirectory + @"\Imported saves";
-            string[] Files = Directory.GetFiles(ImpSaveDir);
+            string[] Files = Directory.GetFiles(BaseDirectory + @"\Imported saves");
 
             foreach (string file in Files)
             {
@@ -89,14 +78,10 @@ namespace Forza_Mods_AIO.Tabs.Saveswapper.Tabs
                         SavesBox.Items.Add(fileName);
                     }
                     else
-                    {
                         MessageBox.Show("Save with this name already exists in your save folder", "Error");
-                    }
                 }
                 else
-                {
                     MessageBox.Show("Select a valid save first smh", "Error");
-                }
             }
         }
 
