@@ -67,9 +67,9 @@ namespace Forza_Mods_AIO
             #region Saveswapper stuff
             if (!Directory.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs"))
             {
-                Saveswapper.IsEnabled = false;
-                Saveswapper.Foreground = Brushes.DarkGray;
-                SaveFill.Fill = Brushes.DarkGray;
+                //Saveswapper.IsEnabled = false;
+                //Saveswapper.Foreground = Brushes.DarkGray;
+                //SaveFill.Fill = Brushes.DarkGray;
             }
             else
             {

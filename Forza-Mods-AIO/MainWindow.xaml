@@ -70,12 +70,12 @@
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
-                <RadioButton x:Name="Saveswapper"
+                <!-- <RadioButton x:Name="Saveswapper"
                              Content="Saveswapper"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
+                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/> -->
             </StackPanel>
             <Border x:Name="FrameBorder" Grid.Row="3" Grid.Column="1" CornerRadius="0,0,20,0" Background="#111111"/>
             <Grid Grid.Row="3" Grid.Column="1">
@@ -85,7 +85,7 @@
                 <Frame x:Name="AIO_InfoFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AIO-Info/AIO-Info.xaml" Visibility="Visible" Focusable="False" IsTabStop="False"/>
                 <Frame x:Name="AutoShowFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AutoShowTab/AutoShow.xaml" Visibility="Hidden" IsTabStop="False"/>
                 <Frame x:Name="Self_VehicleFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Self-Vehicle/Self-Vehicle.xaml" Visibility="Hidden" IsTabStop="False"/>
-                <Frame x:Name="TuningTableMainFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/TuningTablePort/TuningTableMain.xaml" Visibility="Hidden" IsTabStop="False"/>
+                <Frame x:Name="TuningTableMainFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Tuning/TuningTableMain.xaml" Visibility="Hidden" IsTabStop="False"/>
             </Grid>
             <Label x:Name="AttachedLabel" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" FontFamily="Manrope" Foreground="White" FontSize="10" Height="20" Grid.Column="1"/>
             <Path x:Name="ExitIcon"
@@ -121,7 +121,7 @@
                   Fill="White"
                   Width="16" Height="16"
                   Margin="174,132,0,0" Grid.Row="2" Focusable="False" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" />
-            <Path x:Name="SaveFill"
+            <!-- <Path x:Name="SaveFill"
                 Data="M159.375 271.875A28.125 28.125 0 0 0 187.5 300H262.5A37.5 37.5 0 0 0 300 262.5V37.5A37.5 37.5 0 0 0 262.5 0H37.5A37.5 37.5 0 0 0 0 37.5V262.5A37.5 37.5 0 0 0 37.5 300H150C144.1125 292.1625 140.625 282.43125 140.625 271.875V125.75625L91.0125 175.3875A9.375 9.375 0 1 1 77.7375 162.1125L143.3625 96.4875A9.375 9.375 0 0 1 156.6375 96.4875L222.2625 162.1125A9.375 9.375 0 0 1 208.9875 175.3875L159.375 125.75625V271.875z"
                 Fill="White" Stretch="Fill"
                 Width="16" Height="16"
@@ -134,7 +134,7 @@
                         <TranslateTransform/>
                     </TransformGroup>
                 </Path.RenderTransform>
-            </Path>
+            </Path> -->
             <Rectangle x:Name="ExitBox" Cursor="Hand" Grid.Column="1" HorizontalAlignment="Left" Height="16" Margin="570,16,0,0" VerticalAlignment="Top" Width="16" MouseDown="ExitButton_MouseDown">
                 <Rectangle.Fill>
                     <SolidColorBrush Color="Black" Opacity="0"/>

@@ -11,8 +11,8 @@
       Title="AutoShow">
     <!--<ScrollViewer VerticalScrollBarVisibility="Hidden" Focusable="False">-->
     <Grid >
-        <mah:MetroProgressBar x:Name="AOBProgressBar" HorizontalAlignment="Left" Height="10" Margin="54,17,0,0" VerticalAlignment="Top" Width="100"/>
-        <Button x:Name="ScanButton" Content="Scan" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Height="25" Click="ScanButton_Click"/>
+        <mah:MetroProgressBar x:Name="AOBProgressBar" HorizontalAlignment="Left" Height="10" Margin="54,17,0,0" VerticalAlignment="Top" Width="100" Background="#FF2E3440"/>
+        <Button Background="#FF2E3440" x:Name="ScanButton" Content="Scan" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Height="25" Click="ScanButton_Click"/>
         <mah:ToggleSwitch x:Name="ToggleAllCars" Height="32" Margin="195,70,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleAllCars_Toggled"/>
         <Label x:Name="LabelAllCars" Content="All Cars" HorizontalAlignment="Left" Margin="193,45,0,0" VerticalAlignment="Top"/>
         <mah:ToggleSwitch x:Name="ToggleRareCars" Height="32" Margin="335,70,0,0" VerticalAlignment="Top" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ToggleRareCars_Toggled"/>
