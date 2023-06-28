@@ -202,6 +202,11 @@ namespace Forza_Mods_AIO.CustomTheming
                         Element.GetType().GetProperty("Background").SetValue(Element, MainColour);
                         Element.GetType().GetProperty("BorderBrush").SetValue(Element, MainColour);
                     }
+                    if (Element.GetType() == typeof(MetroProgressBar))
+                    {
+                        Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
+                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
+                    }
                 }
             });
         }
