@@ -26,15 +26,14 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         Self_Vehicle_Addrs sva = new Self_Vehicle_Addrs();
         readonly Dictionary<string, double> Sizes = new Dictionary<string, double>()
         {
-            { "SpeedHacksButton" , 118}, // Button name for page, height of page
+            { "HandlingButton" , 464}, // Button name for page, height of page
             { "UnlocksButton" , 200},
             { "CameraButton" , 275},
-            { "ModifiersButton" , 83},
             { "TeleportsButton" , 100}
         };
         Dictionary<string, bool> IsClicked = new Dictionary<string, bool>()
         {
-            {"SpeedHacksButton", false },
+            {"HandlingButton", false },
             {"UnlocksButton", false },
             {"CameraButton", false },
             {"ModifiersButton", false },
@@ -70,15 +69,20 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             AnimCompleted = false;
             foreach (FrameworkElement Element in this.GetChildren(true))
             {
+                //Thread.Sleep(1);
+                string SenderName = sender.GetType().GetProperty("Name").GetValue(sender).ToString();
+                string ElementName = Element.GetType().GetProperty("Name").GetValue(Element).ToString();
+                Type Type = Element.GetType();
+
+                if (ElementName == "PART_ClearText" || ElementName == "ScanButton" || (Type != typeof(Page) && Type != typeof(Button) && Type != typeof(Frame)))
+                    continue;
+
                 DoubleAnimation DanimationPage;
                 ThicknessAnimation TanimationPage;
                 ThicknessAnimation TanimationButton;
                 Storyboard storyboard = new Storyboard();
 
                 double Duration = 0.1;
-
-                string SenderName = sender.GetType().GetProperty("Name").GetValue(sender).ToString();
-                string ElementName = Element.GetType().GetProperty("Name").GetValue(Element).ToString();
 
                 if (ElementName.Contains("Page") && ElementName.Contains(SenderName.Replace("Button", String.Empty)))
                 {
@@ -111,16 +115,15 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                     storyboard.Children.Add(DanimationPage);
                     storyboard.Begin(Element);
                 }
-                else if ((Element.GetType() == typeof(Button)
-                    && (object)Element != sender                                                                                                // Button is not the button that was clicked
-                    && !ElementName.Contains("ScanButton")                                                                                      // Button is not the scan button
+                else if ((Type == typeof(Button)
+                    && (object)Element != sender                                                                                                 // Button is not the scan button
                     && IsClicked.Keys.ToList().IndexOf(ElementName) > IsClicked.Keys.ToList().IndexOf(SenderName))                              // Button is below the button that was clicked
-                    || (Element.GetType() == typeof(Frame)
+                    || (Type == typeof(Frame)
                     && !ElementName.Contains(SenderName.Replace("Button", String.Empty))                                                        // Page isnt the one being shown
                     && IsClicked.Keys.ToList().IndexOf(ElementName.Replace("Page", "Button")) > IsClicked.Keys.ToList().IndexOf(SenderName)))   // Page is below the button that was clicked
                 {
                     //Move all buttons down by size of page opened
-                    Thickness Start = (Thickness)Element.GetType().GetProperty("Margin").GetValue(Element);
+                    Thickness Start = (Thickness)Type.GetProperty("Margin").GetValue(Element);
                     Thickness End = new Thickness(Start.Left, Start.Top + Sizes[SenderName], Start.Right, Start.Bottom);
                     if (AlreadyOpen)
                         End = new Thickness(Start.Left, Start.Top - Sizes[SenderName], Start.Right, Start.Bottom);
@@ -131,7 +134,6 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                     storyboard.Children.Add(TanimationButton);
                     storyboard.Begin(Element);
                 }
-
             }
         }
         #endregion

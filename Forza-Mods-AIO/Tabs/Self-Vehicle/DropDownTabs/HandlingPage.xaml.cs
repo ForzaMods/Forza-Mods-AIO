@@ -15,11 +15,11 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
     /// <summary>
     /// Interaction logic for SpeedHacksPage.xaml
     /// </summary>
-    public partial class SpeedHacksPage : Page
+    public partial class HandlingPage : Page
     {
-        static SpeedHacksPage shp;
+        static HandlingPage shp;
 
-        public SpeedHacksPage()
+        public HandlingPage()
         {
             InitializeComponent();
             shp = this;
@@ -29,9 +29,10 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
         {
             VelocityValueNum.Value = Math.Round(e.NewValue, 5);
         }
+
         private void VelocityValueNum_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            //try { shp.VelocitySlider.Value = (float)e.NewValue; } catch { }
+            try { shp.VelocitySlider.Value = (float)e.NewValue; } catch { }
         }
 
         private void VelocitySwitch_Toggled(object sender, RoutedEventArgs e)
@@ -42,7 +43,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                 {
                     while (true)
                     {
-                        // TODO wrap for controlls / implement controls
+                        // TODO wrap for controlls / ishplement controls
                         bool Toggled = true;
                         shp.Dispatcher.Invoke(delegate () { Toggled = (bool)shp.VelocitySwitch.GetType().GetProperty("IsOn").GetValue(shp.VelocitySwitch); });
                         if (!Toggled)
@@ -117,6 +118,120 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     }
                 });
             }
+        }
+
+        public void PullButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity"))
+                try { GravityValueNum.Value = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.GravityAddr, round: false); } catch { }
+            else
+                try { AccelerationValueNum.Value = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.WeirdAddr, round: false); } catch { }
+        }
+
+        private void SetSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            float original;
+            string Addr;
+            string Type;
+            if (sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity"))
+            {
+                Type = "Gravity";
+                Addr = Self_Vehicle_Addrs.GravityAddr;
+            }
+            else
+            {
+                Type = "Acceleration";
+                Addr = Self_Vehicle_Addrs.WeirdAddr;
+            }
+
+            if ((bool)sender.GetType().GetProperty("IsOn").GetValue(sender))
+            {
+                Task.Run(() =>
+                {
+                    original = MainWindow.mw.m.ReadFloat(Addr, round: false);
+                    while (true)
+                    {
+                        bool Toggled = true;
+                        if (Type == "Gravity")
+                            Dispatcher.Invoke(delegate () { Toggled = (bool)GravitySetSwitch.GetType().GetProperty("IsOn").GetValue(shp.GravitySetSwitch); });
+                        else
+                            Dispatcher.Invoke(delegate () { Toggled = (bool)AccelerationSetSwitch.GetType().GetProperty("IsOn").GetValue(shp.AccelerationSetSwitch); });
+
+                        if (!Toggled)
+                        {
+                            if (Type == "Gravity")
+                                shp.Dispatcher.Invoke(delegate () { shp.GravityValueNum.GetType().GetProperty("Value").SetValue(shp.GravityValueNum, Convert.ToDouble(original)); });
+                            else
+                                shp.Dispatcher.Invoke(delegate () { shp.AccelerationValueNum.GetType().GetProperty("Value").SetValue(shp.AccelerationValueNum, Convert.ToDouble(original)); });
+                            MainWindow.mw.m.WriteMemory(Addr, "float", original.ToString());
+                            break;
+                        }
+
+                        try
+                        {
+                            float SetValue = 0;
+                            if (Type == "Gravity")
+                                shp.Dispatcher.Invoke(delegate () { SetValue = Convert.ToSingle(shp.GravityValueNum.GetType().GetProperty("Value").GetValue(shp.GravityValueNum)); });
+                            else
+                                shp.Dispatcher.Invoke(delegate () { SetValue = Convert.ToSingle(shp.AccelerationValueNum.GetType().GetProperty("Value").GetValue(shp.AccelerationValueNum)); });
+
+                            if (MainWindow.mw.m.ReadFloat(Addr) != SetValue)
+                            {
+                                MainWindow.mw.m.WriteMemory(Addr, "float", SetValue.ToString());
+                            }
+                            Thread.Sleep(1);
+                        }
+                        catch
+                        {
+                            //Car Changed
+                            while (true)
+                            {
+                                try
+                                {
+                                    original = MainWindow.mw.m.ReadFloat(Addr);
+                                    break;
+                                }
+                                catch { }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        private void TurnAssistSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            float FrontLeft = MainWindow.mw.m.ReadFloat(FrontLeftAddr);
+            float FrontRight = MainWindow.mw.m.ReadFloat(FrontRightAddr);
+            float BackLeft = MainWindow.mw.m.ReadFloat(BackLeftAddr);
+            float BackRight = MainWindow.mw.m.ReadFloat(BackRightAddr);
+
+            if (DLLImports.GetAsyncKeyState(Keys.A) is 1 or Int16.MinValue)
+            {
+                if ((float)Math.Abs(FrontRight - FrontLeft) < (FrontRight / TurnAssistRatioBox.Value) && (float)Math.Abs(BackRight - FrontLeft) < (BackRight / TurnAssistRatioBox.Value))
+                {
+                    FrontLeft = FrontLeft - (float)TurnAssistStrengthBox.Value;
+                    BackLeft = BackLeft - (float)TurnAssistStrengthBox.Value;
+                    FrontRight = FrontRight + (float)TurnAssistStrengthBox.Value;
+                    BackRight = BackRight + (float)TurnAssistStrengthBox.Value;
+                    Thread.Sleep((int)TurnAssistIntervalBox.Value);
+                }
+            }
+            else if (DLLImports.GetAsyncKeyState(Keys.S) is 1 or Int16.MinValue)
+            {
+                if ((float)Math.Abs(FrontLeft - FrontRight) < (FrontLeft / TurnAssistRatioBox.Value) && (float)Math.Abs(BackLeft - FrontRight) < (BackLeft / TurnAssistRatioBox.Value))
+                {
+                    FrontRight = FrontRight - (float)TurnAssistStrengthBox.Value;
+                    BackRight = BackRight - (float)TurnAssistStrengthBox.Value;
+                    FrontLeft = FrontLeft + (float)TurnAssistStrengthBox.Value;
+                    BackLeft = BackLeft + (float)TurnAssistStrengthBox.Value;
+                    Thread.Sleep((int)TurnAssistIntervalBox.Value);
+                }
+            }
+            MainWindow.mw.m.WriteMemory(FrontLeftAddr, "float", FrontLeft.ToString());
+            MainWindow.mw.m.WriteMemory(FrontRightAddr, "float", FrontRight.ToString());
+            MainWindow.mw.m.WriteMemory(BackLeftAddr, "float", BackLeft.ToString());
+            MainWindow.mw.m.WriteMemory(BackRightAddr, "float", BackRight.ToString());
         }
 
         private void SuperCarSwitch_Toggled(object sender, RoutedEventArgs e)
