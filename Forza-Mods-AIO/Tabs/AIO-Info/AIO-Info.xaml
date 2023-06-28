@@ -14,7 +14,7 @@
             Content="Wall Colour"
             Height="26"
             Width="86" Margin="504,335,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="WallButton_Click"
-            BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope"/>
+            Focusable="False" FontFamily="Manrope" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
         <Slider x:Name="LightnessSlider"
             HorizontalAlignment="Left"
             Margin="504,366,0,0"
