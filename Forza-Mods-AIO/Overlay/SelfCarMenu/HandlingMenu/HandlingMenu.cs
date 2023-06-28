@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Forza_Mods_AIO.Overlay.SelfCarMenu.SpeedhacksMenu
+namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu
 {
-    public class SpeedhacksMenu
+    public class HandlingMenu
     {
         // Velocity menu options
         static Overlay.MenuOption VelocityValue = new Overlay.MenuOption("Value", "Float", 0);
@@ -32,7 +32,7 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.SpeedhacksMenu
         }
 
         // Menu list for this section
-        public static List<Overlay.MenuOption> SpeedhacksOptions = new List<Overlay.MenuOption>()
+        public static List<Overlay.MenuOption> HandlingOptions = new List<Overlay.MenuOption>()
         {
             new Overlay.MenuOption("Velocity", "MenuButton"),
             new Overlay.MenuOption("Wheel Speed", "MenuButton"),

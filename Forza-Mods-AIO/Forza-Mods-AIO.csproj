@@ -70,14 +70,22 @@
     <EmbeddedResource Remove="Tabs\Self-Vehicle\Self-Vehicle.xaml" />
     <EmbeddedResource Remove="Resources\Theme\MenuButtonTheme.xaml" />
     <EmbeddedResource Remove="Resources\Theme\MetroTheming.xaml" />
-    <None Remove="Overlay\Images\header.png" />
     <Page Remove="Resources\Theme\MetroTheming.xaml" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Overlay\Images\pog header 4.png">
+    <None Update="Overlay\Headers\pog header.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Overlay\Headers\pog header 2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Overlay\Headers\pog header 3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Overlay\Headers\pog header 4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -68,14 +68,14 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
                 s.GetType().GetProperty("Value").SetValue(s, 0);
             Overlay.o.Dispatcher.Invoke(() =>
             {
-                if (Overlay.o.CurrentMenu.Contains("MainArea"))
+                if (Overlay.oh.CurrentMenu.Contains("MainArea"))
                 {
-                    Overlay.o.MainBackColour = new SolidColorBrush(Color.FromArgb(
+                    Overlay.oh.MainBackColour = new SolidColorBrush(Color.FromArgb(
                         Convert.ToByte(MainBackgroundA.Value),
                         Convert.ToByte(MainBackgroundR.Value),
                         Convert.ToByte(MainBackgroundG.Value),
                         Convert.ToByte(MainBackgroundB.Value)));
-                    Overlay.o.MainBorderColour = new SolidColorBrush(Color.FromArgb(
+                    Overlay.oh.MainBorderColour = new SolidColorBrush(Color.FromArgb(
                         Convert.ToByte(MainBorderA.Value),
                         Convert.ToByte(MainBorderR.Value),
                         Convert.ToByte(MainBorderG.Value),
@@ -83,12 +83,12 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
                 }
                 else
                 {
-                    Overlay.o.DescriptionBackColour = new SolidColorBrush(Color.FromArgb(
+                    Overlay.oh.DescriptionBackColour = new SolidColorBrush(Color.FromArgb(
                         Convert.ToByte(DescriptionBackgroundA.Value),
                         Convert.ToByte(DescriptionBackgroundR.Value),
                         Convert.ToByte(DescriptionBackgroundG.Value),
                         Convert.ToByte(DescriptionBackgroundB.Value)));
-                    Overlay.o.DescriptionBorderColour = new SolidColorBrush(Color.FromArgb(
+                    Overlay.oh.DescriptionBorderColour = new SolidColorBrush(Color.FromArgb(
                         Convert.ToByte(DescriptionBorderA.Value),
                         Convert.ToByte(DescriptionBorderR.Value),
                         Convert.ToByte(DescriptionBorderG.Value),
@@ -98,20 +98,20 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
         }
         void HeaderValueChanged(object s, EventArgs e)
         {
-            int HeaderCount = Overlay.o.Headers.Count;
+            int HeaderCount = Overlay.oh.Headers.Count;
             //int HeaderCount = Directory.GetFiles(Environment.CurrentDirectory + @"\Headers").Length;
             if ((int)s.GetType().GetProperty("Value").GetValue(s) < 1)
                 s.GetType().GetProperty("Value").SetValue(s, HeaderCount);
             if ((int)s.GetType().GetProperty("Value").GetValue(s) > HeaderCount)
                 s.GetType().GetProperty("Value").SetValue(s, 1);
-            Overlay.o.HeaderIndex = (int)s.GetType().GetProperty("Value").GetValue(s) - 1;
+            Overlay.oh.HeaderIndex = (int)s.GetType().GetProperty("Value").GetValue(s) - 1;
         }
-
+        
         // Menu list for this section
         public static List<Overlay.MenuOption> SettingsOptions = new List<Overlay.MenuOption>()
         {
             HeaderImage,
-            new Overlay.MenuOption("Refresh Headers", "Button", new Action(delegate { Overlay.o.CacheHeaders(); })),
+            new Overlay.MenuOption("Refresh Headers", "Button", new Action(delegate { Overlay.oh.CacheHeaders(); })),
             new Overlay.MenuOption("Main area", "MenuButton"),
             new Overlay.MenuOption("Description area", "MenuButton")
         };
