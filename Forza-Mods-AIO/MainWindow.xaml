@@ -53,7 +53,7 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
                 <RadioButton x:Name="AutoShow"
-                             Content="Autoshow/garage"
+                             Content="Autoshow/Garage"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
@@ -70,12 +70,12 @@
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
-                <!-- <RadioButton x:Name="Saveswapper"
-                             Content="Saveswapper"
+               <RadioButton x:Name="Keybinds"
+                             Content="Overlay Key Binds"
                              Height="40"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/> -->
+                             Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
             </StackPanel>
             <Border x:Name="FrameBorder" Grid.Row="3" Grid.Column="1" CornerRadius="0,0,20,0" Background="#111111"/>
             <Grid Grid.Row="3" Grid.Column="1">
@@ -86,6 +86,7 @@
                 <Frame x:Name="AutoShowFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AutoShowTab/AutoShow.xaml" Visibility="Hidden" IsTabStop="False"/>
                 <Frame x:Name="Self_VehicleFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Self-Vehicle/Self-Vehicle.xaml" Visibility="Hidden" IsTabStop="False"/>
                 <Frame x:Name="TuningTableMainFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Tuning/TuningTableMain.xaml" Visibility="Hidden" IsTabStop="False"/>
+                <Frame x:Name="KeybindsFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Keybinds/Keybinds.xaml" Visibility="Hidden" IsTabStop="False"/>
             </Grid>
             <Label x:Name="AttachedLabel" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" FontFamily="Manrope" Foreground="White" FontSize="10" Height="20" Grid.Column="1"/>
             <Path x:Name="ExitIcon"
@@ -135,6 +136,10 @@
                     </TransformGroup>
                 </Path.RenderTransform>
             </Path> -->
+            <Path Data="M64 112c-8.8 0-16 7.2-16 16V384c0 8.8 7.2 16 16 16H512c8.8 0 16-7.2 16-16V128c0-8.8-7.2-16-16-16H64zM0 128C0 92.7 28.7 64 64 64H512c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM176 320H400c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V336c0-8.8 7.2-16 16-16zm-72-72c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H120c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H120c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H200c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H200c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H280c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H280c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H360c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H360c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H440c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H440c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16z"
+                Fill="White" Stretch="Fill"
+                Width="20" Height="15" Margin="170,170,8,210" Grid.Row="2"/>
+                
             <Rectangle x:Name="ExitBox" Cursor="Hand" Grid.Column="1" HorizontalAlignment="Left" Height="16" Margin="570,16,0,0" VerticalAlignment="Top" Width="16" MouseDown="ExitButton_MouseDown">
                 <Rectangle.Fill>
                     <SolidColorBrush Color="Black" Opacity="0"/>

@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Forms;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -46,6 +47,14 @@ namespace Forza_Mods_AIO.Overlay
             public int Right;
             public int Bottom;
         }
+
+        public static Keys Up = Keys.NumPad8;
+        public static Keys Down = Keys.NumPad2;
+        public static Keys Left = Keys.NumPad4;
+        public static Keys Right = Keys.NumPad6;
+        public static Keys Confirm = Keys.NumPad5;
+        public static Keys Leave = Keys.NumPad0;
+        public static Keys OverlayVisibility = Keys.Subtract;
         #endregion
         #region Blur DLLImports
         //Credits to Rafael Rivera for the blur https://github.com/riverar/sample-win32-acrylicblur
@@ -367,24 +376,24 @@ namespace Forza_Mods_AIO.Overlay
             {
                 if (ct.IsCancellationRequested)
                     return;
-                if (GetAsyncKeyState(Keys.NumPad2) is 1 or Int16.MinValue && !DownKeyDown)
+                if (GetAsyncKeyState(Down) is 1 or Int16.MinValue && !DownKeyDown)
                     DownKeyDown = true;
-                if (GetAsyncKeyState(Keys.NumPad2) is not 1 and not Int16.MinValue && DownKeyDown)
+                if (GetAsyncKeyState(Down) is not 1 and not Int16.MinValue && DownKeyDown)
                     DownKeyDown = false;
-                if (GetAsyncKeyState(Keys.NumPad8) is 1 or Int16.MinValue && !UpKeyDown)
+                if (GetAsyncKeyState(Up) is 1 or Int16.MinValue && !UpKeyDown)
                     UpKeyDown = true;
-                if (GetAsyncKeyState(Keys.NumPad8) is not 1 and not Int16.MinValue && UpKeyDown)
+                if (GetAsyncKeyState(Up) is not 1 and not Int16.MinValue && UpKeyDown)
                     UpKeyDown = false;
-                if (GetAsyncKeyState(Keys.NumPad4) is 1 or Int16.MinValue && !LeftKeyDown)
+                if (GetAsyncKeyState(Left) is 1 or Int16.MinValue && !LeftKeyDown)
                     LeftKeyDown = true;
-                if (GetAsyncKeyState(Keys.NumPad4) is not 1 and not Int16.MinValue && LeftKeyDown)
+                if (GetAsyncKeyState(Left) is not 1 and not Int16.MinValue && LeftKeyDown)
                     LeftKeyDown = false;
-                if (GetAsyncKeyState(Keys.NumPad6) is 1 or Int16.MinValue && !RightKeyDown)
+                if (GetAsyncKeyState(Right) is 1 or Int16.MinValue && !RightKeyDown)
                     RightKeyDown = true;
-                if (GetAsyncKeyState(Keys.NumPad6) is not 1 and not Int16.MinValue && RightKeyDown)
+                if (GetAsyncKeyState(Right) is not 1 and not Int16.MinValue && RightKeyDown)
                     RightKeyDown = false;
 
-                if (GetAsyncKeyState(Keys.NumPad5) is 1 or Int16.MinValue)
+                if (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue)
                 {
                     if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "MenuButton")
                     {
@@ -408,10 +417,10 @@ namespace Forza_Mods_AIO.Overlay
                     {
                         ((Action)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value)();
                     }
-                    while (GetAsyncKeyState(Keys.NumPad5) is 1 or Int16.MinValue)
+                    while (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue)
                         Thread.Sleep(10);
                 }
-                if (GetAsyncKeyState(Keys.NumPad0) is 1 or Int16.MinValue)
+                if (GetAsyncKeyState(Leave) is 1 or Int16.MinValue)
                 {
                     if (LevelIndex == 0)
                     {
@@ -423,17 +432,17 @@ namespace Forza_Mods_AIO.Overlay
                     CurrentMenu = History[LevelIndex];
                     History.Remove(LevelIndex + 1);
                     SelectedOptionIndex = 0;
-                    while (GetAsyncKeyState(Keys.NumPad0) is 1 or Int16.MinValue)
+                    while (GetAsyncKeyState(Leave) is 1 or Int16.MinValue)
                         Thread.Sleep(10);
                 }
-                if (GetAsyncKeyState(Keys.Subtract) is 1 or Int16.MinValue)
+                if (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
                 {
                     if (Overlay.o.Visibility == Visibility.Visible && !Hidden)
                         Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Hide(); });
                     else
                         Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Show(); });
                     Hidden = !Hidden;
-                    while (GetAsyncKeyState(Keys.Subtract) is 1 or Int16.MinValue)
+                    while (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
                         Thread.Sleep(10);
                 }
                 Thread.Sleep(10);

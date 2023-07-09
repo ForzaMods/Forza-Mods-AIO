@@ -18,7 +18,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
         readonly Dictionary<string, double> Sizes = new Dictionary<string, double>()
         {
             { "TiresButton" , 150}, // Button name for page, height of page
-            { "GearingButton" , 240},
+            { "GearingButton" , 250},
             { "AlignmentButton" , 150},
             { "SpringsButton" , 525},
             { "DampingButton" , 585},

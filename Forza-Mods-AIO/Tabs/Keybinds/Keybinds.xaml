@@ -1,0 +1,33 @@
+﻿<Page x:Class="Forza_Mods_AIO.Tabs.Keybinds.Keybinds"
+      x:Name="KeyBinds"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="600" Loaded="KeyBinds_Loaded"
+      Title="Keybinds">
+
+    <Grid>
+        <StackPanel x:Name="OverlayStackPanel" Margin="0,20" Width="180" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,13.5" x:Name="Buttons">
+                <Button Margin="0,0,0,27.5" x:Name="UpButton" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="180" Height="25" MinHeight="0" Click="Button_Click"/>
+                <Button Margin="0,0,0,27.5" x:Name="DownButton" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="180" Height="25" MinHeight="0" Click="Button_Click"/>
+                <Button Margin="0,0,0,27.5" x:Name="LeftButton" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="180" Height="25" MinHeight="0" Click="Button_Click"/>
+                <Button Margin="0,0,0,27.5" x:Name="RightButton" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="180" Height="25" MinHeight="0" Click="Button_Click"/>
+                <Button Margin="0,0,0,27.5" x:Name="ConfirmButton" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="180" Height="25" MinHeight="0" Click="Button_Click"/>
+                <Button Margin="0,0,0,27.5" x:Name="LeaveButton" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="180" Height="25" MinHeight="0" Click="Button_Click"/>
+                <Button Margin="0,0,0,27.5" x:Name="VisibilityButton" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="180" Height="25" MinHeight="0" Click="Button_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Label Content="Up" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,7.5,0,0"/>
+        <Label Content="Down" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,60,0,0"/>
+        <Label Content="Left" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,112.5,0,0"/>
+        <Label Content="Right" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,165,0,0"/>
+        <Label Content="Confirm" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,156.5"/>
+        <Label Content="Leave" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,104"/>
+        <Label Content="Visibility" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,51.5"/>
+    </Grid>
+</Page>

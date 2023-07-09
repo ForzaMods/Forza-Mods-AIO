@@ -38,6 +38,7 @@
     <Page Remove="MVVM\**" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Overlay\pog header.png" />
     <Resource Include="Resources\Fonts\AUTOMANI.TTF" />
     <Resource Include="Resources\Fonts\Manrope-Bold.ttf" />
     <Resource Include="Resources\Fonts\Manrope-ExtraBold.ttf" />
@@ -70,6 +71,7 @@
     <EmbeddedResource Remove="Tabs\Self-Vehicle\Self-Vehicle.xaml" />
     <EmbeddedResource Remove="Resources\Theme\MenuButtonTheme.xaml" />
     <EmbeddedResource Remove="Resources\Theme\MetroTheming.xaml" />
+    <None Remove="Overlay\pog header.png" />
     <Page Remove="Resources\Theme\MetroTheming.xaml" />
   </ItemGroup>
   <ItemGroup>

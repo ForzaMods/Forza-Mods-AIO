@@ -55,7 +55,7 @@ namespace Forza_Mods_AIO
         public static MainWindow mw = new MainWindow();
         public Mem m = new Mem();
         public static AIO_Info AInfo = new AIO_Info();
-        List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.TuningTablePort.TuningTableMain()};
+        List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.TuningTablePort.TuningTableMain(), new Tabs.Keybinds.Keybinds() };
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
         #endregion
         #region Starting
@@ -149,7 +149,6 @@ namespace Forza_Mods_AIO
                     Dispatcher.BeginInvoke((Action)delegate ()
                     {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
-                        AInfo.OverlaySwitch.IsEnabled = true;
                     });
                     attached = true;
                 }
@@ -161,7 +160,6 @@ namespace Forza_Mods_AIO
                     Dispatcher.BeginInvoke((Action)delegate ()
                     {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
-                        AInfo.OverlaySwitch.IsEnabled = true;
                     });
                     attached = true;
                 }
@@ -172,7 +170,6 @@ namespace Forza_Mods_AIO
                     Dispatcher.BeginInvoke((Action)delegate ()
                     {
                         AttachedLabel.Content = "Launch FH4/5";
-                        AInfo.OverlaySwitch.IsEnabled = false;
                     });
                     attached = false;
                 }

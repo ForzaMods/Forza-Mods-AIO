@@ -33,5 +33,24 @@ namespace Forza_Mods_AIO.Tabs.AIO_Info
             else
                 Overlay.Overlay.o.OverlayToggle(false);
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            OverlaySwitch.IsEnabled = false;
+
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    if (MainWindow.mw.m.OpenProcess("ForzaHorizon5") || MainWindow.mw.m.OpenProcess("ForzaHorizon4"))
+                        Dispatcher.BeginInvoke((Action)delegate () { OverlaySwitch.IsEnabled = true; });
+                        
+                    else
+                        Dispatcher.BeginInvoke((Action)delegate () { OverlaySwitch.IsEnabled = false; });
+                    
+                    Thread.Sleep(50);
+                }
+            });
+        }
     }
 }
