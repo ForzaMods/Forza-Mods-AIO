@@ -38,7 +38,6 @@
     <Page Remove="MVVM\**" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Overlay\pog header.png" />
     <Resource Include="Resources\Fonts\AUTOMANI.TTF" />
     <Resource Include="Resources\Fonts\Manrope-Bold.ttf" />
     <Resource Include="Resources\Fonts\Manrope-ExtraBold.ttf" />
@@ -49,6 +48,7 @@
     <Resource Include="Resources\Fonts\Manrope-SemiBold.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="ini-parser" Version="2.5.2" />
     <PackageReference Include="ksemenenko.ColorThief" Version="1.1.1.4" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="Memory.dll.x64" Version="1.2.23" />
@@ -71,7 +71,6 @@
     <EmbeddedResource Remove="Tabs\Self-Vehicle\Self-Vehicle.xaml" />
     <EmbeddedResource Remove="Resources\Theme\MenuButtonTheme.xaml" />
     <EmbeddedResource Remove="Resources\Theme\MetroTheming.xaml" />
-    <None Remove="Overlay\pog header.png" />
     <Page Remove="Resources\Theme\MetroTheming.xaml" />
   </ItemGroup>
   <ItemGroup>

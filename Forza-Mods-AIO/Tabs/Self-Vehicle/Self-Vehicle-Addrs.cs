@@ -41,6 +41,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static long HornAsmAddrLong;
         public static long XPaddrLong;
         public static long XPAmountaddrLong;
+        public static long CameraSpeedBase;
+        public static long CameraBase;
+        public static long CameraShutterSpeed;
         #endregion
         #region Addresses - AOB's
         public static string BaseAob;
@@ -73,6 +76,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static string AIXAob;
         public static string CosmeticUnlockAob;
         public static string HornAsmAob;
+        public static string CameraSpeedBaseAob;
+        public static string CameraBaseAob;
+        public static string CameraShutterSpeedAob;
         #endregion
         #region Addresses
         public static string BaseAddr;
@@ -144,6 +150,14 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static string HornAsmAddr = null;
         public static string XPaddr = null;
         public static string XPAmountaddr = null;
+        public static string TurnAndZoomSpeed;
+        public static string MovementSpeed;
+        public static string ShutterSpeed;
+        public static string Samples;
+        public static string SamplesMultiplier;
+        public static string ApertureScale;
+        public static string CarInFocus;
+        public static string TimeSlice;
         #endregion
         #region Addresses - CodeCaves
         public static IntPtr CCBA = (IntPtr)0;
@@ -243,6 +257,13 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             InHouseAddr = (Base2Addr + ",0x50,0x368");
             TestAddr = (Base2Addr + ",0x50,0x218");
             FOVHighAddr = (Base3Addr + ",0x538,0xF0,0xD80,0x6F0");
+            TurnAndZoomSpeed = (CameraSpeedBase - 0x4).ToString("X");
+            MovementSpeed = (CameraSpeedBase + 0x4).ToString("X");
+            Samples = (CameraBase).ToString("X");
+            SamplesMultiplier = (CameraBase + 0xC).ToString("X");
+            ApertureScale = (CameraBase + 0x20).ToString("X");
+            CarInFocus = (CameraBase + 0x30).ToString("X");
+            TimeSlice = (CameraBase + 0x38).ToString("X");
             TeleportsPage.t.TeleportBox.Items.Clear();
             TeleportsPage.t.TeleportBox.Items.Add("Waypoint");
             TeleportsPage.t.TeleportBox.Items.Add("Airstrip");
@@ -317,6 +338,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             CosmeticUnlockAob = "8B 73 58 8B 43 64";
             HornAsmAob = "8B FA 48 8B D9 E8 ? ? ? ? 39 7B 10";
             //TotalXpAddr = (Base3Addr + ",0xEE8,0x408,0x70,0x28,0x30,0x20,0x270");
+            CameraSpeedBaseAob = "?? ?? ?? ?? ?? ?? ?? ?? 0A D7 13 40 E1 7A C4 40 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 00 00 20 ?? ?? ?? F? 7F 00 00 00 00 AA 42 00 00 AA 42 01 00 00 00 31 00 00 00 00 00 00 00 00 00 20 40 A8 ?? ?? ?? F? 7F";
+            CameraBaseAob = "?? ?? 00 00 70 17 00 00 DC 05 00 00 00 ?? ?? ?? 00 00 80 3F ?? 0? ?? ?0 ?? ?? ?? ?? ?? ?? ?? ?? 00 00 80 3E 00 00 00 3F 00 00 00 3F";
+            CameraShutterSpeedAob = "?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0? 00 00 00 00 00 00 00 01 0F 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 1D 00 00 00 00 00 00 00 00 F0 00 00 00 00 00 00 00 0F 00 00 00 00 00 00 80 28 ?? ?? ?? 0? 00 00 97 CA 0B 83 10 CD 5B 3C 60";
         }
         private static void StartSetupFive()
         {

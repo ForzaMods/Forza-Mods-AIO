@@ -6,22 +6,22 @@
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignHeight="275" d:DesignWidth="580"
-      Title="CameraPage">
+      Title="CameraPage" Background="Transparent">
 
     <Grid>
         <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10"/>
 
         <!--#region Main Part-->
-        <Label Content="Focus" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="50,10,480,235"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FocusBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,40,0,0" Minimum="-0" ValueChanged="FocusBox_ValueChanged"/>
-        <Label Content="Exposure" FontSize="15" Height="30" HorizontalAlignment="Center" Margin="0,10,0,235"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ExposureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Minimum="-0" ValueChanged="ExposureBox_ValueChanged"/>
-        <Label Content="Aperture" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="41,66,0,179"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ApertureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,95,0,0" Minimum="-0" ValueChanged="ApertureBox_ValueChanged"/>
-        <Label Content="Contrast" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="41,122,0,123"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ContrastBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,152,0,0" Minimum="-0" ValueChanged="ContrastBox_ValueChanged"/>
-        <Label Content="Colour" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="478,10,0,235"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ColourBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15,40,15,0" Minimum="-0" ValueChanged="ColourBox_ValueChanged"/>
+        <Label Content="Samples" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="35,10,465,235"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SamplesBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,40,0,0" Minimum="-0" ValueChanged="FocusBox_ValueChanged"/>
+        <Label Content="Shutter Speed" FontSize="15" Height="30" HorizontalAlignment="Center" Margin="0,10,0,235"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ShutterSpeedBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Minimum="-0" ValueChanged="ExposureBox_ValueChanged"/>
+        <Label Content="Aperture Scale" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="21.5,66,0,179"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ApertureScaleBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,95,0,0" Minimum="-0" ValueChanged="ApertureBox_ValueChanged"/>
+        <Label Content="Car In Focus" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="41,122,0,123"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="CarInFocusBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,152,0,0" Minimum="-0" ValueChanged="ContrastBox_ValueChanged"/>
+        <Label Content="Time Slice" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="478,10,0,235"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="TimeSliceBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15,40,15,0" Minimum="-0" ValueChanged="ColourBox_ValueChanged"/>
         <Label Content="Brightness" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="252,122,0,123"/>
         <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="BrightnessBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,152,0,0" Minimum="-0" ValueChanged="BrightnessBox_ValueChanged"/>
         <Label Content="Sepia" FontSize="15" Height="30" HorizontalAlignment="Center" Margin="0,66,0,179"/>
@@ -42,15 +42,18 @@
                           Margin="15"
                           Toggled="NoClip_Toggled"/>
 
-        <Label Content="Zoom Unlocker" 
+        <Label Content="Turn Speed" 
                FontSize="16"
                VerticalAlignment="Bottom" HorizontalAlignment="Left"
                Margin="156,0,0,50"/>
 
-        <mah:ToggleSwitch x:Name="ZoomUnlocker"
-                          VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                          Margin="175, 15"
-                          Toggled="ZoomUnlocker_Toggled"/>
+        <Slider x:Name="TurnSpeed"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Width="86" Margin="0,0,334,18"
+                Maximum="15"
+                SmallChange="1" LargeChange="10" Minimum="0.01" Value="0.8" 
+                Foreground="#FF2E3440" Focusable="False" ValueChanged="TurnSpeed_OnValueChanged"
+                ToolTip="Also modifies zoom speedd"/>
 
         <Label Content="Speed Boost" 
                FontSize="16"
@@ -60,9 +63,9 @@
         <Slider x:Name="SpeedSlider"
             HorizontalAlignment="Right" VerticalAlignment="Bottom"
             Width="86" Margin="15, 17.5"
-            Maximum="100"
-            SmallChange="1" LargeChange="10" Minimum="0"  Value="100" 
-            Foreground="#FF2E3440" Focusable="False"/>
+            Maximum="15"
+            SmallChange="1" LargeChange="10" Minimum="0.01" Value="0.8" 
+            Foreground="#FF2E3440" Focusable="False" ValueChanged="SpeedSlider_OnValueChanged"/>
 
         <Label Content="Samples Multiplier" 
                FontSize="16"
@@ -72,9 +75,9 @@
         <Slider x:Name="SamplesMultiplierSlider"
             HorizontalAlignment="Right" VerticalAlignment="Bottom"
             Width="86" Margin="0,0,164,18"
-            Maximum="100"
-            SmallChange="1" LargeChange="10" Minimum="0"  Value="100" 
-            Foreground="#FF2E3440" Focusable="False"/>
+            Maximum="10"
+            SmallChange="1" LargeChange="10" Minimum="1"  Value="1" 
+            Foreground="#FF2E3440" Focusable="False" ValueChanged="SamplesMultiplierSlider_OnValueChanged"/>
         <!--#endregion-->
     </Grid>
 </Page>

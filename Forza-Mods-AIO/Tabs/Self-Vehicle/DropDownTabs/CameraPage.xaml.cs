@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 {
     public partial class CameraPage : Page
     {
+
         public CameraPage()
         {
             InitializeComponent();
@@ -29,7 +19,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 
         private void ZoomUnlocker_Toggled(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void FocusBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -75,6 +65,21 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
         private void TemperatureBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
 
+        }
+
+        private void SpeedSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {   
+            //MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.MovementSpeed, "float", SpeedSlider.Value.ToString());
+        }
+
+        private void SamplesMultiplierSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            //MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SamplesMultiplier, "float", SamplesMultiplierSlider.Value.ToString());
+        }
+
+        private void TurnSpeed_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            //MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TurnAndZoomSpeed, "float", SpeedSlider.Value.ToString());
         }
     }
 }

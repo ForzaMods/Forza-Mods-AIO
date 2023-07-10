@@ -74,7 +74,7 @@
                              Content="Overlay Key Binds"
                              Height="40"
                              Foreground="White"
-                             FontSize="14"
+                             FontSize="14" 
                              Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
             </StackPanel>
             <Border x:Name="FrameBorder" Grid.Row="3" Grid.Column="1" CornerRadius="0,0,20,0" Background="#111111"/>
