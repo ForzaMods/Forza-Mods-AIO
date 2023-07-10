@@ -69,17 +69,17 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 
         private void SpeedSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {   
-            //MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.MovementSpeed, "float", SpeedSlider.Value.ToString());
+            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.MovementSpeed, "float", SpeedSlider.Value.ToString());
         }
 
         private void SamplesMultiplierSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            //MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SamplesMultiplier, "float", SamplesMultiplierSlider.Value.ToString());
+            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SamplesMultiplier, "float", SamplesMultiplierSlider.Value.ToString());
         }
 
         private void TurnSpeed_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            //MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TurnAndZoomSpeed, "float", SpeedSlider.Value.ToString());
+            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TurnAndZoomSpeed, "float", TurnSpeed.Value.ToString());
         }
     }
 }

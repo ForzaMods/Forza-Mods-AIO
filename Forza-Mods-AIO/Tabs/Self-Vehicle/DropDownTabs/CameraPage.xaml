@@ -5,31 +5,23 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
-      d:DesignHeight="275" d:DesignWidth="580"
+      d:DesignHeight="225" d:DesignWidth="580"
       Title="CameraPage" Background="Transparent">
 
     <Grid>
         <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10"/>
 
         <!--#region Main Part-->
-        <Label Content="Samples" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="35,10,465,235"/>
+        <Label Content="Samples" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="42,10,0,185"/>
         <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SamplesBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,40,0,0" Minimum="-0" ValueChanged="FocusBox_ValueChanged"/>
-        <Label Content="Shutter Speed" FontSize="15" Height="30" HorizontalAlignment="Center" Margin="0,10,0,235"/>
+        <Label Content="Shutter Speed" FontSize="15" Height="30" HorizontalAlignment="Center" Margin="0,10,0,185"/>
         <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ShutterSpeedBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Minimum="-0" ValueChanged="ExposureBox_ValueChanged"/>
-        <Label Content="Aperture Scale" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="21.5,66,0,179"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ApertureScaleBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,95,0,0" Minimum="-0" ValueChanged="ApertureBox_ValueChanged"/>
-        <Label Content="Car In Focus" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="41,122,0,123"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="CarInFocusBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,152,0,0" Minimum="-0" ValueChanged="ContrastBox_ValueChanged"/>
-        <Label Content="Time Slice" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="478,10,0,235"/>
+        <Label Content="Aperture Scale" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="129,66,0,129"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ApertureScaleBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="122,95,0,0" Minimum="-0" ValueChanged="ApertureBox_ValueChanged"/>
+        <Label Content="Car In Focus" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="354,66,0,129"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="CarInFocusBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="339,96,0,0" Minimum="-0" ValueChanged="ContrastBox_ValueChanged"/>
+        <Label Content="Time Slice" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="467,10,0,185"/>
         <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="TimeSliceBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15,40,15,0" Minimum="-0" ValueChanged="ColourBox_ValueChanged"/>
-        <Label Content="Brightness" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="252,122,0,123"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="BrightnessBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,152,0,0" Minimum="-0" ValueChanged="BrightnessBox_ValueChanged"/>
-        <Label Content="Sepia" FontSize="15" Height="30" HorizontalAlignment="Center" Margin="0,66,0,179"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SepiaBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,95,0,0" Minimum="-0" ValueChanged="SepiaBox_ValueChanged"/>
-        <Label Content="Vignette" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="472,66,0,179"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="VignetteBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,95,15,0" Minimum="-0" ValueChanged="VignetteBox_ValueChanged"/>
-        <Label Content="Temperature" FontSize="15" Height="30" HorizontalAlignment="Left" Margin="458,122,0,123"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="TemperatureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,152,15,0" Minimum="-0" ValueChanged="TemperatureBox_ValueChanged"/>
         <!--#endregion-->
         <!--#region Bottom part / Footer-->
         <Label Content="No Clip" 
@@ -38,9 +30,9 @@
                Margin="20, 50"/>
 
         <mah:ToggleSwitch x:Name="NoClip"
-                          VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                          Margin="15"
-                          Toggled="NoClip_Toggled"/>
+                          VerticalAlignment="Bottom"
+                          Margin="15,0,0,15"
+                          Toggled="NoClip_Toggled" Width="95"/>
 
         <Label Content="Turn Speed" 
                FontSize="16"
