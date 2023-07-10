@@ -191,7 +191,7 @@ namespace Forza_Mods_AIO
                     var xml = XElement.Load(process.MainModule.FileName.Substring(0, (process.MainModule.FileName.LastIndexOf("\\"))) + "\\appxmanifest.xml").Elements();
                     foreach (var VARIABLE in xml)
                     {
-                        if (VARIABLE.ToString().Contains(" Version=\""))
+                        if (VARIABLE.ToString().Contains(" Version=\"") && !VARIABLE.ToString().Contains("14.0"))
                         {
                             update = VARIABLE.Attribute("Version").ToString().Remove(0, 9);
                             update = update.Remove((update.Length - 1), 1);
