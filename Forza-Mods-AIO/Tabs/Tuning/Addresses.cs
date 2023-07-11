@@ -124,11 +124,11 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
         public static string TuningTableBase4;
         #endregion
 
-        public static async void TuningTable()
+        public static async void TuningTable(int ver)
         {
             #region Camber,toe (static) and scanning vars
             Dispatcher dispatcher = Application.Current.Dispatcher;
-            var TargetProcess = Process.GetProcessesByName("ForzaHorizon5")[0];
+            var TargetProcess = Process.GetProcessesByName("ForzaHorizon" + ver.ToString())[0];
             long ScanStart = (long)TargetProcess.MainModule.BaseAddress;
             long ScanEnd = (long)(TargetProcess.MainModule.BaseAddress + TargetProcess.MainModule.ModuleMemorySize);
             
@@ -145,7 +145,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             Thread.Sleep(100);
             #endregion
 
-            #region MS
+            #region MS FH5
             if (MainWindow.mw.gvp.Plat == "MS" && MainWindow.mw.gvp.Name == "Forza Horizon 5")
             {
                 TuningTableBase1 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "?0 ? ? ? ? 0? 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 02 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X");
@@ -257,7 +257,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 Thread.Sleep(100);
             }
             #endregion
-            #region Steam
+            #region Steam FH5
             else if (MainWindow.mw.gvp.Plat == "Steam" && MainWindow.mw.gvp.Name == "Forza Horizon 5")
             {
                 TuningTableBase1 = ((await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "00 00 00 00 FF FF FF FF 10 ? ? ? ? 0? 00 00 00 ? ? ? ? 0? 00 00 ? ? ? ? ? 0? 00 00 00 ?", true, true, false)).FirstOrDefault() + 0x8).ToString("X");
@@ -367,7 +367,20 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 dispatcher.BeginInvoke((Action)delegate () { TuningTableMain.TBM.AOBProgressBar.Value = 100; });
                 Thread.Sleep(100);
             }
-        }
             #endregion
+
+            #region MS FH4
+            else if (MainWindow.mw.gvp.Plat == "MS" && MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            {
+
+            }
+            #endregion
+            #region Steam FH4
+            else if (MainWindow.mw.gvp.Plat == "Steam" && MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            {
+
+            }
+            #endregion
+        }
     }
 }

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
 
 namespace Forza_Mods_AIO.Tabs.TuningTablePort
 {
@@ -56,7 +55,12 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
         }
         private async void ScanButton_Click(object sender, RoutedEventArgs e)
         {
-            await Task.Run(Addresses.TuningTable);
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
+                await Task.Run(() => Addresses.TuningTable(5));
+            
+            else 
+                await Task.Run(() => Addresses.TuningTable(4));
+            
             Task.Run(ReadValues);
         }
         #endregion

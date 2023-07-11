@@ -74,9 +74,9 @@ namespace Forza_Mods_AIO
             else
             {
                 var BaseDir = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper";
-                if (!File.Exists(BaseDir)) { Directory.CreateDirectory(BaseDir); }
-                if (!File.Exists(BaseDir + @"\Imported saves")) { Directory.CreateDirectory(BaseDir + @"\Imported saves"); }
-                if (!File.Exists(BaseDir + @"\Save backups")) { Directory.CreateDirectory(BaseDir + @"\Save backups"); }
+                if (!Directory.Exists(BaseDir)) { Directory.CreateDirectory(BaseDir); }
+                if (!Directory.Exists(BaseDir + @"\Imported saves")) { Directory.CreateDirectory(BaseDir + @"\Imported saves"); }
+                if (!Directory.Exists(BaseDir + @"\Save backups")) { Directory.CreateDirectory(BaseDir + @"\Save backups"); }
             }
             #endregion
             ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
@@ -134,7 +134,6 @@ namespace Forza_Mods_AIO
         }
         #endregion
         #region Attaching/Behaviour
-
         private void IsAttached()
         {
             bool attached = false;
@@ -191,7 +190,7 @@ namespace Forza_Mods_AIO
                     var xml = XElement.Load(process.MainModule.FileName.Substring(0, (process.MainModule.FileName.LastIndexOf("\\"))) + "\\appxmanifest.xml").Elements();
                     foreach (var VARIABLE in xml)
                     {
-                        if (VARIABLE.ToString().Contains(" Version=\"") && !VARIABLE.ToString().Contains("14.0"))
+                        if (VARIABLE.ToString().Contains(" Version=\"") && !VARIABLE.ToString().Contains("Version=\"14.0\""))
                         {
                             update = VARIABLE.Attribute("Version").ToString().Remove(0, 9);
                             update = update.Remove((update.Length - 1), 1);

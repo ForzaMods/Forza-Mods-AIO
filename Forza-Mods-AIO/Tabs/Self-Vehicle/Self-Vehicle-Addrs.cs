@@ -9,7 +9,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 {
     internal class Self_Vehicle_Addrs
     {
-        int ScanAmount = 26;
+        int ScanAmount = 29;
         #region Addresses - Longs
         public static long TimeNOPAddrLong;
         public static long CheckPointxASMAddrLong;
@@ -211,6 +211,13 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             FOVHighAddr = (BaseAddr + ",0x568,0x270,0x258,0xB8,0x348,0x70,0x5B0");
             WeirdAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x554");
             GravityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x558");
+            TurnAndZoomSpeed = (CameraSpeedBase - 0x4).ToString("X");
+            MovementSpeed = (CameraSpeedBase + 0x4).ToString("X");
+            Samples = (CameraBase).ToString("X");
+            SamplesMultiplier = (CameraBase + 0xC).ToString("X");
+            ApertureScale = (CameraBase + 0x20).ToString("X");
+            CarInFocus = (CameraBase + 0x30).ToString("X");
+            TimeSlice = (CameraBase + 0x38).ToString("X");
             TeleportsPage.t.TeleportBox.Items.Clear();
             TeleportsPage.t.TeleportBox.Items.Add("Waypoint");
             TeleportsPage.t.TeleportBox.Items.Add("Adventure Park");
@@ -308,6 +315,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             DiscoverRoadsAob = "00 96 42 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 40 1C 45 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 03 00";
             WaterAob = "3D ? ? ? ? 00 00 A0 ? ? ? ? ? ? ? ? 3F 00 00";
             AIXAob = "48 89 ? ? ? 57 48 83 EC ? 0F 10 ? 48 8B ? 0F 11 ? ? 48 8B";
+            CameraSpeedBaseAob = "?? ?? ?? ?? ?? ?? ?? ?? 0A D7 13 40 E1 7A C4 40 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 00 00 ?0 ?? ?? ?? F? 7F 00 00 00 00 AA 42 00 00 AA 42 01 00 00 00 3? 00 00 00 00 00 00 00 00 00 20 40 ?8 ?? ?? ?? F? 7F";
+            CameraBaseAob = "?? ?? 00 00 70 17 00 00 DC 05 00 00 00 ?? ?? ?? 00 00 80 3F ?? 0? ?? ?0 ?? ?? ?? ?? ?? ?? ?? ?? 00 00 80 3E 00 00 00 3F 00 00 00 3F";
+            CameraShutterSpeedAob = "?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0? 00 00 00 ?0 ?? ?? ?? ?? ?F 00 00 ?? ?? ?? ?? ?? ?? 00 00 00 00 00 ?0 00 00 00 ?0 ?? 00 ?0 ?? 00 00 00 00 00 ?0 ?? ?? 00 00 00 00 ?? ?F ?? ?? 00 00 00 00 ?0 ?? ?? ?? ?? 0? 00 00 9? ?? ?B ?? ?? ?? ?? ?? ?0";
         }
         private static void AobsSteam()
         {
@@ -496,6 +506,18 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                                 { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
                                 AIXAobAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, AIXAob, true, true)).FirstOrDefault() + 16;
                                 AIXAobAddr = AIXAobAddrLong.ToString("X");
+                                
+                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 95; i++)
+                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
+                                CameraSpeedBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraSpeedBaseAob, true, true)).FirstOrDefault();
+
+                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 98; i++)
+                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
+                                CameraBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraBaseAob, true, true)).FirstOrDefault();
+                                
+                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 93; i++)
+                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
+                                CameraShutterSpeed = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraShutterSpeedAob, true, true)).FirstOrDefault();
                             }
                         }
                         else
@@ -808,6 +830,19 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                                 CodeCave8 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA8, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
                             AddProgress(26);
+
+                            while (CameraSpeedBase == 0)
+                                CameraSpeedBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraSpeedBaseAob, true, true)).FirstOrDefault();
+                            AddProgress(27);  
+                            
+                            while (CameraBase == 0)
+                                CameraBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraBaseAob, true, true)).FirstOrDefault();
+                            AddProgress(28);    
+                            
+                            while (CameraShutterSpeed == 0)
+                                CameraShutterSpeed = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraShutterSpeedAob, true, true)).FirstOrDefault();
+                            AddProgress(29);  
+                            
                             AddressesFive();
                             MainAOBScanDone = true;
                             Self_Vehicle.sv.Dispatcher.Invoke(delegate ()

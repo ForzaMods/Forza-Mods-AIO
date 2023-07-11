@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Windows;
+using System.Windows.Threading;
 
 
 namespace Forza_Mods_AIO.Tabs.AutoShowTab
@@ -35,33 +37,56 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
         public bool exec = false;
         #endregion
 
-        public async void Scan()
+        public async void Scan(int ver)
         {
-            var TargetProcess = Process.GetProcessesByName("ForzaHorizon5")[0];
+            Dispatcher dispatcher = Application.Current.Dispatcher;
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.ScanButton.IsEnabled = false; });
+            var TargetProcess = Process.GetProcessesByName("ForzaHorizon" + ver.ToString())[0];
             SigScanSharp Sigscan = new SigScanSharp(TargetProcess.Handle);
             Sigscan.SelectModule(TargetProcess.MainModule);
             long scanstart = (long)TargetProcess.MainModule.BaseAddress;
             long scanend = (long)(TargetProcess.MainModule.BaseAddress + TargetProcess.MainModule.ModuleMemorySize);
             sql2 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "49 73 42 61 72 6E 46 69 6E 64", read, write, exec)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 5; });
             sql3 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "41 4E 44 20 4E 4F 54 20 49 73 42 61 72 6E 46 69 6E 64", read, write, exec)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 10; });
             sql4 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "47 61 72 61 67 65 2E 49 64 21 3D", read, write, exec)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 15; });
             sql18 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "41 4E 44 20 43 61 6E 42 75 79 4E 65 77 43 61 72 28 47 61 72 61 67 65 2E 49 64 2C 20 47 61 72 61 67 65 2E 4E 6F 74 41 76 61 69 6C 61 62 6C 65 49 6E 41 75 74 6F 73 68 6F 77 29", read, write, exec)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 20; });
             sql19 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "43 61 6E 42 75 79 4E 65 77 43 61 72 28 47 61 72 61 67 65 2E 49 64 2C 20 47 61 72 61 67 65 2E 4E 6F 74 41 76 61 69 6C 61 62 6C 65 49 6E 41 75 74 6F 73 68 6F 77 29 20 41 53 20 50 75 72 63 68 61 73 61 62 6C 65 43 61 72 2C 20", read, write, exec)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 25; });
             sql7 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "41 4E 44 20 49 73 43 61 72 56 69 73 69 62 6C 65 41 6E 64 52 65 6C 65 61 73 65 64 28 47 61 72 61 67 65 2E 4D 6F 64 65 6C 49 64 29 00 00 00 00 20", read, write, exec)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 30; });
             sql8 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "47 61 72 61 67 65 2E 4D 6F 64 65 6C 49 64 21 3D", read, write, exec)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 35; });
             sql9 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "41 4E 44 20 55 6E 6F 62 74 61 69 6E 61 62 6C 65 43 61 72 73 2E 4F 72 64 69 6E 61 6C 20 49 53 20 4E 55 4C 4C", read, write, exec)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 40; });
             sql10 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "49 4E 4E 45 52 20 4A 4F 49 4E 20 4C 69 76 65 72 79 5F 44 65 63 61 6C 73 53 6F 72 74 4F 72 64 65 72 20 4F 4E 20 28 4C 69 76 65 72 79 5F 44 65 63 61 6C 73 2E 49 44 20 3D 20 4C 69 76 65 72 79 5F 44 65 63 61 6C 73 53 6F 72 74 4F 72 64 65 72 2E 4C 69 76 65 72 79 5F 44 65 63 61 6C 49 44 29 20 57 48 45 52 45 20 4D 61 6B 65 49 44 20 3D 20 25 64 20 4F 52 44 45 52 20 42 59 20 53 65 71 75 65 6E 63 65 2C 20 41 6C 70 68 61 53 6F 72 74", read, write, exec)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 45; });
             sql11 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "44 6F 4E 6F 74 41 6C 6C 6F 77 52 65 6D 6F 76 61 6C 46 72 6F 6D 47 61 72 61 67 65 00 00 00 00 00", read, write, exec)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 50; });
             sql12 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "55 50 44 41 54 45 20 25 73 20 53 45 54 20 54 6F 70 53 70 65 65 64 3D 25 66", read, write, exec)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 55; });
             sql13 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "55 50 44 41 54 45 20 25 73 43 61 72 65 65 72 5F 47 61 72 61 67 65 20 53 45 54 20 54 75 6E 69 6E 67 5F 66 72 6F 6E 74 44 6F 77 6E 66 6F 72 63 65 20 3D 20 25 31 2E 38 65 2C 20 54 75 6E 69 6E 67 5F 72 65 61 72 44 6F 77 6E 66 6F 72 63 65 20 3D 20 25 31 2E 38 65 2C", read, write, exec)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 60; });
             sql14 = ((await MainWindow.mw.m.AoBScan(scanstart, scanend, "55 50 44 41 54 45 20 25 73 43 61 72 65 65 72 5F 47 61 72 61 67 65 20 53 45 54 20 54 75 6E 69 6E 67 5F 66 72 6F 6E 74 44 6F 77 6E 66 6F 72 63 65 20 3D 20 25 31 2E 38 65 2C 20 54 75 6E 69 6E 67 5F 72 65 61 72 44 6F 77 6E 66 6F 72 63 65 20 3D 20 25 31 2E 38 65 2C", read, write, exec)).FirstOrDefault() + 2047).ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 65; });
+            
             //fh4 addr
             sql1 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "4E 4F 54 20 47 61 72 61 67 65 2E 4E 6F 74 41 76 61 69 6C 61 62 6C 65 49 6E 41 75 74 6F 73 68 6F 77 20 41 53 20 50 75 72 63 68 61 73 61 62 6C 65 43 61 72 2C", true, true)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 70; });
             sql5 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "41 4E 44 20 4E 6F 74 41 76 61 69 6C 61 62 6C 65 49 6E 41 75 74 6F 73 68 6F 77 3D 30", true, true)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 75; });
             sql6 = ((await MainWindow.mw.m.AoBScan(scanstart, scanend, "41 4E 44 20 4E 6F 74 41 76 61 69 6C 61 62 6C 65 49 6E 41 75 74 6F 73 68 6F 77 3D 30", true, true)).FirstOrDefault() + 26).ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 85; });
             sql15 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "48 69 64 65 4E 6F 72 6D 61 6C 43 6F 6C 6F 72 73 00 00 00 00 00 00 00 00 48 69 64 65 4D 61 6E 75 66 61 63 74 75 72 65 72 43 6F 6C 6F 72 73 00 00", true, true)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 90; });
             sql16 = ((await MainWindow.mw.m.AoBScan(scanstart, scanend, "48 69 64 65 53 70 65 63 69 61 6C 43 6F 6C 6F 72 73 00 00 00 00 00 00 00 41 6C 6C 6F 77 53 74 6F 63 6B 4D 61 6E 75 66 61 63 74 75 72 65 72 43 6F 6C 6F 72 73 46 6F 72 57 68 65 65 6C 73", true, true)).FirstOrDefault() + 2047).ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 95; });
             sql17 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "41 4E 44 20 4E 4F 54 20 49 73 4D 69 64 6E 69 67 68 74 43 61 72 00 00 20 41 4E 44 20 4E 4F 54 20 49 73 42 61 72 6E 46 69 6E 64 00 00 00 00 00 20", true, true)).FirstOrDefault().ToString("X");
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 100; });
+            dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.ScanButton.IsEnabled = true; });
         }
     }
 }
