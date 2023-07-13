@@ -8,7 +8,7 @@
       Title="Settings" Background="Transparent">
 
     <Grid>
-        <StackPanel x:Name="OverlayStackPanel" Margin="0,20" Width="180" HorizontalAlignment="Center">
+        <StackPanel x:Name="OverlayStackPanel" Margin="20,20" Width="180" HorizontalAlignment="Left">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,13.5" x:Name="Buttons">
                 <Button Margin="0,0,0,27.5" x:Name="UpButton" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="180" Height="25" MinHeight="0" Click="Button_Click"/>
                 <Button Margin="0,0,0,27.5" x:Name="DownButton" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" FontFamily="Manrope" Width="180" Height="25" MinHeight="0" Click="Button_Click"/>
@@ -20,12 +20,30 @@
             </StackPanel>
         </StackPanel>
 
-        <Label Content="Up" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,7.5,0,0"/>
-        <Label Content="Down" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,60,0,0"/>
-        <Label Content="Left" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,112.5,0,0"/>
-        <Label Content="Right" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,165,0,0"/>
-        <Label Content="Confirm" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,156.5"/>
-        <Label Content="Leave" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,104"/>
-        <Label Content="Visibility" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,51.5"/>
+        <Label Content="Up" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="97,7.5,0,0"/>
+        <Label Content="Down" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,60,0,0"/>
+        <Label Content="Left" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="95,112.5,0,0"/>
+        <Label Content="Right" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="91,165,0,0"/>
+        <Label Content="Confirm" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="84,0,0,156.5"/>
+        <Label Content="Leave" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="90,0,0,104"/>
+        <Label Content="Visibility" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="83,0,0,51.5"/>
+        <Label Content="Theme" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="75,11.5"/>
+        
+        <ComboBox x:Name="ThemeBox"
+                 Width="175"
+                 Height="25"
+                 VerticalAlignment="Top"
+                 HorizontalAlignment="Right"
+                 Margin="15,40" SelectionChanged="ThemeBox_SelectionChanged"
+                 BorderThickness="0" Background="#FF2E3440"
+                 Focusable="False" SelectedIndex="0">
+        
+            <ComboBoxItem Content="Default" Background="#FF2E3440"/>
+            <ComboBoxItem Content="Nord" Background="#FF2E3440"/>
+            <ComboBoxItem Content="Moss" Background="#FF2E3440"/>
+            <ComboBoxItem Content="Navy Blue" Background="#FF2E3440"/>
+            <ComboBoxItem Content="Lavender" Background="#FF2E3440"/>
+            <ComboBoxItem Content="Lilac" Background="#FF2E3440"/>
+        </ComboBox>
     </Grid>
 </Page>
