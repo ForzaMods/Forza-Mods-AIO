@@ -10,12 +10,13 @@ using System.Windows.Threading;
 using IniParser;
 using IniParser.Model;
 
-namespace Forza_Mods_AIO.Tabs.Keybinds
+namespace Forza_Mods_AIO.Tabs.Settings
 {
     internal class KeybindsHandling
     {
         [DllImport("User32.dll")]
         public static extern short GetAsyncKeyState(Int32 vKey);
+        
         static string PathToKeybindings = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods Tool\Keybindings.ini";
         static FileIniDataParser Parser = new FileIniDataParser();
         static IniData IniData = new IniData();
@@ -23,7 +24,7 @@ namespace Forza_Mods_AIO.Tabs.Keybinds
 
         public static void KeyGrabber(Button sender)
         {
-            Keybinds.Grabbing = true;
+            Settings.Grabbing = true;
 
             string keyBuffer = string.Empty;
             while (keyBuffer.Length == 0)
@@ -46,6 +47,8 @@ namespace Forza_Mods_AIO.Tabs.Keybinds
                 sender.Content = keyBuffer;
                 RegisterKeybind("Overlay",keyBuffer, sender);
                 
+                // just gonna do this for now bc I canny shorten it
+                // TODO: shorten code
                 if (sender.Name == "UpButton")
                     OverlayHandling.Up = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
 
@@ -100,13 +103,13 @@ namespace Forza_Mods_AIO.Tabs.Keybinds
             }
             #endregion
             
-            Keybinds.K.UpButton.Content = OverlayHandling.Up;
-            Keybinds.K.DownButton.Content = OverlayHandling.Down;
-            Keybinds.K.LeftButton.Content = OverlayHandling.Left;
-            Keybinds.K.RightButton.Content = OverlayHandling.Right;
-            Keybinds.K.ConfirmButton.Content = OverlayHandling.Confirm;
-            Keybinds.K.LeaveButton.Content = OverlayHandling.Leave;
-            Keybinds.K.VisibilityButton.Content = OverlayHandling.OverlayVisibility;
+            Settings.S.UpButton.Content = OverlayHandling.Up;
+            Settings.S.DownButton.Content = OverlayHandling.Down;
+            Settings.S.LeftButton.Content = OverlayHandling.Left;
+            Settings.S.RightButton.Content = OverlayHandling.Right;
+            Settings.S.ConfirmButton.Content = OverlayHandling.Confirm;
+            Settings.S.LeaveButton.Content = OverlayHandling.Leave;
+            Settings.S.VisibilityButton.Content = OverlayHandling.OverlayVisibility;
         }
 
         private static void RegisterKeybind(string part,string key, Button sender)

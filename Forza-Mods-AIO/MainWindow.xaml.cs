@@ -55,7 +55,7 @@ namespace Forza_Mods_AIO
         public static MainWindow mw = new MainWindow();
         public Mem m = new Mem();
         public static AIO_Info AInfo = new AIO_Info();
-        List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.TuningTablePort.TuningTableMain(), new Tabs.Keybinds.Keybinds() };
+        List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.TuningTablePort.TuningTableMain(), new Tabs.Settings.Settings() };
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
         #endregion
         #region Starting
