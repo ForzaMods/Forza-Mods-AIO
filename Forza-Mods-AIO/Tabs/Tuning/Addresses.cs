@@ -177,10 +177,10 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 dispatcher.BeginInvoke((Action)delegate () { TuningTableMain.TBM.AOBProgressBar.Value = 24; });
                 Thread.Sleep(100);
 
-                CamberNeg = (TuningTableBase2 + ",0x8B0,0x498");
-                CamberPos = (TuningTableBase2 + ",0x8B0,0x49C");
-                ToeNeg = (TuningTableBase2 + ",0x8B0,0x4A0");
-                ToePos = (TuningTableBase2 + ",0x8B0,0x4A4");
+                CamberNeg = (TuningTableBase2 + ",0x8B0,0x490");
+                CamberPos = (TuningTableBase2 + ",0x8B0,0x494");
+                ToeNeg = (TuningTableBase2 + ",0x8B0,0x498");
+                ToePos = (TuningTableBase2 + ",0x8B0,0x49C");
                 dispatcher.BeginInvoke((Action)delegate () { TuningTableMain.TBM.AOBProgressBar.Value = 30; });
                 Thread.Sleep(100);
 
@@ -288,10 +288,10 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 dispatcher.BeginInvoke((Action)delegate () { TuningTableMain.TBM.AOBProgressBar.Value = 24; });
                 Thread.Sleep(100);
 
-                CamberNeg = (TuningTableBase2 + ",0x8B0,0x498");
-                CamberPos = (TuningTableBase2 + ",0x8B0,0x49C");
-                ToeNeg = (TuningTableBase2 + ",0x8B0,0x4A0");
-                ToePos = (TuningTableBase2 + ",0x8B0,0x4A4");
+                CamberNeg = (TuningTableBase2 + ",0x8B0,0x490");
+                CamberPos = (TuningTableBase2 + ",0x8B0,0x494");
+                ToeNeg = (TuningTableBase2 + ",0x8B0,0x498");
+                ToePos = (TuningTableBase2 + ",0x8B0,0x49C");
                 dispatcher.BeginInvoke((Action)delegate () { TuningTableMain.TBM.AOBProgressBar.Value = 30; });
                 Thread.Sleep(100);
 
