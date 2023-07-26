@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 {
@@ -363,7 +364,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             FOVHighAddr = (Base3Addr + ",0x538,0xF0,0xD80,0x6F0");
         }
         #endregion
-        public async void AoBscan()
+        public async Task AoBscan()
         {
             int offsetfive = 4107;
             int offsetfivetwo = 28675;

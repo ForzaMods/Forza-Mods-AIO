@@ -32,7 +32,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 
         private void VelocityValueNum_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { shp.VelocitySlider.Value = (float)e.NewValue; } catch { }
+            try { if (shp != null) shp.VelocitySlider.Value = (float)e.NewValue; } catch { }
         }
 
         private void VelocitySwitch_Toggled(object sender, RoutedEventArgs e)

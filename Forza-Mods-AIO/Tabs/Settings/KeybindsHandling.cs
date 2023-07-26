@@ -9,6 +9,7 @@ using Keys = System.Windows.Forms.Keys;
 using System.Windows.Threading;
 using IniParser;
 using IniParser.Model;
+using System.Collections.Generic;
 
 namespace Forza_Mods_AIO.Tabs.Settings
 {
@@ -74,10 +75,26 @@ namespace Forza_Mods_AIO.Tabs.Settings
 
         public static void UpdateKeybindingOnLaunch()
         {
-            #region  First time open / somebody deleted file
+            #region First time open / somebody deleted file
+            var overlayMap = new Dictionary<string, Keys>
+            {
+                { "Up", OverlayHandling.Up },
+                { "Down", OverlayHandling.Down },
+                { "Left", OverlayHandling.Left },
+                { "Right", OverlayHandling.Right },
+                { "Confirm", OverlayHandling.Confirm },
+                { "Leave", OverlayHandling.Leave },
+                { "Visibility", OverlayHandling.OverlayVisibility }
+            };
+
             if (!File.Exists(PathToKeybindings) || new FileInfo(PathToKeybindings).Length == 0)
             {
-                using (File.Create(PathToKeybindings)) {};
+                try { using (File.Create(PathToKeybindings)) { }; }
+                catch 
+                { 
+                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods Tool");
+                    using (File.Create(PathToKeybindings)) { };
+                }
                 IniData["Overlay"]["Up"] = OverlayHandling.Up.ToString();
                 IniData["Overlay"]["Down"] = OverlayHandling.Down.ToString();
                 IniData["Overlay"]["Left"] = OverlayHandling.Left.ToString();

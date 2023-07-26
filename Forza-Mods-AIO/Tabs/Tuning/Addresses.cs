@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -124,7 +125,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
         public static string TuningTableBase4;
         #endregion
 
-        public static async void TuningTable(int ver)
+        public static async Task TuningTable(int ver)
         {
             #region Camber,toe (static) and scanning vars
             Dispatcher dispatcher = Application.Current.Dispatcher;

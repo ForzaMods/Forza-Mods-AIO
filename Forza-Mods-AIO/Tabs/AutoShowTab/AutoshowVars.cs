@@ -37,7 +37,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
         public bool exec = false;
         #endregion
 
-        public async void Scan(int ver)
+        public async Task Scan(int ver)
         {
             Dispatcher dispatcher = Application.Current.Dispatcher;
             dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.ScanButton.IsEnabled = false; });
