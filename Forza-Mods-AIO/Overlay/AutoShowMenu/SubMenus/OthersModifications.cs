@@ -47,7 +47,7 @@ namespace Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus
         {
             Task.Run(() =>
             {
-                dispatcher.BeginInvoke((Action)(() => { AutoShow.AS.FreePerfUpgrades.IsOn = (bool)FreePerfUpgradesToggle.Value; }));
+                dispatcher.BeginInvoke((Action)(() => { AutoShow.AS.FreeVisualUpgrades.IsOn = (bool)FreeVisualUpgradeToggle.Value; }));
 
                 if ((bool)FreePerfUpgradesToggle.Value && (bool)FreeVisualUpgradeToggle.Value)
                     FreePerfUpgradesToggle.Value = false;
@@ -58,7 +58,7 @@ namespace Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus
         {
             Task.Run(() =>
             {
-                dispatcher.BeginInvoke((Action)(() => { AutoShow.AS.FreePerfUpgrades.IsOn = (bool)FreePerfUpgradesToggle.Value; }));
+                dispatcher.BeginInvoke((Action)(() => { AutoShow.AS.QuickAddAllCars.IsOn = (bool)QuickAddAllCarsToggle.Value; }));
 
                 if ((bool)QuickAddRareCarsToggle.Value && (bool)QuickAddAllCarsToggle.Value)
                     QuickAddRareCarsToggle.Value = false;
@@ -70,7 +70,7 @@ namespace Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus
         {
             Task.Run(() =>
             {
-                dispatcher.BeginInvoke((Action)(() => { AutoShow.AS.FreePerfUpgrades.IsOn = (bool)FreePerfUpgradesToggle.Value; }));
+                dispatcher.BeginInvoke((Action)(() => { AutoShow.AS.QuickAddRareCars.IsOn = (bool)QuickAddRareCarsToggle.Value; }));
 
                 if ((bool)QuickAddAllCarsToggle.Value && (bool)QuickAddRareCarsToggle.Value)
                     QuickAddAllCarsToggle.Value = false;

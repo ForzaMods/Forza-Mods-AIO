@@ -378,24 +378,24 @@ namespace Forza_Mods_AIO.Overlay
                 {
                     if (ct.IsCancellationRequested)
                         return;
-                    if (GetAsyncKeyState(Down) is 1 or Int16.MinValue && !DownKeyDown)
+                    if (GetAsyncKeyState(Down) is 1 or Int16.MinValue && !DownKeyDown && !Hidden)
                         DownKeyDown = true;
-                    if (GetAsyncKeyState(Down) is not 1 and not Int16.MinValue && DownKeyDown)
+                    if (GetAsyncKeyState(Down) is not 1 and not Int16.MinValue && DownKeyDown && !Hidden)
                         DownKeyDown = false;
-                    if (GetAsyncKeyState(Up) is 1 or Int16.MinValue && !UpKeyDown)
+                    if (GetAsyncKeyState(Up) is 1 or Int16.MinValue && !UpKeyDown && !Hidden)
                         UpKeyDown = true;
-                    if (GetAsyncKeyState(Up) is not 1 and not Int16.MinValue && UpKeyDown)
+                    if (GetAsyncKeyState(Up) is not 1 and not Int16.MinValue && UpKeyDown && !Hidden)
                         UpKeyDown = false;
-                    if (GetAsyncKeyState(Left) is 1 or Int16.MinValue && !LeftKeyDown)
+                    if (GetAsyncKeyState(Left) is 1 or Int16.MinValue && !LeftKeyDown && !Hidden)
                         LeftKeyDown = true;
-                    if (GetAsyncKeyState(Left) is not 1 and not Int16.MinValue && LeftKeyDown)
+                    if (GetAsyncKeyState(Left) is not 1 and not Int16.MinValue && LeftKeyDown && !Hidden)
                         LeftKeyDown = false;
-                    if (GetAsyncKeyState(Right) is 1 or Int16.MinValue && !RightKeyDown)
+                    if (GetAsyncKeyState(Right) is 1 or Int16.MinValue && !RightKeyDown && !Hidden)
                         RightKeyDown = true;
-                    if (GetAsyncKeyState(Right) is not 1 and not Int16.MinValue && RightKeyDown)
+                    if (GetAsyncKeyState(Right) is not 1 and not Int16.MinValue && RightKeyDown && !Hidden)
                         RightKeyDown = false;
 
-                    if (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue)
+                    if (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue && !Hidden)
                     {
                         if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "MenuButton")
                         {
@@ -422,7 +422,7 @@ namespace Forza_Mods_AIO.Overlay
                         while (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue)
                             Thread.Sleep(10);
                     }
-                    if (GetAsyncKeyState(Leave) is 1 or Int16.MinValue)
+                    if (GetAsyncKeyState(Leave) is 1 or Int16.MinValue && !Hidden)
                     {
                         if (LevelIndex == 0)
                         {
