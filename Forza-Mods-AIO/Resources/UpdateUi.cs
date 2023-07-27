@@ -26,12 +26,12 @@ namespace Forza_Mods_AIO.Resources
         public static readonly Dictionary<string, double> Sizes = new Dictionary<string, double>()
         {
             // Tuning
-            { "TiresButton" , 150}, // Button name for page, height of page
+            { "TiresButton" , 160}, // Button name for page, height of page
             { "GearingButton" , 250},
-            { "AlignmentButton" , 150},
+            { "AlignmentButton" , 200},
             { "SpringsButton" , 525},
             { "DampingButton" , 585},
-            { "AeroButton", 150 },
+            { "AeroButton", 160 },
             { "SteeringButton", 395 },
             { "OthersButton", 430 },
 

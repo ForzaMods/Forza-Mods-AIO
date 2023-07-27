@@ -374,78 +374,81 @@ namespace Forza_Mods_AIO.Overlay
         {
             while (true)
             {
-                if (ct.IsCancellationRequested)
-                    return;
-                if (GetAsyncKeyState(Down) is 1 or Int16.MinValue && !DownKeyDown)
-                    DownKeyDown = true;
-                if (GetAsyncKeyState(Down) is not 1 and not Int16.MinValue && DownKeyDown)
-                    DownKeyDown = false;
-                if (GetAsyncKeyState(Up) is 1 or Int16.MinValue && !UpKeyDown)
-                    UpKeyDown = true;
-                if (GetAsyncKeyState(Up) is not 1 and not Int16.MinValue && UpKeyDown)
-                    UpKeyDown = false;
-                if (GetAsyncKeyState(Left) is 1 or Int16.MinValue && !LeftKeyDown)
-                    LeftKeyDown = true;
-                if (GetAsyncKeyState(Left) is not 1 and not Int16.MinValue && LeftKeyDown)
-                    LeftKeyDown = false;
-                if (GetAsyncKeyState(Right) is 1 or Int16.MinValue && !RightKeyDown)
-                    RightKeyDown = true;
-                if (GetAsyncKeyState(Right) is not 1 and not Int16.MinValue && RightKeyDown)
-                    RightKeyDown = false;
+                if (MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow())
+                {
+                    if (ct.IsCancellationRequested)
+                        return;
+                    if (GetAsyncKeyState(Down) is 1 or Int16.MinValue && !DownKeyDown)
+                        DownKeyDown = true;
+                    if (GetAsyncKeyState(Down) is not 1 and not Int16.MinValue && DownKeyDown)
+                        DownKeyDown = false;
+                    if (GetAsyncKeyState(Up) is 1 or Int16.MinValue && !UpKeyDown)
+                        UpKeyDown = true;
+                    if (GetAsyncKeyState(Up) is not 1 and not Int16.MinValue && UpKeyDown)
+                        UpKeyDown = false;
+                    if (GetAsyncKeyState(Left) is 1 or Int16.MinValue && !LeftKeyDown)
+                        LeftKeyDown = true;
+                    if (GetAsyncKeyState(Left) is not 1 and not Int16.MinValue && LeftKeyDown)
+                        LeftKeyDown = false;
+                    if (GetAsyncKeyState(Right) is 1 or Int16.MinValue && !RightKeyDown)
+                        RightKeyDown = true;
+                    if (GetAsyncKeyState(Right) is not 1 and not Int16.MinValue && RightKeyDown)
+                        RightKeyDown = false;
 
-                if (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue)
-                {
-                    if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "MenuButton")
+                    if (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue)
                     {
-                        LevelIndex++;
-                        string[] NameSplit = Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Name.Split(new char[] { ' ', '/', '[', ']' });
-                        CurrentMenu = string.Empty;
-                        foreach (string item in NameSplit)
-                            CurrentMenu += char.ToUpper(item[0]) + item.Substring(1);
-                        CurrentMenu += "Options";
-                        History.Add(LevelIndex, CurrentMenu);
+                        if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "MenuButton")
+                        {
+                            LevelIndex++;
+                            string[] NameSplit = Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Name.Split(new char[] { ' ', '/', '[', ']' });
+                            CurrentMenu = string.Empty;
+                            foreach (string item in NameSplit)
+                                CurrentMenu += char.ToUpper(item[0]) + item.Substring(1);
+                            CurrentMenu += "Options";
+                            History.Add(LevelIndex, CurrentMenu);
+                            SelectedOptionIndex = 0;
+                        }
+                        else if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Bool")
+                        {
+                            if ((bool)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value == true)
+                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = false;
+                            else
+                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = true;
+                        }
+                        else if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Button")
+                        {
+                            ((Action)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value)();
+                        }
+                        while (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue)
+                            Thread.Sleep(10);
+                    }
+                    if (GetAsyncKeyState(Leave) is 1 or Int16.MinValue)
+                    {
+                        if (LevelIndex == 0)
+                        {
+                            Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Hide(); });
+                            Hidden = true;
+                            continue;
+                        }
+                        LevelIndex--;
+                        CurrentMenu = History[LevelIndex];
+                        History.Remove(LevelIndex + 1);
                         SelectedOptionIndex = 0;
+                        while (GetAsyncKeyState(Leave) is 1 or Int16.MinValue)
+                            Thread.Sleep(10);
                     }
-                    else if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Bool")
+                    if (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
                     {
-                        if ((bool)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value == true)
-                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = false;
+                        if (Overlay.o.Visibility == Visibility.Visible && !Hidden)
+                            Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Hide(); });
                         else
-                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = true;
+                            Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Show(); });
+                        Hidden = !Hidden;
+                        while (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
+                            Thread.Sleep(10);
                     }
-                    else if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Button")
-                    {
-                        ((Action)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value)();
-                    }
-                    while (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue)
-                        Thread.Sleep(10);
+                    Thread.Sleep(10);
                 }
-                if (GetAsyncKeyState(Leave) is 1 or Int16.MinValue)
-                {
-                    if (LevelIndex == 0)
-                    {
-                        Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Hide(); });
-                        Hidden = true;
-                        continue;
-                    }
-                    LevelIndex--;
-                    CurrentMenu = History[LevelIndex];
-                    History.Remove(LevelIndex + 1);
-                    SelectedOptionIndex = 0;
-                    while (GetAsyncKeyState(Leave) is 1 or Int16.MinValue)
-                        Thread.Sleep(10);
-                }
-                if (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
-                {
-                    if (Overlay.o.Visibility == Visibility.Visible && !Hidden)
-                        Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Hide(); });
-                    else
-                        Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Show(); });
-                    Hidden = !Hidden;
-                    while (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
-                        Thread.Sleep(10);
-                }
-                Thread.Sleep(10);
             }
         }
         public void ChangeSelection(CancellationToken ct)

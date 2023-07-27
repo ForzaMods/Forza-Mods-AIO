@@ -18,7 +18,7 @@
         Closing="Window_Closing"
         ShowTitleBar="False" ShowCloseButton="False" BorderThickness="0"
         WindowTransitionsEnabled="False" Title="Forza Mods AIO"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterOwner">
     
     <Border x:Name="Background" Background="#111111"
             CornerRadius="20">
