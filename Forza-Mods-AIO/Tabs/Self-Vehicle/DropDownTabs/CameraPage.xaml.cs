@@ -17,56 +17,6 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 
         }
 
-        private void ZoomUnlocker_Toggled(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void FocusBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-
-        }
-
-        private void ExposureBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-
-        }
-
-        private void ApertureBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-
-        }
-
-        private void ContrastBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-
-        }
-
-        private void ColourBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-
-        }
-
-        private void BrightnessBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-
-        }
-
-        private void SepiaBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-
-        }
-
-        private void VignetteBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-
-        }
-
-        private void TemperatureBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-
-        }
-
         private void SpeedSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {   
             MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.MovementSpeed, "float", SpeedSlider.Value.ToString());
@@ -80,6 +30,31 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
         private void TurnSpeed_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TurnAndZoomSpeed, "float", TurnSpeed.Value.ToString());
+        }
+
+        private void SamplesBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+
+        }
+
+        private void ShutterSpeedBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+
+        }
+
+        private void ApertureScaleBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+
+        }
+
+        private void CarInFocusBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+
+        }
+
+        private void TimeSliceBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+
         }
     }
 }

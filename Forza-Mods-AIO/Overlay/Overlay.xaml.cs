@@ -109,6 +109,10 @@ namespace Forza_Mods_AIO.Overlay
         public Dictionary<string, List<MenuOption>> AllMenus = new Dictionary<string, List<MenuOption>>()
         {
             { "MainOptions" , MainOptions },
+                { "AutoshowOptions" , AutoShowMenu.AutoShowMenu.AutoShowOptions},
+                    { "AutoshowFiltersOptions" , AutoShowMenu.SubMenus.AutoshowFilters.AutoShowFiltersOptions},
+                    { "GarageModificationsOptions" , AutoShowMenu.SubMenus.GarageModifications.GarageModificationsOptions},
+                    { "OthersModificationsOptions" , AutoShowMenu.SubMenus.OthersModifications.OthersModificationsOptions},
                 { "SelfCarsOptions" , SelfCarMenu.SelfCarMenu.SelfCarsOptions},
                     { "HandlingOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.HandlingOptions},
                         { "VelocityOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.VelocityOptions},
@@ -139,6 +143,7 @@ namespace Forza_Mods_AIO.Overlay
 
         // Add all sub menu classes here for event handling
         SettingsMenu.SettingsMenu sm = new SettingsMenu.SettingsMenu();
+        AutoShowMenu.AutoShowMenu am = new AutoShowMenu.AutoShowMenu();
         #endregion
         #region Main
         public Overlay()
@@ -153,6 +158,7 @@ namespace Forza_Mods_AIO.Overlay
         void InitializeAllSubMenus()
         {
             sm.InitiateSubMenu();
+            am.InitalizeEventHandlersForSubMenus();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
