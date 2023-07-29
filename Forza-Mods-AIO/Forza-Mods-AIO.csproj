@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>false</SelfContained>
@@ -47,6 +47,7 @@
     <Resource Include="Resources\Fonts\Manrope-Medium.ttf" />
     <Resource Include="Resources\Fonts\Manrope-Regular.ttf" />
     <Resource Include="Resources\Fonts\Manrope-SemiBold.ttf" />
+    <Resource Include="Resources\SQL\SQL_DLL.dll" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ini-parser" Version="2.5.2" />
@@ -72,10 +73,16 @@
     <EmbeddedResource Remove="Tabs\Self-Vehicle\Self-Vehicle.xaml" />
     <EmbeddedResource Remove="Resources\Theme\MenuButtonTheme.xaml" />
     <EmbeddedResource Remove="Resources\Theme\MetroTheming.xaml" />
+    <None Remove="Resources\SQL\SQL_DLL.dll" />
     <Page Remove="Resources\Theme\MetroTheming.xaml" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Lunar">
+      <HintPath>Resources\SQL\Lunar.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Update="Overlay\Headers\pog header.png">

@@ -8,6 +8,9 @@ using System.Windows.Threading;
 using System.IO.Pipes;
 using System.Threading;
 using System.IO;
+using Lunar;
+using System.Resources;
+using System.Globalization;
 
 namespace Forza_Mods_AIO.Tabs.AutoShowTab
 {
@@ -89,6 +92,19 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
             sql17 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "41 4E 44 20 4E 4F 54 20 49 73 4D 69 64 6E 69 67 68 74 43 61 72 00 00 20 41 4E 44 20 4E 4F 54 20 49 73 42 61 72 6E 46 69 6E 64 00 00 00 00 00 20", true, true)).FirstOrDefault().ToString("X");
             dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 100; });
             dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.ScanButton.IsEnabled = true; });
+
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
+            {
+                LibraryMapper mapper;
+                try
+                {
+                    Memory<byte> DllBytes = SQL.SQL_DLL;
+                    mapper = new LibraryMapper(TargetProcess, DllBytes, MappingFlags.DiscardHeaders);
+                    mapper.MapLibrary();
+                }
+                catch { }
+            }
+
         }
 
         public static unsafe bool ExecSQL(string SQL)
@@ -127,4 +143,35 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
             }
         }
     }
+
+    #region SQL Class, grabs bytes of the sql dll
+    internal class SQL
+    {
+        static CultureInfo resourceCulture;
+        private static global::System.Resources.ResourceManager resourceMan;
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Forza_Mods_AIO.Tabs.AutoshowTab.AutoshowVars.SQL", typeof(SQL).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+
+        internal static byte[] SQL_DLL
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("SQL_DLL", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+
+    }
+    #endregion
 }
