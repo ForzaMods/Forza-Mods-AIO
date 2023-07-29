@@ -34,119 +34,207 @@ namespace Forza_Mods_AIO.Tabs
 
         private void ToggleAllCars_Toggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (ToggleAllCars.IsOn)
             {
                 ToggleRareCars.IsEnabled = false;
 
+                #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql18, "string", "                                                              ");
-                    MainWindow.mw.m.WriteMemory(ASA.sql19, "string", "    Garage.IsInstalled            AS PurchasableCar,                        ");
+                    Task.Run(() =>
+                    {
+                        if (ASA.IsFirstTime)
+                        {
+                            AutoshowVars.ExecSQL("CREATE TABLE IF NOT EXISTS OriginalStuff (Id INTEGER,OriginalPrice INTEGER,OriginalAutoshow INTEGER,); INSERT INTO OriginalStuff (Id, OriginalPrice, OriginalAutoshow) SELECT Id, BaseCost, NotAvailableInAutoshow FROM Data_Car;");
+                            ASA.IsFirstTime = false;
+                        }
+
+                        Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = false; });
+                        bool Done = AutoshowVars.ExecSQL("UPDATE Data_Car SET NotAvailableInAutoshow = 0 WHERE NotAvailableInAutoshow = 1;");
+                        if (Done)
+                            ;
+                        else
+                        {
+                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.Toggled -= ToggleFreeCars_Toggled; });
+                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsOn = false; });
+                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.Toggled += ToggleFreeCars_Toggled; });
+                        }
+                        Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = true; });
+                    });
                 }
+                #endregion
+                #region FH4
                 else
+                {
                     MainWindow.mw.m.WriteMemory(ASA.sql5, "string", "                            ");
+                    MainWindow.mw.m.WriteMemory(ASA.sql3, "string", "                  ");
+                    MainWindow.mw.m.WriteMemory(ASA.sql7, "string", "                                           ");
+                    MainWindow.mw.m.WriteMemory(ASA.sql1, "string", "    Garage.IsInstalled            AS PurchasableCar,");
+                    MainWindow.mw.m.WriteMemory(ASA.sql9, "string", "                                    ");
+                    MainWindow.mw.m.WriteMemory(ASA.sql8, "string", "           1215=");
+                    MainWindow.mw.m.WriteMemory(ASA.sql4, "string", "      1215=");
 
-                MainWindow.mw.m.WriteMemory(ASA.sql3, "string", "                  ");
-                MainWindow.mw.m.WriteMemory(ASA.sql7, "string", "                                           ");
-                MainWindow.mw.m.WriteMemory(ASA.sql1, "string", "    Garage.IsInstalled            AS PurchasableCar,");
-                MainWindow.mw.m.WriteMemory(ASA.sql9, "string", "                                    ");
-                MainWindow.mw.m.WriteMemory(ASA.sql8, "string", "           1215=");
-                MainWindow.mw.m.WriteMemory(ASA.sql4, "string", "      1215=");
-
-                if (ASA.sql17 != "0")
-                    MainWindow.mw.m.WriteMemory(ASA.sql17, "string", "                     ");
+                    if (ASA.sql17 != "0")
+                        MainWindow.mw.m.WriteMemory(ASA.sql17, "string", "                     ");
+                }
+                #endregion
             }
+            #endregion
+            #region Disable
             else if (!ToggleAllCars.IsOn)
             {
                 ToggleRareCars.IsEnabled = true;
 
+                #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql18, "string", "AND CanBuyNewCar(Garage.Id, Garage.NotAvailableInAutoshow)    ");
-                    MainWindow.mw.m.WriteMemory(ASA.sql19, "string", "CanBuyNewCar(Garage.Id, Garage.NotAvailableInAutoshow) AS PurchasableCar,   ");
+                    Task.Run(() =>
+                    {
+                        Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = false; });
+                        bool Done = AutoshowVars.ExecSQL("UPDATE Data_Car SET NotAvailableInAutoshow = (SELECT OriginalAutoshow FROM OriginalStuff WHERE OriginalStuff.Id = Data_Car.Id);");
+                        if (Done)
+                            ;
+                        else
+                        {
+                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.Toggled -= ToggleFreeCars_Toggled; });
+                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsOn = false; });
+                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.Toggled += ToggleFreeCars_Toggled; });
+                        }
+                        Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = true; });
+                    });
                 }
+                #endregion
+                #region FH4
                 else
+                {
                     MainWindow.mw.m.WriteMemory(ASA.sql5, "string", "AND NotAvailableInAutoshow=0");
+                    MainWindow.mw.m.WriteMemory(ASA.sql3, "string", "AND NOT IsBarnFind");
+                    MainWindow.mw.m.WriteMemory(ASA.sql7, "string", "AND IsCarVisibleAndReleased(Garage.ModelId)");
+                    MainWindow.mw.m.WriteMemory(ASA.sql1, "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
+                    MainWindow.mw.m.WriteMemory(ASA.sql9, "string", "AND UnobtainableCars.Ordinal IS NULL");
+                    MainWindow.mw.m.WriteMemory(ASA.sql8, "string", "Garage.ModelId!=");
+                    MainWindow.mw.m.WriteMemory(ASA.sql4, "string", "Garage.Id!=");
 
-                MainWindow.mw.m.WriteMemory(ASA.sql3, "string", "AND NOT IsBarnFind");
-                MainWindow.mw.m.WriteMemory(ASA.sql7, "string", "AND IsCarVisibleAndReleased(Garage.ModelId)");
-                MainWindow.mw.m.WriteMemory(ASA.sql1, "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
-                MainWindow.mw.m.WriteMemory(ASA.sql9, "string", "AND UnobtainableCars.Ordinal IS NULL");
-                MainWindow.mw.m.WriteMemory(ASA.sql8, "string", "Garage.ModelId!=");
-                MainWindow.mw.m.WriteMemory(ASA.sql4, "string", "Garage.Id!=");
-
-                if (ASA.sql17 != "0")
-                    MainWindow.mw.m.WriteMemory(ASA.sql17, "string", "AND NOT IsMidnightCar");
+                    if (ASA.sql17 != "0")
+                        MainWindow.mw.m.WriteMemory(ASA.sql17, "string", "AND NOT IsMidnightCar");
+                }
+                #endregion
             }
+            #endregion
         }
 
         private void ToggleRareCars_Toggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (ToggleRareCars.IsOn)
             {
                 ToggleAllCars.IsEnabled = false;
-
+                #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql18, "string", "AND CanBuyNewCar(Garage.Id, \"0\")                              ");
-                    MainWindow.mw.m.WriteMemory(ASA.sql19, "string", "CanBuyNewCar(Garage.Id, \"0\") AS PurchasableCar,                           ");
+                    Task.Run(() =>
+                    {
+                        Dispatcher.BeginInvoke(delegate () { ToggleRareCars.IsEnabled = false; });
+                        bool Done = AutoshowVars.ExecSQL("UPDATE Data_Car SET NotAvailableInAutoshow = CASE NotAvailableInAutoshow WHEN 0 THEN 1 WHEN 1 THEN 0 END;");
+                        if (Done)
+                            ;
+                        else
+                        {
+                            Dispatcher.BeginInvoke(delegate () { ToggleRareCars.Toggled -= ToggleRareCars_Toggled; });
+                            Dispatcher.BeginInvoke(delegate () { ToggleRareCars.IsOn = false; });
+                            Dispatcher.BeginInvoke(delegate () { ToggleRareCars.Toggled += ToggleRareCars_Toggled; });
+                        }
+                        Dispatcher.BeginInvoke(delegate () { ToggleRareCars.IsEnabled = true; });
+                    });
                 }
+                #endregion
+                #region FH4
                 else
+                {
                     MainWindow.mw.m.WriteMemory(ASA.sql6, "string", "=1                                    ");
 
-                MainWindow.mw.m.WriteMemory(ASA.sql3, "string", "                  ");
-                MainWindow.mw.m.WriteMemory(ASA.sql1, "string", "    Garage.IsInstalled            AS PurchasableCar,");
-                MainWindow.mw.m.WriteMemory(ASA.sql9, "string", "                                    ");
-                MainWindow.mw.m.WriteMemory(ASA.sql8, "string", "           1215=");
-                MainWindow.mw.m.WriteMemory(ASA.sql4, "string", "      1215=");
+                    MainWindow.mw.m.WriteMemory(ASA.sql3, "string", "                  ");
+                    MainWindow.mw.m.WriteMemory(ASA.sql1, "string", "    Garage.IsInstalled            AS PurchasableCar,");
+                    MainWindow.mw.m.WriteMemory(ASA.sql9, "string", "                                    ");
+                    MainWindow.mw.m.WriteMemory(ASA.sql8, "string", "           1215=");
+                    MainWindow.mw.m.WriteMemory(ASA.sql4, "string", "      1215=");
 
-                if (ASA.sql17 != "0")
-                    MainWindow.mw.m.WriteMemory(ASA.sql17, "string", "                     ");
+                    if (ASA.sql17 != "0")
+                        MainWindow.mw.m.WriteMemory(ASA.sql17, "string", "                     ");
+                }
+                #endregion
             }
-
+            #endregion
+            #region Disable
             else if (!ToggleRareCars.IsOn)
             {
                 ToggleAllCars.IsEnabled = true;
-
+                #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql18, "string", "AND CanBuyNewCar(Garage.Id, \"0\")                              ");
-                    MainWindow.mw.m.WriteMemory(ASA.sql19, "string", "CanBuyNewCar(Garage.Id, \"0\") AS PurchasableCar,                           ");
+                    Task.Run(() =>
+                    {
+                        Dispatcher.BeginInvoke(delegate () { ToggleRareCars.IsEnabled = false; });
+                        bool Done = AutoshowVars.ExecSQL("UPDATE Data_Car SET NotAvailableInAutoshow = CASE NotAvailableInAutoshow WHEN 1 THEN 0 WHEN 0 THEN 1 END;");
+                        if (Done)
+                            ;
+                        else
+                        {
+                            Dispatcher.BeginInvoke(delegate () { ToggleRareCars.Toggled -= ToggleRareCars_Toggled; });
+                            Dispatcher.BeginInvoke(delegate () { ToggleRareCars.IsOn = false; });
+                            Dispatcher.BeginInvoke(delegate () { ToggleRareCars.Toggled += ToggleRareCars_Toggled; });
+                        }
+                        Dispatcher.BeginInvoke(delegate () { ToggleRareCars.IsEnabled = true; });
+                    });
                 }
+                #endregion
+                #region FH4
                 else
+                {
                     MainWindow.mw.m.WriteMemory(ASA.sql6, "string", "=0                                    ");
 
-                MainWindow.mw.m.WriteMemory(ASA.sql3, "string", "AND NOT IsBarnFind");
-                MainWindow.mw.m.WriteMemory(ASA.sql1, "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
-                MainWindow.mw.m.WriteMemory(ASA.sql9, "string", "AND UnobtainableCars.Ordinal IS NULL");
-                MainWindow.mw.m.WriteMemory(ASA.sql8, "string", "Garage.ModelId!=");
-                MainWindow.mw.m.WriteMemory(ASA.sql4, "string", "Garage.Id!=");
+                    MainWindow.mw.m.WriteMemory(ASA.sql3, "string", "AND NOT IsBarnFind");
+                    MainWindow.mw.m.WriteMemory(ASA.sql1, "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
+                    MainWindow.mw.m.WriteMemory(ASA.sql9, "string", "AND UnobtainableCars.Ordinal IS NULL");
+                    MainWindow.mw.m.WriteMemory(ASA.sql8, "string", "Garage.ModelId!=");
+                    MainWindow.mw.m.WriteMemory(ASA.sql4, "string", "Garage.Id!=");
 
-                if (ASA.sql17 != "0")
-                    MainWindow.mw.m.WriteMemory(ASA.sql17, "string", "AND NOT IsMidnightCar");
+                    if (ASA.sql17 != "0")
+                        MainWindow.mw.m.WriteMemory(ASA.sql17, "string", "AND NOT IsMidnightCar");
+                }
+                #endregion
             }
+            #endregion
         }
 
         private void ToggleFreeCars_Toggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (ToggleFreeCars.IsOn)
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
-                    /*Task.Run(() =>
+                    Task.Run(() =>
                     {
-                        Box_FreeCars.Enabled = false;
-                        bool Done = ExecSQL("CREATE TABLE CostTable(Id string, BaseCost string); INSERT INTO CostTable(Id, BaseCost) SELECT Id, BaseCost FROM Data_car; UPDATE Data_Car SET BaseCost = 0;");
+                        if (ASA.IsFirstTime)
+                        {
+                            AutoshowVars.ExecSQL("CREATE TABLE IF NOT EXISTS OriginalStuff (Id INTEGER,OriginalPrice INTEGER,OriginalAutoshow INTEGER,); INSERT INTO OriginalStuff (Id, OriginalPrice, OriginalAutoshow) SELECT Id, BaseCost, NotAvailableInAutoshow FROM Data_Car;");
+                            ASA.IsFirstTime = false;
+                        }
+
+                        Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = false; });
+                        bool Done = AutoshowVars.ExecSQL("CREATE TABLE CostTable(Id string, BaseCost string); INSERT INTO CostTable(Id, BaseCost) SELECT Id, BaseCost FROM Data_car; UPDATE Data_Car SET BaseCost = 0;");
                         if (Done)
-                            ((Telerik.WinControls.Primitives.BorderPrimitive)Box_FreeCars.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = ColorTranslator.FromHtml(MainWindow.ThemeColour);
+                            ;
                         else
                         {
-                            Box_FreeCars.CheckStateChanged -= Box_FreeCars_CheckedChanged;
-                            Box_FreeCars.Checked = false;
-                            Box_FreeCars.CheckStateChanged += Box_FreeCars_CheckedChanged;
+                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.Toggled -= ToggleFreeCars_Toggled; });
+                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsOn = false; });
+                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.Toggled += ToggleFreeCars_Toggled; });
                         }
-                        Box_FreeCars.IsEnabled = true;
-                    });*/
+                        Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = true; });
+                    });
                 }
                 else
                 {
@@ -157,6 +245,8 @@ namespace Forza_Mods_AIO.Tabs
                     ClearGarage.IsEnabled = false;
                 }
             }
+            #endregion
+            #region Disable
             else if (!ToggleFreeCars.IsOn)
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
@@ -182,45 +272,58 @@ namespace Forza_Mods_AIO.Tabs
                     ClearGarage.IsEnabled = true;
                 }
             }
+            #endregion
         }
 
         private void PaintLegoCars_OnToggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (PaintLegoCars.IsOn)
             {
                 MainWindow.mw.m.WriteMemory(ASA.sql15, "string", "b");
                 MainWindow.mw.m.WriteMemory(ASA.sql16, "string", "b");
             }
+            #endregion
+            #region Disable
             else if (!PaintLegoCars.IsOn)
             {
                 MainWindow.mw.m.WriteMemory(ASA.sql15, "string", "H");
                 MainWindow.mw.m.WriteMemory(ASA.sql16, "string", "H");
             }
+            #endregion
         }
 
 
         private void RemoveAnyCar_OnToggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (RemoveAnyCar.IsOn)
             {
                 MainWindow.mw.m.WriteMemory(ASA.sql11, "string", "b");
                 MainWindow.mw.m.WriteMemory(ASA.sql2, "string", "b");
             }
+            #endregion
+            #region Disable
             else
             {
                 MainWindow.mw.m.WriteMemory(ASA.sql11, "string", "D");
                 MainWindow.mw.m.WriteMemory(ASA.sql2, "string", "I");
             }
+            #endregion
         }
 
         private void ClearGarage_OnToggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (ClearGarage.IsOn)
             {
+                #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
 
                 }
+                #endregion
+                #region FH4
                 else
                 {
                     MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "DELETE FROM Profile0_Career_Garage WHERE Id > 0                                                                                                                                                                                                                                                                                                                            ");
@@ -229,7 +332,10 @@ namespace Forza_Mods_AIO.Tabs
                     FixThumbnails.IsEnabled = false;
                     ShowTrafficHSNull.IsEnabled = false;
                 }
+                #endregion
             }
+            #endregion
+            #region Disable
             else if (!ClearGarage.IsOn)
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
@@ -241,25 +347,43 @@ namespace Forza_Mods_AIO.Tabs
                     ShowTrafficHSNull.IsEnabled = true;
                 }
             }
+            #endregion
         }
 
         private void FixThumbnails_OnToggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (FixThumbnails.IsOn)
             {
+                #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
+                    Task.Run(() =>
+                    {
+                        Dispatcher.BeginInvoke(delegate () { FixThumbnails.IsEnabled = false; });
+                        bool Done = AutoshowVars.ExecSQL("UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage; UPDATE Profile0_Career_Garage SET NumOwners=69");
+                        if (Done)
+                            ;
+                        else
+                            Dispatcher.BeginInvoke(delegate () { FixThumbnails.IsOn = false; });
 
+                        Dispatcher.BeginInvoke(delegate () { FixThumbnails.IsEnabled = true; });
+                    });
                 }
+                #endregion
+                #region FH4
                 else
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "DELETE FROM Profile0_Career_Garage WHERE Id > 0                                                                                                                                                                                                                                                                                                                            ");
+                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                            ");
                     ToggleFreeCars.IsEnabled = false;
                     UnlockHiddenPresets.IsEnabled = false;
                     ClearGarage.IsEnabled = false;
                     ShowTrafficHSNull.IsEnabled = false;
                 }
+                #endregion
             }
+            #endregion
+            #region Disable
             else if (!FixThumbnails.IsOn)
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
@@ -271,12 +395,15 @@ namespace Forza_Mods_AIO.Tabs
                     ShowTrafficHSNull.IsEnabled = true;
                 }
             }
+            #endregion
         }
 
         private void QuickAddRareCars_OnToggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (QuickAddRareCars.IsEnabled)
             {
+                #region String, CarList
                 string CarList = "3300";
                 string String = "" +
                                 "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
@@ -287,21 +414,27 @@ namespace Forza_Mods_AIO.Tabs
                                 " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(" + CarList + ");" +
                                 " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(SELECT Id AS ContentId FROM Data_Car WHERE NotAvailableInAutoshow = 0);" +
                                 " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(SELECT ContentId FROM ContentOffersMapping WHERE ReleaseDateUTC > '" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00") + " 00:00');";
+                #endregion
 
-
+                #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
-                    /*Task.Run(() =>
+                    Task.Run(() =>
                     {
-                        AddRare.Enabled = false;
-                        bool Done = AddCars.ExecSQL(String);
+
+                        Dispatcher.BeginInvoke(delegate () { QuickAddRareCars.IsEnabled = false; });
+
+                        bool Done = AutoshowVars.ExecSQL(String);
                         if (Done)
-                            ((Telerik.WinControls.Primitives.BorderPrimitive)AddRare.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
+                            ;
                         else
-                            AddRare.Checked = false;
-                        AddRare.Enabled = true;
-                    });*/
+                            Dispatcher.BeginInvoke(delegate () { QuickAddRareCars.IsOn = false; });
+
+                        Dispatcher.BeginInvoke(delegate () { QuickAddRareCars.IsEnabled = true; });
+                    });
                 }
+                #endregion
+                #region FH4
                 else
                 {
                     MainWindow.mw.m.WriteMemory(AutoshowVars.sql13, "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
@@ -309,19 +442,25 @@ namespace Forza_Mods_AIO.Tabs
                     MainWindow.mw.m.WriteMemory(AutoshowVars.sql13, "string", String);
                     QuickAddAllCars.IsEnabled = false;
                 }
+                #endregion
             }
+            #endregion
+            #region Disable
             else if (!QuickAddRareCars.IsEnabled && MainWindow.mw.gvp.Name == "Forza Horizon 4")
             {
                 var OriginalData = new byte[] { 0x55, 0x50, 0x44, 0x41, 0x54, 0x45, 0x20, 0x25, 0x73, 0x43, 0x61, 0x72, 0x65, 0x65, 0x72, 0x5F, 0x47, 0x61, 0x72, 0x61, 0x67, 0x65, 0x20, 0x53, 0x45, 0x54, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x44, 0x6F, 0x77, 0x6E, 0x66, 0x6F, 0x72, 0x63, 0x65, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x44, 0x6F, 0x77, 0x6E, 0x66, 0x6F, 0x72, 0x63, 0x65, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x69, 0x6E, 0x61, 0x6C, 0x44, 0x72, 0x69, 0x76, 0x65, 0x52, 0x61, 0x74, 0x69, 0x6F, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x69, 0x72, 0x73, 0x74, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x73, 0x65, 0x63, 0x6F, 0x6E, 0x64, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x74, 0x68, 0x69, 0x72, 0x64, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x6F, 0x75, 0x72, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x69, 0x66, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x73, 0x69, 0x78, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x73, 0x65, 0x76, 0x65, 0x6E, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x65, 0x69, 0x67, 0x68, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x6E, 0x69, 0x6E, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x74, 0x65, 0x6E, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x62, 0x72, 0x61, 0x6B, 0x65, 0x42, 0x61, 0x6C, 0x61, 0x6E, 0x63, 0x65, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x62, 0x72, 0x61, 0x6B, 0x65, 0x50, 0x72, 0x65, 0x73, 0x73, 0x75, 0x72, 0x65, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x63, 0x65, 0x6E, 0x74, 0x65, 0x72, 0x54, 0x6F, 0x72, 0x71, 0x75, 0x65, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x54, 0x69, 0x72, 0x65, 0x50, 0x72, 0x65, 0x73, 0x73, 0x75, 0x72, 0x65, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x43, 0x61, 0x6D, 0x62, 0x65, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x54, 0x6F, 0x65, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x43, 0x61, 0x73, 0x74, 0x65, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x53, 0x70, 0x72, 0x69, 0x6E, 0x67, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x53, 0x77, 0x61, 0x79, 0x62, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x52, 0x69, 0x64, 0x65, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x44, 0x61, 0x6D, 0x70, 0x69, 0x6E, 0x67, 0x53, 0x74, 0x69, 0x66, 0x66, 0x6E, 0x65, 0x73, 0x73, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x42, 0x75, 0x6D, 0x70, 0x52, 0x61, 0x74, 0x69, 0x6F, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x41, 0x63, 0x63, 0x65, 0x6C, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x44, 0x65, 0x63, 0x65, 0x6C, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x54, 0x69, 0x72, 0x65, 0x50, 0x72, 0x65, 0x73, 0x73, 0x75, 0x72, 0x65, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x43, 0x61, 0x6D, 0x62, 0x65, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x54, 0x6F, 0x65, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x53, 0x70, 0x72, 0x69, 0x6E, 0x67, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x53, 0x77, 0x61, 0x79, 0x62, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x52, 0x69, 0x64, 0x65, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x44, 0x61, 0x6D, 0x70, 0x69, 0x6E, 0x67, 0x53, 0x74, 0x69, 0x66, 0x66, 0x6E, 0x65, 0x73, 0x73, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x42, 0x75, 0x6D, 0x70, 0x52, 0x61, 0x74, 0x69, 0x6F, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x41, 0x63, 0x63, 0x65, 0x6C, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x44, 0x65, 0x63, 0x65, 0x6C, 0x20, 0x3D, 0x20, 0x25, 0x31, 0x2E, 0x38, 0x65, 0x2C, 0x20, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6F, 0x6E, 0x65, 0x64, 0x54, 0x75, 0x6E, 0x65, 0x49, 0x64, 0x20, 0x3D, 0x20, 0x27, 0x25, 0x73, 0x27, 0x20, 0x57, 0x48, 0x45, 0x52, 0x45, 0x20, 0x49, 0x64, 0x20, 0x3D, 0x20, 0x25, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x55, 0x50, 0x44, 0x41, 0x54, 0x45, 0x20, 0x25, 0x73, 0x43, 0x61, 0x72, 0x65, 0x65, 0x72, 0x5F, 0x47, 0x61, 0x72, 0x61, 0x67, 0x65, 0x20, 0x53, 0x45, 0x54, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x44, 0x6F, 0x77, 0x6E, 0x66, 0x6F, 0x72, 0x63, 0x65, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x44, 0x6F, 0x77, 0x6E, 0x66, 0x6F, 0x72, 0x63, 0x65, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x69, 0x6E, 0x61, 0x6C, 0x44, 0x72, 0x69, 0x76, 0x65, 0x52, 0x61, 0x74, 0x69, 0x6F, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x69, 0x72, 0x73, 0x74, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x73, 0x65, 0x63, 0x6F, 0x6E, 0x64, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x74, 0x68, 0x69, 0x72, 0x64, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x6F, 0x75, 0x72, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x69, 0x66, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x73, 0x69, 0x78, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x73, 0x65, 0x76, 0x65, 0x6E, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x65, 0x69, 0x67, 0x68, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x6E, 0x69, 0x6E, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x74, 0x65, 0x6E, 0x74, 0x68, 0x47, 0x65, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x62, 0x72, 0x61, 0x6B, 0x65, 0x42, 0x61, 0x6C, 0x61, 0x6E, 0x63, 0x65, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x62, 0x72, 0x61, 0x6B, 0x65, 0x50, 0x72, 0x65, 0x73, 0x73, 0x75, 0x72, 0x65, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x63, 0x65, 0x6E, 0x74, 0x65, 0x72, 0x54, 0x6F, 0x72, 0x71, 0x75, 0x65, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x54, 0x69, 0x72, 0x65, 0x50, 0x72, 0x65, 0x73, 0x73, 0x75, 0x72, 0x65, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x43, 0x61, 0x6D, 0x62, 0x65, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x54, 0x6F, 0x65, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x43, 0x61, 0x73, 0x74, 0x65, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x53, 0x70, 0x72, 0x69, 0x6E, 0x67, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x53, 0x77, 0x61, 0x79, 0x62, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x52, 0x69, 0x64, 0x65, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x44, 0x61, 0x6D, 0x70, 0x69, 0x6E, 0x67, 0x53, 0x74, 0x69, 0x66, 0x66, 0x6E, 0x65, 0x73, 0x73, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x42, 0x75, 0x6D, 0x70, 0x52, 0x61, 0x74, 0x69, 0x6F, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x41, 0x63, 0x63, 0x65, 0x6C, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x66, 0x72, 0x6F, 0x6E, 0x74, 0x44, 0x65, 0x63, 0x65, 0x6C, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x54, 0x69, 0x72, 0x65, 0x50, 0x72, 0x65, 0x73, 0x73, 0x75, 0x72, 0x65, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x43, 0x61, 0x6D, 0x62, 0x65, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x54, 0x6F, 0x65, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x53, 0x70, 0x72, 0x69, 0x6E, 0x67, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E, 0x67, 0x5F, 0x72, 0x65, 0x61, 0x72, 0x53, 0x77, 0x61, 0x79, 0x62, 0x61, 0x72, 0x20, 0x3D, 0x20, 0x2D, 0x31, 0x2E, 0x30, 0x2C, 0x20, 0x54, 0x75, 0x6E, 0x69, 0x6E };
                 MainWindow.mw.m.WriteBytes(AutoshowVars.sql13, OriginalData);
                 QuickAddAllCars.IsEnabled = true;
             }
+            #endregion
         }
 
         private void QuickAddAllCars_OnToggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (QuickAddAllCars.IsEnabled)
             {
+                #region String, CarList
                 string CarList = "3300";
                 string String = "" +
                                 "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
@@ -330,20 +469,25 @@ namespace Forza_Mods_AIO.Tabs
                                 " UPDATE ContentOffersMapping SET Quantity = 1;" +
                                 " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(" + CarList + ");" +
                                 " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(SELECT CarId AS ContentId FROM Profile0_Career_Garage WHERE CarId IS NOT NULL);";
+                #endregion
 
+                #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
-                    /*Task.Run(() =>
+                    Task.Run(() =>
                     {
-                        AddRare.Enabled = false;
-                        bool Done = AddCars.ExecSQL(String);
+                        Dispatcher.BeginInvoke(delegate () { QuickAddAllCars.IsEnabled = false; });
+                        bool Done = AutoshowVars.ExecSQL(String);
                         if (Done)
-                            ((Telerik.WinControls.Primitives.BorderPrimitive)AddRare.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
+                            ;
                         else
-                            AddRare.Checked = false;
-                        AddRare.Enabled = true;
-                    });*/
+                            Dispatcher.BeginInvoke(delegate () { QuickAddAllCars.IsOn = false; });
+                        
+                        Dispatcher.BeginInvoke(delegate () { QuickAddAllCars.IsEnabled = true; });
+                    });
                 }
+                #endregion
+                #region FH4
                 else
                 {
                     MainWindow.mw.m.WriteMemory(AutoshowVars.sql13, "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
@@ -351,7 +495,10 @@ namespace Forza_Mods_AIO.Tabs
                     MainWindow.mw.m.WriteMemory(AutoshowVars.sql13, "string", String);
                     QuickAddRareCars.IsEnabled = false;
                 }
+                #endregion
             }
+            #endregion
+            #region Disable
             else if (!QuickAddAllCars.IsEnabled)
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
@@ -361,25 +508,31 @@ namespace Forza_Mods_AIO.Tabs
                 }
                 QuickAddRareCars.IsEnabled = true;
             }
+            #endregion
         }
 
         private void FreeVisualUpgrades_OnToggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (FreeVisualUpgrades.IsOn)
             {
+                #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
-                    /*Task.Run(() =>
+                    Task.Run(() =>
                     {
-                        FreeVisBox.Enabled = false;
-                        bool Done = ExecSQL("UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyFrontBumper SET price=0;UPDATE List_UpgradeCarBodyHood SET price=0;UPDATE List_UpgradeCarBodyRearBumper SET price=0;UPDATE List_UpgradeCarBodySideSkirt SET price=0;UPDATE List_UpgradeRearWing SET price=0;UPDATE List_Wheels SET price=1\"");
+                        Dispatcher.BeginInvoke(delegate () { FreeVisualUpgrades.IsEnabled = false; });
+                        bool Done = AutoshowVars.ExecSQL("UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyFrontBumper SET price=0;UPDATE List_UpgradeCarBodyHood SET price=0;UPDATE List_UpgradeCarBodyRearBumper SET price=0;UPDATE List_UpgradeCarBodySideSkirt SET price=0;UPDATE List_UpgradeRearWing SET price=0;UPDATE List_Wheels SET price=1\"");
                         if (Done)
-                            ((Telerik.WinControls.Primitives.BorderPrimitive)FreeVisBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
+                            ;
                         else
-                            FreeVisBox.Checked = false;
-                        FreeVisBox.Enabled = true;
-                    });*/
+                            Dispatcher.BeginInvoke(delegate () { FreeVisualUpgrades.IsOn = false; });
+                        
+                        Dispatcher.BeginInvoke(delegate () { FreeVisualUpgrades.IsEnabled = true; });
+                    });
                 }
+                #endregion
+                #region FH4
                 else
                 {
                     MainWindow.mw.m.WriteMemory(AutoshowVars.sql13, "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
@@ -387,7 +540,10 @@ namespace Forza_Mods_AIO.Tabs
                     MainWindow.mw.m.WriteMemory(AutoshowVars.sql13, "string", "UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyFrontBumper SET price=0;UPDATE List_UpgradeCarBodyHood SET price=0;UPDATE List_UpgradeCarBodyRearBumper SET price=0;UPDATE List_UpgradeCarBodySideSkirt SET price=0;UPDATE List_UpgradeRearWing SET price=0;UPDATE List_Wheels SET price=1");
                     FreePerfUpgrades.IsEnabled = false;
                 }
+                #endregion
             }
+            #endregion
+            #region Disable
             else if (!FreeVisualUpgrades.IsOn)
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
@@ -397,25 +553,31 @@ namespace Forza_Mods_AIO.Tabs
                     FreePerfUpgrades.IsEnabled = true;
                 }
             }
+            #endregion
         }
 
         private void FreePerfUpgrades_OnToggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (FreePerfUpgrades.IsOn)
             {
+                #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
-                    /*Task.Run(() =>
+                    Task.Run(() =>
                     {
-                        FreePerfBox.Enabled = false;
-                        bool Done = ExecSQL("UPDATE List_UpgradeAntiSwayFront SET price=0;UPDATE List_UpgradeAntiSwayRear SET price=0;UPDATE List_UpgradeBrakes SET price=0;UPDATE List_UpgradeCarBodyChassisStiffness SET price=0;UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyTireWidthFront SET price=0;UPDATE List_UpgradeCarBodyTireWidthRear SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingFront SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingRear SET price=0;UPDATE List_UpgradeCarBodyWeight SET price=0;UPDATE List_UpgradeDrivetrain SET price=0;UPDATE List_UpgradeDrivetrainClutch SET price=0;UPDATE List_UpgradeDrivetrainDifferential  SET price=0;UPDATE List_UpgradeDrivetrainDriveline SET price=0;UPDATE List_UpgradeDrivetrainTransmission SET price=0;UPDATE List_UpgradeEngine SET price=0;UPDATE List_UpgradeEngineCamshaft SET price=0;UPDATE List_UpgradeEngineCSC SET price=0;UPDATE List_UpgradeEngineDisplacement SET price=0;UPDATE List_UpgradeEngineDSC SET price=0;UPDATE List_UpgradeEngineExhaust SET price=0;UPDATE List_UpgradeEngineFlywheel SET price=0;UPDATE List_UpgradeEngineFuelSystem SET price=0;UPDATE List_UpgradeEngineIgnition SET price=0;UPDATE List_UpgradeEngineIntake SET price=0;UPDATE List_UpgradeEngineIntercooler SET price=0;UPDATE List_UpgradeEngineManifold SET price=0;UPDATE List_UpgradeEngineOilCooling SET price=0;UPDATE List_UpgradeEnginePistonsCompression SET price=0;UPDATE List_UpgradeEngineRestrictorPlate SET price=0;UPDATE List_UpgradeEngineTurboQuad SET price=0;UPDATE List_UpgradeEngineTurboSingle SET price=0;UPDATE List_UpgradeEngineTurboTwin SET price=0;UPDATE List_UpgradeEngineValves SET price=0;UPDATE List_UpgradeMotor SET price=0;UPDATE List_UpgradeMotorParts SET price=0;UPDATE List_UpgradeSpringDamper SET price=0;UPDATE List_UpgradeTireCompound SET price=0;UPDATE List_VariableTiming SET price=0;UPDATE List_Wheels SET price=1;");
+                        Dispatcher.BeginInvoke(delegate () { FreePerfUpgrades.IsEnabled = false; });
+                        bool Done = AutoshowVars.ExecSQL("UPDATE List_UpgradeAntiSwayFront SET price=0;UPDATE List_UpgradeAntiSwayRear SET price=0;UPDATE List_UpgradeBrakes SET price=0;UPDATE List_UpgradeCarBodyChassisStiffness SET price=0;UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyTireWidthFront SET price=0;UPDATE List_UpgradeCarBodyTireWidthRear SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingFront SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingRear SET price=0;UPDATE List_UpgradeCarBodyWeight SET price=0;UPDATE List_UpgradeDrivetrain SET price=0;UPDATE List_UpgradeDrivetrainClutch SET price=0;UPDATE List_UpgradeDrivetrainDifferential  SET price=0;UPDATE List_UpgradeDrivetrainDriveline SET price=0;UPDATE List_UpgradeDrivetrainTransmission SET price=0;UPDATE List_UpgradeEngine SET price=0;UPDATE List_UpgradeEngineCamshaft SET price=0;UPDATE List_UpgradeEngineCSC SET price=0;UPDATE List_UpgradeEngineDisplacement SET price=0;UPDATE List_UpgradeEngineDSC SET price=0;UPDATE List_UpgradeEngineExhaust SET price=0;UPDATE List_UpgradeEngineFlywheel SET price=0;UPDATE List_UpgradeEngineFuelSystem SET price=0;UPDATE List_UpgradeEngineIgnition SET price=0;UPDATE List_UpgradeEngineIntake SET price=0;UPDATE List_UpgradeEngineIntercooler SET price=0;UPDATE List_UpgradeEngineManifold SET price=0;UPDATE List_UpgradeEngineOilCooling SET price=0;UPDATE List_UpgradeEnginePistonsCompression SET price=0;UPDATE List_UpgradeEngineRestrictorPlate SET price=0;UPDATE List_UpgradeEngineTurboQuad SET price=0;UPDATE List_UpgradeEngineTurboSingle SET price=0;UPDATE List_UpgradeEngineTurboTwin SET price=0;UPDATE List_UpgradeEngineValves SET price=0;UPDATE List_UpgradeMotor SET price=0;UPDATE List_UpgradeMotorParts SET price=0;UPDATE List_UpgradeSpringDamper SET price=0;UPDATE List_UpgradeTireCompound SET price=0;UPDATE List_VariableTiming SET price=0;UPDATE List_Wheels SET price=1;");
                         if (Done)
-                            ((Telerik.WinControls.Primitives.BorderPrimitive)FreePerfBox.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
+                           ;
                         else
-                            FreePerfBox.Checked = false;
-                        FreePerfBox.Enabled = true;
-                    });*/
+                            Dispatcher.BeginInvoke(delegate () { FreePerfUpgrades.IsOn = false; });
+                        
+                        Dispatcher.BeginInvoke(delegate () { FreePerfUpgrades.IsEnabled = true; });
+                    });
                 }
+                #endregion
+                #region FH4
                 else
                 {
                     MainWindow.mw.m.WriteMemory(AutoshowVars.sql13, "string", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
@@ -423,7 +585,10 @@ namespace Forza_Mods_AIO.Tabs
                     MainWindow.mw.m.WriteMemory(AutoshowVars.sql13, "string", "UPDATE List_UpgradeAntiSwayFront SET price=0;UPDATE List_UpgradeAntiSwayRear SET price=0;UPDATE List_UpgradeBrakes SET price=0;UPDATE List_UpgradeCarBodyChassisStiffness SET price=0;UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyTireWidthFront SET price=0;UPDATE List_UpgradeCarBodyTireWidthRear SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingFront SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingRear SET price=0;UPDATE List_UpgradeCarBodyWeight SET price=0;UPDATE List_UpgradeDrivetrain SET price=0;UPDATE List_UpgradeDrivetrainClutch SET price=0;UPDATE List_UpgradeDrivetrainDifferential  SET price=0;UPDATE List_UpgradeDrivetrainDriveline SET price=0;UPDATE List_UpgradeDrivetrainTransmission SET price=0;UPDATE List_UpgradeEngine SET price=0;UPDATE List_UpgradeEngineCamshaft SET price=0;UPDATE List_UpgradeEngineCSC SET price=0;UPDATE List_UpgradeEngineDisplacement SET price=0;UPDATE List_UpgradeEngineDSC SET price=0;UPDATE List_UpgradeEngineExhaust SET price=0;UPDATE List_UpgradeEngineFlywheel SET price=0;UPDATE List_UpgradeEngineFuelSystem SET price=0;UPDATE List_UpgradeEngineIgnition SET price=0;UPDATE List_UpgradeEngineIntake SET price=0;UPDATE List_UpgradeEngineIntercooler SET price=0;UPDATE List_UpgradeEngineManifold SET price=0;UPDATE List_UpgradeEngineOilCooling SET price=0;UPDATE List_UpgradeEnginePistonsCompression SET price=0;UPDATE List_UpgradeEngineRestrictorPlate SET price=0;UPDATE List_UpgradeEngineTurboQuad SET price=0;UPDATE List_UpgradeEngineTurboSingle SET price=0;UPDATE List_UpgradeEngineTurboTwin SET price=0;UPDATE List_UpgradeEngineValves SET price=0;UPDATE List_UpgradeMotor SET price=0;UPDATE List_UpgradeMotorParts SET price=0;UPDATE List_UpgradeSpringDamper SET price=0;UPDATE List_UpgradeTireCompound SET price=0;UPDATE List_VariableTiming SET price=0;UPDATE List_Wheels SET price=1;");
                     FreeVisualUpgrades.IsEnabled = false;
                 }
+                #endregion
             }
+            #endregion
+            #region Disable
             else if (!FreePerfUpgrades.IsOn)
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
@@ -433,26 +598,31 @@ namespace Forza_Mods_AIO.Tabs
                     FreeVisualUpgrades.IsEnabled = true;
                 }
             }
+            #endregion
         }
 
         private void ShowTrafficHSNull_OnToggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (ShowTrafficHSNull.IsEnabled)
             {
+                #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
-                    /*
                     Task.Run(() =>
                     {
-                        Box_Traffic.Enabled = false;
-                        bool Done = ExecSQL("DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL");
+                        Dispatcher.BeginInvoke(delegate () { ShowTrafficHSNull.IsEnabled = false; });
+                        bool Done = AutoshowVars.ExecSQL("DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL");
                         if (Done)
-                            ((Telerik.WinControls.Primitives.BorderPrimitive)Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
+                            ;
                         else
-                            Box_Traffic.Checked = false;
-                        Box_Traffic.Enabled = true;
-                    }); */
+                           Dispatcher.BeginInvoke(delegate () { ShowTrafficHSNull.IsOn = false; });
+                        
+                        Dispatcher.BeginInvoke(delegate () { ShowTrafficHSNull.IsEnabled = true; });
+                    });
                 }
+                #endregion
+                #region FH4
                 else
                 {
                     MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
@@ -462,7 +632,10 @@ namespace Forza_Mods_AIO.Tabs
                     ShowTrafficHSNull.IsEnabled = false;
                     ClearGarage.IsEnabled = false;
                 }
+                #endregion
             }
+            #endregion
+            #region Disable
             else if (!ShowTrafficHSNull.IsEnabled)
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
@@ -475,27 +648,15 @@ namespace Forza_Mods_AIO.Tabs
                     ClearGarage.IsEnabled = true;
                 }
             }
+            #endregion
         }
 
         private void UnlockHiddenDecals_OnToggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (UnlockHiddenDecals.IsEnabled)
             {
-                if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
-                {
-                    /*
-                    Task.Run(() =>
-                    {
-                        Box_Traffic.Enabled = false;
-                        bool Done = ExecSQL("DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL");
-                        if (Done)
-                            ((Telerik.WinControls.Primitives.BorderPrimitive)Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
-                        else
-                            Box_Traffic.Checked = false;
-                        Box_Traffic.Enabled = true;
-                    }); */
-                }
-                else
+                if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
                 {
                     MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
                     ToggleFreeCars.IsEnabled = false;
@@ -505,6 +666,8 @@ namespace Forza_Mods_AIO.Tabs
                     ClearGarage.IsEnabled = false;
                 }
             }
+            #endregion
+            #region Disable
             else if (!UnlockHiddenDecals.IsEnabled)
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
@@ -517,26 +680,32 @@ namespace Forza_Mods_AIO.Tabs
                     ClearGarage.IsEnabled = true;
                 }
             }
+            #endregion
         }
 
         private void UnlockHiddenPresets_OnToggled(object sender, RoutedEventArgs e)
         {
+            #region Enable
             if (UnlockHiddenPresets.IsEnabled)
             {
+                #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {
-                    /*
                     Task.Run(() =>
                     {
-                        Box_Traffic.Enabled = false;
-                        bool Done = ExecSQL("DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL");
+                        Dispatcher.BeginInvoke(delegate () { UnlockHiddenPresets.IsEnabled = false; });
+
+                        bool Done = AutoshowVars.ExecSQL("UPDATE UpgradePresetPackages SET Purchasable = 1 WHERE Purchasable = 0");
                         if (Done)
-                            ((Telerik.WinControls.Primitives.BorderPrimitive)Box_Traffic.GetChildAt(0).GetChildAt(1).GetChildAt(1).GetChildAt(1)).ForeColor = System.Drawing.Color.FromArgb(45, 45, 48);
+                            ;
                         else
-                            Box_Traffic.Checked = false;
-                        Box_Traffic.Enabled = true;
-                    }); */
+                            Dispatcher.BeginInvoke(delegate () { UnlockHiddenPresets.IsOn = false; });
+
+                        Dispatcher.BeginInvoke(delegate () { UnlockHiddenPresets.IsEnabled = true; });
+                    });
                 }
+                #endregion
+                #region FH4
                 else
                 {
                     MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "UPDATE UpgradePresetPackages SET Purchasable=1 WHERE Purchasable=0                                                                                                                                                                                                                                                                                                         ");
@@ -546,7 +715,10 @@ namespace Forza_Mods_AIO.Tabs
                     ShowTrafficHSNull.IsEnabled = false;
                     ClearGarage.IsEnabled = false;
                 }
+                #endregion
             }
+            #endregion
+            #region Disable
             else if (!UnlockHiddenPresets.IsEnabled)
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
@@ -559,6 +731,7 @@ namespace Forza_Mods_AIO.Tabs
                     ClearGarage.IsEnabled = true;
                 }
             }
+            #endregion
         }
     }
 }

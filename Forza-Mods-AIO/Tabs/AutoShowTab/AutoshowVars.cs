@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
-
+using System.IO.Pipes;
+using System.Threading;
+using System.IO;
 
 namespace Forza_Mods_AIO.Tabs.AutoShowTab
 {
@@ -35,6 +36,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
         public bool read = true;
         public bool write = true;
         public bool exec = false;
+        public bool IsFirstTime = true;
         #endregion
 
         public async Task Scan(int ver)
@@ -87,6 +89,42 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
             sql17 = (await MainWindow.mw.m.AoBScan(scanstart, scanend, "41 4E 44 20 4E 4F 54 20 49 73 4D 69 64 6E 69 67 68 74 43 61 72 00 00 20 41 4E 44 20 4E 4F 54 20 49 73 42 61 72 6E 46 69 6E 64 00 00 00 00 00 20", true, true)).FirstOrDefault().ToString("X");
             dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.AOBProgressBar.Value = 100; });
             dispatcher.BeginInvoke((Action)delegate { AutoShow.AS.ScanButton.IsEnabled = true; });
+        }
+
+        public static unsafe bool ExecSQL(string SQL)
+        {
+            using (var Client = new NamedPipeClientStream("PogPipe"))
+            {
+                int Count = 0;
+                byte[] SQLBytes = Encoding.UTF8.GetBytes(SQL);
+                while (!Client.IsConnected && Count < 25)
+                {
+                    Thread.Sleep(10);
+                    try
+                    { Client.Connect(10); }
+                    catch { };
+                    Count++;
+                }
+
+                if (Count == 25)
+                {
+                    MessageBox.Show("Failed, sowwy oomfie :3");
+                    return false;
+                }
+
+                using (StreamWriter sw = new StreamWriter(Client))
+                {
+                    if (sw.AutoFlush == false)
+                        sw.AutoFlush = true;
+                    sw.WriteLine(SQL);
+                }
+
+                return true;
+
+                //Client.WaitForPipeDrain();
+                //Client.Write(SQLBytes, 0, SQLBytes.Length);
+                //Client.WaitForPipeDrain();
+            }
         }
     }
 }
