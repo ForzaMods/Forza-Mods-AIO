@@ -16,6 +16,9 @@ using Memory;
 using Forza_Mods_AIO.CustomTheming;
 using System.Xml.Linq;
 using Forza_Mods_AIO.Tabs.AIO_Info;
+using Forza_Mods_AIO.Tabs.Self_Vehicle;
+using Forza_Mods_AIO.Tabs.AutoShowTab;
+using Forza_Mods_AIO.Tabs.TuningTablePort;
 
 namespace Forza_Mods_AIO
 {
@@ -57,6 +60,13 @@ namespace Forza_Mods_AIO
         public static AIO_Info AInfo = new AIO_Info();
         List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.TuningTablePort.TuningTableMain(), new Tabs.Settings.Settings() };
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
+        public string Page_Focused = "AIO-Info";
+        Dictionary<string, bool> Is_Scanned = new Dictionary<string, bool>()
+        {
+            { "AutoShow", false },
+            { "Self_Vehicle", false },
+            { "TuningTableMain", false }
+        };
         #endregion
         #region Starting
         public MainWindow()
@@ -104,12 +114,15 @@ namespace Forza_Mods_AIO
         }
         public void CategoryButton_Click(object sender, RoutedEventArgs e)
         {
+            // Slow when debugging therefore shit but whatever
+
             foreach (RadioButton rb in ButtonStack.Children)
             {
                 if ((bool)rb.IsChecked)
                 {
                     rb.Background = Monet.DarkerColour;
                     foreach (Page t in tabs)
+                    {
                         if (t.Title == rb.Name)
                         {
                             try
@@ -118,18 +131,45 @@ namespace Forza_Mods_AIO
                                 {
                                     string Source = "";
                                     if (Element.GetType() == typeof(Frame))
+                                    {
                                         Source = Element.GetType().GetProperty("Name").GetValue(Element).ToString();
+                                    }
                                     if (Element.Name == rb.Name + "Frame")
+                                    {
+                                        Page_Focused = rb.Name;
                                         Element.Visibility = Visibility.Visible;
+
+                                        if (Is_Scanned.TryGetValue(rb.Name, out bool isScanned) && !isScanned)
+                                        {
+                                            Is_Scanned[rb.Name] = true;
+                                            switch (rb.Name)
+                                            {
+                                                case "AutoShow":
+                                                    Task.Run(() => (new AutoshowVars()).Scan());
+                                                    break;
+                                                case "Self_Vehicle":
+                                                    Task.Run(() => (new Self_Vehicle_Addrs()).Scan());
+                                                    break;
+                                                case "TuningTableMain":
+                                                    Task.Run(() => Addresses.Scan());
+                                                    break;
+                                            }
+                                        }
+                                    }
                                     else if (Element.GetType() == typeof(Frame) && Source.Contains("Frame"))
+                                    {
                                         Element.Visibility = Visibility.Hidden;
+                                    }
                                 }
                             }
                             catch { }
                         }
+                    }
                 }
                 else
+                {
                     rb.Background = Monet.DarkishColour;
+                }
             }
         }
         #endregion

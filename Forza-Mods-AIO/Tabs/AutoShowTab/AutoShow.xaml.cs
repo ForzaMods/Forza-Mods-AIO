@@ -22,16 +22,6 @@ namespace Forza_Mods_AIO.Tabs
             UpdateUi.UpdateUI(false, this);
         }
 
-        private async void ScanButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
-                await ASA.Scan(5);
-            else
-                await ASA.Scan(4);
-
-            UpdateUi.UpdateUI(true, this);
-        }
-
         private void ToggleAllCars_Toggled(object sender, RoutedEventArgs e)
         {
             #region Enable

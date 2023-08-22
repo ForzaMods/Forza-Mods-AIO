@@ -34,7 +34,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         #region Buttons
         private async void ScanButton_Click(object sender, RoutedEventArgs e)
         {
-            await sva.AoBscan();
+            await sva.Scan();
             //UpdateUi.UpdateUI(true, this);
         }
         private void Button_Click(object sender, RoutedEventArgs e)

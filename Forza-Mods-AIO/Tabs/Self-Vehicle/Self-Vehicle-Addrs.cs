@@ -1,4 +1,6 @@
-﻿using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+﻿using Forza_Mods_AIO.Resources;
+using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+using Forza_Mods_AIO.Tabs.TuningTablePort;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -364,17 +366,12 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             FOVHighAddr = (Base3Addr + ",0x538,0xF0,0xD80,0x6F0");
         }
         #endregion
-        public async Task AoBscan()
+        public async Task Scan()
         {
             int offsetfive = 4107;
             int offsetfivetwo = 28675;
             bool g2g = false;
             bool g2g2 = false;
-
-            Self_Vehicle.sv.Dispatcher.Invoke(delegate ()
-            {
-                Self_Vehicle.sv.ScanButton.IsEnabled = false;
-            });
 
             if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
             {
@@ -676,7 +673,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                         }
                         else if ((BaseAddrLong != null || BaseAddrLong != offsetfivetwo || BaseAddrLong != 0) && g2g && !g2g2)
                         {
-                            AddProgress(1);
+                            UpdateUi.AddProgress(ScanAmount,1, Self_Vehicle.sv.AOBProgressBar);
                             Base2Addr = (BaseAddrLong + offsetfivetwo).ToString("X");
                             StartSetupFive();
                             offsetfivetwo += 8;
@@ -696,74 +693,74 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                         }
                         else
                         {
-                            AddProgress(2);
+                            UpdateUi.AddProgress(ScanAmount, 2, Self_Vehicle.sv.AOBProgressBar);
                             FOVJmpAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, FOVJmpAob, true, true)).FirstOrDefault() + 3;
                             FOVJmpAddr = FOVJmpAddrLong.ToString("X");
 
-                            AddProgress(3);
+                            UpdateUi.AddProgress(ScanAmount, 3, Self_Vehicle.sv.AOBProgressBar);
                             Car1AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Car1Aob, true, true)).FirstOrDefault();
                             Car1Addr = Car1AddrLong.ToString("X");
 
-                            AddProgress(4);
+                            UpdateUi.AddProgress(ScanAmount, 4, Self_Vehicle.sv.AOBProgressBar);
                             Wall1AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Wall1Aob, true, true)).FirstOrDefault();
                             Wall1Addr = Wall1AddrLong.ToString("X");
 
-                            AddProgress(5);
+                            UpdateUi.AddProgress(ScanAmount, 5, Self_Vehicle.sv.AOBProgressBar);
                             Wall2AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Wall2Aob, true, true)).FirstOrDefault();
                             Wall2Addr = Wall2AddrLong.ToString("X");
 
-                            AddProgress(6);
+                            UpdateUi.AddProgress(ScanAmount, 6, Self_Vehicle.sv.AOBProgressBar);
                             TimeNOPAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, TimeAob, true, true)).FirstOrDefault() + 1;
                             TimeNOPAddr = TimeNOPAddrLong.ToString("X");
 
-                            AddProgress(7);
+                            UpdateUi.AddProgress(ScanAmount, 7, Self_Vehicle.sv.AOBProgressBar);
                             XPaddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, XPAob, true, true)).FirstOrDefault();
                             XPaddr = XPaddrLong.ToString("X");
 
-                            AddProgress(8);
+                            UpdateUi.AddProgress(ScanAmount, 8, Self_Vehicle.sv.AOBProgressBar);
                             XPAmountaddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, XPAmountAob, true, true)).FirstOrDefault();
                             XPAmountaddr = XPAmountaddrLong.ToString("X");
 
-                            AddProgress(9);
+                            UpdateUi.AddProgress(ScanAmount, 9, Self_Vehicle.sv.AOBProgressBar);
                             WayPointxASMAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, WayPointxASMAob, true, true)).FirstOrDefault();
                             WayPointxASMAddr = WayPointxASMAddrLong.ToString("X");
 
-                            AddProgress(10);
+                            UpdateUi.AddProgress(ScanAmount, 10, Self_Vehicle.sv.AOBProgressBar);
                             DiscoverRoadsAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, DiscoverRoadsAob, true, true)).FirstOrDefault();
                             DiscoverRoadsAddr = DiscoverRoadsAddrLong.ToString("X");
 
-                            AddProgress(11);
+                            UpdateUi.AddProgress(ScanAmount, 11, Self_Vehicle.sv.AOBProgressBar);
                             WaterAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, WaterAob, true, true)).FirstOrDefault() + 309;
                             WaterAddr = WaterAddrLong.ToString("X");
 
-                            AddProgress(12);
+                            UpdateUi.AddProgress(ScanAmount, 12, Self_Vehicle.sv.AOBProgressBar);
                             if (MainWindow.mw.gvp.Plat == "MS")
                                 CheckPointxASMAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, "0F 10 89 60 02 00 00 0F 29", true, true)).FirstOrDefault();
                             else
                                 CheckPointxASMAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, "0F 10 89 60 02 00 00 0F 29", true, true)).FirstOrDefault();
                             CheckPointxASMAddr = CheckPointxASMAddrLong.ToString("X");
 
-                            AddProgress(13);
+                            UpdateUi.AddProgress(ScanAmount, 13, Self_Vehicle.sv.AOBProgressBar);
                             AIXAobAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, AIXAob, true, true)).FirstOrDefault();
                             AIXAobAddr = AIXAobAddrLong.ToString("X");
 
-                            AddProgress(14);
+                            UpdateUi.AddProgress(ScanAmount, 14, Self_Vehicle.sv.AOBProgressBar);
                             CosmeticUnlockAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CosmeticUnlockAob, true, true)).FirstOrDefault();
                             CosmeticUnlockAddr = CosmeticUnlockAddrLong.ToString("X");
 
-                            AddProgress(15);
+                            UpdateUi.AddProgress(ScanAmount, 15, Self_Vehicle.sv.AOBProgressBar);
                             OOBnopAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, OOBAob, true, true)).FirstOrDefault();
                             OOBnopAddr = OOBnopAddrLong.ToString("X");
 
-                            AddProgress(16);
+                            UpdateUi.AddProgress(ScanAmount, 16, Self_Vehicle.sv.AOBProgressBar);
                             SuperCarAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, SuperCarAob, true, true)).FirstOrDefault();
                             SuperCarAddr = SuperCarAddrLong.ToString("X");
 
-                            AddProgress(17);
+                            UpdateUi.AddProgress(ScanAmount, 17, Self_Vehicle.sv.AOBProgressBar);
                             HornAsmAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, HornAsmAob, true, true)).LastOrDefault();
                             HornAsmAddr = HornAsmAddrLong.ToString("X");
 
-                            AddProgress(18);
+                            UpdateUi.AddProgress(ScanAmount, 18, Self_Vehicle.sv.AOBProgressBar);
                             WorldRGBAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, RGBAob, true, true)).LastOrDefault();
                             WorldRGBAddr = WorldRGBAddrLong.ToString("X");
 
@@ -774,7 +771,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                                 CCBA += 500000;
                                 CodeCave = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            AddProgress(19);
+                            UpdateUi.AddProgress(ScanAmount, 19, Self_Vehicle.sv.AOBProgressBar);
                             CCBA2 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
                             CodeCave2 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             while (CodeCave2 == (IntPtr)0)
@@ -782,7 +779,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                                 CCBA2 += 500000;
                                 CodeCave2 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            AddProgress(20);
+                            UpdateUi.AddProgress(ScanAmount, 20, Self_Vehicle.sv.AOBProgressBar);
                             CCBA3 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
                             CodeCave3 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             while (CodeCave3 == (IntPtr)0)
@@ -790,7 +787,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                                 CCBA3 += 500000;
                                 CodeCave3 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            AddProgress(21);
+                            UpdateUi.AddProgress(ScanAmount, 21, Self_Vehicle.sv.AOBProgressBar);
                             CCBA4 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
                             CodeCave4 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             while (CodeCave4 == (IntPtr)0)
@@ -798,7 +795,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                                 CCBA4 += 500000;
                                 CodeCave4 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            AddProgress(22);
+                            UpdateUi.AddProgress(ScanAmount, 22, Self_Vehicle.sv.AOBProgressBar);
                             CCBA5 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
                             CodeCave5 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             while (CodeCave5 == (IntPtr)0)
@@ -806,7 +803,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                                 CCBA5 += 500000;
                                 CodeCave5 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            AddProgress(23);
+                            UpdateUi.AddProgress(ScanAmount, 23, Self_Vehicle.sv.AOBProgressBar);
                             CCBA6 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
                             CodeCave6 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             while (CodeCave6 == (IntPtr)0)
@@ -814,7 +811,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                                 CCBA6 += 500000;
                                 CodeCave6 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA6, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            AddProgress(24);
+                            UpdateUi.AddProgress(ScanAmount, 24, Self_Vehicle.sv.AOBProgressBar);
                             CCBA7 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
                             CodeCave7 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA7, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             while (CodeCave7 == (IntPtr)0)
@@ -822,7 +819,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                                 CCBA7 += 500000;
                                 CodeCave7 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA7, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            AddProgress(25);
+                            UpdateUi.AddProgress(ScanAmount, 25, Self_Vehicle.sv.AOBProgressBar);
                             CCBA8 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
                             CodeCave8 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA8, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             while (CodeCave8 == (IntPtr)0)
@@ -830,27 +827,27 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                                 CCBA8 += 500000;
                                 CodeCave8 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA8, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                             }
-                            AddProgress(26);
+                            UpdateUi.AddProgress(ScanAmount, 26, Self_Vehicle.sv.AOBProgressBar);
 
                             while (CameraSpeedBase == 0)
                                 CameraSpeedBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraSpeedBaseAob, true, true)).FirstOrDefault();
-                            AddProgress(27);  
+                            UpdateUi.AddProgress(ScanAmount, 27, Self_Vehicle.sv.AOBProgressBar);  
                             
                             while (CameraBase == 0)
                                 CameraBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraBaseAob, true, true)).FirstOrDefault();
-                            AddProgress(28);    
+                            UpdateUi.AddProgress(ScanAmount, 28, Self_Vehicle.sv.AOBProgressBar);    
                             
                             while (CameraShutterSpeed == 0)
                                 CameraShutterSpeed = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraShutterSpeedAob, true, true)).FirstOrDefault();
-                            AddProgress(29);  
+                            UpdateUi.AddProgress(ScanAmount, 29, Self_Vehicle.sv.AOBProgressBar);  
                             
                             AddressesFive();
                             MainAOBScanDone = true;
                             Self_Vehicle.sv.Dispatcher.Invoke(delegate ()
                             {
                                 Self_Vehicle.sv.AOBProgressBar.Visibility = System.Windows.Visibility.Hidden;
-                                Self_Vehicle.sv.ScanButton.Content = "Done";
-                                Self_Vehicle.sv.ScanButton.IsEnabled = false;
+                                //Self_Vehicle.sv.ScanButton.Content = "Done";
+                                //Self_Vehicle.sv.ScanButton.IsEnabled = false;
                             });
                         }
                         Thread.Sleep(1);
@@ -860,27 +857,6 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 {
                     ;
                 }
-            }
-        }
-        private void AddProgress(int index)
-        {
-
-            int Prog = (int)(Math.Round((decimal)100 / ScanAmount) * index);
-            if (Prog > 100)
-                Prog = 100;
-            int CurrentProg = 0;
-            Self_Vehicle.sv.Dispatcher.Invoke(delegate ()
-            {
-                CurrentProg = (int)Self_Vehicle.sv.AOBProgressBar.Value;
-            });
-
-            for (int i = CurrentProg; i <= Prog; i++)
-            {
-                Self_Vehicle.sv.Dispatcher.Invoke(delegate ()
-                {
-                    Self_Vehicle.sv.AOBProgressBar.Value = i;
-                });
-                Thread.Sleep(15);
             }
         }
     }
