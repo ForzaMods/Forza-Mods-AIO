@@ -65,7 +65,7 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
                 <RadioButton x:Name="TuningTableMain"
-                             Content="Tuning Tool"
+                             Content="Tuning"
                              Height="40"
                              Foreground="White"
                              FontSize="14"

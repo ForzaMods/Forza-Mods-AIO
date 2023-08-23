@@ -19,6 +19,7 @@ using Forza_Mods_AIO.Tabs.AIO_Info;
 using Forza_Mods_AIO.Tabs.Self_Vehicle;
 using Forza_Mods_AIO.Tabs.AutoShowTab;
 using Forza_Mods_AIO.Tabs.TuningTablePort;
+using Lunar;
 
 namespace Forza_Mods_AIO
 {
@@ -62,6 +63,8 @@ namespace Forza_Mods_AIO
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
         public string Page_Focused = "AIO-Info";
         private bool attached = false;
+        public LibraryMapper mapper;
+        public bool Was_Mapped = false;
         Dictionary<string, bool> Is_Scanned = new Dictionary<string, bool>()
         {
             { "AutoShow", false },
@@ -262,6 +265,8 @@ namespace Forza_Mods_AIO
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             //TODO Cleanup here
+            if (Was_Mapped)
+                mapper.UnmapLibrary();
             Environment.Exit(0);
         }
         #endregion

@@ -57,16 +57,16 @@ namespace Forza_Mods_AIO.Tabs
                 #region FH4
                 else
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql5, "string", "                            ");
-                    MainWindow.mw.m.WriteMemory(ASA.sql3, "string", "                  ");
-                    MainWindow.mw.m.WriteMemory(ASA.sql7, "string", "                                           ");
-                    MainWindow.mw.m.WriteMemory(ASA.sql1, "string", "    Garage.IsInstalled            AS PurchasableCar,");
-                    MainWindow.mw.m.WriteMemory(ASA.sql9, "string", "                                    ");
-                    MainWindow.mw.m.WriteMemory(ASA.sql8, "string", "           1215=");
-                    MainWindow.mw.m.WriteMemory(ASA.sql4, "string", "      1215=");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql5, "string", "                            ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql3, "string", "                  ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql7, "string", "                                           ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql1, "string", "    Garage.IsInstalled            AS PurchasableCar,");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql9, "string", "                                    ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql8, "string", "           1215=");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql4, "string", "      1215=");
 
-                    if (ASA.sql17 != "0")
-                        MainWindow.mw.m.WriteMemory(ASA.sql17, "string", "                     ");
+                    if (AutoshowVars.sql17 != "0")
+                        MainWindow.mw.m.WriteMemory(AutoshowVars.sql17, "string", "                     ");
                 }
                 #endregion
             }
@@ -98,16 +98,16 @@ namespace Forza_Mods_AIO.Tabs
                 #region FH4
                 else
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql5, "string", "AND NotAvailableInAutoshow=0");
-                    MainWindow.mw.m.WriteMemory(ASA.sql3, "string", "AND NOT IsBarnFind");
-                    MainWindow.mw.m.WriteMemory(ASA.sql7, "string", "AND IsCarVisibleAndReleased(Garage.ModelId)");
-                    MainWindow.mw.m.WriteMemory(ASA.sql1, "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
-                    MainWindow.mw.m.WriteMemory(ASA.sql9, "string", "AND UnobtainableCars.Ordinal IS NULL");
-                    MainWindow.mw.m.WriteMemory(ASA.sql8, "string", "Garage.ModelId!=");
-                    MainWindow.mw.m.WriteMemory(ASA.sql4, "string", "Garage.Id!=");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql5, "string", "AND NotAvailableInAutoshow=0");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql3, "string", "AND NOT IsBarnFind");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql7, "string", "AND IsCarVisibleAndReleased(Garage.ModelId)");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql1, "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql9, "string", "AND UnobtainableCars.Ordinal IS NULL");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql8, "string", "Garage.ModelId!=");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql4, "string", "Garage.Id!=");
 
-                    if (ASA.sql17 != "0")
-                        MainWindow.mw.m.WriteMemory(ASA.sql17, "string", "AND NOT IsMidnightCar");
+                    if (AutoshowVars.sql17 != "0")
+                        MainWindow.mw.m.WriteMemory(AutoshowVars.sql17, "string", "AND NOT IsMidnightCar");
                 }
                 #endregion
             }
@@ -142,16 +142,16 @@ namespace Forza_Mods_AIO.Tabs
                 #region FH4
                 else
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql6, "string", "=1                                    ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql6, "string", "=1                                    ");
 
-                    MainWindow.mw.m.WriteMemory(ASA.sql3, "string", "                  ");
-                    MainWindow.mw.m.WriteMemory(ASA.sql1, "string", "    Garage.IsInstalled            AS PurchasableCar,");
-                    MainWindow.mw.m.WriteMemory(ASA.sql9, "string", "                                    ");
-                    MainWindow.mw.m.WriteMemory(ASA.sql8, "string", "           1215=");
-                    MainWindow.mw.m.WriteMemory(ASA.sql4, "string", "      1215=");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql3, "string", "                  ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql1, "string", "    Garage.IsInstalled            AS PurchasableCar,");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql9, "string", "                                    ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql8, "string", "           1215=");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql4, "string", "      1215=");
 
-                    if (ASA.sql17 != "0")
-                        MainWindow.mw.m.WriteMemory(ASA.sql17, "string", "                     ");
+                    if (AutoshowVars.sql17 != "0")
+                        MainWindow.mw.m.WriteMemory(AutoshowVars.sql17, "string", "                     ");
                 }
                 #endregion
             }
@@ -182,16 +182,16 @@ namespace Forza_Mods_AIO.Tabs
                 #region FH4
                 else
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql6, "string", "=0                                    ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql6, "string", "=0                                    ");
 
-                    MainWindow.mw.m.WriteMemory(ASA.sql3, "string", "AND NOT IsBarnFind");
-                    MainWindow.mw.m.WriteMemory(ASA.sql1, "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
-                    MainWindow.mw.m.WriteMemory(ASA.sql9, "string", "AND UnobtainableCars.Ordinal IS NULL");
-                    MainWindow.mw.m.WriteMemory(ASA.sql8, "string", "Garage.ModelId!=");
-                    MainWindow.mw.m.WriteMemory(ASA.sql4, "string", "Garage.Id!=");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql3, "string", "AND NOT IsBarnFind");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql1, "string", "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql9, "string", "AND UnobtainableCars.Ordinal IS NULL");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql8, "string", "Garage.ModelId!=");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql4, "string", "Garage.Id!=");
 
-                    if (ASA.sql17 != "0")
-                        MainWindow.mw.m.WriteMemory(ASA.sql17, "string", "AND NOT IsMidnightCar");
+                    if (AutoshowVars.sql17 != "0")
+                        MainWindow.mw.m.WriteMemory(AutoshowVars.sql17, "string", "AND NOT IsMidnightCar");
                 }
                 #endregion
             }
@@ -228,7 +228,7 @@ namespace Forza_Mods_AIO.Tabs
                 }
                 else
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "UPDATE Data_Car SET BaseCost = 0 WHERE BaseCost >0                                                                                                                                                                                                                                                                                                                         ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql12, "string", "UPDATE Data_Car SET BaseCost = 0 WHERE BaseCost >0                                                                                                                                                                                                                                                                                                                         ");
                     UnlockHiddenPresets.IsEnabled = false;
                     FixThumbnails.IsEnabled = false;
                     ShowTrafficHSNull.IsEnabled = false;
@@ -255,7 +255,7 @@ namespace Forza_Mods_AIO.Tabs
                 }
                 else if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql12, "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
                     UnlockHiddenPresets.IsEnabled = true;
                     FixThumbnails.IsEnabled = true;
                     ShowTrafficHSNull.IsEnabled = true;
@@ -270,15 +270,15 @@ namespace Forza_Mods_AIO.Tabs
             #region Enable
             if (PaintLegoCars.IsOn)
             {
-                MainWindow.mw.m.WriteMemory(ASA.sql15, "string", "b");
-                MainWindow.mw.m.WriteMemory(ASA.sql16, "string", "b");
+                MainWindow.mw.m.WriteMemory(AutoshowVars.sql15, "string", "b");
+                MainWindow.mw.m.WriteMemory(AutoshowVars.sql16, "string", "b");
             }
             #endregion
             #region Disable
             else if (!PaintLegoCars.IsOn)
             {
-                MainWindow.mw.m.WriteMemory(ASA.sql15, "string", "H");
-                MainWindow.mw.m.WriteMemory(ASA.sql16, "string", "H");
+                MainWindow.mw.m.WriteMemory(AutoshowVars.sql15, "string", "H");
+                MainWindow.mw.m.WriteMemory(AutoshowVars.sql16, "string", "H");
             }
             #endregion
         }
@@ -289,15 +289,15 @@ namespace Forza_Mods_AIO.Tabs
             #region Enable
             if (RemoveAnyCar.IsOn)
             {
-                MainWindow.mw.m.WriteMemory(ASA.sql11, "string", "b");
-                MainWindow.mw.m.WriteMemory(ASA.sql2, "string", "b");
+                MainWindow.mw.m.WriteMemory(AutoshowVars.sql11, "string", "b");
+                MainWindow.mw.m.WriteMemory(AutoshowVars.sql2, "string", "b");
             }
             #endregion
             #region Disable
             else
             {
-                MainWindow.mw.m.WriteMemory(ASA.sql11, "string", "D");
-                MainWindow.mw.m.WriteMemory(ASA.sql2, "string", "I");
+                MainWindow.mw.m.WriteMemory(AutoshowVars.sql11, "string", "D");
+                MainWindow.mw.m.WriteMemory(AutoshowVars.sql2, "string", "I");
             }
             #endregion
         }
@@ -316,7 +316,7 @@ namespace Forza_Mods_AIO.Tabs
                 #region FH4
                 else
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "DELETE FROM Profile0_Career_Garage WHERE Id > 0                                                                                                                                                                                                                                                                                                                            ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql12, "string", "DELETE FROM Profile0_Career_Garage WHERE Id > 0                                                                                                                                                                                                                                                                                                                            ");
                     ToggleFreeCars.IsEnabled = false;
                     UnlockHiddenPresets.IsEnabled = false;
                     FixThumbnails.IsEnabled = false;
@@ -330,7 +330,7 @@ namespace Forza_Mods_AIO.Tabs
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql12, "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
                     ToggleFreeCars.IsEnabled = true;
                     UnlockHiddenPresets.IsEnabled = true;
                     FixThumbnails.IsEnabled = true;
@@ -364,7 +364,7 @@ namespace Forza_Mods_AIO.Tabs
                 #region FH4
                 else
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                            ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql12, "string", "UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                            ");
                     ToggleFreeCars.IsEnabled = false;
                     UnlockHiddenPresets.IsEnabled = false;
                     ClearGarage.IsEnabled = false;
@@ -378,7 +378,7 @@ namespace Forza_Mods_AIO.Tabs
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql12, "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
                     ToggleFreeCars.IsEnabled = true;
                     UnlockHiddenPresets.IsEnabled = true;
                     ClearGarage.IsEnabled = true;
@@ -615,7 +615,7 @@ namespace Forza_Mods_AIO.Tabs
                 #region FH4
                 else
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql12, "string", "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
                     ToggleFreeCars.IsEnabled = false;
                     UnlockHiddenPresets.IsEnabled = false;
                     FixThumbnails.IsEnabled = false;
@@ -630,7 +630,7 @@ namespace Forza_Mods_AIO.Tabs
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql12, "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
                     ToggleFreeCars.IsEnabled = true;
                     UnlockHiddenPresets.IsEnabled = true;
                     FixThumbnails.IsEnabled = true;
@@ -648,7 +648,7 @@ namespace Forza_Mods_AIO.Tabs
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql12, "string", "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
                     ToggleFreeCars.IsEnabled = false;
                     UnlockHiddenPresets.IsEnabled = false;
                     FixThumbnails.IsEnabled = false;
@@ -662,7 +662,7 @@ namespace Forza_Mods_AIO.Tabs
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql12, "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
                     ToggleFreeCars.IsEnabled = true;
                     UnlockHiddenPresets.IsEnabled = true;
                     FixThumbnails.IsEnabled = true;
@@ -698,7 +698,7 @@ namespace Forza_Mods_AIO.Tabs
                 #region FH4
                 else
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "UPDATE UpgradePresetPackages SET Purchasable=1 WHERE Purchasable=0                                                                                                                                                                                                                                                                                                         ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql12, "string", "UPDATE UpgradePresetPackages SET Purchasable=1 WHERE Purchasable=0                                                                                                                                                                                                                                                                                                         ");
                     ToggleFreeCars.IsEnabled = false;
                     UnlockHiddenDecals.IsEnabled = false;
                     FixThumbnails.IsEnabled = false;
@@ -713,7 +713,7 @@ namespace Forza_Mods_AIO.Tabs
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
                 {
-                    MainWindow.mw.m.WriteMemory(ASA.sql12, "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    MainWindow.mw.m.WriteMemory(AutoshowVars.sql12, "string", "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
                     ToggleFreeCars.IsEnabled = true;
                     UnlockHiddenDecals.IsEnabled = true;
                     FixThumbnails.IsEnabled = true;
