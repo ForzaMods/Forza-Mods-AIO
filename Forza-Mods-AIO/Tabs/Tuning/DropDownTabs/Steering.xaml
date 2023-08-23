@@ -19,12 +19,12 @@
                Content="Steering Angle Max"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
-               Margin="18,19,0,0"/>
+               Margin="18,22,0,0"/>
             <Label x:Name="SteeringAngleMax2Label"
                Content="Steering Angle Max 2"
                VerticalAlignment="Top" HorizontalAlignment="Right"
                
-               Margin="0,19,156,0"/>
+               Margin="0,22,163,0"/>
             <!--#endregion-->
             <!--#region Velocity-->
             <Label x:Name="TimeLabel"
@@ -37,7 +37,7 @@
                Margin="18,88,0,0" RenderTransformOrigin="0.817,0.623"/>
             <Label x:Name="TurningLabel"
                Content="Velocity Turning"
-               VerticalAlignment="Center" Margin="18,0,0,0" HorizontalAlignment="Left"
+               VerticalAlignment="Top" Margin="18,122,0,0" HorizontalAlignment="Left"
                />
             <Label x:Name="CountersteerLabel"
                Content="Velocity Countersteer"
@@ -52,8 +52,8 @@
             <!--#endregion-->
             <!--#region Numeric Boxes-->
             <!--Steering Boxes-->
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="AngleBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="145,20,295,227" ValueChanged="AngleBox_ValueChanged"/>
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="Angle2Box" TextAlignment="Left" NumericInputMode="Decimal" Margin="422,20,18,227" ValueChanged="Angle2Box_ValueChanged"/>
+            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="AngleBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="144,22,296,225" ValueChanged="AngleBox_ValueChanged"/>
+            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="Angle2Box" TextAlignment="Left" NumericInputMode="Decimal" Margin="422,22,18,225" ValueChanged="Angle2Box_ValueChanged"/>
             <!--Velocity Boxes-->
             <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="VelocityTimeBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="227,226,168,21" ValueChanged="VelocityTimeBox_ValueChanged"/>
             <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="VelocityStraightBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,88,168,159" ValueChanged="VelocityStraightBox_ValueChanged"/>

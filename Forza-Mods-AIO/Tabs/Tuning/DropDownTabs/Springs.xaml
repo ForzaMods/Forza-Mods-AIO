@@ -34,7 +34,7 @@
                Content="Rear Springs Max"
                VerticalAlignment="Top" HorizontalAlignment="Right"
                
-               Margin="0,64,172,0"/>
+               Margin="0,63,172,0"/>
             <!--#endregion-->
             <!--#region Rims-->
             <Label x:Name="FrontRideHeightMinLabel"
@@ -42,7 +42,7 @@
                VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18.5 122.5"/>
             <Label x:Name="FrontRideHeightMaxLabel"
                Content="Front Ride Height Max"
-               VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0,0,-65"/>
+               VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18,157,0,0"/>
             <Label x:Name="RearRideHeightMinLabel"
                Content="Rear Ride Height Min"
                VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="18.5 55"
@@ -59,14 +59,14 @@
             <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontSpringsMinBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="128,20,312,227" ValueChanged="FrontSpringsMinBox_ValueChanged"/>
             <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearSpringsMinBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="128,63,312,184" ValueChanged="RearSpringsMinBox_ValueChanged"/>
             <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontSpringsMaxBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="417,21,23,226" ValueChanged="FrontSpringsMaxBox_ValueChanged"/>
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearSpringsMaxBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="417,64,23,183" ValueChanged="RearSpringsMaxBox_ValueChanged"/>
+            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearSpringsMaxBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="417,63,23,184" ValueChanged="RearSpringsMaxBox_ValueChanged"/>
             <!--Ride Height Boxes, Buttons-->
             <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontRideHeightMinBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,124,173,123" ValueChanged="FrontRideHeightMinBox_ValueChanged"/>
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontRideHeightMaxBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,159,23,88" ValueChanged="FrontRideHeightMaxBox_ValueChanged"/>
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearRideHeightMinBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,193,173,54" ValueChanged="RearRideHeightMinBox_ValueChanged"/>
+            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontRideHeightMaxBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,157,23,90" ValueChanged="FrontRideHeightMaxBox_ValueChanged"/>
+            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearRideHeightMinBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,192,173,55" ValueChanged="RearRideHeightMinBox_ValueChanged"/>
             <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25"  TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearRideHeightMaxBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,226,23,21" ValueChanged="RearRideHeightMaxBox_ValueChanged"/>
             <mah:ToggleSwitch x:Name="FrontRestriction" Content="Front Restriction" Height="29" Margin="410,0,0,0" FontSize="12" Toggled="FrontRestriction_Toggled" ToolTip="For stance/fix bouncing"/>
-            <mah:ToggleSwitch x:Name="RearRestriction" Content="Rear Restriction" Height="30" Margin="410,191,0,0" VerticalAlignment="Top" FontSize="12" Toggled="RearRestriction_Toggled" ToolTip="For stance/fix bouncing"/>
+            <mah:ToggleSwitch x:Name="RearRestriction" Content="Rear Restriction" Height="30" Margin="410,190,0,0" VerticalAlignment="Top" FontSize="12" Toggled="RearRestriction_Toggled" ToolTip="For stance/fix bouncing"/>
         </Grid>
     </Border>
 </Page>

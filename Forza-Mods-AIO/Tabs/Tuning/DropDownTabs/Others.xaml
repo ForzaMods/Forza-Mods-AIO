@@ -20,49 +20,49 @@
                Content="Wheelbase"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
-               Margin="18.5,20,0,0"/>
+               Margin="20,20,0,0"/>
             <Label x:Name="FrontWidthLabel"
                Content="Front Width"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
-               Margin="18.5,58,0,0"/>
+               Margin="20,58,0,0"/>
             <Label x:Name="RearWidthLabel"
                Content="Rear Width"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
-               Margin="18.5,131,0,0"/>
+               Margin="20,131,0,0"/>
             <Label x:Name="FrontSpacerLabel"
                Content="Front Spacer"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
-               Margin="18.5,94,0,0"/>
+               Margin="20,94,0,0"/>
             <Label x:Name="RearSpacerLabel"
                Content="Rear Spacer"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
-               Margin="18.5,168,480,0"/>
+               Margin="20,168,0,0"/>
             <!--#endregion-->
             <!--#region Rims-->
             <Label x:Name="RimSizeFrontLabel"
                Content="Rim Size Front"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
-               Margin="18.5,233,0,0"/>
+               Margin="20,233,0,0"/>
             <Label x:Name="RimRadiusFrontLabel"
                Content="Rim Radius Front"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
-               Margin="18.5,268,0,0"/>
+               Margin="20,268,0,0"/>
             <Label x:Name="RimSizeRearLabel"
                Content="Rim Size Rear"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
-               Margin="18.5,303,470,0"/>
+               Margin="20,303,0,0"/>
             <Label x:Name="RimRadiusRearLabel"
                Content="Rim Radius Rear"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
-               Margin="18.5,340,0,0"/>
+               Margin="20,340,0,0"/>
             <!--#endregion-->
             <!--#endregion-->
             <!--#region Numeric Boxes-->
