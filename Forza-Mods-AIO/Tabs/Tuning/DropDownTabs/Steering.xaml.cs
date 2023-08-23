@@ -46,5 +46,10 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
         {
             try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.AngleVelocityDynamicPeek, "float", VelocityDynamicPeekBox.Value.ToString()); } catch { }
         }
+
+        private void FreezeToggled(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

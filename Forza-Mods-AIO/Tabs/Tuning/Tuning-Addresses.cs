@@ -130,10 +130,10 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
         public static async Task Scan()
         {
             #region Camber,toe (static) and scanning vars
-            while (Base == 0)
+            while (Base is 0 or 0xD)
                 Base = (await MainWindow.mw.m.AoBScan(MainWindow.mw.gvp.Process.MainModule.BaseAddress, 
-                                                      MainWindow.mw.gvp.Process.MainModule.BaseAddress + MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, 
-                                                      "00 00 a0 ? ? ? ? ? ? ? ? c0 00 ? a0", true, true, false)).FirstOrDefault();
+                                                      MainWindow.mw.gvp.Process.MainModule.BaseAddress + MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize,
+                                                      "3d ? ? ? ? 00 00 ? ? 00 00 5c", true, true, false)).FirstOrDefault() + 0xD;
             
             CamberNegStatic = Base.ToString("X");
             CamberPosStatic = (Base + 0x4).ToString("X");
@@ -371,7 +371,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             //Rest requires a constant reading
             while (true)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(5);
                 // No reason to update values when not focused
                 if (MainWindow.mw.Page_Focused != "TuningTableMain")
                     continue;
@@ -379,23 +379,44 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 dispatcher.BeginInvoke((Action)delegate ()
                 {
                     #region Aero
-                    Aero.ae.FrontAeroMinBox.Value = MainWindow.mw.m.ReadFloat(FrontAeroMin);
-                    Aero.ae.FrontAeroMaxBox.Value = MainWindow.mw.m.ReadFloat(FrontAeroMax);
-                    Aero.ae.RearAeroMinBox.Value = MainWindow.mw.m.ReadFloat(RearAeroMin);
-                    Aero.ae.RearAeroMaxBox.Value = MainWindow.mw.m.ReadFloat(RearAeroMax);
+                    Aero.ae.FrontAeroMinBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FrontAeroMin), 3);
+                    Aero.ae.FrontAeroMaxBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FrontAeroMax), 3);
+                    Aero.ae.RearAeroMinBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(RearAeroMin), 3);
+                    Aero.ae.RearAeroMaxBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(RearAeroMax), 3);
                     #endregion
                     #region Gearing
-                    Gearing.g.FinalDriveRatioBox.Value = MainWindow.mw.m.ReadFloat(FinalDrive);
-                    Gearing.g.ReverseGearBox.Value = MainWindow.mw.m.ReadFloat(ReverseGear);
-                    Gearing.g.FirstGearBox.Value = MainWindow.mw.m.ReadFloat(FirstGear);
-                    Gearing.g.SecondGearBox.Value = MainWindow.mw.m.ReadFloat(SecondGear);
-                    Gearing.g.ThirdGearBox.Value = MainWindow.mw.m.ReadFloat(ThirdGear);
-                    Gearing.g.FourthGearBox.Value = MainWindow.mw.m.ReadFloat(FourthGear);
+                    Gearing.g.FinalDriveRatioBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FinalDrive), 5);
+                    Gearing.g.ReverseGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(ReverseGear), 5);
+                    Gearing.g.FirstGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FirstGear), 5);
+
+                    if (MainWindow.mw.m.ReadFloat(SecondGear) != 0)
+                    {
+                        Gearing.g.SecondGearBox.IsEnabled = true;
+                        Gearing.g.SecondGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SecondGear), 5);
+                    }
+                    else
+                        Gearing.g.SecondGearBox.IsEnabled = false;
+
+                    if (MainWindow.mw.m.ReadFloat(ThirdGear) != 0)
+                    {
+                        Gearing.g.ThirdGearBox.IsEnabled = true;
+                        Gearing.g.ThirdGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(ThirdGear), 5);
+                    }
+                    else
+                        Gearing.g.ThirdGearBox.IsEnabled = false;
+
+                    if (MainWindow.mw.m.ReadFloat(FourthGear) != 0)
+                    {
+                        Gearing.g.FourthGearBox.IsEnabled = true;
+                        Gearing.g.FourthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FourthGear), 5);
+                    }
+                    else
+                        Gearing.g.FourthGearBox.IsEnabled = false;
 
                     if (MainWindow.mw.m.ReadFloat(FifthGear) != 0)
                     {
                         Gearing.g.FifthGearBox.IsEnabled = true;
-                        Gearing.g.FifthGearBox.Value = MainWindow.mw.m.ReadFloat(FifthGear);
+                        Gearing.g.FifthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FifthGear), 5);
                     }
                     else
                         Gearing.g.FifthGearBox.IsEnabled = false;
@@ -403,7 +424,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                     if (MainWindow.mw.m.ReadFloat(SixthGear) != 0)
                     {
                         Gearing.g.SixthGearBox.IsEnabled = true;
-                        Gearing.g.SixthGearBox.Value = MainWindow.mw.m.ReadFloat(SixthGear);
+                        Gearing.g.SixthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SixthGear), 5);
                     }
                     else
                         Gearing.g.SixthGearBox.IsEnabled = false;
@@ -411,7 +432,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                     if (MainWindow.mw.m.ReadFloat(SeventhGear) != 0)
                     {
                         Gearing.g.SeventhGearBox.IsEnabled = true;
-                        Gearing.g.SeventhGearBox.Value = MainWindow.mw.m.ReadFloat(SeventhGear);
+                        Gearing.g.SeventhGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SeventhGear), 5);
                     }
                     else
                         Gearing.g.SeventhGearBox.IsEnabled = false;
@@ -419,7 +440,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                     if (MainWindow.mw.m.ReadFloat(EighthGear) != 0)
                     {
                         Gearing.g.EighthBox.IsEnabled = true;
-                        Gearing.g.EighthBox.Value = MainWindow.mw.m.ReadFloat(EighthGear);
+                        Gearing.g.EighthBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(EighthGear), 5);
                     }
                     else
                         Gearing.g.EighthBox.IsEnabled = false;
@@ -427,7 +448,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                     if (MainWindow.mw.m.ReadFloat(NinthGear) != 0)
                     {
                         Gearing.g.NinthGearBox.IsEnabled = true;
-                        Gearing.g.NinthGearBox.Value = MainWindow.mw.m.ReadFloat(NinthGear);
+                        Gearing.g.NinthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(NinthGear), 5);
                     }
                     else
                         Gearing.g.NinthGearBox.IsEnabled = false;
@@ -435,21 +456,21 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                     if (MainWindow.mw.m.ReadFloat(TenthGear) != 0)
                     {
                         Gearing.g.TenthGearBox.IsEnabled = true;
-                        Gearing.g.TenthGearBox.Value = MainWindow.mw.m.ReadFloat(TenthGear);
+                        Gearing.g.TenthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(TenthGear), 5);
                     }
                     else
                         Gearing.g.TenthGearBox.IsEnabled = false;
                     #endregion
                     #region Damping
-                    Damping.d.FrontAntirollBarsMinBox.Value = MainWindow.mw.m.ReadFloat(FrontAntirollMin);
-                    Damping.d.FrontAntirollBarsMaxBox.Value = MainWindow.mw.m.ReadFloat(FrontAntirollMax);
-                    Damping.d.RearAntirollBarsMinBox.Value = MainWindow.mw.m.ReadFloat(RearAntirollMin);
-                    Damping.d.RearAntirollBarsMaxBox.Value = MainWindow.mw.m.ReadFloat(RearAntirollMax);
+                    Damping.d.FrontAntirollBarsMinBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FrontAntirollMin), 5);
+                    Damping.d.FrontAntirollBarsMaxBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FrontAntirollMax), 5);
+                    Damping.d.RearAntirollBarsMinBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(RearAntirollMin), 5);
+                    Damping.d.RearAntirollBarsMaxBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(RearAntirollMax), 5);
 
-                    Damping.d.FrontBumpStiffnessMinBox.Value = MainWindow.mw.m.ReadFloat(FrontBumpStiffnessMin);
-                    Damping.d.FrontBumpStiffnessMaxBox.Value = MainWindow.mw.m.ReadFloat(FrontBumpStiffnessMax);
-                    Damping.d.RearBumpStiffnessMinBox.Value = MainWindow.mw.m.ReadFloat(RearBumpStiffnessMin);
-                    Damping.d.RearBumpStiffnessMaxBox.Value = MainWindow.mw.m.ReadFloat(RearBumpStiffnessMax);
+                    Damping.d.FrontBumpStiffnessMinBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FrontBumpStiffnessMin), 5);
+                    Damping.d.FrontBumpStiffnessMaxBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FrontBumpStiffnessMax), 5);
+                    Damping.d.RearBumpStiffnessMinBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(RearBumpStiffnessMin), 5);
+                    Damping.d.RearBumpStiffnessMaxBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(RearBumpStiffnessMax), 5);
 
                     Damping.d.FrontReboundStiffnessMinBox.Value = MainWindow.mw.m.ReadFloat(FrontReboundStiffnesMin);
                     Damping.d.FrontReboundStiffnessMaxBox.Value = MainWindow.mw.m.ReadFloat(FrontReboundStiffnessMax);
@@ -468,24 +489,24 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                     Others.o.RearSpacerBox.Value = MainWindow.mw.m.ReadFloat(RearSpacer);
                     #endregion
                     #region Springs
-                    Springs.sp.FrontSpringsMinBox.Value = MainWindow.mw.m.ReadFloat(SpringFrontMin);
-                    Springs.sp.FrontSpringsMaxBox.Value = MainWindow.mw.m.ReadFloat(SpringFrontMax);
-                    Springs.sp.RearSpringsMinBox.Value = MainWindow.mw.m.ReadFloat(SpringRearMin);
-                    Springs.sp.RearSpringsMaxBox.Value = MainWindow.mw.m.ReadFloat(SpringRearMax);
+                    Springs.sp.FrontSpringsMinBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SpringFrontMin), 3);
+                    Springs.sp.FrontSpringsMaxBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SpringFrontMax), 3);
+                    Springs.sp.RearSpringsMinBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SpringRearMin), 3);
+                    Springs.sp.RearSpringsMaxBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SpringRearMax), 3);
 
-                    Springs.sp.FrontRideHeightMinBox.Value = MainWindow.mw.m.ReadFloat(FrontRideHeightMin);
-                    Springs.sp.FrontRideHeightMaxBox.Value = MainWindow.mw.m.ReadFloat(FrontRideHeightMax);
-                    Springs.sp.RearRideHeightMinBox.Value = MainWindow.mw.m.ReadFloat(RearRideHeightMin);
-                    Springs.sp.RearRideHeightMaxBox.Value = MainWindow.mw.m.ReadFloat(RearRideHeightMax);
+                    Springs.sp.FrontRideHeightMinBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FrontRideHeightMin), 6);
+                    Springs.sp.FrontRideHeightMaxBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FrontRideHeightMax), 6);
+                    Springs.sp.RearRideHeightMinBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(RearRideHeightMin), 6);
+                    Springs.sp.RearRideHeightMaxBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(RearRideHeightMax), 6);
                     #endregion
                     #region Steering
-                    Steering.st.AngleBox.Value = MainWindow.mw.m.ReadFloat(AngleMax);
+                    Steering.st.AngleBox.Value =  MainWindow.mw.m.ReadFloat(AngleMax);
                     Steering.st.Angle2Box.Value = MainWindow.mw.m.ReadFloat(AngleMax2);
                     Steering.st.VelocityCountersteerBox.Value = MainWindow.mw.m.ReadFloat(AngleVelocityCountersteer);
                     Steering.st.VelocityDynamicPeekBox.Value = MainWindow.mw.m.ReadFloat(AngleVelocityDynamicPeek);
                     Steering.st.VelocityStraightBox.Value = MainWindow.mw.m.ReadFloat(AngleVelocityStraight);
                     Steering.st.VelocityTurningBox.Value = MainWindow.mw.m.ReadFloat(AngleVelocityTurning);
-                    Steering.st.VelocityTimeBox.Value = MainWindow.mw.m.ReadFloat(AngleTimeToMaxSteering);
+                    Steering.st.VelocityTimeBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(AngleTimeToMaxSteering), 5);
                     #endregion
                     #region Tires
                     Tires.t.FrontLeftTirePressureBox.Value = MainWindow.mw.m.ReadFloat(TireFrontLeft);

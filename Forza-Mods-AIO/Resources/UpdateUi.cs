@@ -28,12 +28,12 @@ namespace Forza_Mods_AIO.Resources
         {
             // Tuning
             { "TiresButton" , 240}, // Button name for page, height of page
-            { "GearingButton" , 250},
+            { "GearingButton" , 275},
             { "AlignmentButton" , 120},
-            { "SpringsButton" , 525},
-            { "DampingButton" , 585},
+            { "SpringsButton" , 275},
+            { "DampingButton" , 350},
             { "AeroButton", 120 },
-            { "SteeringButton", 395 },
+            { "SteeringButton", 275 },
             { "OthersButton", 395 },
 
             // Self-Vehicle

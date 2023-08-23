@@ -351,9 +351,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             CosmeticUnlockAob = "8B 73 58 8B 43 64";
             HornAsmAob = "8B FA 48 8B D9 E8 ? ? ? ? 39 7B 10";
             //TotalXpAddr = (Base3Addr + ",0xEE8,0x408,0x70,0x28,0x30,0x20,0x270");
-            CameraSpeedBaseAob = "?? ?? ?? ?? ?? ?? ?? ?? 0A D7 13 40 E1 7A C4 40 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 00 00 20 ?? ?? ?? F? 7F 00 00 00 00 AA 42 00 00 AA 42 01 00 00 00 31 00 00 00 00 00 00 00 00 00 20 40 A8 ?? ?? ?? F? 7F";
-            CameraBaseAob = "?? ?? 00 00 70 17 00 00 DC 05 00 00 00 ?? ?? ?? 00 00 80 3F ?? 0? ?? ?0 ?? ?? ?? ?? ?? ?? ?? ?? 00 00 80 3E 00 00 00 3F 00 00 00 3F";
-            CameraShutterSpeedAob = "?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0? 00 00 00 00 00 00 00 01 0F 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 1D 00 00 00 00 00 00 00 00 F0 00 00 00 00 00 00 00 0F 00 00 00 00 00 00 80 28 ?? ?? ?? 0? 00 00 97 CA 0B 83 10 CD 5B 3C 60";
+            CameraSpeedBaseAob = "cd ? 4c 3f cd ? 4c 3f 0a d7 13 40";
+            CameraBaseAob = "27 01 00 00 70";
+            CameraShutterSpeedAob = "f0 75 ? 95 f6 7f ? 00 fe";
         }
         private static void StartSetupFive()
         {
@@ -837,18 +837,12 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                                 CameraBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraBaseAob, true, true)).FirstOrDefault();
                             UpdateUi.AddProgress(ScanAmount, 28, Self_Vehicle.sv.AOBProgressBar);    
                             
-                            while (CameraShutterSpeed == 0)
-                                CameraShutterSpeed = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraShutterSpeedAob, true, true)).FirstOrDefault();
+                            while (CameraShutterSpeed == 0 || CameraShutterSpeed == 0xA4)
+                                CameraShutterSpeed = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraShutterSpeedAob, true, true)).FirstOrDefault() + 0xA4;
                             UpdateUi.AddProgress(ScanAmount, 29, Self_Vehicle.sv.AOBProgressBar);  
                             
                             AddressesFive();
                             MainAOBScanDone = true;
-                            Self_Vehicle.sv.Dispatcher.Invoke(delegate ()
-                            {
-                                Self_Vehicle.sv.AOBProgressBar.Visibility = System.Windows.Visibility.Hidden;
-                                //Self_Vehicle.sv.ScanButton.Content = "Done";
-                                //Self_Vehicle.sv.ScanButton.IsEnabled = false;
-                            });
                         }
                         Thread.Sleep(1);
                     }
