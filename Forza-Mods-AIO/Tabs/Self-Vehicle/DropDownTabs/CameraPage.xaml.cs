@@ -56,5 +56,10 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
         {
 
         }
+
+        private void ScanForFovButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

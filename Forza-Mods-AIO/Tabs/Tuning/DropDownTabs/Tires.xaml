@@ -5,20 +5,24 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
-      d:DesignHeight="160" d:DesignWidth="580"
+      d:DesignHeight="240" d:DesignWidth="580"
       Title="Tires">
 
     <Grid>
         <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10"/>
 
-        <Label x:Name="FrontLeftTirePressureLabel" Content="Front Left Tire Pressure" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" FontSize="14" Margin="43,10,0,0"/>
-        <Label x:Name="FrontRightTirePressureLabel" Content="Front Right Tire Pressure" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" FontSize="14" Margin="0,10,40,0"/>
-        <Label x:Name="RearLeftTirePressureLabel" Content="Rear Left Tire Pressure" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" FontSize="14" Margin="46,0,0,45"/>
-        <Label x:Name="RearRightTirePressureLabel" Content="Rear Right Tire Pressure" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" FontSize="14" Margin="0,0,42,45"/>
+        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0" />
+        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,64,0,0" />
+        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,0,0,74" />
+        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,0,0,14" />
 
-        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontLeftTirePressureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="58,40,0,0" Minimum="-0" ValueChanged="FrontLeftTirePressureBox_ValueChanged"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontRightTirePressureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,40,60,0" Minimum="0" ValueChanged="FrontRightTirePressureBox_ValueChanged"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearLeftTirePressureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="59,0,0,19" Minimum="0" ValueChanged="RearLeftTirePressureBox_ValueChanged"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearRightTirePressureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,59,19" Minimum="0" ValueChanged="RearRightTirePressureBox_ValueChanged"/>
+        <Label x:Name="FrontLeftTirePressureLabel" Content="Front Left Tire Pressure" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Margin="20,18,0,0"/>
+        <Label x:Name="FrontRightTirePressureLabel" Content="Front Right Tire Pressure" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Margin="20,72,398,0"/>
+        <Label x:Name="RearLeftTirePressureLabel" Content="Rear Left Tire Pressure" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Margin="20,0,0,82"/>
+        <Label x:Name="RearRightTirePressureLabel" Content="Rear Right Tire Pressure" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Margin="0,0,403,22"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontLeftTirePressureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="368" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="187,20,0,0" Minimum="-0" ValueChanged="FrontLeftTirePressureBox_ValueChanged"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontRightTirePressureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="368" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,74,25,0" Minimum="0" ValueChanged="FrontRightTirePressureBox_ValueChanged"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearLeftTirePressureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="368" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="187,0,0,84" Minimum="0" ValueChanged="RearLeftTirePressureBox_ValueChanged"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearRightTirePressureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="368" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,24" Minimum="0" ValueChanged="RearRightTirePressureBox_ValueChanged"/>
     </Grid>
 </Page>

@@ -14,62 +14,62 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
 
         private void FrontAntirollBarsMinBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.FrontAntirollMin, "float", FrontAntirollBarsMinBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontAntirollMin, "float", FrontAntirollBarsMinBox.Value.ToString()); } catch { }
         }
 
         private void FrontAntirollBarsMaxBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.FrontAntirollMax, "float", FrontAntirollBarsMaxBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontAntirollMax, "float", FrontAntirollBarsMaxBox.Value.ToString()); } catch { }
         }
 
         private void RearAntirollBarsMinBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.RearAntirollMin, "float", RearAntirollBarsMinBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearAntirollMin, "float", RearAntirollBarsMinBox.Value.ToString()); } catch { }
         }
 
         private void RearAntirollBarsMaxBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.RearAntirollMax, "float", RearAntirollBarsMaxBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearAntirollMax, "float", RearAntirollBarsMaxBox.Value.ToString()); } catch { }
         }
 
         private void FrontReboundStiffnessMinBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.FrontReboundStiffnesMin, "float", FrontReboundStiffnessMinBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontReboundStiffnesMin, "float", FrontReboundStiffnessMinBox.Value.ToString()); } catch { }
         }
 
         private void FrontReboundStiffnessMaxBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.FrontReboundStiffnessMax, "float", FrontReboundStiffnessMaxBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontReboundStiffnessMax, "float", FrontReboundStiffnessMaxBox.Value.ToString()); } catch { }
         }
 
         private void RearReboundStiffnessMinBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.RearReboundStiffnessMin, "float", RearReboundStiffnessMinBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearReboundStiffnessMin, "float", RearReboundStiffnessMinBox.Value.ToString()); } catch { }
         }
 
         private void RearReboundStiffnessMaxBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.RearReboundStiffnessMax, "float", RearReboundStiffnessMaxBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearReboundStiffnessMax, "float", RearReboundStiffnessMaxBox.Value.ToString()); } catch { }
         }
 
         private void FrontBumpStiffnessMinBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.FrontBumpStiffnessMin, "float", FrontBumpStiffnessMinBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontBumpStiffnessMin, "float", FrontBumpStiffnessMinBox.Value.ToString()); } catch { }
         }
 
         private void FrontBumpStiffnessMaxBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.FrontBumpStiffnessMax, "float", FrontBumpStiffnessMaxBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontBumpStiffnessMax, "float", FrontBumpStiffnessMaxBox.Value.ToString()); } catch { }
         }
 
         private void RearBumpStiffnessMinBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.RearBumpStiffnessMin, "float", RearBumpStiffnessMinBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearBumpStiffnessMin, "float", RearBumpStiffnessMinBox.Value.ToString()); } catch { }
         }
 
         private void RearBumpStiffnessMaxBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.RearBumpStiffnessMax, "float", RearBumpStiffnessMaxBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearBumpStiffnessMax, "float", RearBumpStiffnessMaxBox.Value.ToString()); } catch { }
         }
     }
 }

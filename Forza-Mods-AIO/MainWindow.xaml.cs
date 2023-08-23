@@ -61,6 +61,7 @@ namespace Forza_Mods_AIO
         List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.TuningTablePort.TuningTableMain(), new Tabs.Settings.Settings() };
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
         public string Page_Focused = "AIO-Info";
+        private bool attached = false;
         Dictionary<string, bool> Is_Scanned = new Dictionary<string, bool>()
         {
             { "AutoShow", false },
@@ -139,7 +140,7 @@ namespace Forza_Mods_AIO
                                         Page_Focused = rb.Name;
                                         Element.Visibility = Visibility.Visible;
 
-                                        if (Is_Scanned.TryGetValue(rb.Name, out bool isScanned) && !isScanned)
+                                        if (Is_Scanned.TryGetValue(rb.Name, out bool isScanned) && !isScanned && attached)
                                         {
                                             Is_Scanned[rb.Name] = true;
                                             switch (rb.Name)
@@ -151,7 +152,7 @@ namespace Forza_Mods_AIO
                                                     Task.Run(() => (new Self_Vehicle_Addrs()).Scan());
                                                     break;
                                                 case "TuningTableMain":
-                                                    Task.Run(() => Addresses.Scan());
+                                                    Task.Run(() => Tuning_Addresses.Scan());
                                                     break;
                                             }
                                         }
@@ -176,7 +177,6 @@ namespace Forza_Mods_AIO
         #region Attaching/Behaviour
         private void IsAttached()
         {
-            bool attached = false;
             while (true)
             {
                 Thread.Sleep(1000);
@@ -209,6 +209,15 @@ namespace Forza_Mods_AIO
                     Dispatcher.BeginInvoke((Action)delegate ()
                     {
                         AttachedLabel.Content = "Launch FH4/5";
+                        Is_Scanned["Autoshow"] = false;
+                        Is_Scanned["Self_Vehicle"] = false;
+                        Is_Scanned["TuningTableMain"] = false;
+                        Dispatcher.BeginInvoke((Action)delegate ()
+                        {
+                            Tabs.TuningTablePort.TuningTableMain.TBM.AOBProgressBar.Value = 0;
+                            Tabs.Self_Vehicle.Self_Vehicle.sv.AOBProgressBar.Value = 0;
+                            Tabs.AutoShow.AS.AOBProgressBar.Value = 0;
+                        });
                     });
                     attached = false;
                 }

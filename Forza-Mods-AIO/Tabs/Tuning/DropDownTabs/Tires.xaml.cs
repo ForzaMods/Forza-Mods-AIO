@@ -14,22 +14,22 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
 
         private void FrontLeftTirePressureBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.TireFrontLeft, "float", FrontLeftTirePressureBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.TireFrontLeft, "float", FrontLeftTirePressureBox.Value.ToString()); } catch { }
         }
 
         private void FrontRightTirePressureBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.TireFrontRight, "float", FrontRightTirePressureBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.TireFrontRight, "float", FrontRightTirePressureBox.Value.ToString()); } catch { }
         }
 
         private void RearLeftTirePressureBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.TireRearLeft, "float", RearLeftTirePressureBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.TireRearLeft, "float", RearLeftTirePressureBox.Value.ToString()); } catch { }
         }
 
         private void RearRightTirePressureBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Addresses.TireRearRight, "float", RearRightTirePressureBox.Value.ToString()); } catch { }
+            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.TireRearRight, "float", RearRightTirePressureBox.Value.ToString()); } catch { }
         }
     }
 }
