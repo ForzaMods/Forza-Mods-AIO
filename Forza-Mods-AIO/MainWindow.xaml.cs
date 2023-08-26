@@ -212,16 +212,13 @@ namespace Forza_Mods_AIO
                     Dispatcher.BeginInvoke((Action)delegate ()
                     {
                         AttachedLabel.Content = "Launch FH4/5";
-                        Is_Scanned["Autoshow"] = false;
-                        Is_Scanned["Self_Vehicle"] = false;
-                        Is_Scanned["TuningTableMain"] = false;
-                        Dispatcher.BeginInvoke((Action)delegate ()
-                        {
-                            Tabs.TuningTablePort.TuningTableMain.TBM.AOBProgressBar.Value = 0;
-                            Tabs.Self_Vehicle.Self_Vehicle.sv.AOBProgressBar.Value = 0;
-                            Tabs.AutoShow.AS.AOBProgressBar.Value = 0;
-                        });
+                        Tabs.TuningTablePort.TuningTableMain.TBM.AOBProgressBar.Value = 0;
+                        Tabs.Self_Vehicle.Self_Vehicle.sv.AOBProgressBar.Value = 0;
+                        Tabs.AutoShow.AS.AOBProgressBar.Value = 0;
                     });
+                    Is_Scanned["Autoshow"] = false;
+                    Is_Scanned["Self_Vehicle"] = false;
+                    Is_Scanned["TuningTableMain"] = false;
                     attached = false;
                 }
             }
@@ -264,9 +261,14 @@ namespace Forza_Mods_AIO
         #region Exit Handling
         private void Window_Closing(object sender, CancelEventArgs e)
         {
+
             //TODO Cleanup here
-            if (Was_Mapped)
-                mapper.UnmapLibrary();
+            if (attached)
+            {
+                if (Was_Mapped)
+                    mapper.UnmapLibrary();
+                AutoshowVars.ResetMem();
+            }
             Environment.Exit(0);
         }
         #endregion

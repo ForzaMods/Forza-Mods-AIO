@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 {
@@ -59,6 +59,11 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 (byte)((data >> 8 ) & 0xff),
                 (byte)((data >> 0) & 0xff),
                 };
+        }
+
+        static byte[] FloatToByteArray(float value)
+        {
+            return BitConverter.GetBytes(value);
         }
 
         [DllImport("kernel32.dll", ExactSpelling = true, SetLastError = true)]
@@ -345,5 +350,42 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             MainWindow.mw.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
             MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.XPaddr, XPGiveCode);
         }*/
+
+        public static void GlowingPaint(IntPtr CodeCave9)
+        {
+            if (CustomisationPage.CSP.GlowingPaintSwitch.IsOn)
+            {
+                float Multiplier = (float)CustomisationPage.CSP.GlowingPaintNum.Value;
+                string CodeCaveAddrString = ((long)CodeCave9).ToString("X");
+                string CodeCavejmpString = ((long)CodeCave9 - (Self_Vehicle_Addrs.GlowingPaintAddr + 5)).ToString("X");
+                if (CodeCavejmpString.Length % 2 != 0)
+                    CodeCavejmpString = "0" + CodeCavejmpString;
+                byte[] CodeCaveAddr = StringToBytes(CodeCavejmpString);
+                Array.Reverse(CodeCaveAddr);
+
+                string JmpToCodeCaveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty);
+                byte[] JmpToCodeCaveCode = StringToBytes(JmpToCodeCaveCodeString);
+
+                byte[] jmpBackBytes = longToByteArray(Self_Vehicle_Addrs.GlowingPaintAddr - (long)(CodeCave9 + 42)); ;
+                Array.Reverse(jmpBackBytes);
+
+                string InsideCaveCodeString = "C70546000000" + BitConverter.ToString(FloatToByteArray(Multiplier)).Replace("-", String.Empty) + // mov [codecave + 50],(multiplier)
+                                              "C70540000000" + BitConverter.ToString(FloatToByteArray(Multiplier)).Replace("-", String.Empty) + // mov [codecave + 54],(multiplier)
+                                              "C7053A000000" + BitConverter.ToString(FloatToByteArray(Multiplier)).Replace("-", String.Empty) + // mov [codecave + 58],(multiplier)
+                                              "0F590D2B000000410F114A10E9" +                                                                    // mulps xmm1,[codecave+58] + movups [r10+10],xmm1 + jmp
+                                              BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty); // jmp back bytes
+                
+                byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
+                MainWindow.mw.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
+                MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr.ToString("X"), JmpToCodeCaveCode);
+            }
+            else
+            {
+                if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
+                    MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr.ToString("X"), new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 });
+                else
+                    MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr.ToString("X"), new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 }); // will need to change for fh5
+            }
+        }
     }
 }

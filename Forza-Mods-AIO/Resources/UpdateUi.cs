@@ -40,7 +40,8 @@ namespace Forza_Mods_AIO.Resources
             { "HandlingButton" , 464},
             { "UnlocksButton" , 200},
             { "CameraButton" , 285},
-            { "TeleportsButton" , 100}
+            { "TeleportsButton" , 100},
+            { "CustomisationButton", 220 }
         };
 
         public static Dictionary<string, bool> IsClicked = new Dictionary<string, bool>()
@@ -63,7 +64,8 @@ namespace Forza_Mods_AIO.Resources
             {"StatsButton", false },
             {"TeleportsButton", false },
             {"EnvironmentButton", false },
-            {"LiveTuningButton", false }
+            {"LiveTuningButton", false },
+            {"CustomisationButton", false }
         };
 
         public static bool AnimCompleted = true;

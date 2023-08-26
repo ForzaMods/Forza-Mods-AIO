@@ -47,6 +47,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static long CameraSpeedBase;
         public static long CameraBase;
         public static long CameraShutterSpeed;
+        public static long GlowingPaintAddr;
         #endregion
         #region Addresses - AOB's
         public static string BaseAob;
@@ -79,9 +80,10 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static string AIXAob;
         public static string CosmeticUnlockAob;
         public static string HornAsmAob;
-        public static string CameraSpeedBaseAob;
-        public static string CameraBaseAob;
-        public static string CameraShutterSpeedAob;
+        public static string CameraSpeedBaseAob = "cd ? 4c 3f cd ? 4c 3f 0a d7 13 40";
+        public static string CameraBaseAob = "27 01 00 00 70";
+        public static string CameraShutterSpeedAob = "f0 75 ? 95 f6 7f ? 00 fe";
+        public static string GlowingPaintSig = "41 0f 11 4a ? 41 c6 02";
         #endregion
         #region Addresses
         public static string BaseAddr;
@@ -171,6 +173,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static IntPtr CCBA6 = (IntPtr)0;
         public static IntPtr CCBA7 = (IntPtr)0;
         public static IntPtr CCBA8 = (IntPtr)0;
+        public static IntPtr CCBA9 = (IntPtr)0;
+        public static IntPtr CCBA10 = (IntPtr)0;
         public static IntPtr CodeCave = (IntPtr)0;
         public static IntPtr CodeCave2 = (IntPtr)0;
         public static IntPtr CodeCave3 = (IntPtr)0;
@@ -179,6 +183,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static IntPtr CodeCave6 = (IntPtr)0;
         public static IntPtr CodeCave7 = (IntPtr)0;
         public static IntPtr CodeCave8 = (IntPtr)0;
+        public static IntPtr CodeCave9 = (IntPtr)0;
+        public static IntPtr CodeCave10 = (IntPtr)0;
         #endregion
         #region Addresses - FOV
         long ScanStartAddr;
@@ -318,9 +324,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             DiscoverRoadsAob = "00 96 42 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 40 1C 45 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 03 00";
             WaterAob = "3D ? ? ? ? 00 00 A0 ? ? ? ? ? ? ? ? 3F 00 00";
             AIXAob = "48 89 ? ? ? 57 48 83 EC ? 0F 10 ? 48 8B ? 0F 11 ? ? 48 8B";
-            CameraSpeedBaseAob = "?? ?? ?? ?? ?? ?? ?? ?? 0A D7 13 40 E1 7A C4 40 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 00 00 ?0 ?? ?? ?? F? 7F 00 00 00 00 AA 42 00 00 AA 42 01 00 00 00 3? 00 00 00 00 00 00 00 00 00 20 40 ?8 ?? ?? ?? F? 7F";
-            CameraBaseAob = "?? ?? 00 00 70 17 00 00 DC 05 00 00 00 ?? ?? ?? 00 00 80 3F ?? 0? ?? ?0 ?? ?? ?? ?? ?? ?? ?? ?? 00 00 80 3E 00 00 00 3F 00 00 00 3F";
-            CameraShutterSpeedAob = "?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0? 00 00 00 ?0 ?? ?? ?? ?? ?F 00 00 ?? ?? ?? ?? ?? ?? 00 00 00 00 00 ?0 00 00 00 ?0 ?? 00 ?0 ?? 00 00 00 00 00 ?0 ?? ?? 00 00 00 00 ?? ?F ?? ?? 00 00 00 00 ?0 ?? ?? ?? ?? 0? 00 00 9? ?? ?B ?? ?? ?? ?? ?? ?0";
+            CameraShutterSpeedAob = "c8 ? ? ? 7f ? 00 18 a4";
+            GlowingPaintSig = "41 0f 11 4a ? 41 c6 02";
         }
         private static void AobsSteam()
         {
@@ -351,9 +356,6 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             CosmeticUnlockAob = "8B 73 58 8B 43 64";
             HornAsmAob = "8B FA 48 8B D9 E8 ? ? ? ? 39 7B 10";
             //TotalXpAddr = (Base3Addr + ",0xEE8,0x408,0x70,0x28,0x30,0x20,0x270");
-            CameraSpeedBaseAob = "cd ? 4c 3f cd ? 4c 3f 0a d7 13 40";
-            CameraBaseAob = "27 01 00 00 70";
-            CameraShutterSpeedAob = "f0 75 ? 95 f6 7f ? 00 fe";
         }
         private static void StartSetupFive()
         {
@@ -526,6 +528,18 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                             {
                                 BaseAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, BaseAob, true, true)).FirstOrDefault() - 501;
                                 BaseAddr = BaseAddrLong.ToString("X");
+                                UpdateUi.AddProgress(2, 1, Self_Vehicle.sv.AOBProgressBar);
+
+                                GlowingPaintAddr = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, GlowingPaintSig, true, true)).FirstOrDefault();
+
+                                CCBA9 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
+                                CodeCave9 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA9, 0x58, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                                while (CodeCave9 == (IntPtr)0)
+                                {
+                                    CCBA9 += 500000;
+                                    CodeCave9 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA9, 0x58, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                                }
+                                UpdateUi.AddProgress(2, 2, Self_Vehicle.sv.AOBProgressBar);
                             }
                         }
                         if (MainWindow.mw.gvp.Plat == "MS" && (BaseAddr == "29A0" || BaseAddr == null || BaseAddr == "0"
@@ -611,6 +625,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                             {
                                 for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 100; i++)
                                 { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
+
+
                                 AddressesFourSteam();
                                 MainAOBScanDone = true;
                             }
