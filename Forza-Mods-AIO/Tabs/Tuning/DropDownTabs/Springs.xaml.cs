@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
 {
@@ -17,44 +19,16 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
             sp = this;
         }
 
-        private void FrontSpringsMinBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        public void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.SpringFrontMin, "float", FrontSpringsMinBox.Value.ToString()); } catch { }
-        }
-
-        private void RearSpringsMinBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.SpringRearMin, "float", RearSpringsMinBox.ToString()); } catch { }
-        }
-
-        private void FrontSpringsMaxBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.SpringFrontMax, "float", FrontSpringsMaxBox.Value.ToString()); } catch { }
-        }
-
-        private void RearSpringsMaxBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.SpringRearMax, "float", RearSpringsMaxBox.Value.ToString()); } catch { }
-        }
-
-        private void FrontRideHeightMinBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontRideHeightMin, "float", FrontRideHeightMinBox.Value.ToString()); } catch { }
-        }
-
-        private void FrontRideHeightMaxBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontRideHeightMax, "float", FrontRideHeightMaxBox.Value.ToString()); } catch { }
-        }
-
-        private void RearRideHeightMinBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearRideHeightMin, "float", RearRideHeightMinBox.Value.ToString()); } catch { }
-        }
-
-        private void RearRideHeightMaxBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearRideHeightMax, "float", RearRideHeightMaxBox.Value.ToString()); } catch { }
+            try
+            {
+                // Got this looping method from here and slightly modified it: https://stackoverflow.com/a/51424624
+                foreach (FieldInfo Address in typeof(Tuning_Addresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(field => field.FieldType == typeof(string)))
+                    if (Address.Name == sender.GetType().GetProperty("Name").GetValue(sender).ToString().Remove(sender.GetType().GetProperty("Name").GetValue(sender).ToString().Length - 3))
+                        MainWindow.mw.m.WriteMemory(Address.GetValue(null) as string, "float", ((MahApps.Metro.Controls.NumericUpDown)sender).Value.ToString());
+            }
+            catch { }
         }
 
         private void FrontRestriction_Toggled(object sender, RoutedEventArgs e)

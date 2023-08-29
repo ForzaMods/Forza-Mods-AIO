@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
 {
@@ -12,39 +14,16 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
             st = this;
         }
 
-        private void AngleBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        public void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.AngleMax, "float", AngleBox.Value.ToString()); } catch { }
-        }
-
-        private void Angle2Box_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.AngleMax2, "float", Angle2Box.Value.ToString()); } catch { }
-        }
-
-        private void VelocityTimeBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.AngleTimeToMaxSteering, "float", VelocityTimeBox.Value.ToString()); } catch { }
-        }
-
-        private void VelocityStraightBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.AngleVelocityStraight, "float", VelocityStraightBox.Value.ToString()); } catch { }
-        }
-
-        private void VelocityTurningBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.AngleVelocityTurning, "float", VelocityTurningBox.Value.ToString()); } catch { }
-        }
-
-        private void VelocityCountersteerBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.AngleVelocityCountersteer, "float", VelocityCountersteerBox.Value.ToString()); } catch { }
-        }
-
-        private void VelocityDynamicPeekBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-        {
-            try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.AngleVelocityDynamicPeek, "float", VelocityDynamicPeekBox.Value.ToString()); } catch { }
+            try
+            {
+                // Got this looping method from here and slightly modified it: https://stackoverflow.com/a/51424624
+                foreach (FieldInfo Address in typeof(Tuning_Addresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(field => field.FieldType == typeof(string)))
+                    if (Address.Name == sender.GetType().GetProperty("Name").GetValue(sender).ToString().Remove(sender.GetType().GetProperty("Name").GetValue(sender).ToString().Length - 3))
+                        MainWindow.mw.m.WriteMemory(Address.GetValue(null) as string, "float", ((MahApps.Metro.Controls.NumericUpDown)sender).Value.ToString());
+            }
+            catch { }
         }
 
         private void FreezeToggled(object sender, RoutedEventArgs e)

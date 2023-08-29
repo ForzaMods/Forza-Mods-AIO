@@ -13,14 +13,14 @@
 
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0" />
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,64,0,0" />
-        <Label x:Name="CamberNegativeLabel" Content="Negative Camber" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Margin="20,18,0,0"/>
-        <Label x:Name="CamberPositiveLabel" Content="Positive Camber" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,19,150,0"/>
-        <Label x:Name="ToeNegativeLabel" Content="Negative Toe" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,20"/>
-        <Label x:Name="ToePositiveLabel" Content="Positive Toe" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Margin="0,0,173,18"/>
+        <Label x:Name="CamberNegativeLabel" Content="Negative Camber" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="20,20,0,0"/>
+        <Label x:Name="CamberPositiveLabel" Content="Positive Camber" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,150,0"/>
+        <Label x:Name="ToeNegativeLabel" Content="Negative Toe" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,19"/>
+        <Label x:Name="ToePositiveLabel" Content="Positive Toe" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,173,19"/>
 
         <mah:NumericUpDown BorderThickness="0" Background="#FF2E3440" TrackMouseWheelWhenMouseOver="True" x:Name="CamberNegBox" TextAlignment="Left" ParsingNumberStyle="Float" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,20,0,0" Maximum="-5" ValueChanged="CamberNegBox_ValueChanged"/>
         <mah:NumericUpDown BorderThickness="0" Background="#FF2E3440" TrackMouseWheelWhenMouseOver="True" x:Name="CamberPosBox" TextAlignment="Left" ParsingNumberStyle="Float" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,25,0" Minimum="5" ValueChanged="CamberPosBox_ValueChanged"/>
         <mah:NumericUpDown BorderThickness="0" Background="#FF2E3440" TrackMouseWheelWhenMouseOver="True" x:Name="ToeNegBox" TextAlignment="Left" ParsingNumberStyle="Float" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="142,0,0,19" Maximum="-5" ValueChanged="ToeNegBox_ValueChanged"/>
-        <mah:NumericUpDown BorderThickness="0" Background="#FF2E3440" TrackMouseWheelWhenMouseOver="True" x:Name="ToePosBox" TextAlignment="Left" ParsingNumberStyle="Float" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,21" Minimum="5" ValueChanged="ToePosBox_ValueChanged"/>
+        <mah:NumericUpDown BorderThickness="0" Background="#FF2E3440" TrackMouseWheelWhenMouseOver="True" x:Name="ToePosBox" TextAlignment="Left" ParsingNumberStyle="Float" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,19" Minimum="5" ValueChanged="ToePosBox_ValueChanged"/>
     </Grid>
 </Page>

@@ -353,7 +353,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
         public static void GlowingPaint(IntPtr CodeCave9)
         {
-            if (CustomisationPage.CSP.GlowingPaintSwitch.IsOn)
+            if (CustomisationPage.CSP != null && CustomisationPage.CSP.GlowingPaintSwitch.IsOn)
             {
                 float Multiplier = (float)CustomisationPage.CSP.GlowingPaintNum.Value;
                 string CodeCaveAddrString = ((long)CodeCave9).ToString("X");
@@ -369,9 +369,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 byte[] jmpBackBytes = longToByteArray(Self_Vehicle_Addrs.GlowingPaintAddr - (long)(CodeCave9 + 42)); ;
                 Array.Reverse(jmpBackBytes);
 
-                string InsideCaveCodeString = "C70546000000" + BitConverter.ToString(FloatToByteArray(Multiplier)).Replace("-", String.Empty) + // mov [codecave + 50],(multiplier)
-                                              "C70540000000" + BitConverter.ToString(FloatToByteArray(Multiplier)).Replace("-", String.Empty) + // mov [codecave + 54],(multiplier)
-                                              "C7053A000000" + BitConverter.ToString(FloatToByteArray(Multiplier)).Replace("-", String.Empty) + // mov [codecave + 58],(multiplier)
+                string InsideCaveCodeString = "C70546000000" + BitConverter.ToString(FloatToByteArray(Multiplier)) +                            // mov [codecave + 50],(multiplier)
+                                              "C70540000000" + BitConverter.ToString(FloatToByteArray(Multiplier)) +                            // mov [codecave + 54],(multiplier)
+                                              "C7053A000000" + BitConverter.ToString(FloatToByteArray(Multiplier)) +                            // mov [codecave + 58],(multiplier)
                                               "0F590D2B000000410F114A10E9" +                                                                    // mulps xmm1,[codecave+58] + movups [r10+10],xmm1 + jmp
                                               BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty); // jmp back bytes
                 

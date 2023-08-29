@@ -29,7 +29,7 @@
             <!--#region Velocity-->
             <Label x:Name="TimeLabel"
                Content="Steering Angle Time to Max Steering"
-               VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18,225,0,0"/>
+               VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18,226,0,0"/>
             <Label x:Name="StraightLabel"
                Content="Velocity Straight"
                VerticalAlignment="Top" HorizontalAlignment="Left"
@@ -41,7 +41,7 @@
                />
             <Label x:Name="CountersteerLabel"
                Content="Velocity Countersteer"
-               VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,157,435,0"
+               VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,156,435,0"
                />
             <Label x:Name="DynamicPeekLabel"
                Content="Velocity Dynamic Peak"
@@ -52,14 +52,14 @@
             <!--#endregion-->
             <!--#region Numeric Boxes-->
             <!--Steering Boxes-->
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="AngleBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="144,22,296,225" ValueChanged="AngleBox_ValueChanged"/>
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="Angle2Box" TextAlignment="Left" NumericInputMode="Decimal" Margin="422,22,18,225" ValueChanged="Angle2Box_ValueChanged"/>
+            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="AngleMaxBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="144,22,296,225" ValueChanged="ValueChanged"/>
+            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="AngleMax2Box" TextAlignment="Left" NumericInputMode="Decimal" Margin="422,22,18,225" ValueChanged="ValueChanged"/>
             <!--Velocity Boxes-->
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="VelocityTimeBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="227,226,168,21" ValueChanged="VelocityTimeBox_ValueChanged"/>
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="VelocityStraightBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,88,168,159" ValueChanged="VelocityStraightBox_ValueChanged"/>
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="VelocityTurningBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="153,122,168,125" ValueChanged="VelocityTurningBox_ValueChanged"/>
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="VelocityCountersteerBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="153,156,168,91" ValueChanged="VelocityCountersteerBox_ValueChanged"/>
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="VelocityDynamicPeekBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="153,192,168,55" ValueChanged="VelocityDynamicPeekBox_ValueChanged"/>
+            <mah:NumericUpDown Interval="0.01" Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="TimeToMaxSteeringBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="227,226,168,21" ValueChanged="ValueChanged"/>
+            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="VelocityStraightBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,88,168,159" ValueChanged="ValueChanged"/>
+            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="VelocityTurningBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="153,122,168,125" ValueChanged="ValueChanged"/>
+            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="VelocityCountersteerBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="153,156,168,91" ValueChanged="ValueChanged"/>
+            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="VelocityDynamicPeekBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="153,192,168,55" ValueChanged="ValueChanged"/>
             <!--#endregion-->
             <mah:ToggleSwitch Toggled="FreezeToggled" FontSize="12" x:Name="VelocityCountersteerFreeze" Margin="422,154,0,0" VerticalAlignment="Top" Content="Freeze value" Width="100"/>
             <mah:ToggleSwitch Toggled="FreezeToggled" FontSize="12" x:Name="VelocityStraightFreeze" Margin="422,85,0,0" VerticalAlignment="Top" Content="Freeze value" Width="100"/>

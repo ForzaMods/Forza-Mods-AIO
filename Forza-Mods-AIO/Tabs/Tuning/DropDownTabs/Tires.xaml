@@ -16,13 +16,62 @@
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,0,0,74" />
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,0,0,14" />
 
-        <Label x:Name="FrontLeftTirePressureLabel" Content="Front Left Tire Pressure" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Margin="20,18,0,0"/>
-        <Label x:Name="FrontRightTirePressureLabel" Content="Front Right Tire Pressure" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Margin="20,72,398,0"/>
-        <Label x:Name="RearLeftTirePressureLabel" Content="Rear Left Tire Pressure" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Margin="20,0,0,82"/>
-        <Label x:Name="RearRightTirePressureLabel" Content="Rear Right Tire Pressure" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Margin="0,0,403,22"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontLeftTirePressureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="368" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="187,20,0,0" Minimum="-0" ValueChanged="FrontLeftTirePressureBox_ValueChanged"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontRightTirePressureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="368" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,74,25,0" Minimum="0" ValueChanged="FrontRightTirePressureBox_ValueChanged"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearLeftTirePressureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="368" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="187,0,0,84" Minimum="0" ValueChanged="RearLeftTirePressureBox_ValueChanged"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearRightTirePressureBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="368" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,24" Minimum="0" ValueChanged="RearRightTirePressureBox_ValueChanged"/>
+        <Label x:Name="FrontLeftTirePressureLabel" Content="Front Left Tire Pressure" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0"/>
+        <Label x:Name="FrontRightTirePressureLabel" Content="Front Right Tire Pressure" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,74,0,0"/>
+        <Label x:Name="RearLeftTirePressureLabel" Content="Rear Left Tire Pressure" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,84"/>
+        <Label x:Name="RearRightTirePressureLabel" Content="Rear Right Tire Pressure" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,24"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="TireFrontLeftBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="280" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="275,20,0,0" Minimum="-0" ValueChanged="ValueChanged"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="TireFrontRightBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="280" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,74,25,0" Minimum="0" ValueChanged="ValueChanged"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="TireRearLeftBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="280" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="275,0,0,84" Minimum="0" ValueChanged="ValueChanged"/>
+        <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="TireRearRightBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="280" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,24" Minimum="0" ValueChanged="ValueChanged"/>
+
+        <ComboBox x:Name="TireFrontLeft_Psi_Bar_Box"
+                  SelectedIndex="0"
+                  Height="25"
+                  Width="100" Margin="165,20,315,194"
+                  BorderBrush="#FF2E3440"
+                  Background="#FF2E3440"
+                  Focusable="False"
+                  SelectionChanged="SelectionChanged">
+            <ComboBoxItem Background="{x:Null}" Content="PSI" Focusable="False"/>
+            <ComboBoxItem Background="{x:Null}" Content="Bar" Focusable="False"/>
+        </ComboBox>
+
+        <ComboBox x:Name="TireFrontRight_Psi_Bar_Box"
+                  SelectedIndex="0"
+                  Height="25"
+                  Width="100" Margin="165,74,315,140"
+                  BorderBrush="#FF2E3440"
+                  Background="#FF2E3440" 
+                  Focusable="False"
+                  SelectionChanged="SelectionChanged">
+            <ComboBoxItem Background="{x:Null}" Content="PSI" Focusable="False"/>
+            <ComboBoxItem Background="{x:Null}" Content="Bar" Focusable="False"/>
+        </ComboBox>
+
+        <ComboBox x:Name="TireRearLeft_Psi_Bar_Box"
+                  SelectedIndex="0"
+                  Height="25"
+                  Width="100" Margin="165,130,315,84"
+                  BorderBrush="#FF2E3440"
+                  Background="#FF2E3440" 
+                  Focusable="False"
+                  SelectionChanged="SelectionChanged">
+            <ComboBoxItem Background="{x:Null}" Content="PSI" Focusable="False"/>
+            <ComboBoxItem Background="{x:Null}" Content="Bar" Focusable="False"/>
+        </ComboBox>
+
+        <ComboBox x:Name="TireRearRight_Psi_Bar_Box"
+                  SelectedIndex="0"
+                  Height="25"
+                  Width="100" Margin="165,190,315,24"
+                  BorderBrush="#FF2E3440"
+                  Background="#FF2E3440"
+                  Focusable="False"
+                  SelectionChanged="SelectionChanged">
+            <ComboBoxItem Background="{x:Null}" Content="PSI" Focusable="False"/>
+            <ComboBoxItem Background="{x:Null}" Content="Bar" Focusable="False"/>
+        </ComboBox>
+        
     </Grid>
 </Page>

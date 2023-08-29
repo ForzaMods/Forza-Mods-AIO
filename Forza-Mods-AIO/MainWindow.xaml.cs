@@ -62,7 +62,7 @@ namespace Forza_Mods_AIO
         List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.TuningTablePort.TuningTableMain(), new Tabs.Settings.Settings() };
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
         public string Page_Focused = "AIO-Info";
-        private bool attached = false;
+        public bool attached = false;
         public LibraryMapper mapper;
         public bool Was_Mapped = false;
         Dictionary<string, bool> Is_Scanned = new Dictionary<string, bool>()
