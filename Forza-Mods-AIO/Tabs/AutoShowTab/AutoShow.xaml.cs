@@ -307,6 +307,13 @@ namespace Forza_Mods_AIO.Tabs
             #region Enable
             if (ClearGarage.IsOn)
             {
+                // Query to remove all but favorites  : "DELETE FROM Profile0_Career_Garage WHERE IsFavorite IS NOT 1;"
+                // Query to remove only dupes         : "DELETE FROM Profile0_Career_Garage WHERE Id NOT IN (select min(Id) from Profile0_Career_Garage group by CarId);"
+                // Query to remove only autoshow cars : "DELETE FROM Profile0_Career_Garage WHERE CarId NOT IN (SELECT Id FROM Data_Car WHERE NotAvailableInAutoshow = 1);" 
+                // Query to remove only rare cars     : "DELETE FROM Profile0_Career_Garage WHERE CarId NOT IN (SELECT Id FROM Data_Car WHERE NotAvailableInAutoshow = 0);" 
+                // Query to remove only untuned       : "DELETE FROM Profile0_Career_Garage WHERE VersionedTuneId IS NOT "00000000-0000-0000-0000-000000000000";"
+                // Query to remove only unpainted     : "DELETE FROM Profile0_Career_Garage WHERE VersionedLiveryId IS NOT "00000000-0000-0000-0000-000000000000";"
+
                 #region FH5
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
                 {

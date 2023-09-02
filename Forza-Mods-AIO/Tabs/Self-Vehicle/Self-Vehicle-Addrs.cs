@@ -48,6 +48,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static long CameraBase;
         public static long CameraShutterSpeed;
         public static long GlowingPaintAddr;
+        public static long BuildCapAddrASM1Long;
+        public static long BuildCapAddrASM2Long;
         #endregion
         #region Addresses - AOB's
         public static string BaseAob;
@@ -84,6 +86,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static string CameraBaseAob = "27 01 00 00 70";
         public static string CameraShutterSpeedAob = "f0 75 ? 95 f6 7f ? 00 fe";
         public static string GlowingPaintSig = "41 0f 11 4a ? 41 c6 02";
+        public static string BuildCap1Sig = "F3 0F 11 83 3C 04 00 00 E8 1C";
+        public static string BuildCap2Sig = "F3 0F 58 76 30 F3 0F 10";
         #endregion
         #region Addresses
         public static string BaseAddr;
@@ -175,6 +179,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static IntPtr CCBA8 = (IntPtr)0;
         public static IntPtr CCBA9 = (IntPtr)0;
         public static IntPtr CCBA10 = (IntPtr)0;
+        public static IntPtr CCBA11 = (IntPtr)0;
         public static IntPtr CodeCave = (IntPtr)0;
         public static IntPtr CodeCave2 = (IntPtr)0;
         public static IntPtr CodeCave3 = (IntPtr)0;
@@ -185,6 +190,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static IntPtr CodeCave8 = (IntPtr)0;
         public static IntPtr CodeCave9 = (IntPtr)0;
         public static IntPtr CodeCave10 = (IntPtr)0;
+        public static IntPtr CodeCave11 = (IntPtr)0;
         #endregion
         #region Addresses - FOV
         long ScanStartAddr;
@@ -298,7 +304,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             TeleportsPage.t.TeleportBox.Items.Add("Top Of Volcano");
         }
 
-        private static void Aobs()
+        public static void Aobs()
         {
             BaseAob = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
             Car1Aob = "48 89 ? ? ? 44 8B ? 48 89 ? ? ? BA";
@@ -326,6 +332,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             AIXAob = "48 89 ? ? ? 57 48 83 EC ? 0F 10 ? 48 8B ? 0F 11 ? ? 48 8B";
             CameraShutterSpeedAob = "c8 ? ? ? 7f ? 00 18 a4";
             GlowingPaintSig = "41 0f 11 4a ? 41 c6 02";
+            BuildCap1Sig = "F3 0F 11 B3 DC 03 00 00 E8";
+            BuildCap2Sig = "F3 0F 11 43 30 FF 04 88 EB 61";
         }
         private static void AobsSteam()
         {

@@ -1,7 +1,6 @@
 ﻿using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs;
 using System;
-using System.Data.Common;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -239,7 +238,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             }
             #endregion
             #region Steam FH5
-            else if (MainWindow.mw.gvp.Plat == "Steam" && MainWindow.mw.gvp.Name == "Forza Horizon 5")
+            else if (MainWindow.mw.gvp.Plat.Contains("Steam") && MainWindow.mw.gvp.Name == "Forza Horizon 5")
             {
                 // some retarded calculations but they work so I dont care
                 TuningTableBase1 = (Base - 540136 - 54680).ToString("X"); 

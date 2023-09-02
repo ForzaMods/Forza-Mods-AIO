@@ -52,9 +52,6 @@ namespace Forza_Mods_AIO
             }
         }
 
-        [DllImport("user32.dll")]
-        public static extern int SetForegroundWindow(int hwnd);
-
         #region Variables
         public static MainWindow mw = new MainWindow();
         public Mem m = new Mem();
@@ -248,7 +245,10 @@ namespace Forza_Mods_AIO
                 }
                 else
                 {
-                    platform = "Steam";
+                    if (File.Exists(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName), "OnlineFix64.dll")))
+                        platform = "OnlineFix - Steam";
+                    else
+                        platform = "Steam";
                     var file = FileVersionInfo.GetVersionInfo(process.MainModule.FileName.ToString());
                     update = file.FileVersion;
                 }

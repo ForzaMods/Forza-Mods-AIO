@@ -387,5 +387,49 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                     MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr.ToString("X"), new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 }); // will need to change for fh5
             }
         }
+
+        public static void RemoveBuildCap(IntPtr CodeCave10, IntPtr CodeCave11)
+        {
+            string CodeCave1AddrString = ((long)CodeCave10).ToString("X");
+            string CodeCave1jmpString = ((long)CodeCave10 - (Self_Vehicle_Addrs.BuildCapAddrASM1Long + 5)).ToString("X");
+            if (CodeCave1jmpString.Length % 2 != 0)
+                CodeCave1jmpString = "0" + CodeCave1jmpString;
+            byte[] CodeCave1Addr = StringToBytes(CodeCave1jmpString);
+            Array.Reverse(CodeCave1Addr);
+
+            string CodeCave2AddrString = ((long)CodeCave11).ToString("X");
+            string CodeCave2jmpString = ((long)CodeCave11 - (Self_Vehicle_Addrs.BuildCapAddrASM2Long + 5)).ToString("X");
+            if (CodeCave2jmpString.Length % 2 != 0)
+                CodeCave2jmpString = "0" + CodeCave2jmpString;
+            byte[] CodeCave2Addr = StringToBytes(CodeCave2jmpString);
+            Array.Reverse(CodeCave2Addr);
+
+            byte[] JmpBackBytes1 = longToByteArray(Self_Vehicle_Addrs.BuildCapAddrASM1Long + 8 - (long)(CodeCave10 + 23));
+            byte[] JmpBackBytes2 = longToByteArray(Self_Vehicle_Addrs.BuildCapAddrASM2Long + 5 - (long)(CodeCave11 + 17));
+            Array.Reverse(JmpBackBytes1);
+            Array.Reverse(JmpBackBytes2);
+            string JmpToCodeCaveCode1String = "E9" + BitConverter.ToString(CodeCave1Addr).Replace("-", String.Empty) + "909090";
+            byte[] JmpToCodeCaveCode1 = StringToBytes(JmpToCodeCaveCode1String);
+
+            string JmpToCodeCaveCode2String = "E9" + BitConverter.ToString(CodeCave2Addr).Replace("-", String.Empty);
+            byte[] JmpToCodeCaveCode2 = StringToBytes(JmpToCodeCaveCode2String);
+
+            string InsideCodeCave1String = "F30F11833C040000C7833C04000000000000E9" + BitConverter.ToString(JmpBackBytes1).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            string InsideCodeCave2String = "F30F587630C7463000000000E9" + BitConverter.ToString(JmpBackBytes2).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            {
+                InsideCodeCave1String = "F30F11B3DC030000C783DC03000000000000E9" + BitConverter.ToString(JmpBackBytes1).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+                InsideCodeCave2String = "F30F114330C7433000000000E9" + BitConverter.ToString(JmpBackBytes2).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            }
+
+            byte[] InsideCaveCode1 = StringToBytes(InsideCodeCave1String);
+            byte[] InsideCaveCode2 = StringToBytes(InsideCodeCave2String);
+
+            MainWindow.mw.m.WriteBytes(CodeCave1AddrString, InsideCaveCode1);
+            MainWindow.mw.m.WriteBytes(CodeCave2AddrString, InsideCaveCode2);
+            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.BuildCapAddrASM1Long.ToString("X"), JmpToCodeCaveCode1);
+            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.BuildCapAddrASM2Long.ToString("X"), JmpToCodeCaveCode2);
+        }
     }
 }
