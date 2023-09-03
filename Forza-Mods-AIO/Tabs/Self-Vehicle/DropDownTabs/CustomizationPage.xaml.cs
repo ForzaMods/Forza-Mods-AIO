@@ -19,11 +19,11 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
     /// <summary>
     /// Interaction logic for CustomisationPage.xaml
     /// </summary>
-    public partial class CustomisationPage : Page
+    public partial class CustomizationPage : Page
     {
-        public static CustomisationPage CSP;
+        public static CustomizationPage CSP;
 
-        public CustomisationPage()
+        public CustomizationPage()
         {
             InitializeComponent();
             CSP = this;

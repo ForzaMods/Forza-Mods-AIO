@@ -353,9 +353,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
         public static void GlowingPaint(IntPtr CodeCave9)
         {
-            if (CustomisationPage.CSP != null && CustomisationPage.CSP.GlowingPaintSwitch.IsOn)
+            if (CustomizationPage.CSP != null && CustomizationPage.CSP.GlowingPaintSwitch.IsOn)
             {
-                float Multiplier = (float)CustomisationPage.CSP.GlowingPaintNum.Value;
+                float Multiplier = (float)CustomizationPage.CSP.GlowingPaintNum.Value;
                 string CodeCaveAddrString = ((long)CodeCave9).ToString("X");
                 string CodeCavejmpString = ((long)CodeCave9 - (Self_Vehicle_Addrs.GlowingPaintAddr + 5)).ToString("X");
                 if (CodeCavejmpString.Length % 2 != 0)

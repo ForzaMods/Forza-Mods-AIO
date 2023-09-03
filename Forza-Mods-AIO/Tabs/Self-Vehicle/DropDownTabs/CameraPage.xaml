@@ -13,7 +13,9 @@
 
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="135" Margin="0,5,0,0" BorderBrush="#FF2E3440" />
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="75" Margin="0,146,0,0" BorderBrush="#FF2E3440" />
-        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="48" Margin="0,228,0,0" BorderBrush="#FF2E3440" />
+        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="143" Height="48" Margin="15,228,0,0" BorderBrush="#FF2E3440" />
+        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="201" Height="48" Margin="163,228,0,0" BorderBrush="#FF2E3440" />
+        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Top" Width="197" Height="48" Margin="0,228,14,0" BorderBrush="#FF2E3440" />
 
         <!--#region Main Part-->
         <Label Content="Samples" Height="30" HorizontalAlignment="Left" Margin="58,10,0,245"/>
@@ -30,20 +32,21 @@
         <!--#region Bottom part / Footer-->
         <Label Content="No Clip" 
                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-               Margin="45,0,0,106"/>
+               Margin="20,0,0,20"/>
 
         <mah:ToggleSwitch x:Name="NoClip"
                           VerticalAlignment="Bottom"
-                          Margin="25,0,0,75"
+                          Margin="75,0,0,17"
+                          FontSize="12"
                           Toggled="NoClip_Toggled" Width="95"/>
 
         <Label Content="Turn Speed"
                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-               Margin="168,0,0,106"/>
+               Margin="50,0,0,106"/>
 
         <Slider x:Name="TurnSpeed"
                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                Width="86" Margin="0,0,334,78"
+                Width="86" Margin="0,0,452,78"
                 Maximum="15"
                 SmallChange="1" LargeChange="10" Minimum="0.01" Value="0.8" 
                 Foreground="#FF2E3440" Focusable="False" ValueChanged="TurnSpeed_OnValueChanged"
@@ -51,45 +54,45 @@
 
         <Label Content="Movement Speed" 
                VerticalAlignment="Bottom" HorizontalAlignment="Right"
-               Margin="0,0,21,106"/>
+               Margin="0,0,50,106"/>
 
         <Slider x:Name="SpeedSlider"
                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                Width="86" Margin="0,0,30,78"
+                Width="86" Margin="0,0,59,78"
                 Maximum="15"
                 SmallChange="1" LargeChange="10" Minimum="0.01" Value="0.8" 
                 Foreground="#FF2E3440" Focusable="False" ValueChanged="SpeedSlider_OnValueChanged"/>
 
         <Label Content="Samples Multiplier" 
-               VerticalAlignment="Bottom" HorizontalAlignment="Right"
-               Margin="0,0,170,106"/>
+               VerticalAlignment="Bottom" HorizontalAlignment="Center"
+               Margin="0,0,0,106"/>
 
         <Slider x:Name="SamplesMultiplierSlider"
-                HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                Width="86" Margin="0,0,181,78"
+                HorizontalAlignment="Center" VerticalAlignment="Top"
+                Width="86" Margin="0,183,0,0"
                 Maximum="10"
                 SmallChange="1" LargeChange="10" Minimum="1"  Value="1" 
                 Foreground="#FF2E3440" Focusable="False" ValueChanged="SamplesMultiplierSlider_OnValueChanged"/>
-        <!--#endregion-->
 
-        <Label Content="Fov Slider" 
+        <Label Content="Unlimited altitude" 
                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-               Margin="25,0,0,22"/>
+               Margin="170,0,0,20"/>
 
-        <Slider x:Name="FovSlider"
-                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                        Width="238" Margin="0,0,240,22"
-                        Maximum="15"
-                        SmallChange="1" LargeChange="10" Minimum="0.01" Value="0.8" 
-                        Foreground="#FF2E3440" Focusable="False" ValueChanged="SpeedSlider_OnValueChanged"/>
+        <mah:ToggleSwitch x:Name="NoheightRestriction"
+                          VerticalAlignment="Bottom"
+                          Margin="280,0,0,17"
+                          FontSize="12"
+                          Toggled="NoheightRestriction_Toggled" Width="95"/>
 
-        <Button x:Name="ScanForFovButton"
-                Content="Scan For Fov Addresses"
-                Background="#FF2E3440"
-                BorderThickness="0" Focusable="False" IsTabStop="True"
-                Height="25" Width="200"
-                VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                Margin="25, 21"
-                Click="ScanForFovButton_Click"/>
+        <Label Content="Boundary removal" 
+               VerticalAlignment="Bottom" HorizontalAlignment="Left"
+               Margin="374,0,0,20"/>
+
+        <mah:ToggleSwitch x:Name="BoundaryRemoval"
+                          VerticalAlignment="Bottom"
+                          Margin="483,0,0,17"
+                          FontSize="12"
+                          Toggled="BoundaryRemoval_Toggled" Width="95"/>
+        <!--#endregion-->
     </Grid>
 </Page>

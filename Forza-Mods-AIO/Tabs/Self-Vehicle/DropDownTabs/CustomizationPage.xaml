@@ -1,4 +1,4 @@
-﻿<Page x:Class="Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.CustomisationPage"
+﻿<Page x:Class="Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.CustomizationPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

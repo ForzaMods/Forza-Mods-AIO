@@ -167,6 +167,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static string ApertureScale;
         public static string CarInFocus;
         public static string TimeSlice;
+        public static string NoClipAddr;
+        public static string MaxHeightAddr;
+        public static string BoundaryRemovalAddr;
         #endregion
         #region Addresses - CodeCaves
         public static IntPtr CCBA = (IntPtr)0;
@@ -233,6 +236,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             ApertureScale = (CameraBase + 0x20).ToString("X");
             CarInFocus = (CameraBase + 0x30).ToString("X");
             TimeSlice = (CameraBase + 0x38).ToString("X");
+            NoClipAddr = (CameraBase - 440064).ToString("X");
+            BoundaryRemovalAddr = (CameraBase - 440048).ToString("X");
+            MaxHeightAddr = (CameraBase - 440532).ToString("X");
             TeleportsPage.t.TeleportBox.Items.Clear();
             TeleportsPage.t.TeleportBox.Items.Add("Waypoint");
             TeleportsPage.t.TeleportBox.Items.Add("Adventure Park");
@@ -286,6 +292,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             ApertureScale = (CameraBase + 0x20).ToString("X");
             CarInFocus = (CameraBase + 0x30).ToString("X");
             TimeSlice = (CameraBase + 0x38).ToString("X");
+            NoClipAddr = (CameraBase + 571944).ToString("X");
+            BoundaryRemovalAddr = (CameraBase + 571960).ToString("X");
+            MaxHeightAddr = (CameraBase + 571528).ToString("X");
             TeleportsPage.t.TeleportBox.Items.Clear();
             TeleportsPage.t.TeleportBox.Items.Add("Waypoint");
             TeleportsPage.t.TeleportBox.Items.Add("Airstrip");

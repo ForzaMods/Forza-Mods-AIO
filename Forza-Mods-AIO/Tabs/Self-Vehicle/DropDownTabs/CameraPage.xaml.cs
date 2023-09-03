@@ -14,7 +14,12 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 
         private void NoClip_Toggled(object sender, RoutedEventArgs e)
         {
+            BoundaryRemoval.IsEnabled = !(bool)BoundaryRemoval.IsEnabled;
 
+            if (NoClip.IsOn)
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.NoClipAddr, "2bytes", "0");
+            else
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.NoClipAddr, "2bytes", "2");
         }
 
         private void SpeedSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -34,32 +39,45 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 
         private void SamplesBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-
+            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.Samples, "float", SamplesBox.Value.ToString());
         }
 
         private void ShutterSpeedBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-
+            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.ShutterSpeed, "float", ShutterSpeedBox.Value.ToString());
         }
 
         private void ApertureScaleBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-
+            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.ApertureScale, "float", ApertureScaleBox.Value.ToString());
         }
 
         private void CarInFocusBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-
+            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.CarInFocus, "float", CarInFocusBox.Value.ToString());
         }
 
         private void TimeSliceBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
-
+            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TimeSlice, "float", TimeSliceBox.Value.ToString());
         }
 
-        private void ScanForFovButton_Click(object sender, RoutedEventArgs e)
+        private void NoheightRestriction_Toggled(object sender, RoutedEventArgs e)
         {
+            if (NoheightRestriction.IsOn)
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.MaxHeightAddr, "float", "9999");
+            else
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.MaxHeightAddr, "float", "4");
+        }
 
+        private void BoundaryRemoval_Toggled(object sender, RoutedEventArgs e)
+        {
+            NoClip.IsEnabled = !(bool)NoClip.IsEnabled;
+
+            if (BoundaryRemoval.IsOn)
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.BoundaryRemovalAddr, "float", "99999");
+            else
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.BoundaryRemovalAddr, "float", "100");
         }
     }
 }
