@@ -13,6 +13,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
 using Timer = System.Windows.Forms.Timer;
 
 namespace Forza_Mods_AIO.Overlay
@@ -109,13 +110,16 @@ namespace Forza_Mods_AIO.Overlay
         public Dictionary<string, List<MenuOption>> AllMenus = new Dictionary<string, List<MenuOption>>()
         {
             { "MainOptions" , MainOptions },
-                { "AutoshowOptions" , AutoShowMenu.AutoShowMenu.AutoShowOptions},
+                { "AutoshowGarageOptions" , AutoShowMenu.AutoShowMenu.AutoShowOptions},
                     { "AutoshowFiltersOptions" , AutoShowMenu.SubMenus.AutoshowFilters.AutoShowFiltersOptions},
                     { "GarageModificationsOptions" , AutoShowMenu.SubMenus.GarageModifications.GarageModificationsOptions},
                     { "OthersModificationsOptions" , AutoShowMenu.SubMenus.OthersModifications.OthersModificationsOptions},
-                { "SelfCarsOptions" , SelfCarMenu.SelfCarMenu.SelfCarsOptions},
+                { "SelfVehicleOptions" , SelfCarMenu.SelfCarMenu.SelfCarsOptions},
                     { "HandlingOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.HandlingOptions},
                         { "VelocityOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.VelocityOptions},
+                        { "ModifiersOptions" , HandlingMenu.ModifiersOptions},
+                            { "GravityOptions" , ModifiersMenu.GravityOptions},
+                            { "AccelerationOptions" , ModifiersMenu.AccelerationOptions},
                     { "UnlocksOptions" , UnlocksOptions},
                     { "CameraOptions" , CameraOptions},
                 { "SettingsOptions" , SettingsMenu.SettingsMenu.SettingsOptions},
@@ -126,8 +130,8 @@ namespace Forza_Mods_AIO.Overlay
         // Main menu items, all submenus have their own class in Tabs.Overlay
         public static List<MenuOption> MainOptions = new List<MenuOption>()
         {
-            new MenuOption("Autoshow", "MenuButton", "Mods for the Autoshow such as free cars, all cars etc"),
-            new MenuOption("Self/Cars", "MenuButton", "Mods for yourself such as speedhack, flyhack etc"),
+            new MenuOption("Autoshow/Garage", "MenuButton", "Mods for the Autoshow such as free cars, all cars etc"),
+            new MenuOption("Self/Vehicle", "MenuButton", "Mods for yourself such as speedhack, flyhack etc"),
             new MenuOption("Settings", "MenuButton")
         };
         public static List<MenuOption> UnlocksOptions = new List<MenuOption>()
@@ -144,6 +148,7 @@ namespace Forza_Mods_AIO.Overlay
         // Add all sub menu classes here for event handling
         SettingsMenu.SettingsMenu sm = new SettingsMenu.SettingsMenu();
         AutoShowMenu.AutoShowMenu am = new AutoShowMenu.AutoShowMenu();
+        HandlingMenu hm = new();
         #endregion
         #region Main
         public Overlay()
@@ -158,7 +163,8 @@ namespace Forza_Mods_AIO.Overlay
         void InitializeAllSubMenus()
         {
             sm.InitiateSubMenu();
-            am.InitalizeEventHandlersForSubMenus();
+            am.InitiateSubMenu();
+            hm.InitiateSubMenu();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

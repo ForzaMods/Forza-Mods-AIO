@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows.Forms;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+using Forza_Mods_AIO.Tabs.TuningTablePort;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 {
@@ -357,7 +357,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             {
                 float Multiplier = (float)CustomizationPage.CSP.GlowingPaintNum.Value;
                 string CodeCaveAddrString = ((long)CodeCave9).ToString("X");
-                string CodeCavejmpString = ((long)CodeCave9 - (Self_Vehicle_Addrs.GlowingPaintAddr + 5)).ToString("X");
+                string CodeCavejmpString = ((long)CodeCave9 - (Self_Vehicle_Addrs.GlowingPaintAddrLong + 5)).ToString("X");
                 if (CodeCavejmpString.Length % 2 != 0)
                     CodeCavejmpString = "0" + CodeCavejmpString;
                 byte[] CodeCaveAddr = StringToBytes(CodeCavejmpString);
@@ -366,7 +366,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 string JmpToCodeCaveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty);
                 byte[] JmpToCodeCaveCode = StringToBytes(JmpToCodeCaveCodeString);
 
-                byte[] jmpBackBytes = longToByteArray(Self_Vehicle_Addrs.GlowingPaintAddr - (long)(CodeCave9 + 42)); ;
+                byte[] jmpBackBytes = longToByteArray(Self_Vehicle_Addrs.GlowingPaintAddrLong - (long)(CodeCave9 + 42)); ;
                 Array.Reverse(jmpBackBytes);
 
                 string InsideCaveCodeString = "C70546000000" + BitConverter.ToString(FloatToByteArray(Multiplier)) +                            // mov [codecave + 50],(multiplier)
@@ -377,14 +377,14 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 
                 byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
                 MainWindow.mw.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
-                MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr.ToString("X"), JmpToCodeCaveCode);
+                MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr, JmpToCodeCaveCode);
             }
             else
             {
                 if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
-                    MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr.ToString("X"), new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 });
+                    MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr, new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 });
                 else
-                    MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr.ToString("X"), new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 }); // will need to change for fh5
+                    MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr, new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 }); // will need to change for fh5
             }
         }
 
@@ -414,8 +414,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             string JmpToCodeCaveCode2String = "E9" + BitConverter.ToString(CodeCave2Addr).Replace("-", String.Empty);
             byte[] JmpToCodeCaveCode2 = StringToBytes(JmpToCodeCaveCode2String);
 
-            string InsideCodeCave1String = "F30F11833C040000C7833C04000000000000E9" + BitConverter.ToString(JmpBackBytes1).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
-            string InsideCodeCave2String = "F30F587630C7463000000000E9" + BitConverter.ToString(JmpBackBytes2).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            string InsideCodeCave1String = "F30F11834C040000C7834C04000000000000E9" + BitConverter.ToString(JmpBackBytes1).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            string InsideCodeCave2String = "F30F114344C7434400000000E9" + BitConverter.ToString(JmpBackBytes2).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
             
             if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
             {
@@ -428,8 +428,130 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
             MainWindow.mw.m.WriteBytes(CodeCave1AddrString, InsideCaveCode1);
             MainWindow.mw.m.WriteBytes(CodeCave2AddrString, InsideCaveCode2);
-            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.BuildCapAddrASM1Long.ToString("X"), JmpToCodeCaveCode1);
-            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.BuildCapAddrASM2Long.ToString("X"), JmpToCodeCaveCode2);
+            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.BuildCapAddrASM1, JmpToCodeCaveCode1);
+            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.BuildCapAddrASM2, JmpToCodeCaveCode2);
+        }
+        
+        public static byte[] OriginalBaseAddressHookBytes;
+        
+        public static void GetBaseAddress(IntPtr CodeCave12)
+        {
+            string CodeCaveAddrString = ((long)CodeCave12).ToString("X");
+            string CodeCavejmpString = ((long)CodeCave12 - (Self_Vehicle_Addrs.BaseAddrHookLong + 5)).ToString("X");
+            if (CodeCavejmpString.Length % 2 != 0)
+                CodeCavejmpString = "0" + CodeCavejmpString;
+            byte[] CodeCaveAddr = StringToBytes(CodeCavejmpString);
+            Array.Reverse(CodeCaveAddr);
+
+            string JmpToCodeCaveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "909090";
+            byte[] JmpToCodeCaveCode = StringToBytes(JmpToCodeCaveCodeString);
+
+            byte[] JmpBackBytes = longToByteArray(Self_Vehicle_Addrs.BaseAddrHookLong + 6 - (long)(CodeCave12 + 32)); ;
+            Array.Reverse(JmpBackBytes);
+            
+            string InsideCaveCodeString = (BitConverter.ToString(OriginalBaseAddressHookBytes) + "4881E97005000048890D2B0000004881C170050000E9" + BitConverter.ToString(JmpBackBytes)).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
+            
+            MainWindow.mw.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
+            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.BaseAddrHook, JmpToCodeCaveCode);
+            
+            while (MainWindow.mw.attached)
+            {
+                Thread.Sleep(50);
+                long Addr = MainWindow.mw.m.ReadLong(((long)CodeCave12 + 65).ToString("X"));
+                
+                if (MainWindow.mw.m.ReadFloat((Addr + 0x50).ToString("X")) != 0
+                    && !float.IsInfinity(MainWindow.mw.m.ReadFloat((Addr + 0x50).ToString("X")))
+                    && MainWindow.mw.m.ReadFloat((Addr + 0x50).ToString("X")) > -10000000
+                    && MainWindow.mw.m.ReadFloat((Addr + 0x50).ToString("X")) < 10000000
+                    && MainWindow.mw.m.ReadFloat((Addr + 0x54).ToString("X")) > -10000
+                    && MainWindow.mw.m.ReadFloat((Addr + 0x54).ToString("X")) < 10000
+                    && MainWindow.mw.m.ReadFloat((Addr + 0x58).ToString("X")) > -10000000
+                    && MainWindow.mw.m.ReadFloat((Addr + 0x58).ToString("X")) < 10000000
+                    && MainWindow.mw.m.ReadFloat((Addr + 0xC).ToString("X")) < 0.2
+                    && MainWindow.mw.m.ReadFloat((Addr + 0xC).ToString("X")) > 0.01)
+                {
+                    Self_Vehicle_Addrs.BaseAddr = MainWindow.mw.m.ReadLong(Addr.ToString("X")).ToString("X");
+                    Self_Vehicle_Addrs.BaseAddrLong = MainWindow.mw.m.ReadLong(Addr.ToString("X"));
+                    Self_Vehicle_Addrs.AddressesFive();
+                }
+            }
+        }
+        
+        public static void FH4TuningAddressesHook(IntPtr CodeCave13, IntPtr CodeCave14, IntPtr CodeCave15)
+        {
+            #region Hook 1
+            string CodeCaveAddrString = ((long)CodeCave13).ToString("X");
+            string CodeCavejmpString = ((long)CodeCave13 - (Tuning_Addresses.TuningTableHookBase1 + 5)).ToString("X");
+            if (CodeCavejmpString.Length % 2 != 0)
+                CodeCavejmpString = "0" + CodeCavejmpString;
+            byte[] CodeCaveAddr = StringToBytes(CodeCavejmpString);
+            Array.Reverse(CodeCaveAddr);
+
+            string JmpToCodeCaveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty);
+            byte[] JmpToCodeCaveCode = StringToBytes(JmpToCodeCaveCodeString);
+
+            byte[] JmpBackBytes = longToByteArray(Tuning_Addresses.TuningTableHookBase1 + 5 - (long)(CodeCave13 + 17));
+            Array.Reverse(JmpBackBytes);
+            
+            string InsideCaveCodeString = "4C893549000000498B068BD6E9" + BitConverter.ToString(JmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
+            
+            MainWindow.mw.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
+            MainWindow.mw.m.WriteBytes(Tuning_Addresses.TuningTableHookBase1.ToString("X"), JmpToCodeCaveCode);
+            #endregion
+
+            #region Hook 2
+            string CodeCave2AddrString = ((long)CodeCave14).ToString("X");
+            string CodeCave2jmpString = ((long)CodeCave14 - (Tuning_Addresses.TuningTableHookBase2 + 5)).ToString("X");
+            if (CodeCave2jmpString.Length % 2 != 0)
+                CodeCave2jmpString = "0" + CodeCave2jmpString;
+            byte[] CodeCave2Addr = StringToBytes(CodeCave2jmpString);
+            Array.Reverse(CodeCave2Addr);
+
+            string JmpToCodeCaveCode2String = "E9" + BitConverter.ToString(CodeCave2Addr).Replace("-", String.Empty) + "90909090";
+            byte[] JmpToCodeCaveCode2 = StringToBytes(JmpToCodeCaveCode2String);
+
+            byte[] JmpBackBytes2 = longToByteArray(Tuning_Addresses.TuningTableHookBase2 + 5 - (long)(CodeCave14 + 17));
+            Array.Reverse(JmpBackBytes2);
+            
+            string InsideCaveCodeString2 = "4C892549000000498B0424488D542420E9" + BitConverter.ToString(JmpBackBytes2).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            byte[] InsideCaveCode2 = StringToBytes(InsideCaveCodeString2);
+            
+            MainWindow.mw.m.WriteBytes(CodeCave2AddrString, InsideCaveCode2);
+            MainWindow.mw.m.WriteBytes(Tuning_Addresses.TuningTableHookBase2.ToString("X"), JmpToCodeCaveCode2);
+            #endregion
+
+            #region Hook 3
+            string CodeCave3AddrString = ((long)CodeCave15).ToString("X");
+            string CodeCave3jmpString = ((long)CodeCave15 - (Tuning_Addresses.TuningTableHookBase3 + 5)).ToString("X");
+            if (CodeCave3jmpString.Length % 2 != 0)
+                CodeCave3jmpString = "0" + CodeCave3jmpString;
+            byte[] CodeCave3Addr = StringToBytes(CodeCave3jmpString);
+            Array.Reverse(CodeCave3Addr);
+
+            string JmpToCodeCaveCode3String = "E9" + BitConverter.ToString(CodeCave3Addr).Replace("-", String.Empty) + "9090";
+            byte[] JmpToCodeCaveCode3 = StringToBytes(JmpToCodeCaveCode3String);
+
+            byte[] JmpBackBytes3 = longToByteArray(Tuning_Addresses.TuningTableHookBase3 + 5 - (long)(CodeCave15 + 22));
+            Array.Reverse(JmpBackBytes3);
+
+            string InsideCaveCodeString3 = "51488BC848890D45000000590F28CEF30F1010E9" + BitConverter.ToString(JmpBackBytes3).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            byte[] InsideCaveCode3 = StringToBytes(InsideCaveCodeString3);
+            
+            MainWindow.mw.m.WriteBytes(CodeCave3AddrString, InsideCaveCode3);
+            MainWindow.mw.m.WriteBytes(Tuning_Addresses.TuningTableHookBase3.ToString("X"), JmpToCodeCaveCode3);
+            #endregion
+            
+            // Address reading
+            while (MainWindow.mw.attached)
+            {
+                Tuning_Addresses.TuningTableBase1FH4 = MainWindow.mw.m.ReadLong(((long)CodeCave13 + 0x50).ToString("X"));
+                Tuning_Addresses.TuningTableBase2FH4 = MainWindow.mw.m.ReadLong(((long)CodeCave14 + 0x50).ToString("X"));
+                Tuning_Addresses.TuningTableBase3FH4 = MainWindow.mw.m.ReadLong(((long)CodeCave15 + 0x50).ToString("X"));
+                Tuning_Addresses.AddressesFH4();
+                Thread.Sleep(1000);
+            }
         }
     }
 }

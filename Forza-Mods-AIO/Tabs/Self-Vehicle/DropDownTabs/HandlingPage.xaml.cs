@@ -17,7 +17,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
     /// </summary>
     public partial class HandlingPage : Page
     {
-        static HandlingPage shp;
+        public static HandlingPage shp;
 
         public HandlingPage()
         {

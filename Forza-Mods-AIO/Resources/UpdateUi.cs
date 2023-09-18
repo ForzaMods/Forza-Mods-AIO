@@ -7,6 +7,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Forza_Mods_AIO.Resources
 {
@@ -145,16 +146,19 @@ namespace Forza_Mods_AIO.Resources
 
         public static void AddProgress(int ScanAmount, int index, MetroProgressBar progressBar)
         {
-            int Prog = (int)(Math.Round((decimal)100 / ScanAmount) * index);
-            if (Prog > 100)
-                Prog = 100;
-            int CurrentProg = 0;
-            Application.Current.Dispatcher.Invoke(delegate () { CurrentProg = (int)progressBar.Value; });
-            for (int i = CurrentProg; i <= Prog; i++)
+            Task.Run(() =>
             {
-                Application.Current.Dispatcher.Invoke(delegate () { progressBar.Value = i; });
-                Thread.Sleep(15);
-            }
+                int Prog = (int)(Math.Round((decimal)100 / ScanAmount) * index);
+                if (Prog > 100)
+                    Prog = 100;
+                int CurrentProg = 0;
+                Application.Current.Dispatcher.Invoke(() => { CurrentProg = (int)progressBar.Value; });
+                for (int i = CurrentProg; i <= Prog; i++)
+                {
+                    Application.Current.Dispatcher.Invoke(() => { progressBar.Value = i; });
+                    Thread.Sleep(15);
+                }
+            });
         }
     }
 }

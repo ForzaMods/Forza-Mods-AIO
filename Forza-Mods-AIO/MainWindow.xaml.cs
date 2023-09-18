@@ -74,9 +74,9 @@ namespace Forza_Mods_AIO
         {
             InitializeComponent();
             mw = this;
-            Task.Run(IsAttached);
+            Task.Run(() => IsAttached());
             #region Saveswapper stuff
-            if (!Directory.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs"))
+            /*if (!Directory.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs"))
             {
                 //Saveswapper.IsEnabled = false;
                 //Saveswapper.Foreground = Brushes.DarkGray;
@@ -88,7 +88,7 @@ namespace Forza_Mods_AIO
                 if (!Directory.Exists(BaseDir)) { Directory.CreateDirectory(BaseDir); }
                 if (!Directory.Exists(BaseDir + @"\Imported saves")) { Directory.CreateDirectory(BaseDir + @"\Imported saves"); }
                 if (!Directory.Exists(BaseDir + @"\Save backups")) { Directory.CreateDirectory(BaseDir + @"\Save backups"); }
-            }
+            }*/
             #endregion
             ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
             ThemeManager.Current.ChangeTheme(Application.Current, "AccentCol");
@@ -115,8 +115,6 @@ namespace Forza_Mods_AIO
         }
         public void CategoryButton_Click(object sender, RoutedEventArgs e)
         {
-            // Slow when debugging therefore shit but whatever
-
             foreach (RadioButton rb in ButtonStack.Children)
             {
                 if ((bool)rb.IsChecked)
@@ -149,7 +147,10 @@ namespace Forza_Mods_AIO
                                                     Task.Run(() => (new AutoshowVars()).Scan());
                                                     break;
                                                 case "Self_Vehicle":
-                                                    Task.Run(() => (new Self_Vehicle_Addrs()).Scan());
+                                                    if (gvp.Name == "Forza Horizon 5")
+                                                        Task.Run(() => (new Self_Vehicle_Addrs()).New_Scan());
+                                                    else
+                                                        Task.Run(() => (new Self_Vehicle_Addrs()).Old_Scan());
                                                     break;
                                                 case "TuningTableMain":
                                                     Task.Run(() => Tuning_Addresses.Scan());
@@ -185,9 +186,9 @@ namespace Forza_Mods_AIO
                     if (attached)
                         continue;
                     gvpMaker(5);
-                    Dispatcher.BeginInvoke((Action)delegate ()
-                    {
+                    Dispatcher.Invoke((Action)delegate () {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
+                        Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsEnabled = true;
                     });
                     attached = true;
                 }
@@ -196,9 +197,9 @@ namespace Forza_Mods_AIO
                     if (attached)
                         continue;
                     gvpMaker(4);
-                    Dispatcher.BeginInvoke((Action)delegate ()
-                    {
+                    Dispatcher.Invoke((Action)delegate () {
                         AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
+                        Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsEnabled = true;
                     });
                     attached = true;
                 }
@@ -206,12 +207,14 @@ namespace Forza_Mods_AIO
                 {
                     if (!attached)
                         continue;
-                    Dispatcher.BeginInvoke((Action)delegate ()
-                    {
+                    Dispatcher.Invoke((Action)delegate () {
                         AttachedLabel.Content = "Launch FH4/5";
                         Tabs.TuningTablePort.TuningTableMain.TBM.AOBProgressBar.Value = 0;
                         Tabs.Self_Vehicle.Self_Vehicle.sv.AOBProgressBar.Value = 0;
                         Tabs.AutoShow.AS.AOBProgressBar.Value = 0;
+                        Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsEnabled = false;
+                        AIO_Info.IsChecked = true;
+                        CategoryButton_Click(new Object(), new RoutedEventArgs());
                     });
                     Is_Scanned["Autoshow"] = false;
                     Is_Scanned["Self_Vehicle"] = false;
@@ -261,14 +264,18 @@ namespace Forza_Mods_AIO
         #region Exit Handling
         private void Window_Closing(object sender, CancelEventArgs e)
         {
+            if (!attached)
+            {
+                Environment.Exit(0);
+            }
 
             //TODO Cleanup here
-            if (attached)
-            {
-                if (Was_Mapped)
-                    mapper.UnmapLibrary();
-                AutoshowVars.ResetMem();
-            }
+            if (Was_Mapped)
+                mapper.UnmapLibrary();
+
+            if (Self_Vehicle_Addrs.BaseAddrHook != null && Self_Vehicle_Addrs.BaseAddrHook != "0" && Self_Vehicle_Addrs.BaseAddrHookLong != -279 && assembly.OriginalBaseAddressHookBytes != null)
+                m.WriteBytes(Self_Vehicle_Addrs.BaseAddrHook, assembly.OriginalBaseAddressHookBytes);
+            AutoshowVars.ResetMem();
             Environment.Exit(0);
         }
         #endregion

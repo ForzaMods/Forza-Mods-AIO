@@ -15,7 +15,7 @@ namespace Forza_Mods_AIO.Overlay.AutoShowMenu
             new Overlay.MenuOption("Others Modifications", "MenuButton"),
         };
 
-        public void InitalizeEventHandlersForSubMenus()
+        public void InitiateSubMenu()
         {
             var AS_F = new SubMenus.AutoshowFilters();
             var GA_M = new SubMenus.GarageModifications();

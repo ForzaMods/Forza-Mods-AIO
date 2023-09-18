@@ -5,11 +5,11 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu
 {
     public class HandlingMenu
     {
+        private ModifiersMenu _modifiersMenu = new();
+        
         // Velocity menu options
         static Overlay.MenuOption VelocityValue = new Overlay.MenuOption("Value", "Float", 0);
         static Overlay.MenuOption VelocityToggle = new Overlay.MenuOption("Enable", "Bool", false);
-
-
         static Overlay.MenuOption SuperCarToggle = new Overlay.MenuOption("Super Car", "Bool", false);
 
         // Subscribes menu options to event handlers
@@ -17,7 +17,8 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu
         {
             VelocityValue.ValueChangedHandler += new EventHandler(VelocityValueChanged);
             VelocityToggle.ValueChangedHandler += new EventHandler(VelocityToggleChanged);
-            SuperCarToggle.ValueChangedHandler += new EventHandler(VelocityToggleChanged);
+            SuperCarToggle.ValueChangedHandler += new EventHandler(SuperCarToggleChanged);
+            (new ModifiersMenu()).InitiateSubMenu();
         }
 
         // Event handlers
@@ -30,12 +31,12 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu
         void SuperCarToggleChanged(object s, EventArgs e)
         {
         }
-
         // Menu list for this section
         public static List<Overlay.MenuOption> HandlingOptions = new List<Overlay.MenuOption>()
         {
             new Overlay.MenuOption("Velocity", "MenuButton"),
             new Overlay.MenuOption("Wheel Speed", "MenuButton"),
+            new Overlay.MenuOption("Modifiers", "MenuButton"),
             SuperCarToggle
         };
 
@@ -47,6 +48,11 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu
         };
         public static List<Overlay.MenuOption> WheelSpeedOptions = new List<Overlay.MenuOption>()
         {
+        };
+        public static List<Overlay.MenuOption> ModifiersOptions = new()
+        {
+            new Overlay.MenuOption("Gravity", "MenuButton"),
+            new Overlay.MenuOption("Acceleration", "MenuButton")
         };
     }
 }

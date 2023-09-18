@@ -1,98 +1,123 @@
 ﻿<Page x:Class="Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.CameraPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="285" d:DesignWidth="580"
       Title="CameraPage" Background="Transparent">
 
     <Grid>
-        <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10"/>
+        <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10" />
 
-        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="135" Margin="0,5,0,0" BorderBrush="#FF2E3440" />
-        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="75" Margin="0,146,0,0" BorderBrush="#FF2E3440" />
-        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="143" Height="48" Margin="15,228,0,0" BorderBrush="#FF2E3440" />
-        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="201" Height="48" Margin="163,228,0,0" BorderBrush="#FF2E3440" />
-        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Top" Width="197" Height="48" Margin="0,228,14,0" BorderBrush="#FF2E3440" />
+        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="135"
+                Margin="0,5,0,0" BorderBrush="#FF2E3440" />
+        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="75"
+                Margin="0,146,0,0" BorderBrush="#FF2E3440" />
+        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="143" Height="48"
+                Margin="15,228,0,0" BorderBrush="#FF2E3440" />
+        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="201" Height="48"
+                Margin="163,228,0,0" BorderBrush="#FF2E3440" />
+        <Border BorderThickness="2,2,2,2" HorizontalAlignment="Right" VerticalAlignment="Top" Width="197" Height="48"
+                Margin="0,228,14,0" BorderBrush="#FF2E3440" />
 
         <!--#region Main Part-->
-        <Label Content="Samples" Height="30" HorizontalAlignment="Left" Margin="58,10,0,245"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SamplesBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,40,0,0" Minimum="-0" ValueChanged="SamplesBox_ValueChanged"  />
-        <Label Content="Shutter Speed" Height="30" HorizontalAlignment="Center" Margin="0,10,0,245"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ShutterSpeedBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Minimum="-0" ValueChanged="ShutterSpeedBox_ValueChanged"/>
-        <Label Content="Aperture Scale" Height="30" HorizontalAlignment="Left" Margin="138,66,0,189"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ApertureScaleBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="122,95,0,0" Minimum="-0" ValueChanged="ApertureScaleBox_ValueChanged"/>
-        <Label Content="Car In Focus" Height="30" HorizontalAlignment="Left" Margin="362,66,0,189"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="CarInFocusBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="339,96,0,0" Minimum="-0" ValueChanged="CarInFocusBox_ValueChanged"/>
-        <Label Content="Time Slice" Height="30" HorizontalAlignment="Left" Margin="463,10,0,245"/>
-        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="TimeSliceBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,40,25,0" Minimum="-0" ValueChanged="TimeSliceBox_ValueChanged"/>
+        <Label Content="Samples" Height="30" HorizontalAlignment="Left" Margin="58,10,0,245" />
+        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0"
+                           TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Integer" x:Name="SamplesBox"
+                           TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120"
+                           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,40,0,0" Minimum="-0"
+                           ValueChanged="SamplesBox_ValueChanged" />
+        <Label Content="Shutter Speed" Height="30" HorizontalAlignment="Center" Margin="0,10,0,245" />
+        <mah:NumericUpDown Interval="0.01" Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0"
+                           TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ShutterSpeedBox"
+                           TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120"
+                           HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0" Minimum="-0"
+                           ValueChanged="ShutterSpeedBox_ValueChanged" />
+        <Label Content="Aperture Scale" Height="30" HorizontalAlignment="Left" Margin="138,66,0,189" />
+        <mah:NumericUpDown Interval="0.01" Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0"
+                           TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="ApertureScaleBox"
+                           TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120"
+                           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="122,95,0,0" Minimum="-0"
+                           ValueChanged="ApertureScaleBox_ValueChanged" />
+        <Label Content="Car In Focus" Height="30" HorizontalAlignment="Left" Margin="362,66,0,189" />
+        <mah:NumericUpDown Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0"
+                           TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="CarInFocusBox"
+                           TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120"
+                           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="339,96,0,0" Minimum="-0"
+                           ValueChanged="CarInFocusBox_ValueChanged" />
+        <Label Content="Time Slice" Height="30" HorizontalAlignment="Left" Margin="463,10,0,245" />
+        <mah:NumericUpDown Interval="0.01" Background="#FF2E3440" BorderBrush="#FF2E3440" BorderThickness="0"
+                           TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="TimeSliceBox"
+                           TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120"
+                           HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,40,25,0" Minimum="-0"
+                           ValueChanged="TimeSliceBox_ValueChanged" />
         <!--#endregion-->
         <!--#region Bottom part / Footer-->
-        <Label Content="No Clip" 
+        <Label Content="No Clip"
                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-               Margin="20,0,0,20"/>
+               Margin="20,0,0,20" />
 
         <mah:ToggleSwitch x:Name="NoClip"
                           VerticalAlignment="Bottom"
                           Margin="75,0,0,17"
                           FontSize="12"
-                          Toggled="NoClip_Toggled" Width="95"/>
+                          Toggled="NoClip_Toggled" Width="95" />
 
         <Label Content="Turn Speed"
                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-               Margin="50,0,0,106"/>
+               Margin="50,0,0,106" />
 
         <Slider x:Name="TurnSpeed"
                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 Width="86" Margin="0,0,452,78"
                 Maximum="15"
-                SmallChange="1" LargeChange="10" Minimum="0.01" Value="0.8" 
+                SmallChange="1" LargeChange="10" Minimum="0.01" Value="0.8"
                 Foreground="#FF2E3440" Focusable="False" ValueChanged="TurnSpeed_OnValueChanged"
-                ToolTip="Also modifies zoom speed"/>
+                ToolTip="Also modifies zoom speed" />
 
-        <Label Content="Movement Speed" 
+        <Label Content="Movement Speed"
                VerticalAlignment="Bottom" HorizontalAlignment="Right"
-               Margin="0,0,50,106"/>
+               Margin="0,0,50,106" />
 
         <Slider x:Name="SpeedSlider"
                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 Width="86" Margin="0,0,59,78"
                 Maximum="15"
-                SmallChange="1" LargeChange="10" Minimum="0.01" Value="0.8" 
-                Foreground="#FF2E3440" Focusable="False" ValueChanged="SpeedSlider_OnValueChanged"/>
+                SmallChange="1" LargeChange="10" Minimum="0.01" Value="0.8"
+                Foreground="#FF2E3440" Focusable="False" ValueChanged="SpeedSlider_OnValueChanged" />
 
-        <Label Content="Samples Multiplier" 
+        <Label Content="Samples Multiplier"
                VerticalAlignment="Bottom" HorizontalAlignment="Center"
-               Margin="0,0,0,106"/>
+               Margin="0,0,0,106" />
 
         <Slider x:Name="SamplesMultiplierSlider"
                 HorizontalAlignment="Center" VerticalAlignment="Top"
                 Width="86" Margin="0,183,0,0"
                 Maximum="10"
-                SmallChange="1" LargeChange="10" Minimum="1"  Value="1" 
-                Foreground="#FF2E3440" Focusable="False" ValueChanged="SamplesMultiplierSlider_OnValueChanged"/>
+                SmallChange="1" LargeChange="10" Minimum="1" Value="1"
+                Foreground="#FF2E3440" Focusable="False" ValueChanged="SamplesMultiplierSlider_OnValueChanged" />
 
-        <Label Content="Unlimited altitude" 
+        <Label Content="Unlimited altitude"
                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-               Margin="170,0,0,20"/>
+               Margin="170,0,0,20" />
 
         <mah:ToggleSwitch x:Name="NoheightRestriction"
                           VerticalAlignment="Bottom"
                           Margin="280,0,0,17"
                           FontSize="12"
-                          Toggled="NoheightRestriction_Toggled" Width="95"/>
+                          Toggled="NoheightRestriction_Toggled" Width="95" />
 
-        <Label Content="Boundary removal" 
+        <Label Content="Boundary removal"
                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-               Margin="374,0,0,20"/>
+               Margin="374,0,0,20" />
 
         <mah:ToggleSwitch x:Name="BoundaryRemoval"
                           VerticalAlignment="Bottom"
                           Margin="483,0,0,17"
                           FontSize="12"
-                          Toggled="BoundaryRemoval_Toggled" Width="95"/>
+                          Toggled="BoundaryRemoval_Toggled" Width="95" />
         <!--#endregion-->
     </Grid>
 </Page>

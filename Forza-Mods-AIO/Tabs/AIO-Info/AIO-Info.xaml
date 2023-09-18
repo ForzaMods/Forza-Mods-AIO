@@ -7,7 +7,7 @@
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="Forza_Mods_AIO.Tabs.AIO_Info.AIO_Info"
       mc:Ignorable="d"
       d:DesignHeight="400" d:DesignWidth="600"
-      Title="AIO_Info" Loaded="Page_Loaded">
+      Title="AIO_Info">
 
     <Grid>
         <Button x:Name="WallButton"
@@ -25,6 +25,6 @@
             LargeChange="10"
             Value="100" Foreground="#FF2E3440" Minimum="40" BorderBrush="{x:Null}" Focusable="False"/>
         <Label Content="Lightness" HorizontalAlignment="Left" Margin="444,366,0,0" VerticalAlignment="Top" Height="24" FontFamily="Manrope" Foreground="White"/>
-        <mah:ToggleSwitch x:Name="OverlaySwitch" Height="55" Header="Overlay" Margin="504,275,0,0" VerticalAlignment="Top" Width="114" Toggled="OverlaySwitch_Toggled" Focusable="False"/>
+        <mah:ToggleSwitch x:Name="OverlaySwitch" Height="55" Header="Overlay" Margin="504,275,0,0" VerticalAlignment="Top" Width="114" IsEnabled="False" Toggled="OverlaySwitch_Toggled" Focusable="False"/>
     </Grid>
 </Page>
