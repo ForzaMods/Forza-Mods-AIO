@@ -49,10 +49,5 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu
         public static List<Overlay.MenuOption> WheelSpeedOptions = new List<Overlay.MenuOption>()
         {
         };
-        public static List<Overlay.MenuOption> ModifiersOptions = new()
-        {
-            new Overlay.MenuOption("Gravity", "MenuButton"),
-            new Overlay.MenuOption("Acceleration", "MenuButton")
-        };
     }
 }

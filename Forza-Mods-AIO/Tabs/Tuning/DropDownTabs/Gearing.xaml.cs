@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
+namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
 {
     public partial class Gearing : Page
     {

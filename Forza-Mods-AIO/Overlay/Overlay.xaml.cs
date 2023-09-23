@@ -14,6 +14,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping.SubMenus;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Gearing;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others.SubMenu;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs.SubMenus;
+using Aero = Forza_Mods_AIO.Overlay.Tuning.SubMenus.Aero.Aero;
+using Alignment = Forza_Mods_AIO.Overlay.Tuning.SubMenus.Alignment.Alignment;
+using Springs = Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs;
 using Timer = System.Windows.Forms.Timer;
 
 namespace Forza_Mods_AIO.Overlay
@@ -40,10 +49,10 @@ namespace Forza_Mods_AIO.Overlay
             public string Description { get; }
             // Value changed event handler
             public event EventHandler ValueChangedHandler;
-            public void ValueChanged(object value)
+            private void ValueChanged(object value)
             {
                 EventHandler handler = ValueChangedHandler;
-                if (null != handler) handler(this, EventArgs.Empty);
+                handler?.Invoke(this, EventArgs.Empty);
             }
 
             //Constructors for different value types
@@ -117,11 +126,23 @@ namespace Forza_Mods_AIO.Overlay
                 { "SelfVehicleOptions" , SelfCarMenu.SelfCarMenu.SelfCarsOptions},
                     { "HandlingOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.HandlingOptions},
                         { "VelocityOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.VelocityOptions},
-                        { "ModifiersOptions" , HandlingMenu.ModifiersOptions},
-                            { "GravityOptions" , ModifiersMenu.GravityOptions},
-                            { "AccelerationOptions" , ModifiersMenu.AccelerationOptions},
+                        { "ModifiersOptions" , ModifiersMenu.ModifiersOptions},
                     { "UnlocksOptions" , UnlocksOptions},
                     { "CameraOptions" , CameraOptions},
+                { "TuningOptions" , Tuning.Tuning.TuningOptions },
+                    { "AeroOptions" , Aero.AeroOptions },
+                    { "AlignmentOptions" , Alignment.AlignmentOptions },
+                    { "DampingOptions" , Damping.DampingOptions },         
+                        { "AntirollBarsDampingOptions" , AntirollBarsDamping.AntirollBarsDampingOptions },  
+                        { "ReboundStiffnessOptions" , ReboundStiffness.ReboundStiffnessOptions },  
+                        { "BumpStiffnessOptions" , BumpStiffness.BumpStiffnessOptions },  
+                    { "GearingOptions" , Gearing.GearingOptions },  
+                    { "OthersOptions" , Others.OthersOptions },  
+                        { "WheelbaseOptions" , Wheelbase.WheelbaseOptions },  
+                        { "RimsOptions" , Rims.RimsOptions },  
+                    { "SpringsOptions" , Springs.Springs.SpringsOptions },  
+                        { "SpringsValuesOptions" , SpringsValues.SpringsSubMenuOptions },  
+                        { "RideHeightOptions" , RideHeight.RideHeightOptions }, 
                 { "SettingsOptions" , SettingsMenu.SettingsMenu.SettingsOptions},
                     { "MainAreaOptions" , SettingsMenu.SettingsMenu.MainAreaOptions},
                     { "DescriptionAreaOptions" , SettingsMenu.SettingsMenu.DescriptionAreaOptions}
@@ -132,6 +153,7 @@ namespace Forza_Mods_AIO.Overlay
         {
             new MenuOption("Autoshow/Garage", "MenuButton", "Mods for the Autoshow such as free cars, all cars etc"),
             new MenuOption("Self/Vehicle", "MenuButton", "Mods for yourself such as speedhack, flyhack etc"),
+            new MenuOption("Tuning", "MenuButton", "Mods such as extended tuning limits ect"),
             new MenuOption("Settings", "MenuButton")
         };
         public static List<MenuOption> UnlocksOptions = new List<MenuOption>()
@@ -165,6 +187,16 @@ namespace Forza_Mods_AIO.Overlay
             sm.InitiateSubMenu();
             am.InitiateSubMenu();
             hm.InitiateSubMenu();
+            Aero.InitiateSubMenu();
+            Alignment.InitiateSubMenu();
+            AntirollBarsDamping.InitiateSubMenu();
+            ReboundStiffness.InitiateSubMenu();
+            BumpStiffness.InitiateSubMenu();
+            Gearing.InitiateSubMenu();
+            Wheelbase.InitiateSubMenu();
+            Rims.InitiateSubMenu();
+            SpringsValues.InitiateSubMenu();
+            RideHeight.InitiateSubMenu();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

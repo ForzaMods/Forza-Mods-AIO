@@ -11,7 +11,8 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
         // Header Option
         static Overlay.MenuOption HeaderImage = new Overlay.MenuOption("Header", "Int", 1);
 
-        // Background options
+        #region Background options
+
         static Overlay.MenuOption MainBackgroundR = new Overlay.MenuOption("Background R", "Int", 255);
         static Overlay.MenuOption MainBackgroundG = new Overlay.MenuOption("Background G", "Int", 255);
         static Overlay.MenuOption MainBackgroundB = new Overlay.MenuOption("Background B", "Int", 255);
@@ -22,7 +23,10 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
         static Overlay.MenuOption DescriptionBackgroundB = new Overlay.MenuOption("Background B", "Int", 255);
         static Overlay.MenuOption DescriptionBackgroundA = new Overlay.MenuOption("Background Alpha", "Int", 0);
 
-        // Border options
+        #endregion
+
+        #region Border options
+
         static Overlay.MenuOption MainBorderR = new Overlay.MenuOption("Border R", "Int", 0);
         static Overlay.MenuOption MainBorderG = new Overlay.MenuOption("Border G", "Int", 0);
         static Overlay.MenuOption MainBorderB = new Overlay.MenuOption("Border B", "Int", 0);
@@ -33,7 +37,11 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
         static Overlay.MenuOption DescriptionBorderB = new Overlay.MenuOption("Border B", "Int", 0);
         static Overlay.MenuOption DescriptionBorderA = new Overlay.MenuOption("Border Alpha", "Int", 255);
 
+        #endregion
+
         // Subscribes menu options to event handlers
+
+        #region Eventhandlers and similar stuff
         public void InitiateSubMenu()
         {
             HeaderImage.ValueChangedHandler += new EventHandler(HeaderValueChanged);
@@ -107,14 +115,24 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
             Overlay.oh.HeaderIndex = (int)s.GetType().GetProperty("Value").GetValue(s) - 1;
         }
         
+        
+        #endregion
+        
         // Menu list for this section
         public static List<Overlay.MenuOption> SettingsOptions = new List<Overlay.MenuOption>()
         {
             HeaderImage,
             new Overlay.MenuOption("Refresh Headers", "Button", new Action(delegate { Overlay.oh.CacheHeaders(); })),
             new Overlay.MenuOption("Main area", "MenuButton"),
-            new Overlay.MenuOption("Description area", "MenuButton")
+            new Overlay.MenuOption("Description area", "MenuButton"),
+            new Overlay.MenuOption("Save Settings", "Button", SaveSettings)
         };
+
+
+        private static void SaveSettings()
+        {
+            
+        }
 
         // Submenu lists
         public static List<Overlay.MenuOption> MainAreaOptions = new List<Overlay.MenuOption>()

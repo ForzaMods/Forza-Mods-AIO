@@ -1,138 +1,68 @@
-using Forza_Mods_AIO.Overlay;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Controls;
-using Keys = System.Windows.Forms.Keys;
-using System.Windows.Threading;
+using System.Windows.Forms;
+using Forza_Mods_AIO.Overlay;
 using IniParser;
-using IniParser.Model;
-using System.Collections.Generic;
+using static System.Enum;
+using Application = System.Windows.Application;
+using Button = System.Windows.Controls.Button;
 
-namespace Forza_Mods_AIO.Tabs.Settings
+namespace Forza_Mods_AIO.Tabs.Settings;
+
+internal abstract partial class KeybindsHandling
 {
-    internal class KeybindsHandling
+    [LibraryImport("User32.dll")]
+    private static partial short GetAsyncKeyState(int vKey);
+
+    public static void KeyGrabber(Button sender)
     {
-        [DllImport("User32.dll")]
-        public static extern short GetAsyncKeyState(Int32 vKey);
-        
-        static string PathToKeybindings = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods Tool\Keybindings.ini";
-        static FileIniDataParser Parser = new FileIniDataParser();
-        static IniData IniData = new IniData();
-        static Dispatcher dispatcher = Application.Current.Dispatcher;
+        var keyBuffer = string.Empty;
+        var pressedKey = 0;
 
-        public static void KeyGrabber(Button sender)
+        while (keyBuffer.Length == 0)
         {
-            Settings.Grabbing = true;
-
-            string keyBuffer = string.Empty;
-            while (keyBuffer.Length == 0)
+            foreach (int i in GetValues(typeof(Keys)))
             {
-                foreach (Int32 i in Enum.GetValues(typeof(Keys)))
-                {
-                    int x = GetAsyncKeyState(i);
-                    if ((x == 1) || (x == Int16.MinValue))
-                    {
-                        if (i != 0 && i != 1 && i != 2 && i != 3 && i != 4 && i != 12)
-                        {
-                            keyBuffer += Enum.GetName(typeof(Keys), i);
-                        }
-                    }
-                }
+                int x = GetAsyncKeyState(i);
+                if (x is not (1 or short.MinValue)) continue;
+                if (i is 0 or 1 or 2 or 3 or 4 or 12) continue;
+                pressedKey = i;
+                break;
             }
 
-            dispatcher.BeginInvoke((Action)delegate()
-            {
-                sender.Content = keyBuffer;
-                RegisterKeybind("Overlay",keyBuffer, sender);
-                
-                // just gonna do this for now bc I canny shorten it
-                // TODO: shorten code
-                if (sender.Name == "UpButton")
-                    OverlayHandling.Up = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
-
-                if (sender.Name == "DownButton") 
-                    OverlayHandling.Down = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
-
-                if (sender.Name == "LeftButton")
-                    OverlayHandling.Left = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
-
-                if (sender.Name == "RightButton")
-                    OverlayHandling.Right = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
-
-                if (sender.Name == "ConfirmButton")
-                    OverlayHandling.Confirm = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
-
-                if (sender.Name == "LeaveButton")
-                    OverlayHandling.Leave = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
-                    
-                if (sender.Name == "VisibilityButton") 
-                    OverlayHandling.OverlayVisibility = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
-            });
+            if (pressedKey != 0)
+                keyBuffer += GetName(typeof(Keys), pressedKey);
         }
 
-        public static void UpdateKeybindingOnLaunch()
+        Application.Current.Dispatcher.Invoke(() =>
         {
-            #region First time open / somebody deleted file
-            var overlayMap = new Dictionary<string, Keys>
-            {
-                { "Up", OverlayHandling.Up },
-                { "Down", OverlayHandling.Down },
-                { "Left", OverlayHandling.Left },
-                { "Right", OverlayHandling.Right },
-                { "Confirm", OverlayHandling.Confirm },
-                { "Leave", OverlayHandling.Leave },
-                { "Visibility", OverlayHandling.OverlayVisibility }
-            };
-
-            if (!File.Exists(PathToKeybindings) || new FileInfo(PathToKeybindings).Length == 0)
-            {
-                try { using (File.Create(PathToKeybindings)) { }; }
-                catch 
-                { 
-                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods Tool");
-                    using (File.Create(PathToKeybindings)) { };
-                }
-                IniData["Overlay"]["Up"] = OverlayHandling.Up.ToString();
-                IniData["Overlay"]["Down"] = OverlayHandling.Down.ToString();
-                IniData["Overlay"]["Left"] = OverlayHandling.Left.ToString();
-                IniData["Overlay"]["Right"] = OverlayHandling.Right.ToString();
-                IniData["Overlay"]["Confirm"] = OverlayHandling.Confirm.ToString();
-                IniData["Overlay"]["Leave"] = OverlayHandling.Leave.ToString();
-                IniData["Overlay"]["Visibility"] = OverlayHandling.OverlayVisibility.ToString();
-                Parser.WriteFile(PathToKeybindings, IniData);
-            }
-            #endregion
-            #region Parsing
-            else
-            {
-                IniData = Parser.ReadFile(PathToKeybindings);
-
-                Enum.TryParse(IniData["Overlay"]["Up"], out OverlayHandling.Up);
-                Enum.TryParse(IniData["Overlay"]["Down"], out OverlayHandling.Down);
-                Enum.TryParse(IniData["Overlay"]["Left"], out OverlayHandling.Left);
-                Enum.TryParse(IniData["Overlay"]["Right"], out OverlayHandling.Right);
-                Enum.TryParse(IniData["Overlay"]["Confirm"], out OverlayHandling.Confirm);
-                Enum.TryParse(IniData["Overlay"]["Leave"], out OverlayHandling.Leave);
-                Enum.TryParse(IniData["Overlay"]["Visibility"], out OverlayHandling.OverlayVisibility);
-            }
-            #endregion
+            sender.Content = keyBuffer;
             
-            Settings.S.UpButton.Content = OverlayHandling.Up;
-            Settings.S.DownButton.Content = OverlayHandling.Down;
-            Settings.S.LeftButton.Content = OverlayHandling.Left;
-            Settings.S.RightButton.Content = OverlayHandling.Right;
-            Settings.S.ConfirmButton.Content = OverlayHandling.Confirm;
-            Settings.S.LeaveButton.Content = OverlayHandling.Leave;
-            Settings.S.VisibilityButton.Content = OverlayHandling.OverlayVisibility;
-        }
+            foreach (var field in typeof(OverlayHandling).GetFields())
+            {
+                if (field.Name != sender.Name.Replace("Button", String.Empty)) continue;
+                field.SetValue(new OverlayHandling(), (Keys)Parse(typeof(Keys), keyBuffer));
+            }
+        });
+    }
 
-        private static void RegisterKeybind(string part,string key, Button sender)
-        {
-            IniData[part][Regex.Replace(sender.Name, "Button$", "")] = key ;
-            Parser.WriteFile(PathToKeybindings, IniData);
-        } 
+    public static void UpdateKeybindingOnLaunch()
+    {
+        var SettingsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods AIO\Overlay_Settings.ini";
+
+        if (!File.Exists(SettingsFilePath) || new FileInfo(SettingsFilePath).Length == 0)
+            using (File.Create(SettingsFilePath)) { }
+
+        var Parser = new FileIniDataParser();
+        var IniData = Parser.ReadFile(SettingsFilePath);
+        TryParse(IniData["Keybinds"]["Up"], out OverlayHandling.Up);
+        TryParse(IniData["Keybinds"]["Down"], out OverlayHandling.Down);
+        TryParse(IniData["Keybinds"]["Left"], out OverlayHandling.Left);
+        TryParse(IniData["Keybinds"]["Right"], out OverlayHandling.Right);
+        TryParse(IniData["Keybinds"]["Confirm"], out OverlayHandling.Confirm);
+        TryParse(IniData["Keybinds"]["Leave"], out OverlayHandling.Leave);
+        TryParse(IniData["Keybinds"]["Visibility"], out OverlayHandling.OverlayVisibility);
     }
 }

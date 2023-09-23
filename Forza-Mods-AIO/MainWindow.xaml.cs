@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,10 +16,8 @@ using MahApps.Metro.Controls;
 using Memory;
 using Forza_Mods_AIO.CustomTheming;
 using System.Xml.Linq;
-using Forza_Mods_AIO.Tabs.AIO_Info;
 using Forza_Mods_AIO.Tabs.Self_Vehicle;
 using Forza_Mods_AIO.Tabs.AutoShowTab;
-using Forza_Mods_AIO.Tabs.TuningTablePort;
 using Lunar;
 
 namespace Forza_Mods_AIO
@@ -55,8 +54,7 @@ namespace Forza_Mods_AIO
         #region Variables
         public static MainWindow mw = new MainWindow();
         public Mem m = new Mem();
-        public static AIO_Info AInfo = new AIO_Info();
-        List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.TuningTablePort.TuningTableMain(), new Tabs.Settings.Settings() };
+        List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.Tuning.Tuning(), new Tabs.Settings.Settings() };
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
         public string Page_Focused = "AIO-Info";
         public bool attached = false;
@@ -66,7 +64,7 @@ namespace Forza_Mods_AIO
         {
             { "AutoShow", false },
             { "Self_Vehicle", false },
-            { "TuningTableMain", false }
+            { "Tuning", false }
         };
         #endregion
         #region Starting
@@ -75,21 +73,9 @@ namespace Forza_Mods_AIO
             InitializeComponent();
             mw = this;
             Task.Run(() => IsAttached());
-            #region Saveswapper stuff
-            /*if (!Directory.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Packages\Microsoft.SunriseBaseGame_8wekyb3d8bbwe\SystemAppData\wgs"))
-            {
-                //Saveswapper.IsEnabled = false;
-                //Saveswapper.Foreground = Brushes.DarkGray;
-                //SaveFill.Fill = Brushes.DarkGray;
-            }
-            else
-            {
-                var BaseDir = @"C:\Users\" + Environment.UserName + @"\Documents\Forza Mods Tool\Saveswapper";
-                if (!Directory.Exists(BaseDir)) { Directory.CreateDirectory(BaseDir); }
-                if (!Directory.Exists(BaseDir + @"\Imported saves")) { Directory.CreateDirectory(BaseDir + @"\Imported saves"); }
-                if (!Directory.Exists(BaseDir + @"\Save backups")) { Directory.CreateDirectory(BaseDir + @"\Save backups"); }
-            }*/
-            #endregion
+            var DocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods AIO" ;
+            if (!Directory.Exists(DocumentsPath))
+                Directory.CreateDirectory(DocumentsPath);
             ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
             ThemeManager.Current.ChangeTheme(Application.Current, "AccentCol");
             AIO_Info.IsChecked = true;
@@ -120,52 +106,44 @@ namespace Forza_Mods_AIO
                 if ((bool)rb.IsChecked)
                 {
                     rb.Background = Monet.DarkerColour;
-                    foreach (Page t in tabs)
+                    foreach (var t in tabs.Where(t => t.Title == rb.Name))
                     {
-                        if (t.Title == rb.Name)
+                        try
                         {
-                            try
+                            foreach (FrameworkElement Element in Window.GetChildren(true))
                             {
-                                foreach (FrameworkElement Element in Window.GetChildren(true))
+                                if (Element.Name == rb.Name + "Frame")
                                 {
-                                    string Source = "";
-                                    if (Element.GetType() == typeof(Frame))
-                                    {
-                                        Source = Element.GetType().GetProperty("Name").GetValue(Element).ToString();
-                                    }
-                                    if (Element.Name == rb.Name + "Frame")
-                                    {
-                                        Page_Focused = rb.Name;
-                                        Element.Visibility = Visibility.Visible;
+                                    Page_Focused = rb.Name;
+                                    Element.Visibility = Visibility.Visible;
 
-                                        if (Is_Scanned.TryGetValue(rb.Name, out bool isScanned) && !isScanned && attached)
-                                        {
-                                            Is_Scanned[rb.Name] = true;
-                                            switch (rb.Name)
-                                            {
-                                                case "AutoShow":
-                                                    Task.Run(() => (new AutoshowVars()).Scan());
-                                                    break;
-                                                case "Self_Vehicle":
-                                                    if (gvp.Name == "Forza Horizon 5")
-                                                        Task.Run(() => (new Self_Vehicle_Addrs()).New_Scan());
-                                                    else
-                                                        Task.Run(() => (new Self_Vehicle_Addrs()).Old_Scan());
-                                                    break;
-                                                case "TuningTableMain":
-                                                    Task.Run(() => Tuning_Addresses.Scan());
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                    else if (Element.GetType() == typeof(Frame) && Source.Contains("Frame"))
+                                    if (!Is_Scanned.TryGetValue(rb.Name, out bool isScanned) && isScanned && !attached)
+                                        return;
+                                    
+                                    Is_Scanned[rb.Name] = true;
+                                    switch (rb.Name)
                                     {
-                                        Element.Visibility = Visibility.Hidden;
+                                        case "AutoShow":
+                                            Task.Run(() => (new AutoshowVars()).Scan());
+                                            break;
+                                        case "Self_Vehicle":
+                                            if (gvp.Name == "Forza Horizon 5")
+                                                Task.Run(() => (new Self_Vehicle_Addrs()).New_Scan());
+                                            else
+                                                Task.Run(() => (new Self_Vehicle_Addrs()).Old_Scan());
+                                            break;
+                                        case "Tuning":
+                                            Task.Run(() => Tabs.Tuning.Tuning_Addresses.Scan());
+                                            break;
                                     }
                                 }
+                                else if (Element.GetType() == typeof(Frame) && Element.GetType().GetProperty("Name").GetValue(Element).ToString().Contains("Frame"))
+                                {
+                                    Element.Visibility = Visibility.Hidden;
+                                }
                             }
-                            catch { }
                         }
+                        catch { }
                     }
                 }
                 else
@@ -209,7 +187,7 @@ namespace Forza_Mods_AIO
                         continue;
                     Dispatcher.Invoke((Action)delegate () {
                         AttachedLabel.Content = "Launch FH4/5";
-                        Tabs.TuningTablePort.TuningTableMain.TBM.AOBProgressBar.Value = 0;
+                        Tabs.Tuning.Tuning.TBM.AOBProgressBar.Value = 0;
                         Tabs.Self_Vehicle.Self_Vehicle.sv.AOBProgressBar.Value = 0;
                         Tabs.AutoShow.AS.AOBProgressBar.Value = 0;
                         Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsEnabled = false;
@@ -248,10 +226,7 @@ namespace Forza_Mods_AIO
                 }
                 else
                 {
-                    if (File.Exists(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName), "OnlineFix64.dll")))
-                        platform = "OnlineFix - Steam";
-                    else
-                        platform = "Steam";
+                    platform = File.Exists(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName) ?? string.Empty, "OnlineFix64.dll")) ? "OnlineFix - Steam" : "Steam";
                     var file = FileVersionInfo.GetVersionInfo(process.MainModule.FileName.ToString());
                     update = file.FileVersion;
                 }

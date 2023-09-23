@@ -1,13 +1,13 @@
-﻿using Forza_Mods_AIO.Resources;
-using Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.Self_Vehicle;
+using Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
 
-namespace Forza_Mods_AIO.Tabs.TuningTablePort
+namespace Forza_Mods_AIO.Tabs.Tuning
 {
     internal class Tuning_Addresses
     {
@@ -138,13 +138,13 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             while (Base is 0 or 0xD)
                 Base = (await MainWindow.mw.m.AoBScan(MainWindow.mw.gvp.Process.MainModule.BaseAddress, 
                                                       MainWindow.mw.gvp.Process.MainModule.BaseAddress + MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize,
-                                                      "3d ? ? ? ? 00 00 ? ? 00 00 5c", true, true, false)).FirstOrDefault() + 0xD;
+                                                      "3d ? ? ? ? 00 00 ? ? 00 00 5c", true, true, false)).LastOrDefault() + 0xD;
             
             CamberNegStatic = Base.ToString("X");
             CamberPosStatic = (Base + 0x4).ToString("X");
             ToeNegStatic = (Base + 0x8).ToString("X");
             ToePosStatic = (Base + 0xC).ToString("X");
-            UpdateUi.AddProgress(ScanAmount, 1, TuningTableMain.TBM.AOBProgressBar);
+            UpdateUi.AddProgress(ScanAmount, 1, Tuning.TBM.AOBProgressBar);
             #endregion
 
             #region MS FH5
@@ -157,13 +157,13 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 
                 while (TuningTableBase1 == "0" && TuningTableBase2 == "0" && TuningTableBase3 == "0" && TuningTableBase4 == "0")
                     continue;
-                UpdateUi.AddProgress(ScanAmount, 2, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 2, Tuning.TBM.AOBProgressBar);
 
                 TireFrontLeft = (TuningTableBase1 + ",0x10,0x10,0x27C8");
                 TireFrontRight = (TuningTableBase1 + ",0x10,0x10,0x3288");
                 TireRearRight = (TuningTableBase1 + ",0x10,0x10,0x3D48");
                 TireRearLeft = (TuningTableBase1 + ",0x10,0x10,0x4808");
-                UpdateUi.AddProgress(ScanAmount, 3, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 3, Tuning.TBM.AOBProgressBar);
 
                 FinalDrive = (TuningTableBase1 + ",0x10,0x10,0xCEC");
                 ReverseGear = (TuningTableBase1 + ",0x10,0x10,0xB48");
@@ -177,53 +177,53 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 EighthGear = (TuningTableBase1 + ",0x10,0x10,0xBE8");
                 NinthGear = (TuningTableBase1 + ",0x10,0x10,0xBFC");
                 TenthGear = (TuningTableBase1 + ",0x10,0x10,0xC10");
-                UpdateUi.AddProgress(ScanAmount, 4, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 4, Tuning.TBM.AOBProgressBar);
 
                 CamberNeg = (TuningTableBase2 + ",0x8B0,0x490");
                 CamberPos = (TuningTableBase2 + ",0x8B0,0x494");
                 ToeNeg = (TuningTableBase2 + ",0x8B0,0x498");
                 ToePos = (TuningTableBase2 + ",0x8B0,0x49C");
-                UpdateUi.AddProgress(ScanAmount, 5, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 5, Tuning.TBM.AOBProgressBar);
 
                 SpringFrontMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x528");
                 SpringFrontMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x52C");
                 SpringRearMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x67C");
                 SpringRearMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x680");
-                UpdateUi.AddProgress(ScanAmount, 6, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 6, Tuning.TBM.AOBProgressBar);
 
                 FrontRideHeightMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x508");
                 FrontRideHeightMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x50C");
                 RearRideHeightMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x65C");
                 RearRideHeightMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x660");
-                UpdateUi.AddProgress(ScanAmount, 7, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 7, Tuning.TBM.AOBProgressBar);
 
                 FrontRestriction = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x510");
                 RearRestriction = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x664");
-                UpdateUi.AddProgress(ScanAmount, 8, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 8, Tuning.TBM.AOBProgressBar);
 
                 FrontAntirollMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x5C4");
                 FrontAntirollMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x5C8");
                 RearAntirollMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x718");
                 RearAntirollMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x71C");
-                UpdateUi.AddProgress(ScanAmount, 9, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 9, Tuning.TBM.AOBProgressBar);
 
                 FrontReboundStiffnessMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x558");
                 FrontReboundStiffnessMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x55C");
                 RearReboundStiffnessMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x6AC");
                 RearReboundStiffnessMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x68C");
-                UpdateUi.AddProgress(ScanAmount, 10, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 10, Tuning.TBM.AOBProgressBar);
 
                 FrontBumpStiffnessMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x534");
                 FrontBumpStiffnessMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x538");
                 RearBumpStiffnessMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x688");
                 RearBumpStiffnessMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x68C");
-                UpdateUi.AddProgress(ScanAmount, 11, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 11, Tuning.TBM.AOBProgressBar);
 
                 FrontAeroMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x378");
                 FrontAeroMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x380");
                 RearAeroMin = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x3D8");
                 RearAeroMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x3E0");
-                UpdateUi.AddProgress(ScanAmount, 12, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 12, Tuning.TBM.AOBProgressBar);
 
                 AngleMax = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x7FC");
                 AngleMax2 = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x800");
@@ -232,14 +232,14 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 VelocityCountersteer = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x80C");
                 VelocityDynamicPeek = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x810");
                 TimeToMaxSteering = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x814");
-                UpdateUi.AddProgress(ScanAmount, 13, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 13, Tuning.TBM.AOBProgressBar);
 
                 Wheelbase = (TuningTableBase3 + ",0x330,0x8,0x1E0,0xD0");
                 FrontWidth = (TuningTableBase3 + ",0x330,0x8,0x1E0,0xD4");
                 RearWidth = (TuningTableBase3 + ",0x330,0x8,0x1E0,0xD8");
                 FrontSpacer = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x9D0");
                 RearSpacer = (TuningTableBase3 + ",0x330,0x8,0x1E0,0x9D4");
-                UpdateUi.AddProgress(ScanAmount, 14, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 14, Tuning.TBM.AOBProgressBar);
 
                 RimSizeFront = (TuningTableBase4 + ",0x150,0x300,0x7D8");
                 RimSizeRear = (TuningTableBase4 + ",0x150,0x300,0x7DC");
@@ -255,13 +255,13 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 Task.Run(async() => { TuningTableBase3 = (await MainWindow.mw.m.AoBScan(MainWindow.mw.gvp.Process.MainModule.BaseAddress, MainWindow.mw.gvp.Process.MainModule.BaseAddress + MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, "D0 84 ? ? ? 0? 00 00 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00", true, true, false)).FirstOrDefault().ToString("X"); });
                 while (TuningTableBase1 == "0" && TuningTableBase2 == "0" && TuningTableBase3 == "0")
                     continue;
-                UpdateUi.AddProgress(ScanAmount, 2, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 2, Tuning.TBM.AOBProgressBar);
 
                 TireFrontLeft = (TuningTableBase1 + ",0x320,0x10,0x1D0,0x27E8");
                 TireFrontRight = (TuningTableBase1 + ",0x320,0x10,0x1D0,0x32A8");
                 TireRearRight = (TuningTableBase1 + ",0x320,0x10,0x1D0,0x3D68");
                 TireRearLeft = (TuningTableBase1 + ",0x320,0x10,0x1D0,0x4828");
-                UpdateUi.AddProgress(ScanAmount, 3, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 3, Tuning.TBM.AOBProgressBar);
 
                 FinalDrive = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xCEC");
                 ReverseGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xB48");
@@ -275,53 +275,53 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 EighthGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xBE8");
                 NinthGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xBFC");
                 TenthGear = (TuningTableBase1 + ",0x320,0x10,0x1D0,0xC10");
-                UpdateUi.AddProgress(ScanAmount, 4, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 4, Tuning.TBM.AOBProgressBar);
 
                 CamberNeg = (TuningTableBase2 + ",0x8B0,0x490");
                 CamberPos = (TuningTableBase2 + ",0x8B0,0x494");
                 ToeNeg = (TuningTableBase2 + ",0x8B0,0x498");
                 ToePos = (TuningTableBase2 + ",0x8B0,0x49C");
-                UpdateUi.AddProgress(ScanAmount, 5, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 5, Tuning.TBM.AOBProgressBar);
 
                 SpringFrontMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x528");
                 SpringFrontMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x52C");
                 SpringRearMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x67C");
                 SpringRearMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x680");
-                UpdateUi.AddProgress(ScanAmount, 6, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 6, Tuning.TBM.AOBProgressBar);
 
                 FrontRideHeightMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x508");
                 FrontRideHeightMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x50C");
                 RearRideHeightMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x65C");
                 RearRideHeightMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x660");
-                UpdateUi.AddProgress(ScanAmount, 7, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 7, Tuning.TBM.AOBProgressBar);
 
                 FrontRestriction = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x510");
                 RearRestriction = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x664");
-                UpdateUi.AddProgress(ScanAmount, 8, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 8, Tuning.TBM.AOBProgressBar);
 
                 FrontAntirollMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x5C4");
                 FrontAntirollMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x5C8");
                 RearAntirollMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x718");
                 RearAntirollMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x71C");
-                UpdateUi.AddProgress(ScanAmount, 9, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 9, Tuning.TBM.AOBProgressBar);
 
                 FrontReboundStiffnessMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x558");
                 FrontReboundStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x55C");
                 RearReboundStiffnessMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x6AC");
                 RearReboundStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x6B0");
-                UpdateUi.AddProgress(ScanAmount, 10, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 10, Tuning.TBM.AOBProgressBar);
 
                 FrontBumpStiffnessMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x534");
                 FrontBumpStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x538");
                 RearBumpStiffnessMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x688");
                 RearBumpStiffnessMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x68C");
-                UpdateUi.AddProgress(ScanAmount, 11, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 11, Tuning.TBM.AOBProgressBar);
 
                 FrontAeroMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x378");
                 FrontAeroMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x380");
                 RearAeroMin = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x3D8");
                 RearAeroMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x3E0");
-                UpdateUi.AddProgress(ScanAmount, 12, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 12, Tuning.TBM.AOBProgressBar);
 
                 AngleMax = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x7FC");
                 AngleMax2 = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x800");
@@ -330,14 +330,14 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                 VelocityCountersteer = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x80C");
                 VelocityDynamicPeek = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x810");
                 TimeToMaxSteering = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x814");
-                UpdateUi.AddProgress(ScanAmount, 13, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 13, Tuning.TBM.AOBProgressBar);
 
                 Wheelbase = (TuningTableBase1 + ",0x340,0x30,0x1E0,0xD0");
                 FrontWidth = (TuningTableBase1 + ",0x340,0x30,0x1E0,0xD4");
                 RearWidth = (TuningTableBase1 + ",0x340,0x30,0x1E0,0xD8");
                 FrontSpacer = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x9D0");
                 RearSpacer = (TuningTableBase1 + ",0x340,0x30,0x1E0,0x9D4");
-                UpdateUi.AddProgress(ScanAmount, 14, TuningTableMain.TBM.AOBProgressBar);
+                UpdateUi.AddProgress(ScanAmount, 14, Tuning.TBM.AOBProgressBar);
 
                 RimSizeFront = (TuningTableBase3 + ",0x150,0x300,0x7D8");
                 RimSizeRear = (TuningTableBase3 + ",0x150,0x300,0x7DC");
@@ -380,8 +380,8 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             }
             #endregion
 
-            UpdateUi.AddProgress(ScanAmount, 15, TuningTableMain.TBM.AOBProgressBar);
-            UpdateUi.UpdateUI(true, TuningTableMain.TBM);
+            UpdateUi.AddProgress(ScanAmount, 15, Tuning.TBM.AOBProgressBar);
+            UpdateUi.UpdateUI(true, Tuning.TBM);
             ReadValues();
         }
 
@@ -391,7 +391,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             TireFrontRight = (TuningTableBase1FH4 + 0x337C).ToString("X");
             TireRearLeft = (TuningTableBase1FH4 + 0x495C).ToString("X");
             TireRearRight = (TuningTableBase1FH4 + 0x5F3C).ToString("X");
-            UpdateUi.AddProgress(ScanAmount, 2, TuningTableMain.TBM.AOBProgressBar);
+            UpdateUi.AddProgress(ScanAmount, 2, Tuning.TBM.AOBProgressBar);
             
             FinalDrive = (TuningTableBase1FH4 + 0xC40).ToString("X");
             ReverseGear = (TuningTableBase1FH4 + 0xACC).ToString("X");
@@ -405,19 +405,19 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             EighthGear = (TuningTableBase1FH4 + 0xB6C).ToString("X");
             NinthGear = (TuningTableBase1FH4 + 0xB80).ToString("X");
             TenthGear = (TuningTableBase1FH4 + 0xB94).ToString("X");
-            UpdateUi.AddProgress(ScanAmount, 3, TuningTableMain.TBM.AOBProgressBar);
+            UpdateUi.AddProgress(ScanAmount, 3, Tuning.TBM.AOBProgressBar);
             
             RimSizeFront = (TuningTableBase2FH4 + 0x758).ToString("X");
             RimRadiusFront = (TuningTableBase2FH4 + 0x760).ToString("X");
             RimRadiusRear = (TuningTableBase2FH4 + 0x75C).ToString("X");
             RimRadiusRear = (TuningTableBase2FH4 + 0x764).ToString("X");
-            UpdateUi.AddProgress(ScanAmount, 4, TuningTableMain.TBM.AOBProgressBar);
+            UpdateUi.AddProgress(ScanAmount, 4, Tuning.TBM.AOBProgressBar);
             
             CamberNeg = (TuningTableBase3FH4 + 0x3E4).ToString("X");
             CamberPos = (TuningTableBase3FH4 + 0x3E8).ToString("X");
             ToeNeg = (TuningTableBase3FH4 + 0x3EC).ToString("X");
             ToePos = (TuningTableBase3FH4 + 0x3F0).ToString("X");
-            UpdateUi.AddProgress(ScanAmount, 5, TuningTableMain.TBM.AOBProgressBar);
+            UpdateUi.AddProgress(ScanAmount, 5, Tuning.TBM.AOBProgressBar);
         }
         
         private static void ReadValues()
@@ -435,10 +435,7 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
             while (MainWindow.mw.attached)
             {
                 Thread.Sleep(5);
-                // No reason to update values when not focused
-                if (MainWindow.mw.Page_Focused != "TuningTableMain")
-                    continue;
-
+                
                 Application.Current.Dispatcher.Invoke((Action)delegate ()
                 {
                     #region Aero
@@ -454,78 +451,15 @@ namespace Forza_Mods_AIO.Tabs.TuningTablePort
                         Gearing.g.FinalDriveBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FinalDrive, round: false), 5);
                         Gearing.g.ReverseGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(ReverseGear, round: false), 5);
                         Gearing.g.FirstGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FirstGear, round: false), 5);
-
-                        if (MainWindow.mw.m.ReadFloat(SecondGear) != 0)
-                        {
-                            Gearing.g.SecondGearBox.IsEnabled = true;
-                            Gearing.g.SecondGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SecondGear, round: false), 5);
-                        }
-                        else
-                            Gearing.g.SecondGearBox.IsEnabled = false;
-
-                        if (MainWindow.mw.m.ReadFloat(ThirdGear) != 0)
-                        {
-                            Gearing.g.ThirdGearBox.IsEnabled = true;
-                            Gearing.g.ThirdGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(ThirdGear, round: false), 5);
-                        }
-                        else
-                            Gearing.g.ThirdGearBox.IsEnabled = false;
-
-                        if (MainWindow.mw.m.ReadFloat(FourthGear) != 0)
-                        {
-                            Gearing.g.FourthGearBox.IsEnabled = true;
-                            Gearing.g.FourthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FourthGear, round: false), 5);
-                        }
-                        else
-                            Gearing.g.FourthGearBox.IsEnabled = false;
-
-                        if (MainWindow.mw.m.ReadFloat(FifthGear) != 0)
-                        {
-                            Gearing.g.FifthGearBox.IsEnabled = true;
-                            Gearing.g.FifthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FifthGear, round: false), 5);
-                        }
-                        else
-                            Gearing.g.FifthGearBox.IsEnabled = false;
-
-                        if (MainWindow.mw.m.ReadFloat(SixthGear) != 0)
-                        {
-                            Gearing.g.SixthGearBox.IsEnabled = true;
-                            Gearing.g.SixthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SixthGear, round: false), 5);
-                        }
-                        else
-                            Gearing.g.SixthGearBox.IsEnabled = false;
-
-                        if (MainWindow.mw.m.ReadFloat(SeventhGear) != 0)
-                        {
-                            Gearing.g.SeventhGearBox.IsEnabled = true;
-                            Gearing.g.SeventhGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SeventhGear, round: false), 5);
-                        }
-                        else
-                            Gearing.g.SeventhGearBox.IsEnabled = false;
-
-                        if (MainWindow.mw.m.ReadFloat(EighthGear) != 0)
-                        {
-                            Gearing.g.EighthGearBox.IsEnabled = true;
-                            Gearing.g.EighthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(EighthGear, round: false), 5);
-                        }
-                        else
-                            Gearing.g.EighthGearBox.IsEnabled = false;
-
-                        if (MainWindow.mw.m.ReadFloat(NinthGear) != 0)
-                        {
-                            Gearing.g.NinthGearBox.IsEnabled = true;
-                            Gearing.g.NinthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(NinthGear, round: false), 5);
-                        }
-                        else
-                            Gearing.g.NinthGearBox.IsEnabled = false;
-
-                        if (MainWindow.mw.m.ReadFloat(TenthGear) != 0)
-                        {
-                            Gearing.g.TenthGearBox.IsEnabled = true;
-                            Gearing.g.TenthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(TenthGear, round: false), 5);
-                        }
-                        else
-                            Gearing.g.TenthGearBox.IsEnabled = false;
+                        Gearing.g.SecondGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SecondGear, round: false), 5);
+                        Gearing.g.ThirdGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(ThirdGear, round: false), 5);
+                        Gearing.g.FourthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FourthGear, round: false), 5);
+                        Gearing.g.FifthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(FifthGear, round: false), 5);
+                        Gearing.g.SixthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SixthGear, round: false), 5);
+                        Gearing.g.SeventhGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(SeventhGear, round: false), 5);
+                        Gearing.g.EighthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(EighthGear, round: false), 5);
+                        Gearing.g.NinthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(NinthGear, round: false), 5);
+                        Gearing.g.TenthGearBox.Value = Math.Round(MainWindow.mw.m.ReadFloat(TenthGear, round: false), 5);
                     
                     #endregion
                     #region Damping

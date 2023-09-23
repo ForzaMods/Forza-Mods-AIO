@@ -1,58 +1,71 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Keys = System.Windows.Forms.Keys;
-using System.Windows.Media;
+using Forza_Mods_AIO.Overlay;
+using IniParser;
 
-namespace Forza_Mods_AIO.Tabs.Settings
+namespace Forza_Mods_AIO.Tabs.Settings;
+
+/// <summary>
+///     Interaction logic for Settings.xaml
+/// </summary>
+public partial class Settings : Page
 {
-    /// <summary>
-    /// Interaction logic for Settings.xaml
-    /// </summary>
-    public partial class Settings : Page
+    public static Settings S;
+    private bool Clicked;
+
+    public Settings()
     {
-        private bool Clicked = false;
-        public static bool Grabbing = false;
-        public static Settings S;
+        InitializeComponent();
+        S = this;
         
-        public Settings()
+        KeybindsHandling.UpdateKeybindingOnLaunch();
+                
+        UpButton.Content = OverlayHandling.Up;
+        DownButton.Content = OverlayHandling.Down;
+        LeftButton.Content = OverlayHandling.Left;
+        RightButton.Content = OverlayHandling.Right;
+        ConfirmButton.Content = OverlayHandling.Confirm;
+        LeaveButton.Content = OverlayHandling.Leave;
+        OverlayVisibilityButton.Content = OverlayHandling.OverlayVisibility;
+    }
+    
+    private async void Button_Click(object sender, RoutedEventArgs e)
+    {
+        if (Clicked)
+            return;
+
+        Clicked = true;
+        ((Button)sender).Content = "Press some key";
+
+        await Task.Run(() => { KeybindsHandling.KeyGrabber((Button)sender); });
+
+        Clicked = false;
+    }
+
+    private void SaveButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var SettingsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods AIO\Overlay_Settings.ini";
+
+        try
         {
-            InitializeComponent();
-            S = this;
+            var Parser = new FileIniDataParser();
+            var Data = Parser.ReadFile(SettingsFilePath);
+            Data["Keybinds"]["Up"] = OverlayHandling.Up.ToString();
+            Data["Keybinds"]["Down"] = OverlayHandling.Down.ToString();
+            Data["Keybinds"]["Left"] = OverlayHandling.Left.ToString();
+            Data["Keybinds"]["Right"] = OverlayHandling.Right.ToString();
+            Data["Keybinds"]["Confirm"] = OverlayHandling.Confirm.ToString();
+            Data["Keybinds"]["Leave"] = OverlayHandling.Leave.ToString();
+            Data["Keybinds"]["Visibility"] = OverlayHandling.OverlayVisibility.ToString();
+
+            Parser.WriteFile(SettingsFilePath, Data);
         }
-
-        private void OnLoad(object sender, RoutedEventArgs e)
+        catch (Exception ex)
         {
-            KeybindsHandling.UpdateKeybindingOnLaunch();
-        }
-
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (Clicked)
-                return;
-
-            Clicked = true;
-            Grabbing = false;
-            Button SenderButton = (Button)sender;
-            SenderButton.Content = "Press some key";
-            bool Reading = true;
-            
-            await Task.Run(() =>
-            {
-                while (Reading)
-                {
-                    Thread.Sleep(50);
-                    if (!Grabbing)
-                        KeybindsHandling.KeyGrabber(SenderButton);
-
-                    Reading = false;
-                }
-            });
-
-            Clicked = false;
+            MessageBox.Show("Failed to save keybinds.");
+            Console.WriteLine(ex.StackTrace);
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using MahApps.Metro.Controls;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using MahApps.Metro.Controls;
 
-namespace Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs
+namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
 {
     public partial class Others : Page
     {

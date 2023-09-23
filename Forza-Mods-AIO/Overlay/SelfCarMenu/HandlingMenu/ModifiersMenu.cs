@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Media;
+using MahApps.Metro.Controls;
 
 namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
 
@@ -15,7 +18,7 @@ public class ModifiersMenu
     }
     
     // Gravity menu options
-    static Overlay.MenuOption GravityValue = new Overlay.MenuOption("Value", "Float", 0);
+    static Overlay.MenuOption GravityValue = new Overlay.MenuOption("Value", "Float", 0f);
     static Overlay.MenuOption GravityPull = new Overlay.MenuOption("Pull", "Button", new Action(() => 
     {
         Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.Dispatcher.Invoke(delegate ()
@@ -27,7 +30,7 @@ public class ModifiersMenu
     static Overlay.MenuOption GravityToggle = new Overlay.MenuOption("Enable", "Bool", false);
 
     // Acceleration menu options
-    static Overlay.MenuOption AccelerationValue = new Overlay.MenuOption("Value", "Float", 0);
+    static Overlay.MenuOption AccelerationValue = new Overlay.MenuOption("Value", "Float", 0f);
     static Overlay.MenuOption AccelerationPull = new Overlay.MenuOption("Pull", "Button", new Action(() => 
     {
         Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.Dispatcher.Invoke(delegate ()
@@ -38,14 +41,13 @@ public class ModifiersMenu
     }));
     static Overlay.MenuOption AccelerationToggle = new Overlay.MenuOption("Enable", "Bool", false);
     
-    public static List<Overlay.MenuOption> GravityOptions = new List<Overlay.MenuOption>()
+    public static List<Overlay.MenuOption> ModifiersOptions = new List<Overlay.MenuOption>()
     {
+        new ("Gravity", "SubHeader"),
         GravityValue,
         GravityPull,
-        GravityToggle
-    };
-    public static List<Overlay.MenuOption> AccelerationOptions = new List<Overlay.MenuOption>()
-    {
+        GravityToggle,
+        new ("Acceleration", "SubHeader"),
         AccelerationValue,
         AccelerationPull,
         AccelerationToggle
@@ -60,7 +62,7 @@ public class ModifiersMenu
             else if ((float)s.GetType().GetProperty("Value").GetValue(s) < Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.GravityValueNum.Minimum)
                 GravityValue.Value = (float)Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.GravityValueNum.Minimum;
             else
-                Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.GravityValueNum.Value = (float)s.GetType().GetProperty("Value").GetValue(s);
+                Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.GravityValueNum.Value = (float)Math.Round((float)s.GetType().GetProperty("Value").GetValue(s), 1);
         });
     }
     void GravityToggleChanged(object s, EventArgs e)
@@ -81,7 +83,7 @@ public class ModifiersMenu
             else if ((float)s.GetType().GetProperty("Value").GetValue(s) < Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.AccelerationValueNum.Minimum)
                 AccelerationValue.Value = (float)Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.AccelerationValueNum.Minimum;
             else
-                Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.AccelerationValueNum.Value = (float)s.GetType().GetProperty("Value").GetValue(s);
+                Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.AccelerationValueNum.Value = (float)Math.Round((float)s.GetType().GetProperty("Value").GetValue(s), 1);
         });
     }
     void AccelerationToggleChanged(object s, EventArgs e)

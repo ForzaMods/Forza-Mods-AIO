@@ -11,11 +11,9 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu
             new Overlay.MenuOption("Handling", "MenuButton"),
             new Overlay.MenuOption("Unlocks", "MenuButton"),
             new Overlay.MenuOption("Camera", "MenuButton"),
-            new Overlay.MenuOption("Modifiers", "MenuButton"),
             new Overlay.MenuOption("Stats", "MenuButton"),
             new Overlay.MenuOption("Teleports", "MenuButton"),
-            new Overlay.MenuOption("Environment", "MenuButton"),
-            new Overlay.MenuOption("Tuning", "MenuButton")
+            new Overlay.MenuOption("Environment", "MenuButton")
         };
     }
 }

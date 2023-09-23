@@ -133,15 +133,7 @@ namespace Forza_Mods_AIO.Overlay
             MenuHeaders = Directory.GetFiles(Environment.CurrentDirectory + @"\Overlay\Headers");
             foreach (string header in MenuHeaders)
             {
-                bool InCachedBitmaps = false;
-                foreach (object[] item in Headers)
-                {
-                    if (item[0].ToString().Contains(header.Split('\\').Last().Split('.').First()))
-                    {
-                        InCachedBitmaps = true;
-                        break;
-                    }
-                }
+                var InCachedBitmaps = Headers.Any(item => item[0].ToString().Contains(header.Split('\\').Last().Split('.').First()));
                 if (!InCachedBitmaps)
                 {
                     Headers.Add(new object[] { header.Split('\\').Last().Split('.').First(), new BitmapImage(new Uri(header)) });
@@ -262,35 +254,31 @@ namespace Forza_Mods_AIO.Overlay
                 // Selected option background
                 Overlay.o.Dispatcher.Invoke((Action)delegate ()
                 {
-                    if (Overlay.o.OptionsBlock.Inlines.Count > 1)
+                    if (Overlay.o.OptionsBlock.Inlines.Count <= 1) return;
+                    // Remove previous highlight box
+                    foreach (UIElement Child in Overlay.o.Layout.Children)
                     {
-                        // Remove previous highlight box
-                        foreach (UIElement Child in Overlay.o.Layout.Children)
-                        {
-                            if (Child.GetType().GetProperty("Name").GetValue(Child) == "Highlight")
-                            {
-                                Overlay.o.Layout.Children.Remove(Child);
-                                break;
-                            }
-                        }
-                        // Create new highlight box
-                        float height = (float)(((Overlay.o.OptionsBlock.ActualHeight / Overlay.o.AllMenus[CurrentMenu].Count) * SelectedOptionIndex) + 5);
-                        Border Highlighted = new Border()
-                        {
-                            Name = "Highlight",
-                            VerticalAlignment = VerticalAlignment.Top,
-                            Background = Brushes.Black,
-                            Width = Overlay.o.Layout.ActualWidth,
-                            Height = Overlay.o.OptionsBlock.ActualHeight / Overlay.o.AllMenus[CurrentMenu].Count,
-                            Margin = new Thickness(0, height, 0, 0)
-                        };
-                        Grid.SetColumn(Highlighted, 0);
-                        Grid.SetRow(Highlighted, 1);
-
-                        // Put highlight box behind text, add to layout
-                        System.Windows.Controls.Panel.SetZIndex(Highlighted, 1);
-                        Overlay.o.Layout.Children.Add(Highlighted);
+                        if (Child.GetType().GetProperty("Name").GetValue(Child) != "Highlight") continue;
+                        Overlay.o.Layout.Children.Remove(Child);
+                        break;
                     }
+                    // Create new highlight box
+                    float height = (float)(((Overlay.o.OptionsBlock.ActualHeight / Overlay.o.AllMenus[CurrentMenu].Count) * SelectedOptionIndex) + 5);
+                    Border Highlighted = new Border()
+                    {
+                        Name = "Highlight",
+                        VerticalAlignment = VerticalAlignment.Top,
+                        Background = Brushes.Black,
+                        Width = Overlay.o.Layout.ActualWidth,
+                        Height = Overlay.o.OptionsBlock.ActualHeight / Overlay.o.AllMenus[CurrentMenu].Count,
+                        Margin = new Thickness(0, height, 0, 0)
+                    };
+                    Grid.SetColumn(Highlighted, 0);
+                    Grid.SetRow(Highlighted, 1);
+
+                    // Put highlight box behind text, add to layout
+                    System.Windows.Controls.Panel.SetZIndex(Highlighted, 1);
+                    Overlay.o.Layout.Children.Add(Highlighted);
                 });
 
                 // Adds all menu options to the menu
@@ -309,20 +297,30 @@ namespace Forza_Mods_AIO.Overlay
                     else
                         Text += $"{item.Name}";
 
-                    if (item.Type == "MenuButton")
-                        Value = ">";
-                    else if (item.Type == "Float" && item.Value.GetType() == typeof(object))
-                        Value = String.Format("<{0:0.00000}>", item.Value.GetType().GetProperty("Value").GetValue(item));
-                    else if (item.Type == "Float")
-                        Value = String.Format("<{0:0.00000}>", item.Value);
-                    else if (item.Type == "Int" && item.Value.GetType() == typeof(object))
-                        Value = $"<{item.Value.GetType().GetProperty("Value").GetValue(item)}>";
-                    else if (item.Type == "Int")
-                        Value = $"<{item.Value}>";
-                    else if (item.Type == "Bool" && (bool)item.Value == true)
-                        Value = "[X]";
-                    else if (item.Type == "Bool" && (bool)item.Value == false)
-                        Value = "[ ]";
+                    switch (item.Type)
+                    {
+                        case "MenuButton":
+                            Value = ">";
+                            break;
+                        case "Float" when item.Value.GetType() == typeof(object):
+                            Value = String.Format("<{0:0.00000}>", item.Value.GetType().GetProperty("Value").GetValue(item));
+                            break;
+                        case "Float":
+                            Value = String.Format("<{0:0.00000}>", item.Value);
+                            break;
+                        case "Int" when item.Value.GetType() == typeof(object):
+                            Value = $"<{item.Value.GetType().GetProperty("Value").GetValue(item)}>";
+                            break;
+                        case "Int":
+                            Value = $"<{item.Value}>";
+                            break;
+                        case "Bool" when (bool)item.Value == true:
+                            Value = "[X]";
+                            break;
+                        case "Bool" when (bool)item.Value == false:
+                            Value = "[ ]";
+                            break;
+                    }
 
                     Overlay.o.Dispatcher.BeginInvoke((Action<int>)delegate (int idx)
                     {
@@ -374,30 +372,32 @@ namespace Forza_Mods_AIO.Overlay
         {
             while (true)
             {
-                if (MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow())
-                {
-                    if (ct.IsCancellationRequested)
-                        return;
-                    if (GetAsyncKeyState(Down) is 1 or Int16.MinValue && !DownKeyDown && !Hidden)
-                        DownKeyDown = true;
-                    if (GetAsyncKeyState(Down) is not 1 and not Int16.MinValue && DownKeyDown && !Hidden)
-                        DownKeyDown = false;
-                    if (GetAsyncKeyState(Up) is 1 or Int16.MinValue && !UpKeyDown && !Hidden)
-                        UpKeyDown = true;
-                    if (GetAsyncKeyState(Up) is not 1 and not Int16.MinValue && UpKeyDown && !Hidden)
-                        UpKeyDown = false;
-                    if (GetAsyncKeyState(Left) is 1 or Int16.MinValue && !LeftKeyDown && !Hidden)
-                        LeftKeyDown = true;
-                    if (GetAsyncKeyState(Left) is not 1 and not Int16.MinValue && LeftKeyDown && !Hidden)
-                        LeftKeyDown = false;
-                    if (GetAsyncKeyState(Right) is 1 or Int16.MinValue && !RightKeyDown && !Hidden)
-                        RightKeyDown = true;
-                    if (GetAsyncKeyState(Right) is not 1 and not Int16.MinValue && RightKeyDown && !Hidden)
-                        RightKeyDown = false;
+                if (MainWindow.mw.gvp.Process.MainWindowHandle != GetForegroundWindow()) 
+                    continue;
+                if (ct.IsCancellationRequested)
+                    return;
+                if (GetAsyncKeyState(Down) is 1 or Int16.MinValue && !DownKeyDown && !Hidden)
+                    DownKeyDown = true;
+                if (GetAsyncKeyState(Down) is not 1 and not Int16.MinValue && DownKeyDown && !Hidden)
+                    DownKeyDown = false;
+                if (GetAsyncKeyState(Up) is 1 or Int16.MinValue && !UpKeyDown && !Hidden)
+                    UpKeyDown = true;
+                if (GetAsyncKeyState(Up) is not 1 and not Int16.MinValue && UpKeyDown && !Hidden)
+                    UpKeyDown = false;
+                if (GetAsyncKeyState(Left) is 1 or Int16.MinValue && !LeftKeyDown && !Hidden)
+                    LeftKeyDown = true;
+                if (GetAsyncKeyState(Left) is not 1 and not Int16.MinValue && LeftKeyDown && !Hidden)
+                    LeftKeyDown = false;
+                if (GetAsyncKeyState(Right) is 1 or Int16.MinValue && !RightKeyDown && !Hidden)
+                    RightKeyDown = true;
+                if (GetAsyncKeyState(Right) is not 1 and not Int16.MinValue && RightKeyDown && !Hidden)
+                    RightKeyDown = false;
 
-                    if (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue && !Hidden)
+                if (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue && !Hidden)
+                {
+                    switch (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type)
                     {
-                        if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "MenuButton")
+                        case "MenuButton":
                         {
                             LevelIndex++;
                             string[] NameSplit = Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Name.Split(new char[] { ' ', '/', '[', ']' });
@@ -407,48 +407,48 @@ namespace Forza_Mods_AIO.Overlay
                             CurrentMenu += "Options";
                             History.Add(LevelIndex, CurrentMenu);
                             SelectedOptionIndex = 0;
+                            break;
                         }
-                        else if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Bool")
-                        {
-                            if ((bool)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value == true)
-                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = false;
-                            else
-                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = true;
-                        }
-                        else if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Button")
-                        {
+                        case "Bool" when (bool)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value == true:
+                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = false;
+                            break;
+                        case "Bool":
+                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = true;
+                            break;
+                        case "Button":
                             ((Action)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value)();
-                        }
-                        while (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue)
-                            Thread.Sleep(10);
+                            break;
                     }
-                    if (GetAsyncKeyState(Leave) is 1 or Int16.MinValue && !Hidden)
-                    {
-                        if (LevelIndex == 0)
-                        {
-                            Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Hide(); });
-                            Hidden = true;
-                            continue;
-                        }
-                        LevelIndex--;
-                        CurrentMenu = History[LevelIndex];
-                        History.Remove(LevelIndex + 1);
-                        SelectedOptionIndex = 0;
-                        while (GetAsyncKeyState(Leave) is 1 or Int16.MinValue)
-                            Thread.Sleep(10);
-                    }
-                    if (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
-                    {
-                        if (Overlay.o.Visibility == Visibility.Visible && !Hidden)
-                            Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Hide(); });
-                        else
-                            Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Show(); });
-                        Hidden = !Hidden;
-                        while (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
-                            Thread.Sleep(10);
-                    }
-                    Thread.Sleep(10);
+
+                    while (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue)
+                        Thread.Sleep(10);
                 }
+                if (GetAsyncKeyState(Leave) is 1 or Int16.MinValue && !Hidden)
+                {
+                    if (LevelIndex == 0)
+                    {
+                        Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Hide(); });
+                        Hidden = true;
+                        continue;
+                    }
+                    LevelIndex--;
+                    CurrentMenu = History[LevelIndex];
+                    History.Remove(LevelIndex + 1);
+                    SelectedOptionIndex = 0;
+                    while (GetAsyncKeyState(Leave) is 1 or Int16.MinValue)
+                        Thread.Sleep(10);
+                }
+                if (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
+                {
+                    if (Overlay.o.Visibility == Visibility.Visible && !Hidden)
+                        Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Hide(); });
+                    else
+                        Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Show(); });
+                    Hidden = !Hidden;
+                    while (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
+                        Thread.Sleep(10);
+                }
+                Thread.Sleep(10);
             }
         }
         public void ChangeSelection(CancellationToken ct)

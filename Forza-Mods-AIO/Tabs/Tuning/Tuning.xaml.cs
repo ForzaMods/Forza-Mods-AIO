@@ -1,18 +1,14 @@
-﻿using Forza_Mods_AIO.Resources;
-using Forza_Mods_AIO.Tabs.TuningTablePort.DropDownTabs;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using Forza_Mods_AIO.Resources;
 
-namespace Forza_Mods_AIO.Tabs.TuningTablePort
+namespace Forza_Mods_AIO.Tabs.Tuning
 {
-    public partial class TuningTableMain : Page
+    public partial class Tuning : Page
     {
-        public static TuningTableMain TBM;
+        public static Tuning TBM;
 
-        public TuningTableMain()
+        public Tuning()
         {
             InitializeComponent();
             TBM = this;
