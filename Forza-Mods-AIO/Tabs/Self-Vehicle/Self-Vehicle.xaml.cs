@@ -23,7 +23,6 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
     public partial class Self_Vehicle : Page
     {
         public static Self_Vehicle sv;
-        Self_Vehicle_Addrs sva = new Self_Vehicle_Addrs();
 
         public Self_Vehicle()
         {
@@ -34,11 +33,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         #region Buttons
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (UpdateUi.AnimCompleted)
-            {
-                UpdateUi.Animate(sender, UpdateUi.IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()], this);
-                UpdateUi.IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()] = !UpdateUi.IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()];
-            }
+            if (!UpdateUi.AnimCompleted) return;
+            UpdateUi.Animate(sender, UpdateUi.IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()], this);
+            UpdateUi.IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()] = !UpdateUi.IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()];
         }
         #endregion
     }

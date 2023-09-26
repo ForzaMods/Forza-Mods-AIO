@@ -1,0 +1,21 @@
+<Page x:Class="Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.MiscellaneousPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs"
+      xmlns:mah='http://metro.mahapps.com/winfx/xaml/controls'
+      mc:Ignorable="d"
+      d:DesignHeight="220" 
+      d:DesignWidth="580"
+      Title="MiscellaneousPage"
+      Background="Transparent">
+    <Grid>
+        <Border BorderBrush="#FF2E3440" 
+                BorderThickness="2,0,2,2"
+                CornerRadius="0,0,10,10" />
+        
+        <!-- Ill put build cap bypass and stuff like that here, I just dont know how to design ui yet 💯 -->
+        
+    </Grid>
+</Page>

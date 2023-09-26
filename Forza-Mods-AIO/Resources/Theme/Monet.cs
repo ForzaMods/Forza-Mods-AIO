@@ -124,7 +124,7 @@ namespace Forza_Mods_AIO.CustomTheming
             DesktopWallpaper.Dispose();
             ColorThiefDotNet.Color Colour2 = Colour.Color;
 
-            double H; double S; double V1; double V2; double V3; double V4;
+            double H, S, V1, V2, V3, V4;
 
             MainWindow.mw.Dispatcher.BeginInvoke((Action)delegate ()
             {

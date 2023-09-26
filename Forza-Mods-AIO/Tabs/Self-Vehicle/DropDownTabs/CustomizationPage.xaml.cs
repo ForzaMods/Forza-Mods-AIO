@@ -1,59 +1,61 @@
-﻿using ControlzEx.Standard;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
-namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
+namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+
+/// <summary>
+///     Interaction logic for CustomisationPage.xaml
+/// </summary>
+public partial class CustomizationPage : Page
 {
-    /// <summary>
-    /// Interaction logic for CustomisationPage.xaml
-    /// </summary>
-    public partial class CustomizationPage : Page
+    public CustomizationPage()
     {
-        public static CustomizationPage CSP;
+        InitializeComponent();
+    }
 
-        public CustomizationPage()
+    /// <summary>
+    ///     Glowing paint toggle.
+    /// </summary>
+    private void GlowingPaintSwitch_Toggled(object sender, RoutedEventArgs e)
+    {
+        if (((ToggleSwitch)sender).IsOn)
         {
-            InitializeComponent();
-            CSP = this;
-        }
-
-        private void GlowingPaintSwitch_Toggled(object sender, RoutedEventArgs e)
-        {
+            GlowingPaintNum_ValueChanged(new object(), new RoutedPropertyChangedEventArgs<double?>(GlowingPaintNum.Value, GlowingPaintNum.Value));
             assembly.GlowingPaint(Self_Vehicle_Addrs.CodeCave9);
+            return;
         }
 
-        private void GlowingPaintNum_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr,
+            MainWindow.mw.gvp.Name == "Forza Horizon 4" ? new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 } : new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10, 0x41, 0xC6 });
+    }
+
+    /// <summary>
+    ///     Change the multiplier for glowing paint.
+    /// </summary>
+    private void GlowingPaintNum_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        try
         {
-            try 
-            {
-                if (CSP != null)
-                {
-                    CSP.GlowingPaintSlider.Value = (float)e.NewValue;
-                    assembly.GlowingPaint(Self_Vehicle_Addrs.CodeCave9);
-                }
-            } catch { }
+            GlowingPaintSlider.Value = Convert.ToDouble(GlowingPaintNum.Value);
+
+            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave9 + 0x50).ToString("X"), "Float", GlowingPaintNum.Value.ToString());
+            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave9 + 0x54).ToString("X"), "Float", GlowingPaintNum.Value.ToString());
+            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave9 + 0x58).ToString("X"), "Float", GlowingPaintNum.Value.ToString());
         }
 
-        private void GlowingPaintSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        catch
         {
-            GlowingPaintNum.Value = Math.Round(e.NewValue, 4); 
-            try
-            {
-                assembly.GlowingPaint(Self_Vehicle_Addrs.CodeCave9);
-            }
-            catch { }
+            // ignored
         }
+    }
+
+    /// <summary>
+    ///     Slider version of the multiplier changing.
+    /// </summary>
+    private void GlowingPaintSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        GlowingPaintNum.Value = Math.Round(e.NewValue, 4);
     }
 }

@@ -1,28 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
+namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+
+/// <summary>
+///     Interaction logic for CameraPage.xaml
+/// </summary>
+public partial class UnlocksPage : Page
 {
-    /// <summary>
-    /// Interaction logic for CameraPage.xaml
-    /// </summary>
-    public partial class UnlocksPage : Page
+    public static UnlocksPage Up;
+    
+    public UnlocksPage()
     {
-        public UnlocksPage()
+        InitializeComponent();
+        Up = this;
+    }
+
+    private void CreditsSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (!CreditsSwitch.IsOn)
         {
-            InitializeComponent();
+            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.CreditsHookAddr, new byte [] { 0x89, 0x84, 0x24, 0x80, 0x00, 0x00, 0x00 });
+            return;
+        }
+
+        assembly.Credits(Self_Vehicle_Addrs.CodeCave13);
+    }
+    
+    private void CreditsNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave13 + 0x35).ToString("X"), "int", CreditsNum.Value.ToString());
+    }
+    
+    private void XpSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (!XpSwitch.IsOn)
+        {
+            return;
         }
     }
 }

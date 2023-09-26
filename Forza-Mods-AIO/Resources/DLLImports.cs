@@ -32,6 +32,9 @@ namespace Forza_Mods_AIO.Resources
             public int Right;
             public int Bottom;
         }
+        
+        [DllImport("kernel32.dll")]
+        public static extern int VirtualQueryEx(IntPtr hProcess, IntPtr lpAddress, out Memory.Imps.MEMORY_BASIC_INFORMATION lpBuffer, uint dwLength);
         #endregion
         #region Blur DLLImports
         //Credits to Rafael Rivera for the blur https://github.com/riverar/sample-win32-acrylicblur

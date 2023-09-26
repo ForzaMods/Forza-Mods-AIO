@@ -11,13 +11,11 @@ using System.Threading.Tasks;
 
 namespace Forza_Mods_AIO.Resources
 {
-    internal class UpdateUi
+    internal abstract class UpdateUi
     {
-        static Dispatcher dispatcher = Application.Current.Dispatcher;
-
         public static void UpdateUI(bool IsEnabled, Page page)
         {
-            dispatcher.BeginInvoke(delegate ()
+            Application.Current.Dispatcher.BeginInvoke(delegate ()
             {
                 foreach (FrameworkElement element in page.GetChildren(true))
                     if (element.GetType() == typeof(ToggleSwitch) || (element.GetType() == typeof(Button) && element.Name != "ScanButton"))
@@ -25,7 +23,7 @@ namespace Forza_Mods_AIO.Resources
             });
         }
 
-        public static readonly Dictionary<string, double> Sizes = new Dictionary<string, double>()
+        private static readonly Dictionary<string, double> Sizes = new Dictionary<string, double>()
         {
             // Tuning
             { "TiresButton" , 240}, // Button name for page, height of page
@@ -41,8 +39,9 @@ namespace Forza_Mods_AIO.Resources
             { "HandlingButton" , 464},
             { "UnlocksButton" , 200},
             { "CameraButton" , 285},
-            { "TeleportsButton" , 100},
-            { "CustomizationButton", 220 }
+            { "TeleportsButton" , 70},
+            { "CustomizationButton", 220 },
+            { "MiscellaneousButton", 220}
         };
 
         public static Dictionary<string, bool> IsClicked = new Dictionary<string, bool>()
@@ -61,12 +60,11 @@ namespace Forza_Mods_AIO.Resources
             {"HandlingButton", false },
             {"UnlocksButton", false },
             {"CameraButton", false },
-            {"ModifiersButton", false },
             {"StatsButton", false },
             {"TeleportsButton", false },
             {"EnvironmentButton", false },
-            {"LiveTuningButton", false },
-            {"CustomizationButton", false }
+            {"CustomizationButton", false },
+            {"MiscellaneousButton", false }
         };
 
         public static bool AnimCompleted = true;

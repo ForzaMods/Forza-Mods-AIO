@@ -1,15 +1,87 @@
 ﻿<Page x:Class="Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.UnlocksPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs"
-      mc:Ignorable="d" 
-      d:DesignHeight="200" d:DesignWidth="580"
-      Title="UnlocksPage">
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d"
+      d:DesignHeight="200"
+      d:DesignWidth="580"
+      Title="UnlocksPage"
+      Background="{DynamicResource ApplicationBackgroundBrush}">
 
     <Grid>
-        <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10"/>
-        <Rectangle HorizontalAlignment="Left" Height="100" Margin="441,90,0,0" Stroke="White" VerticalAlignment="Top" Width="100" Fill="Red"/>
+        <Border BorderBrush="#FF2E3440" 
+                BorderThickness="2,0,2,2" 
+                CornerRadius="0,0,10,10" />
+
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Width="556" 
+                Height="46"
+                Margin="0,10,0,0" 
+                BorderBrush="#FF2E3440" />
+
+        <Label Content="XP On Unpause"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Margin="215, 20"/>
+        
+        <mah:NumericUpDown x:Name="XpNum"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
+                           TextAlignment="Left"
+                           Width="135"
+                           BorderThickness="0"
+                           Background="#FF2E3440"
+                           Margin="20, 20"
+                           ChangeValueOnTextChanged="False"
+                           HideUpDownButtons="True"
+                           TrackMouseWheelWhenMouseOver="True"
+                           Minimum="0"
+                           Maximum="2147483647"
+                           Value="0"
+                           NumericInputMode="Numbers"
+                           ParsingNumberStyle="Integer"/>
+        
+        <mah:ToggleSwitch x:Name="XpSwitch"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Left"
+                          HorizontalContentAlignment="Left"
+                          Content=""
+                          MinWidth="1"
+                          Margin="165,17.5"
+                          Toggled="XpSwitch_OnToggled"/>
+        
+        <Label Content="Credits"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Top"
+               Margin="20, 20"/>
+        
+        <mah:NumericUpDown x:Name="CreditsNum"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Right"
+                           TextAlignment="Left"
+                           Width="135"
+                           BorderThickness="0"
+                           Background="#FF2E3440"
+                           Margin="130, 20"
+                           HideUpDownButtons="True"
+                           TrackMouseWheelWhenMouseOver="True"
+                           Minimum="0"
+                           Maximum="999999999"
+                           Value="0"
+                           NumericInputMode="Numbers"
+                           ParsingNumberStyle="Integer"
+                           ValueChanged="CreditsNum_OnValueChanged"/>
+        
+        <mah:ToggleSwitch x:Name="CreditsSwitch"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Right"
+                          Content=""
+                          MinWidth="1"
+                          Margin="60,17.5"
+                          Toggled="CreditsSwitch_OnToggled"/>
     </Grid>
 </Page>

@@ -13,16 +13,40 @@ public partial class CameraPage : Page
         CamPage = this;
     }
 
+    #region Toggles
+    
+    /// <summary>
+    ///     No clip toggle.
+    ///     How does it work? Replace the collison 2 flag with 0.
+    /// </summary>
     private void NoClip_Toggled(object sender, RoutedEventArgs e)
     {
         BoundaryRemoval.IsEnabled = !BoundaryRemoval.IsEnabled;
-
-        if (NoClip.IsOn)
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.NoClipAddr, "int", "0");
-        else
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.NoClipAddr, "int", "2");
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.NoClipAddr, "int", NoClip.IsOn ? "0" : "2");
     }
 
+    /// <summary>
+    ///     Boundary removal.
+    /// </summary>
+    private void BoundaryRemoval_Toggled(object sender, RoutedEventArgs e)
+    {
+        NoClip.IsEnabled = !NoClip.IsEnabled;
+
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.BoundaryRemovalAddr, "float", BoundaryRemoval.IsOn ? "99999" : "100");
+    }
+
+    /// <summary>
+    ///     No max height
+    /// </summary> 
+    private void NoheightRestriction_Toggled(object sender, RoutedEventArgs e)
+    {
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.MaxHeightAddr, "float", NoheightRestriction.IsOn ? "9999" : "4");
+    }
+    
+    #endregion
+
+    #region Mem writes
+    
     private void SpeedSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
         MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.MovementSpeed, "float", SpeedSlider.Value.ToString());
@@ -30,8 +54,7 @@ public partial class CameraPage : Page
 
     private void SamplesMultiplierSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SamplesMultiplier, "float",
-            SamplesMultiplierSlider.Value.ToString());
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SamplesMultiplier, "float", SamplesMultiplierSlider.Value.ToString());
     }
 
     private void TurnSpeed_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -63,22 +86,6 @@ public partial class CameraPage : Page
     {
         MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TimeSlice, "float", TimeSliceBox.Value.ToString());
     }
-
-    private void NoheightRestriction_Toggled(object sender, RoutedEventArgs e)
-    {
-        if (NoheightRestriction.IsOn)
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.MaxHeightAddr, "float", "9999");
-        else
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.MaxHeightAddr, "float", "4");
-    }
-
-    private void BoundaryRemoval_Toggled(object sender, RoutedEventArgs e)
-    {
-        NoClip.IsEnabled = !NoClip.IsEnabled;
-
-        if (BoundaryRemoval.IsOn)
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.BoundaryRemovalAddr, "float", "99999");
-        else
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.BoundaryRemovalAddr, "float", "100");
-    }
+    
+    #endregion
 }

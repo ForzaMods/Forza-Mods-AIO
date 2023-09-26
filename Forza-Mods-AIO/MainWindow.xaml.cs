@@ -40,10 +40,10 @@ namespace Forza_Mods_AIO
     {
         public class GameVerPlat
         {
-            public string Name { get; set; }
-            public string Plat { get; set; }
-            public Process Process { get; set; }
-            public string Update { get; set; }
+            public string Name { get; }
+            public string Plat { get; }
+            public Process Process { get; }
+            public string Update { get; }
 
             public GameVerPlat(string name, string plat, Process process, string update)
             {
@@ -103,7 +103,7 @@ namespace Forza_Mods_AIO
         {
             foreach (RadioButton rb in ButtonStack.Children)
             {
-                if ((bool)rb.IsChecked)
+                if (rb.IsChecked != null && (bool)rb.IsChecked)
                 {
                     rb.Background = Monet.DarkerColour;
                     foreach (var t in tabs.Where(t => t.Title == rb.Name))
@@ -128,7 +128,7 @@ namespace Forza_Mods_AIO
                                             break;
                                         case "Self_Vehicle":
                                             if (gvp.Name == "Forza Horizon 5")
-                                                Task.Run(() => (new Self_Vehicle_Addrs()).New_Scan());
+                                                Task.Run(() => (new Self_Vehicle_Addrs()).FH5_Scan());
                                             else
                                                 Task.Run(() => (new Self_Vehicle_Addrs()).Old_Scan());
                                             break;
@@ -163,22 +163,14 @@ namespace Forza_Mods_AIO
                 {
                     if (attached)
                         continue;
-                    gvpMaker(5);
-                    Dispatcher.Invoke((Action)delegate () {
-                        AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
-                        Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsEnabled = true;
-                    });
+                    GvpMaker(5);
                     attached = true;
                 }
                 else if (m.OpenProcess("ForzaHorizon4"))
                 {
                     if (attached)
                         continue;
-                    gvpMaker(4);
-                    Dispatcher.Invoke((Action)delegate () {
-                        AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
-                        Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsEnabled = true;
-                    });
+                    GvpMaker(4);
                     attached = true;
                 }
                 else
@@ -202,38 +194,37 @@ namespace Forza_Mods_AIO
             }
         }
 
-        private void gvpMaker(int Ver)
+        private void GvpMaker(int ver)
         {
-            string name;
-            string platform;
-            string update = "unknown";
-            Process process;
-            try
+            string platform, update = "Unknown";
+            var process = m.mProc.Process;
+            var name = "Forza Horizon " + ver;
+            
+            if (process.MainModule!.FileName.Contains("Microsoft.624F8B84B80") || process.MainModule!.FileName.Contains("Microsoft.SunriseBaseGame"))
             {
-                process = Process.GetProcessesByName("ForzaHorizon" + Ver.ToString())[0];
-                if (process.MainModule.FileName.Contains("Microsoft.624F8B84B80") || process.MainModule.FileName.Contains("Microsoft.SunriseBaseGame"))
+                platform = "MS";
+                try
                 {
-                    platform = "MS";
-                    var xml = XElement.Load(process.MainModule.FileName.Substring(0, (process.MainModule.FileName.LastIndexOf("\\"))) + "\\appxmanifest.xml").Elements();
-                    foreach (var VARIABLE in xml)
-                    {
-                        if (VARIABLE.ToString().Contains(" Version=\"") && !VARIABLE.ToString().Contains("Version=\"14.0\""))
-                        {
-                            update = VARIABLE.Attribute("Version").ToString().Remove(0, 9);
-                            update = update.Remove((update.Length - 1), 1);
-                        }
-                    }
+                    var xml = XElement.Load(process.MainModule!.FileName[..process.MainModule!.FileName.LastIndexOf(@"\", StringComparison.Ordinal)] + @"\appxmanifest.xml");
+                    var versionAttribute = xml.Descendants().Where(e => e.Name.LocalName == "Identity").Select(e => e.Attribute("Version")).FirstOrDefault();
+
+                    if (versionAttribute != null)
+                        update = versionAttribute.Value;
+                    
                 }
-                else
-                {
-                    platform = File.Exists(Path.Combine(Path.GetDirectoryName(process.MainModule.FileName) ?? string.Empty, "OnlineFix64.dll")) ? "OnlineFix - Steam" : "Steam";
-                    var file = FileVersionInfo.GetVersionInfo(process.MainModule.FileName.ToString());
-                    update = file.FileVersion;
-                }
-                name = "Forza Horizon " + Ver.ToString();
+                catch { update = "Unknown"; }
             }
-            catch { name = null; platform = null; process = null; update = null; }
+            else
+            {
+                platform = File.Exists(Path.Combine(Path.GetDirectoryName(process.MainModule!.FileName) ?? string.Empty, "OnlineFix64.dll")) ? "OnlineFix - Steam" : "Steam";
+                update = FileVersionInfo.GetVersionInfo(process.MainModule!.FileName).FileVersion;
+            }
             gvp = new GameVerPlat(name, platform, process, update);
+            
+            Dispatcher.Invoke(delegate {
+                AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
+                Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsEnabled = true;
+            });
         }
         #endregion
         #region Exit Handling
@@ -261,29 +252,23 @@ namespace Forza_Mods_AIO
         //Credit to BrainSlugs83 for the GetChildren Method (https://stackoverflow.com/questions/874380/wpf-how-do-i-loop-through-the-all-controls-in-a-window) 
         public static IEnumerable<Visual> GetChildren(this Visual parent, bool recurse = true)
         {
-            if (parent != null)
+            if (parent == null) yield break;
+            int count = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < count; i++)
             {
-                int count = VisualTreeHelper.GetChildrenCount(parent);
-                for (int i = 0; i < count; i++)
+                // Retrieve child visual at specified index value.
+                var child = VisualTreeHelper.GetChild(parent, i) as Visual;
+
+                if (child == null || child.GetType().ToString().Contains("MahApps.Metro.IconPacks")) continue;
+                try { _ = (FrameworkElement)child; }
+                catch { continue; }
+
+                yield return child;
+
+                if (!recurse) continue;
+                foreach (var grandChild in child.GetChildren(true))
                 {
-                    // Retrieve child visual at specified index value.
-                    var child = VisualTreeHelper.GetChild(parent, i) as Visual;
-
-                    if (child != null && !child.GetType().ToString().Contains("MahApps.Metro.IconPacks"))
-                    {
-                        try { _ = (FrameworkElement)child; }
-                        catch { continue; }
-
-                        yield return child;
-
-                        if (recurse)
-                        {
-                            foreach (var grandChild in child.GetChildren(true))
-                            {
-                                yield return grandChild;
-                            }
-                        }
-                    }
+                    yield return grandChild;
                 }
             }
         }
