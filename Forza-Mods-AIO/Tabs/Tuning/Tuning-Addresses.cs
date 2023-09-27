@@ -432,7 +432,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning
             });
 
             //Rest requires a constant reading
-            while (MainWindow.mw.attached)
+            while (MainWindow.mw.Attached)
             {
                 Thread.Sleep(5);
                 

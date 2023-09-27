@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -54,13 +53,13 @@ namespace Forza_Mods_AIO
         #region Variables
         public static MainWindow mw = new MainWindow();
         public Mem m = new Mem();
-        List<Page> tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.Tuning.Tuning(), new Tabs.Settings.Settings() };
+        readonly List<Page> _tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.Tuning.Tuning(), new Tabs.Settings.Settings() };
         public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
-        public string Page_Focused = "AIO-Info";
-        public bool attached = false;
-        public LibraryMapper mapper;
-        public bool Was_Mapped = false;
-        Dictionary<string, bool> Is_Scanned = new Dictionary<string, bool>()
+        public string PageFocused = "AIO_Info";
+        public bool Attached = false;
+        public LibraryMapper Mapper;
+        public bool WasMapped = false;
+        Dictionary<string, bool> Is_Scanned = new()
         {
             { "AutoShow", false },
             { "Self_Vehicle", false },
@@ -73,9 +72,9 @@ namespace Forza_Mods_AIO
             InitializeComponent();
             mw = this;
             Task.Run(() => IsAttached());
-            var DocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods AIO" ;
-            if (!Directory.Exists(DocumentsPath))
-                Directory.CreateDirectory(DocumentsPath);
+            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods AIO" ;
+            if (!Directory.Exists(documentsPath))
+                Directory.CreateDirectory(documentsPath);
             ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
             ThemeManager.Current.ChangeTheme(Application.Current, "AccentCol");
             AIO_Info.IsChecked = true;
@@ -106,7 +105,7 @@ namespace Forza_Mods_AIO
                 if (rb.IsChecked != null && (bool)rb.IsChecked)
                 {
                     rb.Background = Monet.DarkerColour;
-                    foreach (var t in tabs.Where(t => t.Title == rb.Name))
+                    foreach (var t in _tabs.Where(t => t.Title == rb.Name))
                     {
                         try
                         {
@@ -114,27 +113,27 @@ namespace Forza_Mods_AIO
                             {
                                 if (Element.Name == rb.Name + "Frame")
                                 {
-                                    Page_Focused = rb.Name;
+                                    PageFocused = rb.Name;
                                     Element.Visibility = Visibility.Visible;
 
-                                    if (!Is_Scanned.TryGetValue(rb.Name, out bool isScanned) && isScanned && !attached)
-                                        return;
-                                    
-                                    Is_Scanned[rb.Name] = true;
-                                    switch (rb.Name)
+                                    if (Is_Scanned.TryGetValue(rb.Name, out var isScanned) && !isScanned && Attached)
                                     {
-                                        case "AutoShow":
-                                            Task.Run(() => (new AutoshowVars()).Scan());
-                                            break;
-                                        case "Self_Vehicle":
-                                            if (gvp.Name == "Forza Horizon 5")
-                                                Task.Run(() => (new Self_Vehicle_Addrs()).FH5_Scan());
-                                            else
-                                                Task.Run(() => (new Self_Vehicle_Addrs()).Old_Scan());
-                                            break;
-                                        case "Tuning":
-                                            Task.Run(() => Tabs.Tuning.Tuning_Addresses.Scan());
-                                            break;
+                                        Is_Scanned[rb.Name] = true;
+                                        switch (rb.Name)
+                                        {
+                                            case "AutoShow":
+                                                Task.Run(() => new AutoshowVars().Scan());
+                                                break;
+                                            case "Self_Vehicle":
+                                                if (gvp.Name == "Forza Horizon 5")
+                                                    Task.Run(() => new Self_Vehicle_Addrs().FH5_Scan());
+                                                else
+                                                    Task.Run(() => new Self_Vehicle_Addrs().Old_Scan());
+                                                break;
+                                            case "Tuning":
+                                                Task.Run(() => Tabs.Tuning.Tuning_Addresses.Scan());
+                                                break;
+                                        }
                                     }
                                 }
                                 else if (Element.GetType() == typeof(Frame) && Element.GetType().GetProperty("Name").GetValue(Element).ToString().Contains("Frame"))
@@ -161,21 +160,21 @@ namespace Forza_Mods_AIO
                 Thread.Sleep(1000);
                 if (m.OpenProcess("ForzaHorizon5"))
                 {
-                    if (attached)
+                    if (Attached)
                         continue;
                     GvpMaker(5);
-                    attached = true;
+                    Attached = true;
                 }
                 else if (m.OpenProcess("ForzaHorizon4"))
                 {
-                    if (attached)
+                    if (Attached)
                         continue;
                     GvpMaker(4);
-                    attached = true;
+                    Attached = true;
                 }
                 else
                 {
-                    if (!attached)
+                    if (!Attached)
                         continue;
                     Dispatcher.Invoke((Action)delegate () {
                         AttachedLabel.Content = "Launch FH4/5";
@@ -189,7 +188,7 @@ namespace Forza_Mods_AIO
                     Is_Scanned["Autoshow"] = false;
                     Is_Scanned["Self_Vehicle"] = false;
                     Is_Scanned["TuningTableMain"] = false;
-                    attached = false;
+                    Attached = false;
                 }
             }
         }
@@ -230,14 +229,14 @@ namespace Forza_Mods_AIO
         #region Exit Handling
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if (!attached)
+            if (!Attached)
             {
                 Environment.Exit(0);
             }
 
             //TODO Cleanup here
-            if (Was_Mapped)
-                mapper.UnmapLibrary();
+            if (WasMapped)
+                Mapper.UnmapLibrary();
 
             if (Self_Vehicle_Addrs.BaseAddrHook != null && Self_Vehicle_Addrs.BaseAddrHook != "0" && Self_Vehicle_Addrs.BaseAddrHookLong != -279 && assembly.OriginalBaseAddressHookBytes != null)
                 m.WriteBytes(Self_Vehicle_Addrs.BaseAddrHook, assembly.OriginalBaseAddressHookBytes);

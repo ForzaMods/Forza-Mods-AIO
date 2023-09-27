@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
@@ -6,7 +7,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 public partial class TeleportsPage : Page
 {
     public static TeleportsPage t;
-
+    public float OldX, OldY, OldZ;
+    
     public TeleportsPage()
     {
         InitializeComponent();
@@ -15,9 +17,14 @@ public partial class TeleportsPage : Page
 
     private void TeleportBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        float x = 0, y = 0, z = 0;
+        if (TeleportBox.SelectedItem == null)
+            return;
 
-        switch (((ComboBoxItem)((ComboBox)sender).SelectedItem).Content.ToString())
+        float x = 0, y = 0, z = 0;
+        
+        var selectedItem = TeleportBox.SelectedItem.ToString();
+        
+        switch (selectedItem)
         {
             #region FH4
 
@@ -168,16 +175,38 @@ public partial class TeleportsPage : Page
                 break;
 
             #endregion
+            
+            case "Undo Teleport":
+                if (OldX == 0 && OldZ == 0 && OldY == 0)
+                    return;
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, "float", OldX.ToString(CultureInfo.InvariantCulture));
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, "float", OldY.ToString(CultureInfo.InvariantCulture));
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, "float", OldZ.ToString(CultureInfo.InvariantCulture));
+                return;
         }
 
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, "float", x.ToString());
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, "float", y.ToString());
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, "float", z.ToString());
+        
+        // TODO: Fix this part of the code down
+        try
+        {
+            OldX = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.xAddr);
+            OldY = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.yAddr);
+            OldZ = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.zAddr);
+        }
+        catch { }
+        
+        
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, "float", x.ToString(CultureInfo.InvariantCulture));
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, "float", y.ToString(CultureInfo.InvariantCulture));
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, "float", z.ToString(CultureInfo.InvariantCulture));
     }
 
     private void AutoTpToWaypoint_Toggled(object sender, RoutedEventArgs e)
     {
-        if (!AutoTpToWaypoint.IsOn) 
+        if (!AutoTpToWaypoint.IsOn)
+        {
+            
             return;
+        }
     }
 }

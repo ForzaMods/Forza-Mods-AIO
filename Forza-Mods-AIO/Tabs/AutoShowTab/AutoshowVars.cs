@@ -33,14 +33,16 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
         public static string sql17; //FH4 AND NOT IsMidnightCar 
         public static string sql18; //FH5 AND CanBuyNewCar(Garage.Id, Garage.NotAvailableInAutoshow)
         public static string sql19; //FH5 CanBuyNewCar(Garage.Id, Garage.NotAvailableInAutoshow) AS PurchasableCar,
-        public bool read = true;
-        public bool write = true;
-        public bool exec = false;
+        private bool read = true;
+        private bool write = true;
+        private bool exec = false;
         public bool IsFirstTime = true;
         #endregion
 
         public async Task Scan()
         {
+            bool UpdateUiFlag = true;
+            
             if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
             {
                 sql2 = (await MainWindow.mw.m.AoBScan(MainWindow.mw.gvp.Process.MainModule.BaseAddress, MainWindow.mw.gvp.Process.MainModule.BaseAddress + MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, "49 73 42 61 72 6E 46 69 6E 64", read, write, exec)).FirstOrDefault().ToString("X");
@@ -80,24 +82,22 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
             }
             else
             {
-                UpdateUi.AddProgress(4, 1, AutoShow.AS.AOBProgressBar);
-                Memory<byte> DllBytes = Properties.Resources.SQL_DLL;
-                UpdateUi.AddProgress(4, 2, AutoShow.AS.AOBProgressBar);
-                MainWindow.mw.mapper = new LibraryMapper(MainWindow.mw.gvp.Process, DllBytes, MappingFlags.DiscardHeaders);
-                UpdateUi.AddProgress(4, 3, AutoShow.AS.AOBProgressBar);
+                MainWindow.mw.Mapper = new LibraryMapper(MainWindow.mw.gvp.Process, Properties.Resources.SQL_DLL, MappingFlags.DiscardHeaders);
+                UpdateUi.AddProgress(2, 1, AutoShow.AS.AOBProgressBar);
                 try
                 {
-                    MainWindow.mw.mapper.MapLibrary();
-                    MainWindow.mw.Was_Mapped = true;
+                    MainWindow.mw.Mapper.MapLibrary();
+                    MainWindow.mw.WasMapped = true;
                 }
                 catch
                 {
-                    MainWindow.mw.Was_Mapped = false;
+                    MainWindow.mw.WasMapped = false;
+                    UpdateUiFlag = false;
                     MessageBox.Show("Failed, sowwy oomfie :3");
                 }
-                UpdateUi.AddProgress(4, 4, AutoShow.AS.AOBProgressBar);
+                UpdateUi.AddProgress(2, 2, AutoShow.AS.AOBProgressBar);
             }
-            UpdateUi.UpdateUI(true, AutoShow.AS);
+            UpdateUi.UpdateUI(UpdateUiFlag, AutoShow.AS);
         }
 
         internal static void ResetMem()
@@ -121,10 +121,6 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                 MainWindow.mw.m.WriteMemory(sql15, "string", "HideNormalColors");
                 MainWindow.mw.m.WriteMemory(sql16, "string", "HideSpecialColors");
                 MainWindow.mw.m.WriteMemory(sql17, "string", "AND NOT IsMidnightCar");
-            }
-            else
-            {
-
             }
         }
 

@@ -441,7 +441,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             MainWindow.mw.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
             MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.BaseAddrHook, JmpToCodeCaveCode);
             
-            while (MainWindow.mw.attached)
+            while (MainWindow.mw.Attached)
             {
                 Thread.Sleep(50);
                 long Addr = MainWindow.mw.m.ReadLong(((long)CodeCave12 + 65).ToString("X"));
@@ -530,7 +530,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             #endregion
             
             // Address reading
-            while (MainWindow.mw.attached)
+            while (MainWindow.mw.Attached)
             {
                 Tuning_Addresses.TuningTableBase1FH4 = MainWindow.mw.m.ReadLong(((long)TuningCodeCave1 + 0x50).ToString("X"));
                 Tuning_Addresses.TuningTableBase2FH4 = MainWindow.mw.m.ReadLong(((long)TuningCodeCave2 + 0x50).ToString("X"));

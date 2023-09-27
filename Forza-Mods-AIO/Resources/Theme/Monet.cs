@@ -14,10 +14,10 @@ namespace Forza_Mods_AIO.CustomTheming
     internal class Monet
     {
         #region Variables
-        public static Brush MainColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF111111"));
-        public static Brush DarkishColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF101010"));
-        public static Brush DarkColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF090909"));
-        public static Brush DarkerColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF080808"));
+        public static Brush MainColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#4C566A"));
+        public static Brush DarkishColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#434C5E"));
+        public static Brush DarkColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#3B4252"));
+        public static Brush DarkerColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#2E3440"));
         #endregion
         #region DLL imports
         [DllImport("User32.dll", SetLastError = true)]

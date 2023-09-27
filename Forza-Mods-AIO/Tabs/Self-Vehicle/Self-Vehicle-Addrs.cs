@@ -276,6 +276,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 CameraPage.CamPage.ShutterSpeedBox.Value = MainWindow.mw.m.ReadFloat(ShutterSpeed);
                 CameraPage.CamPage.ApertureScaleBox.Value = MainWindow.mw.m.ReadFloat(ApertureScale);
                 TeleportsPage.t.TeleportBox.Items.Clear();
+                TeleportsPage.t.TeleportBox.Items.Add("Undo Teleport");
                 TeleportsPage.t.TeleportBox.Items.Add("Waypoint");
                 TeleportsPage.t.TeleportBox.Items.Add("Adventure Park");
                 TeleportsPage.t.TeleportBox.Items.Add("Ambleside");
@@ -345,6 +346,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 if (TeleportsPage.t.TeleportBox.Items.Contains("Guanajuato (Main City)"))
                     return;
                 TeleportsPage.t.TeleportBox.Items.Clear();
+                TeleportsPage.t.TeleportBox.Items.Add("Undo Teleport");
                 TeleportsPage.t.TeleportBox.Items.Add("Waypoint");
                 TeleportsPage.t.TeleportBox.Items.Add("Airstrip");
                 TeleportsPage.t.TeleportBox.Items.Add("Bridge");
@@ -360,6 +362,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 TeleportsPage.t.TeleportBox.Items.Add("Temple");
                 TeleportsPage.t.TeleportBox.Items.Add("Temple Drag");
                 TeleportsPage.t.TeleportBox.Items.Add("Top Of Volcano");
+                TeleportsPage.t.OldX = MainWindow.mw.m.ReadFloat(xAddr);
+                TeleportsPage.t.OldY = MainWindow.mw.m.ReadFloat(yAddr);
+                TeleportsPage.t.OldZ = MainWindow.mw.m.ReadFloat(zAddr);
             });
         }
 
@@ -451,7 +456,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         #endregion
 
         // FH4 Scan will stay like it was probably. I dont see myself redoing that too.
-        public async Task FH5_Scan()
+        public Task FH5_Scan()
         {
             int ScanIndex = 0;
 
@@ -893,9 +898,6 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
                     ScanIndex++;
                     UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
-
-                    ScanIndex++;
-                    UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
                 }
                 catch
                 {
@@ -908,6 +910,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             HigherPriorityScans.Start();
             LowerPriorityScans.Start();
             CodeCaves.Start();
+            return Task.CompletedTask;
         }
 
         public async Task Old_Scan()
@@ -1179,11 +1182,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                             }
                             else
                             {
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 100; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-
-
                                 AddressesFourSteam();
+                                AddressesFour();
                                 MainAOBScanDone = true;
                             }
                         }
