@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Tuning;
 
@@ -80,6 +81,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
         public const uint MEM_DECOMMIT = 0x00004000;
         public const uint MEM_RELEASE = 0x00008000;
+
         private static readonly Dictionary<char, byte> Hexmap = new Dictionary<char, byte>()
         {
             { 'a', 0xA },{ 'b', 0xB },{ 'c', 0xC },{ 'd', 0xD },
@@ -317,7 +319,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.TimeNOPAddr, TimeJumpBefore);
         }
 
-        public void StartXPtool(IntPtr CodeCave3)
+        public static void StartXPtool(IntPtr CodeCave3)
         {
             byte[] OnePoint = { 0xB9, 0x01, 0x00, 0x00, 0x00, 0x90 };
             string CodeCaveAddrString = ((long)CodeCave3).ToString("X");
@@ -348,29 +350,28 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
         public static void GlowingPaint(IntPtr CodeCave9)
         {
-            if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
-            {
-                // will implement in the next commit
-                return;
-            }
-
             var CodeCaveAddrString = CodeCave9.ToString("X");
-            var CodeCavejmpString = ((long)CodeCave9 - (Self_Vehicle_Addrs.GlowingPaintAddrLong + 5)).ToString("X");
+            var CodeCavejmpString = (CodeCave9 - (Self_Vehicle_Addrs.GlowingPaintAddrLong + 5)).ToString("X");
             if (CodeCavejmpString.Length % 2 != 0)
                 CodeCavejmpString = "0" + CodeCavejmpString;
             var CodeCaveAddr = StringToBytes(CodeCavejmpString);
             Array.Reverse(CodeCaveAddr);
 
             var JmpToCodeCaveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty);
-            var JmpToCodeCaveCode = StringToBytes(JmpToCodeCaveCodeString);
-
-            var jmpBackBytes = longToByteArray(Self_Vehicle_Addrs.GlowingPaintAddrLong + 5 - (long)(CodeCave9 + 17)); ;
+            var jmpBackBytes = longToByteArray(Self_Vehicle_Addrs.GlowingPaintAddrLong + 5 - (CodeCave9 + 17));
             Array.Reverse(jmpBackBytes);
-            
+
             var InsideCaveCodeString = "0F590D49000000410F114A10E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
-                
+
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
+            {
+                JmpToCodeCaveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "9090";
+                InsideCaveCodeString = "0F590D490000000F110AC642F001E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            }
+            
+            var JmpToCodeCaveCode = StringToBytes(JmpToCodeCaveCodeString);
             var InsideCaveCode = StringToBytes(InsideCaveCodeString);
-            MainWindow.mw.m.WriteBytes(CodeCaveAddrString, InsideCaveCode); 
+            MainWindow.mw.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
             MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr, JmpToCodeCaveCode);
         }
 
@@ -378,14 +379,14 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         {
             string CodeCave1AddrString = ((long)CodeCave10).ToString("X");
             string CodeCave1jmpString = ((long)CodeCave10 - (Self_Vehicle_Addrs.BuildCapAddrASM1Long + 5)).ToString("X");
-            if (CodeCave1jmpString.Length % 2 != 0)
+            if (CodeCave1jmpString.Length % 2 != 0) 
                 CodeCave1jmpString = "0" + CodeCave1jmpString;
             byte[] CodeCave1Addr = StringToBytes(CodeCave1jmpString);
             Array.Reverse(CodeCave1Addr);
 
             string CodeCave2AddrString = ((long)CodeCave11).ToString("X");
             string CodeCave2jmpString = ((long)CodeCave11 - (Self_Vehicle_Addrs.BuildCapAddrASM2Long + 5)).ToString("X");
-            if (CodeCave2jmpString.Length % 2 != 0)
+            if (CodeCave2jmpString.Length % 2 != 0) 
                 CodeCave2jmpString = "0" + CodeCave2jmpString;
             byte[] CodeCave2Addr = StringToBytes(CodeCave2jmpString);
             Array.Reverse(CodeCave2Addr);
@@ -402,7 +403,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
             string InsideCodeCave1String = "F30F11834C040000C7834C04000000000000E9" + BitConverter.ToString(JmpBackBytes1).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
             string InsideCodeCave2String = "F30F114344C7434400000000E9" + BitConverter.ToString(JmpBackBytes2).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
-            
+
             if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
             {
                 InsideCodeCave1String = "F30F11B3DC030000C783DC03000000000000E9" + BitConverter.ToString(JmpBackBytes1).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
@@ -417,9 +418,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.BuildCapAddrASM1, JmpToCodeCaveCode1);
             MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.BuildCapAddrASM2, JmpToCodeCaveCode2);
         }
-        
+
         public static byte[] OriginalBaseAddressHookBytes;
-        
+
         public static void GetBaseAddress(IntPtr CodeCave12)
         {
             string CodeCaveAddrString = ((long)CodeCave12).ToString("X");
@@ -434,18 +435,18 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
             byte[] JmpBackBytes = longToByteArray(Self_Vehicle_Addrs.BaseAddrHookLong + 6 - (long)(CodeCave12 + 32)); ;
             Array.Reverse(JmpBackBytes);
-            
+
             string InsideCaveCodeString = (BitConverter.ToString(OriginalBaseAddressHookBytes) + "4881E97005000048890D2B0000004881C170050000E9" + BitConverter.ToString(JmpBackBytes)).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
             byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
-            
+
             MainWindow.mw.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
             MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.BaseAddrHook, JmpToCodeCaveCode);
-            
+
             while (MainWindow.mw.Attached)
             {
                 Thread.Sleep(50);
                 long Addr = MainWindow.mw.m.ReadLong(((long)CodeCave12 + 65).ToString("X"));
-                
+
                 if (MainWindow.mw.m.ReadFloat((Addr + 0x50).ToString("X")) != 0
                     && !float.IsInfinity(MainWindow.mw.m.ReadFloat((Addr + 0x50).ToString("X")))
                     && MainWindow.mw.m.ReadFloat((Addr + 0x50).ToString("X")) > -10000000
@@ -463,14 +464,14 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 }
             }
         }
-        
+
         public static void FH4TuningAddressesHook(IntPtr TuningCodeCave1, IntPtr TuningCodeCave2, IntPtr TuningCodeCave3)
         {
             #region Hook 1
+
             string CodeCaveAddrString = ((long)TuningCodeCave1).ToString("X");
             string CodeCavejmpString = ((long)TuningCodeCave1 - (Tuning_Addresses.TuningTableHookBase1 + 5)).ToString("X");
-            if (CodeCavejmpString.Length % 2 != 0)
-                CodeCavejmpString = "0" + CodeCavejmpString;
+            if (CodeCavejmpString.Length % 2 != 0) CodeCavejmpString = "0" + CodeCavejmpString;
             byte[] CodeCaveAddr = StringToBytes(CodeCavejmpString);
             Array.Reverse(CodeCaveAddr);
 
@@ -479,15 +480,17 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
             byte[] JmpBackBytes = longToByteArray(Tuning_Addresses.TuningTableHookBase1 + 5 - (long)(TuningCodeCave1 + 17));
             Array.Reverse(JmpBackBytes);
-            
+
             string InsideCaveCodeString = "4C893549000000498B068BD6E9" + BitConverter.ToString(JmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
             byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
-            
+
             MainWindow.mw.m.WriteBytes(CodeCaveAddrString, InsideCaveCode);
             MainWindow.mw.m.WriteBytes(Tuning_Addresses.TuningTableHookBase1.ToString("X"), JmpToCodeCaveCode);
+
             #endregion
 
             #region Hook 2
+
             string CodeCave2AddrString = ((long)TuningCodeCave2).ToString("X");
             string CodeCave2jmpString = ((long)TuningCodeCave2 - (Tuning_Addresses.TuningTableHookBase2 + 5)).ToString("X");
             if (CodeCave2jmpString.Length % 2 != 0)
@@ -500,19 +503,20 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
             byte[] JmpBackBytes2 = longToByteArray(Tuning_Addresses.TuningTableHookBase2 + 5 - (long)(TuningCodeCave2 + 17));
             Array.Reverse(JmpBackBytes2);
-            
+
             string InsideCaveCodeString2 = "4C892549000000498B0424488D542420E9" + BitConverter.ToString(JmpBackBytes2).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
             byte[] InsideCaveCode2 = StringToBytes(InsideCaveCodeString2);
-            
+
             MainWindow.mw.m.WriteBytes(CodeCave2AddrString, InsideCaveCode2);
             MainWindow.mw.m.WriteBytes(Tuning_Addresses.TuningTableHookBase2.ToString("X"), JmpToCodeCaveCode2);
+
             #endregion
 
             #region Hook 3
+
             string CodeCave3AddrString = ((long)TuningCodeCave3).ToString("X");
             string CodeCave3jmpString = ((long)TuningCodeCave3 - (Tuning_Addresses.TuningTableHookBase3 + 5)).ToString("X");
-            if (CodeCave3jmpString.Length % 2 != 0)
-                CodeCave3jmpString = "0" + CodeCave3jmpString;
+            if (CodeCave3jmpString.Length % 2 != 0) CodeCave3jmpString = "0" + CodeCave3jmpString;
             byte[] CodeCave3Addr = StringToBytes(CodeCave3jmpString);
             Array.Reverse(CodeCave3Addr);
 
@@ -524,11 +528,12 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
             string InsideCaveCodeString3 = "51488BC848890D45000000590F28CEF30F1010E9" + BitConverter.ToString(JmpBackBytes3).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
             byte[] InsideCaveCode3 = StringToBytes(InsideCaveCodeString3);
-            
+
             MainWindow.mw.m.WriteBytes(CodeCave3AddrString, InsideCaveCode3);
             MainWindow.mw.m.WriteBytes(Tuning_Addresses.TuningTableHookBase3.ToString("X"), JmpToCodeCaveCode3);
+
             #endregion
-            
+
             // Address reading
             while (MainWindow.mw.Attached)
             {
@@ -540,7 +545,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             }
         }
 
-        // I am so glad the function is identical bc I'd kill myself if it wasnt
+        // I am so glad the function is identical on both games bc I'd kill myself if it wasnt
         public static void Credits(IntPtr CodeCave13)
         {
             var codeCaveAddrString = ((long)CodeCave13).ToString("X");
@@ -549,12 +554,12 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 codeCavejmpString = "0" + codeCavejmpString;
             var codeCaveAddr = StringToBytes(codeCavejmpString);
             Array.Reverse(codeCaveAddr);
-            
+
             var jmpBackBytes = longToByteArray(Self_Vehicle_Addrs.CreditsHookAddrLong + 7 - (long)(CodeCave13 + 19));
             Array.Reverse(jmpBackBytes);
             var jmpToCodeCaveCodeString = "E9" + BitConverter.ToString(codeCaveAddr).Replace("-", String.Empty) + "9090";
             var jmpToCodeCaveCode = StringToBytes(jmpToCodeCaveCodeString);
-            
+
             // mov rax,[hook+35]
             // mov [rsp+80],eax
             // jmp back bytes
@@ -562,6 +567,47 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             var insideCaveCode = StringToBytes(insideCodeCaveString);
             MainWindow.mw.m.WriteBytes(codeCaveAddrString, insideCaveCode);
             MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.CreditsHookAddr, jmpToCodeCaveCode);
+        }
+
+        public static void GetUnbreakableSkillComboAddr(IntPtr CodeCave14)
+        {
+            var codeCaveAddrString = ((long)CodeCave14).ToString("X");
+            var codeCavejmpString = (CodeCave14 - (Self_Vehicle_Addrs.UnbSkillHookLong + 5)).ToString("X");
+            if (codeCavejmpString.Length % 2 != 0)
+                codeCavejmpString = "0" + codeCavejmpString;
+            var codeCaveAddr = StringToBytes(codeCavejmpString);
+            Array.Reverse(codeCaveAddr);
+
+            var jmpBackBytes = longToByteArray(Self_Vehicle_Addrs.UnbSkillHookLong + 6 - (CodeCave14 + 18));
+            Array.Reverse(jmpBackBytes);
+            var jmpToCodeCaveCodeString = "E9" + BitConverter.ToString(codeCaveAddr).Replace("-", String.Empty) + "90";
+            var jmpToCodeCaveCode = StringToBytes(jmpToCodeCaveCodeString);
+
+            // mov [hook+50],rbx
+            // mov rdx,[rax]
+            // mov rcx,rax
+            // jmp back bytes
+            var insideCodeCaveString = "48891D49000000488B10488BC8E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            var insideCaveCode = StringToBytes(insideCodeCaveString);
+            MainWindow.mw.m.WriteBytes(codeCaveAddrString, insideCaveCode);
+            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.UnbSkillHookAddr, jmpToCodeCaveCode);
+
+            Task.Run(() =>
+            {
+                while (Self_Vehicle_Addrs.UnbSkillAddrLong == 0x0)
+                {
+                    Self_Vehicle_Addrs.UnbSkillAddrLong = MainWindow.mw.m.ReadLong((CodeCave14 + 0x50).ToString("X"));
+                    Thread.Sleep(50);
+                }
+
+                Self_Vehicle_Addrs.UnbSkillAddrLong += 0x2C;
+                Self_Vehicle_Addrs.UnbSkillAddr = Self_Vehicle_Addrs.UnbSkillAddrLong.ToString("X");
+                MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.UnbSkillHookAddr, new byte[] { 0x48, 0x8B, 0x10, 0x48, 0x8B, 0xC8 });
+                
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.UnbSkillAddr, "float", 9999999999.ToString());
+                MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 4).ToString("X"), "float", 9999999999.ToString());
+                MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 8).ToString("X"), "float", 9999999999.ToString());
+            });
         }
     }
 }

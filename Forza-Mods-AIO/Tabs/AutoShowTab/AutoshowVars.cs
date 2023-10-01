@@ -88,6 +88,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                 {
                     MainWindow.mw.Mapper.MapLibrary();
                     MainWindow.mw.WasMapped = true;
+                    ExecSQL("CREATE TABLE IF NOT EXISTS OriginalStuff (Id INTEGER,OriginalAutoshow INTEGER); INSERT INTO OriginalStuff (Id, OriginalAutoshow) SELECT Id, NotAvailableInAutoshow FROM Data_Car;");
                 }
                 catch
                 {
@@ -126,38 +127,29 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
 
         public static unsafe bool ExecSQL(string SQL)
         {
-            using (var Client = new NamedPipeClientStream("PogPipe"))
+            using var Client = new NamedPipeClientStream("PogPipe");
+            int Count = 0;
+            while (!Client.IsConnected && Count < 25)
             {
-                int Count = 0;
-                byte[] SQLBytes = Encoding.UTF8.GetBytes(SQL);
-                while (!Client.IsConnected && Count < 25)
-                {
-                    Thread.Sleep(10);
-                    try
-                    { Client.Connect(10); }
-                    catch { };
-                    Count++;
-                }
-
-                if (Count == 25)
-                {
-                    MessageBox.Show("Failed, sowwy oomfie :3");
-                    return false;
-                }
-
-                using (StreamWriter sw = new StreamWriter(Client))
-                {
-                    if (sw.AutoFlush == false)
-                        sw.AutoFlush = true;
-                    sw.WriteLine(SQL);
-                }
-
-                return true;
-
-                //Client.WaitForPipeDrain();
-                //Client.Write(SQLBytes, 0, SQLBytes.Length);
-                //Client.WaitForPipeDrain();
+                Thread.Sleep(10);
+                try
+                { Client.Connect(10); }
+                catch { }
+                Count++;
             }
+
+            if (Count == 25)
+            {
+                MessageBox.Show("Failed, sowwy oomfie :3");
+                return false;
+            }
+
+            using StreamWriter sw = new StreamWriter(Client);
+            if (sw.AutoFlush == false)
+                sw.AutoFlush = true;
+            sw.WriteLine(SQL);
+            
+            return true;
         }
     }
 }

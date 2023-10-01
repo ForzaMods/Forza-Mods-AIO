@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d"
-      d:DesignHeight="200"
+      d:DesignHeight="125"
       d:DesignWidth="580"
       Title="UnlocksPage"
       Background="{DynamicResource ApplicationBackgroundBrush}">
@@ -22,7 +22,74 @@
                 Height="46"
                 Margin="0,10,0,0" 
                 BorderBrush="#FF2E3440" />
-
+        
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Width="556" 
+                Height="46"
+                Margin="0,66,0,0" 
+                BorderBrush="#FF2E3440" />
+        
+                
+        <Label Content="Unlock all:"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Margin="20 75 0 0"/>
+        
+        <mah:ToggleSwitch x:Name="HornUnlockerSwitch"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Left"
+                          Content=""
+                          MinWidth="1"
+                          Margin="90,73 0 0"
+                          Toggled="HornUnlockerSwitch_OnToggled"/>
+        
+        <Label Content="Horns"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Margin="140 75 0 0"/>
+        
+        <mah:ToggleSwitch x:Name="EmoteUnlockerSwitch"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Center"
+                          Content=""
+                          MinWidth="1"
+                          Margin="-130 73 0 0"
+                          Toggled="EmoteUnlockerSwitch_OnToggled"/>
+        
+        <Label Content="Emotes"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               Margin="0 75 35 0"/>
+        
+        <mah:ToggleSwitch x:Name="QuickChatsUnlockerSwitch"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Right"
+                          Content=""
+                          MinWidth="1"
+                          Margin="0 73 215 0"
+                          Toggled="QuickChatsUnlockerSwitch_OnToggled"/>
+        
+        <Label Content="Quick Chats"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Top"
+               Margin="0 75 150 0"/>
+        
+        <mah:ToggleSwitch x:Name="CosmeticUnlockerSwitch"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Right"
+                          Content=""
+                          MinWidth="1"
+                          Margin="0 73 80 0"
+                          Toggled="CosmeticUnlockerSwitch_OnToggled"/>
+        
+        <Label Content="Cosmetics"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Top"
+               Margin="0 75 20 0"/>
+        
+        
         <Label Content="XP On Unpause"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"

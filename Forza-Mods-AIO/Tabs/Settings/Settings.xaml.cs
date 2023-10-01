@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,16 +14,13 @@ namespace Forza_Mods_AIO.Tabs.Settings;
 /// </summary>
 public partial class Settings : Page
 {
-    public static Settings S;
     private bool Clicked;
 
     public Settings()
     {
         InitializeComponent();
-        S = this;
-        
+
         KeybindsHandling.UpdateKeybindingOnLaunch();
-                
         UpButton.Content = OverlayHandling.Up;
         DownButton.Content = OverlayHandling.Down;
         LeftButton.Content = OverlayHandling.Left;
@@ -46,8 +45,15 @@ public partial class Settings : Page
 
     private void SaveButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var SettingsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods AIO\Overlay_Settings.ini";
+        var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods AIO" ;
+        if (!Directory.Exists(documentsPath))
+            Directory.CreateDirectory(documentsPath);
+        
+        var SettingsFilePath = documentsPath + @"\Overlay_Settings.ini";
 
+        if (!File.Exists(SettingsFilePath))
+            using (File.Create(SettingsFilePath)) { }
+        
         try
         {
             var Parser = new FileIniDataParser();
@@ -59,7 +65,6 @@ public partial class Settings : Page
             Data["Keybinds"]["Confirm"] = OverlayHandling.Confirm.ToString();
             Data["Keybinds"]["Leave"] = OverlayHandling.Leave.ToString();
             Data["Keybinds"]["Visibility"] = OverlayHandling.OverlayVisibility.ToString();
-
             Parser.WriteFile(SettingsFilePath, Data);
         }
         catch (Exception ex)

@@ -72,9 +72,6 @@ namespace Forza_Mods_AIO
             InitializeComponent();
             mw = this;
             Task.Run(() => IsAttached());
-            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods AIO" ;
-            if (!Directory.Exists(documentsPath))
-                Directory.CreateDirectory(documentsPath);
             ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
             ThemeManager.Current.ChangeTheme(Application.Current, "AccentCol");
             AIO_Info.IsChecked = true;
@@ -128,7 +125,7 @@ namespace Forza_Mods_AIO
                                                 if (gvp.Name == "Forza Horizon 5")
                                                     Task.Run(() => new Self_Vehicle_Addrs().FH5_Scan());
                                                 else
-                                                    Task.Run(() => new Self_Vehicle_Addrs().Old_Scan());
+                                                    Task.Run(() => new Self_Vehicle_Addrs().FH4_Scan());
                                                 break;
                                             case "Tuning":
                                                 Task.Run(() => Tabs.Tuning.Tuning_Addresses.Scan());
@@ -157,7 +154,7 @@ namespace Forza_Mods_AIO
         {
             while (true)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 if (m.OpenProcess("ForzaHorizon5"))
                 {
                     if (Attached)

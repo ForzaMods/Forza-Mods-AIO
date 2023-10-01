@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Forza_Mods_AIO.Overlay;
+using Forza_Mods_AIO.Resources;
 using IniParser;
 using static System.Enum;
 using Application = System.Windows.Application;
@@ -11,11 +12,8 @@ using Button = System.Windows.Controls.Button;
 
 namespace Forza_Mods_AIO.Tabs.Settings;
 
-internal abstract partial class KeybindsHandling
+internal abstract class KeybindsHandling
 {
-    [LibraryImport("User32.dll")]
-    private static partial short GetAsyncKeyState(int vKey);
-
     public static void KeyGrabber(Button sender)
     {
         var keyBuffer = string.Empty;
@@ -25,7 +23,7 @@ internal abstract partial class KeybindsHandling
         {
             foreach (int i in GetValues(typeof(Keys)))
             {
-                int x = GetAsyncKeyState(i);
+                int x = DLLImports.GetAsyncKeyState(i);
                 if (x is not (1 or short.MinValue)) continue;
                 if (i is 0 or 1 or 2 or 3 or 4 or 12) continue;
                 pressedKey = i;
@@ -50,7 +48,11 @@ internal abstract partial class KeybindsHandling
 
     public static void UpdateKeybindingOnLaunch()
     {
-        var SettingsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods AIO\Overlay_Settings.ini";
+        var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods AIO";
+        if (!Directory.Exists(documentsPath))
+            return;
+        
+        var SettingsFilePath = documentsPath + @"\Overlay_Settings.ini";
 
         if (!File.Exists(SettingsFilePath) || new FileInfo(SettingsFilePath).Length == 0)
             using (File.Create(SettingsFilePath)) { }

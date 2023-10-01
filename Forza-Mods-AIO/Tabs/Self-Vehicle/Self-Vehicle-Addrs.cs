@@ -17,6 +17,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
         #region Addresses - Longs
 
+        public static long UnbSkillHookLong;
+        public static long UnbSkillAddrLong = 0;
         public static long CreditsHookAddrLong;
         public static long BaseAddrHookLong;
         public static long TimeNOPAddrLong;
@@ -59,6 +61,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         #endregion
 
         #region Addresses - AOB's
+
+        public static string UnbreakableSkillComboSig;
         public static string BaseAddrHookAob;
         public static string BaseAob;
         public static string Base2Aob;
@@ -102,6 +106,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
         #region Addresses
         
+        public static string UnbSkillHookAddr;
+        public static string UnbSkillAddr;
         public static string CreditsHookAddr;
         public static string BaseAddrHook;
         public static string BuildCapAddrASM1;
@@ -204,6 +210,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static IntPtr CCBA11 = (IntPtr)0;
         public static IntPtr CCBA12 = (IntPtr)0;
         public static IntPtr CCBA13 = (IntPtr)0;
+        public static IntPtr CCBA14 = (IntPtr)0;
         public static IntPtr CodeCave = (IntPtr)0;
         public static IntPtr CodeCave2 = (IntPtr)0;
         public static IntPtr CodeCave3 = (IntPtr)0;
@@ -217,6 +224,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         public static IntPtr CodeCave11 = (IntPtr)0;
         public static IntPtr CodeCave12 = (IntPtr)0;
         public static IntPtr CodeCave13 = (IntPtr)0;
+        public static IntPtr CodeCave14 = (IntPtr)0;
         #endregion
 
         #region Addresses - FOV
@@ -243,8 +251,6 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             xVelocityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x540");
             yVelocityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x53C");
             zVelocityAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x538");
-            yAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x51C");
-            zAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x518");
             xAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x520");
             yAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x51C");
             zAddr = (BaseAddr + ",0x2E0,0x58,0x60,0x1A0,0x60,-0x518");
@@ -362,14 +368,12 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 TeleportsPage.t.TeleportBox.Items.Add("Temple");
                 TeleportsPage.t.TeleportBox.Items.Add("Temple Drag");
                 TeleportsPage.t.TeleportBox.Items.Add("Top Of Volcano");
-                TeleportsPage.t.OldX = MainWindow.mw.m.ReadFloat(xAddr);
-                TeleportsPage.t.OldY = MainWindow.mw.m.ReadFloat(yAddr);
-                TeleportsPage.t.OldZ = MainWindow.mw.m.ReadFloat(zAddr);
             });
         }
 
-        public static void Aobs()
+        private static void Aobs()
         {
+            UnbreakableSkillComboSig = "48 8B ? ? E8 ? ? ? ? 48 8B ? 48 8B ? FF 92 ? ? ? ? 84 C0 0F 85";
             CreditsASMAob = "89 84 24 80 00 00 00 4C 8D ? ? ? ? ? 48 8B";
             BaseAob = "43 3a 5c 57 ? 4e 44 4f 57 53 5c 53 59 53 54 45 4d 33 32 5c 44";
             Car1Aob = "48 89 ? ? ? 44 8B ? 48 89 ? ? ? BA";
@@ -408,6 +412,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
         private static void AobsFive()
         {
+            UnbreakableSkillComboSig = "48 8B ? ? E8 ? ? ? ? 48 8B ? 48 8B ? FF 92 ? ? ? ? 84 C0 0F 85";
             CreditsASMAob = "89 84 24 80 00 00 00 4C 8D ? ? ? ? ? 48 8B";
             BaseAddrHookAob = "48 63 ? 48 69 D0 ? ? ? ? 48 8B ? ? ? ? ? ? 48 85 ? 74 ? 48 8B ? ? ? ? ? C3 C3 40";
             //BaseAob = "7F ? 00 AC ? ? ? ? ? 6E 27 00 24";
@@ -440,17 +445,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             CurrentIDAob = "00 00 50 4C 41 59 45 52 5F 43 41 52 00 00 00 00 00 00 0A";
             BuildCap1Sig = "E8 ? ? ? ? 0F 28 ? F3 0F ? ? ? ? ? ? 0F 2E";
             BuildCap2Sig = "F3 0F ? ? ? 48 8B ? ? ? 48 8B ? ? ? 48 83 C4 ? 5F C3 85 FF";
-        }
-
-        private static void StartSetupFive()
-        {
-            xAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x25F0");
-            WeirdAddr = (BaseAddr + ",0x1F0,0xDB8,0x780,0x8,-0x2634");
-            InRaceAddr = (Base2Addr + ",0x50,0x3D8");
-            InPauseAddr = (Base2Addr + ",0x50,0x480");
-            InHouseAddr = (Base2Addr + ",0x50,0x368");
-            TestAddr = (Base2Addr + ",0x50,0x218");
-            FOVHighAddr = (Base3Addr + ",0x538,0xF0,0xD80,0x6F0");
+            GlowingPaintSig = "0F 11 0A C6 42 F0 01";
         }
 
         #endregion
@@ -576,6 +571,24 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             {
                 try
                 {
+                    UnbSkillHookLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, 
+                        (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + 
+                        (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, 
+                        UnbreakableSkillComboSig, false, true))
+                        .FirstOrDefault() + 9;
+                    UnbSkillHookAddr = UnbSkillHookLong.ToString("X");
+                    ScanIndex++;
+                    UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                    
+                    GlowingPaintAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, 
+                            (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + 
+                            (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, 
+                            GlowingPaintSig, false, true))
+                        .FirstOrDefault();
+                    GlowingPaintAddr = GlowingPaintAddrLong.ToString("X");
+                    ScanIndex++;
+                    UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                    
                     FOVJmpAddrLong = (await MainWindow.mw.m.AoBScan(
                             (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress,
                             (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress +
@@ -719,15 +732,6 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                             (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress +
                             (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, NoClipSig, true, true))
                         .FirstOrDefault() + 1656;
-                    ScanIndex++;
-                    UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
-
-                    GlowingPaintAddrLong = (await MainWindow.mw.m.AoBScan(
-                            (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress,
-                            (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress +
-                            (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, GlowingPaintSig, true, true))
-                        .FirstOrDefault() + 1656;
-                    GlowingPaintAddr = GlowingPaintAddrLong.ToString("X");
                     ScanIndex++;
                     UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
@@ -886,6 +890,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                     ScanIndex++;
                     UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
                     
+                    // Credits hook
                     CCBA13 = CCBA11;
                     CodeCave13 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA13, 0x256,
                         assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
@@ -898,6 +903,31 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
                     ScanIndex++;
                     UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                    
+                    // Unbreakable skill score
+                    CCBA14 = CCBA11;
+                    CodeCave14 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA14, 0x256,
+                        assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                    while (CodeCave14 == (IntPtr)0)
+                    {
+                        CCBA14 += 500000;
+                        CodeCave14 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA14, 0x256,
+                            assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                    }
+
+                    ScanIndex++;
+                    UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                    
+                    // glowing paint
+                    CCBA9 = CCBA14;
+                    CodeCave9 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA9, 0x58, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                    while (CodeCave9 == (IntPtr)0)
+                    {
+                        CCBA9 += 500000;
+                        CodeCave9 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA9, 0x58, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                    }
+                    ScanIndex++;
+                    UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
                 }
                 catch
                 {
@@ -905,525 +935,270 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             });
 
             HigherPriorityScans.Priority = ThreadPriority.Highest;
-            LowerPriorityScans.Priority = ThreadPriority.BelowNormal;
             CodeCaves.Priority = ThreadPriority.AboveNormal;
+            
             HigherPriorityScans.Start();
             LowerPriorityScans.Start();
             CodeCaves.Start();
+            
             return Task.CompletedTask;
         }
 
-        public async Task Old_Scan()
+        public Task FH4_Scan()
         {
-            int offsetfive = 4107;
-            int offsetfivetwo = 28675;
-            bool g2g = false;
-            bool g2g2 = false;
-
-            if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            ScanAmount = 32;
+            
+            Aobs();
+            
+            if (MainWindow.mw.gvp.Plat.Contains("Steam"))
+                AobsSteam();
+            
+            int ScanIndex = 0;
+            
+            Thread HigherPriorityScans = new Thread(async () =>
             {
-                try
-                {
-                    while (MainAOBScanDone == false)
-                    {
-                        if (MainWindow.mw.gvp.Plat == "MS")
-                        {
-                            Aobs();
-                            Thread.Sleep(1);
-                            if (BaseAddr == "29A0" || BaseAddr == null || BaseAddr == "0")
-                            {
-                                BaseAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, BaseAob, true, true)).FirstOrDefault() + 10656;
-                                BaseAddr = BaseAddrLong.ToString("X");
-                                Base2AddrLong = BaseAddrLong + 4512;
-                                Base2Addr = Base2AddrLong.ToString("X");
-                                Base3AddrLong = BaseAddrLong - 18496;
-                                Base3Addr = Base3AddrLong.ToString("X");
-                                Base4AddrLong = BaseAddrLong - 58296;
-                                Base4Addr = Base4AddrLong.ToString("X");
-                                WorldRGBAddrLong = BaseAddrLong - 422832;
-                                WorldRGBAddr = WorldRGBAddrLong.ToString("X");
-                            }
-                            else
-                            {
-                                await Self_Vehicle.sv.Dispatcher.BeginInvoke((Action)delegate ()
-                                {
-                                    for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 22; i++)
-                                    { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                });
-                                Car1AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Car1Aob, true, true)).FirstOrDefault() + 106;
-                                Car1Addr = Car1AddrLong.ToString("X");
-
-                                CreditsHookAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CreditsASMAob, true, true)).FirstOrDefault();
-                                CreditsHookAddr = CreditsHookAddrLong.ToString("X");
-                                
-                                await Self_Vehicle.sv.Dispatcher.BeginInvoke((Action)delegate ()
-                                {
-                                    for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 28; i++)
-                                    { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                });
-                                Car2AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Car2Aob, true, true)).FirstOrDefault() - 411;
-                                Car2Addr = Car2AddrLong.ToString("X");
-
-                                await Self_Vehicle.sv.Dispatcher.BeginInvoke((Action)delegate ()
-                                {
-                                    for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 33; i++)
-                                    { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                });
-                                Wall1AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Wall1Aob, true, true)).FirstOrDefault() + 401;
-                                Wall1Addr = Wall1AddrLong.ToString("X");
-
-                                await Self_Vehicle.sv.Dispatcher.BeginInvoke((Action)delegate ()
-                                {
-                                    for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 39; i++)
-                                    { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                });
-                                Wall2AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Wall2Aob, true, true)).FirstOrDefault() - 446;
-                                Wall2Addr = Wall2AddrLong.ToString("X");
-
-                                await Self_Vehicle.sv.Dispatcher.BeginInvoke((Action)delegate ()
-                                {
-                                    for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 44; i++)
-                                    { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                });
-                                //ToolInfo.Mute.Enabled = true;
-                                FOVnopOutAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, FOVOutAob, true, true)).FirstOrDefault() + 123;
-                                FOVnopOutAddr = FOVnopOutAddrLong.ToString("X");
-
-                                await Self_Vehicle.sv.Dispatcher.BeginInvoke((Action)delegate ()
-                                {
-                                    for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 50; i++)
-                                    { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                });
-                                FOVnopInAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, FOVInAob, true, true)).FirstOrDefault() + 1383;
-                                FOVnopInAddr = FOVnopInAddrLong.ToString("X");
-
-                                await Self_Vehicle.sv.Dispatcher.BeginInvoke((Action)delegate ()
-                                {
-                                    for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 56; i++)
-                                    { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                });
-                                TimeNOPAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, TimeAob, true, true)).FirstOrDefault() + 1;
-                                TimeNOPAddr = TimeNOPAddrLong.ToString("X");
-
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 61; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                CheckPointxASMAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CheckPointxASMAob, true, true)).FirstOrDefault();
-                                CheckPointxASMAddr = CheckPointxASMAddrLong.ToString("X");
-
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 67; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                WayPointxASMAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, WayPointxASMAob, true, true)).FirstOrDefault();
-                                WayPointxASMAddr = WayPointxASMAddrLong.ToString("X");
-
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 72; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                XPaddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, XPAob, true, true)).FirstOrDefault();
-                                XPaddr = XPaddrLong.ToString("X");
-
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 78; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                XPAmountaddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, XPAmountAob, true, true)).FirstOrDefault();
-                                XPAmountaddr = XPAmountaddrLong.ToString("X");
-
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 83; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                CurrentIDAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CurrentIDAob, true, true)).FirstOrDefault() + 42;
-                                CurrentIDAddr = CurrentIDAddrLong.ToString("X");
-
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 89; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                OOBnopAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, OOBAob, true, true)).FirstOrDefault();
-                                OOBnopAddr = OOBnopAddrLong.ToString("X");
-
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 94; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                SuperCarAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, SuperCarAob, true, true)).FirstOrDefault();
-                                SuperCarAddr = SuperCarAddrLong.ToString("X");
-
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 92; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                DiscoverRoadsAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, DiscoverRoadsAob, true, true)).FirstOrDefault();
-                                DiscoverRoadsAddr = DiscoverRoadsAddrLong.ToString("X");
-
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 93; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                WaterAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, WaterAob, true, true)).FirstOrDefault() + 309;
-                                WaterAddr = WaterAddrLong.ToString("X");
-
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 93; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                AIXAobAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, AIXAob, true, true)).FirstOrDefault() + 16;
-                                AIXAobAddr = AIXAobAddrLong.ToString("X");
-                                
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 95; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                CameraSpeedBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraSpeedBaseAob, true, true)).FirstOrDefault();
-
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 98; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                CameraBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraBaseAob, true, true)).FirstOrDefault();
-                                
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 93; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                CameraShutterSpeed = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraShutterSpeedAob, true, true)).FirstOrDefault();
-                            }
-                        }
-                        else
-                        {
-                            AobsSteam();
-                            Thread.Sleep(1);
-                            if (BaseAddr == "FFFFFFFFFFFFFE0B" || BaseAddr == null || BaseAddr == "0")
-                            {
-                                BaseAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, BaseAob, true, true)).FirstOrDefault() - 501;
-                                BaseAddr = BaseAddrLong.ToString("X");
-                                UpdateUi.AddProgress(2, 1, Self_Vehicle.sv.AOBProgressBar);
-
-                                GlowingPaintAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, GlowingPaintSig, true, true)).FirstOrDefault();
-                                GlowingPaintAddr = GlowingPaintAddrLong.ToString("X");
-                                
-                                CCBA9 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                                CodeCave9 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA9, 0x58, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                while (CodeCave9 == (IntPtr)0)
-                                {
-                                    CCBA9 += 500000;
-                                    CodeCave9 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA9, 0x58, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                }
-                                UpdateUi.AddProgress(2, 2, Self_Vehicle.sv.AOBProgressBar);
-                            }
-                        }
-                        if (MainWindow.mw.gvp.Plat == "MS" && (BaseAddr == "29A0" || BaseAddr == null || BaseAddr == "0"
-                            || Base2Addr == "3B40" || Base2Addr == null || Base2Addr == "0"
-                            || Base3Addr == "FFFFFFFFFFFFF300" || Base3Addr == null || Base3Addr == "0"
-                            || Base4Addr == "BA18" || Base4Addr == null || Base4Addr == "0"
-                            || Car1Addr == "6A" || Car1Addr == null || Car1Addr == "0"
-                            || Car2Addr == "FFFFFFFFFFFFFE65" || Car2Addr == null || Car2Addr == "0"
-                            || Wall1Addr == "191" || Wall1Addr == null || Wall1Addr == "0"
-                            || Wall2Addr == "FFFFFFFFFFFFFE42" || Wall2Addr == null || Wall2Addr == "0"
-                            || FOVnopInAddr == "567" || FOVnopInAddr == null || FOVnopInAddr == "0"
-                            || FOVnopOutAddr == "7B" || FOVnopOutAddr == null || FOVnopOutAddr == "0"
-                            || CheckPointxASMAddr == null || CheckPointxASMAddr == "0"
-                            || XPaddr == null || XPaddr == "0"
-                            || XPAmountaddr == null || XPAmountaddr == "0"
-                            || TimeNOPAddr == null || TimeNOPAddr == "0"
-                            || CurrentIDAddr == "2A" || CurrentIDAddr == null || CurrentIDAddr == "0"
-                            || OOBnopAddr == null || OOBnopAddr == "0"
-                            || SuperCarAddr == null || SuperCarAddr == "0"
-                            || DiscoverRoadsAddr == null || DiscoverRoadsAddr == "0"
-                            || WaterAddr == "135" || WaterAddr == null || WaterAddr == "0"
-                            || AIXAobAddr == "10" || AIXAobAddr == null || AIXAobAddr == "0")
-                            )
-                        {
-                            ;
-                        }
-                        else if (MainWindow.mw.gvp.Plat == "Steam" && (BaseAddr == "FFFFFFFFFFFFFE0B" || BaseAddr == null || BaseAddr == "0"))
-                        {
-                            ;
-                        }
-                        else
-                        {
-                            if (MainWindow.mw.gvp.Plat == "MS")
-                            {
-                                CCBA = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                                CodeCave = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                while (CodeCave == (IntPtr)0)
-                                {
-                                    CCBA += 500000;
-                                    CodeCave = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                }
-                                CCBA2 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                                CodeCave2 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                while (CodeCave2 == (IntPtr)0)
-                                {
-                                    CCBA2 += 500000;
-                                    CodeCave2 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                }
-                                CCBA3 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                                CodeCave3 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                while (CodeCave3 == (IntPtr)0)
-                                {
-                                    CCBA3 += 500000;
-                                    CodeCave3 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                }
-                                CCBA4 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                                CodeCave4 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                while (CodeCave4 == (IntPtr)0)
-                                {
-                                    CCBA4 += 500000;
-                                    CodeCave4 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                }
-                                CCBA5 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                                CodeCave5 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                while (CodeCave5 == (IntPtr)0)
-                                {
-                                    CCBA5 += 500000;
-                                    CodeCave5 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                }
-                                CCBA6 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                                CodeCave6 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                while (CodeCave6 == (IntPtr)0)
-                                {
-                                    CCBA6 += 500000;
-                                    CodeCave6 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA6, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                }
-                                for (int i = (int)Self_Vehicle.sv.AOBProgressBar.Value; i <= 100; i++)
-                                { Thread.Sleep(15); Self_Vehicle.sv.AOBProgressBar.Value = i; }
-                                
-                                CCBA13 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                                CodeCave13 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA13, 0x256,
-                                    assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                while (CodeCave13 == (IntPtr)0)
-                                {
-                                    CCBA13 += 500000;
-                                    CodeCave13 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA13, 0x256,
-                                        assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                                }
-                                AddressesFour();
-                                MainAOBScanDone = true;
-                            }
-                            else
-                            {
-                                AddressesFourSteam();
-                                AddressesFour();
-                                MainAOBScanDone = true;
-                            }
-                        }
-                        Thread.Sleep(1);
-                    }
+                if (MainWindow.mw.gvp.Plat == "MS")
+                {                                
+                    BaseAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule!.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, BaseAob, true, true)).FirstOrDefault() + 10656;
+                    BaseAddr = BaseAddrLong.ToString("X");
+                    Base2AddrLong = BaseAddrLong + 4512;
+                    Base2Addr = Base2AddrLong.ToString("X");
+                    Base3AddrLong = BaseAddrLong - 18496;
+                    Base3Addr = Base3AddrLong.ToString("X");
+                    Base4AddrLong = BaseAddrLong - 58296;
+                    Base4Addr = Base4AddrLong.ToString("X");
+                    WorldRGBAddrLong = BaseAddrLong - 422832;
+                    WorldRGBAddr = WorldRGBAddrLong.ToString("X");
                 }
-                catch
+                else
                 {
-                    ;
+                    BaseAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule!.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, BaseAob, true, true)).FirstOrDefault() - 501;
+                    BaseAddr = BaseAddrLong.ToString("X");
                 }
-            }
-            else
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                CreditsHookAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule!.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CreditsASMAob, true, true)).FirstOrDefault();
+                CreditsHookAddr = CreditsHookAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                XPaddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, XPAob, true, true)).FirstOrDefault();
+                XPaddr = XPaddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+
+                XPAmountaddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, XPAmountAob, true, true)).FirstOrDefault();
+                XPAmountaddr = XPAmountaddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                Car1AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Car1Aob, true, true)).FirstOrDefault() + 106;
+                Car1Addr = Car1AddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                Car2AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Car2Aob, true, true)).FirstOrDefault() - 411;
+                Car2Addr = Car2AddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                Wall1AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Wall1Aob, true, true)).FirstOrDefault() + 401;
+                Wall1Addr = Wall1AddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                Wall2AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Wall2Aob, true, true)).FirstOrDefault() - 446;
+                Wall2Addr = Wall2AddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+            });
+
+            Thread LowerPriorityScans = new Thread(async () =>
             {
-                try
+                GlowingPaintAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule!.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, GlowingPaintSig, true, true)).FirstOrDefault();
+                GlowingPaintAddr = GlowingPaintAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                UnbSkillHookLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, UnbreakableSkillComboSig, true, true)).FirstOrDefault() + 9;
+                UnbSkillHookAddr = UnbSkillHookLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                FOVnopOutAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, FOVOutAob, true, true)).FirstOrDefault() + 123;
+                FOVnopOutAddr = FOVnopOutAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                FOVnopInAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, FOVInAob, true, true)).FirstOrDefault() + 1383;
+                FOVnopInAddr = FOVnopInAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                TimeNOPAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, TimeAob, true, true)).FirstOrDefault() + 1;
+                TimeNOPAddr = TimeNOPAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                CheckPointxASMAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CheckPointxASMAob, true, true)).FirstOrDefault();
+                CheckPointxASMAddr = CheckPointxASMAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                WayPointxASMAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, WayPointxASMAob, true, true)).FirstOrDefault();
+                WayPointxASMAddr = WayPointxASMAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                CurrentIDAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CurrentIDAob, true, true)).FirstOrDefault() + 42;
+                CurrentIDAddr = CurrentIDAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                OOBnopAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, OOBAob, true, true)).FirstOrDefault();
+                OOBnopAddr = OOBnopAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                SuperCarAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, SuperCarAob, true, true)).FirstOrDefault();
+                SuperCarAddr = SuperCarAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+
+                DiscoverRoadsAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, DiscoverRoadsAob, true, true)).FirstOrDefault();
+                DiscoverRoadsAddr = DiscoverRoadsAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+
+                WaterAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, WaterAob, true, true)).FirstOrDefault() + 309;
+                WaterAddr = WaterAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+
+                AIXAobAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, AIXAob, true, true)).FirstOrDefault() + 16;
+                AIXAobAddr = AIXAobAddrLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                CameraSpeedBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraSpeedBaseAob, true, true)).FirstOrDefault();
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                CameraBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraBaseAob, true, true)).FirstOrDefault();
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);       
+                
+                CameraShutterSpeed = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraShutterSpeedAob, true, true)).FirstOrDefault();
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                AddressesFour();
+            });
+            
+            Thread CodeCaves = new Thread(async () =>
+            {
+                CCBA = MainWindow.mw.gvp.Process.MainModule!.BaseAddress;
+                CodeCave = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                while (CodeCave == (IntPtr)0)
                 {
-                    while (MainAOBScanDone == false)
-                    {
-                        AobsFive();
-                        if (offsetfive >= 12299)
-                            offsetfive = 4107;
-                        if (offsetfive == 4107 || BaseAddrLong == 0)
-                        {
-                            BaseAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, BaseAob, true, true)).FirstOrDefault();
-                            BaseAddr = BaseAddrLong.ToString("X");
-                        }
-                        if (offsetfivetwo >= 32771)
-                            offsetfivetwo = 28675;
-                        if ((offsetfivetwo == 28675 || BaseAddrLong == 0) && g2g && !g2g2)
-                        {
-                            BaseAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, BaseAob, true, true)).FirstOrDefault();
-                            Base2Addr = BaseAddrLong.ToString("X");
-                        }
-                        if ((BaseAddrLong != null || BaseAddrLong != offsetfive || BaseAddrLong != 0) && !g2g)
-                        {
-                            BaseAddr = (BaseAddrLong + offsetfive).ToString("X");
-                            StartSetupFive();
-                            offsetfive += 8;
-                            try
-                            {
-                                if (MainWindow.mw.m.ReadFloat(xAddr) != 0
-                                    && !float.IsInfinity(MainWindow.mw.m.ReadFloat(xAddr))
-                                    && MainWindow.mw.m.ReadFloat(xAddr) > -10000000
-                                    && MainWindow.mw.m.ReadFloat(xAddr) < 10000000
-                                    && MainWindow.mw.m.ReadFloat(yAddr) > -10000
-                                    && MainWindow.mw.m.ReadFloat(yAddr) < 10000
-                                    && MainWindow.mw.m.ReadFloat(zAddr) > -10000000
-                                    && MainWindow.mw.m.ReadFloat(zAddr) < 10000000
-                                    && MainWindow.mw.m.ReadFloat(WeirdAddr) < 0.2
-                                    && MainWindow.mw.m.ReadFloat(WeirdAddr) > 0.01)
-                                {
-                                    g2g = true;
-                                }
-
-                            }
-                            catch
-                            {
-                                g2g = false;
-                            }
-                        }
-                        else if ((BaseAddrLong != null || BaseAddrLong != offsetfivetwo || BaseAddrLong != 0) && g2g && !g2g2)
-                        {
-                            UpdateUi.AddProgress(ScanAmount,1, Self_Vehicle.sv.AOBProgressBar);
-                            Base2Addr = (BaseAddrLong + offsetfivetwo).ToString("X");
-                            StartSetupFive();
-                            offsetfivetwo += 8;
-                            try
-                            {
-                                if ((MainWindow.mw.m.ReadFloat(InPauseAddr) == 1 && MainWindow.mw.m.ReadFloat(InHouseAddr) == 0)
-                                    || (MainWindow.mw.m.ReadFloat(InPauseAddr) == 0 && MainWindow.mw.m.ReadFloat(InHouseAddr) == 1)
-                                    || MainWindow.mw.m.ReadFloat(TestAddr) == 1)//if (MainWindow.mw.m.ReadFloat(Base2Addr + ",0x50,0x41D") == 2)
-                                {
-                                    g2g2 = true;
-                                }
-                            }
-                            catch
-                            {
-                                g2g2 = false;
-                            }
-                        }
-                        else
-                        {
-                            UpdateUi.AddProgress(ScanAmount, 2, Self_Vehicle.sv.AOBProgressBar);
-                            FOVJmpAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, FOVJmpAob, true, true)).FirstOrDefault() + 3;
-                            FOVJmpAddr = FOVJmpAddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 3, Self_Vehicle.sv.AOBProgressBar);
-                            Car1AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Car1Aob, true, true)).FirstOrDefault();
-                            Car1Addr = Car1AddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 4, Self_Vehicle.sv.AOBProgressBar);
-                            Wall1AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Wall1Aob, true, true)).FirstOrDefault();
-                            Wall1Addr = Wall1AddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 5, Self_Vehicle.sv.AOBProgressBar);
-                            Wall2AddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, Wall2Aob, true, true)).FirstOrDefault();
-                            Wall2Addr = Wall2AddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 6, Self_Vehicle.sv.AOBProgressBar);
-                            TimeNOPAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, TimeAob, true, true)).FirstOrDefault() + 1;
-                            TimeNOPAddr = TimeNOPAddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 7, Self_Vehicle.sv.AOBProgressBar);
-                            XPaddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, XPAob, true, true)).FirstOrDefault();
-                            XPaddr = XPaddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 8, Self_Vehicle.sv.AOBProgressBar);
-                            XPAmountaddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, XPAmountAob, true, true)).FirstOrDefault();
-                            XPAmountaddr = XPAmountaddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 9, Self_Vehicle.sv.AOBProgressBar);
-                            WayPointxASMAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, WayPointxASMAob, true, true)).FirstOrDefault();
-                            WayPointxASMAddr = WayPointxASMAddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 10, Self_Vehicle.sv.AOBProgressBar);
-                            DiscoverRoadsAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, DiscoverRoadsAob, true, true)).FirstOrDefault();
-                            DiscoverRoadsAddr = DiscoverRoadsAddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 11, Self_Vehicle.sv.AOBProgressBar);
-                            WaterAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, WaterAob, true, true)).FirstOrDefault() + 309;
-                            WaterAddr = WaterAddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 12, Self_Vehicle.sv.AOBProgressBar);
-                            if (MainWindow.mw.gvp.Plat == "MS")
-                                CheckPointxASMAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, "0F 10 89 60 02 00 00 0F 29", true, true)).FirstOrDefault();
-                            else
-                                CheckPointxASMAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, "0F 10 89 60 02 00 00 0F 29", true, true)).FirstOrDefault();
-                            CheckPointxASMAddr = CheckPointxASMAddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 13, Self_Vehicle.sv.AOBProgressBar);
-                            AIXAobAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, AIXAob, true, true)).FirstOrDefault();
-                            AIXAobAddr = AIXAobAddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 14, Self_Vehicle.sv.AOBProgressBar);
-                            CosmeticUnlockAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CosmeticUnlockAob, true, true)).FirstOrDefault();
-                            CosmeticUnlockAddr = CosmeticUnlockAddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 15, Self_Vehicle.sv.AOBProgressBar);
-                            OOBnopAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, OOBAob, true, true)).FirstOrDefault();
-                            OOBnopAddr = OOBnopAddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 16, Self_Vehicle.sv.AOBProgressBar);
-                            SuperCarAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, SuperCarAob, true, true)).FirstOrDefault();
-                            SuperCarAddr = SuperCarAddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 17, Self_Vehicle.sv.AOBProgressBar);
-                            HornAsmAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, HornAsmAob, true, true)).LastOrDefault();
-                            HornAsmAddr = HornAsmAddrLong.ToString("X");
-
-                            UpdateUi.AddProgress(ScanAmount, 18, Self_Vehicle.sv.AOBProgressBar);
-                            WorldRGBAddrLong = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, RGBAob, true, true)).LastOrDefault();
-                            WorldRGBAddr = WorldRGBAddrLong.ToString("X");
-
-                            CCBA = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                            CodeCave = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            while (CodeCave == (IntPtr)0)
-                            {
-                                CCBA += 500000;
-                                CodeCave = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            }
-                            UpdateUi.AddProgress(ScanAmount, 19, Self_Vehicle.sv.AOBProgressBar);
-                            CCBA2 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                            CodeCave2 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            while (CodeCave2 == (IntPtr)0)
-                            {
-                                CCBA2 += 500000;
-                                CodeCave2 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            }
-                            UpdateUi.AddProgress(ScanAmount, 20, Self_Vehicle.sv.AOBProgressBar);
-                            CCBA3 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                            CodeCave3 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            while (CodeCave3 == (IntPtr)0)
-                            {
-                                CCBA3 += 500000;
-                                CodeCave3 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            }
-                            UpdateUi.AddProgress(ScanAmount, 21, Self_Vehicle.sv.AOBProgressBar);
-                            CCBA4 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                            CodeCave4 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            while (CodeCave4 == (IntPtr)0)
-                            {
-                                CCBA4 += 500000;
-                                CodeCave4 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            }
-                            UpdateUi.AddProgress(ScanAmount, 22, Self_Vehicle.sv.AOBProgressBar);
-                            CCBA5 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                            CodeCave5 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            while (CodeCave5 == (IntPtr)0)
-                            {
-                                CCBA5 += 500000;
-                                CodeCave5 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            }
-                            UpdateUi.AddProgress(ScanAmount, 23, Self_Vehicle.sv.AOBProgressBar);
-                            CCBA6 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                            CodeCave6 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            while (CodeCave6 == (IntPtr)0)
-                            {
-                                CCBA6 += 500000;
-                                CodeCave6 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA6, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            }
-                            UpdateUi.AddProgress(ScanAmount, 24, Self_Vehicle.sv.AOBProgressBar);
-                            CCBA7 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                            CodeCave7 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA7, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            while (CodeCave7 == (IntPtr)0)
-                            {
-                                CCBA7 += 500000;
-                                CodeCave7 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA7, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            }
-                            UpdateUi.AddProgress(ScanAmount, 25, Self_Vehicle.sv.AOBProgressBar);
-                            CCBA8 = MainWindow.mw.gvp.Process.MainModule.BaseAddress;
-                            CodeCave8 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA8, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            while (CodeCave8 == (IntPtr)0)
-                            {
-                                CCBA8 += 500000;
-                                CodeCave8 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA8, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
-                            }
-                            UpdateUi.AddProgress(ScanAmount, 26, Self_Vehicle.sv.AOBProgressBar);
-
-                            while (CameraSpeedBase == 0)
-                                CameraSpeedBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraSpeedBaseAob, true, true)).FirstOrDefault();
-                            UpdateUi.AddProgress(ScanAmount, 27, Self_Vehicle.sv.AOBProgressBar);  
-                            
-                            while (CameraBase == 0)
-                                CameraBase = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraBaseAob, true, true)).FirstOrDefault();
-                            UpdateUi.AddProgress(ScanAmount, 28, Self_Vehicle.sv.AOBProgressBar);    
-                            
-                            while (CameraShutterSpeed == 0 || CameraShutterSpeed == 0xA4)
-                                CameraShutterSpeed = (await MainWindow.mw.m.AoBScan((long)MainWindow.mw.gvp.Process.MainModule.BaseAddress, (long)MainWindow.mw.gvp.Process.MainModule.BaseAddress + (long)MainWindow.mw.gvp.Process.MainModule.ModuleMemorySize, CameraShutterSpeedAob, true, true)).FirstOrDefault() + 0xA4;
-                            UpdateUi.AddProgress(ScanAmount, 29, Self_Vehicle.sv.AOBProgressBar);  
-                            
-                            AddressesFive();
-                            MainAOBScanDone = true;
-                        }
-                        Thread.Sleep(1);
-                    }
+                    CCBA += 500000;
+                    CodeCave = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                 }
-                catch
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                CCBA2 = CCBA;
+                CodeCave2 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                while (CodeCave2 == (IntPtr)0)
                 {
-                    ;
+                    CCBA2 += 500000;
+                    CodeCave2 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                 }
-            }
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                CCBA3 = CCBA2;
+                CodeCave3 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                while (CodeCave3 == (IntPtr)0)
+                {
+                    CCBA3 += 500000;
+                    CodeCave3 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA3, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                }
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                CCBA4 = CCBA3;
+                CodeCave4 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                while (CodeCave4 == (IntPtr)0)
+                {
+                    CCBA4 += 500000;
+                    CodeCave4 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA4, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                }
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                CCBA5 = CCBA4;
+                CodeCave5 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                while (CodeCave5 == (IntPtr)0)
+                {
+                    CCBA5 += 500000;
+                    CodeCave5 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                }
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                CCBA6 = CCBA5;
+                CodeCave6 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA5, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                while (CodeCave6 == (IntPtr)0)
+                {
+                    CCBA6 += 500000;
+                    CodeCave6 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA6, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                }
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                         
+                // This one is glowing paint I think
+                CCBA9 = CCBA6;
+                CodeCave9 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA9, 0x58, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                while (CodeCave9 == (IntPtr)0)
+                {
+                    CCBA9 += 500000;
+                    CodeCave9 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA9, 0x58, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                }
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                // Credits hook
+                CCBA13 = CCBA9;
+                CodeCave13 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA13, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                while (CodeCave13 == (IntPtr)0)
+                {
+                    CCBA13 += 500000;
+                    CodeCave13 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA13, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                }
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                // Unbreakable skill score
+                CCBA14 = CCBA13;
+                CodeCave14 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA14, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                while (CodeCave14 == (IntPtr)0)
+                {
+                    CCBA14 += 500000;
+                    CodeCave14 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA14, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
+                }
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+            });
+            
+            HigherPriorityScans.Priority = ThreadPriority.Highest;
+            CodeCaves.Priority = ThreadPriority.AboveNormal;
+            
+            HigherPriorityScans.Start();
+            LowerPriorityScans.Start();
+            CodeCaves.Start();
+            
+            return Task.CompletedTask;
         }
     }
 }

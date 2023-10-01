@@ -4,7 +4,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,7 +17,7 @@ namespace Forza_Mods_AIO.Resources
             Application.Current.Dispatcher.BeginInvoke(delegate ()
             {
                 foreach (FrameworkElement element in page.GetChildren(true))
-                    if (element.GetType() == typeof(ToggleSwitch) || (element.GetType() == typeof(Button) && element.Name != "ScanButton"))
+                    if (element.GetType() == typeof(ToggleSwitch) || element.GetType() == typeof(ComboBox) || (element.GetType() == typeof(Button) && element.Name != "ScanButton"))
                         element.IsEnabled = IsEnabled;
             });
         }
@@ -26,22 +25,22 @@ namespace Forza_Mods_AIO.Resources
         private static readonly Dictionary<string, double> Sizes = new Dictionary<string, double>()
         {
             // Tuning
-            { "TiresButton" , 240}, // Button name for page, height of page
-            { "GearingButton" , 275},
-            { "AlignmentButton" , 120},
-            { "SpringsButton" , 275},
-            { "DampingButton" , 350},
+            { "TiresButton" , 240 }, // Button name for page, height of page
+            { "GearingButton" , 275 },
+            { "AlignmentButton" , 120 },
+            { "SpringsButton" , 275 },
+            { "DampingButton" , 350 },
             { "AeroButton", 120 },
             { "SteeringButton", 275 },
             { "OthersButton", 395 },
 
             // Self-Vehicle
-            { "HandlingButton" , 464},
-            { "UnlocksButton" , 200},
-            { "CameraButton" , 285},
-            { "TeleportsButton" , 70},
+            { "HandlingButton" , 464 },
+            { "UnlocksButton" , 125 },
+            { "CameraButton" , 285 },
+            { "TeleportsButton" , 70 },
             { "CustomizationButton", 220 },
-            { "MiscellaneousButton", 220}
+            { "MiscellaneousButton", 70 }
         };
 
         public static Dictionary<string, bool> IsClicked = new Dictionary<string, bool>()
