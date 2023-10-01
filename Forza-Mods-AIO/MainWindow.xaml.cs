@@ -184,7 +184,7 @@ namespace Forza_Mods_AIO
                     });
                     Is_Scanned["Autoshow"] = false;
                     Is_Scanned["Self_Vehicle"] = false;
-                    Is_Scanned["TuningTableMain"] = false;
+                    Is_Scanned["Tuning"] = false;
                     Attached = false;
                 }
             }
