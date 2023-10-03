@@ -465,7 +465,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             }
         }
 
-        public static void FH4TuningAddressesHook(IntPtr TuningCodeCave1, IntPtr TuningCodeCave2, IntPtr TuningCodeCave3)
+        public static void FH4TuningAddressesHook(IntPtr TuningCodeCave1, IntPtr TuningCodeCave2, IntPtr TuningCodeCave3, IntPtr TuningCodeCave4)
         {
             #region Hook 1
 
@@ -534,12 +534,36 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
             #endregion
 
+            #region Hook 4
+
+            string CodeCave4AddrString = ((long)TuningCodeCave4).ToString("X");
+            string CodeCave4jmpString = ((long)TuningCodeCave4 - (Tuning_Addresses.TuningTableHookBase4 + 5)).ToString("X");
+            if (CodeCave4jmpString.Length % 2 != 0) 
+                CodeCave4jmpString = "0" + CodeCave4jmpString;
+            byte[] CodeCave4Addr = StringToBytes(CodeCave4jmpString);
+            Array.Reverse(CodeCave4Addr);
+
+            string JmpToCodeCaveCode4String = "E9" + BitConverter.ToString(CodeCave4Addr).Replace("-", String.Empty) + "9090909090";
+            byte[] JmpToCodeCaveCode4 = StringToBytes(JmpToCodeCaveCode4String);
+
+            byte[] JmpBackBytes4 = longToByteArray(Tuning_Addresses.TuningTableHookBase4 + 10 - (long)(TuningCodeCave4 + 22));
+            Array.Reverse(JmpBackBytes4);
+
+            string InsideCaveCodeString4 = "488B0748893D46000000488D9560020000E9" + BitConverter.ToString(JmpBackBytes4).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            byte[] InsideCaveCode4 = StringToBytes(InsideCaveCodeString4);
+
+            MainWindow.mw.m.WriteBytes(CodeCave4AddrString, InsideCaveCode4);
+            MainWindow.mw.m.WriteBytes(Tuning_Addresses.TuningTableHookBase4.ToString("X"), JmpToCodeCaveCode4);
+
+            #endregion
+
             // Address reading
             while (MainWindow.mw.Attached)
             {
                 Tuning_Addresses.TuningTableBase1FH4 = MainWindow.mw.m.ReadLong(((long)TuningCodeCave1 + 0x50).ToString("X"));
                 Tuning_Addresses.TuningTableBase2FH4 = MainWindow.mw.m.ReadLong(((long)TuningCodeCave2 + 0x50).ToString("X"));
                 Tuning_Addresses.TuningTableBase3FH4 = MainWindow.mw.m.ReadLong(((long)TuningCodeCave3 + 0x50).ToString("X"));
+                Tuning_Addresses.TuningTableBase4FH4 = MainWindow.mw.m.ReadLong(((long)TuningCodeCave4 + 0x50).ToString("X")) + 400;
                 Tuning_Addresses.AddressesFH4();
                 Thread.Sleep(1000);
             }
