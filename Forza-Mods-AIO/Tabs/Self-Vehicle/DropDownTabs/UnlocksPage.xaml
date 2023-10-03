@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d"
-      d:DesignHeight="125"
+      d:DesignHeight="180"
       d:DesignWidth="580"
       Title="UnlocksPage"
       Background="{DynamicResource ApplicationBackgroundBrush}">
@@ -31,7 +31,40 @@
                 Margin="0,66,0,0" 
                 BorderBrush="#FF2E3440" />
         
-                
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Width="556" 
+                Height="46" 
+                BorderBrush="#FF2E3440" 
+                Margin="0,120,0,0" />
+        
+        <mah:ToggleSwitch x:Name="DiscoverRoadsSwitch"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Left"
+                          Content=""
+                          MinWidth="1"
+                          Margin="75 127.5 0 0"
+                          Toggled="DiscoverRoadsSwitch_OnToggled"/>
+        
+        <Label Content="Discover All Roads"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Margin="130 130 0 0"/>
+        
+        <mah:ToggleSwitch x:Name="SmashBoardsSwitch"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Left"
+                          Content=""
+                          MinWidth="1"
+                          Margin="300 127.5 0 0"
+                          Toggled="SmashBoardsSwitch_OnToggled"/>
+        
+        <Label Content="Smash All Collectable Boards"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Margin="355 130 0 0"/>
+        
         <Label Content="Unlock all:"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"

@@ -594,6 +594,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
 
             Task.Run(() =>
             {
+                Self_Vehicle_Addrs.UnbSkillAddrLong = 0x0;
+
                 while (Self_Vehicle_Addrs.UnbSkillAddrLong == 0x0)
                 {
                     Self_Vehicle_Addrs.UnbSkillAddrLong = MainWindow.mw.m.ReadLong((CodeCave14 + 0x50).ToString("X"));
@@ -604,9 +606,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
                 Self_Vehicle_Addrs.UnbSkillAddr = Self_Vehicle_Addrs.UnbSkillAddrLong.ToString("X");
                 MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.UnbSkillHookAddr, new byte[] { 0x48, 0x8B, 0x10, 0x48, 0x8B, 0xC8 });
                 
-                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.UnbSkillAddr, "float", 9999999999.ToString());
-                MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 4).ToString("X"), "float", 9999999999.ToString());
-                MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 8).ToString("X"), "float", 9999999999.ToString());
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.UnbSkillAddr, "float", "9999999999");
+                MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 4).ToString("X"), "float", "9999999999");
+                MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 8).ToString("X"), "float", "9999999999");
             });
         }
     }

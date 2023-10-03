@@ -36,10 +36,10 @@ namespace Forza_Mods_AIO.Resources
 
             // Self-Vehicle
             { "HandlingButton" , 464 },
-            { "UnlocksButton" , 125 },
+            { "UnlocksButton" , 180 },
             { "CameraButton" , 285 },
             { "TeleportsButton" , 70 },
-            { "CustomizationButton", 220 },
+            { "CustomizationButton", 70 },
             { "MiscellaneousButton", 70 }
         };
 

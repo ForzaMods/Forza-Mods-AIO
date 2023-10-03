@@ -21,22 +21,22 @@ public partial class CameraPage : Page
     /// </summary>
     private void NoClip_Toggled(object sender, RoutedEventArgs e)
     {
-        BoundaryRemoval.IsEnabled = !BoundaryRemoval.IsEnabled;
         MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.NoClipAddr, "int", NoClip.IsOn ? "0" : "2");
     }
 
     /// <summary>
-    ///     Boundary removal.
+    ///     Increases zoom to 90x
+    ///     How does it work? Replaces the MinFov 2.25 flag with 0 
     /// </summary>
-    private void BoundaryRemoval_Toggled(object sender, RoutedEventArgs e)
-    {
-        NoClip.IsEnabled = !NoClip.IsEnabled;
 
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.BoundaryRemovalAddr, "float", BoundaryRemoval.IsOn ? "99999" : "100");
+    private void IncreasedZoom_OnToggled(object sender, RoutedEventArgs e)
+    {
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.MinFovAddr, "float",IncreasedZoom.IsOn ? "0" : "2.25" );
     }
 
     /// <summary>
     ///     No max height
+    ///     How does it work? Replaces the maxheight 4 flag with 9999
     /// </summary> 
     private void NoheightRestriction_Toggled(object sender, RoutedEventArgs e)
     {

@@ -109,4 +109,14 @@ public partial class UnlocksPage : Page
     {
         throw new System.NotImplementedException();
     }
+
+    private void DiscoverRoadsSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void SmashBoardsSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        throw new System.NotImplementedException();
+    }
 }

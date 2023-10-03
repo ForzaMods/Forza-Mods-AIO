@@ -109,15 +109,15 @@
                           FontSize="12"
                           Toggled="NoheightRestriction_Toggled" Width="95" />
 
-        <Label Content="Boundary removal"
+        <Label Content="Increased zoom"
                VerticalAlignment="Bottom" HorizontalAlignment="Left"
-               Margin="374,0,0,20" />
+               Margin="380,0,0,20" />
 
-        <mah:ToggleSwitch x:Name="BoundaryRemoval"
+        <mah:ToggleSwitch x:Name="IncreasedZoom"
                           VerticalAlignment="Bottom"
                           Margin="483,0,0,17"
                           FontSize="12"
-                          Toggled="BoundaryRemoval_Toggled" Width="95" />
+                          Toggled="IncreasedZoom_OnToggled" Width="95" />
         <!--#endregion-->
     </Grid>
 </Page>

@@ -37,7 +37,7 @@ internal abstract class KeybindsHandling
         Application.Current.Dispatcher.Invoke(() =>
         {
             sender.Content = keyBuffer;
-            
+
             foreach (var field in typeof(OverlayHandling).GetFields())
             {
                 if (field.Name != sender.Name.Replace("Button", String.Empty)) continue;

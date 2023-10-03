@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d"
-      d:DesignHeight="220" 
+      d:DesignHeight="70" 
       d:DesignWidth="580"
       Title="CustomisationPage"
       Background="Transparent">

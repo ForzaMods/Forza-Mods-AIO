@@ -213,7 +213,11 @@ namespace Forza_Mods_AIO
             else
             {
                 platform = File.Exists(Path.Combine(Path.GetDirectoryName(process.MainModule!.FileName) ?? string.Empty, "OnlineFix64.dll")) ? "OnlineFix - Steam" : "Steam";
-                update = FileVersionInfo.GetVersionInfo(process.MainModule!.FileName).FileVersion;
+                try
+                {
+                    update = FileVersionInfo.GetVersionInfo(process.MainModule!.FileName).FileVersion;
+                }
+                catch { update = "Unknown"; }
             }
             gvp = new GameVerPlat(name, platform, process, update);
             
