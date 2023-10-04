@@ -498,13 +498,13 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
             byte[] CodeCave2Addr = StringToBytes(CodeCave2jmpString);
             Array.Reverse(CodeCave2Addr);
 
-            string JmpToCodeCaveCode2String = "E9" + BitConverter.ToString(CodeCave2Addr).Replace("-", String.Empty) + "90909090";
+            string JmpToCodeCaveCode2String = "E9" + BitConverter.ToString(CodeCave2Addr).Replace("-", String.Empty) + "9090";
             byte[] JmpToCodeCaveCode2 = StringToBytes(JmpToCodeCaveCode2String);
 
             byte[] JmpBackBytes2 = longToByteArray(Tuning_Addresses.TuningTableHookBase2 + 5 - (long)(TuningCodeCave2 + 17));
             Array.Reverse(JmpBackBytes2);
 
-            string InsideCaveCodeString2 = "4C892549000000498B0424488D542420E9" + BitConverter.ToString(JmpBackBytes2).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
+            string InsideCaveCodeString2 = "4C893D49000000498B07488D5577E9" + BitConverter.ToString(JmpBackBytes2).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
             byte[] InsideCaveCode2 = StringToBytes(InsideCaveCodeString2);
 
             MainWindow.mw.m.WriteBytes(CodeCave2AddrString, InsideCaveCode2);

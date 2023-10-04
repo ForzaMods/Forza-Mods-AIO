@@ -271,7 +271,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning
 
                 UpdateUi.AddProgress(ScanAmount, 1, Tuning.TBM.AOBProgressBar);
 
-                TuningTableHookBase2 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "49 8B ? E8 ? ? ? ? 84 C0 0F 85 ? ? ? ? 41 38", true, true, true)).FirstOrDefault() + 30;
+                TuningTableHookBase2 = (await MainWindow.mw.m.AoBScan(ScanStart, ScanEnd, "49 8B ? 48 8D ? ? 49 8B ? FF 90 ? ? ? ? 44 0F ? ? 41 8B", true, true, true)).FirstOrDefault();
                 var CCBA2 = CCBA;
                 var CodeCave2 = assembly.VirtualAllocEx(MainWindow.mw.gvp.Process.Handle, CCBA2, 0x256, assembly.MEM_COMMIT | assembly.MEM_RESERVE, assembly.PAGE_EXECUTE_READWRITE);
                 while (CodeCave2 == 0)

@@ -246,7 +246,7 @@ namespace Forza_Mods_AIO
             if (Tuning_Addresses.TuningTableHookBase1 is not 0 or 21)
             {
                 m.WriteBytes(Tuning_Addresses.TuningTableHookBase1.ToString("X"), new byte[] { 0x49, 0x8B, 0x06, 0x8B, 0xD6 });
-                m.WriteBytes(Tuning_Addresses.TuningTableHookBase2.ToString("X"), new byte[] { 0x49, 0x8B, 0x04, 0x24, 0x48, 0x8D, 0x54, 0x24, 0x20 });
+                m.WriteBytes(Tuning_Addresses.TuningTableHookBase2.ToString("X"), new byte[] { 0x49, 0x8B, 0x07, 0x48, 0x8D, 0x55, 0x77 });
                 m.WriteBytes(Tuning_Addresses.TuningTableHookBase3.ToString("X"), new byte[] { 0x0F, 0x28, 0xCE, 0xF3, 0x0F, 0x10, 0x10 });
                 m.WriteBytes(Tuning_Addresses.TuningTableHookBase4.ToString("X"), new byte[] { 0x48, 0x8B, 0x07, 0x48, 0x8D, 0x95, 0x60, 0x02, 0x00, 0x00 });
             }
