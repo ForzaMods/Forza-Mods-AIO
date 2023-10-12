@@ -28,7 +28,7 @@ namespace Forza_Mods_AIO.Resources
             { "TiresButton" , 240 }, // Button name for page, height of page
             { "GearingButton" , 275 },
             { "AlignmentButton" , 120 },
-            { "SpringsButton" , 275 },
+            { "SpringsButton" , 295 },
             { "DampingButton" , 350 },
             { "AeroButton", 120 },
             { "SteeringButton", 275 },
@@ -38,6 +38,7 @@ namespace Forza_Mods_AIO.Resources
             { "HandlingButton" , 464 },
             { "UnlocksButton" , 180 },
             { "CameraButton" , 285 },
+            { "StatsButton", 70 },
             { "TeleportsButton" , 70 },
             { "CustomizationButton", 70 },
             { "MiscellaneousButton", 70 }

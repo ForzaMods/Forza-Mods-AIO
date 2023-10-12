@@ -1,0 +1,69 @@
+﻿<Page x:Class="Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.StatsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d"
+      d:DesignHeight="70" 
+      d:DesignWidth="580"
+      Title="StatsPage">
+
+    <Grid>
+        <Border BorderBrush="#FF2E3440" 
+                BorderThickness="2,0,2,2"
+                CornerRadius="0,0,10,10" />
+
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Width="556" 
+                Height="46" 
+                Margin="0,10,0,0" 
+                BorderBrush="#FF2E3440" />
+
+
+        <ComboBox x:Name="StatsBox"
+                  BorderThickness="0"
+                  Background="#FF2E3440"
+                  Margin="55 20 0 0"
+                  Width="215"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Left"
+                  FontSize="11"
+                  SelectionChanged="StatsBox_OnSelectionChanged"/>
+
+        <Label Content="Stat:"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               Margin="18 20 0 0"/>
+
+        <Label Content="Stat value:"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               Margin="275.5 20 0 0"/>
+
+        <mah:NumericUpDown x:Name="StatsValue"
+                           BorderThickness="0"
+                           Background="#FF2E3440"
+                           Margin="0 20 80 0"
+                           TextAlignment="Left"
+                           HideUpDownButtons="True"
+                           Width="155"
+                           Value="0"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Right"/>
+
+        <Button x:Name="SendButton"
+                BorderThickness="0"
+                Focusable="False"
+                IsTabStop="False"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="0 20 22 0"
+                Content="Send"
+                Width="50"
+                Background="#FF2E3440"
+                Click="SendButton_OnClick"/>
+    </Grid>
+</Page>

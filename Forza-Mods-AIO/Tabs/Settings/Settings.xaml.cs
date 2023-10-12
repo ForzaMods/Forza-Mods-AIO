@@ -49,7 +49,7 @@ public partial class Settings : Page
         if (!Directory.Exists(documentsPath))
             Directory.CreateDirectory(documentsPath);
         
-        var SettingsFilePath = documentsPath + @"\Overlay_Settings.ini";
+        var SettingsFilePath = documentsPath + @"\Overlay Settings.ini";
 
         if (!File.Exists(SettingsFilePath))
             using (File.Create(SettingsFilePath)) { }

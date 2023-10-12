@@ -29,12 +29,8 @@ public partial class UnlocksPage : Page
         }
 
         ExecutingCreditsSwitch = true;
-        var Result = Forms.MessageBox.Show(
-            "Credits Editor is a WIP, it may also mess with ur level. \nDo you wanna continue?", 
-            @"Credits Editor", 
-            Forms.MessageBoxButtons.YesNo);
 
-        if (Result != Forms.DialogResult.Yes)
+        if (Forms.MessageBox.Show("Credits Editor is a WIP, it may also mess with ur level. \nDo you wanna continue?",@"Credits Editor",Forms.MessageBoxButtons.YesNo) != Forms.DialogResult.Yes)
         {
             CreditsSwitch.IsOn = false;
             return;
@@ -66,12 +62,8 @@ public partial class UnlocksPage : Page
         }
 
         ExecutingXpSwitch = true;
-        var Result = Forms.MessageBox.Show(
-            "WARNING:\nThere have been reports of bans when using XP hacks.\nUse at your own risk. \nDo you wanna continue?", 
-            @"XP", 
-            Forms.MessageBoxButtons.YesNo);
 
-        if (Result != Forms.DialogResult.Yes)
+        if (Forms.MessageBox.Show("WARNING:\nThere have been reports of bans when using XP hacks.\nUse at your own risk. \nDo you wanna continue?",@"XP",Forms.MessageBoxButtons.YesNo) != Forms.DialogResult.Yes)
         {
             XpSwitch.IsOn = false;
             return;
@@ -80,9 +72,7 @@ public partial class UnlocksPage : Page
         if (!XpSwitch.IsOn)
         {
             MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.XPaddr, new byte[] { 0xF3, 0x0F, 0x2C, 0xC6, 0x89, 0x45, 0xB8 });
-            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.XPAmountaddr, MainWindow.mw.gvp.Name == "Forza Horizon 5" 
-                    ? new byte[] { 0x8B, 0x89, 0xB8, 0x00, 0x00, 0x00 }
-                    : new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
+            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.XPAmountaddr, MainWindow.mw.gvp.Name == "Forza Horizon 5" ? new byte[] { 0x8B, 0x89, 0xB8, 0x00, 0x00, 0x00 }: new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
 
             return;
         }

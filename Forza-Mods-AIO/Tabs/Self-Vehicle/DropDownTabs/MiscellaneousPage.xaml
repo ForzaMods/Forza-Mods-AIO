@@ -17,7 +17,7 @@
         <Border BorderThickness="2,2,2,2" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Width="272.5" 
+                Width="275.5" 
                 Height="46" 
                 Margin="10,10,0,0" 
                 BorderBrush="#FF2E3440" />
@@ -25,7 +25,7 @@
         <Border BorderThickness="2,2,2,2" 
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Top" 
-                Width="272.5" 
+                Width="275.5" 
                 Height="46" 
                 Margin="0,10,10,0" 
                 BorderBrush="#FF2E3440" />
@@ -47,12 +47,12 @@
                           Content=""
                           HorizontalAlignment="Right"
                           VerticalAlignment="Top"
-                          Margin="0 17 217.5 0"
+                          Margin="0 17 218.5 0"
                           Toggled="UnbreakableSkillScoreSwitch_OnToggled"/> 
         
         <Label Content="Unbreakable Skill Score/Skill Combo"
                VerticalAlignment="Top"
                HorizontalAlignment="Left"
-               Margin="365 20 0 0"/>
+               Margin="360 20 0 0"/>
     </Grid>
 </Page>

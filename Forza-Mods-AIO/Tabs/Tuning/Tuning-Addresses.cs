@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.Self_Vehicle;
 using Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
@@ -314,7 +313,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning
             while (Value <= 95)
             {
                 Application.Current.Dispatcher.Invoke(() => Value = Tuning.TBM.AOBProgressBar.Value);
-                continue;
+                Thread.Sleep(50);
             }
             
             UpdateUi.UpdateUI(true, Tuning.TBM);

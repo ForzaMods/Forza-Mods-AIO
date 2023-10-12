@@ -44,7 +44,7 @@
                           HorizontalAlignment="Left"
                           Content=""
                           MinWidth="1"
-                          Margin="75 127.5 0 0"
+                          Margin="80 127.5 0 0"
                           Toggled="DiscoverRoadsSwitch_OnToggled"/>
         
         <Label Content="Discover All Roads"
@@ -57,13 +57,13 @@
                           HorizontalAlignment="Left"
                           Content=""
                           MinWidth="1"
-                          Margin="300 127.5 0 0"
+                          Margin="290 127.5 0 0"
                           Toggled="SmashBoardsSwitch_OnToggled"/>
         
         <Label Content="Smash All Collectable Boards"
-               HorizontalAlignment="Left"
+               HorizontalAlignment="Right"
                VerticalAlignment="Top"
-               Margin="355 130 0 0"/>
+               Margin="0 130 75 0"/>
         
         <Label Content="Unlock all:"
                HorizontalAlignment="Left"

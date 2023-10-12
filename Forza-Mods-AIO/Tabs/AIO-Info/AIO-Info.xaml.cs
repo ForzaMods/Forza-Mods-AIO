@@ -28,10 +28,7 @@ namespace Forza_Mods_AIO.Tabs.AIO_Info
         {
             if (Overlay.Overlay.o == null)
                 _ = new Overlay.Overlay();
-            if (OverlaySwitch.IsOn)
-                Overlay.Overlay.o.OverlayToggle(true);
-            else
-                Overlay.Overlay.o.OverlayToggle(false);
+            Overlay.Overlay.o.OverlayToggle(OverlaySwitch.IsOn);
         }
     }
 }

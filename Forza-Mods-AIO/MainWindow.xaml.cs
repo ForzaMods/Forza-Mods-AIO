@@ -52,14 +52,14 @@ namespace Forza_Mods_AIO
         }
 
         #region Variables
-        public static MainWindow mw = new MainWindow();
-        public Mem m = new Mem();
-        readonly List<Page> _tabs = new List<Page>() { new Tabs.AIO_Info.AIO_Info(), new Tabs.AutoShow(), new Tabs.Self_Vehicle.Self_Vehicle(), new Tabs.Tuning.Tuning(), new Tabs.Settings.Settings() };
-        public GameVerPlat gvp = new GameVerPlat(null, null, null, null);
+        public static MainWindow mw = new();
+        public Mem m = new();
+        public GameVerPlat gvp = new(null, null, null, null);
         public string PageFocused = "AIO_Info";
         public bool Attached = false;
         public LibraryMapper Mapper;
         public bool WasMapped = false;
+        IEnumerable<Visual> Visuals;
         Dictionary<string, bool> Is_Scanned = new()
         {
             { "AutoShow", false },
@@ -73,7 +73,7 @@ namespace Forza_Mods_AIO
             InitializeComponent();
             mw = this;
             Task.Run(() => IsAttached());
-            ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440"), new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")), true, false));
+            ThemeManager.Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ColorConverter.ConvertFromString("#FF2E3440")!, new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2E3440")!), true, false));
             ThemeManager.Current.ChangeTheme(Application.Current, "AccentCol");
             AIO_Info.IsChecked = true;
             Background.Background = Monet.MainColour;
@@ -96,56 +96,64 @@ namespace Forza_Mods_AIO
         {
             this.Close();
         }
+
         public void CategoryButton_Click(object sender, RoutedEventArgs e)
         {
+            string rbName = "";
+
             foreach (RadioButton rb in ButtonStack.Children)
             {
-                if (rb.IsChecked != null && (bool)rb.IsChecked)
-                {
-                    rb.Background = Monet.DarkerColour;
-                    foreach (var t in _tabs.Where(t => t.Title == rb.Name))
-                    {
-                        try
-                        {
-                            foreach (FrameworkElement Element in Window.GetChildren(true))
-                            {
-                                if (Element.Name == rb.Name + "Frame")
-                                {
-                                    PageFocused = rb.Name;
-                                    Element.Visibility = Visibility.Visible;
-
-                                    if (Is_Scanned.TryGetValue(rb.Name, out var isScanned) && !isScanned && Attached)
-                                    {
-                                        Is_Scanned[rb.Name] = true;
-                                        switch (rb.Name)
-                                        {
-                                            case "AutoShow":
-                                                Task.Run(() => new AutoshowVars().Scan());
-                                                break;
-                                            case "Self_Vehicle":
-                                                if (gvp.Name == "Forza Horizon 5")
-                                                    Task.Run(() => new Self_Vehicle_Addrs().FH5_Scan());
-                                                else
-                                                    Task.Run(() => new Self_Vehicle_Addrs().FH4_Scan());
-                                                break;
-                                            case "Tuning":
-                                                Task.Run(() => Tabs.Tuning.Tuning_Addresses.Scan());
-                                                break;
-                                        }
-                                    }
-                                }
-                                else if (Element.GetType() == typeof(Frame) && Element.GetType().GetProperty("Name").GetValue(Element).ToString().Contains("Frame"))
-                                {
-                                    Element.Visibility = Visibility.Hidden;
-                                }
-                            }
-                        }
-                        catch { }
-                    }
-                }
-                else
+                // RB Isnt the checked one
+                if (rb.IsChecked != true)
                 {
                     rb.Background = Monet.DarkishColour;
+                    continue;
+                }
+
+                // RB Is the checked one
+                rb.Background = Monet.DarkerColour;
+                rbName = rb.Name;
+            }
+
+            Visuals ??= Window.GetChildren();
+
+            foreach (var Element in Visuals.Cast<FrameworkElement>())
+            {
+                // Page is RB.name + Frame
+                if (Element.Name == rbName + "Frame")
+                {
+                    PageFocused = rbName;
+                    Element.Visibility = Visibility.Visible;
+                }
+
+                // Page is not RB.name + Frame
+                else if (Element is Frame frame && frame.Name.Contains("Frame"))
+                {
+                    Element.Visibility = Visibility.Hidden;
+                }
+
+                // Scanned is true
+                if (!(Is_Scanned.TryGetValue(rbName, out var isScanned) && !isScanned && Attached))
+                {
+                    continue;
+                }
+
+                // Scanned is not true, scan
+                Is_Scanned[rbName] = true;
+                switch (rbName)
+                {
+                    case "AutoShow":
+                        Task.Run(() => new AutoshowVars().Scan());
+                        break;
+                    case "Self_Vehicle":
+                        if (gvp.Name == "Forza Horizon 5")
+                            Task.Run(() => new Self_Vehicle_Addrs().FH5_Scan());
+                        else
+                            Task.Run(() => new Self_Vehicle_Addrs().FH4_Scan());
+                        break;
+                    case "Tuning":
+                        Task.Run(() => Tuning_Addresses.Scan());
+                        break;
                 }
             }
         }
@@ -174,18 +182,7 @@ namespace Forza_Mods_AIO
                 {
                     if (!Attached)
                         continue;
-                    Dispatcher.Invoke((Action)delegate () {
-                        AttachedLabel.Content = "Launch FH4/5";
-                        Tabs.Tuning.Tuning.TBM.AOBProgressBar.Value = 0;
-                        Tabs.Self_Vehicle.Self_Vehicle.sv.AOBProgressBar.Value = 0;
-                        Tabs.AutoShow.AS.AOBProgressBar.Value = 0;
-                        Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsEnabled = false;
-                        AIO_Info.IsChecked = true;
-                        CategoryButton_Click(new Object(), new RoutedEventArgs());
-                    });
-                    Is_Scanned["Autoshow"] = false;
-                    Is_Scanned["Self_Vehicle"] = false;
-                    Is_Scanned["Tuning"] = false;
+                    ResetAIO();
                     Attached = false;
                 }
             }
@@ -193,9 +190,8 @@ namespace Forza_Mods_AIO
 
         private void GvpMaker(int ver)
         {
-            string platform, update = "Unknown";
+            string platform, update = "Unknown", name = $"Forza Horizon {ver}";
             var process = m.mProc.Process;
-            var name = "Forza Horizon " + ver;
             
             if (process.MainModule!.FileName.Contains("Microsoft.624F8B84B80") || process.MainModule!.FileName.Contains("Microsoft.SunriseBaseGame"))
             {
@@ -226,6 +222,22 @@ namespace Forza_Mods_AIO
                 AttachedLabel.Content = $"{gvp.Name}, {gvp.Plat}, {gvp.Update}";
                 Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsEnabled = true;
             });
+        }
+
+        private void ResetAIO()
+        {
+            Dispatcher.Invoke(delegate {
+                AttachedLabel.Content = "Launch FH4/5";
+                Tabs.Tuning.Tuning.TBM.AOBProgressBar.Value = 0;
+                Tabs.Self_Vehicle.Self_Vehicle.sv.AOBProgressBar.Value = 0;
+                Tabs.AutoShow.AS.AOBProgressBar.Value = 0;
+                Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsEnabled = false;
+                AIO_Info.IsChecked = true;
+                CategoryButton_Click(new object(), new RoutedEventArgs());
+            });
+            Is_Scanned["Autoshow"] = false;
+            Is_Scanned["Self_Vehicle"] = false;
+            Is_Scanned["Tuning"] = false;
         }
         #endregion
         #region Exit Handling

@@ -32,14 +32,14 @@ public partial class MiscellaneousPage
         
         if (!UnbreakableSkillScoreSwitch.IsOn)
         {
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.UnbSkillAddr, "float", 12.ToString(CultureInfo.InvariantCulture));
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 4).ToString("X"), "float", 12.ToString(CultureInfo.InvariantCulture));
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 8).ToString("X"), "float", 22.ToString(CultureInfo.InvariantCulture));
+            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.UnbSkillAddr, "float", "12");
+            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 4).ToString("X"), "float", "12");
+            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 8).ToString("X"), "float", "22");
             return;
         }
         
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.UnbSkillAddr, "float", 9999999999.ToString());
-        MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 4).ToString("X"), "float", 9999999999.ToString());
-        MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 8).ToString("X"), "float", 9999999999.ToString());
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.UnbSkillAddr, "float", "9999999999");
+        MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 4).ToString("X"), "float", "9999999999");
+        MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 8).ToString("X"), "float", "9999999999");
     }
 }

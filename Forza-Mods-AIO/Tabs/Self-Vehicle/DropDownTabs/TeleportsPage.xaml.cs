@@ -1,4 +1,7 @@
 ﻿using System.Globalization;
+using System.Runtime.InteropServices.Marshalling;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,11 +23,12 @@ public partial class TeleportsPage : Page
         if (TeleportBox.SelectedItem == null)
             return;
 
+        if (!TeleportBox.Items.Contains("Undo Teleport"))
+            TeleportBox.Items.Insert(0, "Undo Teleport");
+
         float x = 0, y = 0, z = 0;
         
-        var selectedItem = TeleportBox.SelectedItem.ToString();
-        
-        switch (selectedItem)
+        switch (TeleportBox.SelectedItem)
         {
             #region FH4
 
@@ -179,34 +183,60 @@ public partial class TeleportsPage : Page
             case "Undo Teleport":
                 if (OldX == 0 && OldZ == 0 && OldY == 0)
                     return;
-                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, "float", OldX.ToString(CultureInfo.InvariantCulture));
-                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, "float", OldY.ToString(CultureInfo.InvariantCulture));
-                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, "float", OldZ.ToString(CultureInfo.InvariantCulture));
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, "float", OldX.ToString());
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, "float", OldY.ToString());
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, "float", OldZ.ToString());
                 return;
         }
 
+        OldX = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.xAddr);
+        OldY = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.yAddr);
+        OldZ = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.zAddr);
         
-        // TODO: Fix this part of the code down
-        try
-        {
-            OldX = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.xAddr);
-            OldY = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.yAddr);
-            OldZ = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.zAddr);
-        }
-        catch { }
-        
-        
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, "float", x.ToString(CultureInfo.InvariantCulture));
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, "float", y.ToString(CultureInfo.InvariantCulture));
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, "float", z.ToString(CultureInfo.InvariantCulture));
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, "float", x.ToString());
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, "float", y.ToString());
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, "float", z.ToString());
     }
 
     private void AutoTpToWaypoint_Toggled(object sender, RoutedEventArgs e)
     {
-        if (!AutoTpToWaypoint.IsOn)
+        float LastWP_X = 0, LastWP_Y = 0, LastWP_Z = 0;
+
+        assembly.GetWayPointXAddr(Self_Vehicle_Addrs.CodeCave4);
+
+        Task.Run(() =>
         {
-            
-            return;
-        }
+            while (true)
+            {
+                bool Toggled = true;
+                Dispatcher.Invoke(() => Toggled = AutoTpToWaypoint.IsOn);
+
+                if (!Toggled)
+                    break;
+
+                float NewWP_X = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.WayPointxAddr, round: false);
+                float NewWP_Y = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.WayPointyAddr, round: false);
+                float NewWP_Z = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.WayPointzAddr, round: false);
+
+                if ((LastWP_X != NewWP_X || LastWP_Y != NewWP_Y || LastWP_Z != NewWP_Z) && (NewWP_X != 0 && NewWP_Y != 0 && NewWP_Z != 0
+                && NewWP_X < 10000 && NewWP_X > -10000
+                && NewWP_Y < 3000 && NewWP_Y > -100
+                && NewWP_Z < 10000 && NewWP_Z > -10000))
+                {
+                    try
+                    {
+                        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, "float", NewWP_X.ToString());
+                        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, "float", (NewWP_Y + 3).ToString());
+                        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, "float", NewWP_Z.ToString());
+                        LastWP_X = NewWP_X;
+                        LastWP_Y = NewWP_Y;
+                        LastWP_Z = NewWP_Z;
+                    }
+                    catch{ }
+                }
+
+                Thread.Sleep(50);
+            }
+        });
     }
 }
