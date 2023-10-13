@@ -143,7 +143,7 @@ namespace Forza_Mods_AIO
                 switch (rbName)
                 {
                     case "AutoShow":
-                        Task.Run(() => new AutoshowVars().Scan());
+                        Task.Run(() => AutoshowVars.Scan());
                         break;
                     case "Self_Vehicle":
                         if (gvp.Name == "Forza Horizon 5")
@@ -191,7 +191,7 @@ namespace Forza_Mods_AIO
         private void GvpMaker(int ver)
         {
             string platform, update = "Unknown", name = $"Forza Horizon {ver}";
-            var process = m.mProc.Process;
+            var process = m.MProc.Process;
             
             if (process.MainModule!.FileName.Contains("Microsoft.624F8B84B80") || process.MainModule!.FileName.Contains("Microsoft.SunriseBaseGame"))
             {
@@ -252,18 +252,24 @@ namespace Forza_Mods_AIO
             if (WasMapped)
                 Mapper.UnmapLibrary();
 
-            if (Self_Vehicle_Addrs.BaseAddrHook != null && Self_Vehicle_Addrs.BaseAddrHook != "0" && Self_Vehicle_Addrs.BaseAddrHookLong != -279 && assembly.OriginalBaseAddressHookBytes != null)
-                m.WriteBytes(Self_Vehicle_Addrs.BaseAddrHook, assembly.OriginalBaseAddressHookBytes);
-
-            if (Tuning_Addresses.TuningTableHookBase1 is not 0 or 21)
+            if (Self_Vehicle_Addrs.BaseAddrHook != null && Self_Vehicle_Addrs.BaseAddrHook != "0" && Self_Vehicle_Addrs.BaseAddrHookLong != -279 && ASM.OriginalBaseAddressHookBytes != null)
+                m.WriteArrayMemory(Self_Vehicle_Addrs.BaseAddrHook, ASM.OriginalBaseAddressHookBytes);
+            
+            try
             {
-                m.WriteBytes(Tuning_Addresses.TuningTableHookBase1.ToString("X"), new byte[] { 0x49, 0x8B, 0x06, 0x8B, 0xD6 });
-                m.WriteBytes(Tuning_Addresses.TuningTableHookBase2.ToString("X"), new byte[] { 0x49, 0x8B, 0x07, 0x48, 0x8D, 0x55, 0x77 });
-                m.WriteBytes(Tuning_Addresses.TuningTableHookBase3.ToString("X"), new byte[] { 0x0F, 0x28, 0xCE, 0xF3, 0x0F, 0x10, 0x10 });
-                m.WriteBytes(Tuning_Addresses.TuningTableHookBase4.ToString("X"), new byte[] { 0x48, 0x8B, 0x07, 0x48, 0x8D, 0x95, 0x60, 0x02, 0x00, 0x00 });
+                    
+                m.WriteArrayMemory(Tuning_Addresses.TuningTableHook1, new byte[] { 0x49, 0x8B, 0x06, 0x8B, 0xD6 });
+                m.WriteArrayMemory(Tuning_Addresses.TuningTableHook2, new byte[] { 0x49, 0x8B, 0x07, 0x48, 0x8D, 0x55, 0x77 });
+                m.WriteArrayMemory(Tuning_Addresses.TuningTableHook3, new byte[] { 0x0F, 0x28, 0xCE, 0xF3, 0x0F, 0x10, 0x10 });
+                m.WriteArrayMemory(Tuning_Addresses.TuningTableHook4, new byte[] { 0x48, 0x8B, 0x07, 0x48, 0x8D, 0x95, 0x60, 0x02, 0x00, 0x00 });
+                    
             }
-
+            catch {}
+            
             AutoshowVars.ResetMem();
+            
+            ASM.FreeMem();
+            
             Environment.Exit(0);
         }
         #endregion

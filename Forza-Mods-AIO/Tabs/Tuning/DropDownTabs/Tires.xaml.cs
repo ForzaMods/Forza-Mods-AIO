@@ -21,7 +21,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
             t = this;
         }
 
-        public void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
         {
             try
             {
@@ -31,9 +31,9 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
                         foreach (FrameworkElement Element in t.GetChildren())
                             if (Element.GetType() == typeof(ComboBox) && Element.Name == ((NumericUpDown)sender).Name.Replace("Box", "_Psi_Bar_Box"))
                                 if (((ComboBox)Element).SelectedIndex is 0 or -1)
-                                    MainWindow.mw.m.WriteMemory(Address.GetValue(null) as string, "float", ((NumericUpDown)sender).Value.ToString());
+                                    MainWindow.mw.m.WriteMemory(Address.GetValue(null) as string, (float)((MahApps.Metro.Controls.NumericUpDown)sender).Value);
                                 else if (((ComboBox)Element).SelectedIndex is 1)
-                                    MainWindow.mw.m.WriteMemory(Address.GetValue(null) as string, "float", (((NumericUpDown)sender).Value * 14.5).ToString());
+                                    MainWindow.mw.m.WriteMemory(Address.GetValue(null) as string, (float)(((NumericUpDown)sender).Value * 14.5));
             }
             catch { }
         }

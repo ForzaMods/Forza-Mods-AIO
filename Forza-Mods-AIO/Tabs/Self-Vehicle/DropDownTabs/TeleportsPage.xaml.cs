@@ -1,16 +1,14 @@
-﻿using System.Globalization;
-using System.Runtime.InteropServices.Marshalling;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
-public partial class TeleportsPage : Page
+public partial class TeleportsPage
 {
     public static TeleportsPage t;
-    public float OldX, OldY, OldZ;
+    private float OldX, OldY, OldZ;
     
     public TeleportsPage()
     {
@@ -183,26 +181,26 @@ public partial class TeleportsPage : Page
             case "Undo Teleport":
                 if (OldX == 0 && OldZ == 0 && OldY == 0)
                     return;
-                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, "float", OldX.ToString());
-                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, "float", OldY.ToString());
-                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, "float", OldZ.ToString());
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, OldX);
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, OldY);
+                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, OldZ);
                 return;
         }
 
-        OldX = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.xAddr);
-        OldY = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.yAddr);
-        OldZ = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.zAddr);
+        OldX = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.xAddr);
+        OldY = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.yAddr);
+        OldZ = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.zAddr);
         
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, "float", x.ToString());
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, "float", y.ToString());
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, "float", z.ToString());
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, x);
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, y);
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, z);
     }
 
     private void AutoTpToWaypoint_Toggled(object sender, RoutedEventArgs e)
     {
         float LastWP_X = 0, LastWP_Y = 0, LastWP_Z = 0;
 
-        assembly.GetWayPointXAddr(Self_Vehicle_Addrs.CodeCave4);
+        ASM.GetWayPointXAddr();
 
         Task.Run(() =>
         {
@@ -214,20 +212,21 @@ public partial class TeleportsPage : Page
                 if (!Toggled)
                     break;
 
-                float NewWP_X = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.WayPointxAddr, round: false);
-                float NewWP_Y = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.WayPointyAddr, round: false);
-                float NewWP_Z = MainWindow.mw.m.ReadFloat(Self_Vehicle_Addrs.WayPointzAddr, round: false);
+                float NewWP_X = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointxAddr);
+                float NewWP_Y = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointyAddr);
+                float NewWP_Z = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointzAddr);
 
-                if ((LastWP_X != NewWP_X || LastWP_Y != NewWP_Y || LastWP_Z != NewWP_Z) && (NewWP_X != 0 && NewWP_Y != 0 && NewWP_Z != 0
-                && NewWP_X < 10000 && NewWP_X > -10000
-                && NewWP_Y < 3000 && NewWP_Y > -100
-                && NewWP_Z < 10000 && NewWP_Z > -10000))
+                if ((LastWP_X != NewWP_X || LastWP_Y != NewWP_Y || LastWP_Z != NewWP_Z) 
+                    && NewWP_X != 0 && NewWP_Y != 0 && NewWP_Z != 0
+                    && NewWP_X is < 10000 and > -10000
+                    && NewWP_Y is < 3000 and > -100
+                    && NewWP_Z is < 10000 and > -10000)
                 {
                     try
                     {
-                        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, "float", NewWP_X.ToString());
-                        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, "float", (NewWP_Y + 3).ToString());
-                        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, "float", NewWP_Z.ToString());
+                        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, NewWP_X);
+                        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, (NewWP_Y + 3));
+                        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, NewWP_Z);
                         LastWP_X = NewWP_X;
                         LastWP_Y = NewWP_Y;
                         LastWP_Z = NewWP_Z;

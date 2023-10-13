@@ -38,16 +38,16 @@ public partial class UnlocksPage : Page
 
         if (!CreditsSwitch.IsOn)
         {
-            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.CreditsHookAddr, new byte [] { 0x89, 0x84, 0x24, 0x80, 0x00, 0x00, 0x00 });
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.CreditsHookAddr, new byte [] { 0x89, 0x84, 0x24, 0x80, 0x00, 0x00, 0x00 });
             return;
         }
 
-        assembly.Credits(Self_Vehicle_Addrs.CodeCave13);
+        ASM.Credits();
     }
     
     private void CreditsNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave13 + 0x35).ToString("X"), "int", CreditsNum.Value.ToString());
+        try { MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave13 + 0x35).ToString("X"), (int)CreditsNum.Value);} catch {}
     }
     
     // Preventing the messagebox showing twice
@@ -71,13 +71,13 @@ public partial class UnlocksPage : Page
         
         if (!XpSwitch.IsOn)
         {
-            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.XPaddr, new byte[] { 0xF3, 0x0F, 0x2C, 0xC6, 0x89, 0x45, 0xB8 });
-            MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.XPAmountaddr, MainWindow.mw.gvp.Name == "Forza Horizon 5" ? new byte[] { 0x8B, 0x89, 0xB8, 0x00, 0x00, 0x00 }: new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.XPaddr, new byte[] { 0xF3, 0x0F, 0x2C, 0xC6, 0x89, 0x45, 0xB8 });
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.XPAmountaddr, MainWindow.mw.gvp.Name == "Forza Horizon 5" ? new byte[] { 0x8B, 0x89, 0xB8, 0x00, 0x00, 0x00 }: new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
 
             return;
         }
         
-        assembly.StartXPtool(Self_Vehicle_Addrs.CodeCave3);
+        ASM.StartXPtool(Self_Vehicle_Addrs.CodeCave3);
     }
 
     private void HornUnlockerSwitch_OnToggled(object sender, RoutedEventArgs e)

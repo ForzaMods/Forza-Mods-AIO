@@ -23,11 +23,11 @@ public partial class CustomizationPage : Page
         if (((ToggleSwitch)sender).IsOn)
         {
             GlowingPaintNum_ValueChanged(new object(), new RoutedPropertyChangedEventArgs<double?>(GlowingPaintNum.Value, GlowingPaintNum.Value));
-            assembly.GlowingPaint(Self_Vehicle_Addrs.CodeCave9);
+            ASM.GlowingPaint();
             return;
         }
 
-        MainWindow.mw.m.WriteBytes(Self_Vehicle_Addrs.GlowingPaintAddr, 
+        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.GlowingPaintAddr, 
             MainWindow.mw.gvp.Name == "Forza Horizon 4" ? new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 } : new byte[] { 0x0F, 0x11, 0x0A, 0xC6, 0x42, 0xF0, 0x01 });
     }
 
@@ -40,9 +40,9 @@ public partial class CustomizationPage : Page
         {
             GlowingPaintSlider.Value = Convert.ToDouble(GlowingPaintNum.Value);
 
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave9 + 0x50).ToString("X"), "Float", GlowingPaintNum.Value.ToString());
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave9 + 0x54).ToString("X"), "Float", GlowingPaintNum.Value.ToString());
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave9 + 0x58).ToString("X"), "Float", GlowingPaintNum.Value.ToString());
+            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave9 + 0x50).ToString("X"), (float)GlowingPaintNum.Value);
+            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave9 + 0x54).ToString("X"), (float)GlowingPaintNum.Value);
+            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave9 + 0x58).ToString("X"), (float)GlowingPaintNum.Value);
         }
 
         catch

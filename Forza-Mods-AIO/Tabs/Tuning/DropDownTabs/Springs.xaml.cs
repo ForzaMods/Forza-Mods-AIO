@@ -24,7 +24,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
                 // Got this looping method from here and slightly modified it: https://stackoverflow.com/a/51424624
                 foreach (FieldInfo Address in typeof(Tuning_Addresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(field => field.FieldType == typeof(string)))
                     if (Address.Name == sender.GetType().GetProperty("Name").GetValue(sender).ToString().Remove(sender.GetType().GetProperty("Name").GetValue(sender).ToString().Length - 3))
-                        MainWindow.mw.m.WriteMemory(Address.GetValue(null) as string, "float", ((MahApps.Metro.Controls.NumericUpDown)sender).Value.ToString());
+                        MainWindow.mw.m.WriteMemory(Address.GetValue(null) as string, (float)((MahApps.Metro.Controls.NumericUpDown)sender).Value);
             }
             catch { }
         }
@@ -33,12 +33,12 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
         {
             if (FrontRestriction.IsOn)
             {
-                FrontPreviousRestrictionValue = MainWindow.mw.m.ReadFloat(Tuning_Addresses.FrontRestriction);
-                try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontRestriction, "float", 0.01.ToString()); } catch { }
+                FrontPreviousRestrictionValue = MainWindow.mw.m.ReadMemory<float>(Tuning_Addresses.FrontRestriction);
+                try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontRestriction, (float)0.01); } catch { }
             }
             else if (!FrontRestriction.IsOn)
             {
-                try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontRestriction, "float", FrontPreviousRestrictionValue.ToString()); } catch { }
+                try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontRestriction, FrontPreviousRestrictionValue); } catch { }
             }
         }
 
@@ -46,12 +46,12 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
         {
             if (RearRestriction.IsOn)
             {
-                RearPreviousRestrictionValue = MainWindow.mw.m.ReadFloat(Tuning_Addresses.RearRestriction);
-                try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearRestriction, "float", 0.01.ToString()); } catch { }
+                RearPreviousRestrictionValue = MainWindow.mw.m.ReadMemory<float>(Tuning_Addresses.RearRestriction);
+                try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearRestriction, (float)0.01); } catch { }
             }
             else if (!RearRestriction.IsOn)
             {
-                try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearRestriction, "float", RearPreviousRestrictionValue.ToString()); } catch { }
+                try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearRestriction, RearPreviousRestrictionValue); } catch { }
             }
         }
     }
