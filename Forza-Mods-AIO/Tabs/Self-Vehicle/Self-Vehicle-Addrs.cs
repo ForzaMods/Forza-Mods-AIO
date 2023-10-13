@@ -398,6 +398,7 @@ internal class Self_Vehicle_Addrs
         CameraBaseAob = "27 01 00 00 70";
         CameraShutterSpeedAob = "f0 75 ? 95 f6 7f ? 00 fe";
         GlowingPaintSig = "41 0f 11 4a ? 41 c6 02";
+        RGBAob = "81 80 80 3B 81 80 80 3B 81 80 80 3B 81 80 80 3B";
     }
 
     private static void AobsSteam()
@@ -451,7 +452,7 @@ internal class Self_Vehicle_Addrs
         int ScanIndex = 0;
 
         AobsFive();
-        ScanAmount = 39;
+        ScanAmount = 25;
 
         Thread HigherPriorityScans = new Thread(() =>
         {
@@ -632,7 +633,7 @@ internal class Self_Vehicle_Addrs
     #region FH4 Scan
     public Task FH4_Scan()
     {
-        ScanAmount = 32;
+        ScanAmount = 24;
         
         Aobs();
         
@@ -653,8 +654,6 @@ internal class Self_Vehicle_Addrs
                 Base3Addr = Base3AddrLong.ToString("X");
                 Base4AddrLong = BaseAddrLong - 58296;
                 Base4Addr = Base4AddrLong.ToString("X");
-                WorldRGBAddrLong = BaseAddrLong - 422832;
-                WorldRGBAddr = WorldRGBAddrLong.ToString("X");
             }
             /*else
             {
@@ -668,6 +667,11 @@ internal class Self_Vehicle_Addrs
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
+            WorldRGBAddrLong = (long)MainWindow.mw.m.ScanForSig(RGBAob).LastOrDefault();
+            WorldRGBAddr = WorldRGBAddrLong.ToString("X");
+            ScanIndex++;
+            UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+            
             CreditsHookAddrLong = (long)MainWindow.mw.m.ScanForSig(CreditsASMAob, 1).FirstOrDefault();
             CreditsHookAddr = CreditsHookAddrLong.ToString("X");
             ScanIndex++;

@@ -1,0 +1,204 @@
+<Page x:Class="Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.EnvironmentPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mah='http://metro.mahapps.com/winfx/xaml/controls'
+      mc:Ignorable="d"
+      Title="EnvironmentPage" 
+      Height="235" 
+      Width="580"
+      Background="Transparent">
+    <Grid>
+        <Border BorderBrush="#FF2E3440" 
+                BorderThickness="2,0,2,2" 
+                CornerRadius="0,0,10,10" />
+
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top"
+                Width="556" 
+                Height="46"
+                Margin="0,10,0,0" 
+                BorderBrush="#FF2E3440" />
+        
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top"
+                Width="556" 
+                Height="46"
+                Margin="0,66,0,0" 
+                BorderBrush="#FF2E3440" />
+
+        <Border BorderThickness="2,2,2,2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Width="556"
+                Height="46"
+                Margin="0,120,0,0"
+                BorderBrush="#FF2E3440" />
+        
+        <Border BorderThickness="2,2,2,2"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="152.5"
+                Height="46"
+                Margin="12,176,0,0"
+                BorderBrush="#FF2E3440" />
+
+        <Border BorderThickness="2,2,2,2"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="142.5"
+                Height="46"
+                Margin="172.5,176,0,0"
+                BorderBrush="#FF2E3440" />
+        
+        <Border BorderThickness="2,2,2,2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Width="245"
+                Height="46"
+                Margin="0,176,12,0"
+                BorderBrush="#FF2E3440" />
+        
+        <Label Content="Sun Red" 
+               HorizontalAlignment="Right"
+               Margin="0,20,20,0"
+               VerticalAlignment="Top" 
+               Height="26" 
+               Width="70"/>
+        
+        <Slider x:Name="SunRedSlider"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="390"
+                Minimum="0"
+                Maximum="1E+10"        
+                Value = "3.92157E+09"
+                Foreground="#FF2E3440" 
+                BorderBrush="{x:Null}"
+                Focusable="False"
+                Margin="25,20,0,0"
+                Height="26" 
+                TickPlacement="None"
+                ValueChanged="SunRGBSlider_OnValueChanged"/>
+        
+        <Label Content="Sun Green" 
+               HorizontalAlignment="Right"
+               Margin="0,76,20,0"
+               VerticalAlignment="Top" 
+               Height="26" 
+               Width="70"/>
+        
+        <Slider x:Name="SunGreenSlider"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="390"
+                Minimum="0"
+                Maximum="1E+10"                
+                Value = "3.92157E+09"
+                Foreground="#FF2E3440" 
+                BorderBrush="{x:Null}"
+                Focusable="False"
+                Margin="25,76,0,0"
+                Height="26" 
+                TickPlacement="None"
+                ValueChanged="SunRGBSlider_OnValueChanged"/>
+        
+        <Label Content="Sun Blue" 
+               HorizontalAlignment="Right"
+               Margin="0,130,20,0"
+               VerticalAlignment="Top" 
+               Height="26" 
+               Width="70"/>
+        
+        <Slider x:Name="SunBlueSlider"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="390"
+                Minimum="0"
+                Maximum="1E+10"
+                Value = "3.92157E+09"
+                Foreground="#FF2E3440" 
+                BorderBrush="{x:Null}"
+                Focusable="False"
+                Margin="25,130,0,0"
+                Height="26" 
+                TickPlacement="None"
+                ValueChanged="SunRGBSlider_OnValueChanged"/>
+        
+        <Button x:Name="RedResetButton"
+                BorderBrush="#FF2E3440"
+                Background="#FF2E3440"
+                Content="Reset"
+                Focusable="False"
+                IsTabStop="False"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="0 20 105 0"
+                Click="ResetButton_OnClick"/>
+
+        <Button x:Name="GreenResetButton"
+                BorderBrush="#FF2E3440"
+                Background="#FF2E3440"
+                Content="Reset"
+                Focusable="False"
+                IsTabStop="False"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="0 76 105 0"
+                Click="ResetButton_OnClick" />
+
+        <Button x:Name="BlueResetButton"
+                BorderBrush="#FF2E3440"
+                Background="#FF2E3440"
+                Content="Reset"
+                Focusable="False"
+                IsTabStop="False"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="0 130 105 0"
+                Click="ResetButton_OnClick" />
+        
+        <mah:ToggleSwitch Content=""
+                          x:Name="TimeSwitch"
+                          MinWidth="0"
+                          VerticalAlignment="Bottom"
+                          HorizontalAlignment="Left"
+                          Margin="25 0 0 20"
+                          Toggled="SwitchToggled" />
+
+        <Label Content="Manual Time"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Left"
+               Margin="75 0 0 23"
+               ToolTip="Numpad 4 OR left shift + comma to go backward&amp;#xa;Numpad 6 OR left shift + comma to go forward&#xa;Holding CTRL makes it go faster"/>
+
+        <mah:ToggleSwitch Content=""
+                          x:Name="AidsSwitch"
+                          MinWidth="0"
+                          VerticalAlignment="Bottom"
+                          HorizontalAlignment="Left"
+                          Margin="185 0 0 20"
+                          Toggled="SwitchToggled" />
+
+        <Label Content="Aids Mode"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Left"
+               Margin="237.5 0 0 23" />
+
+        <mah:ToggleSwitch Content=""
+                          x:Name="OOBSwitch"
+                          MinWidth="0"
+                          VerticalAlignment="Bottom"
+                          HorizontalAlignment="Right"
+                          Margin="0 0 190 20" 
+                          Toggled="SwitchToggled"/>
+
+        <Label Content="Bypass Out-Of-Bounds Teleport"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Right"
+               Margin="0 0 20 23" />
+    </Grid>
+</Page>

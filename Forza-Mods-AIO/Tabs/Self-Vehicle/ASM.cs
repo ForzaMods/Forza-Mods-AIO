@@ -46,20 +46,6 @@ internal abstract class ASM
         }
     }
 
-    static byte[] longToByteArray(long data)
-    {
-        return new byte[] {
-            (byte)((data >> 56) & 0xff),
-            (byte)((data >> 48) & 0xff),
-            (byte)((data >> 40) & 0xff),
-            (byte)((data >> 32) & 0xff),
-            (byte)((data >> 24) & 0xff),
-            (byte)((data >> 16) & 0xff),
-            (byte)((data >> 8 ) & 0xff),
-            (byte)((data >> 0) & 0xff),
-            };
-    }
-
     private static readonly Dictionary<char, byte> Hexmap = new()
     {
         { 'a', 0xA },{ 'b', 0xB },{ 'c', 0xC },{ 'd', 0xD },
@@ -243,59 +229,24 @@ internal abstract class ASM
         MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.WayPointxASMAddr, MainWindow.mw.gvp.Name == "Forza Horizon 5" ? new byte[] { 0x0F, 0x10, 0x97, 0x50, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x10, 0xA0, 0x90, 0x03, 0x00, 0x00 });
     }
 
-    public static void GetTimeAddr(IntPtr CodeCave2)
+    public static void GetTimeAddr()
     {
-        string CodeCaveAddrString = ((long)CodeCave2).ToString("X");
-        string CodeCavejmpString = ((long)CodeCave2 - (Self_Vehicle_Addrs.TimeNOPAddrLong + 5)).ToString("X");
-        if (CodeCavejmpString.Length % 2 != 0)
-            CodeCavejmpString = "0" + CodeCavejmpString;
-        byte[] CodeCaveAddr = StringToBytes(CodeCavejmpString);
-        Array.Reverse(CodeCaveAddr);
-
-        string JmpToCodeCaveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "9090";
-        byte[] JmpToCodeCaveCode = StringToBytes(JmpToCodeCaveCodeString);
-
-        byte[] TimeJumpBefore = new byte[9] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x83, 0xC4, 0x40 }; // bytes at the time adding code
-
-        byte[] jmpBackBytes = longToByteArray(Self_Vehicle_Addrs.TimeNOPAddrLong + 6 - (long)(CodeCave2 + 19)); ;
-        Array.Reverse(jmpBackBytes);
-        string InsideCaveCodeString = "48891D21000000F20F1143084883C440E9" + BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty).Replace("FFFFFFFF", String.Empty);
-        byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
-
-        MainWindow.mw.m.WriteArrayMemory(CodeCaveAddrString, InsideCaveCode);
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.TimeNOPAddr, JmpToCodeCaveCode);
-        Thread.Sleep(25);
-        Self_Vehicle_Addrs.TimeAddr = (MainWindow.mw.m.ReadMemory<long>(((long)CodeCave2 + 40).ToString("X")) + 8).ToString("X");
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.TimeNOPAddr, TimeJumpBefore);
+        Self_Vehicle_Addrs.CodeCave2 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.TimeNOPAddr, StringToBytes("48891D21000000F20F1143084883C440"), 9, size: 0x256);
+        Thread.Sleep(500);
+        Self_Vehicle_Addrs.TimeAddr = (MainWindow.mw.m.ReadMemory<long>(((long)Self_Vehicle_Addrs.CodeCave2 + 40).ToString("X")) + 8).ToString("X");
+        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.TimeNOPAddr, new byte[] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x83, 0xC4, 0x40 });
     }
 
-    public static void StartXPtool(IntPtr CodeCave3)
+    public static void StartXPtool()
     {
-        byte[] OnePoint = { 0xB9, 0x01, 0x00, 0x00, 0x00, 0x90 };
-        string CodeCaveAddrString = ((long)CodeCave3).ToString("X");
-        string CodeCavejmpString = ((long)CodeCave3 - (Self_Vehicle_Addrs.XPaddrLong + 5)).ToString("X");
-        if (CodeCavejmpString.Length % 2 != 0)
-            CodeCavejmpString = "0" + CodeCavejmpString;
-        byte[] CodeCaveAddr = StringToBytes(CodeCavejmpString);
-        Array.Reverse(CodeCaveAddr);
-
-        string XPGiveCodeString = "E9" + BitConverter.ToString(CodeCaveAddr).Replace("-", String.Empty) + "9090";
-        byte[] XPGiveCode = StringToBytes(XPGiveCodeString);
-
-        string XPAmountHex = Convert.ToInt64(UnlocksPage.Up.XpNum.Value).ToString("X8");
-        byte[] XPAmountArray = StringToBytes(XPAmountHex);
-        Array.Reverse(XPAmountArray);
-
-        byte[] jmpBackBytes = longToByteArray(Self_Vehicle_Addrs.XPaddrLong + 7 - (long)(CodeCave3 + 16));
-        Array.Reverse(jmpBackBytes);
-        string InsideCaveCodeString = "F30F2CC6C745B8" + BitConverter.ToString(XPAmountArray).Replace("-", String.Empty) + "E9" + (BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty)).Replace("FFFFFFFF", String.Empty);
+        string InsideCaveCodeString = "F30F2CC6C745B8" + Convert.ToInt64(UnlocksPage.Up.XpNum.Value).ToString("X8");
+        
         if (MainWindow.mw.gvp.Plat == "Forza Horizon 5")
-            InsideCaveCodeString = "F30F2CC6C745B0" + BitConverter.ToString(XPAmountArray).Replace("-", String.Empty) + "E9" + (BitConverter.ToString(jmpBackBytes).Replace("-", String.Empty)).Replace("FFFFFFFF", String.Empty);
+            InsideCaveCodeString = "F30F2CC6C745B0" + Convert.ToInt64(UnlocksPage.Up.XpNum.Value).ToString("X8");
+        
         byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
-
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.XPAmountaddr, OnePoint);
-        MainWindow.mw.m.WriteArrayMemory(CodeCaveAddrString, InsideCaveCode);
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.XPaddr, XPGiveCode);
+        Self_Vehicle_Addrs.CodeCave3 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.XPaddr, InsideCaveCode, 7, size: 0x256);
+        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.XPaddr, new byte[] { 0xB9, 0x01, 0x00, 0x00, 0x00, 0x90 });
     }
 
     public static void GlowingPaint()

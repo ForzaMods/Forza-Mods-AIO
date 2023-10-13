@@ -40,6 +40,7 @@ namespace Forza_Mods_AIO.Resources
             { "CameraButton" , 285 },
             { "StatsButton", 70 },
             { "TeleportsButton" , 70 },
+            { "EnvironmentButton", 235 },
             { "CustomizationButton", 70 },
             { "MiscellaneousButton", 70 }
         };

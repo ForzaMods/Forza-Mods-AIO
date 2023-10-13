@@ -77,7 +77,7 @@ public partial class UnlocksPage : Page
             return;
         }
         
-        ASM.StartXPtool(Self_Vehicle_Addrs.CodeCave3);
+        ASM.StartXPtool();
     }
 
     private void HornUnlockerSwitch_OnToggled(object sender, RoutedEventArgs e)
