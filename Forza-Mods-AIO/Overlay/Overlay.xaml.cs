@@ -127,6 +127,7 @@ namespace Forza_Mods_AIO.Overlay
                     { "HandlingOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.HandlingOptions},
                         { "VelocityOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.VelocityOptions},
                         { "ModifiersOptions" , ModifiersMenu.ModifiersOptions},
+                        { "WheelSpeedOptions", SelfCarMenu.HandlingMenu.HandlingMenu.WheelSpeedOptions },
                     { "UnlocksOptions" , UnlocksOptions},
                     { "CameraOptions" , CameraOptions},
                 { "TuningOptions" , Tuning.Tuning.TuningOptions },

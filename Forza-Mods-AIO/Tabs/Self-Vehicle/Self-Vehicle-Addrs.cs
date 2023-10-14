@@ -399,6 +399,7 @@ internal class Self_Vehicle_Addrs
         CameraShutterSpeedAob = "f0 75 ? 95 f6 7f ? 00 fe";
         GlowingPaintSig = "41 0f 11 4a ? 41 c6 02";
         RGBAob = "81 80 80 3B 81 80 80 3B 81 80 80 3B 81 80 80 3B";
+        BaseAddrHookAob = "0F 87 ? ? ? ? 4C 8B ? 0F 29";
     }
 
     private static void AobsSteam()
@@ -636,9 +637,6 @@ internal class Self_Vehicle_Addrs
         ScanAmount = 24;
         
         Aobs();
-        
-        if (MainWindow.mw.gvp.Plat.Contains("Steam"))
-            AobsSteam();
 
         int ScanIndex = 0;
         
@@ -661,7 +659,7 @@ internal class Self_Vehicle_Addrs
                 BaseAddr = BaseAddrLong.ToString("X");
             }*/
             
-            BaseAddrHookLong = (long)MainWindow.mw.m.ScanForSig("0F 87 ? ? ? ? 4C 8B ? 0F 29", 1).FirstOrDefault() + 137;
+            BaseAddrHookLong = (long)MainWindow.mw.m.ScanForSig(BaseAddrHookAob, 1).FirstOrDefault() + 137;
             BaseAddrHook = BaseAddrHookLong.ToString("X");
             Task.Run(() => ASM.GetBaseAddress());
             ScanIndex++;

@@ -172,7 +172,7 @@ namespace Forza_Mods_AIO.Overlay
                 // Select header
                 if (HeaderImage == null || HeaderImage.UriSource.LocalPath != MenuHeaders[HeaderIndex])
                 {
-                    if (HeaderImage != null && HeaderImage.IsFrozen)
+                    if (HeaderImage is { IsFrozen: true })
                         HeaderImage = HeaderImage.Clone();
                     HeaderImage = (BitmapImage)Headers.Find(x => x[0].ToString().Contains(MenuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))[1];
                     try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
@@ -197,10 +197,7 @@ namespace Forza_Mods_AIO.Overlay
                         if (Overlay.o.OptionsBlock.Inlines.Count == (Overlay.o.AllMenus[CurrentMenu].Count * 2) - 1)
                         {
                             Overlay.o.MainSection.Height = new GridLength(5 + Overlay.o.OptionsBlock.ActualHeight + 5);
-                            if (Overlay.o.DescriptionBlock.Text != string.Empty)
-                                Overlay.o.DescriptionSection.Height = new GridLength(5 + 5 + Overlay.o.DescriptionBlock.ActualHeight + 5);
-                            else
-                                Overlay.o.DescriptionSection.Height = new GridLength(0);
+                            Overlay.o.DescriptionSection.Height = Overlay.o.DescriptionBlock.Text != string.Empty ? new GridLength(5 + 5 + Overlay.o.DescriptionBlock.ActualHeight + 5) : new GridLength(0);
 
                             Overlay.o.Height = Overlay.o.TopSection.ActualHeight + Overlay.o.MainSection.ActualHeight + Overlay.o.DescriptionSection.ActualHeight;
                         }
@@ -297,30 +294,17 @@ namespace Forza_Mods_AIO.Overlay
                     else
                         Text += $"{item.Name}";
 
-                    switch (item.Type)
+                    Value = item.Type switch
                     {
-                        case "MenuButton":
-                            Value = ">";
-                            break;
-                        case "Float" when item.Value.GetType() == typeof(object):
-                            Value = String.Format("<{0:0.00000}>", item.Value.GetType().GetProperty("Value").GetValue(item));
-                            break;
-                        case "Float":
-                            Value = String.Format("<{0:0.00000}>", item.Value);
-                            break;
-                        case "Int" when item.Value.GetType() == typeof(object):
-                            Value = $"<{item.Value.GetType().GetProperty("Value").GetValue(item)}>";
-                            break;
-                        case "Int":
-                            Value = $"<{item.Value}>";
-                            break;
-                        case "Bool" when (bool)item.Value == true:
-                            Value = "[X]";
-                            break;
-                        case "Bool" when (bool)item.Value == false:
-                            Value = "[ ]";
-                            break;
-                    }
+                        "MenuButton" => ">",
+                        "Float" when item.Value.GetType() == typeof(object) => String.Format("<{0:0.00000}>", item.Value.GetType().GetProperty("Value").GetValue(item)),
+                        "Float" => String.Format("<{0:0.00000}>", item.Value),
+                        "Int" when item.Value.GetType() == typeof(object) => $"<{item.Value.GetType().GetProperty("Value").GetValue(item)}>",
+                        "Int" => $"<{item.Value}>",
+                        "Bool" when (bool)item.Value => "[X]",
+                        "Bool" when (bool)item.Value == false => "[ ]",
+                        _ => Value
+                    };
 
                     Overlay.o.Dispatcher.BeginInvoke((Action<int>)delegate (int idx)
                     {
