@@ -37,7 +37,7 @@ namespace Forza_Mods_AIO.Resources
             // Self-Vehicle
             { "HandlingButton" , 464 },
             { "UnlocksButton" , 180 },
-            { "CameraButton" , 285 },
+            { "PhotomodeButton" , 285 },
             { "StatsButton", 70 },
             { "TeleportsButton" , 70 },
             { "EnvironmentButton", 235 },
@@ -60,7 +60,7 @@ namespace Forza_Mods_AIO.Resources
             // Self-Vehicle
             {"HandlingButton", false },
             {"UnlocksButton", false },
-            {"CameraButton", false },
+            {"PhotomodeButton", false },
             {"StatsButton", false },
             {"TeleportsButton", false },
             {"EnvironmentButton", false },

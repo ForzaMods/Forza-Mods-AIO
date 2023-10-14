@@ -20,7 +20,7 @@
             <!-- Small Buttons -->
             <Frame x:Name="HandlingPage" Content="Frame" Width="580" Source="DropDownTabs/HandlingPage.xaml" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="UnlocksPage" Content="Frame" Width="580" Source="DropDownTabs/UnlocksPage.xaml" Margin="10,45,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="CameraPage" Content="Frame" Width="580" Source="DropDownTabs/CameraPage.xaml" Margin="10,80,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="PhotomodePage" Content="Frame" Width="580" Source="DropDownTabs/PhotomodePage.xaml" Margin="10,80,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="StatsPage" Content="Frame" Width="580" Source="DropDownTabs/StatsPage.xaml" Margin="10,115,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="TeleportsPage" Content="Frame" Width="580" Source="DropDownTabs/TeleportsPage.xaml" Margin="10,150,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="CustomizationPage" Content="Frame" Width="580" Source="DropDownTabs/CustomizationPage.xaml" Margin="10,220,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
@@ -83,7 +83,7 @@
                 </Button.Triggers> -->
             </Button>
             <Button x:Name="UnlocksButton" Content="Unlocks" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
-            <Button x:Name="CameraButton" Content="Photomode" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
+            <Button x:Name="PhotomodeButton" Content="Photomode" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
             <Button x:Name="StatsButton" Content="Stats" HorizontalAlignment="Center" Margin="0,115,0,0" VerticalAlignment="Top" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
             <Button x:Name="TeleportsButton" Content="Teleports" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
             <Button x:Name="EnvironmentButton" Content="Environment" HorizontalAlignment="Center" Margin="0,185,0,0" VerticalAlignment="Top" Focusable="False" FontFamily="Manrope" Width="580" Grid.Row="1" Height="25" MinHeight="0" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click" />

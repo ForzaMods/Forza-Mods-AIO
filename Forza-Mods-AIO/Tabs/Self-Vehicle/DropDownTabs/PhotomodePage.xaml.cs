@@ -3,14 +3,14 @@ using System.Windows.Controls;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
-public partial class CameraPage : Page
+public partial class PhotomodePage
 {
-    public static CameraPage CamPage;
+    public static PhotomodePage PhotoPage;
 
-    public CameraPage()
+    public PhotomodePage()
     {
         InitializeComponent();
-        CamPage = this;
+        PhotoPage = this;
     }
 
     #region Toggles

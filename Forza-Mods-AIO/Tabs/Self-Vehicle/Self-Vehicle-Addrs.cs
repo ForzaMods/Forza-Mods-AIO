@@ -270,11 +270,11 @@ internal class Self_Vehicle_Addrs
         MaxHeightAddr = (CameraBase - 440532).ToString("X");
         Application.Current.Dispatcher.Invoke(() =>
         {
-            CameraPage.CamPage.CarInFocusBox.Value = MainWindow.mw.m.ReadMemory<float>(CarInFocus);
-            CameraPage.CamPage.SamplesBox.Value = MainWindow.mw.m.ReadMemory<int>(Samples);
-            CameraPage.CamPage.TimeSliceBox.Value = Math.Round(MainWindow.mw.m.ReadMemory<float>(TimeSlice), 5);
+            PhotomodePage.PhotoPage.CarInFocusBox.Value = MainWindow.mw.m.ReadMemory<float>(CarInFocus);
+            PhotomodePage.PhotoPage.SamplesBox.Value = MainWindow.mw.m.ReadMemory<int>(Samples);
+            PhotomodePage.PhotoPage.TimeSliceBox.Value = Math.Round(MainWindow.mw.m.ReadMemory<float>(TimeSlice), 5);
             //CameraPage.CamPage.ShutterSpeedBox.Value = MainWindow.mw.m.ReadMemory<float>(ShutterSpeed);
-            CameraPage.CamPage.ApertureScaleBox.Value = MainWindow.mw.m.ReadMemory<float>(ApertureScale);
+            PhotomodePage.PhotoPage.ApertureScaleBox.Value = MainWindow.mw.m.ReadMemory<float>(ApertureScale);
             if (TeleportsPage.t.TeleportBox.Items.Contains("Edinburgh"))
                 return;
             TeleportsPage.t.TeleportBox.Items.Clear();
@@ -335,11 +335,11 @@ internal class Self_Vehicle_Addrs
         MaxHeightAddr = (NoClipAddrLong - 0x190).ToString("X");
         Application.Current.Dispatcher.Invoke(() =>
         {
-            CameraPage.CamPage.CarInFocusBox.Value = MainWindow.mw.m.ReadMemory<float>(CarInFocus);
-            CameraPage.CamPage.SamplesBox.Value = MainWindow.mw.m.ReadMemory<int>(Samples);
-            CameraPage.CamPage.TimeSliceBox.Value = Math.Round(MainWindow.mw.m.ReadMemory<float>(TimeSlice), 5);
-            CameraPage.CamPage.ShutterSpeedBox.Value = Math.Round(MainWindow.mw.m.ReadMemory<float>(ShutterSpeed), 5);
-            CameraPage.CamPage.ApertureScaleBox.Value = MainWindow.mw.m.ReadMemory<float>(ApertureScale);
+            PhotomodePage.PhotoPage.CarInFocusBox.Value = MainWindow.mw.m.ReadMemory<float>(CarInFocus);
+            PhotomodePage.PhotoPage.SamplesBox.Value = MainWindow.mw.m.ReadMemory<int>(Samples);
+            PhotomodePage.PhotoPage.TimeSliceBox.Value = Math.Round(MainWindow.mw.m.ReadMemory<float>(TimeSlice), 5);
+            PhotomodePage.PhotoPage.ShutterSpeedBox.Value = Math.Round(MainWindow.mw.m.ReadMemory<float>(ShutterSpeed), 5);
+            PhotomodePage.PhotoPage.ApertureScaleBox.Value = MainWindow.mw.m.ReadMemory<float>(ApertureScale);
             if (TeleportsPage.t.TeleportBox.Items.Contains("Guanajuato (Main City)"))
                 return;
             TeleportsPage.t.TeleportBox.Items.Clear();
