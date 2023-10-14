@@ -16,6 +16,7 @@ internal class Self_Vehicle_Addrs
 
     #region Addresses - Longs
 
+    public static long RotationAddrLong;
     public static long UnbSkillHookLong;
     public static long UnbSkillAddrLong = 0;
     public static long CreditsHookAddrLong;
@@ -105,7 +106,11 @@ internal class Self_Vehicle_Addrs
     #endregion
 
     #region Addresses
-    
+
+    public static string RotationAddr;
+    public static string Rotation;
+    public static string XRot;
+    public static string YRot;
     public static string UnbSkillHookAddr;
     public static string UnbSkillAddr;
     public static string CreditsHookAddr;
@@ -317,6 +322,9 @@ internal class Self_Vehicle_Addrs
         RollAddr = (BaseAddrLong + 0xF4).ToString("X");
         PitchAddr = (BaseAddrLong + 0x108).ToString("X");
         yAngVelAddr = (BaseAddrLong + 0x34).ToString("X");
+        XRot = (BaseAddrLong + 0x88).ToString("X");
+        YRot = (BaseAddrLong + 0x80).ToString("X");
+        Rotation = (BaseAddrLong + 0x94).ToString("X");
         InRaceAddr = (Base2Addr + ",0x50,0x3D8");
         InPauseAddr = (Base2Addr + ",0x50,0x480");
         InHouseAddr = (Base2Addr + ",0x50,0x368");
@@ -453,7 +461,7 @@ internal class Self_Vehicle_Addrs
         int ScanIndex = 0;
 
         AobsFive();
-        ScanAmount = 25;
+        ScanAmount = 26;
 
         Thread HigherPriorityScans = new Thread(() =>
         {
@@ -517,6 +525,12 @@ internal class Self_Vehicle_Addrs
                 CreditsHookAddrLong = (long)MainWindow.mw.m.ScanForSig(CreditsASMAob, 1).FirstOrDefault();
                 CreditsHookAddr = CreditsHookAddrLong.ToString("X");
                 MainWindow.mw.m.ChangeProtection(CreditsHookAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+
+                RotationAddrLong = (long)MainWindow.mw.m.ScanForSig("F3 44 0F 10 89 ? ? 00 00 F3 44 0F 10 B9").LastOrDefault();
+                RotationAddr = RotationAddrLong.ToString("X");
+                MainWindow.mw.m.ChangeProtection(RotationAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
             }

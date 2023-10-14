@@ -56,7 +56,7 @@ namespace Forza_Mods_AIO
         public Mem m = new();
         public GameVerPlat gvp = new(null, null, null, null);
         public string PageFocused = "AIO_Info";
-        public bool Attached = false;
+        public bool Attached;
         public LibraryMapper Mapper;
         public bool WasMapped = false;
         IEnumerable<Visual> Visuals;
@@ -238,6 +238,11 @@ namespace Forza_Mods_AIO
             Is_Scanned["Autoshow"] = false;
             Is_Scanned["Self_Vehicle"] = false;
             Is_Scanned["Tuning"] = false;
+
+            ASM.CreditsFirstTime = true;
+            ASM.XpFirstTime = true;
+            ASM.GlowingPaintFirstTime = true;
+            ASM.RemoveBuildCapFirstTime = true;
         }
         #endregion
         #region Exit Handling
@@ -249,11 +254,15 @@ namespace Forza_Mods_AIO
             }
 
             //TODO Cleanup here
-            if (WasMapped)
+            if (WasMapped && Mapper.DllBaseAddress != IntPtr.Zero)
+            {
                 Mapper.UnmapLibrary();
+            }
 
             if (Self_Vehicle_Addrs.BaseAddrHook != null && Self_Vehicle_Addrs.BaseAddrHook != "0" && Self_Vehicle_Addrs.BaseAddrHookLong != -279 && ASM.OriginalBaseAddressHookBytes != null)
+            {
                 m.WriteArrayMemory(Self_Vehicle_Addrs.BaseAddrHook, ASM.OriginalBaseAddressHookBytes);
+            }
             
             try
             {
@@ -264,10 +273,62 @@ namespace Forza_Mods_AIO
                 m.WriteArrayMemory(Tuning_Addresses.TuningTableHook4, new byte[] { 0x48, 0x8B, 0x07, 0x48, 0x8D, 0x95, 0x60, 0x02, 0x00, 0x00 });
                     
             }
-            catch {}
+            catch { /* ignored */}
             
             AutoshowVars.ResetMem();
             
+            try
+            {
+                m.WriteArrayMemory(Self_Vehicle_Addrs.XPaddr, new byte[] { 0xF3, 0x0F, 0x2C, 0xC6, 0x89, 0x45, 0xB8 });
+                m.WriteArrayMemory(Self_Vehicle_Addrs.XPAmountaddr, gvp.Name == "Forza Horizon 5" ? new byte[] { 0x8B, 0x89, 0xB8, 0x00, 0x00, 0x00 } : new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
+                m.WriteArrayMemory(Self_Vehicle_Addrs.CreditsHookAddr, new byte[] { 0x89, 0x84, 0x24, 0x80, 0x00, 0x00, 0x00 });
+                m.WriteArrayMemory(Self_Vehicle_Addrs.BuildCapAddrASM1, gvp.Name == "Forza Horizon 5" ? new byte[] { 0xF3, 0x0F, 0x11, 0x83, 0x4C, 0x04, 0x00, 0x00 } : new byte[] { 0xF3, 0x0F, 0x11, 0xB3, 0xDC, 0x03, 0x00, 0x00 });
+                m.WriteArrayMemory(Self_Vehicle_Addrs.BuildCapAddrASM2, gvp.Name == "Forza Horizon 5" ? new byte[] { 0xF3, 0x0F, 0x11, 0x43, 0x44 } : new byte[] { 0xF3, 0x0F, 0x11, 0x43, 0x30 });
+                m.WriteArrayMemory(Self_Vehicle_Addrs.UnbSkillHookAddr, new byte[] { 0x48, 0x8B, 0x10, 0x48, 0x8B, 0xC8 });
+                m.WriteArrayMemory(Self_Vehicle_Addrs.WayPointxASMAddr, gvp.Name == "Forza Horizon 5" ? new byte[] { 0x0F, 0x10, 0x97, 0x50, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x10, 0xA0, 0x90, 0x03, 0x00, 0x00 });
+                m.WriteArrayMemory(Self_Vehicle_Addrs.GlowingPaintAddr, gvp.Name == "Forza Horizon 4" ? new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 } : new byte[] { 0x0F, 0x11, 0x0A, 0xC6, 0x42, 0xF0, 0x01 });
+                m.WriteArrayMemory(Self_Vehicle_Addrs.TimeNOPAddr, new byte[] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x83, 0xC4, 0x40 });
+
+                if (gvp.Name == "Forza Horizon 5")
+                {
+                    m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong - 4).ToString("X"), new byte[] { 0x0F, 0x11, 0x41, 0x10 });
+                    m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong + 4).ToString("X"), new byte[] { 0x0F, 0x11, 0x49, 0x20 });
+                    m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong + 12).ToString("X"), new byte[] { 0x0F, 0x11, 0x41, 0x30 });
+                    m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong + 20).ToString("X"), new byte[] { 0x0F, 0x11, 0x49, 0x40 });
+                    m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong + 32).ToString("X"), new byte[] { 0x0F, 0x11, 0x41, 0x50 });
+
+                    m.WriteArrayMemory(Self_Vehicle_Addrs.BaseAddrHook, new byte[] { 0xF3, 0x0F, 0x10, 0x81, 0xDC, 0x14, 0x00, 0x00 });
+                    m.WriteArrayMemory(Self_Vehicle_Addrs.RotationAddr, new byte[] { 0xF3, 0x44, 0x0F, 0x10, 0x89, 0x94, 0x00, 0x00, 0x00 });
+                }
+                else
+                {
+                    m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong + 4).ToString("X"), new byte[] { 0x0F, 0x11, 0x41, 0x10 });
+                    m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong + 12).ToString("X"), new byte[] { 0x0F, 0x11, 0x49, 0x20 });
+                    m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong + 20).ToString("X"), new byte[] { 0x0F, 0x11, 0x41, 0x30 });
+                    m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong + 32).ToString("X"), new byte[] { 0x0F, 0x11, 0x49, 0x40 });
+
+                    m.WriteArrayMemory(Self_Vehicle_Addrs.Car2Addr, new byte[] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00 });
+                    
+                    m.WriteArrayMemory(Self_Vehicle_Addrs.FOVnopOutAddr, new byte[] { 0x0F, 0x11, 0x43, 0x10 });
+                    m.WriteArrayMemory(Self_Vehicle_Addrs.FOVnopInAddr, new byte[] { 0x0F, 0x11, 0x73, 0x10 });
+                    m.WriteMemory<byte>(Self_Vehicle_Addrs.FOVJmpAddr, 0x76);
+                }
+
+                m.WriteMemory(Self_Vehicle_Addrs.WorldRGBAddr,  0.003921568859f);
+                m.WriteMemory((Self_Vehicle_Addrs.WorldRGBAddrLong + 4).ToString("X"), 0.003921568859f);
+                m.WriteMemory((Self_Vehicle_Addrs.WorldRGBAddrLong + 8).ToString("X"), 0.003921568859f);
+
+                m.WriteArrayMemory(Self_Vehicle_Addrs.Wall1Addr, gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 });
+                m.WriteArrayMemory(Self_Vehicle_Addrs.Wall2Addr, gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 });
+                m.WriteArrayMemory(Self_Vehicle_Addrs.Car1Addr, gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 }); 
+                m.WriteArrayMemory(Self_Vehicle_Addrs.WaterAddr, new byte[] { 0xCD, 0xCC, 0x4C, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x67, 0x45, 0x00, 0xF0, 0x52, 0x46, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x3F, 0x00, 0x00, 0x00, 0x00, 0xCD, 0xCC, 0xCC, 0x3D, 0x00, 0x00, 0x00, 0x3F, 0x00, 0x00, 0x00, 0x00,0x00, 0x40, 0xC4, 0x44, 0x00, 0x00, 0xFF, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x42, 0x00, 0x00, 0xC8, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x00, 0x00, 0x70, 0x41 });
+                m.WriteArrayMemory(Self_Vehicle_Addrs.AIXAobAddr, new byte[] { 0x0F, 0x11, 0x41, 0x50, 0x48, 0x8B, 0xFA });
+
+                m.WriteMemory<byte>(Self_Vehicle_Addrs.FOVJmpAddr, 0xEB);
+            }
+            catch { /* ignored */ }
+
+
             ASM.FreeMem();
             
             Environment.Exit(0);

@@ -110,10 +110,12 @@ internal abstract class ASM
     private static byte[] RemoveBuildCapJmpBytes1;
     private static byte[] RemoveBuildCapJmpBytes2;
     private static byte[] XpJmpBytes;
+    private static byte[] FlyhackJmpBytes;
     public static bool CreditsFirstTime = true;
     public static bool GlowingPaintFirstTime = true;
     public static bool RemoveBuildCapFirstTime = true;
     public static bool XpFirstTime = true;
+    public static bool FlyhackFirstTime = true;
     #endregion 
 
     #region ASM
@@ -397,6 +399,23 @@ internal abstract class ASM
         MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.UnbSkillAddr, (float)9999999999);
         MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 4).ToString("X"),(float)9999999999);
         MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 8).ToString("X"),(float)9999999999);
+    }
+
+    public static void Flyhack()
+    {
+        if (FlyhackFirstTime)
+        {
+            Self_Vehicle_Addrs.CodeCave8 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.RotationAddr, StringToBytes("483B0D190000000F8409000000F3440F108994000000"), 9);
+            byte[] MyAddr = StringToBytes("0" + ((long)MainWindow.mw.m.GetCode(Self_Vehicle_Addrs.Rotation) - 148).ToString("X"));
+            Array.Reverse(MyAddr);
+            MainWindow.mw.m.WriteArrayMemory(((long)Self_Vehicle_Addrs.CodeCave8 + 32).ToString("X"), MyAddr);
+            FlyhackJmpBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.RotationAddr, 9);
+            FlyhackFirstTime = false;
+        }
+        else
+        {
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.RotationAddr, FlyhackJmpBytes);
+        }
     }
     #endregion
 }
