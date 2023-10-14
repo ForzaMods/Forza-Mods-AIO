@@ -283,7 +283,7 @@ internal abstract class ASM
         
         if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
         {
-            var InsideCodeCave = StringToBytes("4881E97005000048890D2B0000004881C170050000");
+            var InsideCodeCave = StringToBytes(BitConverter.ToString(OriginalBaseAddressHookBytes).Replace("-", string.Empty) + "4881E97005000048890D2B0000004881C170050000");
             Self_Vehicle_Addrs.CodeCave12 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BaseAddrHook, InsideCodeCave, 8, size: 0x256);
         }
         else
