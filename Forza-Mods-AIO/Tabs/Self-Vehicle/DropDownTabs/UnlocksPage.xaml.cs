@@ -20,8 +20,7 @@ public partial class UnlocksPage
     {
         if (!CreditsSwitch.IsOn)
         {
-            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.CreditsHookAddr,
-                new byte[] { 0x89, 0x84, 0x24, 0x80, 0x00, 0x00, 0x00 });
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.CreditsHookAddr, new byte[] { 0x89, 0x84, 0x24, 0x80, 0x00, 0x00, 0x00 });
             return;
         }
         

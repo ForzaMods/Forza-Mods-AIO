@@ -458,10 +458,12 @@ internal class Self_Vehicle_Addrs
     #region FH5 Scan
     public Task FH5_Scan()
     {
-        int ScanIndex = 0;
-
         AobsFive();
+        
         ScanAmount = 26;
+
+        int ScanIndex = 0;
+        bool Finished = false;
 
         Thread HigherPriorityScans = new Thread(() =>
         {
@@ -533,6 +535,14 @@ internal class Self_Vehicle_Addrs
                 MainWindow.mw.m.ChangeProtection(RotationAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+
+                while (BaseAddrHookLong is 0 or -0x117)
+                {
+                    Thread.Sleep(250);
+                }
+
+                Finished = true; 
+                Task.Run(() => ASM.GetBaseAddress());
             }
             catch
             {
@@ -627,9 +637,6 @@ internal class Self_Vehicle_Addrs
                 CurrentIDAddr = CurrentIDAddrLong.ToString("X");
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
-
-                AddressesFive();
-                Task.Run(() => ASM.GetBaseAddress());
             }
             catch
             {
@@ -640,7 +647,16 @@ internal class Self_Vehicle_Addrs
         
         HigherPriorityScans.Start();
         LowerPriorityScans.Start();
-        
+
+        double Value = 0;
+
+        while (!Finished && Value < 95)
+        {
+            Self_Vehicle.sv.Dispatcher.Invoke(() => Value = Self_Vehicle.sv.AOBProgressBar.Value);
+            Thread.Sleep(1000);
+        }
+
+        UpdateUi.UpdateUI(true, Self_Vehicle.sv);
         return Task.CompletedTask;
     }
     #endregion
@@ -653,6 +669,7 @@ internal class Self_Vehicle_Addrs
         Aobs();
 
         int ScanIndex = 0;
+        bool Finished = false;
         
         Thread HigherPriorityScans = new Thread(() =>
         {
@@ -675,7 +692,6 @@ internal class Self_Vehicle_Addrs
             
             BaseAddrHookLong = (long)MainWindow.mw.m.ScanForSig(BaseAddrHookAob, 1).FirstOrDefault() + 137;
             BaseAddrHook = BaseAddrHookLong.ToString("X");
-            Task.Run(() => ASM.GetBaseAddress());
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
@@ -718,6 +734,14 @@ internal class Self_Vehicle_Addrs
             Wall2Addr = Wall2AddrLong.ToString("X");
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+
+            while (BaseAddrHookLong is 0 or 137)
+            {
+                Thread.Sleep(250);
+            }
+
+            Finished = true;
+            Task.Run(() => ASM.GetBaseAddress());
         });
 
         Thread LowerPriorityScans = new Thread(() =>
@@ -793,7 +817,7 @@ internal class Self_Vehicle_Addrs
             
             CameraBase = (long)MainWindow.mw.m.ScanForSig(CameraBaseAob, 1).FirstOrDefault();
             ScanIndex++;
-            UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);       
+            UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar); 
             
             CameraShutterSpeed = (long)MainWindow.mw.m.ScanForSig(CameraShutterSpeedAob, 1).FirstOrDefault();
             ScanIndex++;
@@ -804,7 +828,16 @@ internal class Self_Vehicle_Addrs
         
         HigherPriorityScans.Start();
         LowerPriorityScans.Start();
+
+        double Value = 0;
         
+        while (!Finished && Value < 95)
+        {
+            Self_Vehicle.sv.Dispatcher.Invoke(() => Value = Self_Vehicle.sv.AOBProgressBar.Value);
+            Thread.Sleep(1000);
+        }
+
+        UpdateUi.UpdateUI(true, Self_Vehicle.sv);
         return Task.CompletedTask;
     }
     #endregion

@@ -28,7 +28,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle
         {
             InitializeComponent();
             sv = this;
-            //UpdateUi.UpdateUI(false, this);
+            UpdateUi.UpdateUI(false, this);
         }
         #region Buttons
         private void Button_Click(object sender, RoutedEventArgs e)

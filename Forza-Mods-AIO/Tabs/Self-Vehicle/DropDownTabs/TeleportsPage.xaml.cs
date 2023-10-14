@@ -185,6 +185,24 @@ public partial class TeleportsPage
                 MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, OldY);
                 MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, OldZ);
                 return;
+            
+            case "Waypoint":
+                if (Self_Vehicle_Addrs.WayPointxAddr is null or "0")
+                {
+                    Task.Run(() => ASM.GetWayPointXAddr());
+                    return;
+                }
+                
+                if (MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointxAddr) == 0)
+                {
+                    MessageBox.Show("Go make a new waypoint");
+                    return;
+                }
+
+                x = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointxAddr);
+                y = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointyAddr);
+                z = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointzAddr);
+                break;
         }
 
         OldX = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.xAddr);
@@ -200,41 +218,50 @@ public partial class TeleportsPage
     {
         float LastWP_X = 0, LastWP_Y = 0, LastWP_Z = 0;
 
-        ASM.GetWayPointXAddr();
+        if (Self_Vehicle_Addrs.WayPointxAddr is null or "0")
+        {
+            Task.Run(() => ASM.GetWayPointXAddr());
+        }
 
         Task.Run(() =>
         {
             while (true)
             {
+                Thread.Sleep(1000);
+                
                 bool Toggled = true;
                 Dispatcher.Invoke(() => Toggled = AutoTpToWaypoint.IsOn);
 
                 if (!Toggled)
                     break;
+                
+                if (Self_Vehicle_Addrs.WayPointxAddr is null or "0")
+                    continue;
 
-                float NewWP_X = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointxAddr);
-                float NewWP_Y = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointyAddr);
-                float NewWP_Z = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointzAddr);
-
-                if ((LastWP_X != NewWP_X || LastWP_Y != NewWP_Y || LastWP_Z != NewWP_Z) 
-                    && NewWP_X != 0 && NewWP_Y != 0 && NewWP_Z != 0
-                    && NewWP_X is < 10000 and > -10000
-                    && NewWP_Y is < 3000 and > -100
-                    && NewWP_Z is < 10000 and > -10000)
+                try
                 {
-                    try
-                    {
-                        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, NewWP_X);
-                        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, (NewWP_Y + 3));
-                        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, NewWP_Z);
-                        LastWP_X = NewWP_X;
-                        LastWP_Y = NewWP_Y;
-                        LastWP_Z = NewWP_Z;
-                    }
-                    catch{ }
-                }
+                    float NewWP_X = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointxAddr);
+                    float NewWP_Y = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointyAddr);
+                    float NewWP_Z = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointzAddr);
 
-                Thread.Sleep(50);
+                    if (!((LastWP_X != NewWP_X || LastWP_Y != NewWP_Y || LastWP_Z != NewWP_Z) 
+                        && NewWP_X != 0 && NewWP_Y != 0 && NewWP_Z != 0
+                        && NewWP_X is < 10000 and > -10000
+                        && NewWP_Y is < 3000 and > -100
+                        && NewWP_Z is < 10000 and > -10000)) continue;
+
+                    OldX = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.xAddr);
+                    OldY = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.yAddr);
+                    OldZ = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.zAddr);
+                    
+                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, NewWP_X);
+                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, (NewWP_Y + 3));
+                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, NewWP_Z);
+                    LastWP_X = NewWP_X;
+                    LastWP_Y = NewWP_Y;
+                    LastWP_Z = NewWP_Z;
+                }
+                catch { }
             }
         });
     }

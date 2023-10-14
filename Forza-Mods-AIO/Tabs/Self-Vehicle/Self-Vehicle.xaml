@@ -8,6 +8,7 @@
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="600"
+      Focusable="False"
       Title="Self_Vehicle">
 
     <ScrollViewer VerticalScrollBarVisibility="Hidden" Focusable="False">

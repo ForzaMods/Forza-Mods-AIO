@@ -15,12 +15,14 @@
             <Border BorderThickness="2,2,2,2" 
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top" 
+                    Focusable="False"
                     Width="360" 
                     Height="46" 
                     Margin="10,10,0,0" BorderBrush="#FF2E3440" />
             
             <Border BorderThickness="2,2,2,2" 
                     HorizontalAlignment="Right" 
+                    Focusable="False"
                     VerticalAlignment="Top" 
                     Width="190" 
                     Height="46" 
@@ -29,11 +31,13 @@
             <Label Content="Teleport Locations:" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Top"
+                   Focusable="False"
                    Margin="16.5,20,0,0" />
             
             <ComboBox Background="#FF2E3440" 
                       BorderBrush="#FF2E3440" 
                       x:Name="TeleportBox" 
+                      Focusable="False"
                       Height="25" 
                       Width="230" 
                       VerticalAlignment="Top" 
@@ -45,10 +49,12 @@
             <Label Content="Auto TP To waypoint" 
                    HorizontalAlignment="Right" 
                    VerticalAlignment="Top"
+                   Focusable="False"
                    Margin="0,20,20,0" />
             
             <mah:ToggleSwitch x:Name="AutoTpToWaypoint" 
                               Content=""
+                              Focusable="False"
                               VerticalAlignment="Top" 
                               HorizontalAlignment="Right"
                               HorizontalContentAlignment="Left"
