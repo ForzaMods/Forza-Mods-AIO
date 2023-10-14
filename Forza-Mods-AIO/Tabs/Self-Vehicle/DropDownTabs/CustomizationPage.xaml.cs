@@ -10,9 +10,12 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 /// </summary>
 public partial class CustomizationPage : Page
 {
+    internal static CustomizationPage _CustomizationPage;
+    
     public CustomizationPage()
     {
         InitializeComponent();
+        _CustomizationPage = this;
     }
 
     /// <summary>

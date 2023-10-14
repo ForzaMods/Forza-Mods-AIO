@@ -128,6 +128,7 @@ namespace Forza_Mods_AIO.Overlay
                         { "VelocityOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.VelocityOptions},
                         { "ModifiersOptions" , ModifiersMenu.ModifiersOptions},
                         { "WheelSpeedOptions", SelfCarMenu.HandlingMenu.HandlingMenu.WheelSpeedOptions },
+                        { "CustomizationOptions", SelfCarMenu.CustomizationMenu.CustomizationMenu.CustomizationOptions },
                     { "UnlocksOptions" , UnlocksOptions},
                     { "CameraOptions" , CameraOptions},
                 { "TuningOptions" , Tuning.Tuning.TuningOptions },
@@ -198,6 +199,7 @@ namespace Forza_Mods_AIO.Overlay
             Rims.InitiateSubMenu();
             SpringsValues.InitiateSubMenu();
             RideHeight.InitiateSubMenu();
+            SelfCarMenu.CustomizationMenu.CustomizationMenu.InitiateSubMenu();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

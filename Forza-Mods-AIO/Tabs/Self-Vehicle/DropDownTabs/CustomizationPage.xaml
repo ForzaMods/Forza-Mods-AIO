@@ -50,6 +50,7 @@
                            BorderBrush="#FF2E3440" />
         
         <mah:ToggleSwitch Height="31" 
+                          x:Name="GlowingPaintSwitch"
                           Margin="435,18,0,0" 
                           VerticalAlignment="Top"
                           Width="46" 
