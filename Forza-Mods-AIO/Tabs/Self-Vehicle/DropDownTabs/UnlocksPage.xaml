@@ -135,15 +135,15 @@
                            Width="135"
                            BorderThickness="0"
                            Background="#FF2E3440"
-                           Margin="20, 20"
-                           ChangeValueOnTextChanged="False"
+                           Margin="20, 20" IsEnabled="False"
                            HideUpDownButtons="True"
                            TrackMouseWheelWhenMouseOver="True"
                            Minimum="0"
                            Maximum="2147483647"
                            Value="0"
                            NumericInputMode="Numbers"
-                           ParsingNumberStyle="Integer"/>
+                           ParsingNumberStyle="Integer"
+                           ValueChanged="XpNum_OnValueChanged"/>
         
         <mah:ToggleSwitch x:Name="XpSwitch"
                           VerticalAlignment="Top"

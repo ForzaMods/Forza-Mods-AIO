@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Windows;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Tuning;
 using Memory;
@@ -56,55 +57,63 @@ internal abstract class ASM
         { '8', 0x8 },{ '9', 0x9 }
     };
     
+    
+    // 0x8000 == MEM_RELEASE
     public static void FreeMem()
     {
         // Self/Vehicle
         if (Self_Vehicle_Addrs.CodeCave4 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave4, 0x256, 0x8000);
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave4, 0, 0x8000);
         
         if (Self_Vehicle_Addrs.CodeCave2 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave2, 0x256, 0x8000);
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave2, 0, 0x8000);
 
         if (Self_Vehicle_Addrs.CodeCave3 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave3, 0x256, 0x8000);
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave3, 0, 0x8000);
 
         if (Self_Vehicle_Addrs.CodeCave9 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave9, 0x256, 0x8000);
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave9, 0, 0x8000);
         
         if (Self_Vehicle_Addrs.CodeCave10 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave10, 0x256, 0x8000);
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave10, 0, 0x8000);
 
         if (Self_Vehicle_Addrs.CodeCave11 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave11, 0x256, 0x8000);
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave11, 0, 0x8000);
         
         if (Self_Vehicle_Addrs.CodeCave12 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave12, 0x256, 0x8000);
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave12, 0, 0x8000);
 
         if (Self_Vehicle_Addrs.CodeCave13 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave13, 0x256, 0x8000);
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave13, 0, 0x8000);
 
         if (Self_Vehicle_Addrs.CodeCave14 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave14, 0x256, 0x8000);
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave14, 0, 0x8000);
         
         
         // Tuning
         if (Tuning_Addresses.TuningCodeCave1 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Tuning_Addresses.TuningCodeCave1, 0x256, 0x8000);
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Tuning_Addresses.TuningCodeCave1, 0, 0x8000);
    
         if (Tuning_Addresses.TuningCodeCave2 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Tuning_Addresses.TuningCodeCave2, 0x256, 0x8000);
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Tuning_Addresses.TuningCodeCave2, 0, 0x8000);
    
         if (Tuning_Addresses.TuningCodeCave3 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Tuning_Addresses.TuningCodeCave3, 0x256, 0x8000);
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Tuning_Addresses.TuningCodeCave3, 0, 0x8000);
    
         if (Tuning_Addresses.TuningCodeCave4 != IntPtr.Zero)
-            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Tuning_Addresses.TuningCodeCave4, 0x256, 0x8000);
-
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Tuning_Addresses.TuningCodeCave4, 0, 0x8000);
     }
     
     public static byte[] OriginalBaseAddressHookBytes;
     private static byte[] CreditsJmpBytes;
-    private static bool CreditsFirstTime = true;
+    private static byte[] GlowingPaintJmpBytes;
+    private static byte[] RemoveBuildCapJmpBytes1;
+    private static byte[] RemoveBuildCapJmpBytes2;
+    private static byte[] XpJmpBytes;
+    public static bool CreditsFirstTime = true;
+    public static bool GlowingPaintFirstTime = true;
+    public static bool RemoveBuildCapFirstTime = true;
+    public static bool XpFirstTime = true;
     #endregion 
 
     #region ASM
@@ -239,41 +248,73 @@ internal abstract class ASM
 
     public static void StartXPtool()
     {
-        string InsideCaveCodeString = "F30F2CC6C745B8" + Convert.ToInt64(UnlocksPage.Up.XpNum.Value).ToString("X8");
-        
-        if (MainWindow.mw.gvp.Plat == "Forza Horizon 5")
-            InsideCaveCodeString = "F30F2CC6C745B0" + Convert.ToInt64(UnlocksPage.Up.XpNum.Value).ToString("X8");
-        
-        byte[] InsideCaveCode = StringToBytes(InsideCaveCodeString);
-        Self_Vehicle_Addrs.CodeCave3 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.XPaddr, InsideCaveCode, 7, size: 0x256);
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.XPaddr, new byte[] { 0xB9, 0x01, 0x00, 0x00, 0x00, 0x90 });
+        if (XpFirstTime)
+        {
+            string InsideCaveCodeString = "4154F30F2CC64C8B251E0000004C8965B8415C";
+
+            if (MainWindow.mw.gvp.Plat == "Forza Horizon 5")
+                InsideCaveCodeString = "4154F30F2CC64C8B251E0000004C8965B0415C";
+
+            Self_Vehicle_Addrs.CodeCave3 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.XPaddr, StringToBytes(InsideCaveCodeString), 7, size: 0x256);
+            UnlocksPage.Up.XpNum_OnValueChanged(new object(), new RoutedPropertyChangedEventArgs<double?>(UnlocksPage.Up.XpNum.Value, UnlocksPage.Up.XpNum.Value));
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.XPAmountaddr, new byte[] { 0xB9, 0x01, 0x00, 0x00, 0x00, 0x90 });
+            XpJmpBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.XPaddr, 5);
+            XpFirstTime = false;
+        }
+        else
+        {
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.XPaddr, XpJmpBytes);
+        }
     }
 
     public static void GlowingPaint()
     {
-        if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
+        if (MainWindow.mw.gvp.Name == "Forza Horizon 5" && GlowingPaintFirstTime)
         {
             var InsideCodeCave = StringToBytes("0F590D490000000F110AC642F001");
             Self_Vehicle_Addrs.CodeCave9 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.GlowingPaintAddr, InsideCodeCave, 7, size: 0x256);
+            GlowingPaintJmpBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.GlowingPaintAddr, 7);
+            GlowingPaintFirstTime = false;
         }
-        else
+        else if (GlowingPaintFirstTime)
         {
             var InsideCodeCave = StringToBytes("0F590D49000000410F114A10");
             Self_Vehicle_Addrs.CodeCave9 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.GlowingPaintAddr, InsideCodeCave, 5, size: 0x256);
+            GlowingPaintJmpBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.GlowingPaintAddr, 5);
+            GlowingPaintFirstTime = false;
+        }
+        else
+        {
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.GlowingPaintAddr, GlowingPaintJmpBytes);
         }
     }
 
     public static void RemoveBuildCap()
     {
-        if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
+        if (MainWindow.mw.gvp.Name == "Forza Horizon 5" && RemoveBuildCapFirstTime)
         {
             Self_Vehicle_Addrs.CodeCave10 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BuildCapAddrASM1, StringToBytes("F30F11834C040000C7834C04000000000000"), 8, size: 0x256);
             Self_Vehicle_Addrs.CodeCave11 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BuildCapAddrASM2, StringToBytes("F30F114344C7434400000000"), 5, size: 0x256);
+
+            RemoveBuildCapJmpBytes1 = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.BuildCapAddrASM1, 8);
+            RemoveBuildCapJmpBytes2 = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.BuildCapAddrASM2, 5);
+            
+            RemoveBuildCapFirstTime = false;
         }
-        else
+        else if (RemoveBuildCapFirstTime)
         {
             Self_Vehicle_Addrs.CodeCave10 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BuildCapAddrASM1, StringToBytes("F30F11B3DC030000C783DC03000000000000"), 8, size: 0x256);
             Self_Vehicle_Addrs.CodeCave11 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BuildCapAddrASM2, StringToBytes("F30F114330C7433000000000"), 5, size: 0x256);
+            
+            RemoveBuildCapJmpBytes1 = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.BuildCapAddrASM1, 8);
+            RemoveBuildCapJmpBytes2 = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.BuildCapAddrASM2, 5);
+
+            RemoveBuildCapFirstTime = false;
+        }
+        else
+        {
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.BuildCapAddrASM1, RemoveBuildCapJmpBytes1);
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.BuildCapAddrASM2, RemoveBuildCapJmpBytes2);
         }
     }
     

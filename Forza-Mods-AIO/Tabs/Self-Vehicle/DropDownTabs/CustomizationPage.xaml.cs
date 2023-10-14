@@ -30,8 +30,7 @@ public partial class CustomizationPage : Page
             return;
         }
 
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.GlowingPaintAddr, 
-            MainWindow.mw.gvp.Name == "Forza Horizon 4" ? new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 } : new byte[] { 0x0F, 0x11, 0x0A, 0xC6, 0x42, 0xF0, 0x01 });
+        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.GlowingPaintAddr, MainWindow.mw.gvp.Name == "Forza Horizon 4" ? new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 } : new byte[] { 0x0F, 0x11, 0x0A, 0xC6, 0x42, 0xF0, 0x01 });
     }
 
     /// <summary>
