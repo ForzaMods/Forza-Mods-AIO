@@ -88,7 +88,9 @@ internal abstract class ASM
 
         if (Self_Vehicle_Addrs.CodeCave14 != IntPtr.Zero)
             Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave14, 0, 0x8000);
-        
+
+        if (Self_Vehicle_Addrs.CodeCave8 != IntPtr.Zero)
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, (UIntPtr)Self_Vehicle_Addrs.CodeCave8, 0, 0x8000);
         
         // Tuning
         if (Tuning_Addresses.TuningCodeCave1 != IntPtr.Zero)
