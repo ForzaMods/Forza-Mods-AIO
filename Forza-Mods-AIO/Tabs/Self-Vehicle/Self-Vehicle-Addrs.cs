@@ -463,7 +463,6 @@ internal class Self_Vehicle_Addrs
         ScanAmount = 26;
 
         int ScanIndex = 0;
-        bool Finished = false;
 
         Thread HigherPriorityScans = new Thread(() =>
         {
@@ -535,14 +534,6 @@ internal class Self_Vehicle_Addrs
                 MainWindow.mw.m.ChangeProtection(RotationAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
-
-                while (BaseAddrHookLong is 0 or -0x117)
-                {
-                    Thread.Sleep(250);
-                }
-
-                Finished = true; 
-                Task.Run(() => ASM.GetBaseAddress());
             }
             catch
             {
@@ -650,12 +641,13 @@ internal class Self_Vehicle_Addrs
 
         double Value = 0;
 
-        while (!Finished && Value < 95)
+        while (Value < 95)
         {
             Self_Vehicle.sv.Dispatcher.Invoke(() => Value = Self_Vehicle.sv.AOBProgressBar.Value);
-            Thread.Sleep(1000);
+            Thread.Sleep(250);
         }
 
+        Task.Run(() => ASM.GetBaseAddress());
         UpdateUi.UpdateUI(true, Self_Vehicle.sv);
         return Task.CompletedTask;
     }
@@ -669,7 +661,6 @@ internal class Self_Vehicle_Addrs
         Aobs();
 
         int ScanIndex = 0;
-        bool Finished = false;
         
         Thread HigherPriorityScans = new Thread(() =>
         {
@@ -740,7 +731,6 @@ internal class Self_Vehicle_Addrs
                 Thread.Sleep(250);
             }
 
-            Finished = true;
             Task.Run(() => ASM.GetBaseAddress());
         });
 
@@ -831,10 +821,10 @@ internal class Self_Vehicle_Addrs
 
         double Value = 0;
         
-        while (!Finished && Value < 95)
+        while (Value < 95)
         {
             Self_Vehicle.sv.Dispatcher.Invoke(() => Value = Self_Vehicle.sv.AOBProgressBar.Value);
-            Thread.Sleep(1000);
+            Thread.Sleep(250);
         }
 
         UpdateUi.UpdateUI(true, Self_Vehicle.sv);

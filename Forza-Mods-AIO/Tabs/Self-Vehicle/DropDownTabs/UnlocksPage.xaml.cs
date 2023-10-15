@@ -61,7 +61,7 @@ public partial class UnlocksPage
 
     public void XpNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave3 + 0x2b).ToString("X"), (int)XpNum.Value);
+        try { MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave3 + 0x2b).ToString("X"), (int)XpNum.Value);} catch {}
     }
 
     private void HornUnlockerSwitch_OnToggled(object sender, RoutedEventArgs e)

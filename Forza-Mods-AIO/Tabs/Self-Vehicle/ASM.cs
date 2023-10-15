@@ -107,6 +107,10 @@ internal abstract class ASM
     }
     
     public static byte[] OriginalBaseAddressHookBytes;
+    public static byte[] OriginalTuningHook1Bytes;
+    public static byte[] OriginalTuningHook2Bytes;
+    public static byte[] OriginalTuningHook3Bytes;
+    public static byte[] OriginalTuningHook4Bytes;
     private static byte[] CreditsJmpBytes;
     private static byte[] GlowingPaintJmpBytes;
     private static byte[] RemoveBuildCapJmpBytes1;
@@ -369,6 +373,30 @@ internal abstract class ASM
             Tuning_Addresses.TuningTableBase3Long = MainWindow.mw.m.ReadMemory<long>(((long)Tuning_Addresses.TuningCodeCave3 + 0x50).ToString("X"));
             Tuning_Addresses.TuningTableBase4Long = MainWindow.mw.m.ReadMemory<long>(((long)Tuning_Addresses.TuningCodeCave4 + 0x50).ToString("X")) + 400;
             Tuning_Addresses.AddressesFH4();
+            Thread.Sleep(1000);
+        }
+    }
+    
+    public static void FH5TuningAddressesHook() 
+    {
+        OriginalTuningHook1Bytes = MainWindow.mw.m.ReadArrayMemory<byte>(Tuning_Addresses.TuningTableHook1, 9);
+        OriginalTuningHook2Bytes = MainWindow.mw.m.ReadArrayMemory<byte>(Tuning_Addresses.TuningTableHook2, 6);
+        OriginalTuningHook3Bytes = MainWindow.mw.m.ReadArrayMemory<byte>(Tuning_Addresses.TuningTableHook3, 6);
+        OriginalTuningHook4Bytes = MainWindow.mw.m.ReadArrayMemory<byte>(Tuning_Addresses.TuningTableHook4, 9);
+        
+        Tuning_Addresses.TuningCodeCave1 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook1, StringToBytes(BitConverter.ToString(OriginalTuningHook1Bytes).Replace("-", string.Empty) + "4981ED700500004C892D390000004981C570050000"), 9, size: 0x256);
+        Tuning_Addresses.TuningCodeCave2 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook2, StringToBytes(BitConverter.ToString(OriginalTuningHook2Bytes).Replace("-", string.Empty) + "48891D43000000"), 6, size: 0x256);
+        Tuning_Addresses.TuningCodeCave3 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook3, StringToBytes(BitConverter.ToString(OriginalTuningHook3Bytes).Replace("-", string.Empty) + "48890D43000000"), 6, size: 0x256);
+        Tuning_Addresses.TuningCodeCave4 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook4, StringToBytes(BitConverter.ToString(OriginalTuningHook4Bytes).Replace("-", string.Empty) + "53488BD848891D3C0000005B"), 9, size: 0x256);
+
+        // Address reading
+        while (MainWindow.mw.Attached)
+        {
+            Tuning_Addresses.TuningTableBase1Long = MainWindow.mw.m.ReadMemory<long>(((long)Tuning_Addresses.TuningCodeCave1 + 0x50).ToString("X"));
+            Tuning_Addresses.TuningTableBase2Long = MainWindow.mw.m.ReadMemory<long>(((long)Tuning_Addresses.TuningCodeCave2 + 0x50).ToString("X")) + 400;
+            Tuning_Addresses.TuningTableBase3Long = MainWindow.mw.m.ReadMemory<long>(((long)Tuning_Addresses.TuningCodeCave3 + 0x50).ToString("X"));
+            Tuning_Addresses.TuningTableBase4Long = MainWindow.mw.m.ReadMemory<long>(((long)Tuning_Addresses.TuningCodeCave4 + 0x50).ToString("X"));
+            Tuning_Addresses.AddressesFH5();
             Thread.Sleep(1000);
         }
     }

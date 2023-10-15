@@ -117,6 +117,8 @@ namespace Forza_Mods_AIO
 
             Visuals ??= Window.GetChildren();
 
+            PageFocused = rbName;
+            
             foreach (var Element in Visuals.Cast<FrameworkElement>())
             {
                 // Page is RB.name + Frame
@@ -267,10 +269,10 @@ namespace Forza_Mods_AIO
             try
             {
                     
-                m.WriteArrayMemory(Tuning_Addresses.TuningTableHook1, new byte[] { 0x49, 0x8B, 0x06, 0x8B, 0xD6 });
-                m.WriteArrayMemory(Tuning_Addresses.TuningTableHook2, new byte[] { 0x49, 0x8B, 0x07, 0x48, 0x8D, 0x55, 0x77 });
-                m.WriteArrayMemory(Tuning_Addresses.TuningTableHook3, new byte[] { 0x0F, 0x28, 0xCE, 0xF3, 0x0F, 0x10, 0x10 });
-                m.WriteArrayMemory(Tuning_Addresses.TuningTableHook4, new byte[] { 0x48, 0x8B, 0x07, 0x48, 0x8D, 0x95, 0x60, 0x02, 0x00, 0x00 });
+                m.WriteArrayMemory(Tuning_Addresses.TuningTableHook1, gvp.Name == "Forza Horizon 4" ? new byte[] { 0x49, 0x8B, 0x06, 0x8B, 0xD6 } : ASM.OriginalTuningHook1Bytes);
+                m.WriteArrayMemory(Tuning_Addresses.TuningTableHook2, gvp.Name == "Forza Horizon 4" ? new byte[] { 0x49, 0x8B, 0x07, 0x48, 0x8D, 0x55, 0x77 } : ASM.OriginalTuningHook2Bytes);
+                m.WriteArrayMemory(Tuning_Addresses.TuningTableHook3, gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x28, 0xCE, 0xF3, 0x0F, 0x10, 0x10 } : ASM.OriginalTuningHook3Bytes);
+                m.WriteArrayMemory(Tuning_Addresses.TuningTableHook4, gvp.Name == "Forza Horizon 4" ? new byte[] { 0x48, 0x8B, 0x07, 0x48, 0x8D, 0x95, 0x60, 0x02, 0x00, 0x00 } : ASM.OriginalTuningHook4Bytes);
                     
             }
             catch { /* ignored */}
