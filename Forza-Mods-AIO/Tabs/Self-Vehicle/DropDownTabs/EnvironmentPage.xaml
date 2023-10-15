@@ -173,7 +173,7 @@
                VerticalAlignment="Bottom"
                HorizontalAlignment="Left"
                Margin="75 0 0 23"
-               ToolTip="Numpad 4 OR left shift + comma to go backward&amp;#xa;Numpad 6 OR left shift + comma to go forward&#xa;Holding CTRL makes it go faster"/>
+               ToolTip="Numpad 4 OR left shift + comma to go backward&#xa;Numpad 6 OR left shift + comma to go forward&#xa;Holding CTRL makes it go faster"/>
 
         <mah:ToggleSwitch Content=""
                           x:Name="AidsSwitch"
