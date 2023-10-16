@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -166,8 +164,6 @@ namespace Forza_Mods_AIO.Tabs.Tuning
 
                 TuningTableHook4 = MainWindow.mw.m.ScanForSig("F3 0F ? ? 44 88 ? ? ? 45 33", 1).FirstOrDefault().ToString("X");
                 UpdateUi.AddProgress(ScanAmount, 5, Tuning.TBM.AOBProgressBar);
-                
-                Task.Run(() => ASM.FH5TuningAddressesHook());
             }
             #endregion
 
@@ -185,8 +181,6 @@ namespace Forza_Mods_AIO.Tabs.Tuning
                 
                 TuningTableHook4 = (MainWindow.mw.m.ScanForSig("80 78 39 ? 0F 84 ? ? ? ? 48 83 BF 50 87 00 00", 1).FirstOrDefault() + 24).ToString("X");
                 UpdateUi.AddProgress(ScanAmount, 5, Tuning.TBM.AOBProgressBar);
-                
-                Task.Run(() => ASM.FH4TuningAddressesHook());
             }
             #endregion
             
@@ -197,7 +191,12 @@ namespace Forza_Mods_AIO.Tabs.Tuning
                 Application.Current.Dispatcher.Invoke(() => Value = Tuning.TBM.AOBProgressBar.Value);
                 Thread.Sleep(250);
             }
-            
+
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
+                Task.Run(() => ASM.FH5TuningAddressesHook());
+            else
+                Task.Run(() => ASM.FH4TuningAddressesHook());
+
             UpdateUi.UpdateUI(true, Tuning.TBM);
             Task.Run(() => ReadValues());
         }
@@ -349,9 +348,9 @@ namespace Forza_Mods_AIO.Tabs.Tuning
             VelocityDynamicPeek = (TuningTableBase2Long + AeroOffset + 1176).ToString("X");
             TimeToMaxSteering = (TuningTableBase2Long + AeroOffset + 1180).ToString("X");
 
-            Wheelbase = (TuningTableBase2Long + AeroOffset - 720).ToString("X");
-            FrontWidth = (TuningTableBase2Long + AeroOffset - 716).ToString("X");
-            RearWidth = (TuningTableBase2Long + AeroOffset - 712).ToString("X");
+            Wheelbase = (TuningTableBase2Long + 0xD0).ToString("X");
+            FrontWidth = (TuningTableBase2Long + 0xD4).ToString("X");
+            RearWidth = (TuningTableBase2Long + 0xD8).ToString("X");
             FrontSpacer = (TuningTableBase2Long + AeroOffset + 1624).ToString("X");
             RearSpacer = (TuningTableBase2Long + AeroOffset + 1628).ToString("X");
 

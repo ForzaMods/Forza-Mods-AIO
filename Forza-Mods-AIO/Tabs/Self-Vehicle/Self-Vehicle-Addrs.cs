@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using Memory;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle;
 
@@ -410,11 +409,6 @@ internal class Self_Vehicle_Addrs
         BaseAddrHookAob = "0F 87 ? ? ? ? 4C 8B ? 0F 29";
     }
 
-    private static void AobsSteam()
-    {
-        BaseAob = "7F ? 00 01 00 00 00 03 00 00 00 01 00 00 00 00 00 00 00 64";
-    }
-
     private static void AobsFive()
     {
         UnbreakableSkillComboSig = "48 8B ? ? E8 ? ? ? ? 48 8B ? 48 8B ? FF 92 ? ? ? ? 84 C0 0F 85";
@@ -471,67 +465,56 @@ internal class Self_Vehicle_Addrs
                 BaseAddrHookLong = (long)MainWindow.mw.m.ScanForSig(BaseAddrHookAob, 1).FirstOrDefault() - 279;
                 BaseAddrHook = BaseAddrHookLong.ToString("X");
                 ASM.OriginalBaseAddressHookBytes = MainWindow.mw.m.ReadArrayMemory<byte>(BaseAddrHook, 8);
-                MainWindow.mw.m.ChangeProtection(BaseAddrHook, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 XPaddrLong = (long)MainWindow.mw.m.ScanForSig(XPAob, 1).FirstOrDefault();
                 XPaddr = XPaddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(XPaddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 XPAmountaddrLong = (long)MainWindow.mw.m.ScanForSig(XPAmountAob, 1).FirstOrDefault();
                 XPAmountaddr = XPAmountaddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(XPAmountaddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 WorldRGBAddrLong = (long)MainWindow.mw.m.ScanForSig(RGBAob).LastOrDefault();
                 WorldRGBAddr = WorldRGBAddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(WorldRGBAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 Car1AddrLong = (long)MainWindow.mw.m.ScanForSig(Car1Aob, 1).FirstOrDefault();
                 Car1Addr = Car1AddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(Car1Addr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 Wall1AddrLong = (long)MainWindow.mw.m.ScanForSig(Wall1Aob, 1).FirstOrDefault();
                 Wall1Addr = Wall1AddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(Wall1Addr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 Wall2AddrLong = (long)MainWindow.mw.m.ScanForSig(Wall2Aob, 1).FirstOrDefault();
                 Wall2Addr = Wall2AddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(Wall2Addr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 SuperCarAddrLong = (long)MainWindow.mw.m.ScanForSig(SuperCarAob, 1).LastOrDefault();
                 SuperCarAddr = SuperCarAddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(SuperCarAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 WaterAddrLong = (long)MainWindow.mw.m.ScanForSig(WaterAob, 1).FirstOrDefault() + 309;
                 WaterAddr = WaterAddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(WaterAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
                 
                 CreditsHookAddrLong = (long)MainWindow.mw.m.ScanForSig(CreditsASMAob, 1).FirstOrDefault();
                 CreditsHookAddr = CreditsHookAddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(CreditsHookAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 RotationAddrLong = (long)MainWindow.mw.m.ScanForSig("F3 44 0F 10 89 ? ? 00 00 F3 44 0F 10 B9").LastOrDefault();
                 RotationAddr = RotationAddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(RotationAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
             }
@@ -556,55 +539,46 @@ internal class Self_Vehicle_Addrs
                 
                 FOVJmpAddrLong = (long)MainWindow.mw.m.ScanForSig(FOVJmpAob, 1).FirstOrDefault() + 3;
                 FOVJmpAddr = FOVJmpAddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(FOVJmpAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 TimeNOPAddrLong = (long)MainWindow.mw.m.ScanForSig(TimeAob, 1).FirstOrDefault() + 1;
                 TimeNOPAddr = TimeNOPAddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(TimeNOPAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 WayPointxASMAddrLong = (long)MainWindow.mw.m.ScanForSig(WayPointxASMAob, 1).FirstOrDefault();
                 WayPointxASMAddr = WayPointxASMAddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(WayPointxASMAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 DiscoverRoadsAddrLong = (long)MainWindow.mw.m.ScanForSig(DiscoverRoadsAob, 1).FirstOrDefault();
                 DiscoverRoadsAddr = DiscoverRoadsAddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(DiscoverRoadsAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 BuildCapAddrASM1Long = (long)MainWindow.mw.m.ScanForSig(BuildCap1Sig, 1).FirstOrDefault() + 25;
                 BuildCapAddrASM1 = BuildCapAddrASM1Long.ToString("X");
-                MainWindow.mw.m.ChangeProtection(BuildCapAddrASM1, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 BuildCapAddrASM2Long = (long)MainWindow.mw.m.ScanForSig(BuildCap2Sig, 1).FirstOrDefault();
                 BuildCapAddrASM2 = BuildCapAddrASM2Long.ToString("X");
-                MainWindow.mw.m.ChangeProtection(BuildCapAddrASM2, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
                 
                 CheckPointxASMAddrLong = (long)MainWindow.mw.m.ScanForSig("0F 10 89 60 02 00 00 0F 29", 1).FirstOrDefault();
                 CheckPointxASMAddr = CheckPointxASMAddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(CheckPointxASMAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 AIXAobAddrLong = (long)MainWindow.mw.m.ScanForSig(AIXAob, 1).FirstOrDefault();
                 AIXAobAddr = AIXAobAddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(AIXAobAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 OOBnopAddrLong = (long)MainWindow.mw.m.ScanForSig(OOBAob, 1).FirstOrDefault() + 83;
                 OOBnopAddr = OOBnopAddrLong.ToString("X");
-                MainWindow.mw.m.ChangeProtection(OOBnopAddr, Imps.MemoryProtection.ExecuteReadWrite, out _);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
@@ -641,7 +615,7 @@ internal class Self_Vehicle_Addrs
 
         double Value = 0;
 
-        while (Value < 95)
+        while (Value < 100)
         {
             Self_Vehicle.sv.Dispatcher.Invoke(() => Value = Self_Vehicle.sv.AOBProgressBar.Value);
             Thread.Sleep(250);
@@ -664,23 +638,6 @@ internal class Self_Vehicle_Addrs
         
         Thread HigherPriorityScans = new Thread(() =>
         {
-            if (MainWindow.mw.gvp.Plat == "MS")
-            {                                
-                BaseAddrLong = (long)MainWindow.mw.m.ScanForSig(BaseAob, 1).FirstOrDefault() + 10656;
-                BaseAddr = BaseAddrLong.ToString("X");
-                Base2AddrLong = BaseAddrLong + 4512;
-                Base2Addr = Base2AddrLong.ToString("X");
-                Base3AddrLong = BaseAddrLong - 18496;
-                Base3Addr = Base3AddrLong.ToString("X");
-                Base4AddrLong = BaseAddrLong - 58296;
-                Base4Addr = Base4AddrLong.ToString("X");
-            }
-            /*else
-            {
-                BaseAddrLong = (long)MainWindow.mw.m.ScanForSig(BaseAob, 1).FirstOrDefault() - 501;
-                BaseAddr = BaseAddrLong.ToString("X");
-            }*/
-            
             BaseAddrHookLong = (long)MainWindow.mw.m.ScanForSig(BaseAddrHookAob, 1).FirstOrDefault() + 137;
             BaseAddrHook = BaseAddrHookLong.ToString("X");
             ScanIndex++;
@@ -725,13 +682,6 @@ internal class Self_Vehicle_Addrs
             Wall2Addr = Wall2AddrLong.ToString("X");
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
-
-            while (BaseAddrHookLong is 0 or 137)
-            {
-                Thread.Sleep(250);
-            }
-
-            Task.Run(() => ASM.GetBaseAddress());
         });
 
         Thread LowerPriorityScans = new Thread(() =>
@@ -827,7 +777,10 @@ internal class Self_Vehicle_Addrs
             Thread.Sleep(250);
         }
 
+        ScanIndex++;
+        UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
         UpdateUi.UpdateUI(true, Self_Vehicle.sv);
+        Task.Run(() => ASM.GetBaseAddress());
         return Task.CompletedTask;
     }
     #endregion
