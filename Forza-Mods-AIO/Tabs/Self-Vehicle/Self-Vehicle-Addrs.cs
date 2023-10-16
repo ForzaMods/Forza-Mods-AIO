@@ -464,7 +464,6 @@ internal class Self_Vehicle_Addrs
             {
                 BaseAddrHookLong = (long)MainWindow.mw.m.ScanForSig(BaseAddrHookAob, 1).FirstOrDefault() - 279;
                 BaseAddrHook = BaseAddrHookLong.ToString("X");
-                ASM.OriginalBaseAddressHookBytes = MainWindow.mw.m.ReadArrayMemory<byte>(BaseAddrHook, 8);
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
@@ -777,6 +776,12 @@ internal class Self_Vehicle_Addrs
             Thread.Sleep(250);
         }
 
+        if (BaseAddrHookLong is 0 or 137)
+        {
+            BaseAddrHookLong = (long)MainWindow.mw.m.ScanForSig(BaseAddrHookAob, 1).FirstOrDefault() + 137;
+            BaseAddrHook = BaseAddrHookLong.ToString("X");
+        }
+        
         ScanIndex++;
         UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
         UpdateUi.UpdateUI(true, Self_Vehicle.sv);

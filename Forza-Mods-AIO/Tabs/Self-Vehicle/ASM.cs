@@ -206,8 +206,7 @@ internal abstract class ASM
         if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
             CodeCaveBytesString = "48893D220000000F109750020000";
         
-        Self_Vehicle_Addrs.CodeCave4 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.WayPointxASMAddr, StringToBytes(CodeCaveBytesString), 7);
-
+        Self_Vehicle_Addrs.CodeCave4 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.WayPointxASMAddr, StringToBytes(CodeCaveBytesString), 7, size: 30);
         Thread.Sleep(25);
         long WayPointBaseAddr = MainWindow.mw.m.ReadMemory<long>((Self_Vehicle_Addrs.CodeCave4 + 41).ToString("X"));
 
@@ -253,8 +252,8 @@ internal abstract class ASM
 
     public static void GetTimeAddr()
     {
-        Self_Vehicle_Addrs.CodeCave2 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.TimeNOPAddr, StringToBytes("48891D21000000F20F1143084883C440"), 9, size: 0x256);
-        Thread.Sleep(500);
+        Self_Vehicle_Addrs.CodeCave2 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.TimeNOPAddr, StringToBytes("48891D21000000F20F1143084883C440"), 9, size: 30);
+        Thread.Sleep(25);
         Self_Vehicle_Addrs.TimeAddr = (MainWindow.mw.m.ReadMemory<long>(((long)Self_Vehicle_Addrs.CodeCave2 + 40).ToString("X")) + 8).ToString("X");
         MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.TimeNOPAddr, new byte[] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x83, 0xC4, 0x40 });
     }
@@ -268,7 +267,7 @@ internal abstract class ASM
             if (MainWindow.mw.gvp.Plat == "Forza Horizon 5")
                 InsideCaveCodeString = "4154F30F2CC64C8B251E0000004C8965B0415C";
 
-            Self_Vehicle_Addrs.CodeCave3 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.XPaddr, StringToBytes(InsideCaveCodeString), 7, size: 0x256);
+            Self_Vehicle_Addrs.CodeCave3 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.XPaddr, StringToBytes(InsideCaveCodeString), 7, size: 30);
             UnlocksPage.Up.XpNum_OnValueChanged(new object(), new RoutedPropertyChangedEventArgs<double?>(UnlocksPage.Up.XpNum.Value, UnlocksPage.Up.XpNum.Value));
             MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.XPAmountaddr, new byte[] { 0xB9, 0x01, 0x00, 0x00, 0x00, 0x90 });
             XpJmpBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.XPaddr, 5);
@@ -284,13 +283,13 @@ internal abstract class ASM
     {
         if (MainWindow.mw.gvp.Name == "Forza Horizon 5" && GlowingPaintFirstTime)
         {
-            Self_Vehicle_Addrs.CodeCave9 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.GlowingPaintAddr, StringToBytes("0F590D490000000F110AC642F001"), 7, size: 0x256);
+            Self_Vehicle_Addrs.CodeCave9 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.GlowingPaintAddr, StringToBytes("0F590D490000000F110AC642F001"), 7, size: 30);
             GlowingPaintJmpBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.GlowingPaintAddr, 7);
             GlowingPaintFirstTime = false;
         }
         else if (GlowingPaintFirstTime)
         {
-            Self_Vehicle_Addrs.CodeCave9 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.GlowingPaintAddr, StringToBytes("0F590D49000000410F114A10"), 5, size: 0x256);
+            Self_Vehicle_Addrs.CodeCave9 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.GlowingPaintAddr, StringToBytes("0F590D49000000410F114A10"), 5, size: 30);
             GlowingPaintJmpBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.GlowingPaintAddr, 5);
             GlowingPaintFirstTime = false;
         }
@@ -304,9 +303,8 @@ internal abstract class ASM
     {
         if (MainWindow.mw.gvp.Name == "Forza Horizon 5" && RemoveBuildCapFirstTime)
         {
-            Self_Vehicle_Addrs.CodeCave10 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BuildCapAddrASM1, StringToBytes("F30F11834C040000C7834C04000000000000"), 8, size: 0x256);
-            Self_Vehicle_Addrs.CodeCave11 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BuildCapAddrASM2, StringToBytes("F30F114344C7434400000000"), 5, size: 0x256);
-
+            Self_Vehicle_Addrs.CodeCave10 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BuildCapAddrASM1, StringToBytes("F30F11834C040000C7834C04000000000000"), 8, size: 30);
+            Self_Vehicle_Addrs.CodeCave11 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BuildCapAddrASM2, StringToBytes("F30F114344C7434400000000"), 5, size: 30);
             RemoveBuildCapJmpBytes1 = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.BuildCapAddrASM1, 8);
             RemoveBuildCapJmpBytes2 = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.BuildCapAddrASM2, 5);
             
@@ -314,9 +312,8 @@ internal abstract class ASM
         }
         else if (RemoveBuildCapFirstTime)
         {
-            Self_Vehicle_Addrs.CodeCave10 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BuildCapAddrASM1, StringToBytes("F30F11B3DC030000C783DC03000000000000"), 8, size: 0x256);
-            Self_Vehicle_Addrs.CodeCave11 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BuildCapAddrASM2, StringToBytes("F30F114330C7433000000000"), 5, size: 0x256);
-            
+            Self_Vehicle_Addrs.CodeCave10 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BuildCapAddrASM1, StringToBytes("F30F11B3DC030000C783DC03000000000000"), 8, size: 30);
+            Self_Vehicle_Addrs.CodeCave11 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BuildCapAddrASM2, StringToBytes("F30F114330C7433000000000"), 5, size: 30);
             RemoveBuildCapJmpBytes1 = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.BuildCapAddrASM1, 8);
             RemoveBuildCapJmpBytes2 = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.BuildCapAddrASM2, 5);
 
@@ -336,18 +333,16 @@ internal abstract class ASM
         if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
         {
             var InsideCodeCave = StringToBytes(BitConverter.ToString(OriginalBaseAddressHookBytes).Replace("-", string.Empty) + "4881E97005000048890D2B0000004881C170050000");
-            Self_Vehicle_Addrs.CodeCave12 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BaseAddrHook, InsideCodeCave, 8, size: 0x256);
+            Self_Vehicle_Addrs.CodeCave12 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BaseAddrHook, InsideCodeCave, 8, size: 30);
         }
         else
         {
             var InsideCaveCode = StringToBytes("488B07488BCF4881EF6005000048893D2D0000004881C760050000");
-            Self_Vehicle_Addrs.CodeCave12 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BaseAddrHook, InsideCaveCode, 6, size: 0x256);
+            Self_Vehicle_Addrs.CodeCave12 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BaseAddrHook, InsideCaveCode, 6, size: 30);
         }
 
         while (MainWindow.mw.Attached)
         {
-            Thread.Sleep(1000);
-            
             Self_Vehicle_Addrs.BaseAddrLong = MainWindow.mw.m.ReadMemory<long>((Self_Vehicle_Addrs.CodeCave12 + 65).ToString("X"));
             Self_Vehicle_Addrs.BaseAddr = Self_Vehicle_Addrs.BaseAddrLong.ToString("X");
             
@@ -355,15 +350,17 @@ internal abstract class ASM
                 Self_Vehicle_Addrs.AddressesFive();
             else
                 Self_Vehicle_Addrs.AddressesFour();
+            
+            Thread.Sleep(1000);
         }
     }
 
     public static void FH4TuningAddressesHook()
     {
-        Tuning_Addresses.TuningCodeCave1 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook1, StringToBytes("4C893549000000498B068BD6"), 5, size: 0x256);
-        Tuning_Addresses.TuningCodeCave2 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook2, StringToBytes("4C893D49000000498B07488D5577"), 7, size: 0x256);
-        Tuning_Addresses.TuningCodeCave3 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook3, StringToBytes("51488BC848890D45000000590F28CEF30F1010"), 7, size: 0x256);
-        Tuning_Addresses.TuningCodeCave4 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook4, StringToBytes("488B0748893D46000000488D9560020000"), 10, size: 0x256);
+        Tuning_Addresses.TuningCodeCave1 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook1, StringToBytes("4C893549000000498B068BD6"), 5, size: 30);
+        Tuning_Addresses.TuningCodeCave2 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook2, StringToBytes("4C893D49000000498B07488D5577"), 7, size: 30);
+        Tuning_Addresses.TuningCodeCave3 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook3, StringToBytes("51488BC848890D45000000590F28CEF30F1010"), 7, size: 30);
+        Tuning_Addresses.TuningCodeCave4 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook4, StringToBytes("488B0748893D46000000488D9560020000"), 10, size: 30);
         
         // Address reading
         while (MainWindow.mw.Attached)
@@ -384,10 +381,10 @@ internal abstract class ASM
         OriginalTuningHook3Bytes = MainWindow.mw.m.ReadArrayMemory<byte>(Tuning_Addresses.TuningTableHook3, 6);
         OriginalTuningHook4Bytes = MainWindow.mw.m.ReadArrayMemory<byte>(Tuning_Addresses.TuningTableHook4, 9);
         
-        Tuning_Addresses.TuningCodeCave1 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook1, StringToBytes(BitConverter.ToString(OriginalTuningHook1Bytes).Replace("-", string.Empty) + "4981ED700500004C892D390000004981C570050000"), 9, size: 0x256);
-        Tuning_Addresses.TuningCodeCave2 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook2, StringToBytes(BitConverter.ToString(OriginalTuningHook2Bytes).Replace("-", string.Empty) + "48891D43000000"), 6, size: 0x256);
-        Tuning_Addresses.TuningCodeCave3 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook3, StringToBytes(BitConverter.ToString(OriginalTuningHook3Bytes).Replace("-", string.Empty) + "48890D43000000"), 6, size: 0x256);
-        Tuning_Addresses.TuningCodeCave4 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook4, StringToBytes(BitConverter.ToString(OriginalTuningHook4Bytes).Replace("-", string.Empty) + "53488BD848891D3C0000005B"), 9, size: 0x256);
+        Tuning_Addresses.TuningCodeCave1 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook1, StringToBytes(BitConverter.ToString(OriginalTuningHook1Bytes).Replace("-", string.Empty) + "4981ED700500004C892D390000004981C570050000"), 9, size: 30);
+        Tuning_Addresses.TuningCodeCave2 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook2, StringToBytes(BitConverter.ToString(OriginalTuningHook2Bytes).Replace("-", string.Empty) + "48891D43000000"), 6, size: 30);
+        Tuning_Addresses.TuningCodeCave3 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook3, StringToBytes(BitConverter.ToString(OriginalTuningHook3Bytes).Replace("-", string.Empty) + "48890D43000000"), 6, size: 30);
+        Tuning_Addresses.TuningCodeCave4 = (IntPtr)MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook4, StringToBytes(BitConverter.ToString(OriginalTuningHook4Bytes).Replace("-", string.Empty) + "53488BD848891D3C0000005B"), 9, size: 30);
 
         // Address reading
         while (MainWindow.mw.Attached)
@@ -405,7 +402,7 @@ internal abstract class ASM
     {
         if (CreditsFirstTime)
         {
-            Self_Vehicle_Addrs.CodeCave13 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.CreditsHookAddr, StringToBytes("488B052E00000089842480000000"), 7, size: 0x256);
+            Self_Vehicle_Addrs.CodeCave13 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.CreditsHookAddr, StringToBytes("488B052E00000089842480000000"), 7, size: 30);
             CreditsJmpBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.CreditsHookAddr, 7);
             CreditsFirstTime = false;
             return;
@@ -416,7 +413,7 @@ internal abstract class ASM
 
     public static void GetUnbreakableSkillComboAddr()
     {
-        Self_Vehicle_Addrs.CodeCave14 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.UnbSkillHookAddr, StringToBytes("48891D49000000488B10488BC8"), 6, size: 0x256);
+        Self_Vehicle_Addrs.CodeCave14 = (nint)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.UnbSkillHookAddr, StringToBytes("48891D49000000488B10488BC8"), 6, size: 30);
         Self_Vehicle_Addrs.UnbSkillAddrLong = 0x0;
 
         while (Self_Vehicle_Addrs.UnbSkillAddrLong == 0x0)
@@ -438,7 +435,7 @@ internal abstract class ASM
     {
         if (FlyhackFirstTime)
         {
-            Self_Vehicle_Addrs.CodeCave8 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.RotationAddr, StringToBytes("483B0D190000000F8409000000F3440F108994000000"), 9);
+            Self_Vehicle_Addrs.CodeCave8 = (IntPtr)MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.RotationAddr, StringToBytes("483B0D190000000F8409000000F3440F108994000000"), 9, size: 30);
             byte[] MyAddr = StringToBytes("0" + ((long)MainWindow.mw.m.GetCode(Self_Vehicle_Addrs.Rotation) - 148).ToString("X"));
             Array.Reverse(MyAddr);
             MainWindow.mw.m.WriteArrayMemory(((long)Self_Vehicle_Addrs.CodeCave8 + 32).ToString("X"), MyAddr);
