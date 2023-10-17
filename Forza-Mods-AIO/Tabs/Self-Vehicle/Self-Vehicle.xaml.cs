@@ -1,42 +1,52 @@
-﻿using Forza_Mods_AIO.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Forza_Mods_AIO.Resources;
 
-namespace Forza_Mods_AIO.Tabs.Self_Vehicle
+namespace Forza_Mods_AIO.Tabs.Self_Vehicle;
+
+/// <summary>
+///     Interaction logic for Self_Vehicle.xaml
+/// </summary>
+public partial class Self_Vehicle : Page
 {
-    /// <summary>
-    /// Interaction logic for Self_Vehicle.xaml
-    /// </summary>
-    public partial class Self_Vehicle : Page
-    {
-        public static Self_Vehicle sv;
+    public static Self_Vehicle sv;
 
-        public Self_Vehicle()
-        {
-            InitializeComponent();
-            sv = this;
-            UpdateUi.UpdateUI(false, this);
-        }
-        #region Buttons
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (!UpdateUi.AnimCompleted) return;
-            UpdateUi.Animate(sender, UpdateUi.IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()], this);
-            UpdateUi.IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()] = !UpdateUi.IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()];
-        }
-        #endregion
+    public Self_Vehicle()
+    {
+        InitializeComponent();
+        sv = this;
+        UpdateUi.UpdateUI(false, this);
     }
+    
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        if (!UpdateUi.AnimCompleted) return;
+        UpdateUi.Animate(sender, IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()], Sizes, IsClicked, this);
+        IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()] = !IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()];
+    }
+
+    private static readonly Dictionary<string, double> Sizes = new()
+    {
+        { "HandlingButton", 464 }, // Button name for page, height of page
+        { "UnlocksButton", 180 },
+        { "PhotomodeButton", 285 },
+        { "StatsButton", 70 },
+        { "TeleportsButton", 70 },
+        { "EnvironmentButton", 235 },
+        { "CustomizationButton", 70 },
+        { "MiscellaneousButton", 70 }
+    };
+
+    private static readonly Dictionary<string, bool> IsClicked = new()
+    {
+        { "HandlingButton", false },
+        { "UnlocksButton", false },
+        { "PhotomodeButton", false },
+        { "StatsButton", false },
+        { "TeleportsButton", false },
+        { "EnvironmentButton", false },
+        { "CustomizationButton", false },
+        { "MiscellaneousButton", false }
+    };
 }

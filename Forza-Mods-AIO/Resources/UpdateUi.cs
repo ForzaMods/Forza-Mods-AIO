@@ -21,56 +21,9 @@ namespace Forza_Mods_AIO.Resources
                         element.IsEnabled = IsEnabled;
             });
         }
-
-        private static readonly Dictionary<string, double> Sizes = new Dictionary<string, double>()
-        {
-            // Tuning
-            { "TiresButton" , 240 }, // Button name for page, height of page
-            { "GearingButton" , 275 },
-            { "AlignmentButton" , 120 },
-            { "SpringsButton" , 295 },
-            { "DampingButton" , 350 },
-            { "AeroButton", 120 },
-            { "SteeringButton", 275 },
-            { "OthersButton", 395 },
-
-            // Self-Vehicle
-            { "HandlingButton" , 464 },
-            { "UnlocksButton" , 180 },
-            { "PhotomodeButton" , 285 },
-            { "StatsButton", 70 },
-            { "TeleportsButton" , 70 },
-            { "EnvironmentButton", 235 },
-            { "CustomizationButton", 70 },
-            { "MiscellaneousButton", 70 }
-        };
-
-        public static Dictionary<string, bool> IsClicked = new Dictionary<string, bool>()
-        {
-            // Tuning
-            {"TiresButton", false },
-            {"GearingButton", false },
-            {"AlignmentButton", false },
-            {"SpringsButton", false },
-            {"DampingButton", false },
-            {"AeroButton", false },
-            {"SteeringButton", false },
-            {"OthersButton", false },
-
-            // Self-Vehicle
-            {"HandlingButton", false },
-            {"UnlocksButton", false },
-            {"PhotomodeButton", false },
-            {"StatsButton", false },
-            {"TeleportsButton", false },
-            {"EnvironmentButton", false },
-            {"CustomizationButton", false },
-            {"MiscellaneousButton", false }
-        };
-
         public static bool AnimCompleted = true;
 
-        public static void Animate(object sender, bool AlreadyOpen, Page page)
+        public static void Animate(object sender, bool AlreadyOpen, Dictionary<string, double> Sizes, Dictionary<string, bool> IsClicked, Page page)
         {
             AnimCompleted = false;
             foreach (FrameworkElement Element in page.GetChildren(true))
