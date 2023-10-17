@@ -189,7 +189,7 @@ public partial class TeleportsPage
             case "Waypoint":
                 if (Self_Vehicle_Addrs.WayPointxAddr is null or "0")
                 {
-                    Task.Run(() => ASM.GetWayPointXAddr());
+                    Task.Run(() => Self_Vehicle_ASM.GetWayPointAddr());
                     return;
                 }
                 
@@ -220,7 +220,7 @@ public partial class TeleportsPage
 
         if (Self_Vehicle_Addrs.WayPointxAddr is null or "0")
         {
-            Task.Run(() => ASM.GetWayPointXAddr());
+            Task.Run(() => Self_Vehicle_ASM.GetWayPointAddr());
         }
 
         Task.Run(() =>

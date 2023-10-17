@@ -26,7 +26,7 @@ public partial class CustomizationPage : Page
         if (((ToggleSwitch)sender).IsOn)
         {
             GlowingPaintNum_ValueChanged(new object(), new RoutedPropertyChangedEventArgs<double?>(GlowingPaintNum.Value, GlowingPaintNum.Value));
-            ASM.GlowingPaint();
+            Self_Vehicle_ASM.GlowingPaint();
             return;
         }
 

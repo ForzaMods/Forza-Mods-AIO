@@ -19,14 +19,14 @@ public partial class MiscellaneousPage
             return;
         }
         
-        ASM.RemoveBuildCap();
+        Self_Vehicle_ASM.RemoveBuildCap();
     }
 
     private void UnbreakableSkillScoreSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
         if (Self_Vehicle_Addrs.UnbSkillAddrLong == 0)
         {
-            Task.Run(() => ASM.GetUnbreakableSkillComboAddr());
+            Task.Run(() => Self_Vehicle_ASM.GetUnbreakableSkillComboAddr());
             return;
         }
         

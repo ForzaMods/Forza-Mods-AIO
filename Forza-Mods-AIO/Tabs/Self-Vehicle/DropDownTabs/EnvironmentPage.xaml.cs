@@ -169,7 +169,7 @@ public partial class EnvironmentPage
     private void ManualTime()
     {
         if (Self_Vehicle_Addrs.TimeAddr == "0" || Self_Vehicle_Addrs.TimeAddr == null)
-            ASM.GetTimeAddr();
+            Self_Vehicle_ASM.GetTimeAddr();
         
         MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.TimeNOPAddr, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 });
 

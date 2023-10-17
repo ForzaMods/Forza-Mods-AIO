@@ -4,55 +4,53 @@ using System.Windows;
 using System.Windows.Controls;
 using MahApps.Metro.Controls;
 
-namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
+namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
+
+public partial class Tires
 {
-    public partial class Tires : Page
+    public static Tires t;
+    public static float TireFrontLeftDivider = 1f, TireFrontRightDivider = 1f, TireRearLeftDivider = 1f, TireRearRightDivider = 1f;
+
+    public Tires()
     {
-        public static Tires t;
+        InitializeComponent();
+        t = this;
+    }
 
-        public static float TireFrontLeftDivider = 1f;
-        public static float TireFrontRightDivider = 1f;
-        public static float TireRearLeftDivider = 1f;
-        public static float TireRearRightDivider = 1f;
+    private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        string Address = null;
 
-        public Tires()
+        foreach (var Field in typeof(Tuning_Addresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(string)))
         {
-            InitializeComponent();
-            t = this;
+            if (Field.Name != sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!.Remove(sender.GetType()!.GetProperty("Name")!.GetValue(sender)!.ToString()!.Length - 3)) continue;
+            Address = Field.GetValue(Field) as string;
         }
 
-        private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        foreach (FrameworkElement Element in t.GetChildren())
         {
-            try
-            {
-                // Got this looping method from here and slightly modified it: https://stackoverflow.com/a/51424624
-                foreach (FieldInfo Address in typeof(Tuning_Addresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(field => field.FieldType == typeof(string)))
-                    if (Address.Name == sender.GetType().GetProperty("Name").GetValue(sender).ToString().Remove(sender.GetType().GetProperty("Name").GetValue(sender).ToString().Length - 3))
-                        foreach (FrameworkElement Element in t.GetChildren())
-                            if (Element.GetType() == typeof(ComboBox) && Element.Name == ((NumericUpDown)sender).Name.Replace("Box", "_Psi_Bar_Box"))
-                                if (((ComboBox)Element).SelectedIndex is 0 or -1)
-                                    MainWindow.mw.m.WriteMemory(Address.GetValue(null) as string, (float)((MahApps.Metro.Controls.NumericUpDown)sender).Value);
-                                else if (((ComboBox)Element).SelectedIndex is 1)
-                                    MainWindow.mw.m.WriteMemory(Address.GetValue(null) as string, (float)(((NumericUpDown)sender).Value * 14.5));
-            }
-            catch { }
+            if (Element.GetType() != typeof(ComboBox) && Element.Name != ((NumericUpDown)sender).Name.Replace("Box", "_Psi_Bar_Box")) continue;
+            var Multiply = ((ComboBox)Element).SelectedIndex is 0 or -1 ? 1 : 14.5f;
+            MainWindow.mw.m.WriteMemory(Address, (float)(((NumericUpDown)sender)!.Value! * Multiply));
+        }
+    }
+
+    private void SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        bool PSI = ((ComboBox)sender).SelectedIndex is 0 or -1;
+        
+        foreach (var Divider in typeof(Tires).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(float)))
+        {
+            if (Divider.Name != sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!.Remove(sender.GetType()!.GetProperty("Name")!.GetValue(sender)!.ToString()!.Length - 12) + "Divider") continue;
+            Divider.SetValue(Divider, PSI ? 1f : 14.5f);
         }
 
-        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
+        foreach (FrameworkElement Element in t.GetChildren())
         {
-            foreach (FieldInfo Divider in typeof(Tires).GetFields(BindingFlags.Public | BindingFlags.Static).Where(field => field.FieldType == typeof(float)))
-                if (Divider.Name == sender.GetType().GetProperty("Name").GetValue(sender).ToString().Remove(sender.GetType().GetProperty("Name").GetValue(sender).ToString().Length - 12) + "Divider")
-                    if (((ComboBox)sender).SelectedIndex is 0 or -1)
-                        Divider.SetValue(Divider, 1f);
-                    else if (((ComboBox)sender).SelectedIndex is 1)
-                        Divider.SetValue(Divider, 14.5f);
-
-            foreach (FrameworkElement Element in t.GetChildren())
-                if (Element.GetType().GetProperty("Name").GetValue(Element).ToString() == sender.GetType().GetProperty("Name").GetValue(sender).ToString().Remove(sender.GetType().GetProperty("Name").GetValue(sender).ToString().Length - 12) + "Box")
-                    if (((ComboBox)sender).SelectedIndex is 0 or -1)
-                        Element.GetType().GetProperty("Interval").SetValue(Element, 1);
-                    else if (((ComboBox)sender).SelectedIndex is 1)
-                        Element.GetType().GetProperty("Interval").SetValue(Element, 0.1);
+            var ElementName = Element.GetType().GetProperty("Name")!.GetValue(Element)!.ToString();
+            var SenderName = sender.GetType().GetProperty("Name")!.GetValue(Element)!.ToString();
+            if (ElementName != SenderName!.Remove(SenderName.Length - 12) + "Box") continue;
+            Element.GetType()!.GetProperty("Interval")!.SetValue(Element, PSI ? 1 : 0.1);
         }
     }
 }

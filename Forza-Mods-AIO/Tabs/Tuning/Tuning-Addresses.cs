@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Forza_Mods_AIO.Resources;
-using Forza_Mods_AIO.Tabs.Self_Vehicle;
 using Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
 
 namespace Forza_Mods_AIO.Tabs.Tuning
@@ -128,14 +128,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning
         public static string TuningTableHook2;
         public static string TuningTableHook3;
         public static string TuningTableHook4;
-
-        public static IntPtr TuningCodeCave1;
-        public static IntPtr TuningCodeCave2;
-        public static IntPtr TuningCodeCave3;
-        public static IntPtr TuningCodeCave4;
-
-        private const string TireOffsetAob = "F3 0F ? ? ? ? ? ? 48 8D ? ? ? ? ? 48 8D ? ? ? ? ? E8 ? ? ? ? 0F 28 ? F3 0F ? ? ? ? ? ? 48 8D";
-
+        
         private const int ScanAmount = 5;
 
         #endregion
@@ -150,39 +143,17 @@ namespace Forza_Mods_AIO.Tabs.Tuning
             ToePosStatic = (AlignmentBase + 0xC).ToString("X");
             UpdateUi.AddProgress(ScanAmount, 1, Tuning.TBM.AOBProgressBar);
 
-            #region FH5
-            if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
-            {
-                TuningTableHook1 = MainWindow.mw.m.ScanForSig("F3 41 0F 10 85 98 FA FF FF F3 41 0F 59 C4", 1).FirstOrDefault().ToString("X");
-                UpdateUi.AddProgress(ScanAmount, 2, Tuning.TBM.AOBProgressBar);
+            TuningTableHook1 = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? (MainWindow.mw.m.ScanForSig("0F 29 ? ? 33 F6 49 81 C7", 1).FirstOrDefault() + 21).ToString("X") : MainWindow.mw.m.ScanForSig("F3 41 0F 10 85 98 FA FF FF F3 41 0F 59 C4", 1).FirstOrDefault().ToString("X");
+            UpdateUi.AddProgress(ScanAmount, 2, Tuning.TBM.AOBProgressBar);
 
-                TuningTableHook2 = (MainWindow.mw.m.ScanForSig("0F 84 ? ? ? ? 8B 81 ? ? ? ? 83 F8 ? 74", 1).FirstOrDefault() + 1130).ToString("X");
-                UpdateUi.AddProgress(ScanAmount, 3, Tuning.TBM.AOBProgressBar);
+            TuningTableHook2 = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? MainWindow.mw.m.ScanForSig("49 8B ? 48 8D ? ? 49 8B ? FF 90 ? ? ? ? 44 0F ? ? 41 8B", 1).FirstOrDefault().ToString("X") : (MainWindow.mw.m.ScanForSig("0F 84 ? ? ? ? 8B 81 ? ? ? ? 83 F8 ? 74", 1).FirstOrDefault() + 1130).ToString("X");
+            UpdateUi.AddProgress(ScanAmount, 3, Tuning.TBM.AOBProgressBar);
+
+            TuningTableHook3 = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? (MainWindow.mw.m.ScanForSig("48 8D ? ? ? 0F 29 ? ? ? 0F 28 ? E8 ? ? ? ? 48 85", 1).FirstOrDefault() + 37).ToString("X") : MainWindow.mw.m.ScanForSig("48 8B ? 48 8B ? FF 92 ? ? ? ? 48 8B ? EB ? 49 8B", 1).FirstOrDefault().ToString("X");
+            UpdateUi.AddProgress(ScanAmount, 4, Tuning.TBM.AOBProgressBar);
                 
-                TuningTableHook3 = MainWindow.mw.m.ScanForSig("48 8B ? 48 8B ? FF 92 ? ? ? ? 48 8B ? EB ? 49 8B", 1).FirstOrDefault().ToString("X");
-                UpdateUi.AddProgress(ScanAmount, 4, Tuning.TBM.AOBProgressBar);
-
-                TuningTableHook4 = MainWindow.mw.m.ScanForSig("F3 0F ? ? 44 88 ? ? ? 45 33", 1).FirstOrDefault().ToString("X");
-                UpdateUi.AddProgress(ScanAmount, 5, Tuning.TBM.AOBProgressBar);
-            }
-            #endregion
-
-            #region FH4
-            else if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
-            {
-                TuningTableHook1 = (MainWindow.mw.m.ScanForSig("0F 29 ? ? 33 F6 49 81 C7", 1).FirstOrDefault() + 21).ToString("X");
-                UpdateUi.AddProgress(ScanAmount, 2, Tuning.TBM.AOBProgressBar);
-
-                TuningTableHook2 = MainWindow.mw.m.ScanForSig("49 8B ? 48 8D ? ? 49 8B ? FF 90 ? ? ? ? 44 0F ? ? 41 8B", 1).FirstOrDefault().ToString("X");
-                UpdateUi.AddProgress(ScanAmount, 3, Tuning.TBM.AOBProgressBar);
-
-                TuningTableHook3 = (MainWindow.mw.m.ScanForSig("48 8D ? ? ? 0F 29 ? ? ? 0F 28 ? E8 ? ? ? ? 48 85", 1).FirstOrDefault() + 37).ToString("X");
-                UpdateUi.AddProgress(ScanAmount, 4, Tuning.TBM.AOBProgressBar);
-                
-                TuningTableHook4 = (MainWindow.mw.m.ScanForSig("80 78 39 ? 0F 84 ? ? ? ? 48 83 BF 50 87 00 00", 1).FirstOrDefault() + 24).ToString("X");
-                UpdateUi.AddProgress(ScanAmount, 5, Tuning.TBM.AOBProgressBar);
-            }
-            #endregion
+            TuningTableHook4 = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? (MainWindow.mw.m.ScanForSig("80 78 39 ? 0F 84 ? ? ? ? 48 83 BF 50 87 00 00", 1).FirstOrDefault() + 24).ToString("X") : MainWindow.mw.m.ScanForSig("F3 0F ? ? 44 88 ? ? ? 45 33", 1).FirstOrDefault().ToString("X");
+            UpdateUi.AddProgress(ScanAmount, 5, Tuning.TBM.AOBProgressBar);
             
             double Value = 0;
 
@@ -192,205 +163,91 @@ namespace Forza_Mods_AIO.Tabs.Tuning
                 Thread.Sleep(250);
             }
 
-            if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
-                Task.Run(() => ASM.FH5TuningAddressesHook());
-            else
-                Task.Run(() => ASM.FH4TuningAddressesHook());
-
+            Tuning_ASM.GetTuningBaseAddresses();
             UpdateUi.UpdateUI(true, Tuning.TBM);
             Task.Run(() => ReadValues());
         }
 
-        public static void AddressesFH4()
-        {
-            TireFrontLeft = (TuningTableBase1Long + 0x1D9C).ToString("X");
-            TireFrontRight = (TuningTableBase1Long + 0x337C).ToString("X");
-            TireRearLeft = (TuningTableBase1Long + 0x495C).ToString("X");
-            TireRearRight = (TuningTableBase1Long + 0x5F3C).ToString("X");
-            
-            FinalDrive = (TuningTableBase1Long + 0xC40).ToString("X");
-            ReverseGear = (TuningTableBase1Long + 0xACC).ToString("X");
-            FirstGear = (TuningTableBase1Long + 0xAE0).ToString("X");
-            SecondGear = (TuningTableBase1Long + 0xAF4).ToString("X");
-            ThirdGear = (TuningTableBase1Long + 0xB08).ToString("X");
-            FourthGear = (TuningTableBase1Long + 0xB1C).ToString("X");
-            FifthGear = (TuningTableBase1Long + 0xB30).ToString("X");
-            SixthGear = (TuningTableBase1Long + 0xB44).ToString("X");
-            SeventhGear = (TuningTableBase1Long + 0xB58).ToString("X");
-            EighthGear = (TuningTableBase1Long + 0xB6C).ToString("X");
-            NinthGear = (TuningTableBase1Long + 0xB80).ToString("X");
-            TenthGear = (TuningTableBase1Long + 0xB94).ToString("X");
-            
-            RimSizeFront = (TuningTableBase2Long + 0x758).ToString("X");
-            RimRadiusFront = (TuningTableBase2Long + 0x760).ToString("X");
-            RimSizeRear = (TuningTableBase2Long + 0x75C).ToString("X");
-            RimRadiusRear = (TuningTableBase2Long + 0x764).ToString("X");
-            
-            CamberNeg = (TuningTableBase3Long + 0x3E4).ToString("X");
-            CamberPos = (TuningTableBase3Long + 0x3E8).ToString("X");
-            ToeNeg = (TuningTableBase3Long + 0x3EC).ToString("X");
-            ToePos = (TuningTableBase3Long + 0x3F0).ToString("X");
-
-            FrontAntirollMin = (TuningTableBase4Long + 0x3F8).ToString("X");
-            FrontAntirollMax = (TuningTableBase4Long + 0x3FC).ToString("X");
-            RearAntirollMin = (TuningTableBase4Long + 0x4A4).ToString("X");
-            RearAntirollMax = (TuningTableBase4Long + 0x4A8).ToString("X");
-
-            SpringFrontMin = (TuningTableBase4Long + 0x3AC).ToString("X");
-            SpringFrontMax = (TuningTableBase4Long + 0x3B0).ToString("X");
-            SpringRearMin = (TuningTableBase4Long + 0x458).ToString("X");
-            SpringRearMax = (TuningTableBase4Long + 0x45C).ToString("X");
-
-            FrontRideHeightMin = (TuningTableBase4Long + 0x394).ToString("X");
-            FrontRideHeightMax = (TuningTableBase4Long + 0x398).ToString("X");
-            RearRideHeightMin = (TuningTableBase4Long + 0x440).ToString("X");
-            RearRideHeightMax = (TuningTableBase4Long + 0x444).ToString("X");
-
-            FrontRestriction = (TuningTableBase4Long + 0x39C).ToString("X");
-            RearRestriction = (TuningTableBase4Long + 0x448).ToString("X");
-
-            FrontAeroMin = (TuningTableBase4Long + 0x234).ToString("X");
-            FrontAeroMax = (TuningTableBase4Long + 0x23C).ToString("X");
-            RearAeroMin = (TuningTableBase4Long + 0x294).ToString("X");
-            RearAeroMax = (TuningTableBase4Long + 0x29C).ToString("X");
-
-            FrontReboundStiffnessMin = (TuningTableBase4Long + 0x3D4).ToString("X");
-            FrontReboundStiffnessMax = (TuningTableBase4Long + 0x3D8).ToString("X");
-            RearReboundStiffnessMin = (TuningTableBase4Long + 0x480).ToString("X");
-            RearReboundStiffnessMax = (TuningTableBase4Long + 0x484).ToString("X");
-
-            FrontBumpStiffnessMin = (TuningTableBase4Long + 0x3B8).ToString("X");
-            FrontBumpStiffnessMax = (TuningTableBase4Long + 0x3BC).ToString("X");
-            RearBumpStiffnessMin = (TuningTableBase4Long + 0x464).ToString("X");
-            RearBumpStiffnessMax = (TuningTableBase4Long + 0x468).ToString("X");
-
-            Wheelbase = (TuningTableBase4Long + 0xC0).ToString("X");
-            FrontWidth = (TuningTableBase4Long + 0xC4).ToString("X");
-            RearWidth = (TuningTableBase4Long + 0xC8).ToString("X");
-            FrontSpacer = (TuningTableBase4Long + 0x610).ToString("X");
-            RearSpacer = (TuningTableBase4Long + 0x614).ToString("X");
-
-            AngleMax = (TuningTableBase4Long + 0x534).ToString("X");
-            AngleMax2 = (TuningTableBase4Long + 0x538).ToString("X");
-            VelocityStraight = (TuningTableBase4Long + 0x53C).ToString("X");
-            VelocityTurning = (TuningTableBase4Long + 0x540).ToString("X");
-            VelocityCountersteer = (TuningTableBase4Long + 0x544).ToString("X");
-            VelocityDynamicPeek = (TuningTableBase4Long + 0x548).ToString("X");
-            TimeToMaxSteering = (TuningTableBase4Long + 0x54C).ToString("X");
-        }
-
-
-        private static bool AddressesFirstTime = true;
-        private static int TireOffset;
-        private static int GearingOffset;
-        private static int FinalDriveOffset;
-        private static int AeroOffset;
-        private static int RimsOffset;
-        private static int AlignmentOffset;
+        private const int AeroOffset = 0x3A0;
+        private const int GearOffset = 0x10B8;
+        private const int TireOffset = 0x2D58;
         
-        public static void AddressesFH5()
+        public static void Addresses()
         {
-            // made this so I dont have to update the offset each update
-            // in the place where Im adding something to ***Offset it doesnt change in any update from my test so it should be fine
-            // probably the stupidest thing I've ever done but it works so I dont care
+            TireFrontLeft = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0x1D9C : TireOffset).ToString("X");
+            TireFrontRight = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0x337C : (TireOffset + 2752)).ToString("X");
+            TireRearLeft = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0x495C : (TireOffset + 5504)).ToString("X");
+            TireRearRight = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0x5F3C : (TireOffset + 8256)).ToString("X");
             
-            if (AddressesFirstTime)
-            {
-                var GetTireOffset = MainWindow.mw.m.ScanForSig(TireOffsetAob, 1).FirstOrDefault() + 4;
-                TireOffset = MainWindow.mw.m.ReadMemory<int>(GetTireOffset);
-
-                var GetGearingOffset = MainWindow.mw.m.ScanForSig("48 8D ? ? F3 0F ? ? ? ? ? ? ? 0F 2F ? 73", 1).FirstOrDefault() + 9;
-                GearingOffset = MainWindow.mw.m.ReadMemory<int>(GetGearingOffset);
-
-                var GetFinalDriveOffset = MainWindow.mw.m.ScanForSig("F3 0F ? ? ? ? ? ? F3 0F ? ? 48 8B ? ? F3 0F ? ? 48 8B ? F3 0F", 1).FirstOrDefault() + 4;
-                FinalDriveOffset = MainWindow.mw.m.ReadMemory<int>(GetFinalDriveOffset);
-
-                var GetAeroOffset = MainWindow.mw.m.ScanForSig("41 8B ? ? ? ? ? 89 42 ? C7 42 14 ? ? ? ? C3 CC CC CC CC CC CC 48 8B", 1).FirstOrDefault() - 0x21;
-                AeroOffset = MainWindow.mw.m.ReadMemory<int>(GetAeroOffset);
-
-                var GetRimsOffset = MainWindow.mw.m.ScanForSig("F3 0F ? ? ? ? ? ? EB ? F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? 8B D7", 1).FirstOrDefault() + 4;
-                RimsOffset = MainWindow.mw.m.ReadMemory<int>(GetRimsOffset);
-
-                var GetAlignmentOffset = MainWindow.mw.m.ScanForSig("48 8B ? ? ? ? ? F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? F3 0F ? ? F3 0F ? ? 48 8B").FirstOrDefault() + 19;
-                AlignmentOffset = MainWindow.mw.m.ReadMemory<int>(GetAlignmentOffset);
-                
-                AddressesFirstTime = false;
-            }
+            FinalDrive = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0xC40 : 0x125C).ToString("X");
+            ReverseGear = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0xACC : (GearOffset - 20)).ToString("X");
+            FirstGear = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0xAE0 : GearOffset).ToString("X");
+            SecondGear = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0xAF4 : (GearOffset + 20)).ToString("X");
+            ThirdGear = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0xB08 : (GearOffset + 40)).ToString("X");
+            FourthGear = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0xB1C : (GearOffset + 60)).ToString("X");
+            FifthGear = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0xB30 : (GearOffset + 80)).ToString("X");
+            SixthGear = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0xB44 : (GearOffset + 100)).ToString("X");
+            SeventhGear = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0xB58 : (GearOffset + 120)).ToString("X");
+            EighthGear = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0xB6C : (GearOffset + 140)).ToString("X");
+            NinthGear = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0xB80 : (GearOffset + 160)).ToString("X");
+            TenthGear = (TuningTableBase1Long + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0xB94 : (GearOffset + 180)).ToString("X");
             
-            TireFrontLeft = (TuningTableBase1Long + TireOffset).ToString("X");
-            TireFrontRight = (TuningTableBase1Long + TireOffset + 2752).ToString("X");
-            TireRearRight = (TuningTableBase1Long + TireOffset + 5504).ToString("X");
-            TireRearLeft = (TuningTableBase1Long + TireOffset + 8256).ToString("X");
-
-            FinalDrive = (TuningTableBase1Long + FinalDriveOffset).ToString("X");
-            ReverseGear = (TuningTableBase1Long + GearingOffset - 20).ToString("X");
-            FirstGear = (TuningTableBase1Long + GearingOffset).ToString("X");
-            SecondGear = (TuningTableBase1Long + GearingOffset + 20).ToString("X");
-            ThirdGear = (TuningTableBase1Long + GearingOffset + 40).ToString("X");
-            FourthGear = (TuningTableBase1Long + GearingOffset + 60).ToString("X");
-            FifthGear = (TuningTableBase1Long + GearingOffset + 80).ToString("X");
-            SixthGear = (TuningTableBase1Long + GearingOffset + 100).ToString("X");
-            SeventhGear = (TuningTableBase1Long + GearingOffset + 120).ToString("X");
-            EighthGear = (TuningTableBase1Long + GearingOffset + 140).ToString("X");
-            NinthGear = (TuningTableBase1Long + GearingOffset + 160).ToString("X");
-            TenthGear = (TuningTableBase1Long + GearingOffset + 180).ToString("X");
-
-            FrontAeroMin = (TuningTableBase2Long + AeroOffset).ToString("X");
-            FrontAeroMax = (TuningTableBase2Long + AeroOffset + 8).ToString("X");
-            RearAeroMin = (TuningTableBase2Long + AeroOffset + 96).ToString("X");
-            RearAeroMax = (TuningTableBase2Long + AeroOffset + 104).ToString("X");
-
-            AngleMax = (TuningTableBase2Long + AeroOffset + 1156).ToString("X");
-            AngleMax2 = (TuningTableBase2Long + AeroOffset + 1160).ToString("X");
-            VelocityStraight = (TuningTableBase2Long + AeroOffset + 1164).ToString("X");
-            VelocityTurning = (TuningTableBase2Long + AeroOffset + 1168).ToString("X");
-            VelocityCountersteer = (TuningTableBase2Long + AeroOffset + 1172).ToString("X");
-            VelocityDynamicPeek = (TuningTableBase2Long + AeroOffset + 1176).ToString("X");
-            TimeToMaxSteering = (TuningTableBase2Long + AeroOffset + 1180).ToString("X");
-
-            Wheelbase = (TuningTableBase2Long + 0xD0).ToString("X");
-            FrontWidth = (TuningTableBase2Long + 0xD4).ToString("X");
-            RearWidth = (TuningTableBase2Long + 0xD8).ToString("X");
-            FrontSpacer = (TuningTableBase2Long + AeroOffset + 1624).ToString("X");
-            RearSpacer = (TuningTableBase2Long + AeroOffset + 1628).ToString("X");
-
-            SpringFrontMin = (TuningTableBase2Long + AeroOffset + 432).ToString("X");
-            SpringFrontMax = (TuningTableBase2Long + AeroOffset + 772).ToString("X");
-            SpringRearMin = (TuningTableBase2Long + AeroOffset + 436).ToString("X");
-            SpringRearMax = (TuningTableBase2Long + AeroOffset + 776).ToString("X");
-
-            FrontRideHeightMin = (TuningTableBase2Long + AeroOffset + 400).ToString("X");
-            FrontRideHeightMax = (TuningTableBase2Long + AeroOffset + 404).ToString("X");
-            RearRideHeightMin = (TuningTableBase2Long + AeroOffset + 740).ToString("X");
-            RearRideHeightMax = (TuningTableBase2Long + AeroOffset + 744).ToString("X");
+            RimSizeFront = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase2Long + 0x758 : TuningTableBase3Long + 0x7D8).ToString("X");
+            RimRadiusFront = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase2Long + 0x760 : TuningTableBase3Long + 0x7DC).ToString("X");
+            RimSizeRear = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase2Long + 0x75C : TuningTableBase3Long + 0x7E0).ToString("X");
+            RimRadiusRear = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase2Long + 0x764 : TuningTableBase3Long + 0x7E4).ToString("X");
             
-            FrontRestriction = (TuningTableBase2Long + AeroOffset + 408).ToString("X");
-            RearRestriction = (TuningTableBase2Long + AeroOffset + 748).ToString("X");
+            CamberNeg = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase3Long + 0x3E4 : TuningTableBase4Long + 0x490).ToString("X");
+            CamberPos = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase3Long + 0x3E8 : TuningTableBase4Long + 0x494).ToString("X");
+            ToeNeg = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase3Long + 0x3EC : TuningTableBase4Long + 0x498).ToString("X");
+            ToePos = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase3Long + 0x3F0 : TuningTableBase4Long + 0x49C).ToString("X");
 
-            FrontBumpStiffnessMin = (TuningTableBase2Long + AeroOffset + 444).ToString("X");
-            FrontBumpStiffnessMax = (TuningTableBase2Long + AeroOffset + 448).ToString("X");
-            RearBumpStiffnessMin = (TuningTableBase2Long + AeroOffset + 784).ToString("X");
-            RearBumpStiffnessMax = (TuningTableBase2Long + AeroOffset + 788).ToString("X");
+            FrontAntirollMin = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x3F8 : (TuningTableBase2Long + AeroOffset + 588)).ToString("X");
+            FrontAntirollMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x3FC : (TuningTableBase2Long + AeroOffset + 592)).ToString("X");
+            RearAntirollMin = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x4A4 : (TuningTableBase2Long + AeroOffset + 928)).ToString("X");
+            RearAntirollMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x4A8 : (TuningTableBase2Long + AeroOffset + 932)).ToString("X");
 
-            FrontReboundStiffnessMin = (TuningTableBase2Long + AeroOffset + 480).ToString("X");
-            FrontReboundStiffnessMax = (TuningTableBase2Long + AeroOffset + 484).ToString("X");
-            RearReboundStiffnessMin = (TuningTableBase2Long + AeroOffset + 820).ToString("X");
-            RearReboundStiffnessMax = (TuningTableBase2Long + AeroOffset + 824).ToString("X");
+            SpringFrontMin = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x3AC : (TuningTableBase2Long + AeroOffset + 432)).ToString("X");
+            SpringFrontMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x3B0 : (TuningTableBase2Long + AeroOffset + 772)).ToString("X");
+            SpringRearMin = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x458 : (TuningTableBase2Long + AeroOffset + 436)).ToString("X");
+            SpringRearMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x45C : (TuningTableBase2Long + AeroOffset + 776)).ToString("X");
 
-            FrontAntirollMin = (TuningTableBase2Long + AeroOffset + 588).ToString("X");
-            FrontAntirollMax = (TuningTableBase2Long + AeroOffset + 592).ToString("X");
-            RearAntirollMin = (TuningTableBase2Long + AeroOffset + 928).ToString("X");
-            RearAntirollMax = (TuningTableBase2Long + AeroOffset + 932).ToString("X");
+            FrontRideHeightMin = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x394 : (TuningTableBase2Long + AeroOffset + 400)).ToString("X");
+            FrontRideHeightMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x398 : (TuningTableBase2Long + AeroOffset + 404)).ToString("X");
+            RearRideHeightMin = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x440 : (TuningTableBase2Long + AeroOffset + 740)).ToString("X");
+            RearRideHeightMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x444 : (TuningTableBase2Long + AeroOffset + 744)).ToString("X");
 
-            RimSizeFront = (TuningTableBase3Long + RimsOffset).ToString("X");
-            RimSizeRear = (TuningTableBase3Long + RimsOffset + 4).ToString("X");
-            RimRadiusFront = (TuningTableBase3Long + RimsOffset + 8).ToString("X");
-            RimRadiusRear = (TuningTableBase3Long + RimsOffset + 12).ToString("X");
+            FrontRestriction = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x39C : (TuningTableBase2Long + AeroOffset + 408)).ToString("X");
+            RearRestriction = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x448 : (TuningTableBase2Long + AeroOffset + 748)).ToString("X");
 
-            CamberNeg = (TuningTableBase4Long + AlignmentOffset).ToString("X");
-            CamberPos = (TuningTableBase4Long + AlignmentOffset + 4).ToString("X");
-            ToeNeg = (TuningTableBase4Long + AlignmentOffset + 8).ToString("X");
-            ToePos = (TuningTableBase4Long + AlignmentOffset + 12).ToString("X");
+            FrontAeroMin = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x234 : (TuningTableBase2Long + AeroOffset)).ToString("X");
+            FrontAeroMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x23C : (TuningTableBase2Long + AeroOffset + 8)).ToString("X");
+            RearAeroMin = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x294 : (TuningTableBase2Long + AeroOffset + 96)).ToString("X");
+            RearAeroMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x29C : (TuningTableBase2Long + AeroOffset + 104)).ToString("X");
+
+            FrontReboundStiffnessMin = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x3D4 : (TuningTableBase2Long + AeroOffset + 480)).ToString("X");
+            FrontReboundStiffnessMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x3D8 : (TuningTableBase2Long + AeroOffset + 484)).ToString("X");
+            RearReboundStiffnessMin = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x480 : (TuningTableBase2Long + AeroOffset + 820)).ToString("X");
+            RearReboundStiffnessMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x484 : (TuningTableBase2Long + AeroOffset + 824)).ToString("X");
+
+            FrontBumpStiffnessMin = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x3B8 : (TuningTableBase2Long + AeroOffset + 444)).ToString("X");
+            FrontBumpStiffnessMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x3BC : (TuningTableBase2Long + AeroOffset + 448)).ToString("X");
+            RearBumpStiffnessMin = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x464 : (TuningTableBase2Long + AeroOffset + 784)).ToString("X");
+            RearBumpStiffnessMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x468 : (TuningTableBase2Long + AeroOffset + 788)).ToString("X");
+
+            Wheelbase = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0xC0 : TuningTableBase2Long + 0xD0).ToString("X");
+            FrontWidth = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0xC4 : TuningTableBase2Long + 0xD4).ToString("X");
+            RearWidth = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0xC8 : TuningTableBase2Long + 0xD8).ToString("X");
+            FrontSpacer = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x610 : TuningTableBase2Long + AeroOffset + 1624).ToString("X");
+            RearSpacer = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x614 : TuningTableBase2Long + AeroOffset + 1628).ToString("X");
+
+            AngleMax = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x534 : TuningTableBase2Long + AeroOffset + 1156).ToString("X");
+            AngleMax2 = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x538 : TuningTableBase2Long + AeroOffset + 1160).ToString("X");
+            VelocityStraight = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x53C : TuningTableBase2Long + AeroOffset + 1164).ToString("X");
+            VelocityTurning = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x540 : TuningTableBase2Long + AeroOffset + 1168).ToString("X");
+            VelocityCountersteer = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x544 : TuningTableBase2Long + AeroOffset + 1172).ToString("X");
+            VelocityDynamicPeek = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x548 : TuningTableBase2Long + AeroOffset + 1176).ToString("X");
+            TimeToMaxSteering = (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? TuningTableBase4Long + 0x54C : TuningTableBase2Long + AeroOffset + 1180).ToString("X");
         }
         
         private static void ReadValues()
@@ -414,6 +271,21 @@ namespace Forza_Mods_AIO.Tabs.Tuning
                 
                 Application.Current.Dispatcher.BeginInvoke((Action)delegate ()
                 {
+                    /* not finished, cba for now
+                       also nested as fuck I dont like
+                       might just do a for (int i = 1; i < visuals.count; ++i) loop and some visual variables idk
+                    foreach (FrameworkElement Element in MainWindow.mw.GetChildren())
+                    {
+                        foreach (var Field in typeof(Tuning_Addresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(string)))
+                        {
+                            if (Field.Name.Contains("Tire"))
+                                Element.GetType()!.GetProperty("Value")!.SetValue(Element, (float)Math.Round(MainWindow.mw.m.ReadMemory<float>((Field.GetValue(Field) as string)), 3));
+                            else
+                                Element.GetType()!.GetProperty("Value")!.SetValue(Element, (float)Math.Round(MainWindow.mw.m.ReadMemory<float>((Field.GetValue(Field) as string)), 3));
+
+                        }
+                    }*/
+                    
                     #region Aero
 
                         Aero.ae.FrontAeroMinBox.Value = Math.Round(MainWindow.mw.m.ReadMemory<float>(FrontAeroMin), 3);

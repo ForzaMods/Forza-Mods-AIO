@@ -30,7 +30,7 @@ public partial class UnlocksPage
             return;
         }
 
-        ASM.Credits();
+        Self_Vehicle_ASM.Credits();
     }
     
     private void CreditsNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -40,8 +40,7 @@ public partial class UnlocksPage
     
     private void XpSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (ASM.XpFirstTime)
-            XpNum.IsEnabled = true;
+        XpNum.IsEnabled = true;
         
         if (!XpSwitch.IsOn)
         {
@@ -56,7 +55,7 @@ public partial class UnlocksPage
             return;
         }
         
-        ASM.StartXPtool();
+        Self_Vehicle_ASM.StartXPtool();
     }
 
     public void XpNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)

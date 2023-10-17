@@ -620,7 +620,7 @@ internal class Self_Vehicle_Addrs
             Thread.Sleep(250);
         }
 
-        Task.Run(() => ASM.GetBaseAddress());
+        Task.Run(() => Self_Vehicle_ASM.GetBaseAddress());
         UpdateUi.UpdateUI(true, Self_Vehicle.sv);
         return Task.CompletedTask;
     }
@@ -785,7 +785,7 @@ internal class Self_Vehicle_Addrs
         ScanIndex++;
         UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
         UpdateUi.UpdateUI(true, Self_Vehicle.sv);
-        Task.Run(() => ASM.GetBaseAddress());
+        Task.Run(() => Self_Vehicle_ASM.GetBaseAddress());
         return Task.CompletedTask;
     }
     #endregion
