@@ -111,7 +111,9 @@ internal class Self_Vehicle_Addrs
     public static string XRot;
     public static string YRot;
     public static string UnbSkillHookAddr;
-    public static string UnbSkillAddr;
+    public static string WorldCollisionThreshold;
+    public static string CarCollisionThreshold;
+    public static string SmashableCollisionTolerance;
     public static string CreditsHookAddr;
     public static string BaseAddrHook;
     public static string BuildCapAddrASM1;

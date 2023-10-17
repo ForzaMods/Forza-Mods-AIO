@@ -32,14 +32,14 @@ public partial class MiscellaneousPage
         
         if (!UnbreakableSkillScoreSwitch.IsOn)
         {
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.UnbSkillAddr, (float)12);
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 4).ToString("X"), (float)12);
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 8).ToString("X"), (float)22);
+            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.WorldCollisionThreshold, (float)12);
+            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.CarCollisionThreshold,(float)12);
+            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SmashableCollisionTolerance,(float)22);
             return;
         }
         
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.UnbSkillAddr, (float)9999999999);
-        MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 4).ToString("X"), (float)9999999999);
-        MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 8).ToString("X"), (float)9999999999);
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.WorldCollisionThreshold, (float)9999999999);
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.CarCollisionThreshold,(float)9999999999);
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SmashableCollisionTolerance,(float)9999999999);
     }
 }

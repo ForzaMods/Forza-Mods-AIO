@@ -228,13 +228,14 @@ public class Self_Vehicle_ASM : Resources.ASM
             Thread.Sleep(250);
         }
 
-        Self_Vehicle_Addrs.UnbSkillAddrLong += 0x2C;
-        Self_Vehicle_Addrs.UnbSkillAddr = Self_Vehicle_Addrs.UnbSkillAddrLong.ToString("X");
+        Self_Vehicle_Addrs.WorldCollisionThreshold = (Self_Vehicle_Addrs.UnbSkillAddrLong + 44).ToString("X");
+        Self_Vehicle_Addrs.CarCollisionThreshold = (Self_Vehicle_Addrs.UnbSkillAddrLong + 48).ToString("X");
+        Self_Vehicle_Addrs.SmashableCollisionTolerance = (Self_Vehicle_Addrs.UnbSkillAddrLong + 52).ToString("X");
         MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.UnbSkillHookAddr, new byte[] { 0x48, 0x8B, 0x10, 0x48, 0x8B, 0xC8 });
             
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.UnbSkillAddr, (float)9999999999);
-        MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 4).ToString("X"),(float)9999999999);
-        MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.UnbSkillAddrLong + 8).ToString("X"),(float)9999999999);
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.WorldCollisionThreshold, (float)9999999999);
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.CarCollisionThreshold,(float)9999999999);
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SmashableCollisionTolerance,(float)9999999999);
     }
     
     
