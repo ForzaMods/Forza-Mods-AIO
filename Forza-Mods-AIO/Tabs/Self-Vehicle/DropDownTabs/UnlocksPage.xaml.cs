@@ -35,7 +35,7 @@ public partial class UnlocksPage
     
     private void CreditsNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        try { MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave13 + 0x35).ToString("X"), (int)CreditsNum.Value);} catch {}
+        try { MainWindow.mw.m.WriteMemory((Self_Vehicle_ASM.CodeCave8 + 0x35).ToString("X"), (int)CreditsNum.Value);} catch {}
     }
     
     private void XpSwitch_OnToggled(object sender, RoutedEventArgs e)
@@ -60,7 +60,7 @@ public partial class UnlocksPage
 
     public void XpNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        try { MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave3 + 0x2b).ToString("X"), (int)XpNum.Value);} catch {}
+        try { MainWindow.mw.m.WriteMemory((Self_Vehicle_ASM.CodeCave2 + 0x2b).ToString("X"), (int)XpNum.Value);} catch {}
     }
 
     private void HornUnlockerSwitch_OnToggled(object sender, RoutedEventArgs e)

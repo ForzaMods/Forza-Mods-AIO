@@ -8,7 +8,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle;
 
 public abstract class Self_Vehicle_ASM : Resources.ASM
 {
-    private static UIntPtr CodeCave1, CodeCave2, CodeCave3, CodeCave4, CodeCave5, CodeCave6, CodeCave7, CodeCave8, CodeCave9, CodeCave10;
+    public static UIntPtr CodeCave1, CodeCave2, CodeCave3, CodeCave4, CodeCave5, CodeCave6, CodeCave7, CodeCave8, CodeCave9, CodeCave10;
     private static bool CreditsFirstTime = true, GlowingPaintFirstTime = true, BuildCapFirstTime = true, XpFirstTime = true, FlyhackFirstTime = true;
     private static byte[] CreditsJmpBytes, GlowingPaintJmpBytes, BuildCapJmpBytes1, BuildCapJmpBytes2, XpJmpBytes, FlyhackJmpBytes;
     private static byte[] CreditsOrigBytes, GlowingPaintOrigBytes, BuildCapOrigBytes1, BuildCapOrigBytes2, XpOrigBytes, FlyhackOrigBytes, GetWayPointAddrOrigBytes, BaseAddressHookOrigBytes;

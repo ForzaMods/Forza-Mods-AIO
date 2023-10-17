@@ -202,23 +202,6 @@ internal class Self_Vehicle_Addrs
 
     #endregion
 
-    #region Addresses - CodeCaves
-    public static IntPtr CodeCave = (IntPtr)0;
-    public static IntPtr CodeCave2 = (IntPtr)0;
-    public static IntPtr CodeCave3 = (IntPtr)0;
-    public static IntPtr CodeCave4 = (IntPtr)0;
-    public static IntPtr CodeCave5 = (IntPtr)0;
-    public static IntPtr CodeCave6 = (IntPtr)0;
-    public static IntPtr CodeCave7 = (IntPtr)0;
-    public static IntPtr CodeCave8 = (IntPtr)0;
-    public static IntPtr CodeCave9 = (IntPtr)0;
-    public static IntPtr CodeCave10 = (IntPtr)0;
-    public static IntPtr CodeCave11 = (IntPtr)0;
-    public static IntPtr CodeCave12 = (IntPtr)0;
-    public static IntPtr CodeCave13 = (IntPtr)0;
-    public static IntPtr CodeCave14 = (IntPtr)0;
-    #endregion
-
     #region Addresses - FOV
 
     private static long FovScanEndAddr;

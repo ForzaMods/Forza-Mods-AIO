@@ -42,9 +42,9 @@ public partial class CustomizationPage : Page
         {
             GlowingPaintSlider.Value = Convert.ToDouble(GlowingPaintNum.Value);
 
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave9 + 0x50).ToString("X"), (float)GlowingPaintNum.Value);
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave9 + 0x54).ToString("X"), (float)GlowingPaintNum.Value);
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.CodeCave9 + 0x58).ToString("X"), (float)GlowingPaintNum.Value);
+            MainWindow.mw.m.WriteMemory((Self_Vehicle_ASM.CodeCave4 + 0x50).ToString("X"), (float)GlowingPaintNum.Value);
+            MainWindow.mw.m.WriteMemory((Self_Vehicle_ASM.CodeCave4 + 0x54).ToString("X"), (float)GlowingPaintNum.Value);
+            MainWindow.mw.m.WriteMemory((Self_Vehicle_ASM.CodeCave4 + 0x58).ToString("X"), (float)GlowingPaintNum.Value);
         }
 
         catch
