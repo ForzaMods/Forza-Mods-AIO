@@ -6,7 +6,7 @@ using Memory;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle;
 
-public class Self_Vehicle_ASM : Resources.ASM
+public abstract class Self_Vehicle_ASM : Resources.ASM
 {
     private static UIntPtr CodeCave1, CodeCave2, CodeCave3, CodeCave4, CodeCave5, CodeCave6, CodeCave7, CodeCave8, CodeCave9, CodeCave10;
     private static bool CreditsFirstTime = true, GlowingPaintFirstTime = true, BuildCapFirstTime = true, XpFirstTime = true, FlyhackFirstTime = true;
@@ -16,21 +16,33 @@ public class Self_Vehicle_ASM : Resources.ASM
     
     public static void Cleanup()
     {
-        CleanCodeCaveJumps();
-        FreeMem();
+        try
+        {
+            CleanCodeCaveJumps();
+            FreeMem();
+        }
+        catch { /* ignored */}
     }
 
     
     private static void CleanCodeCaveJumps()
     {
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.CreditsHookAddr, CreditsOrigBytes);
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.GlowingPaintAddr, GlowingPaintOrigBytes);
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.BuildCapAddrASM1, BuildCapOrigBytes1);
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.BuildCapAddrASM2, BuildCapOrigBytes2);
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.XPaddr, XpOrigBytes);
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.RotationAddr, FlyhackOrigBytes);
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.WayPointxASMAob, GetWayPointAddrOrigBytes);
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.BaseAddrHook, BaseAddressHookOrigBytes);
+        if (CreditsOrigBytes != null)
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.CreditsHookAddr, CreditsOrigBytes);
+        if (GlowingPaintOrigBytes != null)
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.GlowingPaintAddr, GlowingPaintOrigBytes);
+        if (BuildCapOrigBytes1 != null)
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.BuildCapAddrASM1, BuildCapOrigBytes1);
+        if (BuildCapOrigBytes2 != null)
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.BuildCapAddrASM2, BuildCapOrigBytes2);
+        if (XpOrigBytes != null)
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.XPaddr, XpOrigBytes);
+        if (FlyhackOrigBytes != null)
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.RotationAddr, FlyhackOrigBytes);
+        if (GetWayPointAddrOrigBytes != null)
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.WayPointxASMAob, GetWayPointAddrOrigBytes);
+        if (BaseAddressHookOrigBytes != null)
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.BaseAddrHook, BaseAddressHookOrigBytes);
     }
     
     
