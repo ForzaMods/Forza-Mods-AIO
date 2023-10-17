@@ -133,30 +133,30 @@ namespace Forza_Mods_AIO
                 {
                     Element.Visibility = Visibility.Hidden;
                 }
+            }
+            
+            // Scanned is true
+            if (!(Is_Scanned.TryGetValue(rbName, out var isScanned) && !isScanned && Attached))
+            {
+                return;
+            }
 
-                // Scanned is true
-                if (!(Is_Scanned.TryGetValue(rbName, out var isScanned) && !isScanned && Attached))
-                {
-                    continue;
-                }
-
-                // Scanned is not true, scan
-                Is_Scanned[rbName] = true;
-                switch (rbName)
-                {
-                    case "AutoShow":
-                        Task.Run(() => AutoshowVars.Scan());
-                        break;
-                    case "Self_Vehicle":
-                        if (gvp.Name == "Forza Horizon 5")
-                            Task.Run(() => new Self_Vehicle_Addrs().FH5_Scan());
-                        else
-                            Task.Run(() => new Self_Vehicle_Addrs().FH4_Scan());
-                        break;
-                    case "Tuning":
-                        Task.Run(() => Tuning_Addresses.Scan());
-                        break;
-                }
+            // Scanned is not true, scan
+            Is_Scanned[rbName] = true;
+            switch (rbName)
+            {
+                case "AutoShow":
+                    Task.Run(() => AutoshowVars.Scan());
+                    break;
+                case "Self_Vehicle":
+                    if (gvp.Name == "Forza Horizon 5")
+                        Task.Run(() => new Self_Vehicle_Addrs().FH5_Scan());
+                    else
+                        Task.Run(() => new Self_Vehicle_Addrs().FH4_Scan());
+                    break;
+                case "Tuning":
+                    Task.Run(() => Tuning_Addresses.Scan());
+                    break;
             }
         }
         #endregion
