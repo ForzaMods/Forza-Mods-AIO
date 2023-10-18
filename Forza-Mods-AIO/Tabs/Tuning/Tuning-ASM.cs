@@ -63,7 +63,7 @@ public abstract class Tuning_ASM : ASM
         
         var Hook4ReplaceCount = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 10 : 9 ;
         Hook4OriginalBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Tuning_Addresses.TuningTableHook4, Hook4ReplaceCount);
-        var Hook4Bytes = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? StringToBytes("4C893D49000000498B07488D5577") : StringToBytes(BitConverter.ToString(Hook4OriginalBytes).Replace("-", string.Empty) + "53488BD848891D3C0000005B");
+        var Hook4Bytes = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? StringToBytes("488B0748893D46000000488D9560020000") : StringToBytes(BitConverter.ToString(Hook4OriginalBytes).Replace("-", string.Empty) + "53488BD848891D3C0000005B");
         CodeCave4 = MainWindow.mw.m.CreateDetour(Tuning_Addresses.TuningTableHook4, Hook4Bytes, Hook4ReplaceCount, size: 30);
 
         Task.Run(ReadAddresses);
@@ -74,9 +74,9 @@ public abstract class Tuning_ASM : ASM
         while (MainWindow.mw.Attached)
         {
             Tuning_Addresses.TuningTableBase1Long = MainWindow.mw.m.ReadMemory<long>(((long)CodeCave1 + 0x50).ToString("X"));
-            Tuning_Addresses.TuningTableBase2Long = MainWindow.mw.m.ReadMemory<long>(((long)CodeCave2 + 0x50).ToString("X")) + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0 : 400;
+            Tuning_Addresses.TuningTableBase2Long = MainWindow.mw.m.ReadMemory<long>(((long)CodeCave2 + 0x50).ToString("X")) + (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 0 : 400);
             Tuning_Addresses.TuningTableBase3Long = MainWindow.mw.m.ReadMemory<long>(((long)CodeCave3 + 0x50).ToString("X"));
-            Tuning_Addresses.TuningTableBase4Long = MainWindow.mw.m.ReadMemory<long>(((long)CodeCave4 + 0x50).ToString("X")) + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 400 : 0;
+            Tuning_Addresses.TuningTableBase4Long = MainWindow.mw.m.ReadMemory<long>(((long)CodeCave4 + 0x50).ToString("X")) + (MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 400 : 0);
             
             Tuning_Addresses.Addresses();
             
