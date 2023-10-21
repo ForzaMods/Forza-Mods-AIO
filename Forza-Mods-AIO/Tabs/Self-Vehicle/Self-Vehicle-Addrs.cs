@@ -204,8 +204,8 @@ internal class Self_Vehicle_Addrs
 
     #region Addresses - FOV
 
-    private static long FovScanEndAddr;
     private static long FovScanStartAddr;
+    private static long FovScanEndAddr;
 
     public static List<string> RearAddresses = new();
     public static List<string> RestAddresses = new();
@@ -214,8 +214,8 @@ internal class Self_Vehicle_Addrs
 
     #region Addresses - Stats
 
-    private static long StatsScanEndAddr;
     private static long StatsScanStartAddr;
+    private static long StatsScanEndAddr;
 
     public static List<string> Addresses = new();
 
@@ -247,25 +247,28 @@ internal class Self_Vehicle_Addrs
         PastStartAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x5C");
         InPauseAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x3D8");
         FOVHighAddr = (BaseAddr + ",0x568,0x270,0x258,0xB8,0x348,0x70,0x5B0");
-        TurnAndZoomSpeed = (CameraSpeedBase - 0x4).ToString("X");
-        MovementSpeed = (CameraSpeedBase + 0x4).ToString("X");
+        TurnAndZoomSpeed = (CameraSpeedBase + 4).ToString("X");
+        MovementSpeed = (CameraSpeedBase).ToString("X");
         Samples = (CameraBase).ToString("X");
         SamplesMultiplier = (CameraBase + 0xC).ToString("X");
         ApertureScale = (CameraBase + 0x20).ToString("X");
         CarInFocus = (CameraBase + 0x30).ToString("X");
         TimeSlice = (CameraBase + 0x38).ToString("X");
-        NoClipAddr = (CameraBase - 440064).ToString("X");
-        MinFovAddr = (CameraBase - 440048).ToString("X");
-        MaxHeightAddr = (CameraBase - 440532).ToString("X");
+        NoClipAddr = (NoClipAddrLong).ToString("X");
+        MinFovAddr = (NoClipAddrLong - 376).ToString("X");
+        MaxHeightAddr = (NoClipAddrLong - 468).ToString("X");
+        ShutterSpeed = (CameraShutterSpeed).ToString("X");
         Application.Current.Dispatcher.Invoke(() =>
         {
+            if (TeleportsPage.t.TeleportBox.Items.Contains("Edinburgh"))
+                return;
+            
             PhotomodePage.PhotoPage.CarInFocusBox.Value = MainWindow.mw.m.ReadMemory<float>(CarInFocus);
             PhotomodePage.PhotoPage.SamplesBox.Value = MainWindow.mw.m.ReadMemory<int>(Samples);
             PhotomodePage.PhotoPage.TimeSliceBox.Value = Math.Round(MainWindow.mw.m.ReadMemory<float>(TimeSlice), 5);
-            //CameraPage.CamPage.ShutterSpeedBox.Value = MainWindow.mw.m.ReadMemory<float>(ShutterSpeed);
+            PhotomodePage.PhotoPage.ShutterSpeedBox.Value = MainWindow.mw.m.ReadMemory<float>(ShutterSpeed);
             PhotomodePage.PhotoPage.ApertureScaleBox.Value = MainWindow.mw.m.ReadMemory<float>(ApertureScale);
-            if (TeleportsPage.t.TeleportBox.Items.Contains("Edinburgh"))
-                return;
+
             TeleportsPage.t.TeleportBox.Items.Clear();
             TeleportsPage.t.TeleportBox.Items.Add("Waypoint");
             TeleportsPage.t.TeleportBox.Items.Add("Adventure Park");
@@ -327,13 +330,15 @@ internal class Self_Vehicle_Addrs
         MaxHeightAddr = (NoClipAddrLong - 0x190).ToString("X");
         Application.Current.Dispatcher.Invoke(() =>
         {
+            if (TeleportsPage.t.TeleportBox.Items.Contains("Guanajuato (Main City)"))
+                return;
+            
             PhotomodePage.PhotoPage.CarInFocusBox.Value = MainWindow.mw.m.ReadMemory<float>(CarInFocus);
             PhotomodePage.PhotoPage.SamplesBox.Value = MainWindow.mw.m.ReadMemory<int>(Samples);
             PhotomodePage.PhotoPage.TimeSliceBox.Value = Math.Round(MainWindow.mw.m.ReadMemory<float>(TimeSlice), 5);
             PhotomodePage.PhotoPage.ShutterSpeedBox.Value = Math.Round(MainWindow.mw.m.ReadMemory<float>(ShutterSpeed), 5);
             PhotomodePage.PhotoPage.ApertureScaleBox.Value = MainWindow.mw.m.ReadMemory<float>(ApertureScale);
-            if (TeleportsPage.t.TeleportBox.Items.Contains("Guanajuato (Main City)"))
-                return;
+
             TeleportsPage.t.TeleportBox.Items.Clear();
             TeleportsPage.t.TeleportBox.Items.Add("Waypoint");
             TeleportsPage.t.TeleportBox.Items.Add("Airstrip");
@@ -382,16 +387,16 @@ internal class Self_Vehicle_Addrs
         DiscoverRoadsAob = "00 96 42 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 40 1C 45 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 03 00";
         WaterAob = "3D ? ? ? ? 00 00 A0 ? ? ? ? ? ? ? ? 3F 00 00";
         AIXAob = "48 89 ? ? ? 57 48 83 EC ? 0F 10 ? 48 8B ? 0F 11 ? ? 48 8B";
-        CameraShutterSpeedAob = "c8 ? ? ? 7f ? 00 18 a4";
         GlowingPaintSig = "41 0f 11 4a ? 41 c6 02";
         BuildCap1Sig = "F3 0F 11 B3 DC 03 00 00 E8";
         BuildCap2Sig = "F3 0F 11 43 30 FF 04 88 EB 61";
         CameraSpeedBaseAob = "cd ? 4c 3f cd ? 4c 3f 0a d7 13 40";
-        CameraBaseAob = "27 01 00 00 70";
-        CameraShutterSpeedAob = "f0 75 ? 95 f6 7f ? 00 fe";
+        CameraBaseAob = "00 80 ? ? ? ? 3C ? 00 80 ? ? ? ? C0";
+        CameraShutterSpeedAob = "C8 ? ? ? 7F ? 00 18 A4";
         GlowingPaintSig = "41 0f 11 4a ? 41 c6 02";
+        NoClipSig = "74 ? 00 00 00 00 00 00 00 00 00 00 06 00 00 00 00 00 00 00 0F 00 00 00 00 00 00 00 00 00 ? ? ? ? ? 00 70";
         RGBAob = "81 80 80 3B 81 80 80 3B 81 80 80 3B 81 80 80 3B";
-        BaseAddrHookAob = "0F 87 ? ? ? ? 4C 8B ? 0F 29";
+        BaseAddrHookAob = "F3 0F 10 81 90 01 00 00 C3";
     }
 
     private static void AobsFive()
@@ -448,11 +453,6 @@ internal class Self_Vehicle_Addrs
         {
             try
             {
-                BaseAddrHookLong = (long)MainWindow.mw.m.ScanForSig(BaseAddrHookAob).FirstOrDefault() - 279;
-                BaseAddrHook = BaseAddrHookLong.ToString("X");
-                ScanIndex++;
-                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
-
                 XPaddrLong = (long)MainWindow.mw.m.ScanForSig(XPAob).FirstOrDefault();
                 XPaddr = XPaddrLong.ToString("X");
                 ScanIndex++;
@@ -502,6 +502,12 @@ internal class Self_Vehicle_Addrs
                 RotationAddr = RotationAddrLong.ToString("X");
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
+                BaseAddrHookLong = (long)MainWindow.mw.m.ScanForSig(BaseAddrHookAob).FirstOrDefault() - 279;
+                BaseAddrHook = BaseAddrHookLong.ToString("X");
+                ScanIndex++;
+                UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+                
                 Finished++;
             }
             catch
@@ -612,9 +618,9 @@ internal class Self_Vehicle_Addrs
     #endregion
 
     #region FH4 Scan
-    public Task FH4_Scan()
+    public void FH4_Scan()
     {
-        ScanAmount = 24;
+        ScanAmount = 25;
         
         Aobs();
 
@@ -623,11 +629,6 @@ internal class Self_Vehicle_Addrs
         
         Thread HigherPriorityScans = new Thread(() =>
         {
-            BaseAddrHookLong = (long)MainWindow.mw.m.ScanForSig(BaseAddrHookAob).FirstOrDefault() + 137;
-            BaseAddrHook = BaseAddrHookLong.ToString("X");
-            ScanIndex++;
-            UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
-
             WorldRGBAddrLong = (long)MainWindow.mw.m.ScanForSig(RGBAob).LastOrDefault();
             WorldRGBAddr = WorldRGBAddrLong.ToString("X");
             ScanIndex++;
@@ -667,6 +668,12 @@ internal class Self_Vehicle_Addrs
             Wall2Addr = Wall2AddrLong.ToString("X");
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+            
+            BaseAddrHookLong = (long)MainWindow.mw.m.ScanForSig(BaseAddrHookAob).FirstOrDefault();
+            BaseAddrHook = BaseAddrHookLong.ToString("X");
+            ScanIndex++;
+            UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+            
             Finished++;
         });
 
@@ -741,13 +748,18 @@ internal class Self_Vehicle_Addrs
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
             
-            CameraBase = (long)MainWindow.mw.m.ScanForSig(CameraBaseAob).FirstOrDefault();
+            CameraBase = (long)MainWindow.mw.m.ScanForSig(CameraBaseAob).FirstOrDefault() - 665;
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar); 
             
-            CameraShutterSpeed = (long)MainWindow.mw.m.ScanForSig(CameraShutterSpeedAob).FirstOrDefault();
+            CameraShutterSpeed = (long)MainWindow.mw.m.ScanForSig(CameraShutterSpeedAob).FirstOrDefault() - 0x31;
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+         
+            NoClipAddrLong = (long)MainWindow.mw.m.ScanForSig(NoClipSig).FirstOrDefault() + 1532;
+            ScanIndex++;
+            UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+            
             Finished++;
         });
         
@@ -760,12 +772,9 @@ internal class Self_Vehicle_Addrs
         {
             Thread.Sleep(1000);
         }
-        
-        ScanIndex++;
-        UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+
         UpdateUi.UpdateUI(true, Self_Vehicle.sv);
         Task.Run(() => Self_Vehicle_ASM.GetBaseAddress());
-        return Task.CompletedTask;
     }
     #endregion
 }

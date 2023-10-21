@@ -83,7 +83,7 @@ public abstract class Self_Vehicle_ASM : Resources.ASM
     public static void GetTimeAddr()
     {
         CodeCave1 = MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.TimeNOPAddr, StringToBytes("48891D21000000F20F1143084883C440"), 9, size: 30);
-        Thread.Sleep(25);
+        Thread.Sleep(250);
         Self_Vehicle_Addrs.TimeAddr = (MainWindow.mw.m.ReadMemory<long>(((long)CodeCave1 + 40).ToString("X")) + 8).ToString("X");
         MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.TimeNOPAddr, new byte[] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x83, 0xC4, 0x40 });
     }
@@ -113,7 +113,7 @@ public abstract class Self_Vehicle_ASM : Resources.ASM
     public static void GetWayPointAddr()
     {        
         GetWayPointAddrOrigBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.WayPointxASMAddr, 7);
-        CodeCave3 = MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.WayPointxASMAddr, StringToBytes(MainWindow.mw.gvp.Name == "Forza Horizon 4" ? "48893D220000000F1097A0030000" : "48893D220000000F109750020000"), 7, size: 30);
+        CodeCave3 = MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.WayPointxASMAddr, StringToBytes(MainWindow.mw.gvp.Name == "Forza Horizon 4" ? "48893D220000000F1097A0030000" : "0F10973002000048893D1B000000"), 7, size: 30);
         long WayPointBaseAddr = MainWindow.mw.m.ReadMemory<long>((CodeCave3 + 41).ToString("X"));
 
         while (WayPointBaseAddr == 0)
@@ -122,9 +122,9 @@ public abstract class Self_Vehicle_ASM : Resources.ASM
             Thread.Sleep(250);
         }
 
-        Self_Vehicle_Addrs.WayPointxAddr = (WayPointBaseAddr + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 928 : 592).ToString("X");
-        Self_Vehicle_Addrs.WayPointyAddr = (WayPointBaseAddr + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 932 : 596).ToString("X");
-        Self_Vehicle_Addrs.WayPointzAddr = (WayPointBaseAddr + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 936 : 600).ToString("X");
+        Self_Vehicle_Addrs.WayPointxAddr = (WayPointBaseAddr + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 928 : 560).ToString("X");
+        Self_Vehicle_Addrs.WayPointyAddr = (WayPointBaseAddr + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 932 : 564).ToString("X");
+        Self_Vehicle_Addrs.WayPointzAddr = (WayPointBaseAddr + MainWindow.mw.gvp.Name == "Forza Horizon 4" ? 936 : 568).ToString("X");
 
         float WayPointX = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointxAddr);
         float WayPointY = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointyAddr) + 3;
@@ -193,9 +193,9 @@ public abstract class Self_Vehicle_ASM : Resources.ASM
     
     public static void GetBaseAddress()
     {
-        var ReplaceCount = MainWindow.mw.gvp.Name == "Forza Horizon 5" ? 8 : 6;
+        var ReplaceCount = 8;
         BaseAddressHookOrigBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.BaseAddrHook, ReplaceCount);
-        var CodeCaveBytes = StringToBytes(MainWindow.mw.gvp.Name == "Forza Horizon 5" ? BitConverter.ToString(BaseAddressHookOrigBytes).Replace("-", string.Empty) + "4881E97005000048890D2B0000004881C170050000" : "488B07488BCF4881EF6005000048893D2D0000004881C760050000");
+        var CodeCaveBytes = StringToBytes(MainWindow.mw.gvp.Name == "Forza Horizon 5" ? BitConverter.ToString(BaseAddressHookOrigBytes).Replace("-", string.Empty) + "4881E97005000048890D2B0000004881C170050000" : "F30F1081900100004881E96005000048890D2B0000004881C160050000");
         CodeCave7 = MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.BaseAddrHook, CodeCaveBytes, ReplaceCount, size: 30);
 
         while (MainWindow.mw.Attached)

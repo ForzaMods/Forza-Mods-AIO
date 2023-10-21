@@ -1,11 +1,10 @@
-﻿using Forza_Mods_AIO.Tabs.AutoShowTab;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Forza_Mods_AIO.Resources;
 
-namespace Forza_Mods_AIO.Tabs
+namespace Forza_Mods_AIO.Tabs.AutoShowTab
 {
     /// <summary>
     /// Interaction logic for Page1.xaml
@@ -14,6 +13,8 @@ namespace Forza_Mods_AIO.Tabs
     {
         public static AutoShow AS;
         private string ClearGarageString = "DELETE FROM Profile0_Career_Garage WHERE Id > 0;";
+        private const string FreePerfString = "UPDATE List_UpgradeAntiSwayFront SET price=0;UPDATE List_UpgradeAntiSwayRear SET price=0;UPDATE List_UpgradeBrakes SET price=0;UPDATE List_UpgradeCarBodyChassisStiffness SET price=0;UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyTireWidthFront SET price=0;UPDATE List_UpgradeCarBodyTireWidthRear SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingFront SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingRear SET price=0;UPDATE List_UpgradeCarBodyWeight SET price=0;UPDATE List_UpgradeDrivetrain SET price=0;UPDATE List_UpgradeDrivetrainClutch SET price=0;UPDATE List_UpgradeDrivetrainDifferential  SET price=0;UPDATE List_UpgradeDrivetrainDriveline SET price=0;UPDATE List_UpgradeDrivetrainTransmission SET price=0;UPDATE List_UpgradeEngine SET price=0;UPDATE List_UpgradeEngineCamshaft SET price=0;UPDATE List_UpgradeEngineCSC SET price=0;UPDATE List_UpgradeEngineDisplacement SET price=0;UPDATE List_UpgradeEngineDSC SET price=0;UPDATE List_UpgradeEngineExhaust SET price=0;UPDATE List_UpgradeEngineFlywheel SET price=0;UPDATE List_UpgradeEngineFuelSystem SET price=0;UPDATE List_UpgradeEngineIgnition SET price=0;UPDATE List_UpgradeEngineIntake SET price=0;UPDATE List_UpgradeEngineIntercooler SET price=0;UPDATE List_UpgradeEngineManifold SET price=0;UPDATE List_UpgradeEngineOilCooling SET price=0;UPDATE List_UpgradeEnginePistonsCompression SET price=0;UPDATE List_UpgradeEngineRestrictorPlate SET price=0;UPDATE List_UpgradeEngineTurboQuad SET price=0;UPDATE List_UpgradeEngineTurboSingle SET price=0;UPDATE List_UpgradeEngineTurboTwin SET price=0;UPDATE List_UpgradeEngineValves SET price=0;UPDATE List_UpgradeMotor SET price=0;UPDATE List_UpgradeMotorParts SET price=0;UPDATE List_UpgradeSpringDamper SET price=0;UPDATE List_UpgradeTireCompound SET price=0;UPDATE List_Wheels SET price=1;";
+        private const string FreeVisualString = "UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyFrontBumper SET price=0;UPDATE List_UpgradeCarBodyHood SET price=0;UPDATE List_UpgradeCarBodyRearBumper SET price=0;UPDATE List_UpgradeCarBodySideSkirt SET price=0;UPDATE List_UpgradeRearWing SET price=0;UPDATE List_Wheels SET price=1;";
             
         public AutoShow()
         {
@@ -30,17 +31,19 @@ namespace Forza_Mods_AIO.Tabs
                 case true when MainWindow.mw.gvp.Name == "Forza Horizon 5":
                     Task.Run(() =>
                     {
-                        Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = false; });
-                        bool Done = AutoshowVars.ExecSQL("UPDATE Data_Car SET NotAvailableInAutoshow = 0 WHERE NotAvailableInAutoshow = 1;");
-                        if (Done)
-                            ;
-                        else
+                        Dispatcher.BeginInvoke(delegate () { ToggleAllCars.IsEnabled = false; });
+                        bool Done = AutoshowVars.ExecSQL("UPDATE Data_Car SET NotAvailableInAutoshow = 0; UPDATE Data_Car SET IsCarVisible = 1; UPDATE Data_Car SET IsCarVisibleAndReleased = 1; UPDATE Data_Car SET IsBarnFind = 0;");
+                        if (!Done)
                         {
-                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.Toggled -= ToggleFreeCars_Toggled; });
-                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsOn = false; });
-                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.Toggled += ToggleFreeCars_Toggled; });
+                            Dispatcher.BeginInvoke(delegate () 
+                            { 
+                                ToggleAllCars.Toggled -= ToggleAllCars_Toggled; 
+                                ToggleAllCars.IsOn = false;
+                                ToggleAllCars.Toggled += ToggleAllCars_Toggled;
+                            });
                         }
-                        Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = true; });
+
+                        Dispatcher.BeginInvoke(delegate () { ToggleAllCars.IsEnabled = true; });
                     });
                     break;
                 case true when MainWindow.mw.gvp.Name == "Forza Horizon 4":
@@ -57,17 +60,19 @@ namespace Forza_Mods_AIO.Tabs
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 5":
                     Task.Run(() =>
                     {
-                        Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = false; });
+                        Dispatcher.BeginInvoke(delegate () { ToggleAllCars.IsEnabled = false; });
                         bool Done = AutoshowVars.ExecSQL("UPDATE Data_Car SET NotAvailableInAutoshow = (SELECT OriginalAutoshow FROM OriginalStuff WHERE OriginalStuff.Id = Data_Car.Id);");
-                        if (Done)
-                            ;
-                        else
+                        if (!Done)
                         {
-                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.Toggled -= ToggleFreeCars_Toggled; });
-                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsOn = false; });
-                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.Toggled += ToggleFreeCars_Toggled; });
+                            Dispatcher.BeginInvoke(delegate () 
+                            { 
+                                ToggleAllCars.Toggled -= ToggleAllCars_Toggled;
+                                ToggleAllCars.IsOn = false;
+                                ToggleAllCars.Toggled += ToggleAllCars_Toggled; 
+                            });
                         }
-                        Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = true; });
+
+                        Dispatcher.BeginInvoke(delegate () { ToggleAllCars.IsEnabled = true; });
                     });
                     break;
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 4":
@@ -95,15 +100,17 @@ namespace Forza_Mods_AIO.Tabs
                     Task.Run(() =>
                     {
                         Dispatcher.BeginInvoke(delegate () { ToggleRareCars.IsEnabled = false; });
-                        bool Done = AutoshowVars.ExecSQL("UPDATE Data_Car SET NotAvailableInAutoshow = CASE NotAvailableInAutoshow WHEN 0 THEN 1 WHEN 1 THEN 0 END;");
-                        if (Done)
-                            ;
-                        else
+                        bool Done = AutoshowVars.ExecSQL("UPDATE Data_Car SET NotAvailableInAutoshow = CASE NotAvailableInAutoshow WHEN 0 THEN 1 WHEN 1 THEN 0 END; UPDATE Data_Car SET IsCarVisible = 1; UPDATE Data_Car SET IsCarVisibleAndReleased = 1; UPDATE Data_Car SET IsBarnFind = 0;");
+                        if (!Done)
                         {
-                            Dispatcher.BeginInvoke(delegate () { ToggleRareCars.Toggled -= ToggleRareCars_Toggled; });
-                            Dispatcher.BeginInvoke(delegate () { ToggleRareCars.IsOn = false; });
-                            Dispatcher.BeginInvoke(delegate () { ToggleRareCars.Toggled += ToggleRareCars_Toggled; });
+                            Dispatcher.BeginInvoke(delegate () 
+                            { 
+                                ToggleRareCars.Toggled -= ToggleRareCars_Toggled; 
+                                ToggleRareCars.IsOn = false;
+                                ToggleRareCars.Toggled += ToggleRareCars_Toggled;
+                            });
                         }
+
                         Dispatcher.BeginInvoke(delegate () { ToggleRareCars.IsEnabled = true; });
                     });
                     break;
@@ -122,14 +129,16 @@ namespace Forza_Mods_AIO.Tabs
                     {
                         Dispatcher.BeginInvoke(delegate () { ToggleRareCars.IsEnabled = false; });
                         bool Done = AutoshowVars.ExecSQL("UPDATE Data_Car SET NotAvailableInAutoshow = CASE NotAvailableInAutoshow WHEN 1 THEN 0 WHEN 0 THEN 1 END;");
-                        if (Done)
-                            ;
-                        else
+                        if (!Done)
                         {
-                            Dispatcher.BeginInvoke(delegate () { ToggleRareCars.Toggled -= ToggleRareCars_Toggled; });
-                            Dispatcher.BeginInvoke(delegate () { ToggleRareCars.IsOn = false; });
-                            Dispatcher.BeginInvoke(delegate () { ToggleRareCars.Toggled += ToggleRareCars_Toggled; });
+                            Dispatcher.BeginInvoke(delegate()
+                            {
+                                ToggleRareCars.Toggled -= ToggleRareCars_Toggled; 
+                                ToggleRareCars.IsOn = false;
+                                ToggleRareCars.Toggled += ToggleRareCars_Toggled;
+                            });
                         }
+
                         Dispatcher.BeginInvoke(delegate () { ToggleRareCars.IsEnabled = true; });
                     });
                     break;
@@ -156,14 +165,16 @@ namespace Forza_Mods_AIO.Tabs
                     {
                         Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = false; });
                         bool Done = AutoshowVars.ExecSQL("CREATE TABLE CostTable(Id string, BaseCost string); INSERT INTO CostTable(Id, BaseCost) SELECT Id, BaseCost FROM Data_car; UPDATE Data_Car SET BaseCost = 0;");
-                        if (Done)
-                            ;
-                        else
+                        if (!Done)
                         {
-                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.Toggled -= ToggleFreeCars_Toggled; });
-                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsOn = false; });
-                            Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.Toggled += ToggleFreeCars_Toggled; });
+                            Dispatcher.BeginInvoke(delegate()
+                            {
+                                ToggleFreeCars.Toggled -= ToggleFreeCars_Toggled; 
+                                ToggleFreeCars.IsOn = false;
+                                ToggleFreeCars.Toggled += ToggleFreeCars_Toggled;
+                            });
                         }
+
                         Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = true; });
                     });
                     break;
@@ -177,14 +188,9 @@ namespace Forza_Mods_AIO.Tabs
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 5":
                     Task.Run(() =>
                     {
-                        ToggleFreeCars.IsEnabled = false;
-                        bool Done = AutoshowVars.ExecSQL("UPDATE Data_Car SET BaseCost = (SELECT BaseCost FROM CostTable WHERE Id = Data_Car.Id); DROP TABLE CostTable;");
-                        if (Done) 
-                            ;
-                        else
-                            ToggleFreeCars.IsEnabled = true;
-                        
-                        ToggleFreeCars.IsEnabled = true;
+                        Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = false; });
+                        AutoshowVars.ExecSQL("UPDATE Data_Car SET BaseCost = (SELECT BaseCost FROM CostTable WHERE Id = Data_Car.Id); DROP TABLE CostTable;");
+                        Dispatcher.BeginInvoke(delegate () { ToggleFreeCars.IsEnabled = true; });
                     });
                     break;
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 4":
@@ -240,11 +246,11 @@ namespace Forza_Mods_AIO.Tabs
                     {
                         Dispatcher.BeginInvoke(delegate () { ClearGarage.IsEnabled = false; });
                         var Done = AutoshowVars.ExecSQL(ClearGarageString);
-                        if (Done)
-                            ;
-                        else
+                        if (!Done)
+                        {
                             Dispatcher.BeginInvoke(delegate () { ClearGarage.IsOn = false; });
-                    
+                        }
+                        
                         Dispatcher.BeginInvoke(delegate () { ClearGarage.IsEnabled = true; });
                     });
                     break;
@@ -275,9 +281,7 @@ namespace Forza_Mods_AIO.Tabs
                     {
                         Dispatcher.BeginInvoke(delegate () { FixThumbnails.IsEnabled = false; });
                         bool Done = AutoshowVars.ExecSQL("UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage; UPDATE Profile0_Career_Garage SET NumOwners=69");
-                        if (Done)
-                            ;
-                        else
+                        if (!Done)
                             Dispatcher.BeginInvoke(delegate () { FixThumbnails.IsOn = false; });
 
                         Dispatcher.BeginInvoke(delegate () { FixThumbnails.IsEnabled = true; });
@@ -302,7 +306,7 @@ namespace Forza_Mods_AIO.Tabs
 
         private void QuickAddRareCars_OnToggled(object sender, RoutedEventArgs e)
         {
-            string CarList = "3300";
+            const string CarList = "3300";
             string String = "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
                             " INSERT INTO Profile0_FreeCars SELECT Id, 1 FROM Data_Car WHERE Id NOT IN (SELECT CarId AS Id FROM Profile0_FreeCars WHERE CarID IS NOT NULL);" +
                             " UPDATE ContentOffersMapping SET Quantity = 9999 ;" +
@@ -320,9 +324,7 @@ namespace Forza_Mods_AIO.Tabs
                         Dispatcher.BeginInvoke(delegate () { QuickAddRareCars.IsEnabled = false; });
 
                         bool Done = AutoshowVars.ExecSQL(String);
-                        if (Done)
-                            ;
-                        else
+                        if (!Done)
                             Dispatcher.BeginInvoke(delegate () { QuickAddRareCars.IsOn = false; });
 
                         Dispatcher.BeginInvoke(delegate () { QuickAddRareCars.IsEnabled = true; });
@@ -344,7 +346,7 @@ namespace Forza_Mods_AIO.Tabs
 
         private void QuickAddAllCars_OnToggled(object sender, RoutedEventArgs e)
         {
-            string CarList = "3300";
+            const string CarList = "3300";
             string String = "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
                             " INSERT INTO Profile0_FreeCars SELECT ContentId, 1 FROM ContentOffersMapping;" +
                             " UPDATE ContentOffersMapping SET IsAutoRedeem = 1 WHERE ContentId NOT IN(SELECT ContentId FROM ContentOffersMapping WHERE ReleaseDateUTC > '" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00") + " 00:00');" +
@@ -359,9 +361,7 @@ namespace Forza_Mods_AIO.Tabs
                     {
                         Dispatcher.BeginInvoke(delegate () { QuickAddAllCars.IsEnabled = false; });
                         bool Done = AutoshowVars.ExecSQL(String);
-                        if (Done)
-                            ;
-                        else
+                        if (!Done)
                             Dispatcher.BeginInvoke(delegate () { QuickAddAllCars.IsOn = false; });
                         
                         Dispatcher.BeginInvoke(delegate () { QuickAddAllCars.IsEnabled = true; });
@@ -389,10 +389,8 @@ namespace Forza_Mods_AIO.Tabs
                     Task.Run(() =>
                     {
                         Dispatcher.BeginInvoke(delegate () { FreeVisualUpgrades.IsEnabled = false; });
-                        bool Done = AutoshowVars.ExecSQL("UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyFrontBumper SET price=0;UPDATE List_UpgradeCarBodyHood SET price=0;UPDATE List_UpgradeCarBodyRearBumper SET price=0;UPDATE List_UpgradeCarBodySideSkirt SET price=0;UPDATE List_UpgradeRearWing SET price=0;UPDATE List_Wheels SET price=1\"");
-                        if (Done)
-                            ;
-                        else
+                        bool Done = AutoshowVars.ExecSQL(FreeVisualString);
+                        if (!Done)
                             Dispatcher.BeginInvoke(delegate () { FreeVisualUpgrades.IsOn = false; });
                         
                         Dispatcher.BeginInvoke(delegate () { FreeVisualUpgrades.IsEnabled = true; });
@@ -401,7 +399,7 @@ namespace Forza_Mods_AIO.Tabs
                 case true:
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql13, "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
                     MainWindow.mw.m.WriteArrayMemory(AutoshowVars.sql14, new byte[] { 0x00 });
-                    MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql13, "UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyFrontBumper SET price=0;UPDATE List_UpgradeCarBodyHood SET price=0;UPDATE List_UpgradeCarBodyRearBumper SET price=0;UPDATE List_UpgradeCarBodySideSkirt SET price=0;UPDATE List_UpgradeRearWing SET price=0;UPDATE List_Wheels SET price=1");
+                    MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql13, FreeVisualString);
                     FreePerfUpgrades.IsEnabled = false;
                     break;
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 4":
@@ -420,10 +418,8 @@ namespace Forza_Mods_AIO.Tabs
                     Task.Run(() =>
                     {
                         Dispatcher.BeginInvoke(delegate () { FreePerfUpgrades.IsEnabled = false; });
-                        bool Done = AutoshowVars.ExecSQL("UPDATE List_UpgradeAntiSwayFront SET price=0;UPDATE List_UpgradeAntiSwayRear SET price=0;UPDATE List_UpgradeBrakes SET price=0;UPDATE List_UpgradeCarBodyChassisStiffness SET price=0;UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyTireWidthFront SET price=0;UPDATE List_UpgradeCarBodyTireWidthRear SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingFront SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingRear SET price=0;UPDATE List_UpgradeCarBodyWeight SET price=0;UPDATE List_UpgradeDrivetrain SET price=0;UPDATE List_UpgradeDrivetrainClutch SET price=0;UPDATE List_UpgradeDrivetrainDifferential  SET price=0;UPDATE List_UpgradeDrivetrainDriveline SET price=0;UPDATE List_UpgradeDrivetrainTransmission SET price=0;UPDATE List_UpgradeEngine SET price=0;UPDATE List_UpgradeEngineCamshaft SET price=0;UPDATE List_UpgradeEngineCSC SET price=0;UPDATE List_UpgradeEngineDisplacement SET price=0;UPDATE List_UpgradeEngineDSC SET price=0;UPDATE List_UpgradeEngineExhaust SET price=0;UPDATE List_UpgradeEngineFlywheel SET price=0;UPDATE List_UpgradeEngineFuelSystem SET price=0;UPDATE List_UpgradeEngineIgnition SET price=0;UPDATE List_UpgradeEngineIntake SET price=0;UPDATE List_UpgradeEngineIntercooler SET price=0;UPDATE List_UpgradeEngineManifold SET price=0;UPDATE List_UpgradeEngineOilCooling SET price=0;UPDATE List_UpgradeEnginePistonsCompression SET price=0;UPDATE List_UpgradeEngineRestrictorPlate SET price=0;UPDATE List_UpgradeEngineTurboQuad SET price=0;UPDATE List_UpgradeEngineTurboSingle SET price=0;UPDATE List_UpgradeEngineTurboTwin SET price=0;UPDATE List_UpgradeEngineValves SET price=0;UPDATE List_UpgradeMotor SET price=0;UPDATE List_UpgradeMotorParts SET price=0;UPDATE List_UpgradeSpringDamper SET price=0;UPDATE List_UpgradeTireCompound SET price=0;UPDATE List_VariableTiming SET price=0;UPDATE List_Wheels SET price=1;");
-                        if (Done)
-                            ;
-                        else
+                        bool Done = AutoshowVars.ExecSQL(FreePerfString);
+                        if (!Done)
                             Dispatcher.BeginInvoke(delegate () { FreePerfUpgrades.IsOn = false; });
                         
                         Dispatcher.BeginInvoke(delegate () { FreePerfUpgrades.IsEnabled = true; });
@@ -432,7 +428,7 @@ namespace Forza_Mods_AIO.Tabs
                 case true:
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql13,  "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ");
                     MainWindow.mw.m.WriteArrayMemory(AutoshowVars.sql14, new byte[] { 0x00 });
-                    MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql13, "UPDATE List_UpgradeAntiSwayFront SET price=0;UPDATE List_UpgradeAntiSwayRear SET price=0;UPDATE List_UpgradeBrakes SET price=0;UPDATE List_UpgradeCarBodyChassisStiffness SET price=0;UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyTireWidthFront SET price=0;UPDATE List_UpgradeCarBodyTireWidthRear SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingFront SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingRear SET price=0;UPDATE List_UpgradeCarBodyWeight SET price=0;UPDATE List_UpgradeDrivetrain SET price=0;UPDATE List_UpgradeDrivetrainClutch SET price=0;UPDATE List_UpgradeDrivetrainDifferential  SET price=0;UPDATE List_UpgradeDrivetrainDriveline SET price=0;UPDATE List_UpgradeDrivetrainTransmission SET price=0;UPDATE List_UpgradeEngine SET price=0;UPDATE List_UpgradeEngineCamshaft SET price=0;UPDATE List_UpgradeEngineCSC SET price=0;UPDATE List_UpgradeEngineDisplacement SET price=0;UPDATE List_UpgradeEngineDSC SET price=0;UPDATE List_UpgradeEngineExhaust SET price=0;UPDATE List_UpgradeEngineFlywheel SET price=0;UPDATE List_UpgradeEngineFuelSystem SET price=0;UPDATE List_UpgradeEngineIgnition SET price=0;UPDATE List_UpgradeEngineIntake SET price=0;UPDATE List_UpgradeEngineIntercooler SET price=0;UPDATE List_UpgradeEngineManifold SET price=0;UPDATE List_UpgradeEngineOilCooling SET price=0;UPDATE List_UpgradeEnginePistonsCompression SET price=0;UPDATE List_UpgradeEngineRestrictorPlate SET price=0;UPDATE List_UpgradeEngineTurboQuad SET price=0;UPDATE List_UpgradeEngineTurboSingle SET price=0;UPDATE List_UpgradeEngineTurboTwin SET price=0;UPDATE List_UpgradeEngineValves SET price=0;UPDATE List_UpgradeMotor SET price=0;UPDATE List_UpgradeMotorParts SET price=0;UPDATE List_UpgradeSpringDamper SET price=0;UPDATE List_UpgradeTireCompound SET price=0;UPDATE List_VariableTiming SET price=0;UPDATE List_Wheels SET price=1;");
+                    MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql13, FreePerfString);
                     FreeVisualUpgrades.IsEnabled = false;
                     break;
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 4":
@@ -453,9 +449,7 @@ namespace Forza_Mods_AIO.Tabs
                     {
                         Dispatcher.BeginInvoke(delegate () { ShowTrafficHSNull.IsEnabled = false; });
                         bool Done = AutoshowVars.ExecSQL("DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL");
-                        if (Done)
-                            ;
-                        else
+                        if (!Done)
                             Dispatcher.BeginInvoke(delegate () { ShowTrafficHSNull.IsOn = false; });
                         
                         Dispatcher.BeginInvoke(delegate () { ShowTrafficHSNull.IsEnabled = true; });
@@ -514,9 +508,7 @@ namespace Forza_Mods_AIO.Tabs
                         Dispatcher.BeginInvoke(delegate () { UnlockHiddenPresets.IsEnabled = false; });
 
                         bool Done = AutoshowVars.ExecSQL("UPDATE UpgradePresetPackages SET Purchasable = 1 WHERE Purchasable = 0");
-                        if (Done)
-                            ;
-                        else
+                        if (!Done)
                             Dispatcher.BeginInvoke(delegate () { UnlockHiddenPresets.IsOn = false; });
 
                         Dispatcher.BeginInvoke(delegate () { UnlockHiddenPresets.IsEnabled = true; });
@@ -545,19 +537,19 @@ namespace Forza_Mods_AIO.Tabs
         {
             ClearGarageString = ClearGarageComboBox.SelectedIndex switch
             {
-                1 => // All
+                0 => // All
                     "DELETE FROM Profile0_Career_Garage WHERE Id > 0;",
-                2 => // Dupes
+                1 => // Dupes
                     "DELETE FROM Profile0_Career_Garage WHERE Id NOT IN (select min(Id) from Profile0_Career_Garage group by CarId);",
-                3 => // Non favorites
+                2 => // Non favorites
                     "DELETE FROM Profile0_Career_Garage WHERE IsFavorite IS NOT 1;",
-                4 => // Rare cars
+                3 => // Rare cars
                     "DELETE FROM Profile0_Career_Garage WHERE CarId NOT IN (SELECT Id FROM Data_Car WHERE NotAvailableInAutoshow = 0);",
-                5 => // Autoshow cars
+                4 => // Autoshow cars
                     "DELETE FROM Profile0_Career_Garage WHERE CarId NOT IN (SELECT Id FROM Data_Car WHERE NotAvailableInAutoshow = 1);",
-                6 => // Only untuned
+                5 => // Only untuned
                     "DELETE FROM Profile0_Career_Garage WHERE VersionedTuneId IS \"00000000-0000-0000-0000-000000000000\";",
-                7 => // Only unpainted
+                6 => // Only unpainted
                     "DELETE FROM Profile0_Career_Garage WHERE VersionedLiveryId IS \"00000000-0000-0000-0000-000000000000\";",
                 _ => ClearGarageString
             };

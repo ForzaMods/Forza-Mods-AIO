@@ -200,7 +200,7 @@ public partial class TeleportsPage
                 }
 
                 x = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointxAddr);
-                y = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointyAddr);
+                y = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointyAddr) + 3;
                 z = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointzAddr);
                 break;
         }

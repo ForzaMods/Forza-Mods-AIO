@@ -130,6 +130,8 @@ namespace Forza_Mods_AIO.Overlay
         // Caches all the headers
         public void CacheHeaders()
         {
+            if (!Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers"))
+                return;
             MenuHeaders = Directory.GetFiles(Environment.CurrentDirectory + @"\Overlay\Headers");
             foreach (string header in MenuHeaders)
             {
@@ -170,12 +172,18 @@ namespace Forza_Mods_AIO.Overlay
                 double HeaderX = HeaderY * 4;
 
                 // Select header
-                if (HeaderImage == null || HeaderImage.UriSource.LocalPath != MenuHeaders[HeaderIndex])
+                if ((HeaderImage == null || HeaderImage.UriSource.LocalPath != MenuHeaders[HeaderIndex]) && Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers"))
                 {
                     if (HeaderImage is { IsFrozen: true })
                         HeaderImage = HeaderImage.Clone();
                     HeaderImage = (BitmapImage)Headers.Find(x => x[0].ToString().Contains(MenuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))[1];
                     try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
+                }
+                else
+                {
+                    // TODO : Fix the case when user has no \Overlay\Headers folder
+                    // Delegated to ethan
+                    //HeaderImage = new BitmapImage(new Uri("pack://application:,,,/Overlay/pog header.png", UriKind.RelativeOrAbsolute));
                 }
 
                 if (MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow())

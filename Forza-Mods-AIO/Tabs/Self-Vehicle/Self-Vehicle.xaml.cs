@@ -38,7 +38,7 @@ public partial class Self_Vehicle : Page
         { "MiscellaneousButton", 70 }
     };
 
-    private static readonly Dictionary<string, bool> IsClicked = new()
+    private static Dictionary<string, bool> IsClicked = new()
     {
         { "HandlingButton", false },
         { "UnlocksButton", false },

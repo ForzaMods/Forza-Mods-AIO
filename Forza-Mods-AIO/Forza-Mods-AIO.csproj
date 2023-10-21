@@ -15,6 +15,7 @@
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <LangVersion>10.0</LangVersion>
@@ -39,15 +40,9 @@
     <Page Remove="MVVM\**" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Fonts\AUTOMANI.TTF" />
-    <Resource Include="Resources\Fonts\Manrope-Bold.ttf" />
-    <Resource Include="Resources\Fonts\Manrope-ExtraBold.ttf" />
-    <Resource Include="Resources\Fonts\Manrope-ExtraLight.ttf" />
-    <Resource Include="Resources\Fonts\Manrope-Light.ttf" />
-    <Resource Include="Resources\Fonts\Manrope-Medium.ttf" />
-    <Resource Include="Resources\Fonts\Manrope-Regular.ttf" />
-    <Resource Include="Resources\Fonts\Manrope-SemiBold.ttf" />
     <Resource Include="Resources\SQL\SQL_DLL.dll" />
+    <None Remove="Overlay\pog header.png" />
+    <Resource Include="Overlay\pog header.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ini-parser" Version="2.5.2" />

@@ -15,6 +15,7 @@ using MahApps.Metro.Controls;
 using Memory;
 using Forza_Mods_AIO.CustomTheming;
 using System.Xml.Linq;
+using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.Self_Vehicle;
 using Forza_Mods_AIO.Tabs.AutoShowTab;
 using Lunar;
@@ -58,7 +59,6 @@ namespace Forza_Mods_AIO
         public string PageFocused = "AIO_Info";
         public bool Attached;
         public LibraryMapper Mapper;
-        public bool WasMapped = false;
         IEnumerable<Visual> Visuals;
         Dictionary<string, bool> Is_Scanned = new()
         {
@@ -82,6 +82,7 @@ namespace Forza_Mods_AIO
             TopBar1.Background = Monet.DarkColour;
             TopBar2.Background = Monet.DarkColour;
             CategoryButton_Click(new Object(), new RoutedEventArgs());
+            Loaded += (sender, args) => ToggleButtons(false);
         }
         #endregion
         #region Dragging
@@ -171,6 +172,8 @@ namespace Forza_Mods_AIO
                     if (Attached)
                         continue;
                     GvpMaker(5);
+                    Bypass.DisableAnticheat();
+                    ToggleButtons(true);
                     Attached = true;
                 }
                 else if (m.OpenProcess("ForzaHorizon4"))
@@ -178,6 +181,7 @@ namespace Forza_Mods_AIO
                     if (Attached)
                         continue;
                     GvpMaker(4);
+                    ToggleButtons(true);
                     Attached = true;
                 }
                 else
@@ -185,11 +189,29 @@ namespace Forza_Mods_AIO
                     if (!Attached)
                         continue;
                     ResetAIO();
+                    ToggleButtons(false);
                     Attached = false;
                 }
             }
         }
 
+        private void ToggleButtons(bool On)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                Self_Vehicle.IsEnabled = On;
+                AutoShow.IsEnabled = On;
+                Tuning.IsEnabled = On;
+
+                Self_Vehicle.Foreground = On ? Brushes.White : Brushes.DarkGray;
+                AutoShow.Foreground = On ? Brushes.White : Brushes.DarkGray;
+                Tuning.Foreground = On ? Brushes.White : Brushes.DarkGray;
+
+                CarSports.Fill = On ? Brushes.White : Brushes.DarkGray;
+                Speedtest.Fill = On ? Brushes.White : Brushes.DarkGray;
+                Tools.Fill = On ? Brushes.White : Brushes.DarkGray;
+            });
+        }
         private void GvpMaker(int ver)
         {
             string platform, update = "Unknown", name = $"Forza Horizon {ver}";
@@ -232,7 +254,7 @@ namespace Forza_Mods_AIO
                 AttachedLabel.Content = "Launch FH4/5";
                 Tabs.Tuning.Tuning.TBM.AOBProgressBar.Value = 0;
                 Tabs.Self_Vehicle.Self_Vehicle.sv.AOBProgressBar.Value = 0;
-                Tabs.AutoShow.AS.AOBProgressBar.Value = 0;
+                Tabs.AutoShowTab.AutoShow.AS.AOBProgressBar.Value = 0;
                 Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsEnabled = false;
                 AIO_Info.IsChecked = true;
                 CategoryButton_Click(new object(), new RoutedEventArgs());
@@ -251,9 +273,10 @@ namespace Forza_Mods_AIO
             }
 
             //TODO Cleanup here
-            if (WasMapped && Mapper.DllBaseAddress != IntPtr.Zero)
+            if (Mapper != null && Mapper.DllBaseAddress != IntPtr.Zero)
             {
-                Mapper.UnmapLibrary();
+                try { Mapper.UnmapLibrary(); } 
+                catch { /* ignored */}
             }
             
             Self_Vehicle_ASM.Cleanup();
@@ -269,9 +292,6 @@ namespace Forza_Mods_AIO
                     m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong + 12).ToString("X"), new byte[] { 0x0F, 0x11, 0x41, 0x30 });
                     m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong + 20).ToString("X"), new byte[] { 0x0F, 0x11, 0x49, 0x40 });
                     m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong + 32).ToString("X"), new byte[] { 0x0F, 0x11, 0x41, 0x50 });
-
-                    m.WriteArrayMemory(Self_Vehicle_Addrs.BaseAddrHook, new byte[] { 0xF3, 0x0F, 0x10, 0x81, 0xDC, 0x14, 0x00, 0x00 });
-                    m.WriteArrayMemory(Self_Vehicle_Addrs.RotationAddr, new byte[] { 0xF3, 0x44, 0x0F, 0x10, 0x89, 0x94, 0x00, 0x00, 0x00 });
                 }
                 else
                 {

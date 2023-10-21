@@ -6,7 +6,6 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <FontFamily x:Key="Automina">pack://application:,,,/Fonts/#AUTOMANI</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Theme/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />

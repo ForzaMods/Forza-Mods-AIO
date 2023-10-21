@@ -4,7 +4,7 @@ using Forms = System.Windows.Forms;
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
 /// <summary>
-///     Interaction logic for CameraPage.xaml
+///     Interaction logic for UnlocksPage.xaml
 /// </summary>
 public partial class UnlocksPage
 {

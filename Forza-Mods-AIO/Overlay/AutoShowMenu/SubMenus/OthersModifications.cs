@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using Forza_Mods_AIO.Tabs.AutoShowTab;
 
 namespace Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus
 {

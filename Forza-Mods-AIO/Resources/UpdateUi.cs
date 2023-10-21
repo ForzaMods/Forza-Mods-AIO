@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Forza_Mods_AIO.Resources
 {

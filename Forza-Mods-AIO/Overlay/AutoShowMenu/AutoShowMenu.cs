@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Forza_Mods_AIO.Overlay.AutoShowMenu
 {
     public class AutoShowMenu
     {
-        public static List<Overlay.MenuOption> AutoShowOptions = new List<Overlay.MenuOption>()
+        public static readonly List<Overlay.MenuOption> AutoShowOptions = new List<Overlay.MenuOption>()
         {
             new Overlay.MenuOption("Autoshow Filters", "MenuButton"),
             new Overlay.MenuOption("Garage Modifications", "MenuButton"),

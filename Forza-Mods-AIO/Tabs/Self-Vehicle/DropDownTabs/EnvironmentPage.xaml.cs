@@ -24,13 +24,13 @@ public partial class EnvironmentPage
             switch ((string)sender.GetType().GetProperty("Name")!.GetValue(sender))
             {
                 case "SunRedSlider":
-                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.WorldRGBAddr, (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 100000000000));
+                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.WorldRGBAddr, (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
                     break;
                 case "SunGreenSlider":
-                    MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.WorldRGBAddrLong + 4).ToString("X"), (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 100000000000));
+                    MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.WorldRGBAddrLong + 4).ToString("X"), (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
                     break;
                 case "SunBlueSlider":
-                    MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.WorldRGBAddrLong + 8).ToString("X"), (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 100000000000));
+                    MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.WorldRGBAddrLong + 8).ToString("X"), (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
                     break;
             }
         }
@@ -168,7 +168,7 @@ public partial class EnvironmentPage
     
     private void ManualTime()
     {
-        if (Self_Vehicle_Addrs.TimeAddr == "0" || Self_Vehicle_Addrs.TimeAddr == null)
+        if (Self_Vehicle_Addrs.TimeAddr == "0" || Self_Vehicle_Addrs.TimeAddr == "8" || Self_Vehicle_Addrs.TimeAddr == null)
             Self_Vehicle_ASM.GetTimeAddr();
         
         MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.TimeNOPAddr, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 });

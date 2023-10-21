@@ -145,6 +145,7 @@ namespace Forza_Mods_AIO.Overlay
                     { "SpringsOptions" , Springs.Springs.SpringsOptions },  
                         { "SpringsValuesOptions" , SpringsValues.SpringsSubMenuOptions },  
                         { "RideHeightOptions" , RideHeight.RideHeightOptions }, 
+                    { "TiresOptions" , Tuning.SubMenus.Tires.Tires.TiresOptions },  
                 { "SettingsOptions" , SettingsMenu.SettingsMenu.SettingsOptions},
                     { "MainAreaOptions" , SettingsMenu.SettingsMenu.MainAreaOptions},
                     { "DescriptionAreaOptions" , SettingsMenu.SettingsMenu.DescriptionAreaOptions}
@@ -200,6 +201,7 @@ namespace Forza_Mods_AIO.Overlay
             SpringsValues.InitiateSubMenu();
             RideHeight.InitiateSubMenu();
             SelfCarMenu.CustomizationMenu.CustomizationMenu.InitiateSubMenu();
+            Tuning.SubMenus.Tires.Tires.InitiateSubMenu();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

@@ -19,6 +19,15 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
     {
         public static HandlingPage shp;
 
+        private static readonly byte[] before1 = { 0x0F, 0x11, 0x41, 0x10 };
+        private static readonly byte[] before2 = { 0x0F, 0x11, 0x49, 0x20 };
+        private static readonly byte[] before3 = { 0x0F, 0x11, 0x41, 0x30 };
+        private static readonly byte[] before4 = { 0x0F, 0x11, 0x49, 0x40 };
+        private static readonly byte[] before5 = { 0x0F, 0x11, 0x41, 0x50 };
+        private static readonly byte[] nop = { 0x90, 0x90, 0x90, 0x90 };
+
+        
+        
         public HandlingPage()
         {
             InitializeComponent();
@@ -132,15 +141,15 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
         {
             float original;
             string Addr;
-            string Type;
+            object SetSwitch;
             if (sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity"))
             {
-                Type = "Gravity";
+                SetSwitch = GravitySetSwitch;
                 Addr = Self_Vehicle_Addrs.GravityAddr;
             }
             else
             {
-                Type = "Acceleration";
+                SetSwitch = AccelerationSetSwitch;
                 Addr = Self_Vehicle_Addrs.WeirdAddr;
             }
 
@@ -152,17 +161,11 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     while (true)
                     {
                         bool Toggled = true;
-                        if (Type == "Gravity")
-                            Dispatcher.Invoke(delegate () { Toggled = (bool)GravitySetSwitch.GetType().GetProperty("IsOn").GetValue(shp.GravitySetSwitch); });
-                        else
-                            Dispatcher.Invoke(delegate () { Toggled = (bool)AccelerationSetSwitch.GetType().GetProperty("IsOn").GetValue(shp.AccelerationSetSwitch); });
+                        Dispatcher.Invoke(delegate () { Toggled = (bool)SetSwitch.GetType().GetProperty("IsOn").GetValue(SetSwitch); });
 
                         if (!Toggled)
                         {
-                            if (Type == "Gravity")
-                                shp.Dispatcher.Invoke(delegate () { shp.GravityValueNum.GetType().GetProperty("Value").SetValue(shp.GravityValueNum, Convert.ToDouble(original)); });
-                            else
-                                shp.Dispatcher.Invoke(delegate () { shp.AccelerationValueNum.GetType().GetProperty("Value").SetValue(shp.AccelerationValueNum, Convert.ToDouble(original)); });
+                            Dispatcher.Invoke(delegate () { SetSwitch.GetType().GetProperty("Value").SetValue(SetSwitch, Convert.ToDouble(original)); });
                             MainWindow.mw.m.WriteMemory(Addr, original);
                             break;
                         }
@@ -170,10 +173,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                         try
                         {
                             float SetValue = 0;
-                            if (Type == "Gravity")
-                                shp.Dispatcher.Invoke(delegate () { SetValue = Convert.ToSingle(shp.GravityValueNum.GetType().GetProperty("Value").GetValue(shp.GravityValueNum)); });
-                            else
-                                shp.Dispatcher.Invoke(delegate () { SetValue = Convert.ToSingle(shp.AccelerationValueNum.GetType().GetProperty("Value").GetValue(shp.AccelerationValueNum)); });
+                            Dispatcher.Invoke(delegate () { SetValue = Convert.ToSingle(SetSwitch.GetType().GetProperty("Value").GetValue(SetSwitch)); });
 
                             if (MainWindow.mw.m.ReadMemory<float>(Addr) != SetValue)
                             {
@@ -238,45 +238,28 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
         {
             if (SuperCarSwitch.IsOn)
             {
-                var nop = new byte[] { 0x90, 0x90, 0x90, 0x90 };
                 if (mw.gvp.Name == "Forza Horizon 5")
                 {
                     mw.m.WriteArrayMemory((SuperCarAddrLong - 4).ToString("X"), nop);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 4).ToString("X"), nop);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 12).ToString("X"), nop);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 20).ToString("X"), nop);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 32).ToString("X"), nop);
                 }
-                else
-                {
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 4).ToString("X"), nop);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 12).ToString("X"), nop);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 20).ToString("X"), nop);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 32).ToString("X"), nop);
-                }
+
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 4).ToString("X"), nop);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 12).ToString("X"), nop);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 20).ToString("X"), nop);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 32).ToString("X"), nop);
+                
             }
             else
             {
-                var before1 = new byte[] { 0x0F, 0x11, 0x41, 0x10 };
-                var before2 = new byte[] { 0x0F, 0x11, 0x49, 0x20 };
-                var before3 = new byte[] { 0x0F, 0x11, 0x41, 0x30 };
-                var before4 = new byte[] { 0x0F, 0x11, 0x49, 0x40 };
-                var before5 = new byte[] { 0x0F, 0x11, 0x41, 0x50 };
                 if (mw.gvp.Name == "Forza Horizon 5")
                 {
                     mw.m.WriteArrayMemory((SuperCarAddrLong - 4).ToString("X"), before1);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 4).ToString("X"), before2);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 12).ToString("X"), before3);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 20).ToString("X"), before4);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 32).ToString("X"), before5);
                 }
-                else
-                {
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 4).ToString("X"), before1);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 12).ToString("X"), before2);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 20).ToString("X"), before3);
-                    mw.m.WriteArrayMemory((SuperCarAddrLong + 32).ToString("X"), before4);
-                }
+                
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 4).ToString("X"), mw.gvp.Name == "Forza Horizon 4" ? before1 : before2);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 12).ToString("X"), mw.gvp.Name == "Forza Horizon 4" ? before2 : before3);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 20).ToString("X"), mw.gvp.Name == "Forza Horizon 4" ? before3 : before4);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 32).ToString("X"), mw.gvp.Name == "Forza Horizon 4" ? before4 : before5);
             }
         }
 
@@ -322,6 +305,32 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     }
                 });
             }
+        }
+
+        private void StopAllWheelsSwitch_OnToggled(object sender, RoutedEventArgs e)
+        {
+            if (!StopAllWheelsSwitch.IsOn)
+                return;
+            
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(25);
+                    bool Toggled = true;
+                    shp.Dispatcher.Invoke(delegate () { Toggled = shp.StopAllWheelsSwitch.IsOn; });
+                    if (!Toggled)
+                        break;
+
+                    if (!(DLLImports.GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue)) 
+                        continue;
+
+                    mw.m.WriteMemory(FrontLeftAddr, 0f);
+                    mw.m.WriteMemory(FrontRightAddr, 0f);
+                    mw.m.WriteMemory(BackLeftAddr, 0f);
+                    mw.m.WriteMemory(BackRightAddr, 0f);
+                }
+            });
         }
     }
 }
