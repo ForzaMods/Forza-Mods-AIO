@@ -256,8 +256,8 @@ public abstract class Self_Vehicle_ASM : Resources.ASM
         if (FlyhackFirstTime)
         {
             FlyhackOrigBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.RotationAddr, 9);
-            CodeCave10 = MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.RotationAddr, StringToBytes("483B0D190000000F8409000000F3440F108994000000"), 9, size: 30);
-            byte[] MyAddr = StringToBytes("0" + ((long)MainWindow.mw.m.GetCode(Self_Vehicle_Addrs.Rotation) - 148).ToString("X"));
+            CodeCave10 = MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.RotationAddr, StringToBytes(MainWindow.mw.gvp.Name == "Forza Horizon 5" ? "483B0D190000000F8409000000F3440F108994000000" : "483B0D190000000F8409000000F3440F1089F4000000"), 9, size: 30);
+            byte[] MyAddr = StringToBytes("0" + ((long)MainWindow.mw.m.GetCode(Self_Vehicle_Addrs.Rotation) - (MainWindow.mw.gvp.Name == "Forza Horizon 5" ? 148 : 244)).ToString("X"));
             Array.Reverse(MyAddr);
             MainWindow.mw.m.WriteArrayMemory(((long)CodeCave10 + 32).ToString("X"), MyAddr);
             FlyhackJmpBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.RotationAddr, 9);

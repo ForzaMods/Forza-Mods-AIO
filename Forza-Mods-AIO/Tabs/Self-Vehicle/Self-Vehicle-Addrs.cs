@@ -244,6 +244,10 @@ internal class Self_Vehicle_Addrs
         PitchAddr = (BaseAddrLong + 0x150).ToString("X");
         yAngVelAddr = (BaseAddrLong + 0x34).ToString("X");
         GasAddr = (BaseAddrLong + 0x1874).ToString("X");
+        // this is wrong probably
+        XRot = (BaseAddrLong + 0xE8).ToString("X");
+        YRot = (BaseAddrLong + 0xE0).ToString("X");
+        Rotation = (BaseAddrLong + 0xF4).ToString("X");
         PastStartAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x5C");
         InPauseAddr = (Base2Addr + ",0x80,0x8,0x38,0x58,0x28,0x18,0x3D8");
         FOVHighAddr = (BaseAddr + ",0x568,0x270,0x258,0xB8,0x348,0x70,0x5B0");
@@ -620,7 +624,7 @@ internal class Self_Vehicle_Addrs
     #region FH4 Scan
     public void FH4_Scan()
     {
-        ScanAmount = 25;
+        ScanAmount = 26;
         
         Aobs();
 
@@ -666,6 +670,11 @@ internal class Self_Vehicle_Addrs
             
             Wall2AddrLong = (long)MainWindow.mw.m.ScanForSig(Wall2Aob).FirstOrDefault() - 446;
             Wall2Addr = Wall2AddrLong.ToString("X");
+            ScanIndex++;
+            UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+            
+            RotationAddrLong = (long)MainWindow.mw.m.ScanForSig("F3 44 0F 10 89 ? ? 00 00 F3 44 0F 10 B9").LastOrDefault();
+            RotationAddr = RotationAddrLong.ToString("X");
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
             

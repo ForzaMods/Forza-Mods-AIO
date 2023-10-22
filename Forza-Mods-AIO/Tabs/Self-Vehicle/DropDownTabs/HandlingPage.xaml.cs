@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.Self_Vehicle_Addrs;
 using static Forza_Mods_AIO.MainWindow;
 using System.Threading;
-using MahApps.Metro.Controls;
 using System.Globalization;
 using Forza_Mods_AIO.Resources;
 using System.Windows.Forms;
@@ -140,18 +139,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
         private void SetSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             float original;
-            string Addr;
-            object SetSwitch;
-            if (sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity"))
-            {
-                SetSwitch = GravitySetSwitch;
-                Addr = Self_Vehicle_Addrs.GravityAddr;
-            }
-            else
-            {
-                SetSwitch = AccelerationSetSwitch;
-                Addr = Self_Vehicle_Addrs.WeirdAddr;
-            }
+            string Addr = sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity") ? Self_Vehicle_Addrs.GravityAddr : Self_Vehicle_Addrs.WeirdAddr;
+            string Type = sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity") ? "Gravity" : "Accel";
 
             if ((bool)sender.GetType().GetProperty("IsOn").GetValue(sender))
             {
@@ -161,11 +150,17 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     while (true)
                     {
                         bool Toggled = true;
-                        Dispatcher.Invoke(delegate () { Toggled = (bool)SetSwitch.GetType().GetProperty("IsOn").GetValue(SetSwitch); });
+                        if (Type == "Gravity")
+                            Dispatcher.Invoke(delegate () { Toggled = (bool)GravitySetSwitch.GetType().GetProperty("IsOn").GetValue(shp.GravitySetSwitch); });
+                        else
+                            Dispatcher.Invoke(delegate () { Toggled = (bool)AccelerationSetSwitch.GetType().GetProperty("IsOn").GetValue(shp.AccelerationSetSwitch); });
 
                         if (!Toggled)
                         {
-                            Dispatcher.Invoke(delegate () { SetSwitch.GetType().GetProperty("Value").SetValue(SetSwitch, Convert.ToDouble(original)); });
+                            if (Type == "Gravity")
+                                shp.Dispatcher.Invoke(delegate () { shp.GravityValueNum.GetType().GetProperty("Value").SetValue(shp.GravityValueNum, Convert.ToDouble(original)); });
+                            else
+                                shp.Dispatcher.Invoke(delegate () { shp.AccelerationValueNum.GetType().GetProperty("Value").SetValue(shp.AccelerationValueNum, Convert.ToDouble(original)); });
                             MainWindow.mw.m.WriteMemory(Addr, original);
                             break;
                         }
@@ -173,7 +168,10 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                         try
                         {
                             float SetValue = 0;
-                            Dispatcher.Invoke(delegate () { SetValue = Convert.ToSingle(SetSwitch.GetType().GetProperty("Value").GetValue(SetSwitch)); });
+                            if (Type == "Gravity")
+                                shp.Dispatcher.Invoke(delegate () { SetValue = Convert.ToSingle(shp.GravityValueNum.GetType().GetProperty("Value").GetValue(shp.GravityValueNum)); });
+                            else
+                                shp.Dispatcher.Invoke(delegate () { SetValue = Convert.ToSingle(shp.AccelerationValueNum.GetType().GetProperty("Value").GetValue(shp.AccelerationValueNum)); });
 
                             if (MainWindow.mw.m.ReadMemory<float>(Addr) != SetValue)
                             {
@@ -217,7 +215,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     Thread.Sleep((int)TurnAssistIntervalBox.Value);
                 }
             }
-            else if (DLLImports.GetAsyncKeyState(Keys.S) is 1 or Int16.MinValue)
+            else if (DLLImports.GetAsyncKeyState(Keys.D) is 1 or Int16.MinValue)
             {
                 if ((float)Math.Abs(FrontLeft - FrontRight) < (FrontLeft / TurnAssistRatioBox.Value) && (float)Math.Abs(BackLeft - FrontRight) < (BackLeft / TurnAssistRatioBox.Value))
                 {
@@ -295,12 +293,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                         {
                             float xVelocityVal = mw.m.ReadMemory<float>(xVelocityAddr) * (float)0.95;
                             float zVelocityVal = mw.m.ReadMemory<float>(zVelocityAddr) * (float)0.95;
-                            float Y = mw.m.ReadMemory<float>(yAddr);
                             mw.m.WriteMemory(xVelocityAddr, xVelocityVal);
-                            //mw.m.WriteMemory(yVelocityAddr, "float", "0");
                             mw.m.WriteMemory(zVelocityAddr, zVelocityVal);
-                            mw.m.WriteMemory(yAddr, (Y - 0.01));
-                            //mw.m.WriteMemory(yAngVelAddr, "float", "0");
                         }
                     }
                 });
@@ -329,6 +323,259 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     mw.m.WriteMemory(FrontRightAddr, 0f);
                     mw.m.WriteMemory(BackLeftAddr, 0f);
                     mw.m.WriteMemory(BackRightAddr, 0f);
+                }
+            });
+        }
+
+
+        private float OriginalGrav;
+        
+        private void FlyHackSwitch_OnToggled(object sender, RoutedEventArgs e)
+        {
+            if (!FlyHackSwitch.IsOn)
+            {
+                Thread.Sleep(25);
+                mw.m.WriteMemory(Self_Vehicle_Addrs.GravityAddr, OriginalGrav);
+                mw.m.WriteArrayMemory(Self_Vehicle_Addrs.RotationAddr, MainWindow.mw.gvp.Name == "Forza Horizon 5" ?  new byte[] { 0xF3, 0x44, 0x0F, 0x10, 0x89, 0x94, 0x00, 0x00, 0x00 } : new byte[] { 0xF3, 0x44, 0x0F, 0x10, 0x89, 0xF4, 0x00, 0x00, 0x00});
+                return;
+            }
+
+            Self_Vehicle_ASM.Flyhack();
+            OriginalGrav = mw.m.ReadMemory<float>(Self_Vehicle_Addrs.GravityAddr);
+            
+            // Rotation
+            Task.Run(() =>
+            {
+                CultureInfo.CurrentCulture = new CultureInfo("en-GB");
+                
+                var ADown = false;
+                var DDown = false;
+                
+                while (true)
+                {
+                    Thread.Sleep(25);
+
+                    bool Toggled = true;
+                    shp.Dispatcher.Invoke(delegate { Toggled = FlyHackSwitch.IsOn; });
+                    
+                    if (!Toggled)
+                        break;
+                    
+                    if (DLLImports.GetAsyncKeyState(Keys.A) is 1 or Int16.MinValue && !ADown)
+                        ADown = true;
+                    if (DLLImports.GetAsyncKeyState(Keys.A) is not 1 and not Int16.MinValue && ADown)
+                        ADown = false;
+                    if (DLLImports.GetAsyncKeyState(Keys.D) is 1 or Int16.MinValue && !DDown)
+                        DDown = true;
+                    if (DLLImports.GetAsyncKeyState(Keys.D) is not 1 and not Int16.MinValue && DDown)
+                        DDown = false;
+                    
+                    if (!ADown && !DDown)
+                        continue;
+                    
+                    float CurrentXRot = mw.m.ReadMemory<float>(Self_Vehicle_Addrs.XRot);
+                    float CurrentYRot = mw.m.ReadMemory<float>(Self_Vehicle_Addrs.YRot);
+                    float FlyhackRotSpeed = 1;
+                    shp.Dispatcher.Invoke(() => { FlyhackRotSpeed = (float)FlyHackRotSpeedNum.Value; });
+                    
+                    if (ADown)
+                    {
+                        switch (CurrentXRot)
+                        {
+                            // Top right
+                            case >= 0 when CurrentYRot >= 0:
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot + (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot - (FlyhackRotSpeed / 10)));
+                                break;
+                            // Bottom right
+                            case >= 0 when CurrentYRot <= 0:
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot - (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot - (FlyhackRotSpeed / 10)));
+                                break;
+                            // Bottom Left
+                            case <= 0 when CurrentYRot <= 0:
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot - (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot + (FlyhackRotSpeed / 10)));
+                                break;
+                            // Top Left
+                            case <= 0 when CurrentYRot >= 0:
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot + (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot + (FlyhackRotSpeed / 10)));
+                                break;
+                        }
+                    }
+                    
+                    if (DDown)
+                    {
+                        switch (CurrentXRot)
+                        {
+                            case >= 0 when CurrentYRot >= 0:
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot - (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot + (FlyhackRotSpeed / 10)));
+                                break;
+                            case >= 0 when CurrentYRot <= 0:
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot + (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot + (FlyhackRotSpeed / 10)));
+                                break;
+                            case <= 0 when CurrentYRot <= 0:
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot + (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot - (FlyhackRotSpeed / 10)));
+                                break;
+                            case <= 0 when CurrentYRot >= 0:
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot - (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot - (FlyhackRotSpeed / 10)));
+                                break;
+                        }
+                    }
+                }
+            });
+
+            
+            // Movement
+            Task.Run(() =>
+            {
+                CultureInfo.CurrentCulture = new CultureInfo("en-GB");
+                
+                var WDown = false;
+                var SDown = false;
+                var ShiftDown = false;
+                var ControlDown = false;
+                
+                while (true)
+                {
+                    Thread.Sleep(25);
+
+                    bool Toggled = true;
+                    shp.Dispatcher.Invoke(delegate { Toggled = FlyHackSwitch.IsOn; });
+                    
+                    if (!Toggled)
+                        break;
+                    
+                    if (DLLImports.GetAsyncKeyState(Keys.W) is 1 or Int16.MinValue && !WDown)
+                        WDown = true;
+                    if (DLLImports.GetAsyncKeyState(Keys.W) is not 1 and not Int16.MinValue && WDown)
+                        WDown = false;
+                    if (DLLImports.GetAsyncKeyState(Keys.S) is 1 or Int16.MinValue && !SDown)
+                        SDown = true;
+                    if (DLLImports.GetAsyncKeyState(Keys.S) is not 1 and not Int16.MinValue && SDown)
+                        SDown = false;
+                    if (DLLImports.GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && !ShiftDown)
+                        ShiftDown = true;
+                    if (DLLImports.GetAsyncKeyState(Keys.LShiftKey) is not 1 and not Int16.MinValue && ShiftDown)
+                        ShiftDown = false;
+                    if (DLLImports.GetAsyncKeyState(Keys.LControlKey) is 1 or Int16.MinValue && !ControlDown)
+                        ControlDown = true;
+                    if (DLLImports.GetAsyncKeyState(Keys.LControlKey) is not 1 and not Int16.MinValue && ControlDown)
+                        ControlDown = false;
+                    
+                    mw.m.WriteMemory(Self_Vehicle_Addrs.Rotation, 1f);
+                    mw.m.WriteMemory(Self_Vehicle_Addrs.xVelocityAddr, 0f);
+                    mw.m.WriteMemory(Self_Vehicle_Addrs.yVelocityAddr, 0f);
+                    mw.m.WriteMemory(Self_Vehicle_Addrs.zVelocityAddr,  0f);
+                    
+                    if (!WDown && !SDown && !ShiftDown && !ControlDown)
+                        continue;
+                    
+                    float angle = (float)((float)Math.Atan2(mw.m.ReadMemory<float>(Self_Vehicle_Addrs.XRot), mw.m.ReadMemory<float>(Self_Vehicle_Addrs.YRot)) * (180 / Math.PI));
+                    if (angle < 0)
+                        angle += 360;
+                    
+                    float x = mw.m.ReadMemory<float>(Self_Vehicle_Addrs.xAddr);
+                    float y = mw.m.ReadMemory<float>(Self_Vehicle_Addrs.yAddr);
+                    float z = mw.m.ReadMemory<float>(Self_Vehicle_Addrs.zAddr);
+                    float FlyhackMoveSpeed = 1;
+                    shp.Dispatcher.Invoke(() => { FlyhackMoveSpeed = (float)FlyHackMoveSpeedNum.Value; });
+                    
+                    if (WDown)
+                    {
+                        
+                        switch (angle)
+                        {
+                            // Top Left
+                            case < 90:
+                            {
+                                float XComp = -(float)(Math.Sin(Math.PI * angle / 180));
+                                float YComp = (float)(Math.Cos(Math.PI * angle / 180));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                break;
+                            }
+                            // Bottom Left
+                            case > 90 and < 180:
+                            {
+                                float XComp = -(float)(Math.Sin(Math.PI * (180 - angle) / 180));
+                                float YComp = -(float)(Math.Cos(Math.PI * (180 - angle) / 180));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                break;
+                            }
+                            // Bottom Right
+                            case > 180 and < 270:
+                            {
+                                float XComp = (float)(Math.Cos(Math.PI * (270 - angle) / 180));
+                                float YComp = -(float)(Math.Sin(Math.PI * (270 - angle) / 180));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp))); 
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                break;
+                            }
+                            // Top Right
+                            case > 270:
+                            {
+                                float XComp = (float)(Math.Sin(Math.PI * (360 - angle) / 180));
+                                float YComp = (float)(Math.Cos(Math.PI * (360 - angle) / 180));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                break;
+                            }
+                        }
+                    }
+                    if (SDown)
+                    {
+                        switch (angle)
+                        {
+                            // Top Left
+                            case < 90:
+                            {
+                                float XComp = (float)(Math.Sin(Math.PI * angle / 180));
+                                float YComp = -(float)(Math.Cos(Math.PI * angle / 180));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                break;
+                            }
+                            // Bottom Left
+                            case > 90 and < 180:
+                            {
+                                float XComp = (float)(Math.Sin(Math.PI * (180 - angle) / 180));
+                                float YComp = (float)(Math.Cos(Math.PI * (180 - angle) / 180));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr,(x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr,(z + (FlyhackMoveSpeed * 10 * YComp)));
+                                break;
+                            }
+                            // Bottom Right
+                            case > 180 and < 270:
+                            {
+                                float XComp = -(float)(Math.Cos(Math.PI * (270 - angle) / 180));
+                                float YComp = (float)(Math.Sin(Math.PI * (270 - angle) / 180));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                break;
+                            }
+                            // Top Right
+                            case > 270:
+                            {
+                                float XComp = -(float)(Math.Sin(Math.PI * (360 - angle) / 180));
+                                float YComp = -(float)(Math.Cos(Math.PI * (360 - angle) / 180));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (ShiftDown)
+                        mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, (y + (FlyhackMoveSpeed * 5)));
+                    if (ControlDown)
+                        mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, (y - (FlyhackMoveSpeed * 5)));
                 }
             });
         }

@@ -51,12 +51,12 @@ public abstract partial class Bypass
                     
     /*                                          THREAD DESCRIPTIONS !!!!
      * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0x24a7e0 <- dont run on startup, some of them are bink ones. (multiple threads)
-     * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0xd5f20  <- not really sure what it does. launches on startup along with watchdog
+     * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0xd5f20  <- not really sure what it does. launches on startup along with watchdog (+0xd60c0 on ms)
      * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0x2ce8c  <- starts when u kill watchdog.
      * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0x2cf00  <- same as on thread +0x2ce8c.
      * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0xb2ef4  <- same as on thread +0x2ce8c. (multiple threads)
      * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0xc3a58  <- same as on thread +0x2ce8c, though dies after some time.
-     * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0xeef34  <- watchdog. runs on startup
+     * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0xeef34  <- watchdog. runs on startup (+0xef0d4 on ms)
      * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0x1e4b00 <- dies when you kill watchdog so not sure, might aswell suspend it too.
      * ForzaHorizon5.exe!Turn10GainGetDSPDescription+0x477710         <- I suspended it once and my breakpoints on mem integrity check functions stopped for some time
      *                                                                   (no other threads died), probably some placeholder thread that Idk what impact has on the game.
@@ -81,16 +81,18 @@ public abstract partial class Bypass
         
         foreach (ProcessThread Thread in MainWindow.mw.gvp.Process.Threads)
         {
-    
-            if (GetThreadStartAddress(Thread.Id) == (tm_sdk_installer_unregister_changes + 0xeef34))
+
+            var ThreadStartAddress = GetThreadStartAddress(Thread.Id);
+            
+            if (ThreadStartAddress == (tm_sdk_installer_unregister_changes + 0xeef34) || ThreadStartAddress == (tm_sdk_installer_unregister_changes + 0xef0d4))
             {
                 TerminateThread(OpenThread(ThreadAccess.Terminate, false, (uint)Thread.Id));
             }
-            else if (GetThreadStartAddress(Thread.Id) == (tm_sdk_installer_unregister_changes + 0xd5f20))
+            else if (ThreadStartAddress == (tm_sdk_installer_unregister_changes + 0xd5f20) || ThreadStartAddress == (tm_sdk_installer_unregister_changes + 0xd60c0))
             {
                 TerminateThread(OpenThread(ThreadAccess.Terminate, false, (uint)Thread.Id));
             }
-            else if (GetThreadStartAddress(Thread.Id) == (tm_sdk_installer_unregister_changes + 0x1e4b00))
+            else if (ThreadStartAddress == (tm_sdk_installer_unregister_changes + 0x1e4b00))
             {
                 TerminateThread(OpenThread(ThreadAccess.Terminate, false, (uint)Thread.Id));
             }
