@@ -219,6 +219,7 @@ public partial class EnvironmentPage
     {
         while (true)
         {
+            Thread.Sleep(25);
             bool Toggled = true;
             Dispatcher.Invoke((() => Toggled = OOBSwitch.IsOn));
             
@@ -236,8 +237,6 @@ public partial class EnvironmentPage
             {
                 MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.OOBnopAddr, Before);
             }
-
-            Thread.Sleep(25);
         }
     }
 

@@ -15,11 +15,13 @@ using MahApps.Metro.Controls;
 using Memory;
 using Forza_Mods_AIO.CustomTheming;
 using System.Xml.Linq;
+using Forza_Mods_AIO.Overlay;
 using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.Self_Vehicle;
 using Forza_Mods_AIO.Tabs.AutoShowTab;
 using Lunar;
 using Forza_Mods_AIO.Tabs.Tuning;
+using Keys = System.Windows.Forms.Keys;
 
 namespace Forza_Mods_AIO
 {
@@ -324,6 +326,24 @@ namespace Forza_Mods_AIO
             Environment.Exit(0);
         }
         #endregion
+
+        private void Window_OnKeyDown(object sender, KeyEventArgs e)
+        {   
+            if (!Grabbing || !IsClicked) return;
+            Grabbing = false;
+            IsClicked = false;
+            if (ClickedButton != null) ClickedButton.Content = e.Key;
+            
+            foreach (var field in typeof(OverlayHandling).GetFields())
+            {
+                if (field.Name != ClickedButton.Name.Replace("Button", String.Empty)) continue;
+                field.SetValue(new OverlayHandling(), (Keys)Keys.Parse(typeof(Keys), e.Key.ToString()));
+            }
+        }
+
+        public static bool Grabbing;
+        public static bool IsClicked;
+        public static Button? ClickedButton;
     }
 
     public static class GetChildrenExtension

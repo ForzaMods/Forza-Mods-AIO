@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.HandlingPage"
       mc:Ignorable="d" d:DesignWidth="580"
-      Title="HandlingPage" Height="464">
+      Title="HandlingPage" Height="464"
+      Background="Transparent">
 
     <Grid>
         <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10">
@@ -25,12 +26,12 @@
                 <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,66,0,0" />
                 <Label x:Name="WheelSpeedLabel" Content="Wheel Speed" HorizontalAlignment="Left" Margin="485,76,0,0" VerticalAlignment="Top" Height="26" Width="80"/>
                 <mah:ToggleSwitch x:Name="WheelSpeedSwitch" Height="31" Margin="441,74,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Toggled="WheelSpeedSwitch_Toggled" Focusable="False" IsTabStop="False"/>
-                <Label x:Name="Var1Label" Content="Strength" HorizontalAlignment="Left" Margin="138,76,0,0" VerticalAlignment="Top" Height="26" Width="55"/>
-                <mah:NumericUpDown x:Name="Var1NumBox" Margin="193,76,0,0" ParsingNumberStyle="Float" TextAlignment="Left" Minimum="0" Maximum="100" Value="10" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="84" NumericInputMode="Decimal" UpDownButtonsFocusable="False" TrackMouseWheelWhenMouseOver="True" Culture="en-GB" ChangeValueOnTextChanged="False" IsTabStop="False" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
-                <Label x:Name="Var2Label" Content="Interval" HorizontalAlignment="Left" Margin="281,76,0,0" VerticalAlignment="Top" Height="26" Width="49"/>
-                <mah:NumericUpDown x:Name="Var2NumBox" Margin="331,76,0,0" ParsingNumberStyle="Integer" TextAlignment="Left" Minimum="1" Maximum="100" Value="1" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" NumericInputMode="Numbers" UpDownButtonsFocusable="False" TrackMouseWheelWhenMouseOver="True" Culture="en-GB" ChangeValueOnTextChanged="False" IsTabStop="False" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
+                <Label x:Name="Var1Label" Content="Strength" HorizontalAlignment="Left" Margin="150,76,0,0" VerticalAlignment="Top" Height="26" Width="55"/>
+                <mah:NumericUpDown x:Name="Var1NumBox" Margin="208,76,0,0" ParsingNumberStyle="Float" TextAlignment="Left" Minimum="0" Maximum="100" Value="10" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="84" NumericInputMode="Decimal" UpDownButtonsFocusable="False" TrackMouseWheelWhenMouseOver="True" Culture="en-GB" ChangeValueOnTextChanged="False" IsTabStop="False" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
+                <Label x:Name="Var2Label" Content="Interval" HorizontalAlignment="Left" Margin="297,76,0,0" VerticalAlignment="Top" Height="26" Width="49"/>
+                <mah:NumericUpDown x:Name="Var2NumBox" Margin="348,76,0,0" ParsingNumberStyle="Integer" TextAlignment="Left" Minimum="1" Maximum="100" Value="1" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" NumericInputMode="Numbers" UpDownButtonsFocusable="False" TrackMouseWheelWhenMouseOver="True" Culture="en-GB" ChangeValueOnTextChanged="False" IsTabStop="False" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
                 <Label x:Name="WheelSpeedModeLabel" Content="Mode" HorizontalAlignment="Left" Margin="20,76,0,0" VerticalAlignment="Top" Height="26" Width="41"/>
-                <ComboBox x:Name="WheelSpeedModeComboBox" Margin="61,76,0,0" SelectedIndex="0" IsTabStop="False" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Background="#FF2E3440" BorderBrush="#FF2E3440">
+                <ComboBox x:Name="WheelSpeedModeComboBox" Margin="61,76,0,0" SelectedIndex="0" IsTabStop="False" HorizontalAlignment="Left" VerticalAlignment="Top" Width="84" Background="#FF2E3440" BorderBrush="#FF2E3440">
                     <ComboBoxItem Background="{x:Null}" Content="Static" IsTabStop="False"/>
                     <ComboBoxItem Background="{x:Null}" Content="Linear" IsTabStop="False"/>
                 </ComboBox>
@@ -69,14 +70,14 @@
 
                 <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,288,0,0" />
                 <Label x:Name="JumpHackLabel" Content="Jump Hack" HorizontalAlignment="Left" Margin="486,298,0,0" VerticalAlignment="Top" Height="26" Width="80"/>
-                <mah:ToggleSwitch x:Name="JumpHackSwitch" Height="31" Margin="441,296,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Toggled="TurnAssistSwitch_Toggled" Focusable="False" IsTabStop="False"/>
-                <mah:NumericUpDown x:Name="JumpHackVelocityNum" Margin="20,298,458,0" ParsingNumberStyle="Float" TextAlignment="Left" Minimum="1" Maximum="10" Value="1" Height="0" VerticalAlignment="Top" NumericInputMode="Decimal" ValueChanged="VelocityValueNum_ValueChanged" UpDownButtonsFocusable="False" TrackMouseWheelWhenMouseOver="True" Culture="en-GB" ChangeValueOnTextChanged="False" IsTabStop="False" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
+                <mah:ToggleSwitch x:Name="JumpHackSwitch" Height="31" Margin="441,296,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Toggled="JumpHackSwitch_OnToggled" Focusable="False" IsTabStop="False"/>
+                <mah:NumericUpDown x:Name="JumpHackVelocityNum" Margin="20,298,458,0" ParsingNumberStyle="Float" TextAlignment="Left" Minimum="1" Maximum="10" Value="1" Height="0" VerticalAlignment="Top" NumericInputMode="Decimal" ValueChanged="JumpHackVelocityNum_OnValueChanged" UpDownButtonsFocusable="False" TrackMouseWheelWhenMouseOver="True" Culture="en-GB" ChangeValueOnTextChanged="False" IsTabStop="False" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
                 <Slider x:Name="JumpHackSlider"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Width="301"
                     Maximum="10"
-                    Value="10" Foreground="#FF2E3440" Minimum="1" BorderBrush="{x:Null}" Focusable="False" Margin="123,298,0,0" Height="26" TickPlacement="None" TickFrequency="100" ValueChanged="VelocitySlider_ValueChanged"/>
+                    Value="10" Foreground="#FF2E3440" Minimum="1" BorderBrush="{x:Null}" Focusable="False" Margin="123,298,0,0" Height="26" TickPlacement="None" TickFrequency="100" ValueChanged="JumpHackSlider_OnValueChanged"/>
 
                 <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,344,0,0" />
                 <Label Content="Fly Hack" HorizontalAlignment="Left" Margin="486,354,0,0" VerticalAlignment="Top" Height="26" Width="80"/>
@@ -95,9 +96,9 @@
                 <Label x:Name="StopAllWheelsLabel" Content="Stop All Wheels" HorizontalAlignment="Left" Margin="69,426,0,0" VerticalAlignment="Top" Height="26" Width="93" RenderTransformOrigin="0.694,0.558"/>
                 <mah:ToggleSwitch x:Name="StopAllWheelsSwitch" Height="52" Header="" Margin="22,400,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Focusable="False" IsTabStop="False" Toggled="StopAllWheelsSwitch_OnToggled"/>
                 <Label x:Name="WallNoclipLabel" Content="Wall Noclip" HorizontalAlignment="Left" Margin="338,396,0,0" VerticalAlignment="Top" Height="26" Width="97"/>
-                <mah:ToggleSwitch x:Name="WallNoclipSwitch" Height="52" Header="" Margin="292,370,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Focusable="False" IsTabStop="False"/>
+                <mah:ToggleSwitch x:Name="WallNoclipSwitch" Height="52" Header="" Margin="292,370,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Focusable="False" IsTabStop="False" Toggled="WallNoclipSwitch_OnToggled"/>
                 <Label x:Name="CarNoclipLabel" Content="Car Noclip" HorizontalAlignment="Left" Margin="214,396,0,0" VerticalAlignment="Top" Height="26" Width="73"/>
-                <mah:ToggleSwitch x:Name="CarNoclipLabelSwitch" Height="52" Header="" Margin="167,370,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Focusable="False" IsTabStop="False"/>
+                <mah:ToggleSwitch x:Name="CarNoclipSwitch" Height="52" Header="" Margin="167,370,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Focusable="False" IsTabStop="False" Toggled="CarNoclipLabelSwitch_OnToggled"/>
             </Grid>
         </Border>
     </Grid>

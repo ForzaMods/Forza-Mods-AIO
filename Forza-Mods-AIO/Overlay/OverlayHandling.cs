@@ -114,6 +114,11 @@ namespace Forza_Mods_AIO.Overlay
         bool LeftKeyDown = false;
         bool RightKeyDown = false;
 
+        // Forza Window Vars
+        RECT ForzaWindow = new RECT();
+        RECT ForzaClientWindow = new RECT();
+
+        
         //Theme vars
         public Brush MainBackColour = Brushes.Transparent;
         public Brush DescriptionBackColour = Brushes.Transparent;
@@ -148,13 +153,10 @@ namespace Forza_Mods_AIO.Overlay
             CacheHeaders();
             while (true)
             {
-                Thread.Sleep(5);
+                Thread.Sleep(10);
                 if (ct.IsCancellationRequested)
                     return;
-
-                RECT ForzaWindow = new RECT();
-                RECT ForzaClientWindow = new RECT();
-
+                
                 GetWindowRect(MainWindow.mw.gvp.Process.MainWindowHandle, ref ForzaWindow);
                 GetClientRect(MainWindow.mw.gvp.Process.MainWindowHandle, out ForzaClientWindow);
 
@@ -179,11 +181,12 @@ namespace Forza_Mods_AIO.Overlay
                     HeaderImage = (BitmapImage)Headers.Find(x => x[0].ToString().Contains(MenuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))[1];
                     try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
                 }
-                else
+                else if (HeaderImage == null && !Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers"))
                 {
-                    // TODO : Fix the case when user has no \Overlay\Headers folder
-                    // Delegated to ethan
-                    //HeaderImage = new BitmapImage(new Uri("pack://application:,,,/Overlay/pog header.png", UriKind.RelativeOrAbsolute));
+                    if (HeaderImage is { IsFrozen: true })
+                        HeaderImage = HeaderImage.Clone();
+                    HeaderImage = new BitmapImage(new Uri("pack://application:,,,/Overlay/pog header.png", UriKind.Relative));
+                    try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
                 }
 
                 if (MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow())
@@ -238,21 +241,16 @@ namespace Forza_Mods_AIO.Overlay
             Size MenuSize = new Size();
             while (true)
             {
+                Thread.Sleep(10);
                 if (ct.IsCancellationRequested)
                     return;
 
-                Thread.Sleep(10);
-
+                if (MainWindow.mw.gvp.Process.MainWindowHandle != GetForegroundWindow())
+                    continue;
+                
                 // Clears the menu
                 Overlay.o.Dispatcher.BeginInvoke((Action)delegate () { Overlay.o.OptionsBlock.Inlines.Clear(); Overlay.o.ValueBlock.Inlines.Clear(); });
                 int index = 0;
-
-                // Gets y resolution of the forza client window
-                RECT ForzaWindow = new RECT();
-                RECT ForzaClientWindow = new RECT();
-
-                GetWindowRect(MainWindow.mw.gvp.Process.MainWindowHandle, ref ForzaWindow);
-                GetClientRect(MainWindow.mw.gvp.Process.MainWindowHandle, out ForzaClientWindow);
 
                 double yRes = ForzaClientWindow.Bottom - ((ForzaWindow.Bottom - ForzaWindow.Top - ForzaClientWindow.Bottom) / 1.3);
 
@@ -364,10 +362,11 @@ namespace Forza_Mods_AIO.Overlay
         {
             while (true)
             {
-                if (MainWindow.mw.gvp.Process.MainWindowHandle != GetForegroundWindow()) 
-                    continue;
+                Thread.Sleep(10);
                 if (ct.IsCancellationRequested)
                     return;
+                if (MainWindow.mw.gvp.Process.MainWindowHandle != GetForegroundWindow()) 
+                    continue;
                 if (GetAsyncKeyState(Down) is 1 or Int16.MinValue && !DownKeyDown && !Hidden)
                     DownKeyDown = true;
                 if (GetAsyncKeyState(Down) is not 1 and not Int16.MinValue && DownKeyDown && !Hidden)
@@ -440,15 +439,17 @@ namespace Forza_Mods_AIO.Overlay
                     while (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
                         Thread.Sleep(10);
                 }
-                Thread.Sleep(10);
             }
         }
         public void ChangeSelection(CancellationToken ct)
         {
             while (true)
             {
+                Thread.Sleep(10);
                 if (ct.IsCancellationRequested)
                     return;
+                if (MainWindow.mw.gvp.Process.MainWindowHandle != GetForegroundWindow()) 
+                    continue;
                 if (DownKeyDown)
                 {
                     int count = 0;
@@ -553,7 +554,6 @@ namespace Forza_Mods_AIO.Overlay
                     while (LeftKeyDown) { Thread.Sleep(1); }
                     Overlay.o.Dispatcher.Invoke(delegate { timer.Dispose(); });
                 }
-                Thread.Sleep(10);
             }
         }
 

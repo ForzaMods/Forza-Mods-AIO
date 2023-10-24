@@ -1,0 +1,20 @@
+﻿<Page x:Class="Forza_Mods_AIO.Tabs.Keybindings.Keybindings"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      d:DesignHeight="400" d:DesignWidth="600"
+      Title="Keybindings" Background="Transparent">
+
+    
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Grid>
+            <Button x:Name="OverlayButton" Content="Overlay Keybindings" HorizontalAlignment="Left" Margin="10,10,10,0" VerticalAlignment="Top" Focusable="False" Width="580" Height="25" MinHeight="0" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
+            <Button x:Name="HandlingButton" Content="Handling Keybindings" HorizontalAlignment="Left" Margin="10,45,10,0" VerticalAlignment="Top" Focusable="False" Width="580" Height="25" MinHeight="0" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
+        
+            <Frame x:Name="OverlayPage" Content="Frame" Width="580" Source="DropDownTabs/OverlayKeybindings.xaml" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="HandlingPage" Content="Frame" Width="580" Source="DropDownTabs/HandlingKeybindings.xaml" Margin="10,45,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+        </Grid>
+    </ScrollViewer>
+</Page>

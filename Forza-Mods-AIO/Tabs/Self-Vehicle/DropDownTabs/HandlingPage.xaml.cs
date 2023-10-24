@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using Forza_Mods_AIO.Overlay;
+using Forza_Mods_AIO.Resources;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.Self_Vehicle_Addrs;
 using static Forza_Mods_AIO.MainWindow;
-using System.Threading;
-using System.Globalization;
-using Forza_Mods_AIO.Resources;
-using System.Windows.Forms;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 {
@@ -18,14 +19,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
     {
         public static HandlingPage shp;
 
-        private static readonly byte[] before1 = { 0x0F, 0x11, 0x41, 0x10 };
-        private static readonly byte[] before2 = { 0x0F, 0x11, 0x49, 0x20 };
-        private static readonly byte[] before3 = { 0x0F, 0x11, 0x41, 0x30 };
-        private static readonly byte[] before4 = { 0x0F, 0x11, 0x49, 0x40 };
-        private static readonly byte[] before5 = { 0x0F, 0x11, 0x41, 0x50 };
-        private static readonly byte[] nop = { 0x90, 0x90, 0x90, 0x90 };
-
-        
+        private byte[] Before1 = { 0x0F, 0x11, 0x41, 0x10 }, Before2 = { 0x0F, 0x11, 0x49, 0x20 }, Before3 = { 0x0F, 0x11, 0x41, 0x30 }, Before4 = { 0x0F, 0x11, 0x49, 0x40 }, Before5 = { 0x0F, 0x11, 0x41, 0x50 };
+        private byte[] Nop = { 0x90, 0x90, 0x90, 0x90 };
         
         public HandlingPage()
         {
@@ -45,191 +40,219 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 
         private void VelocitySwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            if (VelocitySwitch.IsOn)
+            if (!VelocitySwitch.IsOn)
             {
-                Task.Run(() =>
-                {
-                    while (true)
-                    {
-                        // TODO wrap for controlls / ishplement controls
-                        bool Toggled = true;
-                        shp.Dispatcher.Invoke(delegate () { Toggled = (bool)shp.VelocitySwitch.GetType().GetProperty("IsOn").GetValue(shp.VelocitySwitch); });
-                        if (!Toggled)
-                            break;
-
-                        float xVelocityVal = mw.m.ReadMemory<float>(xVelocityAddr) * (float)VelocityValueNum.Value;
-                        float zVelocityVal = mw.m.ReadMemory<float>(zVelocityAddr) * (float)VelocityValueNum.Value;
-                        mw.m.WriteMemory(xVelocityAddr, (float)xVelocityVal);
-                        mw.m.WriteMemory(zVelocityAddr, (float)zVelocityVal);
-                        Thread.Sleep(50);
-                    }
-                });
+                return;
             }
+            
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    // TODO wrap for controlls / ishplement controls
+                    bool Toggled = true;
+                    shp.Dispatcher.Invoke(delegate { Toggled = (bool)shp.VelocitySwitch.GetType().GetProperty("IsOn").GetValue(shp.VelocitySwitch); });
+                    if (!Toggled)
+                        break;
+                    
+                    float Multiply = 1;
+                    shp.Dispatcher.Invoke(() => Multiply = (float)VelocityValueNum.Value);
+                    
+                    float xVelocityVal = mw.m.ReadMemory<float>(xVelocityAddr) * Multiply;
+                    float zVelocityVal = mw.m.ReadMemory<float>(zVelocityAddr) * Multiply;
+                    mw.m.WriteMemory(xVelocityAddr, xVelocityVal);
+                    mw.m.WriteMemory(zVelocityAddr, zVelocityVal);
+                    Thread.Sleep(50);
+                }
+            });
         }
 
         private void WheelSpeedSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            if (WheelSpeedSwitch.IsOn)
+            if (!WheelSpeedSwitch.IsOn)
             {
-                Task.Run(() =>
-                {
-                    while (true)
-                    {
-                        int Interval = 1;
-                        bool Toggled = true;
-                        shp.Dispatcher.Invoke(delegate () { Toggled = shp.WheelSpeedSwitch.IsOn; });
-                        if (!Toggled)
-                            break;
-
-                        string Mode = "";
-                        shp.Dispatcher.Invoke(delegate () { Mode = (string)WheelSpeedModeComboBox.SelectedItem.GetType().GetProperty("Content").GetValue(WheelSpeedModeComboBox.SelectedItem); });
-                        switch (Mode)
-                        {
-                            case "Static":
-                                {
-                                    if (DLLImports.GetAsyncKeyState(Keys.W) is 1 or Int16.MinValue)
-                                    {
-                                        float CurrentWheelSpeed = mw.m.ReadMemory<float>(FrontLeftAddr);
-                                        float BoostStrength = 0;
-                                        shp.Dispatcher.Invoke(delegate () { BoostStrength = (int)shp.Var1NumBox.Value; });
-                                        mw.m.WriteMemory(FrontLeftAddr, (CurrentWheelSpeed + BoostStrength / 10));
-                                        mw.m.WriteMemory(FrontRightAddr, (CurrentWheelSpeed + BoostStrength / 10));
-                                        mw.m.WriteMemory(BackLeftAddr, (CurrentWheelSpeed + BoostStrength / 10));
-                                        mw.m.WriteMemory(BackRightAddr, (CurrentWheelSpeed + BoostStrength / 10));
-                                    }
-
-                                    shp.Dispatcher.Invoke(delegate () { Interval = (int)shp.Var2NumBox.Value; });
-                                    break;
-                                }
-
-                            case "Linear":
-                                {
-                                    if (DLLImports.GetAsyncKeyState(Keys.W) is 1 or Int16.MinValue)
-                                    {
-                                        float CurrentWheelSpeed = mw.m.ReadMemory<float>(FrontLeftAddr);
-                                        float BoostFactor = 0;
-                                        shp.Dispatcher.Invoke(delegate () { BoostFactor = (float)shp.Var1NumBox.Value; });
-                                        float BoostStrength = (((BoostFactor / 10) - 1) + ((CurrentWheelSpeed - 100) / 100) * (-5));
-                                        if (BoostStrength <= 0)
-                                            BoostStrength = 0;
-                                        mw.m.WriteMemory(FrontLeftAddr, (CurrentWheelSpeed + BoostStrength));
-                                        mw.m.WriteMemory(FrontRightAddr, (CurrentWheelSpeed + BoostStrength));
-                                        mw.m.WriteMemory(BackLeftAddr, (CurrentWheelSpeed + BoostStrength));
-                                        mw.m.WriteMemory(BackRightAddr, (CurrentWheelSpeed + BoostStrength));
-                                    }
-
-                                    shp.Dispatcher.Invoke(delegate () { Interval = (int)shp.Var2NumBox.Value; });
-                                    break;
-                                }
-                        }
-                        Thread.Sleep(Interval);
-                    }
-                });
+                return;
             }
+            
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    int Interval = 1;
+                    bool Toggled = true;
+                    shp.Dispatcher.Invoke(delegate { Toggled = shp.WheelSpeedSwitch.IsOn; });
+                    if (!Toggled) 
+                        break;
+                    
+                    if (mw.gvp.Process.MainWindowHandle != OverlayHandling.GetForegroundWindow())
+                        continue;
+                    
+                    string Mode = "";
+                    shp.Dispatcher.Invoke(delegate { Mode = (string)WheelSpeedModeComboBox.SelectedItem.GetType().GetProperty("Content").GetValue(WheelSpeedModeComboBox.SelectedItem); });
+                    switch (Mode)
+                    {
+                        case "Static":
+                        {
+                            if (DLLImports.GetAsyncKeyState(Keys.W) is 1 or Int16.MinValue)
+                            {
+                                float CurrentWheelSpeed = mw.m.ReadMemory<float>(FrontLeftAddr);
+                                float BoostStrength = 0;
+                                shp.Dispatcher.Invoke(delegate { BoostStrength = (int)shp.Var1NumBox.Value; });
+                                mw.m.WriteMemory(FrontLeftAddr, (CurrentWheelSpeed + BoostStrength / 10));
+                                mw.m.WriteMemory(FrontRightAddr, (CurrentWheelSpeed + BoostStrength / 10));
+                                mw.m.WriteMemory(BackLeftAddr, (CurrentWheelSpeed + BoostStrength / 10));
+                                mw.m.WriteMemory(BackRightAddr, (CurrentWheelSpeed + BoostStrength / 10));
+                            }
+
+                            shp.Dispatcher.Invoke(delegate { Interval = (int)shp.Var2NumBox.Value; });
+                            break;
+                        }
+                        
+                        case "Linear":
+                        {
+                            if (DLLImports.GetAsyncKeyState(Keys.W) is 1 or Int16.MinValue)
+                            {
+                                float CurrentWheelSpeed = mw.m.ReadMemory<float>(FrontLeftAddr);
+                                float BoostFactor = 0;
+                                shp.Dispatcher.Invoke(delegate { BoostFactor = (float)shp.Var1NumBox.Value; });
+                                float BoostStrength = (((BoostFactor / 10) - 1) + ((CurrentWheelSpeed - 100) / 100) * (-5));
+                                if (BoostStrength <= 0)
+                                    BoostStrength = 0;
+                                
+                                mw.m.WriteMemory(FrontLeftAddr, (CurrentWheelSpeed + BoostStrength));
+                                mw.m.WriteMemory(FrontRightAddr, (CurrentWheelSpeed + BoostStrength));
+                                mw.m.WriteMemory(BackLeftAddr, (CurrentWheelSpeed + BoostStrength));
+                                mw.m.WriteMemory(BackRightAddr, (CurrentWheelSpeed + BoostStrength));
+                            }
+
+                            shp.Dispatcher.Invoke(delegate { Interval = (int)shp.Var2NumBox.Value; });
+                            break;
+                        }
+                    }
+                    Thread.Sleep(Interval);
+                }
+            });
         }
 
         public void PullButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity"))
-                try { GravityValueNum.Value = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.GravityAddr); } catch { }
+                try { GravityValueNum.Value = mw.m.ReadMemory<float>(GravityAddr); } catch { }
             else
-                try { AccelerationValueNum.Value = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WeirdAddr); } catch { }
+                try { AccelerationValueNum.Value = mw.m.ReadMemory<float>(WeirdAddr); } catch { }
         }
 
         private void SetSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            float original;
-            string Addr = sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity") ? Self_Vehicle_Addrs.GravityAddr : Self_Vehicle_Addrs.WeirdAddr;
-            string Type = sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity") ? "Gravity" : "Accel";
-
-            if ((bool)sender.GetType().GetProperty("IsOn").GetValue(sender))
+            if (!(bool)sender.GetType().GetProperty("IsOn").GetValue(sender))
             {
-                Task.Run(() =>
-                {
-                    original = MainWindow.mw.m.ReadMemory<float>(Addr);
-                    while (true)
-                    {
-                        bool Toggled = true;
-                        if (Type == "Gravity")
-                            Dispatcher.Invoke(delegate () { Toggled = (bool)GravitySetSwitch.GetType().GetProperty("IsOn").GetValue(shp.GravitySetSwitch); });
-                        else
-                            Dispatcher.Invoke(delegate () { Toggled = (bool)AccelerationSetSwitch.GetType().GetProperty("IsOn").GetValue(shp.AccelerationSetSwitch); });
-
-                        if (!Toggled)
-                        {
-                            if (Type == "Gravity")
-                                shp.Dispatcher.Invoke(delegate () { shp.GravityValueNum.GetType().GetProperty("Value").SetValue(shp.GravityValueNum, Convert.ToDouble(original)); });
-                            else
-                                shp.Dispatcher.Invoke(delegate () { shp.AccelerationValueNum.GetType().GetProperty("Value").SetValue(shp.AccelerationValueNum, Convert.ToDouble(original)); });
-                            MainWindow.mw.m.WriteMemory(Addr, original);
-                            break;
-                        }
-
-                        try
-                        {
-                            float SetValue = 0;
-                            if (Type == "Gravity")
-                                shp.Dispatcher.Invoke(delegate () { SetValue = Convert.ToSingle(shp.GravityValueNum.GetType().GetProperty("Value").GetValue(shp.GravityValueNum)); });
-                            else
-                                shp.Dispatcher.Invoke(delegate () { SetValue = Convert.ToSingle(shp.AccelerationValueNum.GetType().GetProperty("Value").GetValue(shp.AccelerationValueNum)); });
-
-                            if (MainWindow.mw.m.ReadMemory<float>(Addr) != SetValue)
-                            {
-                                MainWindow.mw.m.WriteMemory(Addr, SetValue);
-                            }
-                            Thread.Sleep(1);
-                        }
-                        catch
-                        {
-                            //Car Changed
-                            while (true)
-                            {
-                                try
-                                {
-                                    original = MainWindow.mw.m.ReadMemory<float>(Addr);
-                                    break;
-                                }
-                                catch { }
-                            }
-                        }
-                    }
-                });
+                return;
             }
+
+            float Original;
+            string Addr = sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity") ? GravityAddr : WeirdAddr;
+            string Type = sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity") ? "Gravity" : "Accel";
+            
+            Task.Run(() =>
+            {
+                Original = mw.m.ReadMemory<float>(Addr);
+                while (true)
+                {
+                    Thread.Sleep(100);
+                    bool Toggled = true;
+                    if (Type == "Gravity")
+                        Dispatcher.Invoke(delegate { Toggled = (bool)GravitySetSwitch.GetType().GetProperty("IsOn").GetValue(shp.GravitySetSwitch); });
+                    else
+                        Dispatcher.Invoke(delegate { Toggled = (bool)AccelerationSetSwitch.GetType().GetProperty("IsOn").GetValue(shp.AccelerationSetSwitch); });
+
+                    if (!Toggled)
+                    {
+                        if (Type == "Gravity")
+                            shp.Dispatcher.Invoke(delegate { shp.GravityValueNum.GetType().GetProperty("Value").SetValue(shp.GravityValueNum, Convert.ToDouble(Original)); });
+                        else
+                            shp.Dispatcher.Invoke(delegate { shp.AccelerationValueNum.GetType().GetProperty("Value").SetValue(shp.AccelerationValueNum, Convert.ToDouble(Original)); });
+                        mw.m.WriteMemory(Addr, Original);
+                        break;
+                    }
+
+                    float SetValue = 0;
+                    if (Type == "Gravity") 
+                        shp.Dispatcher.Invoke(delegate { SetValue = Convert.ToSingle(shp.GravityValueNum.GetType().GetProperty("Value").GetValue(shp.GravityValueNum)); });
+                    else
+                        shp.Dispatcher.Invoke(delegate { SetValue = Convert.ToSingle(shp.AccelerationValueNum.GetType().GetProperty("Value").GetValue(shp.AccelerationValueNum)); });
+
+                    if (mw.m.ReadMemory<float>(Addr) != SetValue)
+                    {
+                        mw.m.WriteMemory(Addr, SetValue);
+                    }
+                }
+            });
         }
 
         private void TurnAssistSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            float FrontLeft = MainWindow.mw.m.ReadMemory<float>(FrontLeftAddr);
-            float FrontRight = MainWindow.mw.m.ReadMemory<float>(FrontRightAddr);
-            float BackLeft = MainWindow.mw.m.ReadMemory<float>(BackLeftAddr);
-            float BackRight = MainWindow.mw.m.ReadMemory<float>(BackRightAddr);
+            if (!TurnAssistSwitch.IsOn)
+            {
+                return;
+            }
 
-            if (DLLImports.GetAsyncKeyState(Keys.A) is 1 or Int16.MinValue)
+            Task.Run(() =>
             {
-                if ((float)Math.Abs(FrontRight - FrontLeft) < (FrontRight / TurnAssistRatioBox.Value) && (float)Math.Abs(BackRight - FrontLeft) < (BackRight / TurnAssistRatioBox.Value))
+                while (true)
                 {
-                    FrontLeft = FrontLeft - (float)TurnAssistStrengthBox.Value;
-                    BackLeft = BackLeft - (float)TurnAssistStrengthBox.Value;
-                    FrontRight = FrontRight + (float)TurnAssistStrengthBox.Value;
-                    BackRight = BackRight + (float)TurnAssistStrengthBox.Value;
-                    Thread.Sleep((int)TurnAssistIntervalBox.Value);
+                    Thread.Sleep(25);
+                    var Toggled = false;
+                    shp.Dispatcher.Invoke(() => Toggled = TurnAssistSwitch.IsOn);
+
+                    if (!Toggled)
+                        break;
+
+                    if (mw.gvp.Process.MainWindowHandle != OverlayHandling.GetForegroundWindow())
+                        continue;
+                    
+                    float FrontLeft = mw.m.ReadMemory<float>(FrontLeftAddr);
+                    float FrontRight = mw.m.ReadMemory<float>(FrontRightAddr);
+                    float BackLeft = mw.m.ReadMemory<float>(BackLeftAddr);
+                    float BackRight = mw.m.ReadMemory<float>(BackRightAddr);
+
+                    int Interval = 1;
+                    float Ratio = 1;
+                    float Strength = 1;
+                    shp.Dispatcher.Invoke(() =>
+                    {
+                        Interval = (int)TurnAssistIntervalBox.Value;
+                        Ratio = (float)TurnAssistRatioBox.Value;
+                        Strength = (float)TurnAssistStrengthBox.Value;
+                    });
+                    
+                    if (DLLImports.GetAsyncKeyState(Keys.A) is 1 or Int16.MinValue)
+                    {
+                        if (Math.Abs(FrontRight - FrontLeft) < (FrontRight / Ratio) && Math.Abs(BackRight - FrontLeft) < (BackRight / Ratio))
+                        {
+                            FrontLeft -= Strength;
+                            BackLeft -= Strength;
+                            FrontRight += Strength;
+                            BackRight += Strength;
+                        }
+                    }
+                    else if (DLLImports.GetAsyncKeyState(Keys.D) is 1 or Int16.MinValue)
+                    {
+                        if (Math.Abs(FrontLeft - FrontRight) < (FrontLeft / Ratio) && Math.Abs(BackLeft - FrontRight) < (BackLeft / Ratio))
+                        {
+                            FrontRight -= Strength;
+                            BackRight -= Strength;
+                            FrontLeft += Strength;
+                            BackLeft += Strength;
+                        }
+                    }
+
+                    mw.m.WriteMemory(FrontLeftAddr, FrontLeft);
+                    mw.m.WriteMemory(FrontRightAddr, FrontRight);
+                    mw.m.WriteMemory(BackLeftAddr, BackLeft);
+                    mw.m.WriteMemory(BackRightAddr, BackRight);
+                    Thread.Sleep(Interval);
                 }
-            }
-            else if (DLLImports.GetAsyncKeyState(Keys.D) is 1 or Int16.MinValue)
-            {
-                if ((float)Math.Abs(FrontLeft - FrontRight) < (FrontLeft / TurnAssistRatioBox.Value) && (float)Math.Abs(BackLeft - FrontRight) < (BackLeft / TurnAssistRatioBox.Value))
-                {
-                    FrontRight = FrontRight - (float)TurnAssistStrengthBox.Value;
-                    BackRight = BackRight - (float)TurnAssistStrengthBox.Value;
-                    FrontLeft = FrontLeft + (float)TurnAssistStrengthBox.Value;
-                    BackLeft = BackLeft + (float)TurnAssistStrengthBox.Value;
-                    Thread.Sleep((int)TurnAssistIntervalBox.Value);
-                }
-            }
-            MainWindow.mw.m.WriteMemory(FrontLeftAddr, FrontLeft);
-            MainWindow.mw.m.WriteMemory(FrontRightAddr, FrontRight);
-            MainWindow.mw.m.WriteMemory(BackLeftAddr, BackLeft);
-            MainWindow.mw.m.WriteMemory(BackRightAddr, BackRight);
+            });
         }
 
         private void SuperCarSwitch_Toggled(object sender, RoutedEventArgs e)
@@ -238,26 +261,26 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
             {
                 if (mw.gvp.Name == "Forza Horizon 5")
                 {
-                    mw.m.WriteArrayMemory((SuperCarAddrLong - 4).ToString("X"), nop);
+                    mw.m.WriteArrayMemory((SuperCarAddrLong - 4).ToString("X"), Nop);
                 }
 
-                mw.m.WriteArrayMemory((SuperCarAddrLong + 4).ToString("X"), nop);
-                mw.m.WriteArrayMemory((SuperCarAddrLong + 12).ToString("X"), nop);
-                mw.m.WriteArrayMemory((SuperCarAddrLong + 20).ToString("X"), nop);
-                mw.m.WriteArrayMemory((SuperCarAddrLong + 32).ToString("X"), nop);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 4).ToString("X"), Nop);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 12).ToString("X"), Nop);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 20).ToString("X"), Nop);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 32).ToString("X"), Nop);
                 
             }
             else
             {
                 if (mw.gvp.Name == "Forza Horizon 5")
                 {
-                    mw.m.WriteArrayMemory((SuperCarAddrLong - 4).ToString("X"), before1);
+                    mw.m.WriteArrayMemory((SuperCarAddrLong - 4).ToString("X"), Before1);
                 }
                 
-                mw.m.WriteArrayMemory((SuperCarAddrLong + 4).ToString("X"), mw.gvp.Name == "Forza Horizon 4" ? before1 : before2);
-                mw.m.WriteArrayMemory((SuperCarAddrLong + 12).ToString("X"), mw.gvp.Name == "Forza Horizon 4" ? before2 : before3);
-                mw.m.WriteArrayMemory((SuperCarAddrLong + 20).ToString("X"), mw.gvp.Name == "Forza Horizon 4" ? before3 : before4);
-                mw.m.WriteArrayMemory((SuperCarAddrLong + 32).ToString("X"), mw.gvp.Name == "Forza Horizon 4" ? before4 : before5);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 4).ToString("X"), mw.gvp.Name == "Forza Horizon 4" ? Before1 : Before2);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 12).ToString("X"), mw.gvp.Name == "Forza Horizon 4" ? Before2 : Before3);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 20).ToString("X"), mw.gvp.Name == "Forza Horizon 4" ? Before3 : Before4);
+                mw.m.WriteArrayMemory((SuperCarAddrLong + 32).ToString("X"), mw.gvp.Name == "Forza Horizon 4" ? Before4 : Before5);
             }
         }
 
@@ -277,28 +300,33 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 
         private void SuperBrakeSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            if (SuperBrakeSwitch.IsOn)
+            if (!SuperBrakeSwitch.IsOn)
+                return;
+            
+            Task.Run(() =>
             {
-                Task.Run(() =>
-                {
-                    while (true)
-                    {
-                        Thread.Sleep(10);
-                        bool Toggled = true;
-                        shp.Dispatcher.Invoke(delegate () { Toggled = shp.SuperBrakeSwitch.IsOn; });
-                        if (!Toggled)
-                            break;
+                CultureInfo.CurrentCulture = new CultureInfo("en-GB");
 
-                        if (DLLImports.GetAsyncKeyState(Keys.S) is 1 or Int16.MinValue)
-                        {
-                            float xVelocityVal = mw.m.ReadMemory<float>(xVelocityAddr) * (float)0.95;
-                            float zVelocityVal = mw.m.ReadMemory<float>(zVelocityAddr) * (float)0.95;
-                            mw.m.WriteMemory(xVelocityAddr, xVelocityVal);
-                            mw.m.WriteMemory(zVelocityAddr, zVelocityVal);
-                        }
-                    }
-                });
-            }
+                while (true)
+                {
+                    Thread.Sleep(10);
+                    var Toggled = true;
+                    shp.Dispatcher.Invoke(delegate { Toggled = shp.SuperBrakeSwitch.IsOn; });
+                    if (!Toggled)
+                        break;
+
+                    if (mw.gvp.Process.MainWindowHandle != OverlayHandling.GetForegroundWindow())
+                        continue;
+                    
+                    if (DLLImports.GetAsyncKeyState(Keys.S) is not (1 or Int16.MinValue)) 
+                        continue;
+                    
+                    float xVelocityVal = mw.m.ReadMemory<float>(xVelocityAddr) * (float)0.95;
+                    float zVelocityVal = mw.m.ReadMemory<float>(zVelocityAddr) * (float)0.95;
+                    mw.m.WriteMemory(xVelocityAddr, xVelocityVal);
+                    mw.m.WriteMemory(zVelocityAddr, zVelocityVal);
+                }
+            });
         }
 
         private void StopAllWheelsSwitch_OnToggled(object sender, RoutedEventArgs e)
@@ -308,14 +336,19 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
             
             Task.Run(() =>
             {
+                CultureInfo.CurrentCulture = new CultureInfo("en-GB");
+                
                 while (true)
                 {
                     Thread.Sleep(25);
                     bool Toggled = true;
-                    shp.Dispatcher.Invoke(delegate () { Toggled = shp.StopAllWheelsSwitch.IsOn; });
+                    shp.Dispatcher.Invoke(delegate { Toggled = shp.StopAllWheelsSwitch.IsOn; });
                     if (!Toggled)
                         break;
 
+                    if (mw.gvp.Process.MainWindowHandle != OverlayHandling.GetForegroundWindow())
+                        continue;
+                    
                     if (!(DLLImports.GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue)) 
                         continue;
 
@@ -335,13 +368,13 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
             if (!FlyHackSwitch.IsOn)
             {
                 Thread.Sleep(25);
-                mw.m.WriteMemory(Self_Vehicle_Addrs.GravityAddr, OriginalGrav);
-                mw.m.WriteArrayMemory(Self_Vehicle_Addrs.RotationAddr, MainWindow.mw.gvp.Name == "Forza Horizon 5" ?  new byte[] { 0xF3, 0x44, 0x0F, 0x10, 0x89, 0x94, 0x00, 0x00, 0x00 } : new byte[] { 0xF3, 0x44, 0x0F, 0x10, 0x89, 0xF4, 0x00, 0x00, 0x00});
+                mw.m.WriteMemory(GravityAddr, OriginalGrav);
+                mw.m.WriteArrayMemory(RotationAddr, mw.gvp.Name == "Forza Horizon 5" ?  new byte[] { 0xF3, 0x44, 0x0F, 0x10, 0x89, 0x94, 0x00, 0x00, 0x00 } : new byte[] { 0xF3, 0x44, 0x0F, 0x10, 0x89, 0xF4, 0x00, 0x00, 0x00});
                 return;
             }
 
             Self_Vehicle_ASM.Flyhack();
-            OriginalGrav = mw.m.ReadMemory<float>(Self_Vehicle_Addrs.GravityAddr);
+            OriginalGrav = mw.m.ReadMemory<float>(GravityAddr);
             
             // Rotation
             Task.Run(() =>
@@ -361,6 +394,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     if (!Toggled)
                         break;
                     
+                    if (mw.gvp.Process.MainWindowHandle != OverlayHandling.GetForegroundWindow())
+                        continue;
+                    
                     if (DLLImports.GetAsyncKeyState(Keys.A) is 1 or Int16.MinValue && !ADown)
                         ADown = true;
                     if (DLLImports.GetAsyncKeyState(Keys.A) is not 1 and not Int16.MinValue && ADown)
@@ -373,9 +409,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     if (!ADown && !DDown)
                         continue;
                     
-                    float CurrentXRot = mw.m.ReadMemory<float>(Self_Vehicle_Addrs.XRot);
-                    float CurrentYRot = mw.m.ReadMemory<float>(Self_Vehicle_Addrs.YRot);
-                    float FlyhackRotSpeed = 1;
+                    var CurrentXRot = mw.m.ReadMemory<float>(XRot);
+                    var CurrentYRot = mw.m.ReadMemory<float>(YRot);
+                    var FlyhackRotSpeed = 1f;
                     shp.Dispatcher.Invoke(() => { FlyhackRotSpeed = (float)FlyHackRotSpeedNum.Value; });
                     
                     if (ADown)
@@ -384,23 +420,23 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                         {
                             // Top right
                             case >= 0 when CurrentYRot >= 0:
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot + (FlyhackRotSpeed / 10)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot - (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(XRot, (CurrentXRot + (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(YRot, (CurrentYRot - (FlyhackRotSpeed / 10)));
                                 break;
                             // Bottom right
                             case >= 0 when CurrentYRot <= 0:
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot - (FlyhackRotSpeed / 10)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot - (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(XRot, (CurrentXRot - (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(YRot, (CurrentYRot - (FlyhackRotSpeed / 10)));
                                 break;
                             // Bottom Left
                             case <= 0 when CurrentYRot <= 0:
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot - (FlyhackRotSpeed / 10)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot + (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(XRot, (CurrentXRot - (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(YRot, (CurrentYRot + (FlyhackRotSpeed / 10)));
                                 break;
                             // Top Left
                             case <= 0 when CurrentYRot >= 0:
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot + (FlyhackRotSpeed / 10)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot + (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(XRot, (CurrentXRot + (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(YRot, (CurrentYRot + (FlyhackRotSpeed / 10)));
                                 break;
                         }
                     }
@@ -410,20 +446,20 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                         switch (CurrentXRot)
                         {
                             case >= 0 when CurrentYRot >= 0:
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot - (FlyhackRotSpeed / 10)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot + (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(XRot, (CurrentXRot - (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(YRot, (CurrentYRot + (FlyhackRotSpeed / 10)));
                                 break;
                             case >= 0 when CurrentYRot <= 0:
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot + (FlyhackRotSpeed / 10)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot + (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(XRot, (CurrentXRot + (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(YRot, (CurrentYRot + (FlyhackRotSpeed / 10)));
                                 break;
                             case <= 0 when CurrentYRot <= 0:
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot + (FlyhackRotSpeed / 10)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot - (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(XRot, (CurrentXRot + (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(YRot, (CurrentYRot - (FlyhackRotSpeed / 10)));
                                 break;
                             case <= 0 when CurrentYRot >= 0:
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.XRot, (CurrentXRot - (FlyhackRotSpeed / 10)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.YRot, (CurrentYRot - (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(XRot, (CurrentXRot - (FlyhackRotSpeed / 10)));
+                                mw.m.WriteMemory(YRot, (CurrentYRot - (FlyhackRotSpeed / 10)));
                                 break;
                         }
                     }
@@ -445,11 +481,19 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                 {
                     Thread.Sleep(25);
 
-                    bool Toggled = true;
+                    var Toggled = true;
                     shp.Dispatcher.Invoke(delegate { Toggled = FlyHackSwitch.IsOn; });
                     
                     if (!Toggled)
                         break;
+                    
+                    mw.m.WriteMemory(Rotation, 1f);
+                    mw.m.WriteMemory(xVelocityAddr, 0f);
+                    mw.m.WriteMemory(yVelocityAddr, 0f);
+                    mw.m.WriteMemory(zVelocityAddr,  0f);
+                    
+                    if (mw.gvp.Process.MainWindowHandle != OverlayHandling.GetForegroundWindow())
+                        continue;
                     
                     if (DLLImports.GetAsyncKeyState(Keys.W) is 1 or Int16.MinValue && !WDown)
                         WDown = true;
@@ -468,27 +512,21 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     if (DLLImports.GetAsyncKeyState(Keys.LControlKey) is not 1 and not Int16.MinValue && ControlDown)
                         ControlDown = false;
                     
-                    mw.m.WriteMemory(Self_Vehicle_Addrs.Rotation, 1f);
-                    mw.m.WriteMemory(Self_Vehicle_Addrs.xVelocityAddr, 0f);
-                    mw.m.WriteMemory(Self_Vehicle_Addrs.yVelocityAddr, 0f);
-                    mw.m.WriteMemory(Self_Vehicle_Addrs.zVelocityAddr,  0f);
-                    
                     if (!WDown && !SDown && !ShiftDown && !ControlDown)
                         continue;
                     
-                    float angle = (float)((float)Math.Atan2(mw.m.ReadMemory<float>(Self_Vehicle_Addrs.XRot), mw.m.ReadMemory<float>(Self_Vehicle_Addrs.YRot)) * (180 / Math.PI));
+                    var angle = (float)((float)Math.Atan2(mw.m.ReadMemory<float>(XRot), mw.m.ReadMemory<float>(YRot)) * (180 / Math.PI));
                     if (angle < 0)
                         angle += 360;
                     
-                    float x = mw.m.ReadMemory<float>(Self_Vehicle_Addrs.xAddr);
-                    float y = mw.m.ReadMemory<float>(Self_Vehicle_Addrs.yAddr);
-                    float z = mw.m.ReadMemory<float>(Self_Vehicle_Addrs.zAddr);
+                    float x = mw.m.ReadMemory<float>(xAddr);
+                    float y = mw.m.ReadMemory<float>(yAddr);
+                    float z = mw.m.ReadMemory<float>(zAddr);
                     float FlyhackMoveSpeed = 1;
                     shp.Dispatcher.Invoke(() => { FlyhackMoveSpeed = (float)FlyHackMoveSpeedNum.Value; });
                     
                     if (WDown)
                     {
-                        
                         switch (angle)
                         {
                             // Top Left
@@ -496,8 +534,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                             {
                                 float XComp = -(float)(Math.Sin(Math.PI * angle / 180));
                                 float YComp = (float)(Math.Cos(Math.PI * angle / 180));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                mw.m.WriteMemory(xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
                                 break;
                             }
                             // Bottom Left
@@ -505,8 +543,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                             {
                                 float XComp = -(float)(Math.Sin(Math.PI * (180 - angle) / 180));
                                 float YComp = -(float)(Math.Cos(Math.PI * (180 - angle) / 180));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                mw.m.WriteMemory(xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
                                 break;
                             }
                             // Bottom Right
@@ -514,8 +552,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                             {
                                 float XComp = (float)(Math.Cos(Math.PI * (270 - angle) / 180));
                                 float YComp = -(float)(Math.Sin(Math.PI * (270 - angle) / 180));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp))); 
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                mw.m.WriteMemory(xAddr, (x + (FlyhackMoveSpeed * 10 * XComp))); 
+                                mw.m.WriteMemory(zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
                                 break;
                             }
                             // Top Right
@@ -523,8 +561,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                             {
                                 float XComp = (float)(Math.Sin(Math.PI * (360 - angle) / 180));
                                 float YComp = (float)(Math.Cos(Math.PI * (360 - angle) / 180));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                mw.m.WriteMemory(xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
                                 break;
                             }
                         }
@@ -538,8 +576,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                             {
                                 float XComp = (float)(Math.Sin(Math.PI * angle / 180));
                                 float YComp = -(float)(Math.Cos(Math.PI * angle / 180));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                mw.m.WriteMemory(xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
                                 break;
                             }
                             // Bottom Left
@@ -547,8 +585,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                             {
                                 float XComp = (float)(Math.Sin(Math.PI * (180 - angle) / 180));
                                 float YComp = (float)(Math.Cos(Math.PI * (180 - angle) / 180));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr,(x + (FlyhackMoveSpeed * 10 * XComp)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr,(z + (FlyhackMoveSpeed * 10 * YComp)));
+                                mw.m.WriteMemory(xAddr,(x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(zAddr,(z + (FlyhackMoveSpeed * 10 * YComp)));
                                 break;
                             }
                             // Bottom Right
@@ -556,8 +594,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                             {
                                 float XComp = -(float)(Math.Cos(Math.PI * (270 - angle) / 180));
                                 float YComp = (float)(Math.Sin(Math.PI * (270 - angle) / 180));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                mw.m.WriteMemory(xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
                                 break;
                             }
                             // Top Right
@@ -565,17 +603,102 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                             {
                                 float XComp = -(float)(Math.Sin(Math.PI * (360 - angle) / 180));
                                 float YComp = -(float)(Math.Cos(Math.PI * (360 - angle) / 180));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
-                                mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
+                                mw.m.WriteMemory(xAddr, (x + (FlyhackMoveSpeed * 10 * XComp)));
+                                mw.m.WriteMemory(zAddr, (z + (FlyhackMoveSpeed * 10 * YComp)));
                                 break;
                             }
                         }
                     }
                     
                     if (ShiftDown)
-                        mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, (y + (FlyhackMoveSpeed * 5)));
+                        mw.m.WriteMemory(yAddr, (y + (FlyhackMoveSpeed * 5)));
                     if (ControlDown)
-                        mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, (y - (FlyhackMoveSpeed * 5)));
+                        mw.m.WriteMemory(yAddr, (y - (FlyhackMoveSpeed * 5)));
+                }
+            });
+        }
+
+        
+        private void CarNoclipLabelSwitch_OnToggled(object sender, RoutedEventArgs e)
+        {            
+            if (!CarNoclipSwitch.IsOn)
+            {
+                return;
+            }
+
+            Task.Run(() =>
+            {
+                CultureInfo.CurrentCulture = new CultureInfo("en-GB");
+
+                while (true)
+                {
+                    Thread.Sleep(50);
+                    var Toggled = true;
+                    Dispatcher.Invoke(() => Toggled = CarNoclipSwitch.IsOn);
+                    
+                    if (!Toggled)
+                        break;
+                }
+            });
+        }
+
+        private void WallNoclipSwitch_OnToggled(object sender, RoutedEventArgs e)
+        {
+            if (!WallNoclipSwitch.IsOn)
+            {
+                return;
+            }
+            
+            Task.Run(() =>
+            {
+                CultureInfo.CurrentCulture = new CultureInfo("en-GB");
+                
+                while (true)
+                {
+                    Thread.Sleep(50);
+                    var Toggled = true;
+                    Dispatcher.Invoke(() => Toggled = WallNoclipSwitch.IsOn);
+                    
+                    if (!Toggled)
+                        break;
+                }
+            });
+        }
+
+        private void JumpHackSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            JumpHackVelocityNum.Value = Math.Round(e.NewValue, 4);
+        }
+
+        private void JumpHackVelocityNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+            try { if (shp != null) JumpHackSlider.Value = (double)JumpHackVelocityNum.Value;} catch {}
+        }
+
+        private void JumpHackSwitch_OnToggled(object sender, RoutedEventArgs e)
+        {
+            if (!JumpHackSwitch.IsOn)
+            {
+                return;
+            }
+
+            Task.Run(() =>
+            {
+                CultureInfo.CurrentCulture = new CultureInfo("en-GB");
+                
+                while (true)
+                {
+                    Thread.Sleep(50);
+                    var Toggled = true;
+                    Dispatcher.Invoke(() => Toggled = JumpHackSwitch.IsOn);
+                    
+                    if (!Toggled)
+                        break;
+                    
+                    // TODO: wrap for controls or some shit IDK
+                    
+                    if (mw.m.ReadMemory<float>(InPauseAddr) != 1)
+                        mw.m.WriteMemory(yVelocityAddr, mw.m.ReadMemory<float>(yVelocityAddr) + (float)JumpHackVelocityNum.Value);
                 }
             });
         }

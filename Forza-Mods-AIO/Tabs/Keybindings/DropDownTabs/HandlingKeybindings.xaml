@@ -1,0 +1,129 @@
+﻿<Page x:Class="Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs.HandlingKeybindings"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs"
+      mc:Ignorable="d"
+      d:DesignHeight="180" 
+      d:DesignWidth="580"
+      Title="HandlingKeybindings"
+      Background="Transparent">
+    <Grid>
+        <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10" />
+
+        <Border x:Name="JmpHackBinds" BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,10,0,0" BorderBrush="#FF2E3440" >
+            <Grid>
+                
+                <Label Content="Keyboard Jump Hack Keybind"
+                       Margin="7.5 7.5 0 0"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"/>
+                
+                <Button x:Name="KBJmpHack"
+                        Content="LControlKey"
+                        HorizontalAlignment="Left"
+                        Margin="180 7.5"
+                        Focusable="False"
+                        Width="85"
+                        Click="KBButton_OnClick"
+                        Height="25"
+                        Background="#FF2E3440"
+                        BorderBrush="#FF2E3440"/>
+                
+                <Label Content="Controller Jump Hack Keybind"
+                       Margin="280 7.5 0 0"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"/>
+                
+                <Button x:Name="CTJmpHack"
+                        Content="RightThumb"
+                        HorizontalAlignment="Right"
+                        Margin="7.5 7.5"
+                        Focusable="False"
+                        Width="85"
+                        Click="CTButton_OnClick"
+                        Height="25"
+                        Background="#FF2E3440"
+                        BorderBrush="#FF2E3440"/>
+                
+            </Grid>    
+        </Border>
+        
+        <Border x:Name="BrakeHackBinds" BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,66,0,0" BorderBrush="#FF2E3440" >
+            <Grid>
+                
+                <Label Content="Keyboard Brake Hack Keybind"
+                       Margin="7.5 7.5 0 0"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"/>
+                
+                <Button x:Name="KBBrakeHack"
+                        Content="Space"
+                        HorizontalAlignment="Left"
+                        Margin="180 7.5"
+                        Width="85"
+                        Focusable="False"
+                        Height="25"
+                        Click="KBButton_OnClick"
+                        Background="#FF2E3440"
+                        BorderBrush="#FF2E3440"/>
+                
+                <Label Content="Controller Brake Hack Keybind"
+                       Margin="280 7.5 0 0"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"/>
+                
+                <Button x:Name="CTBrakeHack"
+                        Content="A"
+                        Focusable="False"
+                        HorizontalAlignment="Right"
+                        Margin="7.5 7.5"
+                        Width="85"
+                        Click="CTButton_OnClick"
+                        Height="25"
+                        Background="#FF2E3440"
+                        BorderBrush="#FF2E3440"/>
+                
+            </Grid>    
+        </Border>
+        
+        <Border x:Name="VelocityHackBinds" BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,120,0,0" BorderBrush="#FF2E3440" >
+            <Grid>
+                
+                <Label Content="Keyboard Vel Hack Keybind"
+                       Margin="7.5 7.5 0 0"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"/>
+                
+                <Button x:Name="KBVelHack"
+                        Content="LShiftKey"
+                        HorizontalAlignment="Left"
+                        Focusable="False"
+                        Margin="180 7.5"
+                        Width="85"
+                        Click="KBButton_OnClick"
+                        Height="25"
+                        Background="#FF2E3440"
+                        BorderBrush="#FF2E3440"/>
+                
+                <Label Content="Controller Vel Hack Keybind"
+                       Margin="280 7.5 0 0"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"/>
+                
+                <Button x:Name="CTVelHack"
+                        Content="LeftShoulder"
+                        HorizontalAlignment="Right"
+                        Margin="7.5 7.5"
+                        Width="85"
+                        Focusable="False"
+                        Click="CTButton_OnClick"
+                        Height="25"
+                        Background="#FF2E3440"
+                        BorderBrush="#FF2E3440"/>
+                
+            </Grid>    
+        </Border>
+    </Grid>
+</Page>

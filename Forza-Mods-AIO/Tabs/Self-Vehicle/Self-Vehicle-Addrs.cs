@@ -453,7 +453,7 @@ internal class Self_Vehicle_Addrs
         int ScanIndex = 0;
         int Finished = 0;
         
-        Thread HigherPriorityScans = new Thread(() =>
+        Task.Run(() =>
         {
             try
             {
@@ -519,7 +519,7 @@ internal class Self_Vehicle_Addrs
             }
         });
 
-        Thread LowerPriorityScans = new Thread(() =>
+        Task.Run(() =>
         {
             try
             {
@@ -605,11 +605,6 @@ internal class Self_Vehicle_Addrs
             }
         });
 
-        HigherPriorityScans.Priority = ThreadPriority.Highest;
-        
-        HigherPriorityScans.Start();
-        LowerPriorityScans.Start();
-
         while (Finished != 2)
         {
             Thread.Sleep(1000);
@@ -631,7 +626,7 @@ internal class Self_Vehicle_Addrs
         int ScanIndex = 0;
         int Finished = 0;
         
-        Thread HigherPriorityScans = new Thread(() =>
+        Task.Run(() =>
         {
             WorldRGBAddrLong = (long)MainWindow.mw.m.ScanForSig(RGBAob).LastOrDefault();
             WorldRGBAddr = WorldRGBAddrLong.ToString("X");
@@ -686,7 +681,7 @@ internal class Self_Vehicle_Addrs
             Finished++;
         });
 
-        Thread LowerPriorityScans = new Thread(() =>
+        Task.Run(() =>
         {
             GlowingPaintAddrLong = (long)MainWindow.mw.m.ScanForSig(GlowingPaintSig).FirstOrDefault();
             GlowingPaintAddr = GlowingPaintAddrLong.ToString("X");
@@ -771,11 +766,6 @@ internal class Self_Vehicle_Addrs
             
             Finished++;
         });
-        
-        HigherPriorityScans.Priority = ThreadPriority.Highest;
-        
-        HigherPriorityScans.Start();
-        LowerPriorityScans.Start();
 
         while (Finished != 2)
         {
