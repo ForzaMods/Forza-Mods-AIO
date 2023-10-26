@@ -114,11 +114,6 @@ namespace Forza_Mods_AIO.Overlay
         bool LeftKeyDown = false;
         bool RightKeyDown = false;
 
-        // Forza Window Vars
-        RECT ForzaWindow = new RECT();
-        RECT ForzaClientWindow = new RECT();
-
-        
         //Theme vars
         public Brush MainBackColour = Brushes.Transparent;
         public Brush DescriptionBackColour = Brushes.Transparent;
@@ -141,10 +136,8 @@ namespace Forza_Mods_AIO.Overlay
             foreach (string header in MenuHeaders)
             {
                 var InCachedBitmaps = Headers.Any(item => item[0].ToString().Contains(header.Split('\\').Last().Split('.').First()));
-                if (!InCachedBitmaps)
-                {
-                    Headers.Add(new object[] { header.Split('\\').Last().Split('.').First(), new BitmapImage(new Uri(header)) });
-                }
+                if (InCachedBitmaps) continue;
+                Headers.Add(new object[] { header.Split('\\').Last().Split('.').First(), new BitmapImage(new Uri(header)) });
             }
         }
         // Handles the position of the overlay
@@ -153,10 +146,13 @@ namespace Forza_Mods_AIO.Overlay
             CacheHeaders();
             while (true)
             {
-                Thread.Sleep(10);
+                Thread.Sleep(5);
                 if (ct.IsCancellationRequested)
                     return;
-                
+
+                RECT ForzaWindow = new RECT();
+                RECT ForzaClientWindow = new RECT();
+
                 GetWindowRect(MainWindow.mw.gvp.Process.MainWindowHandle, ref ForzaWindow);
                 GetClientRect(MainWindow.mw.gvp.Process.MainWindowHandle, out ForzaClientWindow);
 
@@ -183,10 +179,10 @@ namespace Forza_Mods_AIO.Overlay
                 }
                 else if (HeaderImage == null && !Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers"))
                 {
-                    if (HeaderImage is { IsFrozen: true })
-                        HeaderImage = HeaderImage.Clone();
-                    HeaderImage = new BitmapImage(new Uri("pack://application:,,,/Overlay/pog header.png", UriKind.Relative));
-                    try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
+                     if (HeaderImage is { IsFrozen: true })
+                         HeaderImage = HeaderImage.Clone();
+                     HeaderImage = new BitmapImage(new Uri("pack://application:,,,/Overlay/pog header.png", UriKind.Relative));
+                     try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
                 }
 
                 if (MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow())
@@ -194,8 +190,10 @@ namespace Forza_Mods_AIO.Overlay
                     Overlay.o.Dispatcher.Invoke(delegate ()
                     {
                         // Set position
-                        Overlay.o.Top = PosTop;
-                        Overlay.o.Left = PosLeft;
+                        if (Overlay.o.Top != PosTop)
+                            Overlay.o.Top = PosTop;
+                        if (Overlay.o.Left != PosLeft)
+                            Overlay.o.Left = PosLeft;
 
                         // Set width of menu and set header size (scale with resolution)
                         Overlay.o.Width = HeaderX;
@@ -241,16 +239,21 @@ namespace Forza_Mods_AIO.Overlay
             Size MenuSize = new Size();
             while (true)
             {
-                Thread.Sleep(10);
                 if (ct.IsCancellationRequested)
                     return;
 
-                if (MainWindow.mw.gvp.Process.MainWindowHandle != GetForegroundWindow())
-                    continue;
-                
+                Thread.Sleep(10);
+
                 // Clears the menu
                 Overlay.o.Dispatcher.BeginInvoke((Action)delegate () { Overlay.o.OptionsBlock.Inlines.Clear(); Overlay.o.ValueBlock.Inlines.Clear(); });
                 int index = 0;
+
+                // Gets y resolution of the forza client window
+                RECT ForzaWindow = new RECT();
+                RECT ForzaClientWindow = new RECT();
+
+                GetWindowRect(MainWindow.mw.gvp.Process.MainWindowHandle, ref ForzaWindow);
+                GetClientRect(MainWindow.mw.gvp.Process.MainWindowHandle, out ForzaClientWindow);
 
                 double yRes = ForzaClientWindow.Bottom - ((ForzaWindow.Bottom - ForzaWindow.Top - ForzaClientWindow.Bottom) / 1.3);
 
@@ -362,11 +365,8 @@ namespace Forza_Mods_AIO.Overlay
         {
             while (true)
             {
-                Thread.Sleep(10);
                 if (ct.IsCancellationRequested)
                     return;
-                if (MainWindow.mw.gvp.Process.MainWindowHandle != GetForegroundWindow()) 
-                    continue;
                 if (GetAsyncKeyState(Down) is 1 or Int16.MinValue && !DownKeyDown && !Hidden)
                     DownKeyDown = true;
                 if (GetAsyncKeyState(Down) is not 1 and not Int16.MinValue && DownKeyDown && !Hidden)
@@ -439,17 +439,15 @@ namespace Forza_Mods_AIO.Overlay
                     while (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
                         Thread.Sleep(10);
                 }
+                Thread.Sleep(10);
             }
         }
         public void ChangeSelection(CancellationToken ct)
         {
             while (true)
             {
-                Thread.Sleep(10);
                 if (ct.IsCancellationRequested)
                     return;
-                if (MainWindow.mw.gvp.Process.MainWindowHandle != GetForegroundWindow()) 
-                    continue;
                 if (DownKeyDown)
                 {
                     int count = 0;
@@ -554,6 +552,7 @@ namespace Forza_Mods_AIO.Overlay
                     while (LeftKeyDown) { Thread.Sleep(1); }
                     Overlay.o.Dispatcher.Invoke(delegate { timer.Dispose(); });
                 }
+                Thread.Sleep(10);
             }
         }
 

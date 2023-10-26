@@ -78,6 +78,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
             {
                 while (true)
                 {
+                    Thread.Sleep(25);
                     int Interval = 1;
                     bool Toggled = true;
                     shp.Dispatcher.Invoke(delegate { Toggled = shp.WheelSpeedSwitch.IsOn; });

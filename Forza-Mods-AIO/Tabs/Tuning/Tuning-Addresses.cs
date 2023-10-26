@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -143,7 +142,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning
             ToePosStatic = (AlignmentBase + 0xC).ToString("X");
             UpdateUi.AddProgress(ScanAmount, 1, Tuning.TBM.AOBProgressBar);
 
-            TuningTableHook1 = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? (MainWindow.mw.m.ScanForSig("0F 29 ? ? 33 F6 49 81 C7").FirstOrDefault() + 21).ToString("X") : MainWindow.mw.m.ScanForSig("F3 41 0F 10 85 98 FA FF FF F3 41 0F 59 C4").FirstOrDefault().ToString("X");
+            TuningTableHook1 = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? (MainWindow.mw.m.ScanForSig("0F 29 ? ? 33 F6 49 81 C7").FirstOrDefault() + 21).ToString("X") : MainWindow.mw.m.ScanForSig("F3 0F ? ? ? ? ? ? F3 0F ? ? F3 0F ? ? F3 0F ? ? 0F 57 ? F3 0F ? ? ? ? ? ? F3 0F ? ? C3").FirstOrDefault().ToString("X");
             UpdateUi.AddProgress(ScanAmount, 2, Tuning.TBM.AOBProgressBar);
 
             TuningTableHook2 = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? MainWindow.mw.m.ScanForSig("49 8B ? 48 8D ? ? 49 8B ? FF 90 ? ? ? ? 44 0F ? ? 41 8B").FirstOrDefault().ToString("X") : (MainWindow.mw.m.ScanForSig("0F 84 ? ? ? ? 8B 81 ? ? ? ? 83 F8 ? 74").FirstOrDefault() + 1130).ToString("X");
@@ -152,7 +151,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning
             TuningTableHook3 = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? (MainWindow.mw.m.ScanForSig("48 8D ? ? ? 0F 29 ? ? ? 0F 28 ? E8 ? ? ? ? 48 85").FirstOrDefault() + 37).ToString("X") : MainWindow.mw.m.ScanForSig("48 8B ? 48 8B ? FF 92 ? ? ? ? 48 8B ? EB ? 49 8B").FirstOrDefault().ToString("X");
             UpdateUi.AddProgress(ScanAmount, 4, Tuning.TBM.AOBProgressBar);
                 
-            TuningTableHook4 = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? (MainWindow.mw.m.ScanForSig("80 78 39 ? 0F 84 ? ? ? ? 48 83 BF 50 87 00 00").FirstOrDefault() + 24).ToString("X") : MainWindow.mw.m.ScanForSig("F3 0F ? ? 44 88 ? ? ? 45 33").FirstOrDefault().ToString("X");
+            TuningTableHook4 = MainWindow.mw.gvp.Name == "Forza Horizon 4" ? (MainWindow.mw.m.ScanForSig("80 78 39 ? 0F 84 ? ? ? ? 48 83 BF 50 87 00 00").FirstOrDefault() + 24).ToString("X") : MainWindow.mw.m.ScanForSig("41 B8 ? ? ? ? 48 8D ? ? ? ? ? 48 8D ? ? ? ? ? E8 ? ? ? ? 0F 28 ? 48 8D ? ? ? 48 8D").FirstOrDefault().ToString("X");
             UpdateUi.AddProgress(ScanAmount, 5, Tuning.TBM.AOBProgressBar);
 
             Tuning_ASM.GetTuningBaseAddresses();

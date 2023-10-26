@@ -43,6 +43,7 @@
                           VerticalAlignment="Top"
                           HorizontalAlignment="Left"
                           Content=""
+                          IsEnabled="False"
                           MinWidth="1"
                           Margin="80 127.5 0 0"
                           Toggled="DiscoverRoadsSwitch_OnToggled"/>
@@ -56,6 +57,7 @@
                           VerticalAlignment="Top"
                           HorizontalAlignment="Left"
                           Content=""
+                          IsEnabled="False"
                           MinWidth="1"
                           Margin="290 127.5 0 0"
                           Toggled="SmashBoardsSwitch_OnToggled"/>
@@ -74,6 +76,7 @@
                           VerticalAlignment="Top"
                           HorizontalAlignment="Left"
                           Content=""
+                          IsEnabled="False"
                           MinWidth="1"
                           Margin="90,73 0 0"
                           Toggled="HornUnlockerSwitch_OnToggled"/>
@@ -87,6 +90,7 @@
                           VerticalAlignment="Top"
                           HorizontalAlignment="Center"
                           Content=""
+                          IsEnabled="False"
                           MinWidth="1"
                           Margin="-130 73 0 0"
                           Toggled="EmoteUnlockerSwitch_OnToggled"/>
@@ -100,6 +104,7 @@
                           VerticalAlignment="Top"
                           HorizontalAlignment="Right"
                           Content=""
+                          IsEnabled="False"
                           MinWidth="1"
                           Margin="0 73 215 0"
                           Toggled="QuickChatsUnlockerSwitch_OnToggled"/>
@@ -113,6 +118,7 @@
                           VerticalAlignment="Top"
                           HorizontalAlignment="Right"
                           Content=""
+                          IsEnabled="False"
                           MinWidth="1"
                           Margin="0 73 80 0"
                           Toggled="CosmeticUnlockerSwitch_OnToggled"/>

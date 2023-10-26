@@ -65,31 +65,25 @@ public partial class UnlocksPage
 
     private void HornUnlockerSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
     }
 
     private void EmoteUnlockerSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
     }
 
     private void QuickChatsUnlockerSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
     }
 
     private void CosmeticUnlockerSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
     }
 
     private void DiscoverRoadsSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
     }
 
     private void SmashBoardsSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
     }
 }
