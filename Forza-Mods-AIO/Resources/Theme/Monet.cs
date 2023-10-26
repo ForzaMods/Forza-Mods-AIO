@@ -43,6 +43,9 @@ namespace Forza_Mods_AIO.CustomTheming
         #region Functions
         public static System.Drawing.Bitmap CaptureWindow(IntPtr handle)
         {
+            //https://stackoverflow.com/questions/69605967/c-printwindow-api-returns-black-or-partial-images-alternative-methods#comment129026870_69605967
+            //fix for some windows showing up as black/blank
+            uint PW_CLIENTONLY = 0x1; uint PW_RENDERFULLCONTENT = 0x2;
             System.Drawing.Rectangle rect = new System.Drawing.Rectangle();
             GetWindowRect(handle, ref rect);
 
@@ -53,7 +56,7 @@ namespace Forza_Mods_AIO.CustomTheming
             using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(bitmap))
             {
                 IntPtr hdc = g.GetHdc();
-                if (!PrintWindow(handle, hdc, 0))
+                if (!PrintWindow(handle, hdc, PW_CLIENTONLY | PW_RENDERFULLCONTENT))
                 {
                     int error = Marshal.GetLastWin32Error();
                     var exception = new System.ComponentModel.Win32Exception(error);
