@@ -42,7 +42,10 @@
   <ItemGroup>
     <Resource Include="Resources\SQL\SQL_DLL.dll" />
     <None Remove="Overlay\pog header.png" />
-    <Resource Include="Overlay\pog header.png" />
+    <None Remove="Overlay\Headers\pog header.png" />
+    <Resource Include="Overlay\Headers\pog header.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ini-parser" Version="2.5.2" />
@@ -100,18 +103,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Update="Overlay\Headers\pog header.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Overlay\Headers\pog header 2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Overlay\Headers\pog header 3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Overlay\Headers\pog header 4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

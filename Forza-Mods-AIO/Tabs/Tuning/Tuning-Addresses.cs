@@ -156,6 +156,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning
 
             Tuning_ASM.GetTuningBaseAddresses();
             Task.Run(() => ReadValues());
+            Overlay.Overlay.TuningOption.IsEnabled = true;
             UpdateUi.UpdateUI(true, Tuning.TBM);
         }
 

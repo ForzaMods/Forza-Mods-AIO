@@ -35,7 +35,8 @@ public partial class Self_Vehicle : Page
         { "TeleportsButton", 70 },
         { "EnvironmentButton", 235 },
         { "CustomizationButton", 70 },
-        { "MiscellaneousButton", 70 }
+        { "MiscellaneousButton", 70 },
+        { "FovButton", 347.5 }
     };
 
     private static Dictionary<string, bool> IsClicked = new()
@@ -47,6 +48,7 @@ public partial class Self_Vehicle : Page
         { "TeleportsButton", false },
         { "EnvironmentButton", false },
         { "CustomizationButton", false },
-        { "MiscellaneousButton", false }
+        { "MiscellaneousButton", false },
+        { "FovButton", false }
     };
 }

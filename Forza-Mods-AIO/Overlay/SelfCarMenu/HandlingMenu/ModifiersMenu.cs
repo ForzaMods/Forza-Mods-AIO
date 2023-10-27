@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows;
-using System.Windows.Media;
-using MahApps.Metro.Controls;
 
 namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
 
-public class ModifiersMenu
+public abstract class ModifiersMenu
 {
-    public void InitiateSubMenu()
+    public static void InitiateSubMenu()
     {
-        GravityValue.ValueChangedHandler += new EventHandler(GravityValueChanged);
-        GravityToggle.ValueChangedHandler += new EventHandler(GravityToggleChanged);
-        AccelerationValue.ValueChangedHandler += new EventHandler(AccelerationValueChanged);
-        AccelerationToggle.ValueChangedHandler += new EventHandler(AccelerationToggleChanged);
+        GravityValue.ValueChangedHandler += GravityValueChanged;
+        GravityToggle.ValueChangedHandler += GravityToggleChanged;
+        AccelerationValue.ValueChangedHandler += AccelerationValueChanged;
+        AccelerationToggle.ValueChangedHandler += AccelerationToggleChanged;
     }
     
     // Gravity menu options
@@ -41,7 +38,7 @@ public class ModifiersMenu
     }));
     static Overlay.MenuOption AccelerationToggle = new Overlay.MenuOption("Enable", "Bool", false);
     
-    public static List<Overlay.MenuOption> ModifiersOptions = new List<Overlay.MenuOption>()
+    public static readonly List<Overlay.MenuOption> ModifiersOptions = new()
     {
         new ("Gravity", "SubHeader"),
         GravityValue,
@@ -53,7 +50,7 @@ public class ModifiersMenu
         AccelerationToggle
     };
     
-    void GravityValueChanged(object s, EventArgs e)
+    private static void GravityValueChanged(object s, EventArgs e)
     {
         Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.Dispatcher.Invoke(delegate ()
         {
@@ -65,7 +62,7 @@ public class ModifiersMenu
                 Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.GravityValueNum.Value = (float)Math.Round((float)s.GetType().GetProperty("Value").GetValue(s), 1);
         });
     }
-    void GravityToggleChanged(object s, EventArgs e)
+    private static void GravityToggleChanged(object s, EventArgs e)
     {            
         Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.Dispatcher.Invoke(delegate ()
         {
@@ -74,7 +71,7 @@ public class ModifiersMenu
             Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.GravitySetSwitch.IsOn = (bool)s.GetType().GetProperty("Value").GetValue(s);
         });;
     }
-    void AccelerationValueChanged(object s, EventArgs e)
+    private static void AccelerationValueChanged(object s, EventArgs e)
     {            
         Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.Dispatcher.Invoke(delegate ()
         {
@@ -86,7 +83,7 @@ public class ModifiersMenu
                 Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.AccelerationValueNum.Value = (float)Math.Round((float)s.GetType().GetProperty("Value").GetValue(s), 1);
         });
     }
-    void AccelerationToggleChanged(object s, EventArgs e)
+    private static void AccelerationToggleChanged(object s, EventArgs e)
     {            
         Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.Dispatcher.Invoke(delegate ()
         {

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows.Media;
-using System.Windows.Threading;
 
 namespace Forza_Mods_AIO.Overlay.SettingsMenu
 {
@@ -13,15 +11,15 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
 
         #region Background options
 
-        public static Overlay.MenuOption MainBackgroundR = new Overlay.MenuOption("Background R", "Int", 255);
-        public static Overlay.MenuOption MainBackgroundG = new Overlay.MenuOption("Background G", "Int", 255);
-        public static Overlay.MenuOption MainBackgroundB = new Overlay.MenuOption("Background B", "Int", 255);
-        public static Overlay.MenuOption MainBackgroundA = new Overlay.MenuOption("Background Alpha", "Int", 0);
+        public static Overlay.MenuOption MainBackgroundR = new Overlay.MenuOption("Background R", "Int", 0);
+        public static Overlay.MenuOption MainBackgroundG = new Overlay.MenuOption("Background G", "Int", 0);
+        public static Overlay.MenuOption MainBackgroundB = new Overlay.MenuOption("Background B", "Int", 0);
+        public static Overlay.MenuOption MainBackgroundA = new Overlay.MenuOption("Background Alpha", "Int", 120);
         
-        public static Overlay.MenuOption DescriptionBackgroundR = new Overlay.MenuOption("Background R", "Int", 255);
-        public static Overlay.MenuOption DescriptionBackgroundG = new Overlay.MenuOption("Background G", "Int", 255);
-        public static Overlay.MenuOption DescriptionBackgroundB = new Overlay.MenuOption("Background B", "Int", 255);
-        public static Overlay.MenuOption DescriptionBackgroundA = new Overlay.MenuOption("Background Alpha", "Int", 0);
+        public static Overlay.MenuOption DescriptionBackgroundR = new Overlay.MenuOption("Background R", "Int", 0);
+        public static Overlay.MenuOption DescriptionBackgroundG = new Overlay.MenuOption("Background G", "Int", 0);
+        public static Overlay.MenuOption DescriptionBackgroundB = new Overlay.MenuOption("Background B", "Int", 0);
+        public static Overlay.MenuOption DescriptionBackgroundA = new Overlay.MenuOption("Background Alpha", "Int", 120);
 
         #endregion
 
@@ -36,6 +34,8 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
         public static Overlay.MenuOption DescriptionBorderG = new Overlay.MenuOption("Border G", "Int", 0);
         public static Overlay.MenuOption DescriptionBorderB = new Overlay.MenuOption("Border B", "Int", 0);
         public static Overlay.MenuOption DescriptionBorderA = new Overlay.MenuOption("Border Alpha", "Int", 255);
+        public static Overlay.MenuOption LoadSettings = new("Load Settings", "Button", new Action(delegate { ; }));
+
 
         #endregion
 
@@ -65,6 +65,12 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
             DescriptionBorderG.ValueChangedHandler += new EventHandler(ColourValueChanged);
             DescriptionBorderB.ValueChangedHandler += new EventHandler(ColourValueChanged);
             DescriptionBorderA.ValueChangedHandler += new EventHandler(ColourValueChanged);
+
+            Overlay.o.Dispatcher.Invoke(() =>
+            {
+                Overlay.oh.MainBackColour = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
+                Overlay.oh.DescriptionBackColour = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
+            });
         }
 
         // Event handlers
@@ -72,7 +78,7 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
         {
             if ((int)s.GetType().GetProperty("Value").GetValue(s) < 0)
                 s.GetType().GetProperty("Value").SetValue(s, 255);
-            if ((int)s.GetType().GetProperty("Value").GetValue(s) > 255)
+            else if ((int)s.GetType().GetProperty("Value").GetValue(s) > 255)
                 s.GetType().GetProperty("Value").SetValue(s, 0);
             Overlay.o.Dispatcher.Invoke(() =>
             {
@@ -126,7 +132,7 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
             new Overlay.MenuOption("Main area", "MenuButton"),
             new Overlay.MenuOption("Description area", "MenuButton"),
             new Overlay.MenuOption("Save Settings", "Button", new Action(delegate {  })),
-            new Overlay.MenuOption("Load Settings", "Button", new Action(delegate { ; }))
+            LoadSettings
         };
 
         // Submenu lists

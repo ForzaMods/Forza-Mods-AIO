@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 using Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
 using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping;
 using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping.SubMenus;
@@ -20,10 +12,10 @@ using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Gearing;
 using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others;
 using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others.SubMenu;
 using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs.SubMenus;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Steering;
 using Aero = Forza_Mods_AIO.Overlay.Tuning.SubMenus.Aero.Aero;
 using Alignment = Forza_Mods_AIO.Overlay.Tuning.SubMenus.Alignment.Alignment;
 using Springs = Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs;
-using Timer = System.Windows.Forms.Timer;
 
 namespace Forza_Mods_AIO.Overlay
 {
@@ -47,6 +39,7 @@ namespace Forza_Mods_AIO.Overlay
             }
             private object _value;
             public string Description { get; }
+            public bool IsEnabled { get; set; }
             // Value changed event handler
             public event EventHandler ValueChangedHandler;
             private void ValueChanged(object value)
@@ -57,44 +50,49 @@ namespace Forza_Mods_AIO.Overlay
 
             //Constructors for different value types
             //float
-            public MenuOption(string name, string type, float value, string description = null)
+            public MenuOption(string name, string type, float value, string description = null, bool isEnabled = true)
             {
                 Name = name;
                 Type = type;
                 Value = value;
                 Description = description;
+                IsEnabled = isEnabled;
             }
             //bool
-            public MenuOption(string name, string type, bool value, string description = null)
+            public MenuOption(string name, string type, bool value, string description = null, bool isEnabled = true)
             {
                 Name = name;
                 Type = type;
                 Value = value;
                 Description = description;
+                IsEnabled = isEnabled;
             }
             //int
-            public MenuOption(string name, string type, int value, string description = null)
+            public MenuOption(string name, string type, int value, string description = null, bool isEnabled = true)
             {
                 Name = name;
                 Type = type;
                 Value = value;
                 Description = description;
+                IsEnabled = isEnabled;
             }
             //method
-            public MenuOption(string name, string type, Action value, string description = null)
+            public MenuOption(string name, string type, Action value, string description = null, bool isEnabled = true)
             {
                 Name = name;
                 Type = type;
                 Value = value;
                 Description = description;
+                IsEnabled = isEnabled;
             }
             //null value
-            public MenuOption(string name, string type, string description = null)
+            public MenuOption(string name, string type, string description = null, bool isEnabled = true)
             {
                 Name = name;
                 Type = type;
                 Value = null;
                 Description = description;
+                IsEnabled = isEnabled;
             }
 
         }
@@ -116,7 +114,7 @@ namespace Forza_Mods_AIO.Overlay
         #endregion
         #region Menus
         // Every single menu/submenu has to be put in here to work
-        public Dictionary<string, List<MenuOption>> AllMenus = new Dictionary<string, List<MenuOption>>()
+        public Dictionary<string, List<MenuOption>> AllMenus = new()
         {
             { "MainOptions" , MainOptions },
                 { "AutoshowGarageOptions" , AutoShowMenu.AutoShowMenu.AutoShowOptions},
@@ -127,10 +125,20 @@ namespace Forza_Mods_AIO.Overlay
                     { "HandlingOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.HandlingOptions},
                         { "VelocityOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.VelocityOptions},
                         { "ModifiersOptions" , ModifiersMenu.ModifiersOptions},
-                        { "WheelSpeedOptions", SelfCarMenu.HandlingMenu.HandlingMenu.WheelSpeedOptions },
+                        { "WheelSpeedOptions", SelfCarMenu.HandlingMenu.WheelspeedMenu.WheelSpeedOptions },
                         { "CustomizationOptions", SelfCarMenu.CustomizationMenu.CustomizationMenu.CustomizationOptions },
                     { "UnlocksOptions" , UnlocksOptions},
-                    { "CameraOptions" , CameraOptions},
+                    { "PhotomodeOptions" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeOptions},
+                        { "PhotomodeValues" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeValues },
+                        { "PhotomodeToggles" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeToggles },
+                    { "MiscellaneousOptions", SelfCarMenu.MiscMenu.MiscMenu.MiscMenuOptions },
+                    { "FovOptions" , SelfCarMenu.FovMenu.FovMenu.FovOptions },
+                        { "FovLockOptions" , SelfCarMenu.FovMenu.FovLock.FovLockOptions },
+                        { "FovLimitersOptions" , SelfCarMenu.FovMenu.FovLimiters.FovLimiterOptions },
+                            { "ChaseLimitersOptions" , SelfCarMenu.FovMenu.FovLimiters.ChaseLimitersOptions },
+                            { "DriverLimitersOptions" , SelfCarMenu.FovMenu.FovLimiters.DriverLimitersOptions },
+                            { "HoodLimitersOptions" , SelfCarMenu.FovMenu.FovLimiters.HoodLimitersOptions },
+                            { "BumperLimitersOptions" , SelfCarMenu.FovMenu.FovLimiters.BumperLimitersOptions },
                 { "TuningOptions" , Tuning.Tuning.TuningOptions },
                     { "AeroOptions" , Aero.AeroOptions },
                     { "AlignmentOptions" , Alignment.AlignmentOptions },
@@ -145,34 +153,35 @@ namespace Forza_Mods_AIO.Overlay
                     { "SpringsOptions" , Springs.Springs.SpringsOptions },  
                         { "SpringsValuesOptions" , SpringsValues.SpringsSubMenuOptions },  
                         { "RideHeightOptions" , RideHeight.RideHeightOptions }, 
+                    { "SteeringOptions" , Steering.SteeringOptions },  
                     { "TiresOptions" , Tuning.SubMenus.Tires.Tires.TiresOptions },  
                 { "SettingsOptions" , SettingsMenu.SettingsMenu.SettingsOptions},
                     { "MainAreaOptions" , SettingsMenu.SettingsMenu.MainAreaOptions},
                     { "DescriptionAreaOptions" , SettingsMenu.SettingsMenu.DescriptionAreaOptions}
         };
 
+        public static MenuOption AutoshowGarageOption = new("Autoshow/Garage", "MenuButton", "Mods for the Autoshow such as free cars, all cars etc", false);
+        public static MenuOption SelfVehicleOption = new("Self/Vehicle", "MenuButton", "Mods for yourself such as speedhack, flyhack etc", false);
+        public static MenuOption TuningOption = new("Tuning", "MenuButton", "Mods such as extended tuning limits ect", false);
+        
         // Main menu items, all submenus have their own class in Tabs.Overlay
-        public static List<MenuOption> MainOptions = new List<MenuOption>()
+        private static List<MenuOption> MainOptions = new()
         {
-            new MenuOption("Autoshow/Garage", "MenuButton", "Mods for the Autoshow such as free cars, all cars etc"),
-            new MenuOption("Self/Vehicle", "MenuButton", "Mods for yourself such as speedhack, flyhack etc"),
-            new MenuOption("Tuning", "MenuButton", "Mods such as extended tuning limits ect"),
+            AutoshowGarageOption,
+            SelfVehicleOption,
+            TuningOption,
             new MenuOption("Settings", "MenuButton")
         };
-        public static List<MenuOption> UnlocksOptions = new List<MenuOption>()
+        private static List<MenuOption> UnlocksOptions = new()
         {
             new MenuOption("Clothes", "MenuButton"),
             new MenuOption("Horns", "MenuButton"),
             new MenuOption("Emotes", "MenuButton")
         };
-        public static List<MenuOption> CameraOptions = new List<MenuOption>()
-        {
-            new MenuOption("FOV", "MenuButton")
-        };
 
         // Add all sub menu classes here for event handling
-        SettingsMenu.SettingsMenu sm = new SettingsMenu.SettingsMenu();
-        AutoShowMenu.AutoShowMenu am = new AutoShowMenu.AutoShowMenu();
+        SettingsMenu.SettingsMenu sm = new();
+        AutoShowMenu.AutoShowMenu am = new();
         HandlingMenu hm = new();
         #endregion
         #region Main
@@ -202,6 +211,10 @@ namespace Forza_Mods_AIO.Overlay
             RideHeight.InitiateSubMenu();
             SelfCarMenu.CustomizationMenu.CustomizationMenu.InitiateSubMenu();
             Tuning.SubMenus.Tires.Tires.InitiateSubMenu();
+            SelfCarMenu.FovMenu.FovLock.InitiateSubMenu();
+            Steering.InitiateSubMenu();
+            SelfCarMenu.MiscMenu.MiscMenu.InitiateSubMenu();
+            SelfCarMenu.PhotomodeMenu.PhotomodeMenu.InitiateSubMenu();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

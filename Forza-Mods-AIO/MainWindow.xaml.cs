@@ -252,7 +252,8 @@ namespace Forza_Mods_AIO
 
         private void ResetAIO()
         {
-            Dispatcher.Invoke(delegate {
+            Dispatcher.Invoke(delegate 
+            {
                 AttachedLabel.Content = "Launch FH4/5";
                 Tabs.Tuning.Tuning.TBM.AOBProgressBar.Value = 0;
                 Tabs.Self_Vehicle.Self_Vehicle.sv.AOBProgressBar.Value = 0;
@@ -264,6 +265,9 @@ namespace Forza_Mods_AIO
             Is_Scanned["Autoshow"] = false;
             Is_Scanned["Self_Vehicle"] = false;
             Is_Scanned["Tuning"] = false;
+            Overlay.Overlay.AutoshowGarageOption.IsEnabled = false;
+            Overlay.Overlay.SelfVehicleOption.IsEnabled = false;
+            Overlay.Overlay.TuningOption.IsEnabled = false;
         }
         #endregion
         #region Exit Handling

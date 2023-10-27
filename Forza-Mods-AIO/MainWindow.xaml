@@ -23,7 +23,7 @@
     
     <Border x:Name="Background" Background="#111111"
             CornerRadius="20">
-        <Grid x:Name="grid">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="LeftColumn" Width="200" MaxWidth="200"/>
                 <ColumnDefinition x:Name="MainColumn" Width="600" MaxWidth="600" />

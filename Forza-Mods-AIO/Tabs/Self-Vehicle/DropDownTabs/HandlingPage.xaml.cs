@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using Forza_Mods_AIO.Overlay;
 using Forza_Mods_AIO.Resources;
+using Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.Self_Vehicle_Addrs;
 using static Forza_Mods_AIO.MainWindow;
 
@@ -301,6 +302,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 
         private void SuperBrakeSwitch_Toggled(object sender, RoutedEventArgs e)
         {
+            StopAllWheelsSwitch.IsEnabled = !StopAllWheelsSwitch.IsEnabled;
+            
             if (!SuperBrakeSwitch.IsOn)
                 return;
             
@@ -319,7 +322,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     if (mw.gvp.Process.MainWindowHandle != OverlayHandling.GetForegroundWindow())
                         continue;
                     
-                    if (DLLImports.GetAsyncKeyState(Keys.S) is not (1 or Int16.MinValue)) 
+                    if (DLLImports.GetAsyncKeyState(HandlingKeybindings.BrakeHackKey) is not (1 or Int16.MinValue)) 
                         continue;
                     
                     float xVelocityVal = mw.m.ReadMemory<float>(xVelocityAddr) * (float)0.95;
@@ -332,6 +335,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
 
         private void StopAllWheelsSwitch_OnToggled(object sender, RoutedEventArgs e)
         {
+            SuperBrakeSwitch.IsEnabled = !SuperBrakeSwitch.IsEnabled;
+            
             if (!StopAllWheelsSwitch.IsOn)
                 return;
             
@@ -350,7 +355,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     if (mw.gvp.Process.MainWindowHandle != OverlayHandling.GetForegroundWindow())
                         continue;
                     
-                    if (!(DLLImports.GetAsyncKeyState(Keys.Space) is 1 or Int16.MinValue)) 
+                    if (!(DLLImports.GetAsyncKeyState(HandlingKeybindings.BrakeHackKey) is 1 or Int16.MinValue)) 
                         continue;
 
                     mw.m.WriteMemory(FrontLeftAddr, 0f);
@@ -696,10 +701,10 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     if (!Toggled)
                         break;
                     
-                    // TODO: wrap for controls or some shit IDK
-                    
-                    if (mw.m.ReadMemory<float>(InPauseAddr) != 1)
-                        mw.m.WriteMemory(yVelocityAddr, mw.m.ReadMemory<float>(yVelocityAddr) + (float)JumpHackVelocityNum.Value);
+                    if (DLLImports.GetAsyncKeyState(HandlingKeybindings.JumpHackKey) is not (1 or Int16.MinValue))
+                        continue;
+                                            
+                    mw.m.WriteMemory(yVelocityAddr, mw.m.ReadMemory<float>(yVelocityAddr) + (float)JumpHackVelocityNum.Value);
                 }
             });
         }

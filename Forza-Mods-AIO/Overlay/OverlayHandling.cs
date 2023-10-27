@@ -1,24 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 using Brush = System.Windows.Media.Brush;
 using Brushes = System.Windows.Media.Brushes;
-using Size = System.Windows.Size;
 using Timer = System.Windows.Forms.Timer;
 
 namespace Forza_Mods_AIO.Overlay
@@ -60,12 +54,7 @@ namespace Forza_Mods_AIO.Overlay
         //Credits to Rafael Rivera for the blur https://github.com/riverar/sample-win32-acrylicblur
         internal enum AccentState
         {
-            ACCENT_DISABLED = 0,
-            ACCENT_ENABLE_GRADIENT = 1,
-            ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-            ACCENT_ENABLE_BLURBEHIND = 3,
-            ACCENT_ENABLE_ACRYLICBLURBEHIND = 4,
-            ACCENT_INVALID_STATE = 5
+            ACCENT_ENABLE_BLURBEHIND = 3
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -103,7 +92,7 @@ namespace Forza_Mods_AIO.Overlay
         int LevelIndex = 0;
         public string CurrentMenu = "MainOptions";
         bool Hidden = false;
-        Dictionary<int, string> History = new Dictionary<int, string>()
+        Dictionary<int, string> History = new()
         {
             {  0 ,"MainOptions" }
         };
@@ -170,7 +159,7 @@ namespace Forza_Mods_AIO.Overlay
                 double HeaderX = HeaderY * 4;
 
                 // Select header
-                if ((HeaderImage == null || HeaderImage.UriSource.LocalPath != MenuHeaders[HeaderIndex]) && Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers"))
+                if ((HeaderImage == null || HeaderImage.UriSource.LocalPath != MenuHeaders[HeaderIndex]) && Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers") && MenuHeaders.Length != 0)
                 {
                     if (HeaderImage is { IsFrozen: true })
                         HeaderImage = HeaderImage.Clone();
@@ -181,7 +170,7 @@ namespace Forza_Mods_AIO.Overlay
                 {
                      if (HeaderImage is { IsFrozen: true })
                          HeaderImage = HeaderImage.Clone();
-                     HeaderImage = new BitmapImage(new Uri("pack://application:,,,/Overlay/pog header.png", UriKind.Relative));
+                     HeaderImage = new BitmapImage(new Uri("pack://application:,,,/Overlay/Headers/pog header.png", UriKind.Relative));
                      try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
                 }
 
@@ -233,10 +222,6 @@ namespace Forza_Mods_AIO.Overlay
         // Updates the menu, eg selected option, values etc
         public void UpdateMenuOptions(CancellationToken ct)
         {
-            string LastMenu = string.Empty;
-            int LastSelectedOptionIndex = -1;
-            object LastValue = null;
-            Size MenuSize = new Size();
             while (true)
             {
                 if (ct.IsCancellationRequested)
@@ -288,20 +273,21 @@ namespace Forza_Mods_AIO.Overlay
                 });
 
                 // Adds all menu options to the menu
-                foreach (Overlay.MenuOption item in Overlay.o.AllMenus[CurrentMenu])
+                foreach (var item in Overlay.o.AllMenus[CurrentMenu])
                 {
-                    string Text = string.Empty;
-                    string Value = string.Empty;
-                    string Description = string.Empty;
+                    string Text = string.Empty, Value = string.Empty, Description = string.Empty;
                     SolidColorBrush FColour = Brushes.White;
                     if (index == SelectedOptionIndex)
                     {
                         Text = $"[{item.Name}]";
-                        FColour = Brushes.Green;
+                        FColour = item.IsEnabled ? Brushes.Green : Brushes.DarkOliveGreen;
                         Description = item.Description;
                     }
                     else
+                    {
                         Text += $"{item.Name}";
+                        FColour = item.IsEnabled ? Brushes.White : Brushes.DimGray;
+                    }
 
                     Value = item.Type switch
                     {
@@ -352,11 +338,6 @@ namespace Forza_Mods_AIO.Overlay
                         Overlay.o.Dispatcher.BeginInvoke((Action)delegate () { Overlay.o.OptionsBlock.Inlines.Add("\n"); Overlay.o.ValueBlock.Inlines.Add("\n"); });
                     index++;
                 }
-
-                LastMenu = CurrentMenu;
-                LastSelectedOptionIndex = SelectedOptionIndex;
-                LastValue = Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value;
-                MenuSize = Overlay.o.RenderSize;
             }
         }
 
@@ -384,37 +365,42 @@ namespace Forza_Mods_AIO.Overlay
                 if (GetAsyncKeyState(Right) is not 1 and not Int16.MinValue && RightKeyDown && !Hidden)
                     RightKeyDown = false;
 
-                if (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue && !Hidden)
+                var IsGameFocused = MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow();
+                
+                if (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue && !Hidden && IsGameFocused)
                 {
-                    switch (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type)
+                    if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].IsEnabled)
                     {
-                        case "MenuButton":
+                        switch (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type)
                         {
-                            LevelIndex++;
-                            string[] NameSplit = Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Name.Split(new char[] { ' ', '/', '[', ']' });
-                            CurrentMenu = string.Empty;
-                            foreach (string item in NameSplit)
-                                CurrentMenu += char.ToUpper(item[0]) + item.Substring(1);
-                            CurrentMenu += "Options";
-                            History.Add(LevelIndex, CurrentMenu);
-                            SelectedOptionIndex = 0;
-                            break;
+                            case "MenuButton":
+                            {
+                                LevelIndex++;
+                                var NameSplit = Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Name.Split(' ', '/', '[', ']', '&');
+                                CurrentMenu = string.Empty;
+                                foreach (var item in NameSplit)
+                                    CurrentMenu += char.ToUpper(item[0]) + item[1..];
+                                CurrentMenu += "Options";
+                                History.Add(LevelIndex, CurrentMenu);
+                                SelectedOptionIndex = 0;
+                                break;
+                            }
+                            case "Bool" when (bool)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value:
+                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = false;
+                                break;
+                            case "Bool":
+                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = true;
+                                break;
+                            case "Button":
+                                ((Action)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value)();
+                                break;
                         }
-                        case "Bool" when (bool)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value == true:
-                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = false;
-                            break;
-                        case "Bool":
-                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = true;
-                            break;
-                        case "Button":
-                            ((Action)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value)();
-                            break;
                     }
 
                     while (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue)
                         Thread.Sleep(10);
                 }
-                if (GetAsyncKeyState(Leave) is 1 or Int16.MinValue && !Hidden)
+                if (GetAsyncKeyState(Leave) is 1 or Int16.MinValue && !Hidden && IsGameFocused)
                 {
                     if (LevelIndex == 0)
                     {
@@ -429,7 +415,7 @@ namespace Forza_Mods_AIO.Overlay
                     while (GetAsyncKeyState(Leave) is 1 or Int16.MinValue)
                         Thread.Sleep(10);
                 }
-                if (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
+                if (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue && IsGameFocused)
                 {
                     if (Overlay.o.Visibility == Visibility.Visible && !Hidden)
                         Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Hide(); });
@@ -448,7 +434,8 @@ namespace Forza_Mods_AIO.Overlay
             {
                 if (ct.IsCancellationRequested)
                     return;
-                if (DownKeyDown)
+                var IsGameFocused = MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow();
+                if (DownKeyDown && IsGameFocused)
                 {
                     int count = 0;
                     SelectedOptionIndex++;
@@ -471,7 +458,7 @@ namespace Forza_Mods_AIO.Overlay
                     while (DownKeyDown) { Thread.Sleep(1); }
                     Overlay.o.Dispatcher.Invoke(delegate { timer.Dispose(); });
                 }
-                if (UpKeyDown)
+                if (UpKeyDown && IsGameFocused)
                 {
                     int count = 0;
                     SelectedOptionIndex--;
@@ -494,7 +481,7 @@ namespace Forza_Mods_AIO.Overlay
                     while (UpKeyDown) { Thread.Sleep(1); }
                     Overlay.o.Dispatcher.Invoke(delegate { timer.Dispose(); });
                 }
-                if (RightKeyDown)
+                if (RightKeyDown && Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].IsEnabled && IsGameFocused)
                 {
                     int count = 0;
                     var Inc = delegate ()
@@ -523,7 +510,7 @@ namespace Forza_Mods_AIO.Overlay
                     while (RightKeyDown) { Thread.Sleep(1); }
                     Overlay.o.Dispatcher.Invoke(delegate { timer.Dispose(); });
                 }
-                if (LeftKeyDown)
+                if (LeftKeyDown && Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].IsEnabled && IsGameFocused)
                 {
                     int count = 0;
                     var Dec = delegate ()

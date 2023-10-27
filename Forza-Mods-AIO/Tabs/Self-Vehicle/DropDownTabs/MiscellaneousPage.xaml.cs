@@ -5,9 +5,12 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
 public partial class MiscellaneousPage
 {
+    public static MiscellaneousPage? _MiscPage;
+    
     public MiscellaneousPage()
     {
         InitializeComponent();
+        _MiscPage = this;
     }
 
     private void RemoveBuildCapSwitch_OnToggled(object sender, RoutedEventArgs e)

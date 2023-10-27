@@ -1,10 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Forms = System.Windows.Forms;
 
 namespace Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs;
 
 public partial class HandlingKeybindings
 {
+    public static Forms.Keys JumpHackKey, BrakeHackKey, SpeedhackKey;
+    
     public HandlingKeybindings()
     {
         InitializeComponent();

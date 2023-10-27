@@ -163,19 +163,19 @@
                HorizontalAlignment="Left"
                Margin="15 40"
                FontSize="14"
-               Content="Yeethan - Self/Vehicle, Monet Theming, Backend."/>
+               Content="Yeethan - Self/Vehicle, GVP, Overlay, Backend."/>
         
         <Label VerticalAlignment="Top"
                HorizontalAlignment="Left"
                Margin="15 70"
                FontSize="14"
-               Content="Draff - Adding Cars, GVP, Anticheat Bypass, Backend."/>
+               Content="Draff - Adding Cars, Anticheat Bypass, Backend."/>
         
         <Label VerticalAlignment="Top"
                HorizontalAlignment="Left"
                Margin="15 100"
                FontSize="14"
-               Content="Merik - Self/Vehicle, Port Of Tuning, Backend."/>
+               Content="Merik - Self/Vehicle, Overlay, Tuning, Backend."/>
         
         <Label VerticalAlignment="Top"
                HorizontalAlignment="Left"

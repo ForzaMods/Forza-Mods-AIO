@@ -204,11 +204,19 @@ internal class Self_Vehicle_Addrs
 
     #region Addresses - FOV
 
-    private static long FovScanStartAddr;
-    private static long FovScanEndAddr;
+    public static string ChaseMin;
+    public static string ChaseMax;
+    public static string FarChaseMin;
+    public static string FarChaseMax;
+    public static string DriverMin;
+    public static string DriverMax;
+    public static string HoodMin;
+    public static string HoodMax;
+    public static string BumperMin;
+    public static string BumperMax;
 
-    public static List<string> RearAddresses = new();
-    public static List<string> RestAddresses = new();
+    public static long FovHookAddrLong;
+    public static string FovHookAddr;
 
     #endregion
 
@@ -444,14 +452,14 @@ internal class Self_Vehicle_Addrs
     #endregion
 
     #region FH5 Scan
-    public Task FH5_Scan()
+    public void FH5_Scan()
     {
         AobsFive();
         
-        ScanAmount = 26;
+        ScanAmount = 27;
 
-        int ScanIndex = 0;
-        int Finished = 0;
+        var ScanIndex = 0;
+        var Finished = 0;
         
         Task.Run(() =>
         {
@@ -533,8 +541,8 @@ internal class Self_Vehicle_Addrs
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
                 
-                FOVJmpAddrLong = (long)MainWindow.mw.m.ScanForSig(FOVJmpAob).FirstOrDefault() + 3;
-                FOVJmpAddr = FOVJmpAddrLong.ToString("X");
+                FovHookAddrLong = (long)MainWindow.mw.m.ScanForSig("0F 10 ? B0 ? 0F 28 ? ? ? F3 0F").FirstOrDefault();
+                FovHookAddr = FovHookAddrLong.ToString("X");
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
@@ -605,26 +613,34 @@ internal class Self_Vehicle_Addrs
             }
         });
 
-        while (Finished != 2)
+        Task.Run(() =>
+        {
+            FovLimitersScan();
+            ++ScanIndex;
+            ++Finished;
+            UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+        });
+        
+        while (Finished != 3)
         {
             Thread.Sleep(1000);
         }
 
         Task.Run(() => Self_Vehicle_ASM.GetBaseAddress());
+        Overlay.Overlay.SelfVehicleOption.IsEnabled = true;
         UpdateUi.UpdateUI(true, Self_Vehicle.sv);
-        return Task.CompletedTask;
     }
     #endregion
 
     #region FH4 Scan
     public void FH4_Scan()
     {
-        ScanAmount = 26;
+        ScanAmount = 27;
         
         Aobs();
 
-        int ScanIndex = 0;
-        int Finished = 0;
+        var ScanIndex = 0;
+        var Finished = 0;
         
         Task.Run(() =>
         {
@@ -693,13 +709,13 @@ internal class Self_Vehicle_Addrs
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
             
-            FOVnopOutAddrLong = (long)MainWindow.mw.m.ScanForSig(FOVOutAob).FirstOrDefault() + 123;
-            FOVnopOutAddr = FOVnopOutAddrLong.ToString("X");
+            /*FOVnopOutAddrLong = (long)MainWindow.mw.m.ScanForSig(FOVOutAob).FirstOrDefault() + 123;
+            FOVnopOutAddr = FOVnopOutAddrLong.ToString("X");*/
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
             
-            FOVnopInAddrLong = (long)MainWindow.mw.m.ScanForSig(FOVInAob).FirstOrDefault() + 1383;
-            FOVnopInAddr = FOVnopInAddrLong.ToString("X");
+            /*FOVnopInAddrLong = (long)MainWindow.mw.m.ScanForSig(FOVInAob).FirstOrDefault() + 1383;
+            FOVnopInAddr = FOVnopInAddrLong.ToString("X");*/
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
             
@@ -763,17 +779,69 @@ internal class Self_Vehicle_Addrs
             NoClipAddrLong = (long)MainWindow.mw.m.ScanForSig(NoClipSig).FirstOrDefault() + 1532;
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+
+            FovPage._fovPage.Dispatcher.Invoke(() =>
+            {
+                FovPage._fovPage.FovSwitch.IsEnabled = false;
+                FovPage._fovPage.FovNum.IsEnabled = false;
+                FovPage._fovPage.FovSlider.IsEnabled = false;
+            });
             
+            Overlay.SelfCarMenu.FovMenu.FovMenu.FovLock.IsEnabled = false;
             Finished++;
         });
+        
+        Task.Run(() =>
+        {
+            FovLimitersScan();
+            ++ScanIndex;
+            ++Finished;
+            UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
+        });
 
-        while (Finished != 2)
+        while (Finished != 3)
         {
             Thread.Sleep(1000);
         }
 
         UpdateUi.UpdateUI(true, Self_Vehicle.sv);
+        Overlay.Overlay.SelfVehicleOption.IsEnabled = true;
         Task.Run(() => Self_Vehicle_ASM.GetBaseAddress());
     }
     #endregion
+
+    private void FovLimitersScan()
+    {
+        var bases1 = MainWindow.mw.m.ScanForSig("90 40 CD CC 8C 40 1F 85 2B 3F 00 00 00 40").ToList();
+        while (bases1.Count == 0)
+        {
+            bases1 = MainWindow.mw.m.ScanForSig("90 40 CD CC 8C 40 1F 85 2B 3F 00 00 00 40").ToList();
+            Thread.Sleep(250);
+        }
+        var base1 = bases1.FirstOrDefault() - 10;
+        var base2 = bases1.LastOrDefault() - 10;
+        
+        var bases2 = MainWindow.mw.m.ScanForSig("CD CC 4C 3E 00 50 43 47 00 00 34 42 00 00 20").ToList();
+        while (bases2.Count == 0)
+        {
+            bases2 = MainWindow.mw.m.ScanForSig("CD CC 4C 3E 00 50 43 47 00 00 34 42 00 00 20").ToList();
+            Thread.Sleep(250);
+        }
+        var base4 = bases2.FirstOrDefault() - 0x20;
+        var base5 = bases2.LastOrDefault() - 0x20;
+
+        var base3 = MainWindow.mw.m.ScanForSig("CD ? 4C 3E ? ? ? 47 00 ? 34 ? 00 00 20 42 ? 00 A0").FirstOrDefault() - 0x20;
+        
+        ChaseMin = base1.ToString("X");
+        ChaseMax = (base1 + 4).ToString("X");
+        FarChaseMin = base2.ToString("X");
+        FarChaseMax = (base2 + 4).ToString("X");
+        DriverMin = (base3 - 4).ToString("X");
+        DriverMax = base3.ToString("X");
+        BumperMin = (base4 - 4).ToString("X");
+        BumperMax = base4.ToString("X");
+        HoodMin = (base5 - 4).ToString("X");
+        HoodMax = base5.ToString("X");
+        FovPage._fovPage!.Dispatcher.Invoke(() => { FovPage._fovPage.UpdateValues(); });
+    }
 }

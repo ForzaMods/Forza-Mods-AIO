@@ -8,10 +8,10 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle;
 
 public abstract class Self_Vehicle_ASM : Resources.ASM
 {
-    public static UIntPtr CodeCave1, CodeCave2, CodeCave3, CodeCave4, CodeCave5, CodeCave6, CodeCave7, CodeCave8, CodeCave9, CodeCave10;
-    private static bool CreditsFirstTime = true, GlowingPaintFirstTime = true, BuildCapFirstTime = true, XpFirstTime = true, FlyhackFirstTime = true;
-    private static byte[] CreditsJmpBytes, GlowingPaintJmpBytes, BuildCapJmpBytes1, BuildCapJmpBytes2, XpJmpBytes, FlyhackJmpBytes;
-    private static byte[] CreditsOrigBytes, GlowingPaintOrigBytes, BuildCapOrigBytes1, BuildCapOrigBytes2, XpOrigBytes, FlyhackOrigBytes, GetWayPointAddrOrigBytes, BaseAddressHookOrigBytes;
+    public static UIntPtr CodeCave1, CodeCave2, CodeCave3, CodeCave4, CodeCave5, CodeCave6, CodeCave7, CodeCave8, CodeCave9, CodeCave10, CodeCave11;
+    private static bool CreditsFirstTime = true, GlowingPaintFirstTime = true, BuildCapFirstTime = true, XpFirstTime = true, FlyhackFirstTime = true, FovFirstTime = true;
+    public static byte[]? CreditsJmpBytes, GlowingPaintJmpBytes, BuildCapJmpBytes1, BuildCapJmpBytes2, XpJmpBytes, FlyhackJmpBytes, FovJmpBytes;
+    public static byte[]? CreditsOrigBytes, GlowingPaintOrigBytes, BuildCapOrigBytes1, BuildCapOrigBytes2, XpOrigBytes, FlyhackOrigBytes, GetWayPointAddrOrigBytes, BaseAddressHookOrigBytes, FovOrigBytes;
     
     
     public static void Cleanup()
@@ -43,6 +43,8 @@ public abstract class Self_Vehicle_ASM : Resources.ASM
             MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.WayPointxASMAob, GetWayPointAddrOrigBytes);
         if (BaseAddressHookOrigBytes != null)
             MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.BaseAddrHook, BaseAddressHookOrigBytes);
+        if (FovOrigBytes != null)
+            MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.FovHookAddr, FovOrigBytes);
     }
     
     
@@ -77,6 +79,9 @@ public abstract class Self_Vehicle_ASM : Resources.ASM
 
         if (CodeCave10 != UIntPtr.Zero)
             Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, CodeCave10, 0, MEM_RELEASE);
+        
+        if (CodeCave11 != UIntPtr.Zero)
+            Imps.VirtualFreeEx(MainWindow.mw.gvp.Process.Handle, CodeCave11, 0, MEM_RELEASE);
     }
     
     
@@ -267,5 +272,19 @@ public abstract class Self_Vehicle_ASM : Resources.ASM
         {
             MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.RotationAddr, FlyhackJmpBytes);
         }
+    } 
+    
+    public static void Fov() 
+    {
+        if (FovFirstTime)
+        {
+            FovOrigBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.FovHookAddr, 5);
+            CodeCave11 = MainWindow.mw.m.CreateDetour(Self_Vehicle_Addrs.FovHookAddr, StringToBytes("0F1001807926EC0F8519000000807927410F850F00000080792A800F8505000000E91E000000807926160F851B000000807927430F851100000080792AC00F85070000000F100507000000B001"), 5, size: 100);
+            FovJmpBytes = MainWindow.mw.m.ReadArrayMemory<byte>(Self_Vehicle_Addrs.FovHookAddr, 5);
+            FovFirstTime = false;
+            return;
+        }
+
+        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.FovHookAddr, FovJmpBytes);
     }
 }

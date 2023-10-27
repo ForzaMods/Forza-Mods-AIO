@@ -212,6 +212,9 @@ public partial class TeleportsPage
         MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, x);
         MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, y);
         MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, z);
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xVelocityAddr, 0f);
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yVelocityAddr, 0f);
+        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zVelocityAddr, 0f);
     }
 
     private void AutoTpToWaypoint_Toggled(object sender, RoutedEventArgs e)
