@@ -8,12 +8,12 @@ public abstract class SelfCarMenu
     // All of these are submenus, so they have their own folders
     public static readonly List<Overlay.MenuOption> SelfCarsOptions = new()
     {
-        new("Handling", "MenuButton"),
-        new("Unlocks", "MenuButton"),
-        new("Photomode", "MenuButton"),
-        new("Customization", "MenuButton"),
-        new("Miscellaneous", "MenuButton"),
-        new("FOV", "MenuButton")
+        new("Handling", Overlay.MenuOption.OptionType.MenuButton),
+        new("Unlocks", Overlay.MenuOption.OptionType.MenuButton),
+        new("Photomode", Overlay.MenuOption.OptionType.MenuButton),
+        new("Customization", Overlay.MenuOption.OptionType.MenuButton),
+        new("Miscellaneous", Overlay.MenuOption.OptionType.MenuButton),
+        new("FOV", Overlay.MenuOption.OptionType.MenuButton)
     };
 
     public static void InitiateSubMenu()

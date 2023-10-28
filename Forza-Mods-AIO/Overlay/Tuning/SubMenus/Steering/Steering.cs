@@ -6,10 +6,10 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Steering;
 public abstract class Steering
 {
     
-    private static readonly Overlay.MenuOption AngleMax1Value = new ("Max 1", "Float", 0f);
-    private static readonly Overlay.MenuOption AngleMax2Value = new ("Max 2", "Float", 0f);
+    private static readonly Overlay.MenuOption AngleMax1Value = new ("Max 1", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption AngleMax2Value = new ("Max 2", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption AnglePull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption AnglePull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Steering = Tabs.Tuning.DropDownTabs.Steering.st;
         
@@ -24,13 +24,13 @@ public abstract class Steering
     }));
     
         
-    private static readonly Overlay.MenuOption VelCountersteerValue = new ("Countersteer Value", "Float", 0f);
-    private static readonly Overlay.MenuOption VelStraightValue = new ("Straight Value", "Float", 0f);
-    private static readonly Overlay.MenuOption VelTurningValue = new ("Turning Value", "Float", 0f);
-    private static readonly Overlay.MenuOption VelDynamicPeekValue = new ("Dynamic Peek Value", "Float", 0f);
-    private static readonly Overlay.MenuOption VelTimeValue = new ("Time Value", "Float", 0f);
+    private static readonly Overlay.MenuOption VelCountersteerValue = new ("Countersteer Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption VelStraightValue = new ("Straight Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption VelTurningValue = new ("Turning Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption VelDynamicPeekValue = new ("Dynamic Peek Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption VelTimeValue = new ("Time Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption ToePull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption ToePull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Steering = Tabs.Tuning.DropDownTabs.Steering.st;
         
@@ -49,11 +49,11 @@ public abstract class Steering
     
     public static readonly List<Overlay.MenuOption> SteeringOptions = new()
     {
-        new("Angle", "SubHeader"),
+        new("Angle", Overlay.MenuOption.OptionType.SubHeader),
         AngleMax1Value,
         AngleMax2Value,
         AnglePull,
-        new("Velocity", "SubHeader"),
+        new("Velocity", Overlay.MenuOption.OptionType.SubHeader),
         VelCountersteerValue,
         VelStraightValue,
         VelTurningValue,

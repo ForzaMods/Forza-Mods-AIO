@@ -15,8 +15,8 @@ public abstract class ModifiersMenu
     }
     
     // Gravity menu options
-    static Overlay.MenuOption GravityValue = new Overlay.MenuOption("Value", "Float", 0f);
-    static Overlay.MenuOption GravityPull = new Overlay.MenuOption("Pull", "Button", new Action(() => 
+    static Overlay.MenuOption GravityValue = new Overlay.MenuOption("Value", Overlay.MenuOption.OptionType.Float, 0f);
+    static Overlay.MenuOption GravityPull = new Overlay.MenuOption("Pull", Overlay.MenuOption.OptionType.Button, new Action(() => 
     {
         Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.Dispatcher.Invoke(delegate ()
         {
@@ -24,11 +24,11 @@ public abstract class ModifiersMenu
             GravityValue.Value = (float)Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.GravityValueNum.Value;
         });
     }));
-    static Overlay.MenuOption GravityToggle = new Overlay.MenuOption("Enable", "Bool", false);
+    static Overlay.MenuOption GravityToggle = new Overlay.MenuOption("Enable", Overlay.MenuOption.OptionType.Bool, false);
 
     // Acceleration menu options
-    static Overlay.MenuOption AccelerationValue = new Overlay.MenuOption("Value", "Float", 0f);
-    static Overlay.MenuOption AccelerationPull = new Overlay.MenuOption("Pull", "Button", new Action(() => 
+    static Overlay.MenuOption AccelerationValue = new Overlay.MenuOption("Value", Overlay.MenuOption.OptionType.Float, 0f);
+    static Overlay.MenuOption AccelerationPull = new Overlay.MenuOption("Pull", Overlay.MenuOption.OptionType.Button, new Action(() => 
     {
         Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.Dispatcher.Invoke(delegate ()
         {
@@ -36,15 +36,15 @@ public abstract class ModifiersMenu
             AccelerationValue.Value = (float)Tabs.Self_Vehicle.DropDownTabs.HandlingPage.shp.AccelerationValueNum.Value;
         });
     }));
-    static Overlay.MenuOption AccelerationToggle = new Overlay.MenuOption("Enable", "Bool", false);
+    static Overlay.MenuOption AccelerationToggle = new Overlay.MenuOption("Enable", Overlay.MenuOption.OptionType.Bool, false);
     
     public static readonly List<Overlay.MenuOption> ModifiersOptions = new()
     {
-        new ("Gravity", "SubHeader"),
+        new ("Gravity", Overlay.MenuOption.OptionType.SubHeader),
         GravityValue,
         GravityPull,
         GravityToggle,
-        new ("Acceleration", "SubHeader"),
+        new ("Acceleration", Overlay.MenuOption.OptionType.SubHeader),
         AccelerationValue,
         AccelerationPull,
         AccelerationToggle

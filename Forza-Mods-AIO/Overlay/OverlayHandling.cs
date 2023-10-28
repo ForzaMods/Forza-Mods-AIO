@@ -300,13 +300,13 @@ namespace Forza_Mods_AIO.Overlay
 
                     Value = item.Type switch
                     {
-                        "MenuButton" => ">",
-                        "Float" when item.Value.GetType() == typeof(object) => String.Format("<{0:0.00000}>", item.Value.GetType().GetProperty("Value").GetValue(item)),
-                        "Float" => String.Format("<{0:0.00000}>", item.Value),
-                        "Int" when item.Value.GetType() == typeof(object) => $"<{item.Value.GetType().GetProperty("Value").GetValue(item)}>",
-                        "Int" => $"<{item.Value}>",
-                        "Bool" when (bool)item.Value => "[X]",
-                        "Bool" when (bool)item.Value == false => "[ ]",
+                        Overlay.MenuOption.OptionType.MenuButton => ">",
+                        Overlay.MenuOption.OptionType.Float when item.Value.GetType() == typeof(object) => String.Format("<{0:0.00000}>", item.Value.GetType().GetProperty("Value").GetValue(item)),
+                        Overlay.MenuOption.OptionType.Float => String.Format("<{0:0.00000}>", item.Value),
+                        Overlay.MenuOption.OptionType.Int when item.Value.GetType() == typeof(object) => $"<{item.Value.GetType().GetProperty("Value").GetValue(item)}>",
+                        Overlay.MenuOption.OptionType.Int => $"<{item.Value}>",
+                        Overlay.MenuOption.OptionType.Bool when (bool)item.Value => "[X]",
+                        Overlay.MenuOption.OptionType.Bool when (bool)item.Value == false => "[ ]",
                         _ => Value
                     };
 
@@ -314,7 +314,7 @@ namespace Forza_Mods_AIO.Overlay
                     {
                         try
                         {
-                            if (item.Type != "SubHeader")
+                            if (item.Type != Overlay.MenuOption.OptionType.SubHeader)
                             {
                                 Overlay.o.OptionsBlock.Inlines.Add(new Run(Text) { Foreground = FColour, FontSize = yRes / 45 });
                                 Overlay.o.ValueBlock.Inlines.Add(new Run(Value) { Foreground = FColour, FontSize = yRes / 45 });
@@ -382,7 +382,7 @@ namespace Forza_Mods_AIO.Overlay
                     {
                         switch (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type)
                         {
-                            case "MenuButton":
+                            case Overlay.MenuOption.OptionType.MenuButton:
                             {
                                 LevelIndex++;
                                 var NameSplit = Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Name.Split(' ', '/', '[', ']', '&');
@@ -394,15 +394,16 @@ namespace Forza_Mods_AIO.Overlay
                                 SelectedOptionIndex = 0;
                                 break;
                             }
-                            case "Bool" when (bool)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value:
-                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = false;
+                            case Overlay.MenuOption.OptionType.Bool:
+                            {
+                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = !(bool)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value;
                                 break;
-                            case "Bool":
-                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = true;
-                                break;
-                            case "Button":
+                            }
+                            case Overlay.MenuOption.OptionType.Button:
+                            {
                                 ((Action)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value)();
                                 break;
+                            }
                         }
                     }
 
@@ -495,13 +496,10 @@ namespace Forza_Mods_AIO.Overlay
                     int count = 0;
                     var Inc = delegate ()
                     {
-                        if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Float" || Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Int")
-                        {
-                            if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Float")
-                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = Convert.ToSingle(Math.Round((float)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value + 0.1f, 1));
-                            else
-                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = (int)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value + 1;
-                        }
+                        if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == Overlay.MenuOption.OptionType.Float)
+                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = Convert.ToSingle(Math.Round((float)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value + 0.1f, 1));
+                        else if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == Overlay.MenuOption.OptionType.Int)
+                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = (int)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value + 1;
                     };
                     Inc();
 
@@ -524,13 +522,10 @@ namespace Forza_Mods_AIO.Overlay
                     int count = 0;
                     var Dec = delegate ()
                     {
-                        if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Float" || Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Int")
-                        {
-                            if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == "Float")
-                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = Convert.ToSingle(Math.Round((float)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value - 0.1f, 1));
-                            else
-                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = (int)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value - 1;
-                        }
+                        if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == Overlay.MenuOption.OptionType.Float)
+                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = Convert.ToSingle(Math.Round((float)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value - 0.1f, 1));
+                        else if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == Overlay.MenuOption.OptionType.Int)
+                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = (int)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value - 1;
                     };
                     Dec();
 

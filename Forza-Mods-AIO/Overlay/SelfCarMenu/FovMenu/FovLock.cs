@@ -5,8 +5,8 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.FovMenu;
 
 public abstract class FovLock
 {
-    private static readonly Overlay.MenuOption FovLockValue = new("Value", "Float", 0f);
-    private static readonly Overlay.MenuOption FovLockToggle = new("Enable", "Bool", false);
+    private static readonly Overlay.MenuOption FovLockValue = new("Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FovLockToggle = new("Enable", Overlay.MenuOption.OptionType.Bool, false);
         
     public static void InitiateSubMenu()
     {
@@ -43,7 +43,7 @@ public abstract class FovLock
     // Menu list for this section
     public static List<Overlay.MenuOption> FovLockOptions = new()
     {
-        new ("Fov Lock", "SubHeader"),
+        new ("Fov Lock", Overlay.MenuOption.OptionType.SubHeader),
         FovLockValue,
         FovLockToggle
     };

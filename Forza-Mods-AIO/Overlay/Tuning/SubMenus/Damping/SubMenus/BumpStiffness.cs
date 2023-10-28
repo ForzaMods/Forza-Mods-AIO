@@ -5,13 +5,13 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping.SubMenus;
 
 public abstract class BumpStiffness
 {
-    private static readonly Overlay.MenuOption FrontBumpStiffnessMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption FrontBumpStiffnessMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption FrontBumpStiffnessMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FrontBumpStiffnessMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption RearBumpStiffnessMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption RearBumpStiffnessMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption RearBumpStiffnessMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RearBumpStiffnessMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption FrontBumpStiffnessPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption FrontBumpStiffnessPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
         
@@ -25,7 +25,7 @@ public abstract class BumpStiffness
         });
     }));
     
-    private static readonly Overlay.MenuOption RearBumpStiffnessPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption RearBumpStiffnessPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
         
@@ -81,11 +81,11 @@ public abstract class BumpStiffness
     
     public static readonly List<Overlay.MenuOption> BumpStiffnessOptions = new()
     {
-        new("Front Bump Stiffness", "SubHeader"),
+        new("Front Bump Stiffness", Overlay.MenuOption.OptionType.SubHeader),
         FrontBumpStiffnessMinValue,
         FrontBumpStiffnessMaxValue,
         FrontBumpStiffnessPull,
-        new("Rear Bump Stiffness", "SubHeader"),
+        new("Rear Bump Stiffness", Overlay.MenuOption.OptionType.SubHeader),
         RearBumpStiffnessMinValue,
         RearBumpStiffnessMaxValue,
         RearBumpStiffnessPull

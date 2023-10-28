@@ -7,19 +7,19 @@ public abstract class FovLimiters
 {
     public static readonly List<Overlay.MenuOption> FovLimiterOptions = new()
     {
-        new ("Chase Limiters", "MenuButton"),
-        new ("Driver Limiters", "MenuButton"),
-        new ("Hood Limiters", "MenuButton"),
-        new ("Bumper Limiters", "MenuButton")
+        new ("Chase Limiters", Overlay.MenuOption.OptionType.MenuButton),
+        new ("Driver Limiters", Overlay.MenuOption.OptionType.MenuButton),
+        new ("Hood Limiters", Overlay.MenuOption.OptionType.MenuButton),
+        new ("Bumper Limiters", Overlay.MenuOption.OptionType.MenuButton)
     };
     
     
-    private static readonly Overlay.MenuOption ChaseMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption ChaseMaxValue = new ("Max Value", "Float", 0f);
-    private static readonly Overlay.MenuOption FarChaseMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption FarChaseMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption ChaseMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption ChaseMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FarChaseMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FarChaseMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption ChasePull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption ChasePull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var FovLimiters = Tabs.Self_Vehicle.DropDownTabs.FovPage._fovPage;
         
@@ -33,7 +33,7 @@ public abstract class FovLimiters
         });
     }));
     
-    private static readonly Overlay.MenuOption FarChasePull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption FarChasePull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var FovLimiters = Tabs.Self_Vehicle.DropDownTabs.FovPage._fovPage;
         
@@ -49,21 +49,21 @@ public abstract class FovLimiters
     
     public static readonly List<Overlay.MenuOption> ChaseLimitersOptions = new()
     {
-        new ("Chase Limiters", "SubHeader"),
+        new ("Chase Limiters", Overlay.MenuOption.OptionType.SubHeader),
         ChaseMinValue,
         ChaseMaxValue,
         ChasePull,
-        new ("Far Chase Limiters", "SubHeader"),
+        new ("Far Chase Limiters", Overlay.MenuOption.OptionType.SubHeader),
         FarChaseMinValue,
         FarChaseMaxValue,
         FarChasePull
     };
     
     
-    private static readonly Overlay.MenuOption DriverMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption DriverMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption DriverMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption DriverMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption DriverPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption DriverPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var FovPage = Tabs.Self_Vehicle.DropDownTabs.FovPage._fovPage;
         
@@ -79,18 +79,18 @@ public abstract class FovLimiters
     
     public static readonly List<Overlay.MenuOption> DriverLimitersOptions = new()
     {
-        new ("Driver Limiters", "SubHeader"),
+        new ("Driver Limiters", Overlay.MenuOption.OptionType.SubHeader),
         DriverMinValue,
         DriverMaxValue,
         DriverPull
     };
     
-    private static readonly Overlay.MenuOption HoodMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption HoodMaxValue = new ("Max Value", "Float", 0f);
-    private static readonly Overlay.MenuOption BumperMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption BumperMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption HoodMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption HoodMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption BumperMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption BumperMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption HoodPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption HoodPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var FovPage = Tabs.Self_Vehicle.DropDownTabs.FovPage._fovPage;
         
@@ -104,7 +104,7 @@ public abstract class FovLimiters
         });
     }));
     
-    private static readonly Overlay.MenuOption BumperPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption BumperPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var FovPage = Tabs.Self_Vehicle.DropDownTabs.FovPage._fovPage;
         
@@ -120,7 +120,7 @@ public abstract class FovLimiters
     
     public static readonly List<Overlay.MenuOption> HoodLimitersOptions = new()
     {
-        new ("Hood Limiters", "SubHeader"),
+        new ("Hood Limiters", Overlay.MenuOption.OptionType.SubHeader),
         HoodMinValue,
         HoodMaxValue,
         HoodPull
@@ -128,7 +128,7 @@ public abstract class FovLimiters
 
     public static readonly List<Overlay.MenuOption> BumperLimitersOptions = new()
     {
-        new("Bumper Limiters", "SubHeader"),
+        new("Bumper Limiters", Overlay.MenuOption.OptionType.SubHeader),
         BumperMinValue,
         BumperMaxValue,
         BumperPull

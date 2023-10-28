@@ -5,13 +5,13 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Aero;
 
 public abstract class Aero
 {
-    private static readonly Overlay.MenuOption FrontAeroMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption FrontAeroMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption FrontAeroMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FrontAeroMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption RearAeroMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption RearAeroMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption RearAeroMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RearAeroMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption FrontAeroPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption FrontAeroPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Aero = Tabs.Tuning.DropDownTabs.Aero.ae;
         
@@ -25,7 +25,7 @@ public abstract class Aero
         });
     }));
     
-    private static readonly Overlay.MenuOption RearAeroPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption RearAeroPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Aero = Tabs.Tuning.DropDownTabs.Aero.ae;
         
@@ -81,11 +81,11 @@ public abstract class Aero
     
     public static readonly List<Overlay.MenuOption> AeroOptions = new()
     {
-        new("Front Aero", "SubHeader"),
+        new("Front Aero", Overlay.MenuOption.OptionType.SubHeader),
         FrontAeroMinValue,
         FrontAeroMaxValue,
         FrontAeroPull,
-        new("Rear Aero", "SubHeader"),
+        new("Rear Aero", Overlay.MenuOption.OptionType.SubHeader),
         RearAeroMinValue,
         RearAeroMaxValue,
         RearAeroPull

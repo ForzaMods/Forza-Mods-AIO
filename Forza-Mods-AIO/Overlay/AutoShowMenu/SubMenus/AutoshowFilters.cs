@@ -6,9 +6,9 @@ namespace Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus;
 
 public abstract class AutoshowFilters
 {
-    private static readonly Overlay.MenuOption AllCarsToggle = new("All Cars", "Bool", false, "Toggles all cars in the autoshow");
-    private static readonly Overlay.MenuOption RareCarsToggle = new("Rare Cars", "Bool", false, "Toggles rare cars in the autoshow");
-    public static readonly Overlay.MenuOption FreeCarsToggle = new("Free Cars", "Bool", false, "Toggles free cars in the autoshow");
+    private static readonly Overlay.MenuOption AllCarsToggle = new("All Cars", Overlay.MenuOption.OptionType.Bool, false, "Toggles all cars in the autoshow");
+    private static readonly Overlay.MenuOption RareCarsToggle = new("Rare Cars", Overlay.MenuOption.OptionType.Bool, false, "Toggles rare cars in the autoshow");
+    public static readonly Overlay.MenuOption FreeCarsToggle = new("Free Cars", Overlay.MenuOption.OptionType.Bool, false, "Toggles free cars in the autoshow");
 
     public static readonly List<Overlay.MenuOption> AutoShowFiltersOptions = new()
     {

@@ -5,13 +5,13 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping.SubMenus;
 
 public abstract class ReboundStiffness
 {
-    private static readonly Overlay.MenuOption FrontReboundStiffnessMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption FrontReboundStiffnessMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption FrontReboundStiffnessMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FrontReboundStiffnessMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption RearReboundStiffnessMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption RearReboundStiffnessMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption RearReboundStiffnessMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RearReboundStiffnessMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption FrontReboundStiffnessPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption FrontReboundStiffnessPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
         
@@ -25,7 +25,7 @@ public abstract class ReboundStiffness
         });
     }));
     
-    private static readonly Overlay.MenuOption RearReboundStiffnessPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption RearReboundStiffnessPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
         
@@ -81,11 +81,11 @@ public abstract class ReboundStiffness
     
     public static readonly List<Overlay.MenuOption> ReboundStiffnessOptions = new()
     {
-        new("Front Rebound Stiffness", "SubHeader"),
+        new("Front Rebound Stiffness", Overlay.MenuOption.OptionType.SubHeader),
         FrontReboundStiffnessMinValue,
         FrontReboundStiffnessMaxValue,
         FrontReboundStiffnessPull,
-        new("Rear Rebound Stiffness", "SubHeader"),
+        new("Rear Rebound Stiffness", Overlay.MenuOption.OptionType.SubHeader),
         RearReboundStiffnessMinValue,
         RearReboundStiffnessMaxValue,
         RearReboundStiffnessPull

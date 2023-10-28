@@ -5,13 +5,13 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping.SubMenus;
 
 public abstract class AntirollBarsDamping
 {
-    private static readonly Overlay.MenuOption FrontAntirollBarMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption FrontAntirollBarMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption FrontAntirollBarMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FrontAntirollBarMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption RearAntirollBarMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption RearAntirollBarMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption RearAntirollBarMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RearAntirollBarMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption FrontAntirollBarsPull = new ("Pull values", "Button", new Action(() => { FrontAntirollBarsPullAction(); }));
+    private static readonly Overlay.MenuOption FrontAntirollBarsPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() => { FrontAntirollBarsPullAction(); }));
 
     private static void FrontAntirollBarsPullAction()
     {
@@ -27,7 +27,7 @@ public abstract class AntirollBarsDamping
         });
     }
 
-    private static readonly Overlay.MenuOption RearAntirollBarsPull = new ("Pull values", "Button", new Action(() => { RearAntirollBarsPullAction(); }));
+    private static readonly Overlay.MenuOption RearAntirollBarsPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() => { RearAntirollBarsPullAction(); }));
 
     private static void RearAntirollBarsPullAction()
     {
@@ -85,11 +85,11 @@ public abstract class AntirollBarsDamping
     
     public static readonly List<Overlay.MenuOption> AntirollBarsDampingOptions = new()
     {
-        new("Front Antiroll Bars", "SubHeader"),
+        new("Front Antiroll Bars", Overlay.MenuOption.OptionType.SubHeader),
         FrontAntirollBarMinValue,
         FrontAntirollBarMaxValue,
         FrontAntirollBarsPull,
-        new("Rear Antiroll Bars", "SubHeader"),
+        new("Rear Antiroll Bars", Overlay.MenuOption.OptionType.SubHeader),
         RearAntirollBarMinValue,
         RearAntirollBarMaxValue,
         RearAntirollBarsPull

@@ -8,8 +8,8 @@ public abstract class Damping
 {
     public static readonly List<Overlay.MenuOption> DampingOptions = new()
     {
-        new Overlay.MenuOption("Antiroll Bars/Damping", "MenuButton"),
-        new Overlay.MenuOption("Rebound Stiffness", "MenuButton"),
-        new Overlay.MenuOption("Bump Stiffness", "MenuButton")
+        new Overlay.MenuOption("Antiroll Bars/Damping", Overlay.MenuOption.OptionType.MenuButton),
+        new Overlay.MenuOption("Rebound Stiffness", Overlay.MenuOption.OptionType.MenuButton),
+        new Overlay.MenuOption("Bump Stiffness", Overlay.MenuOption.OptionType.MenuButton)
     };
 }

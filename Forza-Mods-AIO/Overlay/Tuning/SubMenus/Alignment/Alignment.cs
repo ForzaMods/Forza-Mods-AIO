@@ -5,13 +5,13 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Alignment;
 
 public abstract class Alignment
 {
-    private static readonly Overlay.MenuOption CamberNegValue = new ("Negative Value", "Float", -5f);
-    private static readonly Overlay.MenuOption CamberPosValue = new ("Positive Value", "Float", 5f);
+    private static readonly Overlay.MenuOption CamberNegValue = new ("Negative Value", Overlay.MenuOption.OptionType.Float, -5f);
+    private static readonly Overlay.MenuOption CamberPosValue = new ("Positive Value", Overlay.MenuOption.OptionType.Float, 5f);
     
-    private static readonly Overlay.MenuOption ToeNegValue = new ("Negative Value", "Float", -5f);
-    private static readonly Overlay.MenuOption ToePosValue = new ("Positive Value", "Float", 5f);
+    private static readonly Overlay.MenuOption ToeNegValue = new ("Negative Value", Overlay.MenuOption.OptionType.Float, -5f);
+    private static readonly Overlay.MenuOption ToePosValue = new ("Positive Value", Overlay.MenuOption.OptionType.Float, 5f);
     
-    private static readonly Overlay.MenuOption CamberPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption CamberPull = new ("Pull values",Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Alignment = Tabs.Tuning.DropDownTabs.Alignment.al;
         
@@ -25,7 +25,7 @@ public abstract class Alignment
         });
     }));
     
-    private static readonly Overlay.MenuOption ToePull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption ToePull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Alignment = Tabs.Tuning.DropDownTabs.Alignment.al;
         
@@ -93,11 +93,11 @@ public abstract class Alignment
     
     public static readonly List<Overlay.MenuOption> AlignmentOptions = new()
     {
-        new("Camber", "SubHeader"),
+        new("Camber", Overlay.MenuOption.OptionType.SubHeader),
         CamberNegValue,
         CamberPosValue,
         CamberPull,
-        new("Toe", "SubHeader"),
+        new("Toe", Overlay.MenuOption.OptionType.SubHeader),
         ToeNegValue,
         ToePosValue,
         ToePull

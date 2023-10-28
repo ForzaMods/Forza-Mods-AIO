@@ -7,20 +7,20 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Gearing;
 
 public abstract class Gearing
 {
-    private static readonly Overlay.MenuOption FinalDriveValue = new ("Final Drive", "Float", 0f);
-    private static readonly Overlay.MenuOption ReverseGearValue = new ("Reverse Gear", "Float", 0f);
-    private static readonly Overlay.MenuOption FirstGearValue = new ("First Gear", "Float", 0f);
-    private static readonly Overlay.MenuOption SecondGearValue = new ("Second Gear", "Float", 0f);
-    private static readonly Overlay.MenuOption ThirdGearValue = new ("Third Gear", "Float", 0f);
-    private static readonly Overlay.MenuOption FourthGearValue = new ("Fourth Gear", "Float", 0f);
-    private static readonly Overlay.MenuOption FifthGearValue = new ("Fifth Gear", "Float", 0f);
-    private static readonly Overlay.MenuOption SixthGearValue = new ("Sixth Gear", "Float", 0f);
-    private static readonly Overlay.MenuOption SeventhGearValue = new ("Seventh Gear", "Float", 0f);
-    private static readonly Overlay.MenuOption EighthGearValue = new ("Eighth Gear", "Float", 0f);
-    private static readonly Overlay.MenuOption NinthGearValue = new ("Ninth Gear", "Float", 0f);
-    private static readonly Overlay.MenuOption TenthGearValue = new ("Tenth Gear", "Float", 0f);
+    private static readonly Overlay.MenuOption FinalDriveValue = new ("Final Drive", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption ReverseGearValue = new ("Reverse Gear", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FirstGearValue = new ("First Gear", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption SecondGearValue = new ("Second Gear", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption ThirdGearValue = new ("Third Gear", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FourthGearValue = new ("Fourth Gear", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FifthGearValue = new ("Fifth Gear", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption SixthGearValue = new ("Sixth Gear", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption SeventhGearValue = new ("Seventh Gear", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption EighthGearValue = new ("Eighth Gear", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption NinthGearValue = new ("Ninth Gear", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption TenthGearValue = new ("Tenth Gear", Overlay.MenuOption.OptionType.Float, 0f);
 
-    private static readonly Overlay.MenuOption GearingPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption GearingPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
         

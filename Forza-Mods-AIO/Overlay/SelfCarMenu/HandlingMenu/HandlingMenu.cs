@@ -6,9 +6,9 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu
     public class HandlingMenu
     {
         // Velocity menu options
-        static Overlay.MenuOption VelocityValue = new("Value", "Float", 0f);
-        static Overlay.MenuOption VelocityToggle = new("Enable", "Bool", false);
-        static Overlay.MenuOption SuperCarToggle = new("Super Car", "Bool", false);
+        static Overlay.MenuOption VelocityValue = new("Value", Overlay.MenuOption.OptionType.Float, 0f);
+        static Overlay.MenuOption VelocityToggle = new("Enable", Overlay.MenuOption.OptionType.Bool, false);
+        static Overlay.MenuOption SuperCarToggle = new("Super Car", Overlay.MenuOption.OptionType.Bool, false);
         
 
         // Subscribes menu options to event handlers
@@ -38,9 +38,9 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu
         // Menu list for this section
         public static List<Overlay.MenuOption> HandlingOptions = new()
         {
-            new("Velocity", "MenuButton"),
-            new("Wheel Speed", "MenuButton"),
-            new("Modifiers", "MenuButton"),
+            new("Velocity", Overlay.MenuOption.OptionType.MenuButton),
+            new("Wheel Speed", Overlay.MenuOption.OptionType.MenuButton),
+            new("Modifiers", Overlay.MenuOption.OptionType.MenuButton),
             SuperCarToggle
         };
 

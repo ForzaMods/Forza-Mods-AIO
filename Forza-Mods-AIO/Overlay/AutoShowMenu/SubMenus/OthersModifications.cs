@@ -6,10 +6,10 @@ namespace Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus;
 
 public abstract class OthersModifications
 {
-    private static readonly Overlay.MenuOption FreePerfUpgradesToggle = new ("Free Perf Upgrades", "Bool", false);
-    private static readonly Overlay.MenuOption FreeVisualUpgradeToggle = new ("Free Visual Upgrades", "Bool", false);
-    private static readonly Overlay.MenuOption QuickAddAllCarsToggle = new ("Quick Add All Cars", "Bool", false);
-    private static readonly Overlay.MenuOption QuickAddRareCarsToggle = new ("Quick Add Rare Cars", "Bool", false);
+    private static readonly Overlay.MenuOption FreePerfUpgradesToggle = new ("Free Perf Upgrades", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly Overlay.MenuOption FreeVisualUpgradeToggle = new ("Free Visual Upgrades", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly Overlay.MenuOption QuickAddAllCarsToggle = new ("Quick Add All Cars", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly Overlay.MenuOption QuickAddRareCarsToggle = new ("Quick Add Rare Cars", Overlay.MenuOption.OptionType.Bool, false);
 
     public static readonly List<Overlay.MenuOption> OthersModificationsOptions = new()
     {

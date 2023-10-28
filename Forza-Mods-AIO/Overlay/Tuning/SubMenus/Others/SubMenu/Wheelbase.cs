@@ -5,13 +5,13 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others.SubMenu;
 
 public abstract class Wheelbase
 {
-    private static readonly Overlay.MenuOption WheelbaseValue = new ("Wheelbase", "Float", 0f);
-    private static readonly Overlay.MenuOption FrontWidthValue = new ("Front Width", "Float", 0f);
-    private static readonly Overlay.MenuOption RearWidthValue = new ("Rear Width", "Float", 0f);
-    private static readonly Overlay.MenuOption FrontSpacerValue = new ("Front Spacer", "Float", 0f);
-    private static readonly Overlay.MenuOption RearSpacerValue = new ("Rear Spacer", "Float", 0f);
+    private static readonly Overlay.MenuOption WheelbaseValue = new ("Wheelbase", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FrontWidthValue = new ("Front Width", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RearWidthValue = new ("Rear Width", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FrontSpacerValue = new ("Front Spacer", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RearSpacerValue = new ("Rear Spacer", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption WheelbasePull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption WheelbasePull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Others = Tabs.Tuning.DropDownTabs.Others.o;
         

@@ -5,12 +5,12 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Tires;
 
 public abstract class Tires
 {
-    private static readonly Overlay.MenuOption TireFrontLeftValue = new ("Left", "Float", 0f);
-    private static readonly Overlay.MenuOption TireFrontRightValue = new ("Right", "Float", 0f);
-    private static readonly Overlay.MenuOption TireRearLeftValue = new ("Left", "Float", 0f);
-    private static readonly Overlay.MenuOption TireRearRightValue = new ("Right", "Float", 0f);
+    private static readonly Overlay.MenuOption TireFrontLeftValue = new ("Left", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption TireFrontRightValue = new ("Right", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption TireRearLeftValue = new ("Left", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption TireRearRightValue = new ("Right", Overlay.MenuOption.OptionType.Float, 0f);
 
-    private static readonly Overlay.MenuOption RearTiresPull = new ("Pull values", "Button", (() =>
+    private static readonly Overlay.MenuOption RearTiresPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, (() =>
     {
         var Tires = Tabs.Tuning.DropDownTabs.Tires.t;
         
@@ -21,7 +21,7 @@ public abstract class Tires
         });
     }));
     
-    private static readonly Overlay.MenuOption FrontTiresPull = new ("Pull values", "Button", (() =>
+    private static readonly Overlay.MenuOption FrontTiresPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, (() =>
     {
         var Tires = Tabs.Tuning.DropDownTabs.Tires.t;
         
@@ -70,11 +70,11 @@ public abstract class Tires
 
     public static readonly List<Overlay.MenuOption> TiresOptions = new()
     {
-        new Overlay.MenuOption("Front Tires", "SubHeader"),
+        new Overlay.MenuOption("Front Tires", Overlay.MenuOption.OptionType.SubHeader),
         TireFrontLeftValue,
         TireFrontRightValue,
         FrontTiresPull,
-        new Overlay.MenuOption("Rear Tires", "SubHeader"),
+        new Overlay.MenuOption("Rear Tires", Overlay.MenuOption.OptionType.SubHeader),
         TireRearLeftValue,
         TireRearRightValue,
         RearTiresPull

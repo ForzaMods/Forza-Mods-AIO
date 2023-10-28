@@ -5,12 +5,12 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs.SubMenus;
 
 public abstract class SpringsValues
 {
-    private static readonly Overlay.MenuOption FrontSpringsMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption FrontSpringsMaxValue = new ("Max Value", "Float", 0f);
-    private static readonly Overlay.MenuOption RearSpringsMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption RearSpringsMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption FrontSpringsMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FrontSpringsMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RearSpringsMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RearSpringsMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption FrontSpringsPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption FrontSpringsPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Springs = Tabs.Tuning.DropDownTabs.Springs.sp;
         
@@ -21,7 +21,7 @@ public abstract class SpringsValues
         });
     }));
     
-    private static readonly Overlay.MenuOption RearSpringsPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption RearSpringsPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Springs = Tabs.Tuning.DropDownTabs.Springs.sp;
         
@@ -34,11 +34,11 @@ public abstract class SpringsValues
     
     public static readonly List<Overlay.MenuOption> SpringsSubMenuOptions = new()
     {
-        new ("Front Springs", "SubHeader"),
+        new ("Front Springs", Overlay.MenuOption.OptionType.SubHeader),
         FrontSpringsMinValue,
         FrontSpringsMaxValue,
         FrontSpringsPull,
-        new ("Rear Springs", "SubHeader"),
+        new ("Rear Springs", Overlay.MenuOption.OptionType.SubHeader),
         RearSpringsMinValue,
         RearSpringsMaxValue,
         RearSpringsPull

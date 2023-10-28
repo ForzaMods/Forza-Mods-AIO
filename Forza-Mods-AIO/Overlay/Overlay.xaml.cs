@@ -27,7 +27,7 @@ namespace Forza_Mods_AIO.Overlay
         public class MenuOption
         {
             public string Name { get; }
-            public string Type { get; }
+            public OptionType Type { get; }
             public object Value
             {
                 get => _value;
@@ -48,9 +48,19 @@ namespace Forza_Mods_AIO.Overlay
                 handler?.Invoke(this, EventArgs.Empty);
             }
 
+            public enum OptionType
+            {
+                Float,
+                Int,
+                Bool,
+                MenuButton,
+                Button,
+                SubHeader
+            }
+            
             //Constructors for different value types
             //float
-            public MenuOption(string name, string type, float value, string description = null, bool isEnabled = true)
+            public MenuOption(string name, OptionType type, float value, string description = null, bool isEnabled = true)
             {
                 Name = name;
                 Type = type;
@@ -59,7 +69,7 @@ namespace Forza_Mods_AIO.Overlay
                 IsEnabled = isEnabled;
             }
             //bool
-            public MenuOption(string name, string type, bool value, string description = null, bool isEnabled = true)
+            public MenuOption(string name, OptionType type, bool value, string description = null, bool isEnabled = true)
             {
                 Name = name;
                 Type = type;
@@ -68,7 +78,7 @@ namespace Forza_Mods_AIO.Overlay
                 IsEnabled = isEnabled;
             }
             //int
-            public MenuOption(string name, string type, int value, string description = null, bool isEnabled = true)
+            public MenuOption(string name, OptionType type, int value, string description = null, bool isEnabled = true)
             {
                 Name = name;
                 Type = type;
@@ -77,7 +87,7 @@ namespace Forza_Mods_AIO.Overlay
                 IsEnabled = isEnabled;
             }
             //method
-            public MenuOption(string name, string type, Action value, string description = null, bool isEnabled = true)
+            public MenuOption(string name, OptionType type, Action value, string description = null, bool isEnabled = true)
             {
                 Name = name;
                 Type = type;
@@ -86,7 +96,7 @@ namespace Forza_Mods_AIO.Overlay
                 IsEnabled = isEnabled;
             }
             //null value
-            public MenuOption(string name, string type, string description = null, bool isEnabled = true)
+            public MenuOption(string name, OptionType type, string description = null, bool isEnabled = true)
             {
                 Name = name;
                 Type = type;
@@ -160,9 +170,9 @@ namespace Forza_Mods_AIO.Overlay
                     { "DescriptionAreaOptions" , SettingsMenu.SettingsMenu.DescriptionAreaOptions}
         };
 
-        public static readonly MenuOption AutoshowGarageOption = new("Autoshow/Garage", "MenuButton", "Mods for the Autoshow such as free cars, all cars etc", false);
-        public static readonly MenuOption SelfVehicleOption = new("Self/Vehicle", "MenuButton", "Mods for yourself such as speedhack, flyhack etc", false);
-        public static readonly MenuOption TuningOption = new("Tuning", "MenuButton", "Mods such as extended tuning limits ect", false);
+        public static readonly MenuOption AutoshowGarageOption = new("Autoshow/Garage", MenuOption.OptionType.MenuButton, "Mods for the Autoshow such as free cars, all cars etc", false);
+        public static readonly MenuOption SelfVehicleOption = new("Self/Vehicle", MenuOption.OptionType.MenuButton, "Mods for yourself such as speedhack, flyhack etc", false);
+        public static readonly MenuOption TuningOption = new("Tuning", MenuOption.OptionType.MenuButton, "Mods such as extended tuning limits ect", false);
         
         // Main menu items, all submenus have their own class in Tabs.Overlay
         private static readonly List<MenuOption> MainOptions = new()
@@ -170,12 +180,12 @@ namespace Forza_Mods_AIO.Overlay
             AutoshowGarageOption,
             SelfVehicleOption,
             TuningOption,
-            new MenuOption("Settings", "MenuButton")
+            new MenuOption("Settings", MenuOption.OptionType.MenuButton)
         };
         private static readonly List<MenuOption> UnlocksOptions = new()
         {
-            new MenuOption("Currency", "MenuButton"),
-            new MenuOption("Cosmetics", "MenuButton", isEnabled: false)
+            new MenuOption("Currency", MenuOption.OptionType.MenuButton),
+            new MenuOption("Cosmetics", MenuOption.OptionType.MenuButton, isEnabled: false)
         };
 
         // Add all sub menu classes here for event handling

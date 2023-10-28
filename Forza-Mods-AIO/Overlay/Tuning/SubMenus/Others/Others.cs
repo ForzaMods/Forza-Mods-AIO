@@ -6,7 +6,7 @@ public abstract class Others
 {
     public static readonly List<Overlay.MenuOption> OthersOptions = new()
     {
-        new Overlay.MenuOption("Wheelbase", "MenuButton"),
-        new Overlay.MenuOption("Rims", "MenuButton")
+        new Overlay.MenuOption("Wheelbase", Overlay.MenuOption.OptionType.MenuButton),
+        new Overlay.MenuOption("Rims", Overlay.MenuOption.OptionType.MenuButton)
     };
 }

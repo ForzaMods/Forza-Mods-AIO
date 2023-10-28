@@ -16,14 +16,14 @@ public abstract class Tuning
     // All of these are submenus, so they have their own folders
     public static readonly List<Overlay.MenuOption> TuningOptions = new()
     {
-        new Overlay.MenuOption("Aero", "MenuButton"),
-        new Overlay.MenuOption("Alignment", "MenuButton"),
-        new Overlay.MenuOption("Damping", "MenuButton"),
-        new Overlay.MenuOption("Gearing", "MenuButton"),
-        new Overlay.MenuOption("Others", "MenuButton"),
-        new Overlay.MenuOption("Springs", "MenuButton"),
-        new Overlay.MenuOption("Steering", "MenuButton"),
-        new Overlay.MenuOption("Tires", "MenuButton")
+        new Overlay.MenuOption("Aero", Overlay.MenuOption.OptionType.MenuButton),
+        new Overlay.MenuOption("Alignment", Overlay.MenuOption.OptionType.MenuButton),
+        new Overlay.MenuOption("Damping", Overlay.MenuOption.OptionType.MenuButton),
+        new Overlay.MenuOption("Gearing", Overlay.MenuOption.OptionType.MenuButton),
+        new Overlay.MenuOption("Others", Overlay.MenuOption.OptionType.MenuButton),
+        new Overlay.MenuOption("Springs", Overlay.MenuOption.OptionType.MenuButton),
+        new Overlay.MenuOption("Steering", Overlay.MenuOption.OptionType.MenuButton),
+        new Overlay.MenuOption("Tires", Overlay.MenuOption.OptionType.MenuButton)
     };
 
     public static void InitiateSubMenu()

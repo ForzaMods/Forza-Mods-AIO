@@ -7,21 +7,21 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.PhotomodeMenu;
 
 public abstract class PhotomodeMenu
 {
-    private static readonly Overlay.MenuOption SamplesValue = new("Samples", "Int", 0);
-    private static readonly Overlay.MenuOption ShutterSpeedValue = new("Shutter Speed", "Float", 0f);
-    private static readonly Overlay.MenuOption TimeSliceValue = new("Time Slice", "Float", 0f);
-    private static readonly Overlay.MenuOption ApertureScaleValue = new("Aperture Scale", "Float", 0f);
-    private static readonly Overlay.MenuOption CarInFocusValue = new("Car In Focus", "Float", 0f);
+    private static readonly Overlay.MenuOption SamplesValue = new("Samples", Overlay.MenuOption.OptionType.Int, 0);
+    private static readonly Overlay.MenuOption ShutterSpeedValue = new("Shutter Speed", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption TimeSliceValue = new("Time Slice", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption ApertureScaleValue = new("Aperture Scale", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption CarInFocusValue = new("Car In Focus", Overlay.MenuOption.OptionType.Float, 0f);
 
-    private static readonly Overlay.MenuOption TurnSpeedValue = new("Turn Speed", "Float", 0f);
-    private static readonly Overlay.MenuOption SamplesMultiplierValue = new("Samples Multiplier", "Float", 0f);
-    private static readonly Overlay.MenuOption MovementSpeedValue = new("Movement Speed", "Float", 0f);
+    private static readonly Overlay.MenuOption TurnSpeedValue = new("Turn Speed", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption SamplesMultiplierValue = new("Samples Multiplier", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption MovementSpeedValue = new("Movement Speed", Overlay.MenuOption.OptionType.Float, 0f);
 
-    private static readonly Overlay.MenuOption NoClipToggle = new("No Clip", "Bool", false);
-    private static readonly Overlay.MenuOption UnlimitedAltitudeToggle = new("Unlimited Altitude", "Bool", false);
-    private static readonly Overlay.MenuOption IncreasedZoomToggle = new("Increased Zoom", "Bool", false);
+    private static readonly Overlay.MenuOption NoClipToggle = new("No Clip", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly Overlay.MenuOption UnlimitedAltitudeToggle = new("Unlimited Altitude", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly Overlay.MenuOption IncreasedZoomToggle = new("Increased Zoom", Overlay.MenuOption.OptionType.Bool, false);
     
-    private static readonly Overlay.MenuOption PullValues = new("Pull All Values", "Button", (() =>
+    private static readonly Overlay.MenuOption PullValues = new("Pull All Values", Overlay.MenuOption.OptionType.Button, (() =>
     {
         var PhotoPage = PhotomodePage.PhotoPage;
         
@@ -40,19 +40,19 @@ public abstract class PhotomodeMenu
 
     public static readonly List<Overlay.MenuOption> PhotomodeOptions = new()
     {
-        new Overlay.MenuOption("Photomode Values", "MenuButton"),
-        new Overlay.MenuOption("Photomode Toggles", "MenuButton")
+        new Overlay.MenuOption("Photomode Values", Overlay.MenuOption.OptionType.MenuButton),
+        new Overlay.MenuOption("Photomode Toggles", Overlay.MenuOption.OptionType.MenuButton)
     };
 
     public static readonly List<Overlay.MenuOption> PhotomodeValues = new()
     {
-        new("Numerics", "SubHeader"),
+        new("Numerics", Overlay.MenuOption.OptionType.SubHeader),
         SamplesValue,
         ShutterSpeedValue,
         TimeSliceValue,
         ApertureScaleValue,
         CarInFocusValue,
-        new("Sliders", "SubHeader"),
+        new("Sliders", Overlay.MenuOption.OptionType.SubHeader),
         TurnSpeedValue,
         SamplesMultiplierValue,
         MovementSpeedValue,

@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections.Generic;
 
@@ -7,8 +5,8 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.CustomizationMenu;
 
 public abstract class CustomizationMenu
 {
-    private static readonly Overlay.MenuOption GlowingPaintValue = new Overlay.MenuOption("Value", "Float", 30f);
-    private static readonly Overlay.MenuOption GlowingPaintToggle = new Overlay.MenuOption("Enable", "Bool", false);
+    private static readonly Overlay.MenuOption GlowingPaintValue = new Overlay.MenuOption("Value", Overlay.MenuOption.OptionType.Float, 30f);
+    private static readonly Overlay.MenuOption GlowingPaintToggle = new Overlay.MenuOption("Enable", Overlay.MenuOption.OptionType.Bool, false);
     
     public static void InitiateSubMenu()
     {
@@ -45,7 +43,7 @@ public abstract class CustomizationMenu
     // Menu list for this section
     public static List<Overlay.MenuOption> CustomizationOptions = new List<Overlay.MenuOption>()
     {
-        new ("Glowing Paint", "SubHeader"),
+        new ("Glowing Paint", Overlay.MenuOption.OptionType.SubHeader),
         GlowingPaintValue,
         GlowingPaintToggle
     };

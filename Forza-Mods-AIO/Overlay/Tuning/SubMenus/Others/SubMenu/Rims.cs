@@ -5,12 +5,12 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others.SubMenu;
 
 public abstract class Rims
 {
-    private static readonly Overlay.MenuOption RimSizeFrontValue = new ("Wheelbase", "Float", 0f);
-    private static readonly Overlay.MenuOption RimRadiusFrontValue = new ("Front Width", "Float", 0f);
-    private static readonly Overlay.MenuOption RimSizeRearValue = new ("Rear Width", "Float", 0f);
-    private static readonly Overlay.MenuOption RimRadiusRearValue = new ("Front Spacer", "Float", 0f);
+    private static readonly Overlay.MenuOption RimSizeFrontValue = new ("Wheelbase", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RimRadiusFrontValue = new ("Front Width", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RimSizeRearValue = new ("Rear Width", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RimRadiusRearValue = new ("Front Spacer", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption RimsPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption RimsPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Others = Tabs.Tuning.DropDownTabs.Others.o;
         

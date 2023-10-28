@@ -5,15 +5,15 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs.SubMenus;
 
 public abstract class RideHeight
 {
-    private static readonly Overlay.MenuOption FrontRideHeightMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption FrontRideHeightMaxValue = new ("Max Value", "Float", 0f);
-    private static readonly Overlay.MenuOption RearRideHeightMinValue = new ("Min Value", "Float", 0f);
-    private static readonly Overlay.MenuOption RearRideHeightMaxValue = new ("Max Value", "Float", 0f);
+    private static readonly Overlay.MenuOption FrontRideHeightMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption FrontRideHeightMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RearRideHeightMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly Overlay.MenuOption RearRideHeightMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption FrontRideHeightRestriction = new ("Restriction", "Bool", false);
-    private static readonly Overlay.MenuOption RearRideHeightRestriction = new ("Restriction", "Bool", false);
+    private static readonly Overlay.MenuOption FrontRideHeightRestriction = new ("Restriction", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly Overlay.MenuOption RearRideHeightRestriction = new ("Restriction", Overlay.MenuOption.OptionType.Bool, false);
     
-    private static readonly Overlay.MenuOption FrontRideHeightPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption FrontRideHeightPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Springs = Tabs.Tuning.DropDownTabs.Springs.sp;
         
@@ -24,7 +24,7 @@ public abstract class RideHeight
         });
     }));
     
-    private static readonly Overlay.MenuOption RearRideHeightPull = new ("Pull values", "Button", new Action(() =>
+    private static readonly Overlay.MenuOption RearRideHeightPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
     {
         var Springs = Tabs.Tuning.DropDownTabs.Springs.sp;
         
@@ -37,12 +37,12 @@ public abstract class RideHeight
     
     public static readonly List<Overlay.MenuOption> RideHeightOptions = new()
     {
-        new ("Front Ride Height", "SubHeader"),
+        new ("Front Ride Height", Overlay.MenuOption.OptionType.SubHeader),
         FrontRideHeightMinValue,
         FrontRideHeightMaxValue,
         FrontRideHeightRestriction,
         FrontRideHeightPull,
-        new ("Rear Ride Height", "SubHeader"),
+        new ("Rear Ride Height", Overlay.MenuOption.OptionType.SubHeader),
         RearRideHeightMinValue,
         RearRideHeightMaxValue,
         RearRideHeightRestriction,

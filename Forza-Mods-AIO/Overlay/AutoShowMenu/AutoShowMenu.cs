@@ -7,9 +7,9 @@ public abstract class AutoShowMenu
 {
     public static readonly List<Overlay.MenuOption> AutoShowOptions = new()
     {
-        new("Autoshow Filters", "MenuButton"),
-        new("Garage Modifications", "MenuButton"),
-        new("Others Modifications", "MenuButton")
+        new("Autoshow Filters", Overlay.MenuOption.OptionType.MenuButton),
+        new("Garage Modifications", Overlay.MenuOption.OptionType.MenuButton),
+        new("Others Modifications", Overlay.MenuOption.OptionType.MenuButton)
     };
 
     public static void InitiateSubMenu()
