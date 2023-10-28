@@ -45,6 +45,13 @@ public partial class FovPage
 
     private void FovSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (MainWindow.mw.gvp.Name == "Forza Horizon 4" && FovSwitch.IsOn)
+        {
+            MessageBox.Show("Fov Lock Isnt implemented for FH4. Use limiters instead");
+            FovSwitch.IsOn = false;
+            return;
+        }
+        
         if ((bool)sender.GetType().GetProperty("IsOn").GetValue(sender))
         {
             Self_Vehicle_ASM.Fov();

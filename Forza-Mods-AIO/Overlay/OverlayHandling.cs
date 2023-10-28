@@ -521,7 +521,7 @@ namespace Forza_Mods_AIO.Overlay
                         _ => Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value
                     };
                 }
-                Thread.Sleep(25);
+                Thread.Sleep(50);
             }
         }
 
