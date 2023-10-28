@@ -23,5 +23,6 @@ public abstract class SelfCarMenu
         PhotomodeMenu.PhotomodeMenu.InitiateSubMenu();
         CustomizationMenu.CustomizationMenu.InitiateSubMenu();
         HandlingMenu.HandlingMenu.InitiateSubMenu();
+        UnlocksMenu.CurrencyMenu.InitiateSubMenu();
     }
 }

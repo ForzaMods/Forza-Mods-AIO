@@ -120,7 +120,10 @@ namespace Forza_Mods_AIO.Overlay
         public void CacheHeaders()
         {
             if (!Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers"))
+            {
                 return;
+            }
+
             MenuHeaders = Directory.GetFiles(Environment.CurrentDirectory + @"\Overlay\Headers");
             foreach (string header in MenuHeaders)
             {
@@ -285,7 +288,7 @@ namespace Forza_Mods_AIO.Overlay
                 foreach (var item in Overlay.o.AllMenus[CurrentMenu])
                 {
                     string Text = string.Empty, Value = string.Empty, Description = string.Empty;
-                    SolidColorBrush FColour = Brushes.White;
+                    SolidColorBrush FColour;
                     if (index == SelectedOptionIndex)
                     {
                         Text = $"[{item.Name}]";
@@ -301,8 +304,8 @@ namespace Forza_Mods_AIO.Overlay
                     Value = item.Type switch
                     {
                         Overlay.MenuOption.OptionType.MenuButton => ">",
-                        Overlay.MenuOption.OptionType.Float when item.Value.GetType() == typeof(object) => String.Format("<{0:0.00000}>", item.Value.GetType().GetProperty("Value").GetValue(item)),
-                        Overlay.MenuOption.OptionType.Float => String.Format("<{0:0.00000}>", item.Value),
+                        Overlay.MenuOption.OptionType.Float when item.Value.GetType() == typeof(object) => $"<{item.Value.GetType().GetProperty("Value").GetValue(item):0.00000}>",
+                        Overlay.MenuOption.OptionType.Float => $"<{item.Value:0.00000}>",
                         Overlay.MenuOption.OptionType.Int when item.Value.GetType() == typeof(object) => $"<{item.Value.GetType().GetProperty("Value").GetValue(item)}>",
                         Overlay.MenuOption.OptionType.Int => $"<{item.Value}>",
                         Overlay.MenuOption.OptionType.Bool when (bool)item.Value => "[X]",
@@ -447,103 +450,78 @@ namespace Forza_Mods_AIO.Overlay
                 var IsGameFocused = MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow();
                 if (DownKeyDown && IsGameFocused)
                 {
-                    int count = 0;
-                    SelectedOptionIndex++;
-                    if (SelectedOptionIndex > Overlay.o.AllMenus[CurrentMenu].Count - 1)
-                        SelectedOptionIndex = 0;
-
-                    Timer timer = new Timer();
-                    timer.Interval = 500;
-                    timer.Tick += delegate
+                    void Down()
                     {
-                        if (count == 0)
-                            timer.Interval = 100;
                         SelectedOptionIndex++;
                         if (SelectedOptionIndex > Overlay.o.AllMenus[CurrentMenu].Count - 1)
                             SelectedOptionIndex = 0;
-                        count++;
-                        Thread.Sleep(1);
+                    }
+                    Down();
+
+                    var timer = new Timer();
+                    timer.Interval = 150;
+                    timer.Tick += delegate
+                    {
+                        Down();
+                        Thread.Sleep(5);
                     };
                     Overlay.o.Dispatcher.Invoke(delegate { timer.Start(); });
                     while (DownKeyDown) { Thread.Sleep(1); }
                     Overlay.o.Dispatcher.Invoke(delegate { timer.Dispose(); });
                 }
-                if (UpKeyDown && IsGameFocused)
+                else if (UpKeyDown && IsGameFocused)
                 {
-                    int count = 0;
-                    SelectedOptionIndex--;
-                    if (SelectedOptionIndex < 0)
-                        SelectedOptionIndex = Overlay.o.AllMenus[CurrentMenu].Count - 1;
-
-                    Timer timer = new Timer();
-                    timer.Interval = 500;
-                    timer.Tick += delegate
+                    void Up()
                     {
-                        if (count == 0)
-                            timer.Interval = 100;
                         SelectedOptionIndex--;
                         if (SelectedOptionIndex < 0)
                             SelectedOptionIndex = Overlay.o.AllMenus[CurrentMenu].Count - 1;
-                        count++;
-                        Thread.Sleep(1);
+                    }
+                    Up();
+
+                    var timer = new Timer();
+                    timer.Interval = 150;
+                    timer.Tick += delegate
+                    { 
+                        Up();
+                        Thread.Sleep(5);
                     };
                     Overlay.o.Dispatcher.Invoke(delegate { timer.Start(); });
                     while (UpKeyDown) { Thread.Sleep(1); }
                     Overlay.o.Dispatcher.Invoke(delegate { timer.Dispose(); });
                 }
+                Thread.Sleep(10);
+            }
+        }
+
+        public void ChangeValue(CancellationToken ct)
+        {
+            while (true)
+            {
+                if (ct.IsCancellationRequested)
+                    return;
+                var IsGameFocused = MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow();
+                
                 if (RightKeyDown && Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].IsEnabled && IsGameFocused)
                 {
-                    int count = 0;
-                    var Inc = delegate ()
+                    Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type switch
                     {
-                        if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == Overlay.MenuOption.OptionType.Float)
-                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = Convert.ToSingle(Math.Round((float)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value + 0.1f, 1));
-                        else if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == Overlay.MenuOption.OptionType.Int)
-                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = (int)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value + 1;
+                        Overlay.MenuOption.OptionType.Float => Convert.ToSingle(Math.Round((float)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value + 0.1f, 1)),
+                        Overlay.MenuOption.OptionType.Int => (int)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value + 1,
+                        _ => Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value
                     };
-                    Inc();
-
-                    Timer timer = new Timer();
-                    timer.Interval = 250;
-                    timer.Tick += delegate
-                    {
-                        if (count > 0)
-                            timer.Interval = 5;
-                        Inc();
-                        count++;
-                        Thread.Sleep(1);
-                    };
-                    Overlay.o.Dispatcher.Invoke(delegate { timer.Start(); });
-                    while (RightKeyDown) { Thread.Sleep(1); }
-                    Overlay.o.Dispatcher.Invoke(delegate { timer.Dispose(); });
+                    
                 }
-                if (LeftKeyDown && Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].IsEnabled && IsGameFocused)
+                else if (LeftKeyDown && Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].IsEnabled && IsGameFocused)
                 {
-                    int count = 0;
-                    var Dec = delegate ()
+                    Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type switch
                     {
-                        if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == Overlay.MenuOption.OptionType.Float)
-                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = Convert.ToSingle(Math.Round((float)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value - 0.1f, 1));
-                        else if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type == Overlay.MenuOption.OptionType.Int)
-                            Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = (int)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value - 1;
+                        Overlay.MenuOption.OptionType.Float => Convert.ToSingle(Math.Round((float)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value - 0.1f, 1)), 
+                        Overlay.MenuOption.OptionType.Int => (int)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value - 1,
+                        _ => Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value
                     };
-                    Dec();
-
-                    Timer timer = new Timer();
-                    timer.Interval = 250;
-                    timer.Tick += delegate
-                    {
-                        if (count > 0)
-                            timer.Interval = 5;
-                        Dec();
-                        count++;
-                        Thread.Sleep(1);
-                    };
-                    Overlay.o.Dispatcher.Invoke(delegate { timer.Start(); });
-                    while (LeftKeyDown) { Thread.Sleep(1); }
-                    Overlay.o.Dispatcher.Invoke(delegate { timer.Dispose(); });
                 }
-                Thread.Sleep(10);
+                Thread.Sleep(25);
             }
         }
 

@@ -47,6 +47,14 @@ public abstract class AutoshowFilters
     {
         AutoShow.AS.Dispatcher.Invoke(() =>
         {
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4") 
+            {
+                GarageModifications.FixThumbnailsToggle.IsEnabled = !GarageModifications.FixThumbnailsToggle.IsEnabled;
+                GarageModifications.ShowTrafficHsNullToggle.IsEnabled = !GarageModifications.ShowTrafficHsNullToggle.IsEnabled;
+                GarageModifications.UnlockHiddenPresetsToggle.IsEnabled = !GarageModifications.UnlockHiddenPresetsToggle.IsEnabled;
+                GarageModifications.UnlockHiddenDecalsToggle.IsEnabled = !GarageModifications.UnlockHiddenDecalsToggle.IsEnabled;
+            }
+            
             AutoShow.AS.ToggleFreeCars.IsOn = (bool)FreeCarsToggle.Value;
         });
     }

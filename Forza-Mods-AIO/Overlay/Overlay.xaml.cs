@@ -5,17 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
-using Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
-using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping;
-using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping.SubMenus;
-using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Gearing;
-using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others;
-using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others.SubMenu;
-using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs.SubMenus;
-using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Steering;
-using Aero = Forza_Mods_AIO.Overlay.Tuning.SubMenus.Aero.Aero;
-using Alignment = Forza_Mods_AIO.Overlay.Tuning.SubMenus.Alignment.Alignment;
-using Springs = Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs;
 
 namespace Forza_Mods_AIO.Overlay
 {
@@ -134,10 +123,11 @@ namespace Forza_Mods_AIO.Overlay
                 { "SelfVehicleOptions" , SelfCarMenu.SelfCarMenu.SelfCarsOptions},
                     { "HandlingOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.HandlingOptions},
                         { "VelocityOptions" , SelfCarMenu.HandlingMenu.HandlingMenu.VelocityOptions},
-                        { "ModifiersOptions" , ModifiersMenu.ModifiersOptions},
+                        { "ModifiersOptions" , SelfCarMenu.HandlingMenu.ModifiersMenu.ModifiersOptions},
                         { "WheelSpeedOptions", SelfCarMenu.HandlingMenu.WheelspeedMenu.WheelSpeedOptions },
                         { "CustomizationOptions", SelfCarMenu.CustomizationMenu.CustomizationMenu.CustomizationOptions },
                     { "UnlocksOptions" , UnlocksOptions},
+                        { "CurrencyOptions" , SelfCarMenu.UnlocksMenu.CurrencyMenu.CurrencyMenuOptions },
                     { "PhotomodeOptions" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeOptions},
                         { "PhotomodeValuesOptions" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeValues },
                         { "PhotomodeTogglesOptions" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeToggles },
@@ -150,20 +140,20 @@ namespace Forza_Mods_AIO.Overlay
                             { "HoodLimitersOptions" , SelfCarMenu.FovMenu.FovLimiters.HoodLimitersOptions },
                             { "BumperLimitersOptions" , SelfCarMenu.FovMenu.FovLimiters.BumperLimitersOptions },
                 { "TuningOptions" , Tuning.Tuning.TuningOptions },
-                    { "AeroOptions" , Aero.AeroOptions },
-                    { "AlignmentOptions" , Alignment.AlignmentOptions },
-                    { "DampingOptions" , Damping.DampingOptions },         
-                        { "AntirollBarsDampingOptions" , AntirollBarsDamping.AntirollBarsDampingOptions },  
-                        { "ReboundStiffnessOptions" , ReboundStiffness.ReboundStiffnessOptions },  
-                        { "BumpStiffnessOptions" , BumpStiffness.BumpStiffnessOptions },  
-                    { "GearingOptions" , Gearing.GearingOptions },  
-                    { "OthersOptions" , Others.OthersOptions },  
-                        { "WheelbaseOptions" , Wheelbase.WheelbaseOptions },  
-                        { "RimsOptions" , Rims.RimsOptions },  
-                    { "SpringsOptions" , Springs.Springs.SpringsOptions },  
-                        { "SpringsValuesOptions" , SpringsValues.SpringsSubMenuOptions },  
-                        { "RideHeightOptions" , RideHeight.RideHeightOptions }, 
-                    { "SteeringOptions" , Steering.SteeringOptions },  
+                    { "AeroOptions" , Tuning.SubMenus.Aero.Aero.AeroOptions },
+                    { "AlignmentOptions" , Tuning.SubMenus.Alignment.Alignment.AlignmentOptions },
+                    { "DampingOptions" , Tuning.SubMenus.Damping.Damping.DampingOptions },         
+                        { "AntirollBarsDampingOptions" , Tuning.SubMenus.Damping.SubMenus.AntirollBarsDamping.AntirollBarsDampingOptions },  
+                        { "ReboundStiffnessOptions" , Tuning.SubMenus.Damping.SubMenus.ReboundStiffness.ReboundStiffnessOptions },  
+                        { "BumpStiffnessOptions" , Tuning.SubMenus.Damping.SubMenus.BumpStiffness.BumpStiffnessOptions },  
+                    { "GearingOptions" , Tuning.SubMenus.Gearing.Gearing.GearingOptions },  
+                    { "OthersOptions" , Tuning.SubMenus.Others.Others.OthersOptions },  
+                        { "WheelbaseOptions" , Tuning.SubMenus.Others.SubMenu.Wheelbase.WheelbaseOptions },  
+                        { "RimsOptions" , Tuning.SubMenus.Others.SubMenu.Rims.RimsOptions },  
+                    { "SpringsOptions" , Tuning.SubMenus.Springs.Springs.SpringsOptions },  
+                        { "SpringsValuesOptions" , Tuning.SubMenus.Springs.SubMenus.SpringsValues.SpringsSubMenuOptions },  
+                        { "RideHeightOptions" , Tuning.SubMenus.Springs.SubMenus.RideHeight.RideHeightOptions }, 
+                    { "SteeringOptions" , Tuning.SubMenus.Steering.Steering.SteeringOptions },  
                     { "TiresOptions" , Tuning.SubMenus.Tires.Tires.TiresOptions },  
                 { "SettingsOptions" , SettingsMenu.SettingsMenu.SettingsOptions},
                     { "MainAreaOptions" , SettingsMenu.SettingsMenu.MainAreaOptions},
@@ -190,7 +180,6 @@ namespace Forza_Mods_AIO.Overlay
 
         // Add all sub menu classes here for event handling
         SettingsMenu.SettingsMenu sm = new();
-        HandlingMenu hm = new();
         #endregion
         #region Main
         public Overlay()
@@ -225,6 +214,7 @@ namespace Forza_Mods_AIO.Overlay
                 Task.Run(() => oh.UpdateMenuOptions(cts.Token));
                 Task.Run(() => oh.KeyHandler(cts.Token));
                 Task.Run(() => oh.ChangeSelection(cts.Token));
+                Task.Run(() => oh.ChangeValue(cts.Token));
             }
             else
             {
