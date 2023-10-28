@@ -129,10 +129,10 @@ namespace Forza_Mods_AIO.Overlay
                         { "CustomizationOptions", SelfCarMenu.CustomizationMenu.CustomizationMenu.CustomizationOptions },
                     { "UnlocksOptions" , UnlocksOptions},
                     { "PhotomodeOptions" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeOptions},
-                        { "PhotomodeValues" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeValues },
-                        { "PhotomodeToggles" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeToggles },
+                        { "PhotomodeValuesOptions" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeValues },
+                        { "PhotomodeTogglesOptions" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeToggles },
                     { "MiscellaneousOptions", SelfCarMenu.MiscMenu.MiscMenu.MiscMenuOptions },
-                    { "FovOptions" , SelfCarMenu.FovMenu.FovMenu.FovOptions },
+                    { "FOVOptions" , SelfCarMenu.FovMenu.FovMenu.FovOptions },
                         { "FovLockOptions" , SelfCarMenu.FovMenu.FovLock.FovLockOptions },
                         { "FovLimitersOptions" , SelfCarMenu.FovMenu.FovLimiters.FovLimiterOptions },
                             { "ChaseLimitersOptions" , SelfCarMenu.FovMenu.FovLimiters.ChaseLimitersOptions },
@@ -160,28 +160,26 @@ namespace Forza_Mods_AIO.Overlay
                     { "DescriptionAreaOptions" , SettingsMenu.SettingsMenu.DescriptionAreaOptions}
         };
 
-        public static MenuOption AutoshowGarageOption = new("Autoshow/Garage", "MenuButton", "Mods for the Autoshow such as free cars, all cars etc", false);
-        public static MenuOption SelfVehicleOption = new("Self/Vehicle", "MenuButton", "Mods for yourself such as speedhack, flyhack etc", false);
-        public static MenuOption TuningOption = new("Tuning", "MenuButton", "Mods such as extended tuning limits ect", false);
+        public static readonly MenuOption AutoshowGarageOption = new("Autoshow/Garage", "MenuButton", "Mods for the Autoshow such as free cars, all cars etc", false);
+        public static readonly MenuOption SelfVehicleOption = new("Self/Vehicle", "MenuButton", "Mods for yourself such as speedhack, flyhack etc", false);
+        public static readonly MenuOption TuningOption = new("Tuning", "MenuButton", "Mods such as extended tuning limits ect", false);
         
         // Main menu items, all submenus have their own class in Tabs.Overlay
-        private static List<MenuOption> MainOptions = new()
+        private static readonly List<MenuOption> MainOptions = new()
         {
             AutoshowGarageOption,
             SelfVehicleOption,
             TuningOption,
             new MenuOption("Settings", "MenuButton")
         };
-        private static List<MenuOption> UnlocksOptions = new()
+        private static readonly List<MenuOption> UnlocksOptions = new()
         {
-            new MenuOption("Clothes", "MenuButton"),
-            new MenuOption("Horns", "MenuButton"),
-            new MenuOption("Emotes", "MenuButton")
+            new MenuOption("Currency", "MenuButton"),
+            new MenuOption("Cosmetics", "MenuButton", isEnabled: false)
         };
 
         // Add all sub menu classes here for event handling
         SettingsMenu.SettingsMenu sm = new();
-        AutoShowMenu.AutoShowMenu am = new();
         HandlingMenu hm = new();
         #endregion
         #region Main
@@ -197,24 +195,9 @@ namespace Forza_Mods_AIO.Overlay
         void InitializeAllSubMenus()
         {
             sm.InitiateSubMenu();
-            am.InitiateSubMenu();
-            hm.InitiateSubMenu();
-            Aero.InitiateSubMenu();
-            Alignment.InitiateSubMenu();
-            AntirollBarsDamping.InitiateSubMenu();
-            ReboundStiffness.InitiateSubMenu();
-            BumpStiffness.InitiateSubMenu();
-            Gearing.InitiateSubMenu();
-            Wheelbase.InitiateSubMenu();
-            Rims.InitiateSubMenu();
-            SpringsValues.InitiateSubMenu();
-            RideHeight.InitiateSubMenu();
-            SelfCarMenu.CustomizationMenu.CustomizationMenu.InitiateSubMenu();
-            Tuning.SubMenus.Tires.Tires.InitiateSubMenu();
-            SelfCarMenu.FovMenu.FovLock.InitiateSubMenu();
-            Steering.InitiateSubMenu();
-            SelfCarMenu.MiscMenu.MiscMenu.InitiateSubMenu();
-            SelfCarMenu.PhotomodeMenu.PhotomodeMenu.InitiateSubMenu();
+            SelfCarMenu.SelfCarMenu.InitiateSubMenu();
+            AutoShowMenu.AutoShowMenu.InitiateSubMenu();
+            Tuning.Tuning.InitiateSubMenu();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

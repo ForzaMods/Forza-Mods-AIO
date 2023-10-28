@@ -128,7 +128,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning
         public static string TuningTableHook3;
         public static string TuningTableHook4;
         
-        private const int ScanAmount = 5;
+        private const int ScanAmount = 6;
 
         #endregion
 
@@ -157,6 +157,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning
             Tuning_ASM.GetTuningBaseAddresses();
             Task.Run(() => ReadValues());
             Overlay.Overlay.TuningOption.IsEnabled = true;
+            UpdateUi.AddProgress(ScanAmount, 6, Tuning.TBM.AOBProgressBar);
             UpdateUi.UpdateUI(true, Tuning.TBM);
         }
 

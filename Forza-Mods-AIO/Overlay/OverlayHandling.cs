@@ -129,6 +129,17 @@ namespace Forza_Mods_AIO.Overlay
                 Headers.Add(new object[] { header.Split('\\').Last().Split('.').First(), new BitmapImage(new Uri(header)) });
             }
         }
+        
+        public void LoadSettings()
+        {
+            
+        }
+
+        public void SaveSettings()
+        {
+            
+        }
+        
         // Handles the position of the overlay
         public void OverlayPosAndScale(CancellationToken ct)
         {
@@ -179,10 +190,8 @@ namespace Forza_Mods_AIO.Overlay
                     Overlay.o.Dispatcher.Invoke(delegate ()
                     {
                         // Set position
-                        if (Overlay.o.Top != PosTop)
-                            Overlay.o.Top = PosTop;
-                        if (Overlay.o.Left != PosLeft)
-                            Overlay.o.Left = PosLeft;
+                        Overlay.o.Top = PosTop;
+                        Overlay.o.Left = PosLeft;
 
                         // Set width of menu and set header size (scale with resolution)
                         Overlay.o.Width = HeaderX;
@@ -228,7 +237,7 @@ namespace Forza_Mods_AIO.Overlay
                     return;
 
                 Thread.Sleep(10);
-
+                
                 // Clears the menu
                 Overlay.o.Dispatcher.BeginInvoke((Action)delegate () { Overlay.o.OptionsBlock.Inlines.Clear(); Overlay.o.ValueBlock.Inlines.Clear(); });
                 int index = 0;

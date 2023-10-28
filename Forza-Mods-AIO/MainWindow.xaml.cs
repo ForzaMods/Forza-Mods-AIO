@@ -265,6 +265,9 @@ namespace Forza_Mods_AIO
             Is_Scanned["Autoshow"] = false;
             Is_Scanned["Self_Vehicle"] = false;
             Is_Scanned["Tuning"] = false;
+
+            if (Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsOn)
+                Tabs.AIO_Info.AIO_Info.ai.OverlaySwitch.IsOn = false;
             Overlay.Overlay.AutoshowGarageOption.IsEnabled = false;
             Overlay.Overlay.SelfVehicleOption.IsEnabled = false;
             Overlay.Overlay.TuningOption.IsEnabled = false;
@@ -310,20 +313,17 @@ namespace Forza_Mods_AIO
                     
                     m.WriteArrayMemory(Self_Vehicle_Addrs.FOVnopOutAddr, new byte[] { 0x0F, 0x11, 0x43, 0x10 });
                     m.WriteArrayMemory(Self_Vehicle_Addrs.FOVnopInAddr, new byte[] { 0x0F, 0x11, 0x73, 0x10 });
-                    m.WriteMemory<byte>(Self_Vehicle_Addrs.FOVJmpAddr, 0x76);
                 }
 
-                m.WriteMemory(Self_Vehicle_Addrs.WorldRGBAddr,  0.003921568859f);
-                m.WriteMemory((Self_Vehicle_Addrs.WorldRGBAddrLong + 4).ToString("X"), 0.003921568859f);
-                m.WriteMemory((Self_Vehicle_Addrs.WorldRGBAddrLong + 8).ToString("X"), 0.003921568859f);
+                m.WriteMemory(Self_Vehicle_Addrs.SunRedAddr,  0.003921568859f);
+                m.WriteMemory(Self_Vehicle_Addrs.SunGreenAddr, 0.003921568859f);
+                m.WriteMemory(Self_Vehicle_Addrs.SunBlueAddr, 0.003921568859f);
 
                 m.WriteArrayMemory(Self_Vehicle_Addrs.Wall1Addr, gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 });
                 m.WriteArrayMemory(Self_Vehicle_Addrs.Wall2Addr, gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 });
                 m.WriteArrayMemory(Self_Vehicle_Addrs.Car1Addr, gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 }); 
                 m.WriteArrayMemory(Self_Vehicle_Addrs.WaterAddr, new byte[] { 0xCD, 0xCC, 0x4C, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x67, 0x45, 0x00, 0xF0, 0x52, 0x46, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x3F, 0x00, 0x00, 0x00, 0x00, 0xCD, 0xCC, 0xCC, 0x3D, 0x00, 0x00, 0x00, 0x3F, 0x00, 0x00, 0x00, 0x00,0x00, 0x40, 0xC4, 0x44, 0x00, 0x00, 0xFF, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x42, 0x00, 0x00, 0xC8, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x00, 0x00, 0x70, 0x41 });
                 m.WriteArrayMemory(Self_Vehicle_Addrs.AIXAobAddr, new byte[] { 0x0F, 0x11, 0x41, 0x50, 0x48, 0x8B, 0xFA });
-
-                m.WriteMemory<byte>(Self_Vehicle_Addrs.FOVJmpAddr, 0xEB);
             }
             catch { /* ignored */ }
             

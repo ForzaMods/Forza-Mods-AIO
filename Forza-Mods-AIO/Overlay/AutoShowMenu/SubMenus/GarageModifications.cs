@@ -1,109 +1,115 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
 using Forza_Mods_AIO.Tabs.AutoShowTab;
 
-namespace Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus
+namespace Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus;
+
+public abstract class GarageModifications
 {
-    public class GarageModifications
+    private static readonly Overlay.MenuOption ShowTrafficHsNullToggle = new("Show Traffic/HS/Null", "Bool", false);
+    private static readonly Overlay.MenuOption UnlockHiddenDecalsToggle = new("Unlock Hidden Decals", "Bool", false);
+    private static readonly Overlay.MenuOption UnlockHiddenPresetsToggle = new("Unlock Hidden Presets", "Bool", false);
+    private static readonly Overlay.MenuOption RemoveAnyCarToggle = new("Remove Any Car", "Bool", false);
+    private static readonly Overlay.MenuOption FixThumbnailsToggle = new("Fix Thumbnails", "Bool", false);
+    public static readonly Overlay.MenuOption PaintLegoCarsToggle = new("Paint Lego Cars", "Bool", false);
+
+    public static readonly List<Overlay.MenuOption> GarageModificationsOptions = new()
     {
-        static Dispatcher dispatcher = Application.Current.Dispatcher;
-        public static Overlay.MenuOption ShowTrafficHsNullToggle = new Overlay.MenuOption("Show Traffic/HS/Null", "Bool", false);
-        public static Overlay.MenuOption UnlockHiddenDecalsToggle = new Overlay.MenuOption("Unlock Hidden Decals", "Bool", false);
-        public static Overlay.MenuOption UnlockHiddenPresetsToggle = new Overlay.MenuOption("Unlock Hidden Presets", "Bool", false);
-        public static Overlay.MenuOption RemoveAnyCarToggle = new Overlay.MenuOption("Remove Any Car", "Bool", false);
-        public static Overlay.MenuOption PaintLegoCarsToggle = new Overlay.MenuOption("Paint Lego Cars", "Bool", false);
-        public static Overlay.MenuOption FixThumbnailsToggle = new Overlay.MenuOption("Fix Thumbnails", "Bool", false);
+        ShowTrafficHsNullToggle,
+        UnlockHiddenDecalsToggle,
+        UnlockHiddenPresetsToggle,
+        RemoveAnyCarToggle,
+        PaintLegoCarsToggle,
+        FixThumbnailsToggle
+    };
 
-        public static List<Overlay.MenuOption> GarageModificationsOptions = new List<Overlay.MenuOption>()
-        {
-            ShowTrafficHsNullToggle,
-            UnlockHiddenDecalsToggle,
-            UnlockHiddenPresetsToggle,
-            RemoveAnyCarToggle,
-            PaintLegoCarsToggle,
-            FixThumbnailsToggle
-        };
+    public static void InitiateSubMenu()
+    {
+        ShowTrafficHsNullToggle.ValueChangedHandler += ShowTrafficHsNullToggled;
+        UnlockHiddenDecalsToggle.ValueChangedHandler += UnlockHiddenDecalsToggled;
+        UnlockHiddenPresetsToggle.ValueChangedHandler += UnlockHiddenPresetsToggled;
+        RemoveAnyCarToggle.ValueChangedHandler += RemoveAnyCarToggled;
+        PaintLegoCarsToggle.ValueChangedHandler += PaintLegoCarsToggled;
+        FixThumbnailsToggle.ValueChangedHandler += FixThumbnailsToggled;
+    }
 
-        public void Initalize()
+    private static void ShowTrafficHsNullToggled(object s, EventArgs e)
+    {
+        AutoShow.AS.Dispatcher.Invoke((Action)(() =>
         {
-            ShowTrafficHsNullToggle.ValueChangedHandler += new EventHandler(ShowTrafficHsNullToggled);
-            UnlockHiddenDecalsToggle.ValueChangedHandler += new EventHandler(UnlockHiddenDecalsToggled);
-            UnlockHiddenPresetsToggle.ValueChangedHandler += new EventHandler(UnlockHiddenPresetsToggled);
-            RemoveAnyCarToggle.ValueChangedHandler += new EventHandler(RemoveAnyCarToggled);
-            PaintLegoCarsToggle.ValueChangedHandler += new EventHandler(PaintLegoCarsToggled);
-            FixThumbnailsToggle.ValueChangedHandler += new EventHandler(FixThumbnailsToggled);
-        }
-
-        void ShowTrafficHsNullToggled(object s, EventArgs e)
-        {
-            Task.Run(() =>
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4") 
             {
-                AutoshowFilters.FreeCarsToggle.Value = false;
-                GarageModifications.FixThumbnailsToggle.Value = false;
-                GarageModifications.UnlockHiddenDecalsToggle.Value = false;
-                GarageModifications.UnlockHiddenPresetsToggle.Value = false;
+                AutoshowFilters.FreeCarsToggle.IsEnabled = !AutoshowFilters.FreeCarsToggle.IsEnabled;
+                FixThumbnailsToggle.IsEnabled = !FixThumbnailsToggle.IsEnabled;
+                UnlockHiddenDecalsToggle.IsEnabled = !UnlockHiddenDecalsToggle.IsEnabled;
+                UnlockHiddenPresetsToggle.IsEnabled = !UnlockHiddenPresetsToggle.IsEnabled;
+            }            
+            
+            AutoShow.AS.ShowTrafficHSNull.IsOn = (bool)ShowTrafficHsNullToggle.Value; 
+        }));
+    }
 
-                dispatcher.BeginInvoke((Action)(() => { AutoShow.AS.ShowTrafficHSNull.IsOn = (bool)ShowTrafficHsNullToggle.Value; }));
-            });
-        }
-
-        void UnlockHiddenDecalsToggled(object s, EventArgs e)
+    private static void UnlockHiddenDecalsToggled(object s, EventArgs e)
+    {
+        AutoShow.AS.Dispatcher.Invoke(() =>
         {
-            Task.Run(() =>
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4") 
             {
-                AutoshowFilters.FreeCarsToggle.Value = false;
-                GarageModifications.FixThumbnailsToggle.Value = false;
-                GarageModifications.UnlockHiddenPresetsToggle.Value = false;
-                GarageModifications.ShowTrafficHsNullToggle.Value = false;
+                AutoshowFilters.FreeCarsToggle.IsEnabled = !AutoshowFilters.FreeCarsToggle.IsEnabled;
+                FixThumbnailsToggle.IsEnabled = !FixThumbnailsToggle.IsEnabled;
+                ShowTrafficHsNullToggle.IsEnabled = !ShowTrafficHsNullToggle.IsEnabled;
+                UnlockHiddenPresetsToggle.IsEnabled = !UnlockHiddenPresetsToggle.IsEnabled;
+            }
+            
+            AutoShow.AS.UnlockHiddenDecals.IsOn = (bool)UnlockHiddenDecalsToggle.Value;
+        });
+    }
 
-                dispatcher.BeginInvoke((Action)(() => { AutoShow.AS.UnlockHiddenDecals.IsOn = (bool)UnlockHiddenDecalsToggle.Value; }));
-            });
-        }
-
-        void UnlockHiddenPresetsToggled(object s, EventArgs e)
+    private static void UnlockHiddenPresetsToggled(object s, EventArgs e)
+    {
+        AutoShow.AS.Dispatcher.Invoke(() =>
         {
-            Task.Run(() =>
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4") 
             {
-                AutoshowFilters.FreeCarsToggle.Value = false;
-                GarageModifications.FixThumbnailsToggle.Value = false;
-                GarageModifications.ShowTrafficHsNullToggle.Value = false;
-                GarageModifications.UnlockHiddenPresetsToggle.Value = false;
+                AutoshowFilters.FreeCarsToggle.IsEnabled = !AutoshowFilters.FreeCarsToggle.IsEnabled;
+                FixThumbnailsToggle.IsEnabled = !FixThumbnailsToggle.IsEnabled;
+                ShowTrafficHsNullToggle.IsEnabled = !ShowTrafficHsNullToggle.IsEnabled;
+                UnlockHiddenDecalsToggle.IsEnabled = !UnlockHiddenDecalsToggle.IsEnabled;
+            }
                 
+            AutoShow.AS.UnlockHiddenPresets.IsOn = (bool)UnlockHiddenPresetsToggle.Value;
+        });
+    }
 
-                dispatcher.BeginInvoke((Action)(() => { AutoShow.AS.UnlockHiddenPresets.IsOn = (bool)UnlockHiddenPresetsToggle.Value; }));
-            });
-
-        }
-
-        void RemoveAnyCarToggled(object s, EventArgs e)
+    private static void RemoveAnyCarToggled(object s, EventArgs e)
+    {
+        AutoShow.AS.Dispatcher.Invoke(() =>
         {
-            Task.Run(() =>
-            {
-                dispatcher.BeginInvoke((Action)(() => { AutoShow.AS.RemoveAnyCar.IsOn = (bool)RemoveAnyCarToggle.Value; }));
-            });
-        }
-        void PaintLegoCarsToggled(object s, EventArgs e)
-        {
-            Task.Run(() =>
-            {
-                dispatcher.BeginInvoke((Action)(() => { AutoShow.AS.PaintLegoCars.IsOn = (bool)PaintLegoCarsToggle.Value; }));
-            });
-        }
+            AutoShow.AS.RemoveAnyCar.IsOn = (bool)RemoveAnyCarToggle.Value;
+        });
+    }
 
-        void FixThumbnailsToggled(object s, EventArgs e)
+    private static void PaintLegoCarsToggled(object s, EventArgs e)
+    {
+        AutoShow.AS.Dispatcher.Invoke(() =>
         {
-            Task.Run(() =>
+            AutoShow.AS.PaintLegoCars.IsOn = (bool)PaintLegoCarsToggle.Value; 
+        });
+    }
+
+    private static void FixThumbnailsToggled(object s, EventArgs e)
+    {
+        AutoShow.AS.Dispatcher.Invoke(() =>
+        {
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4") 
             {
-                AutoshowFilters.FreeCarsToggle.Value = false;
-                GarageModifications.ShowTrafficHsNullToggle.Value = false;
-                GarageModifications.UnlockHiddenPresetsToggle.Value = false;
-                GarageModifications.UnlockHiddenDecalsToggle.Value = false;
-                
-                dispatcher.BeginInvoke((Action)(() => { AutoShow.AS.FixThumbnails.IsOn = (bool)FixThumbnailsToggle.Value; }));
-            });
-        }
+                AutoshowFilters.FreeCarsToggle.IsEnabled = !AutoshowFilters.FreeCarsToggle.IsEnabled;
+                UnlockHiddenPresetsToggle.IsEnabled = !UnlockHiddenPresetsToggle.IsEnabled;
+                ShowTrafficHsNullToggle.IsEnabled = !ShowTrafficHsNullToggle.IsEnabled;
+                UnlockHiddenDecalsToggle.IsEnabled = !UnlockHiddenDecalsToggle.IsEnabled;
+            }
+            
+            AutoShow.AS.FixThumbnails.IsOn = (bool)FixThumbnailsToggle.Value;
+        });
     }
 }

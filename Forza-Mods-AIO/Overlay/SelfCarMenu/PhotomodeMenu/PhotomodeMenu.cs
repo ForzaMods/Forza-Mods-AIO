@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Threading;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
 namespace Forza_Mods_AIO.Overlay.SelfCarMenu.PhotomodeMenu;
@@ -19,6 +20,23 @@ public abstract class PhotomodeMenu
     private static readonly Overlay.MenuOption NoClipToggle = new("No Clip", "Bool", false);
     private static readonly Overlay.MenuOption UnlimitedAltitudeToggle = new("Unlimited Altitude", "Bool", false);
     private static readonly Overlay.MenuOption IncreasedZoomToggle = new("Increased Zoom", "Bool", false);
+    
+    private static readonly Overlay.MenuOption PullValues = new("Pull All Values", "Button", (() =>
+    {
+        var PhotoPage = PhotomodePage.PhotoPage;
+        
+        PhotoPage.Dispatcher.Invoke(delegate ()
+        {
+            SamplesValue.Value = PhotoPage.SamplesBox.Value;
+            ShutterSpeedValue.Value = PhotoPage.ShutterSpeedBox.Value;
+            TimeSliceValue.Value = PhotoPage.TimeSliceBox.Value;
+            ApertureScaleValue.Value = PhotoPage.ApertureScaleBox.Value;
+            CarInFocusValue.Value = PhotoPage.CarInFocusBox.Value;
+            TurnSpeedValue.Value = PhotoPage.TurnSpeed.Value;
+            SamplesMultiplierValue.Value = PhotoPage.SamplesMultiplierSlider.Value;
+            MovementSpeedValue.Value = PhotoPage.SpeedSlider.Value;
+        });
+    }));
 
     public static readonly List<Overlay.MenuOption> PhotomodeOptions = new()
     {
@@ -37,7 +55,8 @@ public abstract class PhotomodeMenu
         new("Sliders", "SubHeader"),
         TurnSpeedValue,
         SamplesMultiplierValue,
-        MovementSpeedValue
+        MovementSpeedValue,
+        PullValues
 
     };
 

@@ -12,7 +12,7 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu
         
 
         // Subscribes menu options to event handlers
-        public void InitiateSubMenu()
+        public static void InitiateSubMenu()
         {
             VelocityValue.ValueChangedHandler += VelocityValueChanged;
             VelocityToggle.ValueChangedHandler += VelocityToggleChanged;
@@ -23,13 +23,15 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu
         }
 
         // Event handlers
-        void VelocityValueChanged(object s, EventArgs e)
+        private static void VelocityValueChanged(object s, EventArgs e)
         {
         }
-        void VelocityToggleChanged(object s, EventArgs e)
+
+        private static void VelocityToggleChanged(object s, EventArgs e)
         {
         }
-        void SuperCarToggleChanged(object s, EventArgs e)
+
+        private static void SuperCarToggleChanged(object s, EventArgs e)
         {
         }
         

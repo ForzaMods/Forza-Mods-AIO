@@ -1,4 +1,12 @@
 ﻿using System.Collections.Generic;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Aero;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Alignment;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping.SubMenus;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Gearing;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others.SubMenu;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs.SubMenus;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Steering;
+using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Tires;
 
 namespace Forza_Mods_AIO.Overlay.Tuning;
 
@@ -17,4 +25,20 @@ public abstract class Tuning
         new Overlay.MenuOption("Steering", "MenuButton"),
         new Overlay.MenuOption("Tires", "MenuButton")
     };
+
+    public static void InitiateSubMenu()
+    {
+        Aero.InitiateSubMenu();
+        Alignment.InitiateSubMenu();
+        AntirollBarsDamping.InitiateSubMenu();
+        ReboundStiffness.InitiateSubMenu();
+        BumpStiffness.InitiateSubMenu();
+        Gearing.InitiateSubMenu();
+        Wheelbase.InitiateSubMenu();
+        Rims.InitiateSubMenu();
+        SpringsValues.InitiateSubMenu();
+        RideHeight.InitiateSubMenu();
+        Steering.InitiateSubMenu();
+        Tires.InitiateSubMenu();
+    }
 }

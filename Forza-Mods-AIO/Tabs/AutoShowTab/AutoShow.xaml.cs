@@ -9,7 +9,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
     /// <summary>
     /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class AutoShow : Page
+    public partial class AutoShow
     {
         public static AutoShow AS;
         private string ClearGarageString = "DELETE FROM Profile0_Career_Garage WHERE Id > 0;";
@@ -158,6 +158,14 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
 
         private void ToggleFreeCars_Toggled(object sender, RoutedEventArgs e)
         {
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            {
+                UnlockHiddenPresets.IsEnabled = !UnlockHiddenPresets.IsEnabled;
+                FixThumbnails.IsEnabled = !FixThumbnails.IsEnabled;
+                ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
+                ClearGarage.IsEnabled = !ClearGarage.IsEnabled;
+            }
+            
             switch (ToggleFreeCars.IsOn)
             {
                 case true when MainWindow.mw.gvp.Name == "Forza Horizon 5":
@@ -180,10 +188,6 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                     break;
                 case true:
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12,"UPDATE Data_Car SET BaseCost = 0 WHERE BaseCost >0                                                                                                                                                                                                                                                                                                                         ");
-                    UnlockHiddenPresets.IsEnabled = false;
-                    FixThumbnails.IsEnabled = false;
-                    ShowTrafficHSNull.IsEnabled = false;
-                    ClearGarage.IsEnabled = false;
                     break;
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 5":
                     Task.Run(() =>
@@ -195,10 +199,6 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                     break;
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 4":
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
-                    UnlockHiddenPresets.IsEnabled = true;
-                    FixThumbnails.IsEnabled = true;
-                    ShowTrafficHSNull.IsEnabled = true;
-                    ClearGarage.IsEnabled = true;
                     break;
             }
         }
@@ -239,6 +239,14 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
 
         private void ClearGarage_OnToggled(object sender, RoutedEventArgs e)
         {
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            {
+                ToggleFreeCars.IsEnabled = !ToggleFreeCars.IsEnabled;
+                UnlockHiddenPresets.IsEnabled = !UnlockHiddenPresets.IsEnabled;
+                FixThumbnails.IsEnabled = !FixThumbnails.IsEnabled;
+                ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
+            }
+            
             switch (ClearGarage.IsOn)
             {
                 case true when MainWindow.mw.gvp.Name == "Forza Horizon 5":
@@ -257,23 +265,23 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                 case true:
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, "                                                                                                                                                                                                                                                                                                                                                                           ");
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, ClearGarageString);
-                    ToggleFreeCars.IsEnabled = false;
-                    UnlockHiddenPresets.IsEnabled = false;
-                    FixThumbnails.IsEnabled = false;
-                    ShowTrafficHSNull.IsEnabled = false;
                     break;
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 4":
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
-                    ToggleFreeCars.IsEnabled = true;
-                    UnlockHiddenPresets.IsEnabled = true;
-                    FixThumbnails.IsEnabled = true;
-                    ShowTrafficHSNull.IsEnabled = true;
                     break;
             }
         }
 
         private void FixThumbnails_OnToggled(object sender, RoutedEventArgs e)
         {
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            {
+                ToggleFreeCars.IsEnabled = !ToggleFreeCars.IsEnabled;
+                UnlockHiddenPresets.IsEnabled = !UnlockHiddenPresets.IsEnabled;
+                ClearGarage.IsEnabled = !ClearGarage.IsEnabled;
+                ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
+            }
+            
             switch (FixThumbnails.IsOn)
             {
                 case true when MainWindow.mw.gvp.Name == "Forza Horizon 5":
@@ -289,17 +297,9 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                     break;
                 case true:
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, "UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage SET OriginalOwner='r/ForzaModding'; UPDATE Profile0_Career_Garage SET NumOwners=69                                                                                                                            ");
-                    ToggleFreeCars.IsEnabled = false;
-                    UnlockHiddenPresets.IsEnabled = false;
-                    ClearGarage.IsEnabled = false;
-                    ShowTrafficHSNull.IsEnabled = false;
                     break;
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 4":
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
-                    ToggleFreeCars.IsEnabled = true;
-                    UnlockHiddenPresets.IsEnabled = true;
-                    ClearGarage.IsEnabled = true;
-                    ShowTrafficHSNull.IsEnabled = true;
                     break;
             }
         }
@@ -442,6 +442,15 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
 
         private void ShowTrafficHSNull_OnToggled(object sender, RoutedEventArgs e)
         {
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            {
+                ToggleFreeCars.IsEnabled = !ToggleFreeCars.IsEnabled;
+                UnlockHiddenPresets.IsEnabled = !UnlockHiddenPresets.IsEnabled;
+                FixThumbnails.IsEnabled = !FixThumbnails.IsEnabled;
+                ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
+                ClearGarage.IsEnabled = !ClearGarage.IsEnabled;
+            }
+            
             switch (ShowTrafficHSNull.IsEnabled)
             {
                 case true when MainWindow.mw.gvp.Name == "Forza Horizon 5":
@@ -457,19 +466,9 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                     break;
                 case true:
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12,  "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
-                    ToggleFreeCars.IsEnabled = false;
-                    UnlockHiddenPresets.IsEnabled = false;
-                    FixThumbnails.IsEnabled = false;
-                    ShowTrafficHSNull.IsEnabled = false;
-                    ClearGarage.IsEnabled = false;
                     break;
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 4":
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
-                    ToggleFreeCars.IsEnabled = true;
-                    UnlockHiddenPresets.IsEnabled = true;
-                    FixThumbnails.IsEnabled = true;
-                    ShowTrafficHSNull.IsEnabled = true;
-                    ClearGarage.IsEnabled = true;
                     break;
                 
             }
@@ -477,29 +476,37 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
 
         private void UnlockHiddenDecals_OnToggled(object sender, RoutedEventArgs e)
         {
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            {
+                ToggleFreeCars.IsEnabled = !ToggleFreeCars.IsEnabled;
+                UnlockHiddenPresets.IsEnabled = !UnlockHiddenPresets.IsEnabled;
+                FixThumbnails.IsEnabled = !FixThumbnails.IsEnabled;
+                ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
+                ClearGarage.IsEnabled = !ClearGarage.IsEnabled;
+            }
+            
             switch (UnlockHiddenDecals.IsEnabled)
             {
                 case true when MainWindow.mw.gvp.Name == "Forza Horizon 4":
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, "DROP VIEW Drivable_Data_Car; CREATE VIEW Drivable_Data_Car AS SELECT Data_Car.* FROM Data_Car; INSERT INTO Data_Car_Buckets(CarId) SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets); UPDATE Data_Car_Buckets SET CarBucket=0, BucketHero=0 WHERE CarBucket IS NULL                                                                             ");
-                    ToggleFreeCars.IsEnabled = false;
-                    UnlockHiddenPresets.IsEnabled = false;
-                    FixThumbnails.IsEnabled = false;
-                    ShowTrafficHSNull.IsEnabled = false;
-                    ClearGarage.IsEnabled = false;
                     break;
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 4":
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
-                    ToggleFreeCars.IsEnabled = true;
-                    UnlockHiddenPresets.IsEnabled = true;
-                    FixThumbnails.IsEnabled = true;
-                    ShowTrafficHSNull.IsEnabled = true;
-                    ClearGarage.IsEnabled = true;
                     break;
             }
         }
 
         private void UnlockHiddenPresets_OnToggled(object sender, RoutedEventArgs e)
         {
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            {
+                ToggleFreeCars.IsEnabled = !ToggleFreeCars.IsEnabled;
+                UnlockHiddenDecals.IsEnabled = !UnlockHiddenDecals.IsEnabled;
+                FixThumbnails.IsEnabled = !FixThumbnails.IsEnabled;
+                ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
+                ClearGarage.IsEnabled = !ClearGarage.IsEnabled;
+            }            
+            
             switch (UnlockHiddenPresets.IsEnabled)
             {
                 case true when MainWindow.mw.gvp.Name == "Forza Horizon 5":
@@ -516,19 +523,9 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                     break;
                 case true:
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, "UPDATE UpgradePresetPackages SET Purchasable=1 WHERE Purchasable=0                                                                                                                                                                                                                                                                                                         ");
-                    ToggleFreeCars.IsEnabled = false;
-                    UnlockHiddenDecals.IsEnabled = false;
-                    FixThumbnails.IsEnabled = false;
-                    ShowTrafficHSNull.IsEnabled = false;
-                    ClearGarage.IsEnabled = false;
                     break;
                 case false when MainWindow.mw.gvp.Name == "Forza Horizon 4":
                     MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
-                    ToggleFreeCars.IsEnabled = true;
-                    UnlockHiddenDecals.IsEnabled = true;
-                    FixThumbnails.IsEnabled = true;
-                    ShowTrafficHSNull.IsEnabled = true;
-                    ClearGarage.IsEnabled = true;
                     break;
             }
         }

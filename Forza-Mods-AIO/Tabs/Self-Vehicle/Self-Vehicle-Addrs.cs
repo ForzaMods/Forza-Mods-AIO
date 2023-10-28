@@ -172,7 +172,9 @@ internal class Self_Vehicle_Addrs
     public static string allocationstring;
     public static string OOBnopAddr;
     public static string SuperCarAddr;
-    public static string WorldRGBAddr;
+    public static string SunRedAddr;
+    public static string SunBlueAddr;
+    public static string SunGreenAddr;
     public static string InPauseAddr;
     public static string InHouseAddr;
     public static string TestAddr;
@@ -476,7 +478,9 @@ internal class Self_Vehicle_Addrs
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
                 WorldRGBAddrLong = (long)MainWindow.mw.m.ScanForSig(RGBAob).LastOrDefault();
-                WorldRGBAddr = WorldRGBAddrLong.ToString("X");
+                SunRedAddr = WorldRGBAddrLong.ToString("X");
+                SunBlueAddr = (WorldRGBAddrLong + 4).ToString("X");
+                SunGreenAddr = (WorldRGBAddrLong + 8).ToString("X");
                 ScanIndex++;
                 UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
 
@@ -645,7 +649,9 @@ internal class Self_Vehicle_Addrs
         Task.Run(() =>
         {
             WorldRGBAddrLong = (long)MainWindow.mw.m.ScanForSig(RGBAob).LastOrDefault();
-            WorldRGBAddr = WorldRGBAddrLong.ToString("X");
+            SunRedAddr = WorldRGBAddrLong.ToString("X");
+            SunBlueAddr = (WorldRGBAddrLong + 4).ToString("X");
+            SunGreenAddr = (WorldRGBAddrLong + 8).ToString("X");
             ScanIndex++;
             UpdateUi.AddProgress(ScanAmount, ScanIndex, Self_Vehicle.sv.AOBProgressBar);
             

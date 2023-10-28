@@ -24,14 +24,20 @@ public partial class EnvironmentPage
             switch ((string)sender.GetType().GetProperty("Name")!.GetValue(sender))
             {
                 case "SunRedSlider":
-                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.WorldRGBAddr, (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
+                {
+                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SunRedAddr, (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
                     break;
+                }
                 case "SunGreenSlider":
-                    MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.WorldRGBAddrLong + 4).ToString("X"), (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
+                {
+                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SunGreenAddr, (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
                     break;
+                }
                 case "SunBlueSlider":
-                    MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.WorldRGBAddrLong + 8).ToString("X"), (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
+                {
+                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SunBlueAddr, (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
                     break;
+                }
             }
         }
         catch
@@ -51,17 +57,23 @@ public partial class EnvironmentPage
             switch ((string)sender.GetType().GetProperty("Name")!.GetValue(sender))
             {
                 case "RedResetButton":
+                {
                     SunRedSlider.Value = 3.921569E+09;
-                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.WorldRGBAddr, ((float)3.921569E+09 / 1000000000000));
+                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SunRedAddr, ((float)3.921569E+09 / 1000000000000));
                     break;
+                }
                 case "GreenResetButton":
+                {
                     SunGreenSlider.Value = 3.921569E+09;
-                    MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.WorldRGBAddrLong + 4).ToString("X"), ((float)3.921569E+09 / 1000000000000));
+                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SunGreenAddr, ((float)3.921569E+09 / 1000000000000));
                     break;
+                }
                 case "BlueResetButton":
+                {
                     SunBlueSlider.Value = 3.921569E+09;
-                    MainWindow.mw.m.WriteMemory((Self_Vehicle_Addrs.WorldRGBAddrLong + 8).ToString("X"), ((float)3.921569E+09 / 1000000000000));
+                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SunBlueAddr, ((float)3.921569E+09 / 1000000000000));
                     break;
+                }
             }
         }
         catch

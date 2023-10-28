@@ -2,7 +2,7 @@
 
 namespace Forza_Mods_AIO.Overlay.SelfCarMenu;
 
-public class SelfCarMenu
+public abstract class SelfCarMenu
 {
     // Menu lists for this section (i.e. Modifiers and its sub menus)
     // All of these are submenus, so they have their own folders
@@ -15,4 +15,13 @@ public class SelfCarMenu
         new("Miscellaneous", "MenuButton"),
         new("FOV", "MenuButton")
     };
+
+    public static void InitiateSubMenu()
+    {
+        FovMenu.FovLock.InitiateSubMenu();
+        MiscMenu.MiscMenu.InitiateSubMenu();
+        PhotomodeMenu.PhotomodeMenu.InitiateSubMenu();
+        CustomizationMenu.CustomizationMenu.InitiateSubMenu();
+        HandlingMenu.HandlingMenu.InitiateSubMenu();
+    }
 }

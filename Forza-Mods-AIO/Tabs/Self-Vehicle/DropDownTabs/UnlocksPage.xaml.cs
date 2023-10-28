@@ -65,25 +65,31 @@ public partial class UnlocksPage
 
     private void HornUnlockerSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
+        MessageBox.Show("This isnt implemented yet");
     }
 
     private void EmoteUnlockerSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
+        MessageBox.Show("This isnt implemented yet");
     }
 
     private void QuickChatsUnlockerSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
+        MessageBox.Show("This isnt implemented yet");
     }
 
     private void CosmeticUnlockerSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
+        MessageBox.Show("This isnt implemented yet");
     }
 
     private void DiscoverRoadsSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
+        MessageBox.Show("This isnt ported from AIO V1 yet");
     }
 
     private void SmashBoardsSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
+        MessageBox.Show("This isnt implemented yet");
     }
 }

@@ -34,7 +34,7 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
         public static Overlay.MenuOption DescriptionBorderG = new Overlay.MenuOption("Border G", "Int", 0);
         public static Overlay.MenuOption DescriptionBorderB = new Overlay.MenuOption("Border B", "Int", 0);
         public static Overlay.MenuOption DescriptionBorderA = new Overlay.MenuOption("Border Alpha", "Int", 255);
-        public static Overlay.MenuOption LoadSettings = new("Load Settings", "Button", new Action(delegate { ; }));
+        public static Overlay.MenuOption LoadSettings = new("Load Settings", "Button", delegate { Overlay.oh.LoadSettings(); }, isEnabled: false);
 
 
         #endregion
@@ -125,38 +125,38 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
         #endregion
         
         // Menu list for this section
-        public static List<Overlay.MenuOption> SettingsOptions = new List<Overlay.MenuOption>()
+        public static readonly List<Overlay.MenuOption> SettingsOptions = new()
         {
             HeaderImage,
-            new Overlay.MenuOption("Refresh Headers", "Button", new Action(delegate { Overlay.oh.CacheHeaders(); })),
-            new Overlay.MenuOption("Main area", "MenuButton"),
-            new Overlay.MenuOption("Description area", "MenuButton"),
-            new Overlay.MenuOption("Save Settings", "Button", new Action(delegate {  })),
+            new("Refresh Headers", "Button", delegate { Overlay.oh.CacheHeaders(); }),
+            new("Main area", "MenuButton"),
+            new("Description area", "MenuButton"),
+            new("Save Settings", "Button", delegate { Overlay.oh.SaveSettings(); LoadSettings.IsEnabled = true; }, isEnabled: false),
             LoadSettings
         };
 
         // Submenu lists
-        public static List<Overlay.MenuOption> MainAreaOptions = new List<Overlay.MenuOption>()
+        public static List<Overlay.MenuOption> MainAreaOptions = new()
         {
-            new Overlay.MenuOption("Background", "SubHeader"),
+            new ("Background", "SubHeader"),
             MainBackgroundR,
             MainBackgroundG,
             MainBackgroundB,
             MainBackgroundA,
-            new Overlay.MenuOption("Border", "SubHeader"),
+            new ("Border", "SubHeader"),
             MainBorderR,
             MainBorderG,
             MainBorderB,
             MainBorderA
         };
-        public static List<Overlay.MenuOption> DescriptionAreaOptions = new List<Overlay.MenuOption>()
+        public static List<Overlay.MenuOption> DescriptionAreaOptions = new()
         {
-            new Overlay.MenuOption("Background", "SubHeader"),
+            new ("Background", "SubHeader"),
             DescriptionBackgroundR,
             DescriptionBackgroundG,
             DescriptionBackgroundB,
             DescriptionBackgroundA,
-            new Overlay.MenuOption("Border", "SubHeader"),
+            new ("Border", "SubHeader"),
             DescriptionBorderR,
             DescriptionBorderG,
             DescriptionBorderB,

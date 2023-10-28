@@ -70,6 +70,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                 sql17 = (MainWindow.mw.m.ScanForSig("41 4E 44 20 4E 4F 54 20 49 73 4D 69 64 6E 69 67 68 74 43 61 72 00 00 20 41 4E 44 20 4E 4F 54 20 49 73 42 61 72 6E 46 69 6E 64 00 00 00 00 00 20")).FirstOrDefault().ToString("X");
                 UpdateUi.AddProgress(17, 17, AutoShow.AS.AOBProgressBar);
                 Overlay.Overlay.AutoshowGarageOption.IsEnabled = true;
+                Overlay.AutoShowMenu.SubMenus.GarageModifications.PaintLegoCarsToggle.IsEnabled = true;
                 UpdateUi.UpdateUI(true, AutoShow.AS);
                 return;
             }
@@ -93,6 +94,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
             AutoShow.AS.Dispatcher.Invoke(() =>
             {
                 AutoShow.AS.PaintLegoCars.IsEnabled = false;
+                Overlay.AutoShowMenu.SubMenus.GarageModifications.PaintLegoCarsToggle.IsEnabled = false;
                 AutoShow.AS.PaintLegoCarsLabel.ToolTip = "Painting lego cars is disabled on FH5";
             });    
         }
