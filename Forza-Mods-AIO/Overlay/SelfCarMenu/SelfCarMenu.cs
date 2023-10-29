@@ -19,6 +19,7 @@ public abstract class SelfCarMenu
     public static void InitiateSubMenu()
     {
         FovMenu.FovLock.InitiateSubMenu();
+        FovMenu.FovLimiters.InitiateSubMenu();
         MiscMenu.MiscMenu.InitiateSubMenu();
         PhotomodeMenu.PhotomodeMenu.InitiateSubMenu();
         CustomizationMenu.CustomizationMenu.InitiateSubMenu();

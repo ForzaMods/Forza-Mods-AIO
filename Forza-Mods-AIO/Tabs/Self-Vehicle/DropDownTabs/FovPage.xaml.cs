@@ -31,16 +31,16 @@ public partial class FovPage
 
     public void UpdateValues()
     {
-        ChaseMinNum.Value = (double)MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.ChaseMin);
-        ChaseMaxNum.Value = (double)MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.ChaseMax);
-        FarChaseMinNum.Value = (double)MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.FarChaseMin);
-        FarChaseMaxNum.Value = (double)MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.FarChaseMax);
-        DriverMinNum.Value = (double)MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.DriverMin);
-        DriverMaxNum.Value = (double)MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.DriverMax);
-        HoodMinNum.Value = (double)MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.HoodMin);
-        HoodMaxNum.Value = (double)MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.HoodMax);
-        BumperMinNum.Value = (double)MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.BumperMin);
-        BumperMaxNum.Value = (double)MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.BumperMax);
+        ChaseMinNum.Value = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.ChaseMin);
+        ChaseMaxNum.Value = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.ChaseMax);
+        FarChaseMinNum.Value = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.FarChaseMin);
+        FarChaseMaxNum.Value = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.FarChaseMax);
+        DriverMinNum.Value = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.DriverMin);
+        DriverMaxNum.Value = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.DriverMax);
+        HoodMinNum.Value = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.HoodMin);
+        HoodMaxNum.Value = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.HoodMax);
+        BumperMinNum.Value = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.BumperMin);
+        BumperMaxNum.Value = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.BumperMax);
     }
 
     private void FovSwitch_OnToggled(object sender, RoutedEventArgs e)

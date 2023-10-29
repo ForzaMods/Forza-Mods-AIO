@@ -133,7 +133,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
             {
                 Thread.Sleep(10);
                 try
-                { Client.Connect(10); }
+                { Client.Connect(100); }
                 catch { }
                 Count++;
             }

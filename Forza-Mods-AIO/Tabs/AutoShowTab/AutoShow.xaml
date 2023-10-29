@@ -22,14 +22,16 @@
         <Label x:Name="PaintLegoCarsLabel" Content="Paint Lego Cars" HorizontalAlignment="Left" Margin="168,219,0,0" VerticalAlignment="Top" Width="94"/>
         <mah:ToggleSwitch x:Name="RemoveAnyCar" Height="32" Margin="45,245,0,0" VerticalAlignment="Top" Width="45" MinHeight="0" MinWidth="0" Content="" Toggled="RemoveAnyCar_OnToggled"/>
         <Label x:Name="RemoveAnyCarLabel" Content="Remove Any Car" HorizontalAlignment="Left" Margin="20,219,0,0" VerticalAlignment="Top" Width="100"/>
-        <mah:ToggleSwitch x:Name="UnlockHiddenDecals" Height="32" Margin="0,175,0,0" Width="45" MinHeight="0" MinWidth="0" Content="" Toggled="UnlockHiddenDecals_OnToggled" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Label x:Name="UnlockHiddenDecalsLabel" Content="Unlock Hidden Decals" HorizontalAlignment="Center" Margin="0,149,0,0" VerticalAlignment="Top" Width="128"/>
-        <mah:ToggleSwitch x:Name="ShowTrafficHSNull" Height="32" Margin="64,175,0,0" Width="46" MinHeight="0" MinWidth="0" Content="" Toggled="ShowTrafficHSNull_OnToggled" VerticalAlignment="Top"/>
-        <Label x:Name="ShowTrafficHSNullLabel" Content="Show Traffic/HS/Null" HorizontalAlignment="Left" Margin="26,149,0,0" VerticalAlignment="Top" Width="122"/>
+        <mah:ToggleSwitch x:Name="UnlockHiddenDecals" Height="32" Margin="-160,175,0,0" Width="45" MinHeight="0" MinWidth="0" Content="" Toggled="UnlockHiddenDecals_OnToggled" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label x:Name="UnlockHiddenDecalsLabel" Content="Unlock Hidden Decals" HorizontalAlignment="Center" Margin="-160,149,0,0" VerticalAlignment="Top" Width="128"/>
+        <mah:ToggleSwitch x:Name="ShowTrafficHSNull" Height="32" Margin="48,175,0,0" Width="46" MinHeight="0" MinWidth="0" Content="" Toggled="ShowTrafficHSNull_OnToggled" VerticalAlignment="Top"/>
+        <Label x:Name="ShowTrafficHSNullLabel" Content="Show Traffic/HS/Null" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top" Width="122"/>
         <mah:ToggleSwitch x:Name="FixThumbnails" Height="32" Margin="509,245,0,0" VerticalAlignment="Top" Width="45" MinHeight="0" MinWidth="0" Content="" Toggled="FixThumbnails_OnToggled"/>
         <Label x:Name="FixThumbnailsLabel" Content="Fix Thumbnails" HorizontalAlignment="Left" Margin="486,219,0,0" VerticalAlignment="Top" Width="91"/>
-        <mah:ToggleSwitch x:Name="UnlockHiddenPresets" Height="32" Margin="479,175,0,0" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="UnlockHiddenPresets_OnToggled" VerticalAlignment="Top"/>
-        <Label x:Name="UnlockHiddenPresetsLabel" Content="Unlock Hidden Presets" HorizontalAlignment="Left" Margin="435,149,0,0" VerticalAlignment="Top" Width="132"/>
+        <mah:ToggleSwitch x:Name="UnlockHiddenPresets" Height="32" Margin="504,175,0,0" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="UnlockHiddenPresets_OnToggled" VerticalAlignment="Top"/>
+        <Label x:Name="UnlockHiddenPresetsLabel" Content="Unlock Hidden Presets" HorizontalAlignment="Left" Margin="460,149,0,0" VerticalAlignment="Top" Width="132"/>
+        <mah:ToggleSwitch x:Name="ClearTag" Height="32" Margin="350,175,0,0" Width="44" MinHeight="0" MinWidth="0" Content="" Toggled="ClearTag_OnToggled" VerticalAlignment="Top"/>
+        <Label Content="Clear “new” tag on cars" HorizontalAlignment="Left" Margin="310,149,0,0" VerticalAlignment="Top" Width="132"/>
         <mah:ToggleSwitch x:Name="ClearGarage" Height="32" Margin="405,245,0,0" VerticalAlignment="Top" Width="46" MinHeight="0" MinWidth="0" Content="" Toggled="ClearGarage_OnToggled"/>
         <Label x:Name="ClearGarageLabel" Content="Clear Garage" HorizontalAlignment="Left" Margin="327,219,0,0" VerticalAlignment="Top" Width="79"/>
         <ComboBox x:Name="ClearGarageComboBox"

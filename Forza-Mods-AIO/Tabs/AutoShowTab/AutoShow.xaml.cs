@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using Forza_Mods_AIO.Resources;
 
 namespace Forza_Mods_AIO.Tabs.AutoShowTab
@@ -164,6 +165,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                 FixThumbnails.IsEnabled = !FixThumbnails.IsEnabled;
                 ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
                 ClearGarage.IsEnabled = !ClearGarage.IsEnabled;
+                ClearTag.IsEnabled = !ClearTag.IsEnabled;
             }
             
             switch (ToggleFreeCars.IsOn)
@@ -245,6 +247,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                 UnlockHiddenPresets.IsEnabled = !UnlockHiddenPresets.IsEnabled;
                 FixThumbnails.IsEnabled = !FixThumbnails.IsEnabled;
                 ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
+                ClearTag.IsEnabled = !ClearTag.IsEnabled;
             }
             
             switch (ClearGarage.IsOn)
@@ -280,6 +283,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                 UnlockHiddenPresets.IsEnabled = !UnlockHiddenPresets.IsEnabled;
                 ClearGarage.IsEnabled = !ClearGarage.IsEnabled;
                 ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
+                ClearTag.IsEnabled = !ClearTag.IsEnabled;
             }
             
             switch (FixThumbnails.IsOn)
@@ -347,12 +351,12 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
         private void QuickAddAllCars_OnToggled(object sender, RoutedEventArgs e)
         {
             const string CarList = "3300";
-            string String = "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
-                            " INSERT INTO Profile0_FreeCars SELECT ContentId, 1 FROM ContentOffersMapping;" +
-                            " UPDATE ContentOffersMapping SET IsAutoRedeem = 1 WHERE ContentId NOT IN(SELECT ContentId FROM ContentOffersMapping WHERE ReleaseDateUTC > '" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00") + " 00:00');" +
-                            " UPDATE ContentOffersMapping SET Quantity = 1;" +
-                            " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(" + CarList + ");" +
-                            " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(SELECT CarId AS ContentId FROM Profile0_Career_Garage WHERE CarId IS NOT NULL);";
+            var String = "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
+                         " INSERT INTO Profile0_FreeCars SELECT ContentId, 1 FROM ContentOffersMapping;" +
+                         " UPDATE ContentOffersMapping SET IsAutoRedeem = 1 WHERE ContentId NOT IN(SELECT ContentId FROM ContentOffersMapping WHERE ReleaseDateUTC > '" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString("00") + " 00:00');" +
+                         " UPDATE ContentOffersMapping SET Quantity = 1;" +
+                         " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(" + CarList + ");" +
+                         " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(SELECT CarId AS ContentId FROM Profile0_Career_Garage WHERE CarId IS NOT NULL);";
             
             switch (QuickAddAllCars.IsEnabled)
             {
@@ -449,6 +453,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                 FixThumbnails.IsEnabled = !FixThumbnails.IsEnabled;
                 ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
                 ClearGarage.IsEnabled = !ClearGarage.IsEnabled;
+                ClearTag.IsEnabled = !ClearTag.IsEnabled;
             }
             
             switch (ShowTrafficHSNull.IsEnabled)
@@ -483,6 +488,7 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                 FixThumbnails.IsEnabled = !FixThumbnails.IsEnabled;
                 ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
                 ClearGarage.IsEnabled = !ClearGarage.IsEnabled;
+                ClearTag.IsEnabled = !ClearTag.IsEnabled;
             }
             
             switch (UnlockHiddenDecals.IsEnabled)
@@ -505,7 +511,8 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                 FixThumbnails.IsEnabled = !FixThumbnails.IsEnabled;
                 ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
                 ClearGarage.IsEnabled = !ClearGarage.IsEnabled;
-            }            
+                ClearTag.IsEnabled = !ClearTag.IsEnabled;
+            }
             
             switch (UnlockHiddenPresets.IsEnabled)
             {
@@ -550,6 +557,45 @@ namespace Forza_Mods_AIO.Tabs.AutoShowTab
                     "DELETE FROM Profile0_Career_Garage WHERE VersionedLiveryId IS \"00000000-0000-0000-0000-000000000000\";",
                 _ => ClearGarageString
             };
+        }
+
+        private void ClearTag_OnToggled(object sender, RoutedEventArgs e)
+        {
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            {
+                ToggleFreeCars.IsEnabled = !ToggleFreeCars.IsEnabled;
+                UnlockHiddenPresets.IsEnabled = !UnlockHiddenPresets.IsEnabled;
+                ClearGarage.IsEnabled = !ClearGarage.IsEnabled;
+                ShowTrafficHSNull.IsEnabled = !ShowTrafficHSNull.IsEnabled;
+                UnlockHiddenDecals.IsEnabled = !UnlockHiddenPresets.IsEnabled;
+                FixThumbnails.IsEnabled = !FixThumbnails.IsEnabled;
+            }
+            else if (MainWindow.mw.gvp.Name == "Forza Horizon 5")
+            {
+                var result = System.Windows.Forms.MessageBox.Show("This feature is unstable on FH5. do you wanna continue?",  "Clear \"new\" tag on cars", MessageBoxButtons.YesNo);
+                if (result != DialogResult.Yes) return;  
+            }
+            
+            switch (ClearTag.IsOn)
+            {
+                case true when MainWindow.mw.gvp.Name == "Forza Horizon 5":
+                    Task.Run(() =>
+                    {
+                        Dispatcher.BeginInvoke(delegate () { ClearTag.IsEnabled = false; });
+                        bool Done = AutoshowVars.ExecSQL("UPDATE Profile0_Career_Garage SET HasCurrentOwnerViewedCar = 1;");
+                        if (!Done)
+                            Dispatcher.BeginInvoke(delegate () { ClearTag.IsOn = false; });
+
+                        Dispatcher.BeginInvoke(delegate () { ClearTag.IsEnabled = true; });
+                    });
+                    break;
+                case true:
+                    MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, "UPDATE Profile0_Career_Garage SET HasCurrentOwnerViewedCar = 1;                                                                                                                                                                                                                                                                                                            ");
+                    break;
+                case false when MainWindow.mw.gvp.Name == "Forza Horizon 4":
+                    MainWindow.mw.m.WriteStringMemory(AutoshowVars.sql12, "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+                    break;
+            }
         }
     }
 }

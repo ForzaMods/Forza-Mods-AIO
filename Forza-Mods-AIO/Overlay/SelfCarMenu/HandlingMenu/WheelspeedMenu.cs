@@ -13,6 +13,7 @@ public abstract class WheelspeedMenu
 
     public static readonly List<Overlay.MenuOption> WheelSpeedOptions = new()
     {
+        new ("Wheelspeed", Overlay.MenuOption.OptionType.SubHeader),
         WheelspeedMode,
         WheelspeedStrength,
         WheelspeedInterval,
@@ -35,8 +36,8 @@ public abstract class WheelspeedMenu
                 WheelspeedMode.Value = 1;
             else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < 1)
                 WheelspeedMode.Value = 2;
-
-            HandlingPage.shp.WheelSpeedModeComboBox.SelectedIndex = (int)s.GetType().GetProperty("Value")!.GetValue(s)! - 1;
+            else
+                HandlingPage.shp.WheelSpeedModeComboBox.SelectedIndex = (int)s.GetType().GetProperty("Value")!.GetValue(s)! - 1;
         });
     }
 
@@ -59,11 +60,10 @@ public abstract class WheelspeedMenu
         {
             if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.shp.Var2NumBox.Maximum)
                 WheelspeedInterval.Value = (int)HandlingPage.shp.Var2NumBox.Maximum;
-            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! <
-                     HandlingPage.shp.Var2NumBox.Minimum)
+            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.shp.Var2NumBox.Minimum)
                 WheelspeedInterval.Value = (int)HandlingPage.shp.Var2NumBox.Minimum;
             else
-                HandlingPage.shp.Var2NumBox.Value = Convert.ToSingle(s.GetType().GetProperty("Value")!.GetValue(s)!);
+                HandlingPage.shp.Var2NumBox.Value = (int)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 

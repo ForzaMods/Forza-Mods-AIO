@@ -173,19 +173,19 @@ namespace Forza_Mods_AIO.Overlay
                 double HeaderX = HeaderY * 4;
 
                 // Select header
-                if ((HeaderImage == null || HeaderImage.UriSource.LocalPath != MenuHeaders[HeaderIndex]) && Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers") && MenuHeaders.Length != 0)
+                if (!Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers") || MenuHeaders.Length == 0)
+                {
+                    if (HeaderImage is { IsFrozen: true })
+                        HeaderImage = HeaderImage.Clone();
+                    HeaderImage = new BitmapImage(new Uri("pack://application:,,,/Overlay/Headers/pog header.png", UriKind.Relative));
+                    try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
+                }
+                else if (HeaderImage == null || HeaderImage.UriSource.LocalPath != MenuHeaders[HeaderIndex])
                 {
                     if (HeaderImage is { IsFrozen: true })
                         HeaderImage = HeaderImage.Clone();
                     HeaderImage = (BitmapImage)Headers.Find(x => x[0].ToString().Contains(MenuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))[1];
                     try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
-                }
-                else if (HeaderImage == null && !Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers"))
-                {
-                     if (HeaderImage is { IsFrozen: true })
-                         HeaderImage = HeaderImage.Clone();
-                     HeaderImage = new BitmapImage(new Uri("pack://application:,,,/Overlay/Headers/pog header.png", UriKind.Relative));
-                     try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
                 }
 
                 if (MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow())

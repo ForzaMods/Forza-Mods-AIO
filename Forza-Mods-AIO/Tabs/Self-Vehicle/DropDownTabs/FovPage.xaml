@@ -25,8 +25,8 @@
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,66,0,0" BorderBrush="#FF2E3440" >
             <Grid>
                 
-                <mah:NumericUpDown ValueChanged="FovLimiters_OnValueChanged" x:Name="ChaseMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
-                <mah:NumericUpDown ValueChanged="FovLimiters_OnValueChanged" x:Name="ChaseMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
+                <mah:NumericUpDown ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="ChaseMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
+                <mah:NumericUpDown ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="ChaseMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
 
                 <Label Content="Chase Min Limiter" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
                 <Label Content="Chase Max Limiter" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="135 8 "/>
@@ -37,8 +37,8 @@
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,120,0,0" BorderBrush="#FF2E3440" >
             <Grid>
                 
-                <mah:NumericUpDown ValueChanged="FovLimiters_OnValueChanged" x:Name="FarChaseMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
-                <mah:NumericUpDown ValueChanged="FovLimiters_OnValueChanged" x:Name="FarChaseMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
+                <mah:NumericUpDown ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="FarChaseMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
+                <mah:NumericUpDown ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="FarChaseMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
 
                 <Label Content="Far Chase Min Limiter" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
                 <Label Content="Far Chase Max Limiter" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="135 8 "/>
@@ -49,8 +49,8 @@
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,176,0,0" BorderBrush="#FF2E3440" >
             <Grid>
                 
-                <mah:NumericUpDown ValueChanged="FovLimiters_OnValueChanged" x:Name="DriverMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
-                <mah:NumericUpDown ValueChanged="FovLimiters_OnValueChanged" x:Name="DriverMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
+                <mah:NumericUpDown ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="DriverMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
+                <mah:NumericUpDown ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="DriverMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
 
                 <Label Content="Driver Min Limiter" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
                 <Label Content="Driver Max Limiter" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="135 8 "/>
@@ -61,8 +61,8 @@
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,232,0,0" BorderBrush="#FF2E3440" >
             <Grid>
                 
-                <mah:NumericUpDown ValueChanged="FovLimiters_OnValueChanged" x:Name="HoodMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
-                <mah:NumericUpDown ValueChanged="FovLimiters_OnValueChanged" x:Name="HoodMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
+                <mah:NumericUpDown ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="HoodMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
+                <mah:NumericUpDown ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="HoodMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
 
                 <Label Content="Hood Min Limiter" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
                 <Label Content="Hood Max Limiter" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="135 8 "/>
@@ -73,8 +73,8 @@
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,288,0,0" BorderBrush="#FF2E3440" >
             <Grid>
                 
-                <mah:NumericUpDown ValueChanged="FovLimiters_OnValueChanged" x:Name="BumperMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
-                <mah:NumericUpDown ValueChanged="FovLimiters_OnValueChanged" x:Name="BumperMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
+                <mah:NumericUpDown ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="BumperMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
+                <mah:NumericUpDown ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="BumperMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
 
                 <Label Content="Bumper Min Limiter" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
                 <Label Content="Bumper Max Limiter" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="135 8 "/>

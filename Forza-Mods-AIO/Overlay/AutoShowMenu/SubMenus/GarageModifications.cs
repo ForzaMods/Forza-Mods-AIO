@@ -12,6 +12,7 @@ public abstract class GarageModifications
     public static readonly Overlay.MenuOption RemoveAnyCarToggle = new("Remove Any Car", Overlay.MenuOption.OptionType.Bool, false);
     public static readonly Overlay.MenuOption FixThumbnailsToggle = new("Fix Thumbnails", Overlay.MenuOption.OptionType.Bool, false);
     public static readonly Overlay.MenuOption PaintLegoCarsToggle = new("Paint Lego Cars", Overlay.MenuOption.OptionType.Bool, false);
+    public static readonly Overlay.MenuOption ClearTagToggle = new("Clear \"new\" tag on cars", Overlay.MenuOption.OptionType.Bool, false);
 
     public static readonly List<Overlay.MenuOption> GarageModificationsOptions = new()
     {
@@ -20,7 +21,8 @@ public abstract class GarageModifications
         UnlockHiddenPresetsToggle,
         RemoveAnyCarToggle,
         PaintLegoCarsToggle,
-        FixThumbnailsToggle
+        FixThumbnailsToggle,
+        ClearTagToggle
     };
 
     public static void InitiateSubMenu()
@@ -31,6 +33,7 @@ public abstract class GarageModifications
         RemoveAnyCarToggle.ValueChangedHandler += RemoveAnyCarToggled;
         PaintLegoCarsToggle.ValueChangedHandler += PaintLegoCarsToggled;
         FixThumbnailsToggle.ValueChangedHandler += FixThumbnailsToggled;
+        ClearTagToggle.ValueChangedHandler += ClearTagToggled;
     }
 
     private static void ShowTrafficHsNullToggled(object s, EventArgs e)
@@ -110,6 +113,22 @@ public abstract class GarageModifications
             }
             
             AutoShow.AS.FixThumbnails.IsOn = (bool)FixThumbnailsToggle.Value;
+        });
+    }
+    
+    private static void ClearTagToggled(object s, EventArgs e)
+    {
+        AutoShow.AS.Dispatcher.Invoke(() =>
+        {
+            if (MainWindow.mw.gvp.Name == "Forza Horizon 4") 
+            {
+                AutoshowFilters.FreeCarsToggle.IsEnabled = !AutoshowFilters.FreeCarsToggle.IsEnabled;
+                UnlockHiddenPresetsToggle.IsEnabled = !UnlockHiddenPresetsToggle.IsEnabled;
+                ShowTrafficHsNullToggle.IsEnabled = !ShowTrafficHsNullToggle.IsEnabled;
+                UnlockHiddenDecalsToggle.IsEnabled = !UnlockHiddenDecalsToggle.IsEnabled;
+            }
+            
+            AutoShow.AS.ClearTag.IsOn = (bool)ClearTagToggle.Value;
         });
     }
 }

@@ -392,7 +392,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                 
                 while (true)
                 {
-                    Thread.Sleep(25);
+                    Thread.Sleep(10);
 
                     bool Toggled = true;
                     shp.Dispatcher.Invoke(delegate { Toggled = FlyHackSwitch.IsOn; });
@@ -485,7 +485,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                 
                 while (true)
                 {
-                    Thread.Sleep(25);
+                    Thread.Sleep(10);
 
                     var Toggled = true;
                     shp.Dispatcher.Invoke(delegate { Toggled = FlyHackSwitch.IsOn; });
@@ -618,57 +618,38 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs
                     
                     if (ShiftDown)
                         mw.m.WriteMemory(yAddr, (y + (FlyhackMoveSpeed * 5)));
-                    if (ControlDown)
+                    else if (ControlDown)
                         mw.m.WriteMemory(yAddr, (y - (FlyhackMoveSpeed * 5)));
                 }
             });
         }
 
         
-        private void CarNoclipLabelSwitch_OnToggled(object sender, RoutedEventArgs e)
+        private void CarNoclipSwitch_OnToggled(object sender, RoutedEventArgs e)
         {            
             if (!CarNoclipSwitch.IsOn)
             {
+                mw.m.WriteArrayMemory(Car1Addr, mw.gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 });
+                if (mw.gvp.Name != "Forza Horizon 4") return;
+                mw.m.WriteArrayMemory(Car2Addr, new byte[] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00});
                 return;
             }
 
-            Task.Run(() =>
-            {
-                CultureInfo.CurrentCulture = new CultureInfo("en-GB");
-
-                while (true)
-                {
-                    Thread.Sleep(50);
-                    var Toggled = true;
-                    Dispatcher.Invoke(() => Toggled = CarNoclipSwitch.IsOn);
-                    
-                    if (!Toggled)
-                        break;
-                }
-            });
+            mw.m.WriteArrayMemory(Car1Addr, mw.gvp.Name == "Forza Horizon 4" ? new byte[] { 0xE9, 0xB6, 0x01, 0x00, 0x00, 0x90 } : new byte[] { 0xE9, 0x66, 0x03, 0x00, 0x00, 0x90 });
+            if (mw.gvp.Name != "Forza Horizon 4") return;
+            mw.m.WriteArrayMemory(Car2Addr, new byte[] { 0xE9, 0x3B, 0x03, 0x00, 0x00, 0x90 });
         }
 
         private void WallNoclipSwitch_OnToggled(object sender, RoutedEventArgs e)
         {
             if (!WallNoclipSwitch.IsOn)
             {
+                mw.m.WriteArrayMemory(Wall1Addr, mw.gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 } );
+                mw.m.WriteArrayMemory(Wall2Addr, mw.gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 } );
                 return;
             }
-            
-            Task.Run(() =>
-            {
-                CultureInfo.CurrentCulture = new CultureInfo("en-GB");
-                
-                while (true)
-                {
-                    Thread.Sleep(50);
-                    var Toggled = true;
-                    Dispatcher.Invoke(() => Toggled = WallNoclipSwitch.IsOn);
-                    
-                    if (!Toggled)
-                        break;
-                }
-            });
+            mw.m.WriteArrayMemory(Wall1Addr, mw.gvp.Name == "Forza Horizon 4" ? new byte[] { 0xE9, 0x2A, 0x02, 0x00, 0x00, 0x90 } : new byte[] { 0xE9, 0x61, 0x02, 0x00, 0x00, 0x90 } );
+            mw.m.WriteArrayMemory(Wall2Addr, mw.gvp.Name == "Forza Horizon 4" ? new byte[] { 0xE9, 0x2B, 0x02, 0x00, 0x00, 0x90 } : new byte[] { 0xE9, 0x7F, 0x02, 0x00, 0x00, 0x90 } );
         }
 
         private void JumpHackSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
