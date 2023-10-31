@@ -163,7 +163,7 @@
                HorizontalAlignment="Left"
                Margin="15 40"
                FontSize="14"
-               Content="Yeethan - Self/Vehicle, GVP, Overlay, Backend."/>
+               Content="Yeethan - Self/Vehicle, GVP, SQL, Overlay, Backend."/>
         
         <Label VerticalAlignment="Top"
                HorizontalAlignment="Left"
