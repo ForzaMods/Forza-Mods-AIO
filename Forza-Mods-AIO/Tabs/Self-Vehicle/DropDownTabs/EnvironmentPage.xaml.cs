@@ -254,7 +254,8 @@ public partial class EnvironmentPage
 
     private static bool OOB_Check()
     {
-        return (MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.InPauseAddr) == 1 || (MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.OnGroundAddr) == 0 && (float)(Math.Sqrt(Math.Pow(MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.xVelocityAddr), 2) + Math.Pow(MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.yVelocityAddr), 2) + Math.Pow(MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.zVelocityAddr), 2)) * 2.23694) == 0));
+        return true;
+        //return (MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.InPauseAddr) == 1 || (MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.OnGroundAddr) == 0 && (float)(Math.Sqrt(Math.Pow(MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.xVelocityAddr), 2) + Math.Pow(MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.yVelocityAddr), 2) + Math.Pow(MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.zVelocityAddr), 2)) * 2.23694) == 0));
     }
     
     #endregion

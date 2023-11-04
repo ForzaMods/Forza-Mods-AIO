@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
+using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
@@ -21,7 +21,7 @@ public partial class PhotomodePage
     /// </summary>
     private void NoClip_Toggled(object sender, RoutedEventArgs e)
     {
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.NoClipAddr, NoClip.IsOn ? 0 : 2);
+        PhotoCamEntity.NoClip = NoClip.IsOn;
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public partial class PhotomodePage
 
     private void IncreasedZoom_OnToggled(object sender, RoutedEventArgs e)
     {
-        MainWindow.mw.m.WriteMemory<float>(Self_Vehicle_Addrs.MinFovAddr, IncreasedZoom.IsOn ? 0 : (float)2.25 );
+        PhotoCamEntity.IncreasedZoom = IncreasedZoom.IsOn;
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public partial class PhotomodePage
     /// </summary> 
     private void NoheightRestriction_Toggled(object sender, RoutedEventArgs e)
     {
-        MainWindow.mw.m.WriteMemory<float>(Self_Vehicle_Addrs.MaxHeightAddr, NoheightRestriction.IsOn ? 9999 : 4);
+        PhotoCamEntity.RemoveMaxHeight = NoheightRestriction.IsOn;
     }
     
     #endregion
@@ -49,42 +49,42 @@ public partial class PhotomodePage
     
     private void SpeedSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        try { MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.MovementSpeed, (float)SpeedSlider.Value);} catch { }
+        PhotoCamEntity.MovementSpeed = (float)SpeedSlider.Value;
     }
 
     private void SamplesMultiplierSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        try { MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SamplesMultiplier, (float)SamplesMultiplierSlider.Value);} catch {}
+        PhotoCamEntity.SamplesMultiplier = (float)SamplesMultiplierSlider.Value;
     }
 
     private void TurnSpeed_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        try { MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TurnAndZoomSpeed, (float)TurnSpeed.Value); } catch {}
+        PhotoCamEntity.TurnAndZoomSpeed = (float)TurnSpeed.Value;
     }
 
     private void SamplesBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.Samples, (int)SamplesBox.Value);
+        PhotoCamEntity.Samples = (int)SamplesBox.Value; 
     }
 
     private void ShutterSpeedBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.ShutterSpeed, (float)ShutterSpeedBox.Value);
+        PhotoCamEntity.ShutterSpeed = (float)ShutterSpeedBox.Value; 
     }
 
     private void ApertureScaleBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.ApertureScale, (float)ApertureScaleBox.Value);
+        PhotoCamEntity.ApertureScale = (float)ApertureScaleBox.Value; 
     }
 
     private void CarInFocusBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.CarInFocus, (float)CarInFocusBox.Value);
+        PhotoCamEntity.CarInFocus = (float)CarInFocusBox.Value; 
     }
 
     private void TimeSliceBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TimeSlice, (float)TimeSliceBox.Value);
+        PhotoCamEntity.TimeSlice = (float)TimeSliceBox.Value;
     }
     
     #endregion

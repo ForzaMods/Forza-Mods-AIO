@@ -1,104 +1,79 @@
-﻿using System.Threading;
+﻿using System.Numerics;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
 public partial class TeleportsPage
 {
     public static TeleportsPage t;
-    private float OldX, OldY, OldZ;
-    
+    private Vector3 _oldPosition, _teleportPosition;
+    private bool _waypointDetourCreated;
     public TeleportsPage()
     {
         InitializeComponent();
         t = this;
     }
 
-    private void TeleportBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void TeleportBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (TeleportBox.SelectedItem == null)
             return;
 
         if (!TeleportBox.Items.Contains("Undo Teleport"))
+        {
             TeleportBox.Items.Insert(0, "Undo Teleport");
+        }
 
-        float x = 0, y = 0, z = 0;
-        
+
         switch (TeleportBox.SelectedItem)
         {
             #region FH4
 
             case "Adventure Park":
-                x = (float)2267.335449;
-                y = (float)304.2393494;
-                z = (float)-2611.638428;
+                _teleportPosition = new Vector3 { X = 2267.335449f, Y = 304.2393494f, Z = -2611.638428f };
                 break;
             case "Ambleside":
-                x = (float)-5112.047363;
-                y = (float)154.1546478;
-                z = (float)-3534.503906;
+                _teleportPosition = new Vector3 { X = -5112.047363f, Y = 154.1546478f, Z = -3534.503906f };
                 break;
             case "Beach":
-                x = (float)4874.382812;
-                y = (float)124.9019775;
-                z = (float)-1392.215454;
+                _teleportPosition = new Vector3 { X = 4874.382812f, Y = 124.9019775f, Z = -1392.215454f };
                 break;
             case "Broadway":
-                x = (float)-237.2871857;
-                y = (float)239.5045471;
-                z = (float)-5816.858398;
+                _teleportPosition = new Vector3 { X = -237.2871857f, Y = 239.5045471f, Z = -5816.858398f };
                 break;
             case "Dam":
-                x = (float)-854.6953125;
-                y = (float)209.1066284;
-                z = (float)-2031.137329;
+                _teleportPosition = new Vector3 { X = -854.6953125f, Y = 209.1066284f, Z = -2031.137329f };
                 break;
             case "Edinburgh":
-                x = (float)2045.383179;
-                y = (float)204.0559845;
-                z = (float)2511.078613;
+                _teleportPosition = new Vector3 { X = 2045.383179f, Y = 204.0559845f, Z = 2511.078613f };
                 break;
             case "Festival":
-                x = (float)-2753.350098;
-                y = (float)349.7218018;
-                z = (float)-4357.629883;
+                _teleportPosition = new Vector3 { X = -2753.350098f, Y = 349.7218018f, Z = -4357.629883f };
                 break;
             case "Greendale Airstrip":
-                x = (float)3409.570068;
-                y = (float)159.2418976;
-                z = (float)661.2498779;
+                _teleportPosition = new Vector3 { X = 3409.570068f, Y = 159.2418976f, Z = 661.2498779f };
                 break;
             case "Lake Island":
-                x = (float)-4001.890869;
-                y = (float)175.7261353;
-                z = (float)-196.6170197;
+                _teleportPosition = new Vector3 { X = -4001.890869f, Y = 175.7261353f, Z = -196.6170197f };
                 break;
             case "Mortimer Gardens":
-                x = (float)-4314.36377;
-                y = (float)153.261261;
-                z = (float)1804.139282;
+                _teleportPosition = new Vector3 { X = -4314.36377f, Y = 153.261261f, Z = 1804.139282f };
                 break;
             case "Quarry":
-                x = (float)-1569.987305;
-                y = (float)206.0023804;
-                z = (float)-2843.05249;
+                _teleportPosition = new Vector3 { X = -1569.987305f, Y = 206.0023804f, Z = -2843.05249f };
                 break;
             case "Railyard":
-                x = (float)-935.0923462;
-                y = (float)161.055069;
-                z = (float)1745.383667;
+                _teleportPosition = new Vector3 { X = -935.0923462f, Y = 161.055069f, Z = 1745.383667f };
                 break;
             case "Start of Motorway":
-                x = (float)2657.887451;
-                y = (float)270.7128906;
-                z = (float)-4353.087402;
+                _teleportPosition = new Vector3 { X = 2657.887451f, Y = 270.7128906f, Z = -4353.087402f };
                 break;
             case "Top of Mountain":
-                x = (float)-2285.739746;
-                y = (float)364.6417236;
-                z = (float)2576.946533;
+                _teleportPosition = new Vector3 { X = -2285.739746f, Y = 364.6417236f, Z = 2576.946533f };
                 break;
 
             #endregion
@@ -106,124 +81,85 @@ public partial class TeleportsPage
             #region FH5
 
             case "Top Of Volcano":
-                x = (float)-5594.330078;
-                y = (float)1023.229919;
-                z = (float)2392.037109;
+                _teleportPosition = new Vector3 { X = -5594.330078f, Y = 1023.229919f, Z = 2392.037109f };
                 break;
             case "Stadium":
-                x = (float)-762.8079834;
-                y = (float)169.0338593;
-                z = (float)1615.112183;
+                _teleportPosition = new Vector3 { X = -762.8079834f, Y = 169.0338593f, Z = 1615.112183f };
                 break;
             case "Guanajuato (Main City)":
-                x = (float)355.9811096;
-                y = (float)258.8370056;
-                z = (float)3135.321533;
+                _teleportPosition = new Vector3 { X = 355.9811096f, Y = 258.8370056f, Z = 3135.321533f };
                 break;
             case "Bridge":
-                x = (float)-5820.825684;
-                y = (float)122.3475876;
-                z = (float)-2550.383545;
+                _teleportPosition = new Vector3 { X = -5820.825684f, Y = 122.3475876f, Z = -2550.383545f };
                 break;
             case "Golf Course":
-                x = (float)-8316.630859;
-                y = (float)125.8156357;
-                z = (float)-1150.103271;
+                _teleportPosition = new Vector3 { X = -8316.630859f, Y = 125.8156357f, Z = -1150.103271f };
                 break;
             case "Dunes":
-                x = (float)-8615.027344;
-                y = (float)143.9117279;
-                z = (float)1966.912109;
+                _teleportPosition = new Vector3 { X = -8615.027344f, Y = 143.9117279f, Z = 1966.912109f };
                 break;
             case "Motorway":
-                x = (float)2855.958252;
-                y = (float)195.1608429;
-                z = (float)1465.902954;
+                _teleportPosition = new Vector3 { X = 2855.958252f, Y = 195.1608429f, Z = 1465.902954f };
                 break;
             case "Airstrip":
-                x = (float)-3891.084717;
-                y = (float)174.4389496;
-                z = (float)-3841.428467;
+                _teleportPosition = new Vector3 { X = -3891.084717f, Y = 174.4389496f, Z = -3841.428467f };
                 break;
             case "Mulege":
-                x = (float)-4174.963867;
-                y = (float)122.9130783;
-                z = (float)-2227.120605;
+                _teleportPosition = new Vector3 { X = -4174.963867f, Y = 122.9130783f, Z = -2227.120605f };
                 break;
             case "Temple":
-                x = (float)3643.609375;
-                y = (float)230.227066;
-                z = (float)-2646.405029;
+                _teleportPosition = new Vector3 { X = 3643.609375f, Y = 230.227066f, Z = -2646.405029f };
                 break;
             case "River":
-                x = (float)923.4258423;
-                y = (float)246.7331696;
-                z = (float)-2980.020264;
+                _teleportPosition = new Vector3 { X = 923.4258423f, Y = 246.7331696f, Z = -2980.020264f };
                 break;
             case "Dirt Circuit":
-                x = (float)-8344.927734;
-                y = (float)200.0671387;
-                z = (float)3197.32959;
+                _teleportPosition = new Vector3 { X = -8344.927734f, Y = 200.0671387f, Z = 3197.32959f };
                 break;
             case "Pllaya Azul":
-                x = (float)5550.070801;
-                y = (float)105.1047897;
-                z = (float)497.8027649;
+                _teleportPosition = new Vector3 { X = 5550.070801f, Y = 105.1047897f, Z = 497.8027649f };
                 break;
             case "Temple Drag":
-                x = (float)751.5328979;
-                y = (float)190.3298645;
-                z = (float)-110.3424072;
+                _teleportPosition = new Vector3 { X = 751.5328979f, Y = 190.3298645f, Z = -110.3424072f };
                 break;
 
             #endregion
             
             case "Undo Teleport":
-                if (OldX == 0 && OldZ == 0 && OldY == 0)
-                    return;
-                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, OldX);
-                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, OldY);
-                MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, OldZ);
+                CarEntity.Position = _oldPosition;
                 return;
-            
+
             case "Waypoint":
-                if (Self_Vehicle_Addrs.WayPointxAddr is null or "0")
+                if (!_waypointDetourCreated)
                 {
-                    Task.Run(() => Self_Vehicle_ASM.GetWayPointAddr());
+                    await Task.Run(() => Self_Vehicle_ASM.GetWayPointAddr());
+                    _waypointDetourCreated = false;
                     return;
                 }
                 
-                if (MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointxAddr) == 0)
+                if (LocatorEntity.WaypointPosition.X == 0)
                 {
                     MessageBox.Show("Go make a new waypoint");
                     return;
                 }
 
-                x = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointxAddr);
-                y = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointyAddr) + 3;
-                z = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointzAddr);
+                _teleportPosition = LocatorEntity.WaypointPosition;
                 break;
         }
-
-        OldX = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.xAddr);
-        OldY = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.yAddr);
-        OldZ = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.zAddr);
         
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, x);
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, y);
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, z);
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xVelocityAddr, 0f);
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yVelocityAddr, 0f);
-        MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zVelocityAddr, 0f);
+        _oldPosition = CarEntity.Position;
+        CarEntity.LinearVelocity = new Vector3 { X = 0f, Z = 0f, Y = 0f };
+        CarEntity.Position = _teleportPosition;
     }
 
-    private void AutoTpToWaypoint_Toggled(object sender, RoutedEventArgs e)
+    private async void AutoTpToWaypoint_Toggled(object sender, RoutedEventArgs e)
     {
-        float LastWP_X = 0, LastWP_Y = 0, LastWP_Z = 0;
+        Vector3 lastWp = new();
 
-        if (Self_Vehicle_Addrs.WayPointxAddr is null or "0")
+        if (!_waypointDetourCreated)
         {
-            Task.Run(() => Self_Vehicle_ASM.GetWayPointAddr());
+            await Task.Run(() => Self_Vehicle_ASM.GetWayPointAddr());
+            _waypointDetourCreated = false;
         }
 
         Task.Run(() =>
@@ -236,33 +172,23 @@ public partial class TeleportsPage
                 Dispatcher.Invoke(() => Toggled = AutoTpToWaypoint.IsOn);
 
                 if (!Toggled)
+                {
                     break;
-                
-                if (Self_Vehicle_Addrs.WayPointxAddr is null or "0")
-                    continue;
+                }
 
                 try
                 {
-                    float NewWP_X = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointxAddr);
-                    float NewWP_Y = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointyAddr);
-                    float NewWP_Z = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.WayPointzAddr);
+                    var NewWP = LocatorEntity.WaypointPosition;
 
-                    if (!((LastWP_X != NewWP_X || LastWP_Y != NewWP_Y || LastWP_Z != NewWP_Z) 
-                        && NewWP_X != 0 && NewWP_Y != 0 && NewWP_Z != 0
-                        && NewWP_X is < 10000 and > -10000
-                        && NewWP_Y is < 3000 and > -100
-                        && NewWP_Z is < 10000 and > -10000)) continue;
+                    if (!((lastWp.X != NewWP.X || lastWp.Y != NewWP.Y || lastWp.Z != NewWP.Z) 
+                        && NewWP.X != 0 && NewWP.Y != 0 && NewWP.Z != 0
+                        && NewWP.X is < 10000 and > -10000
+                        && NewWP.Y is < 3000 and > -100
+                        && NewWP.Z is < 10000 and > -10000)) continue;
 
-                    OldX = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.xAddr);
-                    OldY = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.yAddr);
-                    OldZ = MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.zAddr);
-                    
-                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.xAddr, NewWP_X);
-                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.yAddr, (NewWP_Y + 3));
-                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.zAddr, NewWP_Z);
-                    LastWP_X = NewWP_X;
-                    LastWP_Y = NewWP_Y;
-                    LastWP_Z = NewWP_Z;
+                    _oldPosition = CarEntity.Position;
+                    CarEntity.Position = NewWP;
+                    lastWp = NewWP;
                 }
                 catch { }
             }

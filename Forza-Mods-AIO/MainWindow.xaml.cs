@@ -190,6 +190,8 @@ namespace Forza_Mods_AIO
                 {
                     if (!Attached)
                         continue;
+                    try { m.CloseProcess(); }
+                    catch { }
                     ResetAIO();
                     ToggleButtons(false);
                     Attached = false;
@@ -199,7 +201,7 @@ namespace Forza_Mods_AIO
 
         private void ToggleButtons(bool On)
         {
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 Self_Vehicle.IsEnabled = On;
                 AutoShow.IsEnabled = On;
@@ -310,9 +312,6 @@ namespace Forza_Mods_AIO
                     m.WriteArrayMemory((Self_Vehicle_Addrs.SuperCarAddrLong + 32).ToString("X"), new byte[] { 0x0F, 0x11, 0x49, 0x40 });
 
                     m.WriteArrayMemory(Self_Vehicle_Addrs.Car2Addr, new byte[] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00 });
-                    
-                    m.WriteArrayMemory(Self_Vehicle_Addrs.FOVnopOutAddr, new byte[] { 0x0F, 0x11, 0x43, 0x10 });
-                    m.WriteArrayMemory(Self_Vehicle_Addrs.FOVnopInAddr, new byte[] { 0x0F, 0x11, 0x73, 0x10 });
                 }
 
                 m.WriteMemory(Self_Vehicle_Addrs.SunRedAddr,  0.003921568859f);

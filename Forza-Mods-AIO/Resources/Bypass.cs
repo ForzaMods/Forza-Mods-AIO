@@ -1,11 +1,10 @@
-#pragma warning disable CA1806
-
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
+using static Forza_Mods_AIO.MainWindow;
 using static Memory.Imps;
 
 namespace Forza_Mods_AIO.Resources;
@@ -20,7 +19,12 @@ public abstract partial class Bypass
     private static partial int NtQueryInformationThread(nint threadHandle, ThreadInfoClass threadInformationClass, nint threadInformation, int threadInformationLength, nint returnLengthPtr);
 
     [LibraryImport("kernel32.dll")]
-    private static partial void TerminateThread(IntPtr hThread);
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool TerminateThread(IntPtr hThread, uint dwExitCode);
+    
+    [LibraryImport("kernel32.dll", SetLastError =true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial void GetExitCodeThread(nint hThread, out uint lpExitCode);
     #endregion
 
     #region Functions
@@ -69,40 +73,50 @@ public abstract partial class Bypass
     
     public static void DisableAnticheat()
     {
-        // get addresses for bypass
-        var NtDLL = GetModuleHandle("ntdll.dll");
-        var RtlUserThreadStart = GetProcAddress(NtDLL, "RtlUserThreadStart");
-        var NtCreateThreadEx = GetProcAddress(NtDLL, "NtCreateThreadEx");
-        var tm_sdk_installer_unregister_changes = (nint)MainWindow.mw.m.ScanForSig("48 83 EC ? 48 8B ? ? ? ? ? FF 15 ? ? ? ? 48 8B ? ? ? ? ? BA").FirstOrDefault();
-        
-        // this one fixes dll injection
-        MainWindow.mw.m.WriteArrayMemory(RtlUserThreadStart, new byte[] { 0x48, 0x83, 0xEC, 0x78, 0x4C, 0x8B, 0xC2 });
-        // this one allows to kill threads
-        MainWindow.mw.m.WriteArrayMemory(NtCreateThreadEx, new byte[] { 0x4C, 0x8B, 0xD1, 0xB8, 0xC7, 0x00, 0x00, 0x00 });
-        
-        Thread.Sleep(100);
-        
-        foreach (ProcessThread Thread in MainWindow.mw.gvp.Process.Threads)
-        {
+        var ntDll = GetModuleHandle("ntdll.dll");
+        var rtlUserThreadStart = GetProcAddress(ntDll, "RtlUserThreadStart");
+        var ntCreateThreadEx = GetProcAddress(ntDll, "NtCreateThreadEx");
+        nint threadBase = 0;
 
-            var ThreadStartAddress = GetThreadStartAddress(Thread.Id);
-            
-            if (ThreadStartAddress == tm_sdk_installer_unregister_changes + 0xeef34 || ThreadStartAddress == tm_sdk_installer_unregister_changes + 0xef0d4)
-            {
-                TerminateThread(OpenThread(ThreadAccess.Terminate, false, (uint)Thread.Id));
-            }
-            else if (ThreadStartAddress == tm_sdk_installer_unregister_changes + 0xd5f20 || ThreadStartAddress == tm_sdk_installer_unregister_changes + 0xd60c0)
-            {
-                TerminateThread(OpenThread(ThreadAccess.Terminate, false, (uint)Thread.Id));
-            }
-            else if (ThreadStartAddress == tm_sdk_installer_unregister_changes + 0x1e4b00 || ThreadStartAddress == tm_sdk_installer_unregister_changes + 0x1e4ca0)
-            {
-                TerminateThread(OpenThread(ThreadAccess.Terminate, false, (uint)Thread.Id));
-            }
-            
+        while (threadBase == 0)
+        {
+            threadBase = (nint)mw.m.ScanForSig("48 83 EC 28 48 8B 0D ? ? ? 04 FF 15").FirstOrDefault();
         }
+
+        var acThreadsCount = 0;
         
-        
+        foreach (ProcessThread thread in mw.gvp.Process.Threads)
+        {
+            if (acThreadsCount == 3)
+            {
+                break;
+            }
+            
+            IntPtr startAddress;
+                
+            try
+            {
+                startAddress = GetThreadStartAddress(thread.Id);
+            }
+            catch { continue; }
+
+            if (startAddress != threadBase + 0xeef34 && startAddress != threadBase + 0xef0d4 &&
+                startAddress != threadBase + 0xd5f20 && startAddress != threadBase + 0xd60c0 &&
+                startAddress != threadBase + 0x1e4b00 && startAddress != threadBase + 0x1e4ca0)
+            {
+                continue;
+            }
+                
+            mw.m.WriteArrayMemory(rtlUserThreadStart, new byte[] { 0x48, 0x83, 0xEC, 0x78, 0x4C, 0x8B, 0xC2 });
+            mw.m.WriteArrayMemory(ntCreateThreadEx, new byte[] { 0x4C, 0x8B, 0xD1, 0xB8, 0xC7, 0x00, 0x00, 0x00 });
+                
+            Thread.Sleep(100);
+                
+            GetExitCodeThread(OpenThread(ThreadAccess.QueryInformation, false, (uint)thread.Id), out var exitCode);
+            var acThreadBool = TerminateThread(OpenThread(ThreadAccess.Terminate, false, (uint)thread.Id), exitCode);
+
+            if (acThreadBool) ++acThreadsCount;
+        }
     }
 
     #endregion

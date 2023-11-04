@@ -27,7 +27,7 @@ public partial class MiscellaneousPage
 
     private void UnbreakableSkillScoreSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (Self_Vehicle_Addrs.UnbSkillAddrLong == 0)
+        if (Self_Vehicle_Addrs.UnbSkillBase == 0)
         {
             Task.Run(() => Self_Vehicle_ASM.GetUnbreakableSkillComboAddr());
             return;
