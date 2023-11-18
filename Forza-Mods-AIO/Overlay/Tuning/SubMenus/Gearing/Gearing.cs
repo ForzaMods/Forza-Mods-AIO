@@ -1,160 +1,159 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Threading;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Gearing;
 
 public abstract class Gearing
 {
-    private static readonly Overlay.MenuOption FinalDriveValue = new ("Final Drive", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption ReverseGearValue = new ("Reverse Gear", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption FirstGearValue = new ("First Gear", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption SecondGearValue = new ("Second Gear", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption ThirdGearValue = new ("Third Gear", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption FourthGearValue = new ("Fourth Gear", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption FifthGearValue = new ("Fifth Gear", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption SixthGearValue = new ("Sixth Gear", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption SeventhGearValue = new ("Seventh Gear", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption EighthGearValue = new ("Eighth Gear", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption NinthGearValue = new ("Ninth Gear", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption TenthGearValue = new ("Tenth Gear", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly MenuOption FinalDriveValue = new ("Final Drive", OptionType.Float, 0f);
+    private static readonly MenuOption ReverseGearValue = new ("Reverse Gear", OptionType.Float, 0f);
+    private static readonly MenuOption FirstGearValue = new ("First Gear", OptionType.Float, 0f);
+    private static readonly MenuOption SecondGearValue = new ("Second Gear", OptionType.Float, 0f);
+    private static readonly MenuOption ThirdGearValue = new ("Third Gear", OptionType.Float, 0f);
+    private static readonly MenuOption FourthGearValue = new ("Fourth Gear", OptionType.Float, 0f);
+    private static readonly MenuOption FifthGearValue = new ("Fifth Gear", OptionType.Float, 0f);
+    private static readonly MenuOption SixthGearValue = new ("Sixth Gear", OptionType.Float, 0f);
+    private static readonly MenuOption SeventhGearValue = new ("Seventh Gear", OptionType.Float, 0f);
+    private static readonly MenuOption EighthGearValue = new ("Eighth Gear", OptionType.Float, 0f);
+    private static readonly MenuOption NinthGearValue = new ("Ninth Gear", OptionType.Float, 0f);
+    private static readonly MenuOption TenthGearValue = new ("Tenth Gear", OptionType.Float, 0f);
 
-    private static readonly Overlay.MenuOption GearingPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
+    private static readonly MenuOption GearingPull = new ("Pull values", OptionType.Button, () =>
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
         
-        Gearing.Dispatcher.Invoke(() =>
+        gearing.Dispatcher.Invoke(() =>
         {
-            FinalDriveValue.Value = Gearing.FinalDriveBox.IsEnabled ? (float)Gearing.FinalDriveBox.Value! : 0f;    
-            ReverseGearValue.Value = Gearing.ReverseGearBox.IsEnabled ? (float)Gearing.ReverseGearBox.Value! : 0f;    
-            FirstGearValue.Value = Gearing.FirstGearBox.IsEnabled ? (float)Gearing.FirstGearBox.Value! : 0f;    
-            SecondGearValue.Value = Gearing.SecondGearBox.IsEnabled ? (float)Gearing.SecondGearBox.Value! : 0f;    
-            ThirdGearValue.Value = Gearing.ThirdGearBox.IsEnabled ? (float)Gearing.ThirdGearBox.Value! : 0f;    
-            FourthGearValue.Value = Gearing.FourthGearBox.IsEnabled ? (float)Gearing.FourthGearBox.Value! : 0f;    
-            FifthGearValue.Value = Gearing.FifthGearBox.IsEnabled ? (float)Gearing.FifthGearBox.Value! : 0f;    
-            SixthGearValue.Value = Gearing.SixthGearBox.IsEnabled ? (float)Gearing.SixthGearBox.Value! : 0f;    
-            SeventhGearValue.Value = Gearing.SeventhGearBox.IsEnabled ? (float)Gearing.SeventhGearBox.Value! : 0f;    
-            EighthGearValue.Value = Gearing.EighthGearBox.IsEnabled ? (float)Gearing.EighthGearBox.Value! : 0f;    
-            NinthGearValue.Value = Gearing.NinthGearBox.IsEnabled ? (float)Gearing.NinthGearBox.Value! : 0f;    
-            TenthGearValue.Value = Gearing.TenthGearBox.IsEnabled ? (float)Gearing.TenthGearBox.Value! : 0f;    
+            FinalDriveValue.Value = gearing.FinalDriveBox.IsEnabled ? (float)gearing.FinalDriveBox.Value! : 0f;    
+            ReverseGearValue.Value = gearing.ReverseGearBox.IsEnabled ? (float)gearing.ReverseGearBox.Value! : 0f;    
+            FirstGearValue.Value = gearing.FirstGearBox.IsEnabled ? (float)gearing.FirstGearBox.Value! : 0f;    
+            SecondGearValue.Value = gearing.SecondGearBox.IsEnabled ? (float)gearing.SecondGearBox.Value! : 0f;    
+            ThirdGearValue.Value = gearing.ThirdGearBox.IsEnabled ? (float)gearing.ThirdGearBox.Value! : 0f;    
+            FourthGearValue.Value = gearing.FourthGearBox.IsEnabled ? (float)gearing.FourthGearBox.Value! : 0f;    
+            FifthGearValue.Value = gearing.FifthGearBox.IsEnabled ? (float)gearing.FifthGearBox.Value! : 0f;    
+            SixthGearValue.Value = gearing.SixthGearBox.IsEnabled ? (float)gearing.SixthGearBox.Value! : 0f;    
+            SeventhGearValue.Value = gearing.SeventhGearBox.IsEnabled ? (float)gearing.SeventhGearBox.Value! : 0f;    
+            EighthGearValue.Value = gearing.EighthGearBox.IsEnabled ? (float)gearing.EighthGearBox.Value! : 0f;    
+            NinthGearValue.Value = gearing.NinthGearBox.IsEnabled ? (float)gearing.NinthGearBox.Value! : 0f;    
+            TenthGearValue.Value = gearing.TenthGearBox.IsEnabled ? (float)gearing.TenthGearBox.Value! : 0f;    
         });
-    }));
+    });
 
     private static void FinalDriveValueChanged(object s, EventArgs e)
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
-        Gearing.Dispatcher.Invoke(() =>
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
+        gearing.Dispatcher.Invoke(() =>
         {
-            Gearing.FinalDriveBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            gearing.FinalDriveBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
     
     private static void ReverseGearValueChanged(object s, EventArgs e)
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
-        Gearing.Dispatcher.Invoke(() =>
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
+        gearing.Dispatcher.Invoke(() =>
         {
-            Gearing.FinalDriveBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            gearing.FinalDriveBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void FirstGearValueChanged(object s, EventArgs e)
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
-        Gearing.Dispatcher.Invoke(() =>
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
+        gearing.Dispatcher.Invoke(() =>
         {
-            Gearing.FinalDriveBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            gearing.FinalDriveBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void SecondGearValueChanged(object s, EventArgs e)
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
-        Gearing.Dispatcher.Invoke(() =>
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
+        gearing.Dispatcher.Invoke(() =>
         {
-            Gearing.SecondGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            gearing.SecondGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void ThirdGearValueChanged(object s, EventArgs e)
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
-        Gearing.Dispatcher.Invoke(() =>
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
+        gearing.Dispatcher.Invoke(() =>
         {
-            Gearing.ThirdGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            gearing.ThirdGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void FourthGearValueChanged(object s, EventArgs e)
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
-        Gearing.Dispatcher.Invoke(() =>
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
+        gearing.Dispatcher.Invoke(() =>
         {
-            Gearing.FourthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            gearing.FourthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void FifthGearValueChanged(object s, EventArgs e)
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
-        Gearing.Dispatcher.Invoke(() =>
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
+        gearing.Dispatcher.Invoke(() =>
         {
-            Gearing.FifthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            gearing.FifthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void SixthGearValueChanged(object s, EventArgs e)
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
         
-        Gearing.Dispatcher.Invoke(() =>
+        gearing.Dispatcher.Invoke(() =>
         {
-            Gearing.SixthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            gearing.SixthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void SeventhGearValueChanged(object s, EventArgs e)
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
         
-        Gearing.Dispatcher.Invoke(() =>
+        gearing.Dispatcher.Invoke(() =>
         {
-            Gearing.SeventhGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            gearing.SeventhGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void EighthGearValueChanged(object s, EventArgs e)
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
 
-        Gearing.Dispatcher.Invoke(() =>
+        gearing.Dispatcher.Invoke(() =>
         {
-            Gearing.EighthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            gearing.EighthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void NinthGearValueChanged(object s, EventArgs e)
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
         
-        Gearing.Dispatcher.Invoke(() =>
+        gearing.Dispatcher.Invoke(() =>
         {
-            Gearing.NinthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            gearing.NinthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void TenthGearValueChanged(object s, EventArgs e)
     {
-        var Gearing = Tabs.Tuning.DropDownTabs.Gearing.g;
+        var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
         
-        Gearing.Dispatcher.Invoke(() =>
+        gearing.Dispatcher.Invoke(() =>
         {
-            Gearing.TenthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            gearing.TenthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
-    public static readonly List<Overlay.MenuOption> GearingOptions = new()
+    public static readonly List<MenuOption> GearingOptions = new()
     {
         FinalDriveValue,
         ReverseGearValue,

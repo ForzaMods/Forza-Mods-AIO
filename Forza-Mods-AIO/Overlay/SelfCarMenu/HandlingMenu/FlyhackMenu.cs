@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
 
 public abstract class FlyhackMenu
 {
-    private static readonly Overlay.MenuOption FlyhackRotationSpeed = new("Rotation Speed", Overlay.MenuOption.OptionType.Int, 1);
-    private static readonly Overlay.MenuOption FlyhackMovementSpeed = new("Movement Speed", Overlay.MenuOption.OptionType.Int, 1);
-    private static readonly Overlay.MenuOption FlyhackToggle = new("Toggle", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly MenuOption FlyhackRotationSpeed = new("Rotation Speed", OptionType.Int, 1);
+    private static readonly MenuOption FlyhackMovementSpeed = new("Movement Speed", OptionType.Int, 1);
+    private static readonly MenuOption FlyhackToggle = new("Toggle", OptionType.Bool, false);
 
-    public static readonly List<Overlay.MenuOption> FlyhackOptions = new()
+    public static readonly List<MenuOption> FlyhackOptions = new()
     {
-        new ("Flyhack", Overlay.MenuOption.OptionType.SubHeader),
+        new ("Flyhack", OptionType.SubHeader),
         FlyhackRotationSpeed,
         FlyhackMovementSpeed,
         FlyhackToggle
@@ -29,35 +30,35 @@ public abstract class FlyhackMenu
 
     private static void FlyhackRotationSpeedChanged(object s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(delegate
+        HandlingPage.Shp.Dispatcher.Invoke(delegate
         {
-            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.shp.FlyHackRotSpeedNum.Maximum)
-                FlyhackRotationSpeed.Value = (int)HandlingPage.shp.FlyHackRotSpeedNum.Maximum;
-            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.shp.FlyHackRotSpeedNum.Minimum)
-                FlyhackRotationSpeed.Value = (int)HandlingPage.shp.FlyHackRotSpeedNum.Minimum;
+            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.Shp.FlyHackRotSpeedNum.Maximum)
+                FlyhackRotationSpeed.Value = (int)HandlingPage.Shp.FlyHackRotSpeedNum.Maximum;
+            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.Shp.FlyHackRotSpeedNum.Minimum)
+                FlyhackRotationSpeed.Value = (int)HandlingPage.Shp.FlyHackRotSpeedNum.Minimum;
             else
-                HandlingPage.shp.FlyHackRotSpeedNum.Value = Convert.ToSingle(s.GetType().GetProperty("Value")!.GetValue(s)!);
+                HandlingPage.Shp.FlyHackRotSpeedNum.Value = Convert.ToSingle(s.GetType().GetProperty("Value")!.GetValue(s)!);
         });
     }
 
     private static void FlyhackMovementSpeedChanged(object s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(delegate
+        HandlingPage.Shp.Dispatcher.Invoke(delegate
         {
-            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.shp.FlyHackMoveSpeedNum.Maximum)
-                FlyhackMovementSpeed.Value = (int)HandlingPage.shp.FlyHackMoveSpeedNum.Maximum;
-            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.shp.FlyHackMoveSpeedNum.Minimum)
-                FlyhackMovementSpeed.Value = (int)HandlingPage.shp.FlyHackMoveSpeedNum.Minimum;
+            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.Shp.FlyHackMoveSpeedNum.Maximum)
+                FlyhackMovementSpeed.Value = (int)HandlingPage.Shp.FlyHackMoveSpeedNum.Maximum;
+            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.Shp.FlyHackMoveSpeedNum.Minimum)
+                FlyhackMovementSpeed.Value = (int)HandlingPage.Shp.FlyHackMoveSpeedNum.Minimum;
             else
-                HandlingPage.shp.FlyHackMoveSpeedNum.Value = Convert.ToSingle(s.GetType().GetProperty("Value")!.GetValue(s)!);
+                HandlingPage.Shp.FlyHackMoveSpeedNum.Value = Convert.ToSingle(s.GetType().GetProperty("Value")!.GetValue(s)!);
         });
     }
 
     private static void FlyhackToggled(object s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(() =>
+        HandlingPage.Shp.Dispatcher.Invoke(() =>
         {
-            HandlingPage.shp.FlyHackSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            HandlingPage.Shp.FlyHackSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 

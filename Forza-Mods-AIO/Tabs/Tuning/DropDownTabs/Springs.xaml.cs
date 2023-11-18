@@ -7,14 +7,14 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
 {
     public partial class Springs : Page
     {
-        float FrontPreviousRestrictionValue = 0;
-        float RearPreviousRestrictionValue = 0;
-        public static Springs sp;
+        float _frontPreviousRestrictionValue = 0;
+        float _rearPreviousRestrictionValue = 0;
+        public static Springs Sp;
 
         public Springs()
         {
             InitializeComponent();
-            sp = this;
+            Sp = this;
         }
 
         public void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -22,9 +22,9 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
             try
             {
                 // Got this looping method from here and slightly modified it: https://stackoverflow.com/a/51424624
-                foreach (FieldInfo Address in typeof(Tuning_Addresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(field => field.FieldType == typeof(string)))
-                    if (Address.Name == sender.GetType().GetProperty("Name").GetValue(sender).ToString().Remove(sender.GetType().GetProperty("Name").GetValue(sender).ToString().Length - 3))
-                        MainWindow.mw.m.WriteMemory(Address.GetValue(null) as string, (float)((MahApps.Metro.Controls.NumericUpDown)sender).Value);
+                foreach (FieldInfo address in typeof(TuningAddresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(field => field.FieldType == typeof(string)))
+                    if (address.Name == sender.GetType().GetProperty("Name").GetValue(sender).ToString().Remove(sender.GetType().GetProperty("Name").GetValue(sender).ToString().Length - 3))
+                        MainWindow.Mw.M.WriteMemory(address.GetValue(null) as string, (float)((MahApps.Metro.Controls.NumericUpDown)sender).Value);
             }
             catch { }
         }
@@ -33,12 +33,12 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
         {
             if (FrontRestriction.IsOn)
             {
-                FrontPreviousRestrictionValue = MainWindow.mw.m.ReadMemory<float>(Tuning_Addresses.FrontRestriction);
-                try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontRestriction, (float)0.01); } catch { }
+                _frontPreviousRestrictionValue = MainWindow.Mw.M.ReadMemory<float>(TuningAddresses.FrontRestriction);
+                try { MainWindow.Mw.M.WriteMemory(TuningAddresses.FrontRestriction, (float)0.01); } catch { }
             }
             else if (!FrontRestriction.IsOn)
             {
-                try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.FrontRestriction, FrontPreviousRestrictionValue); } catch { }
+                try { MainWindow.Mw.M.WriteMemory(TuningAddresses.FrontRestriction, _frontPreviousRestrictionValue); } catch { }
             }
         }
 
@@ -46,12 +46,12 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
         {
             if (RearRestriction.IsOn)
             {
-                RearPreviousRestrictionValue = MainWindow.mw.m.ReadMemory<float>(Tuning_Addresses.RearRestriction);
-                try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearRestriction, (float)0.01); } catch { }
+                _rearPreviousRestrictionValue = MainWindow.Mw.M.ReadMemory<float>(TuningAddresses.RearRestriction);
+                try { MainWindow.Mw.M.WriteMemory(TuningAddresses.RearRestriction, (float)0.01); } catch { }
             }
             else if (!RearRestriction.IsOn)
             {
-                try { MainWindow.mw.m.WriteMemory(Tuning_Addresses.RearRestriction, RearPreviousRestrictionValue); } catch { }
+                try { MainWindow.Mw.M.WriteMemory(TuningAddresses.RearRestriction, _rearPreviousRestrictionValue); } catch { }
             }
         }
     }

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping.SubMenus;
+﻿using System.Collections.Generic;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping;
 
 public abstract class Damping
 {
-    public static readonly List<Overlay.MenuOption> DampingOptions = new()
+    public static readonly List<MenuOption> DampingOptions = new()
     {
-        new Overlay.MenuOption("Antiroll Bars/Damping", Overlay.MenuOption.OptionType.MenuButton),
-        new Overlay.MenuOption("Rebound Stiffness", Overlay.MenuOption.OptionType.MenuButton),
-        new Overlay.MenuOption("Bump Stiffness", Overlay.MenuOption.OptionType.MenuButton)
+        new MenuOption("Antiroll Bars/Damping", OptionType.MenuButton),
+        new MenuOption("Rebound Stiffness", OptionType.MenuButton),
+        new MenuOption("Bump Stiffness", OptionType.MenuButton)
     };
 }

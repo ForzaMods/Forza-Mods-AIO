@@ -46,7 +46,7 @@
                       BorderThickness="0"
                       SelectionChanged="TeleportBox_SelectionChanged" />
             
-            <Label Content="Auto TP To waypoint" 
+            <Label Content="Auto TP To Waypoint" 
                    HorizontalAlignment="Right" 
                    VerticalAlignment="Top"
                    Focusable="False"

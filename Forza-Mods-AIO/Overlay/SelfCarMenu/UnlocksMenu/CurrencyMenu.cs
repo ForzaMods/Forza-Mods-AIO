@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.SelfCarMenu.UnlocksMenu;
 
 public abstract class CurrencyMenu
 {
-    private static readonly Overlay.MenuOption XpValue = new("Value", Overlay.MenuOption.OptionType.Int, 0, isEnabled: false);
-    private static readonly Overlay.MenuOption XpToggle = new("Toggle", Overlay.MenuOption.OptionType.Bool, false);
-    private static readonly Overlay.MenuOption XpPull = new("Pull", Overlay.MenuOption.OptionType.Button, () =>
+    private static readonly MenuOption XpValue = new("Value", OptionType.Int, 0, isEnabled: false);
+    private static readonly MenuOption XpToggle = new("Toggle", OptionType.Bool, false);
+    private static readonly MenuOption XpPull = new("Pull", OptionType.Button, () =>
     {
         UnlocksPage.Up.Dispatcher.Invoke(() =>
         {
@@ -16,9 +17,9 @@ public abstract class CurrencyMenu
         });
     });
     
-    private static readonly Overlay.MenuOption CreditsValue = new("Value", Overlay.MenuOption.OptionType.Int, 0);
-    private static readonly Overlay.MenuOption CreditsToggle = new("Toggle", Overlay.MenuOption.OptionType.Bool, false);
-    private static readonly Overlay.MenuOption CreditsPull = new("Pull", Overlay.MenuOption.OptionType.Button, () =>
+    private static readonly MenuOption CreditsValue = new("Value", OptionType.Int, 0);
+    private static readonly MenuOption CreditsToggle = new("Toggle", OptionType.Bool, false);
+    private static readonly MenuOption CreditsPull = new("Pull", OptionType.Button, () =>
     {
         UnlocksPage.Up.Dispatcher.Invoke(() =>
         {
@@ -26,13 +27,13 @@ public abstract class CurrencyMenu
         });
     });
     
-    public static readonly List<Overlay.MenuOption> CurrencyMenuOptions = new()
+    public static readonly List<MenuOption> CurrencyMenuOptions = new()
     {
-        new("XP", Overlay.MenuOption.OptionType.SubHeader),
+        new("XP", OptionType.SubHeader),
         XpValue,
         XpToggle,
         XpPull,
-        new("Credits", Overlay.MenuOption.OptionType.SubHeader),
+        new("Credits", OptionType.SubHeader),
         CreditsValue,
         CreditsToggle,
         CreditsPull

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
-using MahApps.Metro.Controls;
+using Forza_Mods_AIO.Resources;
+using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
+using static Forza_Mods_AIO.MainWindow;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
@@ -11,6 +14,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 public partial class CustomizationPage : Page
 {
     internal static CustomizationPage _CustomizationPage;
+    public static readonly Detour GlowingPaintDetour = new();
     
     public CustomizationPage()
     {
@@ -21,16 +25,26 @@ public partial class CustomizationPage : Page
     /// <summary>
     ///     Glowing paint toggle.
     /// </summary>
-    private void GlowingPaintSwitch_Toggled(object sender, RoutedEventArgs e)
+    private void GlowingPaintSwitch_Toggled(object? sender, RoutedEventArgs e)
     {
-        if (((ToggleSwitch)sender).IsOn)
+        if (!GlowingPaintDetour.Setup(sender, GlowingPaintAddr,
+                Mw.Gvp.Name.Contains('5') ? "0F590D490000000F110AC642F001" : "0F590D49000000410F114A10",
+                Mw.Gvp.Name.Contains('5') ? 7 : 5,
+                true, 63))
         {
-            Self_Vehicle_ASM.GlowingPaint();
-            GlowingPaintNum_ValueChanged(new object(), new RoutedPropertyChangedEventArgs<double?>(GlowingPaintNum.Value, GlowingPaintNum.Value));
+            GlowingPaintSwitch.Toggled -= GlowingPaintSwitch_Toggled;
+            GlowingPaintSwitch.IsOn = false;
+            GlowingPaintSwitch.Toggled += GlowingPaintSwitch_Toggled;
+            MessageBox.Show("Failed");
             return;
         }
 
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.GlowingPaintAddr, MainWindow.mw.gvp.Name == "Forza Horizon 4" ? new byte[] { 0x41, 0x0F, 0x11, 0x4A, 0x10 } : new byte[] { 0x0F, 0x11, 0x0A, 0xC6, 0x42, 0xF0, 0x01 });
+        if (GlowingPaintDetour.IsHooked)
+        {
+            GlowingPaintNum_ValueChanged(new object(), new RoutedPropertyChangedEventArgs<double?>(GlowingPaintNum.Value, GlowingPaintNum.Value));
+        }
+        
+        GlowingPaintDetour.Toggle();
     }
 
     /// <summary>
@@ -41,12 +55,10 @@ public partial class CustomizationPage : Page
         try
         {
             GlowingPaintSlider.Value = Convert.ToDouble(GlowingPaintNum.Value);
-
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_ASM.CodeCave4 + 0x50).ToString("X"), (float)GlowingPaintNum.Value);
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_ASM.CodeCave4 + 0x54).ToString("X"), (float)GlowingPaintNum.Value);
-            MainWindow.mw.m.WriteMemory((Self_Vehicle_ASM.CodeCave4 + 0x58).ToString("X"), (float)GlowingPaintNum.Value);
+            var value = Convert.ToSingle(GlowingPaintNum.Value);
+            Vector3 glowingPaintMultiplier = new() { X = value, Y = value, Z = value };
+            GlowingPaintDetour.UpdateVariable(glowingPaintMultiplier);
         }
-
         catch
         {
             // ignored

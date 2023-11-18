@@ -14,10 +14,10 @@
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0" />
         <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,0,0,10" />
 
-        <Label x:Name="FrontAeroMinLabel" Content="Front Aero Min" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="20,20,0,0"/>
-        <Label x:Name="FrontAeroMaxLabel" Content="Front Aero Max" HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,20,145,0"/>
-        <Label x:Name="RearAeroMinLabel" Content="Rear Aero Min" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="20,0,0,20"/>
-        <Label x:Name="RearAeroMaxLabel" Content="Rear Aero Max" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,150,20"/>
+        <Label Content="Front Aero Min" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="20,20,0,0"/>
+        <Label Content="Front Aero Max" HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,20,145,0"/>
+        <Label Content="Rear Aero Min" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="20,0,0,20"/>
+        <Label Content="Rear Aero Max" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,150,20"/>
 
         <mah:NumericUpDown  Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontAeroMinBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="129,20,0,0" Minimum="-0" ValueChanged="ValueChanged"/>
         <mah:NumericUpDown  Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontAeroMaxBox" TextAlignment="Left" NumericInputMode="Decimal" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0" Minimum="0" ValueChanged="ValueChanged"/>

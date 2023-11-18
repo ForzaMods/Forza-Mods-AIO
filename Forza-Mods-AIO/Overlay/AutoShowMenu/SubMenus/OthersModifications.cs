@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using Forza_Mods_AIO.Tabs.AutoShowTab;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus;
 
 public abstract class OthersModifications
 {
-    private static readonly Overlay.MenuOption FreePerfUpgradesToggle = new ("Free Perf Upgrades", Overlay.MenuOption.OptionType.Bool, false);
-    private static readonly Overlay.MenuOption FreeVisualUpgradeToggle = new ("Free Visual Upgrades", Overlay.MenuOption.OptionType.Bool, false);
-    private static readonly Overlay.MenuOption QuickAddAllCarsToggle = new ("Quick Add All Cars", Overlay.MenuOption.OptionType.Bool, false);
-    private static readonly Overlay.MenuOption QuickAddRareCarsToggle = new ("Quick Add Rare Cars", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly MenuOption FreePerfUpgradesToggle = new ("Free Perf Upgrades", OptionType.Bool, false);
+    private static readonly MenuOption FreeVisualUpgradeToggle = new ("Free Visual Upgrades", OptionType.Bool, false);
+    private static readonly MenuOption QuickAddAllCarsToggle = new ("Quick Add All Cars", OptionType.Bool, false);
+    private static readonly MenuOption QuickAddRareCarsToggle = new ("Quick Add Rare Cars", OptionType.Bool, false);
 
-    public static readonly List<Overlay.MenuOption> OthersModificationsOptions = new()
+    public static readonly List<MenuOption> OthersModificationsOptions = new()
     {
         FreePerfUpgradesToggle,
         FreeVisualUpgradeToggle,
@@ -29,45 +30,45 @@ public abstract class OthersModifications
 
     private static void FreePerfUpgradesToggled(object s, EventArgs e)
     {
-        AutoShow.AS.Dispatcher.Invoke(() =>
+        AutoShow.As.Dispatcher.Invoke(() =>
         {
-            if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            if (MainWindow.Mw.Gvp.Name == "Forza Horizon 4")
             {
                 FreeVisualUpgradeToggle.IsEnabled = !FreeVisualUpgradeToggle.IsEnabled;
             }
                 
-            AutoShow.AS.FreePerfUpgrades.IsOn = (bool)FreePerfUpgradesToggle.Value;
+            AutoShow.As.FreePerfUpgrades.IsOn = (bool)FreePerfUpgradesToggle.Value;
         });
     }
 
     private static void FreeVisualUpgradesToggled(object s, EventArgs e)
     {
-        AutoShow.AS.Dispatcher.Invoke(() =>
+        AutoShow.As.Dispatcher.Invoke(() =>
         {
-            if (MainWindow.mw.gvp.Name == "Forza Horizon 4")
+            if (MainWindow.Mw.Gvp.Name == "Forza Horizon 4")
             {
                 FreePerfUpgradesToggle.IsEnabled = !FreePerfUpgradesToggle.IsEnabled;
             }
                 
-            AutoShow.AS.FreeVisualUpgrades.IsOn = (bool)FreeVisualUpgradeToggle.Value;
+            AutoShow.As.FreeVisualUpgrades.IsOn = (bool)FreeVisualUpgradeToggle.Value;
         });
     }
 
     private static void QuickAddAllCarsToggled(object s, EventArgs e)
     {
-        AutoShow.AS.Dispatcher.Invoke(() =>
+        AutoShow.As.Dispatcher.Invoke(() =>
         {
-            AutoShow.AS.QuickAddAllCars.IsOn = (bool)QuickAddAllCarsToggle.Value;
+            AutoShow.As.QuickAddAllCars.IsOn = (bool)QuickAddAllCarsToggle.Value;
             QuickAddRareCarsToggle.IsEnabled = !QuickAddRareCarsToggle.IsEnabled;
         });
     }
 
     private static void QuickAddRareCarsToggled(object s, EventArgs e)
     {
-        AutoShow.AS.Dispatcher.Invoke(() =>
+        AutoShow.As.Dispatcher.Invoke(() =>
         {
             QuickAddAllCarsToggle.IsEnabled = !QuickAddAllCarsToggle.IsEnabled;
-            AutoShow.AS.QuickAddRareCars.IsOn = (bool)QuickAddRareCarsToggle.Value;
+            AutoShow.As.QuickAddRareCars.IsOn = (bool)QuickAddRareCarsToggle.Value;
         });
     }
 }

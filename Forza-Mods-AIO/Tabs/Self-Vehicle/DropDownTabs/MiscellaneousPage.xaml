@@ -42,13 +42,13 @@
                HorizontalAlignment="Left"
                Margin="70 20 0 0"/>
         
-        <mah:ToggleSwitch x:Name="UnbreakableSkillScoreSwitch"
+        <mah:ToggleSwitch x:Name="SkillToggle"
                           MinWidth="1"
                           Content=""
                           HorizontalAlignment="Right"
                           VerticalAlignment="Top"
                           Margin="0 17 218.5 0"
-                          Toggled="UnbreakableSkillScoreSwitch_OnToggled"/> 
+                          Toggled="Skill_OnToggled"/> 
         
         <Label Content="Unbreakable Skill Score/Skill Combo"
                VerticalAlignment="Top"

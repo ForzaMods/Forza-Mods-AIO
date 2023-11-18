@@ -21,7 +21,11 @@ public partial class PhotomodePage
     /// </summary>
     private void NoClip_Toggled(object sender, RoutedEventArgs e)
     {
-        PhotoCamEntity.NoClip = NoClip.IsOn;
+        try
+        {
+            PhotoCamEntity.NoClip = NoClip.IsOn;
+        }
+        catch {}
     }
 
     /// <summary>
@@ -31,7 +35,11 @@ public partial class PhotomodePage
 
     private void IncreasedZoom_OnToggled(object sender, RoutedEventArgs e)
     {
-        PhotoCamEntity.IncreasedZoom = IncreasedZoom.IsOn;
+        try
+        {
+            PhotoCamEntity.IncreasedZoom = IncreasedZoom.IsOn;
+        }
+        catch {}
     }
 
     /// <summary>
@@ -40,7 +48,11 @@ public partial class PhotomodePage
     /// </summary> 
     private void NoheightRestriction_Toggled(object sender, RoutedEventArgs e)
     {
-        PhotoCamEntity.RemoveMaxHeight = NoheightRestriction.IsOn;
+        try
+        {
+            PhotoCamEntity.RemoveMaxHeight = NoheightRestriction.IsOn;
+        }
+        catch {}
     }
     
     #endregion
@@ -49,42 +61,74 @@ public partial class PhotomodePage
     
     private void SpeedSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        PhotoCamEntity.MovementSpeed = (float)SpeedSlider.Value;
+        try
+        {
+            PhotoCamEntity.MovementSpeed = (float)SpeedSlider.Value;
+        }
+        catch {}
     }
 
     private void SamplesMultiplierSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        PhotoCamEntity.SamplesMultiplier = (float)SamplesMultiplierSlider.Value;
+        try
+        {
+            PhotoCamEntity.SamplesMultiplier = (float)SamplesMultiplierSlider.Value;
+        }
+        catch {}
     }
 
     private void TurnSpeed_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        PhotoCamEntity.TurnAndZoomSpeed = (float)TurnSpeed.Value;
+        try
+        {
+            PhotoCamEntity.TurnAndZoomSpeed = (float)TurnSpeed.Value;
+        }
+        catch{}
     }
 
     private void SamplesBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        PhotoCamEntity.Samples = (int)SamplesBox.Value; 
+        try
+        {
+            PhotoCamEntity.Samples = (int)SamplesBox.Value; 
+        }
+        catch {}
     }
 
     private void ShutterSpeedBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        PhotoCamEntity.ShutterSpeed = (float)ShutterSpeedBox.Value; 
+        try
+        {
+            PhotoCamEntity.ShutterSpeed = (float)ShutterSpeedBox.Value; 
+        }
+        catch {}
     }
 
     private void ApertureScaleBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        PhotoCamEntity.ApertureScale = (float)ApertureScaleBox.Value; 
+        try
+        {
+            PhotoCamEntity.ApertureScale = (float)ApertureScaleBox.Value; 
+        }
+        catch {}
     }
 
     private void CarInFocusBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        PhotoCamEntity.CarInFocus = (float)CarInFocusBox.Value; 
+        try
+        {
+            PhotoCamEntity.CarInFocus = (float)CarInFocusBox.Value; 
+        }
+        catch {}
     }
 
     private void TimeSliceBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        PhotoCamEntity.TimeSlice = (float)TimeSliceBox.Value;
+        try
+        {
+            PhotoCamEntity.TimeSlice = (float)TimeSliceBox.Value;
+        }
+        catch {}
     }
     
     #endregion

@@ -16,40 +16,40 @@
 
             <!--#region Labels-->
             <!--#region Wheelbase-->
-            <Label x:Name="FrontSpringsMinLabel"
+            <Label
                Content="Front Springs Min"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="18.5,20,0,0"/>
-            <Label x:Name="RearSpringsMinLabel"
+            <Label
                Content="Rear Springs Min"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="18,80,0,0"/>
-            <Label x:Name="FrontSpringsMaxLabel"
+            <Label
                Content="Front Springs Max"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="302,21,0,0"/>
-            <Label x:Name="RearSpringsMaxLabel"
+            <Label
                Content="Rear Springs Max"
                VerticalAlignment="Top" HorizontalAlignment="Right"
                
                Margin="0,80,172,0"/>
             <!--#endregion-->
             <!--#region Rims-->
-            <Label x:Name="FrontRideHeightMinLabel"
+            <Label
                Content="Front Ride Height Min"
                VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0,0,0"/>
-            <Label x:Name="FrontRideHeightMaxLabel"
+            <Label
                Content="Front Ride Height Max"
                VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18,167,0,0"/>
-            <Label x:Name="RearRideHeightMinLabel"
+            <Label
                Content="Rear Ride Height Min"
                VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="18,0,0,65"
                
                />
-            <Label x:Name="RearRideHeightMaxLabel"
+            <Label
                Content="Rear Ride Height Max"
                VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="18,0,0,31"
                />

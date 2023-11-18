@@ -1,123 +1,113 @@
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
-using static Forza_Mods_AIO.MainWindow;
+using System.Threading.Tasks;
+using static System.BitConverter;
 using static Memory.Imps;
+using static Forza_Mods_AIO.MainWindow;
 
 namespace Forza_Mods_AIO.Resources;
 
-public abstract partial class Bypass
+public abstract class Bypass
 {
-    #region DLL Imports
-    [LibraryImport("kernel32.dll")]
-    private static partial void CloseHandle(nint hObject);
-    
-    [LibraryImport("ntdll.dll", SetLastError = true)]
-    private static partial int NtQueryInformationThread(nint threadHandle, ThreadInfoClass threadInformationClass, nint threadInformation, int threadInformationLength, nint returnLengthPtr);
+    private static readonly byte[] RtlUserThreadStartOrig = { 0x48, 0x83, 0xEC, 0x78, 0x4C, 0x8B, 0xC2 };
+    private static readonly byte[] NtCreateThreadExOrig = { 0x4C, 0x8B, 0xD1, 0xB8, 0xC7, 0x00, 0x00, 0x00 };
 
-    [LibraryImport("kernel32.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool TerminateThread(IntPtr hThread, uint dwExitCode);
+    private static readonly Detour Check1Detour = new(), Check2Detour = new(), Check3Detour = new(), Check4Detour = new();
+    private static UIntPtr _memCopyAddress = UIntPtr.Zero;
+    private const uint MemRelease = 0x8000;
     
-    [LibraryImport("kernel32.dll", SetLastError =true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial void GetExitCodeThread(nint hThread, out uint lpExitCode);
-    #endregion
-
-    #region Functions
-    
-    private static IntPtr GetThreadStartAddress(int threadId)
-    {
-        var hThread = OpenThread(ThreadAccess.QueryInformation, false, ((uint)threadId));
-        if (hThread == IntPtr.Zero)
-            throw new Win32Exception();
-        var buf = Marshal.AllocHGlobal(IntPtr.Size);
-        try
-        {
-            var result = NtQueryInformationThread(hThread, ThreadInfoClass.ThreadQuerySetWin32StartAddress, buf, IntPtr.Size, IntPtr.Zero);
-            
-            if (result != 0)
-                throw new Win32Exception($"NtQueryInformationThread failed; NTSTATUS = {result:X8}");
-            return Marshal.ReadIntPtr(buf);
-        }
-        finally
-        {
-            CloseHandle(hThread);
-            Marshal.FreeHGlobal(buf);
-        }
-    }
-    #endregion
-
-    #region Magic
-
-                    
-    /*                                          THREAD DESCRIPTIONS !!!!
-     * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0x24a7e0 <- dont run on startup, some of them are bink ones. (multiple threads)
-     * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0xd5f20  <- not really sure what it does. launches on startup along with watchdog (+0xd60c0 on ms)
-     * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0x2ce8c  <- starts when u kill watchdog.
-     * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0x2cf00  <- same as on thread +0x2ce8c.
-     * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0xb2ef4  <- same as on thread +0x2ce8c. (multiple threads)
-     * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0xc3a58  <- same as on thread +0x2ce8c, though dies after some time.
-     * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0xeef34  <- watchdog. runs on startup (+0xef0d4 on ms)
-     * ForzaHorizon5.exe!tm_sdk_installer_unregister_changes+0x1e4b00 <- dies when you kill watchdog so not sure, might aswell suspend it too. (+0x1e4ca0 on ms)
-     * ForzaHorizon5.exe!Turn10GainGetDSPDescription+0x477710         <- I suspended it once and my breakpoints on mem integrity check functions stopped for some time
-     *                                                                   (no other threads died), probably some placeholder thread that Idk what impact has on the game.
-     *                                                                   I doubt its audio thread as theadmiester said, bc it has no impact on audio whatsoever.
-     * ForzaHorizon5.exe+0x9390e0                                     <- Main game threads (+0x8e22a0 on ms)
-     * ForzaHorizon5.exe!tm_api_update+0x2840                         <- Unknown thread. not sure what it does
-     * ForzaHorizon5.exe+0x10d9be0                                    <- steam_api64.SteamInternal_ContextInit thread. runs only at "press start" screen
-     */
-    
-    public static void DisableAnticheat()
+    public static void DisableAntiCheat(int ver)
     {
         var ntDll = GetModuleHandle("ntdll.dll");
         var rtlUserThreadStart = GetProcAddress(ntDll, "RtlUserThreadStart");
         var ntCreateThreadEx = GetProcAddress(ntDll, "NtCreateThreadEx");
-        nint threadBase = 0;
 
-        while (threadBase == 0)
-        {
-            threadBase = (nint)mw.m.ScanForSig("48 83 EC 28 48 8B 0D ? ? ? 04 FF 15").FirstOrDefault();
-        }
-
-        var acThreadsCount = 0;
+        Mw.M.WriteArrayMemory(rtlUserThreadStart, RtlUserThreadStartOrig);
+        Mw.M.WriteArrayMemory(ntCreateThreadEx, NtCreateThreadExOrig);
         
-        foreach (ProcessThread thread in mw.gvp.Process.Threads)
+        if (ver == 4)
         {
-            if (acThreadsCount == 3)
-            {
-                break;
-            }
-            
-            IntPtr startAddress;
-                
-            try
-            {
-                startAddress = GetThreadStartAddress(thread.Id);
-            }
-            catch { continue; }
-
-            if (startAddress != threadBase + 0xeef34 && startAddress != threadBase + 0xef0d4 &&
-                startAddress != threadBase + 0xd5f20 && startAddress != threadBase + 0xd60c0 &&
-                startAddress != threadBase + 0x1e4b00 && startAddress != threadBase + 0x1e4ca0)
-            {
-                continue;
-            }
-                
-            mw.m.WriteArrayMemory(rtlUserThreadStart, new byte[] { 0x48, 0x83, 0xEC, 0x78, 0x4C, 0x8B, 0xC2 });
-            mw.m.WriteArrayMemory(ntCreateThreadEx, new byte[] { 0x4C, 0x8B, 0xD1, 0xB8, 0xC7, 0x00, 0x00, 0x00 });
-                
-            Thread.Sleep(100);
-                
-            GetExitCodeThread(OpenThread(ThreadAccess.QueryInformation, false, (uint)thread.Id), out var exitCode);
-            var acThreadBool = TerminateThread(OpenThread(ThreadAccess.Terminate, false, (uint)thread.Id), exitCode);
-
-            if (acThreadBool) ++acThreadsCount;
+            return;
         }
+        
+        PointChecksToCopy();
     }
 
-    #endregion
+
+    public static bool IsScanRunning;
+    
+    private static void PointChecksToCopy()
+    {
+        if (IsScanRunning)
+        {
+            return;
+        }
+        
+        IsScanRunning = true;
+        
+        while (Mw.Gvp.Process == null)
+        {
+            Task.Delay(5).Wait();
+        }
+
+        var checkAddr1 = Mw.M.ScanForSig("40 8A ? E9 ? ? ? ? CC").FirstOrDefault();
+
+        while (checkAddr1 == 0)
+        {
+            checkAddr1 = Mw.M.ScanForSig("40 8A ? E9 ? ? ? ? CC").FirstOrDefault();
+            Task.Delay(5).Wait();
+        }
+        
+        checkAddr1 += Mw.Gvp.Plat == "MS" ? (UIntPtr)325 : 333;
+
+        if (checkAddr1 is 325 or 333)
+        {
+            return;
+        }
+        
+        var checkAddr2 = checkAddr1 + 40;
+        var checkAddr3 = checkAddr1 + 79;
+        var checkAddr4 = checkAddr1 + 119;
+
+        var baseAddress = (long)Mw.Gvp.Process.MainModule!.BaseAddress;
+        var endAddress = baseAddress + Mw.Gvp.Process.MainModule.ModuleMemorySize;
+        
+        var procHandle = Mw.Gvp.Process.Handle;
+        var memSize = (uint)Mw.Gvp.Process.MainModule.ModuleMemorySize;
+
+        while (_memCopyAddress == 0)
+        {
+            _memCopyAddress = VirtualAllocEx(procHandle, 0, memSize, MemCommit | MemReserve, ExecuteReadwrite);
+            Task.Delay(5).Wait();
+        }
+        WriteProcessMemory(procHandle, _memCopyAddress, Mw.M._memoryCache["default"], memSize, nint.Zero);
+        var addresses = GetBytes(baseAddress).Concat(GetBytes(endAddress)).Concat(GetBytes(_memCopyAddress)).ToArray();
+        
+        const string check1Bytes = "53 48 8D 58 F0 48 3B 1D 2A 00 00 00 72 1D 48 3B 1D 29 00 00 00 77 14 48 2B 1D 18 00 00 00 48 03 1D 21 00 00 00 F3 0F 6F 03 EB 05 F3 0F 6F 40 F0 5B";
+        const string check2Bytes = "53 48 8D 18 48 3B 1D 2E 00 00 00 72 1D 48 3B 1D 2D 00 00 00 77 14 48 2B 1D 1C 00 00 00 48 03 1D 25 00 00 00 F3 0F 6F 03 EB 04 F3 0F 6F 00 5B F3 0F 6F 51 E8";
+        const string check3Bytes = "53 48 8D 58 10 48 3B 1D 2A 00 00 00 72 1D 48 3B 1D 29 00 00 00 77 14 48 2B 1D 18 00 00 00 48 03 1D 21 00 00 00 F3 0F 6F 03 EB 05 F3 0F 6F 40 10 5B";
+        const string check4Bytes = "53 48 8D 58 20 48 3B 1D 2A 00 00 00 72 1D 48 3B 1D 29 00 00 00 77 14 48 2B 1D 18 00 00 00 48 03 1D 21 00 00 00 F3 0F 6F 03 EB 05 F3 0F 6F 40 20 5B";
+        
+        Check1Detour.Setup(null, checkAddr1, check1Bytes, 5, true);
+        Check1Detour.UpdateVariable(addresses);
+        
+        Check2Detour.Setup(null, checkAddr2, check2Bytes, 9, true);
+        Check2Detour.UpdateVariable(addresses);
+        
+        Check3Detour.Setup(null, checkAddr3, check3Bytes, 5, true);
+        Check3Detour.UpdateVariable(addresses);
+        
+        Check4Detour.Setup(null, checkAddr4, check4Bytes, 5, true);
+        Check4Detour.UpdateVariable(addresses);
+    }
+
+    public static void Destroy()
+    {
+        Check1Detour.Destroy();
+        Check2Detour.Destroy();
+        Check3Detour.Destroy();
+        Check4Detour.Destroy();
+
+        VirtualFreeEx(Mw.Gvp.Process.Handle, _memCopyAddress, 0, MemRelease);
+    }
 }

@@ -1,40 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Media;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.SettingsMenu
 {
     public class SettingsMenu
     {
         // Header Option
-        static Overlay.MenuOption HeaderImage = new Overlay.MenuOption("Header", Overlay.MenuOption.OptionType.Int, 1);
+        static MenuOption _headerImage = new("Header", OptionType.Int, 1);
 
         #region Background options
 
-        public static Overlay.MenuOption MainBackgroundR = new Overlay.MenuOption("Background R", Overlay.MenuOption.OptionType.Int, 0);
-        public static Overlay.MenuOption MainBackgroundG = new Overlay.MenuOption("Background G", Overlay.MenuOption.OptionType.Int, 0);
-        public static Overlay.MenuOption MainBackgroundB = new Overlay.MenuOption("Background B", Overlay.MenuOption.OptionType.Int, 0);
-        public static Overlay.MenuOption MainBackgroundA = new Overlay.MenuOption("Background Alpha", Overlay.MenuOption.OptionType.Int, 120);
-        
-        public static Overlay.MenuOption DescriptionBackgroundR = new Overlay.MenuOption("Background R", Overlay.MenuOption.OptionType.Int, 0);
-        public static Overlay.MenuOption DescriptionBackgroundG = new Overlay.MenuOption("Background G", Overlay.MenuOption.OptionType.Int, 0);
-        public static Overlay.MenuOption DescriptionBackgroundB = new Overlay.MenuOption("Background B", Overlay.MenuOption.OptionType.Int, 0);
-        public static Overlay.MenuOption DescriptionBackgroundA = new Overlay.MenuOption("Background Alpha", Overlay.MenuOption.OptionType.Int, 120);
+        private static readonly MenuOption MainBackgroundR = new("Background R", OptionType.Int, 0);
+        private static readonly MenuOption MainBackgroundG = new("Background G", OptionType.Int, 0);
+        private static readonly MenuOption MainBackgroundB = new("Background B", OptionType.Int, 0);
+        private static readonly MenuOption MainBackgroundA = new("Background Alpha", OptionType.Int, 120);
+
+        private static readonly MenuOption DescriptionBackgroundR = new("Background R", OptionType.Int, 0);
+        private static readonly MenuOption DescriptionBackgroundG = new("Background G", OptionType.Int, 0);
+        private static readonly MenuOption DescriptionBackgroundB = new("Background B", OptionType.Int, 0);
+        private static readonly MenuOption DescriptionBackgroundA = new("Background Alpha", OptionType.Int, 120);
 
         #endregion
 
         #region Border options
 
-        public static Overlay.MenuOption MainBorderR = new Overlay.MenuOption("Border R", Overlay.MenuOption.OptionType.Int, 0);
-        public static Overlay.MenuOption MainBorderG = new Overlay.MenuOption("Border G", Overlay.MenuOption.OptionType.Int, 0);
-        public static Overlay.MenuOption MainBorderB = new Overlay.MenuOption("Border B", Overlay.MenuOption.OptionType.Int, 0);
-        public static Overlay.MenuOption MainBorderA = new Overlay.MenuOption("Border Alpha", Overlay.MenuOption.OptionType.Int, 255);
+        private static readonly MenuOption MainBorderR = new("Border R", OptionType.Int, 0);
+        private static readonly MenuOption MainBorderG = new("Border G", OptionType.Int, 0);
+        private static readonly MenuOption MainBorderB = new("Border B", OptionType.Int, 0);
+        private static readonly MenuOption MainBorderA = new("Border Alpha", OptionType.Int, 255);
 
-        public static Overlay.MenuOption DescriptionBorderR = new Overlay.MenuOption("Border R", Overlay.MenuOption.OptionType.Int, 0);
-        public static Overlay.MenuOption DescriptionBorderG = new Overlay.MenuOption("Border G", Overlay.MenuOption.OptionType.Int, 0);
-        public static Overlay.MenuOption DescriptionBorderB = new Overlay.MenuOption("Border B", Overlay.MenuOption.OptionType.Int, 0);
-        public static Overlay.MenuOption DescriptionBorderA = new Overlay.MenuOption("Border Alpha", Overlay.MenuOption.OptionType.Int, 255);
-        public static Overlay.MenuOption LoadSettings = new("Load Settings", Overlay.MenuOption.OptionType.Button, delegate { Overlay.oh.LoadSettings(); }, isEnabled: false);
+        private static readonly MenuOption DescriptionBorderR = new("Border R", OptionType.Int, 0);
+        private static readonly MenuOption DescriptionBorderG = new("Border G", OptionType.Int, 0);
+        private static readonly MenuOption DescriptionBorderB = new("Border B", OptionType.Int, 0);
+        private static readonly MenuOption DescriptionBorderA = new("Border Alpha", OptionType.Int, 255);
+        public static readonly MenuOption LoadSettings = new("Load Settings", OptionType.Button, delegate { Oh.LoadSettings(); }, isEnabled: false);
 
 
         #endregion
@@ -44,32 +45,32 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
         #region Eventhandlers and similar stuff
         public void InitiateSubMenu()
         {
-            HeaderImage.ValueChangedHandler += new EventHandler(HeaderValueChanged);
+            _headerImage.ValueChangedHandler += HeaderValueChanged;
 
-            MainBackgroundR.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            MainBackgroundG.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            MainBackgroundB.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            MainBackgroundA.ValueChangedHandler += new EventHandler(ColourValueChanged);
+            MainBackgroundR.ValueChangedHandler += ColourValueChanged;
+            MainBackgroundG.ValueChangedHandler += ColourValueChanged;
+            MainBackgroundB.ValueChangedHandler += ColourValueChanged;
+            MainBackgroundA.ValueChangedHandler += ColourValueChanged;
 
-            DescriptionBackgroundR.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            DescriptionBackgroundG.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            DescriptionBackgroundB.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            DescriptionBackgroundA.ValueChangedHandler += new EventHandler(ColourValueChanged);
+            DescriptionBackgroundR.ValueChangedHandler += ColourValueChanged;
+            DescriptionBackgroundG.ValueChangedHandler += ColourValueChanged;
+            DescriptionBackgroundB.ValueChangedHandler += ColourValueChanged;
+            DescriptionBackgroundA.ValueChangedHandler += ColourValueChanged;
 
-            MainBorderR.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            MainBorderG.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            MainBorderB.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            MainBorderA.ValueChangedHandler += new EventHandler(ColourValueChanged);
+            MainBorderR.ValueChangedHandler += ColourValueChanged;
+            MainBorderG.ValueChangedHandler += ColourValueChanged;
+            MainBorderB.ValueChangedHandler += ColourValueChanged;
+            MainBorderA.ValueChangedHandler += ColourValueChanged;
 
-            DescriptionBorderR.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            DescriptionBorderG.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            DescriptionBorderB.ValueChangedHandler += new EventHandler(ColourValueChanged);
-            DescriptionBorderA.ValueChangedHandler += new EventHandler(ColourValueChanged);
+            DescriptionBorderR.ValueChangedHandler += ColourValueChanged;
+            DescriptionBorderG.ValueChangedHandler += ColourValueChanged;
+            DescriptionBorderB.ValueChangedHandler += ColourValueChanged;
+            DescriptionBorderA.ValueChangedHandler += ColourValueChanged;
 
             Overlay.o.Dispatcher.Invoke(() =>
             {
-                Overlay.oh.MainBackColour = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
-                Overlay.oh.DescriptionBackColour = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
+                Oh.MainBackColour = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
+                Oh.DescriptionBackColour = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
             });
         }
 
@@ -82,14 +83,14 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
                 s.GetType().GetProperty("Value").SetValue(s, 0);
             Overlay.o.Dispatcher.Invoke(() =>
             {
-                if (Overlay.oh.CurrentMenu.Contains("MainArea"))
+                if (Oh.CurrentMenu.Contains("MainArea"))
                 {
-                    Overlay.oh.MainBackColour = new SolidColorBrush(Color.FromArgb(
+                    Oh.MainBackColour = new SolidColorBrush(Color.FromArgb(
                         Convert.ToByte(MainBackgroundA.Value),
                         Convert.ToByte(MainBackgroundR.Value),
                         Convert.ToByte(MainBackgroundG.Value),
                         Convert.ToByte(MainBackgroundB.Value)));
-                    Overlay.oh.MainBorderColour = new SolidColorBrush(Color.FromArgb(
+                    Oh.MainBorderColour = new SolidColorBrush(Color.FromArgb(
                         Convert.ToByte(MainBorderA.Value),
                         Convert.ToByte(MainBorderR.Value),
                         Convert.ToByte(MainBorderG.Value),
@@ -97,12 +98,12 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
                 }
                 else
                 {
-                    Overlay.oh.DescriptionBackColour = new SolidColorBrush(Color.FromArgb(
+                    Oh.DescriptionBackColour = new SolidColorBrush(Color.FromArgb(
                         Convert.ToByte(DescriptionBackgroundA.Value),
                         Convert.ToByte(DescriptionBackgroundR.Value),
                         Convert.ToByte(DescriptionBackgroundG.Value),
                         Convert.ToByte(DescriptionBackgroundB.Value)));
-                    Overlay.oh.DescriptionBorderColour = new SolidColorBrush(Color.FromArgb(
+                    Oh.DescriptionBorderColour = new SolidColorBrush(Color.FromArgb(
                         Convert.ToByte(DescriptionBorderA.Value),
                         Convert.ToByte(DescriptionBorderR.Value),
                         Convert.ToByte(DescriptionBorderG.Value),
@@ -110,53 +111,64 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu
                 }
             });
         }
-        void HeaderValueChanged(object s, EventArgs e)
+
+        private static void HeaderValueChanged(object s, EventArgs e)
         {
-            int HeaderCount = Overlay.oh.Headers.Count;
-            //int HeaderCount = Directory.GetFiles(Environment.CurrentDirectory + @"\Headers").Length;
-            if ((int)s.GetType().GetProperty("Value").GetValue(s) < 1)
-                s.GetType().GetProperty("Value").SetValue(s, HeaderCount);
-            if ((int)s.GetType().GetProperty("Value").GetValue(s) > HeaderCount)
-                s.GetType().GetProperty("Value").SetValue(s, 1);
-            Overlay.oh.HeaderIndex = (int)s.GetType().GetProperty("Value").GetValue(s) - 1;
+            var headerCount = Oh.Headers.Count;
+            
+            if ((int)s.GetType().GetProperty("Value")?.GetValue(s)! < 1)
+            {
+                s.GetType().GetProperty("Value")?.SetValue(s, headerCount);
+            }
+            else if ((int)s.GetType().GetProperty("Value")?.GetValue(s)! > headerCount)
+            {
+                s.GetType().GetProperty("Value")?.SetValue(s, 1);
+            }
+            
+            if (headerCount == 0)
+            {
+                return;
+            }
+
+            Oh.HeaderIndex = (int)s.GetType().GetProperty("Value")?.GetValue(s)! - 1;
         }
         
         
         #endregion
         
         // Menu list for this section
-        public static readonly List<Overlay.MenuOption> SettingsOptions = new()
+        public static readonly List<MenuOption> SettingsOptions = new()
         {
-            HeaderImage,
-            new("Refresh Headers", Overlay.MenuOption.OptionType.Button, delegate { Overlay.oh.CacheHeaders(); }),
-            new("Main area", Overlay.MenuOption.OptionType.MenuButton),
-            new("Description area", Overlay.MenuOption.OptionType.MenuButton),
-            new("Save Settings", Overlay.MenuOption.OptionType.Button, delegate { Overlay.oh.SaveSettings(); LoadSettings.IsEnabled = true; }, isEnabled: false),
+            _headerImage,
+            new("Refresh Headers", OptionType.Button, delegate { Oh.CacheHeaders(); }),
+            new("Main area", OptionType.MenuButton),
+            new("Description area", OptionType.MenuButton),
+            new("Save Settings", OptionType.Button, delegate { Oh.SaveSettings(); LoadSettings.IsEnabled = true; }, isEnabled: false),
             LoadSettings
         };
 
         // Submenu lists
-        public static List<Overlay.MenuOption> MainAreaOptions = new()
+        public static readonly List<MenuOption> MainAreaOptions = new()
         {
-            new ("Background", Overlay.MenuOption.OptionType.SubHeader),
+            new ("Background", OptionType.SubHeader),
             MainBackgroundR,
             MainBackgroundG,
             MainBackgroundB,
             MainBackgroundA,
-            new ("Border", Overlay.MenuOption.OptionType.SubHeader),
+            new ("Border", OptionType.SubHeader),
             MainBorderR,
             MainBorderG,
             MainBorderB,
             MainBorderA
         };
-        public static List<Overlay.MenuOption> DescriptionAreaOptions = new()
+        public static readonly List<MenuOption> DescriptionAreaOptions = new()
         {
-            new ("Background", Overlay.MenuOption.OptionType.SubHeader),
+            new ("Background", OptionType.SubHeader),
             DescriptionBackgroundR,
             DescriptionBackgroundG,
             DescriptionBackgroundB,
             DescriptionBackgroundA,
-            new ("Border", Overlay.MenuOption.OptionType.SubHeader),
+            new ("Border", OptionType.SubHeader),
             DescriptionBorderR,
             DescriptionBorderG,
             DescriptionBorderB,

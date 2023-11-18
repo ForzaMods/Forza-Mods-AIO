@@ -6,7 +6,8 @@
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignHeight="395" d:DesignWidth="580"
-      Title="Others">
+      Title="Others"
+      Background="Tan">
 
     <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10">
         <Grid>
@@ -16,49 +17,49 @@
             <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="163" BorderBrush="#FF2E3440" Margin="0,220,0,0" />
             <!--#region Labels-->
             <!--#region Wheelbase-->
-            <Label x:Name="WheelbaseLabel"
+            <Label
                Content="Wheelbase"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="20,21,0,0"/>
-            <Label x:Name="FrontWidthLabel"
+            <Label
                Content="Front Width"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="20,59,0,0"/>
-            <Label x:Name="RearWidthLabel"
+            <Label
                Content="Rear Width"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="20,132,0,0"/>
-            <Label x:Name="FrontSpacerLabel"
+            <Label
                Content="Front Spacer"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="20,95,0,0"/>
-            <Label x:Name="RearSpacerLabel"
+            <Label
                Content="Rear Spacer"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="20,169,0,0"/>
             <!--#endregion-->
             <!--#region Rims-->
-            <Label x:Name="RimSizeFrontLabel"
+            <Label
                Content="Rim Size Front"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="20,234,0,0"/>
-            <Label x:Name="RimRadiusFrontLabel"
+            <Label
                Content="Rim Radius Front"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="20,269,0,0"/>
-            <Label x:Name="RimSizeRearLabel"
+            <Label
                Content="Rim Size Rear"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="20,304,0,0"/>
-            <Label x:Name="RimRadiusRearLabel"
+            <Label
                Content="Rim Radius Rear"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
@@ -76,11 +77,6 @@
             <mah:NumericUpDown Interval="0.01" Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True"  ParsingNumberStyle="Float" x:Name="RimRadiusFrontBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="136,269,28,98" ValueChanged="ValueChanged"/>
             <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True"  ParsingNumberStyle="Float" x:Name="RimSizeRearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="136,304,28,63" ValueChanged="ValueChanged"/>
             <mah:NumericUpDown Interval="0.01" Background="#FF2E3440" BorderThickness="0" TrackMouseWheelWhenMouseOver="True"  ParsingNumberStyle="Float" x:Name="RimRadiusRearBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="136,341,28,26" ValueChanged="ValueChanged"/>
-            <mah:ToggleSwitch Toggled="FreezeToggled" FontSize="12" x:Name="WheelbaseFreeze" Margin="422,18,0,0" VerticalAlignment="Top" Content="Freeze value" Width="100"/>
-            <mah:ToggleSwitch Toggled="FreezeToggled" FontSize="12" x:Name="FrontWidthFreeze" Margin="422,56,0,0" VerticalAlignment="Top" Content="Freeze value" Width="100"/>
-            <mah:ToggleSwitch Toggled="FreezeToggled" FontSize="12" x:Name="FrontSpacerFreeze" Margin="422,92,0,0" VerticalAlignment="Top" Content="Freeze value" Width="100"/>
-            <mah:ToggleSwitch Toggled="FreezeToggled" FontSize="12" x:Name="RearWidthFreeze" Margin="422,129,0,0" VerticalAlignment="Top" Content="Freeze value" Width="100"/>
-            <mah:ToggleSwitch Toggled="FreezeToggled" FontSize="12" x:Name="RearSpacerFreeze" Margin="422,166,0,0" VerticalAlignment="Top" Content="Freeze value" Width="100"/>
             <!--#endregion-->
         </Grid>
     </Border>

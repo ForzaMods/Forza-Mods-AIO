@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.SelfCarMenu;
 
@@ -6,14 +7,14 @@ public abstract class SelfCarMenu
 {
     // Menu lists for this section (i.e. Modifiers and its sub menus)
     // All of these are submenus, so they have their own folders
-    public static readonly List<Overlay.MenuOption> SelfCarsOptions = new()
+    public static readonly List<MenuOption> SelfCarsOptions = new()
     {
-        new("Handling", Overlay.MenuOption.OptionType.MenuButton),
-        new("Unlocks", Overlay.MenuOption.OptionType.MenuButton),
-        new("Photomode", Overlay.MenuOption.OptionType.MenuButton),
-        new("Customization", Overlay.MenuOption.OptionType.MenuButton),
-        new("Miscellaneous", Overlay.MenuOption.OptionType.MenuButton),
-        new("FOV", Overlay.MenuOption.OptionType.MenuButton)
+        new("Handling", OptionType.MenuButton),
+        new("Unlocks", OptionType.MenuButton),
+        new("Photomode", OptionType.MenuButton),
+        new("Customization", OptionType.MenuButton),
+        new("Miscellaneous", OptionType.MenuButton),
+        new("FOV", OptionType.MenuButton)
     };
 
     public static void InitiateSubMenu()

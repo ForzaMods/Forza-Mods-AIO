@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
 
 public abstract class TurnAssistMenu
 {
-    private static readonly Overlay.MenuOption TurnAssistRatio = new("Ratio", Overlay.MenuOption.OptionType.Int, 1);
-    private static readonly Overlay.MenuOption TurnAssistStrength = new("Strength", Overlay.MenuOption.OptionType.Int, 10);
-    private static readonly Overlay.MenuOption TurnAssistInterval = new("Interval", Overlay.MenuOption.OptionType.Int, 1);
-    private static readonly Overlay.MenuOption TurnAssistEnable = new("Enable", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly MenuOption TurnAssistRatio = new("Ratio", OptionType.Int, 1);
+    private static readonly MenuOption TurnAssistStrength = new("Strength", OptionType.Int, 10);
+    private static readonly MenuOption TurnAssistInterval = new("Interval", OptionType.Int, 1);
+    private static readonly MenuOption TurnAssistEnable = new("Enable", OptionType.Bool, false);
 
-    public static readonly List<Overlay.MenuOption> TurnAssistOptions = new()
+    public static readonly List<MenuOption> TurnAssistOptions = new()
     {
-        new ("Turn Assist", Overlay.MenuOption.OptionType.SubHeader),
+        new ("Turn Assist", OptionType.SubHeader),
         TurnAssistRatio,
         TurnAssistStrength,
         TurnAssistInterval,
@@ -30,48 +31,48 @@ public abstract class TurnAssistMenu
 
     private static void TurnAssistRatioChanged(object s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(delegate
+        HandlingPage.Shp.Dispatcher.Invoke(delegate
         {
-            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.shp.TurnAssistRatioBox.Maximum)
-                TurnAssistStrength.Value = (int)HandlingPage.shp.TurnAssistRatioBox.Maximum;
-            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.shp.TurnAssistRatioBox.Minimum)
-                TurnAssistStrength.Value = (int)HandlingPage.shp.TurnAssistRatioBox.Minimum;
+            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.Shp.TurnAssistRatioBox.Maximum)
+                TurnAssistStrength.Value = (int)HandlingPage.Shp.TurnAssistRatioBox.Maximum;
+            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.Shp.TurnAssistRatioBox.Minimum)
+                TurnAssistStrength.Value = (int)HandlingPage.Shp.TurnAssistRatioBox.Minimum;
             else
-                HandlingPage.shp.TurnAssistRatioBox.Value = Convert.ToSingle(s.GetType().GetProperty("Value")!.GetValue(s)!);
+                HandlingPage.Shp.TurnAssistRatioBox.Value = Convert.ToSingle(s.GetType().GetProperty("Value")!.GetValue(s)!);
         });
     }
 
     private static void TurnAssistStrengthChanged(object s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(delegate
+        HandlingPage.Shp.Dispatcher.Invoke(delegate
         {
-            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.shp.TurnAssistStrengthBox.Maximum)
-                TurnAssistStrength.Value = (int)HandlingPage.shp.TurnAssistStrengthBox.Maximum;
-            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.shp.TurnAssistStrengthBox.Minimum)
-                TurnAssistStrength.Value = (int)HandlingPage.shp.TurnAssistStrengthBox.Minimum;
+            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.Shp.TurnAssistStrengthBox.Maximum)
+                TurnAssistStrength.Value = (int)HandlingPage.Shp.TurnAssistStrengthBox.Maximum;
+            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.Shp.TurnAssistStrengthBox.Minimum)
+                TurnAssistStrength.Value = (int)HandlingPage.Shp.TurnAssistStrengthBox.Minimum;
             else
-                HandlingPage.shp.TurnAssistStrengthBox.Value = Convert.ToSingle(s.GetType().GetProperty("Value")!.GetValue(s)!);
+                HandlingPage.Shp.TurnAssistStrengthBox.Value = Convert.ToSingle(s.GetType().GetProperty("Value")!.GetValue(s)!);
         });
     }
 
     private static void TurnAssistIntervalChanged(object s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(delegate
+        HandlingPage.Shp.Dispatcher.Invoke(delegate
         {
-            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.shp.TurnAssistIntervalBox.Maximum)
-                TurnAssistInterval.Value = (int)HandlingPage.shp.TurnAssistIntervalBox.Maximum;
-            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.shp.TurnAssistIntervalBox.Minimum)
-                TurnAssistInterval.Value = (int)HandlingPage.shp.TurnAssistIntervalBox.Minimum;
+            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.Shp.TurnAssistIntervalBox.Maximum)
+                TurnAssistInterval.Value = (int)HandlingPage.Shp.TurnAssistIntervalBox.Maximum;
+            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.Shp.TurnAssistIntervalBox.Minimum)
+                TurnAssistInterval.Value = (int)HandlingPage.Shp.TurnAssistIntervalBox.Minimum;
             else
-                HandlingPage.shp.TurnAssistIntervalBox.Value = (int)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                HandlingPage.Shp.TurnAssistIntervalBox.Value = (int)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void TurnAssistToggled(object s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(() =>
+        HandlingPage.Shp.Dispatcher.Invoke(() =>
         {
-            HandlingPage.shp.WheelSpeedSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            HandlingPage.Shp.WheelSpeedSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 }

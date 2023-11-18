@@ -1,91 +1,92 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping.SubMenus;
 
 public abstract class ReboundStiffness
 {
-    private static readonly Overlay.MenuOption FrontReboundStiffnessMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption FrontReboundStiffnessMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly MenuOption FrontReboundStiffnessMinValue = new ("Min Value", OptionType.Float, 0f);
+    private static readonly MenuOption FrontReboundStiffnessMaxValue = new ("Max Value", OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption RearReboundStiffnessMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption RearReboundStiffnessMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly MenuOption RearReboundStiffnessMinValue = new ("Min Value", OptionType.Float, 0f);
+    private static readonly MenuOption RearReboundStiffnessMaxValue = new ("Max Value", OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption FrontReboundStiffnessPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
+    private static readonly MenuOption FrontReboundStiffnessPull = new ("Pull values", OptionType.Button, () =>
     {
-        var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
+        var damping = Tabs.Tuning.DropDownTabs.Damping.D;
         
-        Damping.Dispatcher.Invoke(() =>
+        damping.Dispatcher.Invoke(() =>
         {
-            if (Damping.FrontReboundStiffnessMinBox.Value == null || Damping.FrontReboundStiffnessMaxBox.Value == null)
+            if (damping.FrontReboundStiffnessMinBox.Value == null || damping.FrontReboundStiffnessMaxBox.Value == null)
                 return;
 
-            FrontReboundStiffnessMinValue.Value = (float)Damping.FrontReboundStiffnessMinBox.Value;
-            FrontReboundStiffnessMaxValue.Value = (float)Damping.FrontReboundStiffnessMaxBox.Value;
+            FrontReboundStiffnessMinValue.Value = (float)damping.FrontReboundStiffnessMinBox.Value;
+            FrontReboundStiffnessMaxValue.Value = (float)damping.FrontReboundStiffnessMaxBox.Value;
         });
-    }));
+    });
     
-    private static readonly Overlay.MenuOption RearReboundStiffnessPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
+    private static readonly MenuOption RearReboundStiffnessPull = new ("Pull values", OptionType.Button, () =>
     {
-        var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
+        var damping = Tabs.Tuning.DropDownTabs.Damping.D;
         
-        Damping.Dispatcher.Invoke(() =>
+        damping.Dispatcher.Invoke(() =>
         {
-            if (Damping.RearReboundStiffnessMinBox.Value == null || Damping.RearReboundStiffnessMaxBox.Value == null)
+            if (damping.RearReboundStiffnessMinBox.Value == null || damping.RearReboundStiffnessMaxBox.Value == null)
                 return;
 
-            RearReboundStiffnessMinValue.Value = (float)Damping.RearReboundStiffnessMinBox.Value;
-            RearReboundStiffnessMaxValue.Value = (float)Damping.RearReboundStiffnessMaxBox.Value;
+            RearReboundStiffnessMinValue.Value = (float)damping.RearReboundStiffnessMinBox.Value;
+            RearReboundStiffnessMaxValue.Value = (float)damping.RearReboundStiffnessMaxBox.Value;
         });
-    }));
+    });
 
     private static void FrontReboundStiffnessMinValueChanged(object s, EventArgs e)
     {
-        var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
+        var damping = Tabs.Tuning.DropDownTabs.Damping.D;
 
-        Damping.Dispatcher.Invoke(() =>
+        damping.Dispatcher.Invoke(() =>
         {
-            Damping.FrontReboundStiffnessMinBox.Value = (float)FrontReboundStiffnessMinValue.Value;
+            damping.FrontReboundStiffnessMinBox.Value = (float)FrontReboundStiffnessMinValue.Value;
         });
     }
     
     private static void FrontReboundStiffnessMaxValueChanged(object s, EventArgs e)
     {
-        var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
+        var damping = Tabs.Tuning.DropDownTabs.Damping.D;
 
-        Damping.Dispatcher.Invoke(() =>
+        damping.Dispatcher.Invoke(() =>
         {
-            Damping.FrontReboundStiffnessMaxBox.Value = (float)FrontReboundStiffnessMaxValue.Value;
+            damping.FrontReboundStiffnessMaxBox.Value = (float)FrontReboundStiffnessMaxValue.Value;
         });
     }
     
     private static void RearReboundStiffnessMinValueChanged(object s, EventArgs e)
     {
-        var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
+        var damping = Tabs.Tuning.DropDownTabs.Damping.D;
 
-        Damping.Dispatcher.Invoke(() =>
+        damping.Dispatcher.Invoke(() =>
         {
-            Damping.RearReboundStiffnessMinBox.Value = (float)RearReboundStiffnessMinValue.Value;
+            damping.RearReboundStiffnessMinBox.Value = (float)RearReboundStiffnessMinValue.Value;
         });
     }
     
     private static void RearReboundStiffnessMaxValueChanged(object s, EventArgs e)
     {
-        var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
+        var damping = Tabs.Tuning.DropDownTabs.Damping.D;
 
-        Damping.Dispatcher.Invoke(() =>
+        damping.Dispatcher.Invoke(() =>
         {
-            Damping.RearReboundStiffnessMaxBox.Value = (float)RearReboundStiffnessMaxValue.Value;
+            damping.RearReboundStiffnessMaxBox.Value = (float)RearReboundStiffnessMaxValue.Value;
         });
     }
     
-    public static readonly List<Overlay.MenuOption> ReboundStiffnessOptions = new()
+    public static readonly List<MenuOption> ReboundStiffnessOptions = new()
     {
-        new("Front Rebound Stiffness", Overlay.MenuOption.OptionType.SubHeader),
+        new("Front Rebound Stiffness", OptionType.SubHeader),
         FrontReboundStiffnessMinValue,
         FrontReboundStiffnessMaxValue,
         FrontReboundStiffnessPull,
-        new("Rear Rebound Stiffness", Overlay.MenuOption.OptionType.SubHeader),
+        new("Rear Rebound Stiffness", OptionType.SubHeader),
         RearReboundStiffnessMinValue,
         RearReboundStiffnessMaxValue,
         RearReboundStiffnessPull

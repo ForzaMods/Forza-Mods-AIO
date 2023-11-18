@@ -1,31 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others.SubMenu;
 
 public abstract class Wheelbase
 {
-    private static readonly Overlay.MenuOption WheelbaseValue = new ("Wheelbase", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption FrontWidthValue = new ("Front Width", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption RearWidthValue = new ("Rear Width", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption FrontSpacerValue = new ("Front Spacer", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption RearSpacerValue = new ("Rear Spacer", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly MenuOption WheelbaseValue = new ("Wheelbase", OptionType.Float, 0f);
+    private static readonly MenuOption FrontWidthValue = new ("Front Width", OptionType.Float, 0f);
+    private static readonly MenuOption RearWidthValue = new ("Rear Width", OptionType.Float, 0f);
+    private static readonly MenuOption FrontSpacerValue = new ("Front Spacer", OptionType.Float, 0f);
+    private static readonly MenuOption RearSpacerValue = new ("Rear Spacer", OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption WheelbasePull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
+    private static readonly MenuOption WheelbasePull = new ("Pull values", OptionType.Button, () =>
     {
-        var Others = Tabs.Tuning.DropDownTabs.Others.o;
+        var others = Tabs.Tuning.DropDownTabs.Others.O;
         
-        Others.Dispatcher.Invoke(() =>
+        others.Dispatcher.Invoke(() =>
         {
-            WheelbaseValue.Value = (float)Others.WheelbaseBox.Value!;
-            FrontWidthValue.Value = (float)Others.FrontWidthBox.Value!;
-            RearWidthValue.Value = (float)Others.RearWidthBox.Value!;
-            FrontSpacerValue.Value = (float)Others.FrontSpacerBox.Value!;
-            RearSpacerValue.Value = (float)Others.RearSpacerBox.Value!;
+            WheelbaseValue.Value = (float)others.WheelbaseBox.Value!;
+            FrontWidthValue.Value = (float)others.FrontWidthBox.Value!;
+            RearWidthValue.Value = (float)others.RearWidthBox.Value!;
+            FrontSpacerValue.Value = (float)others.FrontSpacerBox.Value!;
+            RearSpacerValue.Value = (float)others.RearSpacerBox.Value!;
         });
-    }));
+    });
 
-    public static readonly List<Overlay.MenuOption> WheelbaseOptions = new()
+    public static readonly List<MenuOption> WheelbaseOptions = new()
     {
         WheelbaseValue,
         FrontWidthValue,
@@ -46,51 +47,51 @@ public abstract class Wheelbase
 
     private static void WheelbaseValueChanged(object s, EventArgs e)
     {
-        var Others = Tabs.Tuning.DropDownTabs.Others.o;
+        var others = Tabs.Tuning.DropDownTabs.Others.O;
 
-        Others.Dispatcher.Invoke(() =>
+        others.Dispatcher.Invoke(() =>
         {
-            Others.WheelbaseBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            others.WheelbaseBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
     
     private static void FrontWidthValueChanged(object s, EventArgs e)
     {
-        var Others = Tabs.Tuning.DropDownTabs.Others.o;
+        var others = Tabs.Tuning.DropDownTabs.Others.O;
 
-        Others.Dispatcher.Invoke(() =>
+        others.Dispatcher.Invoke(() =>
         {
-            Others.FrontWidthBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            others.FrontWidthBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
     
     private static void RearWidthValueChanged(object s, EventArgs e)
     {
-        var Others = Tabs.Tuning.DropDownTabs.Others.o;
+        var others = Tabs.Tuning.DropDownTabs.Others.O;
 
-        Others.Dispatcher.Invoke(() =>
+        others.Dispatcher.Invoke(() =>
         {
-            Others.RearWidthBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            others.RearWidthBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
     
     private static void FrontSpacerValueChanged(object s, EventArgs e)
     {
-        var Others = Tabs.Tuning.DropDownTabs.Others.o;
+        var others = Tabs.Tuning.DropDownTabs.Others.O;
 
-        Others.Dispatcher.Invoke(() =>
+        others.Dispatcher.Invoke(() =>
         {
-            Others.FrontSpacerBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            others.FrontSpacerBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
     
     private static void RearSpacerValueChanged(object s, EventArgs e)
     {
-        var Others = Tabs.Tuning.DropDownTabs.Others.o;
+        var others = Tabs.Tuning.DropDownTabs.Others.O;
 
-        Others.Dispatcher.Invoke(() =>
+        others.Dispatcher.Invoke(() =>
         {
-            Others.RearSpacerBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            others.RearSpacerBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 }

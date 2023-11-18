@@ -1,95 +1,96 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping.SubMenus;
 
 public abstract class AntirollBarsDamping
 {
-    private static readonly Overlay.MenuOption FrontAntirollBarMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption FrontAntirollBarMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly MenuOption FrontAntirollBarMinValue = new ("Min Value", OptionType.Float, 0f);
+    private static readonly MenuOption FrontAntirollBarMaxValue = new ("Max Value", OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption RearAntirollBarMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption RearAntirollBarMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly MenuOption RearAntirollBarMinValue = new ("Min Value", OptionType.Float, 0f);
+    private static readonly MenuOption RearAntirollBarMaxValue = new ("Max Value", OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption FrontAntirollBarsPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() => { FrontAntirollBarsPullAction(); }));
+    private static readonly MenuOption FrontAntirollBarsPull = new ("Pull values", OptionType.Button, new Action(() => { FrontAntirollBarsPullAction(); }));
 
     private static void FrontAntirollBarsPullAction()
     {
-        var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
+        var damping = Tabs.Tuning.DropDownTabs.Damping.D;
         
-        Damping.Dispatcher.Invoke(() =>
+        damping.Dispatcher.Invoke(() =>
         {
-            if (Damping.FrontAntirollMinBox.Value == null || Damping.FrontAntirollMaxBox.Value == null)
+            if (damping.FrontAntirollMinBox.Value == null || damping.FrontAntirollMaxBox.Value == null)
                 return;
 
-            FrontAntirollBarMinValue.Value = (float)Damping.FrontAntirollMinBox.Value;
-            FrontAntirollBarMaxValue.Value = (float)Damping.FrontAntirollMaxBox.Value;
+            FrontAntirollBarMinValue.Value = (float)damping.FrontAntirollMinBox.Value;
+            FrontAntirollBarMaxValue.Value = (float)damping.FrontAntirollMaxBox.Value;
         });
     }
 
-    private static readonly Overlay.MenuOption RearAntirollBarsPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() => { RearAntirollBarsPullAction(); }));
+    private static readonly MenuOption RearAntirollBarsPull = new ("Pull values", OptionType.Button, new Action(() => { RearAntirollBarsPullAction(); }));
 
     private static void RearAntirollBarsPullAction()
     {
-        var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
+        var damping = Tabs.Tuning.DropDownTabs.Damping.D;
         
-        Damping.Dispatcher.Invoke(() =>
+        damping.Dispatcher.Invoke(() =>
         {
-            if (Damping.RearAntirollMinBox.Value == null || Damping.RearAntirollMaxBox.Value == null)
+            if (damping.RearAntirollMinBox.Value == null || damping.RearAntirollMaxBox.Value == null)
                 return;
 
-            RearAntirollBarMinValue.Value = (float)Damping.RearAntirollMinBox.Value;
-            RearAntirollBarMaxValue.Value = (float)Damping.RearAntirollMaxBox.Value;
+            RearAntirollBarMinValue.Value = (float)damping.RearAntirollMinBox.Value;
+            RearAntirollBarMaxValue.Value = (float)damping.RearAntirollMaxBox.Value;
         });
     }
     
     private static void FrontAntirollBarMinValueChanged(object s, EventArgs e)
     {
-        var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
+        var damping = Tabs.Tuning.DropDownTabs.Damping.D;
 
-        Damping.Dispatcher.Invoke(() =>
+        damping.Dispatcher.Invoke(() =>
         {
-            Damping.FrontAntirollMinBox.Value = (float)FrontAntirollBarMinValue.Value;
+            damping.FrontAntirollMinBox.Value = (float)FrontAntirollBarMinValue.Value;
         });
     }
     
     private static void FrontAntirollBarMaxValueChanged(object s, EventArgs e)
     {
-        var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
+        var damping = Tabs.Tuning.DropDownTabs.Damping.D;
 
-        Damping.Dispatcher.Invoke(() =>
+        damping.Dispatcher.Invoke(() =>
         {
-            Damping.FrontAntirollMaxBox.Value = (float)FrontAntirollBarMaxValue.Value;
+            damping.FrontAntirollMaxBox.Value = (float)FrontAntirollBarMaxValue.Value;
         });
     }
     
     private static void RearAntirollBarMinValueChanged(object s, EventArgs e)
     {
-        var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
+        var damping = Tabs.Tuning.DropDownTabs.Damping.D;
 
-        Damping.Dispatcher.Invoke(() =>
+        damping.Dispatcher.Invoke(() =>
         {
-            Damping.RearAntirollMinBox.Value = (float)RearAntirollBarMinValue.Value;
+            damping.RearAntirollMinBox.Value = (float)RearAntirollBarMinValue.Value;
         });
     }
     
     private static void RearAntirollBarMaxValueChanged(object s, EventArgs e)
     {
-        var Damping = Tabs.Tuning.DropDownTabs.Damping.d;
+        var damping = Tabs.Tuning.DropDownTabs.Damping.D;
 
-        Damping.Dispatcher.Invoke(() =>
+        damping.Dispatcher.Invoke(() =>
         {
-            Damping.RearAntirollMaxBox.Value = (float)RearAntirollBarMaxValue.Value;
+            damping.RearAntirollMaxBox.Value = (float)RearAntirollBarMaxValue.Value;
         });
     }
     
-    public static readonly List<Overlay.MenuOption> AntirollBarsDampingOptions = new()
+    public static readonly List<MenuOption> AntirollBarsDampingOptions = new()
     {
-        new("Front Antiroll Bars", Overlay.MenuOption.OptionType.SubHeader),
+        new("Front Antiroll Bars", OptionType.SubHeader),
         FrontAntirollBarMinValue,
         FrontAntirollBarMaxValue,
         FrontAntirollBarsPull,
-        new("Rear Antiroll Bars", Overlay.MenuOption.OptionType.SubHeader),
+        new("Rear Antiroll Bars", OptionType.SubHeader),
         RearAntirollBarMinValue,
         RearAntirollBarMaxValue,
         RearAntirollBarsPull

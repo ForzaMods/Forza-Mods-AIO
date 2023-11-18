@@ -1,29 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others.SubMenu;
 
 public abstract class Rims
 {
-    private static readonly Overlay.MenuOption RimSizeFrontValue = new ("Wheelbase", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption RimRadiusFrontValue = new ("Front Width", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption RimSizeRearValue = new ("Rear Width", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption RimRadiusRearValue = new ("Front Spacer", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly MenuOption RimSizeFrontValue = new ("Wheelbase", OptionType.Float, 0f);
+    private static readonly MenuOption RimRadiusFrontValue = new ("Front Width", OptionType.Float, 0f);
+    private static readonly MenuOption RimSizeRearValue = new ("Rear Width", OptionType.Float, 0f);
+    private static readonly MenuOption RimRadiusRearValue = new ("Front Spacer", OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption RimsPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
+    private static readonly MenuOption RimsPull = new ("Pull values", OptionType.Button, () =>
     {
-        var Others = Tabs.Tuning.DropDownTabs.Others.o;
+        var others = Tabs.Tuning.DropDownTabs.Others.O;
         
-        Others.Dispatcher.Invoke(() =>
+        others.Dispatcher.Invoke(() =>
         {
-            RimSizeFrontValue.Value = (float)Others.RimSizeFrontBox.Value!;
-            RimRadiusFrontValue.Value = (float)Others.RimRadiusFrontBox.Value!;
-            RimSizeRearValue.Value = (float)Others.RimSizeRearBox.Value!;
-            RimRadiusRearValue.Value = (float)Others.RimRadiusRearBox.Value!;
+            RimSizeFrontValue.Value = (float)others.RimSizeFrontBox.Value!;
+            RimRadiusFrontValue.Value = (float)others.RimRadiusFrontBox.Value!;
+            RimSizeRearValue.Value = (float)others.RimSizeRearBox.Value!;
+            RimRadiusRearValue.Value = (float)others.RimRadiusRearBox.Value!;
         });
-    }));
+    });
     
-    public static readonly List<Overlay.MenuOption> RimsOptions = new()
+    public static readonly List<MenuOption> RimsOptions = new()
     {
         RimSizeFrontValue,
         RimRadiusFrontValue,
@@ -42,41 +43,41 @@ public abstract class Rims
 
     private static void RimSizeFrontValueChanged(object s, EventArgs e)
     {
-        var Others = Tabs.Tuning.DropDownTabs.Others.o;
+        var others = Tabs.Tuning.DropDownTabs.Others.O;
 
-        Others.Dispatcher.Invoke(() =>
+        others.Dispatcher.Invoke(() =>
         {
-            Others.RimSizeFrontBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            others.RimSizeFrontBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
     
     private static void RimRadiusFrontValueChanged(object s, EventArgs e)
     {
-        var Others = Tabs.Tuning.DropDownTabs.Others.o;
+        var others = Tabs.Tuning.DropDownTabs.Others.O;
 
-        Others.Dispatcher.Invoke(() =>
+        others.Dispatcher.Invoke(() =>
         {
-            Others.RimRadiusFrontBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            others.RimRadiusFrontBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
     
     private static void RimSizeRearValueChanged(object s, EventArgs e)
     {
-        var Others = Tabs.Tuning.DropDownTabs.Others.o;
+        var others = Tabs.Tuning.DropDownTabs.Others.O;
 
-        Others.Dispatcher.Invoke(() =>
+        others.Dispatcher.Invoke(() =>
         {
-            Others.RimSizeRearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            others.RimSizeRearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
     
     private static void RimRadiusRearValueChanged(object s, EventArgs e)
     {
-        var Others = Tabs.Tuning.DropDownTabs.Others.o;
+        var others = Tabs.Tuning.DropDownTabs.Others.O;
 
-        Others.Dispatcher.Invoke(() =>
+        others.Dispatcher.Invoke(() =>
         {
-            Others.RimRadiusRearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            others.RimRadiusRearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 }

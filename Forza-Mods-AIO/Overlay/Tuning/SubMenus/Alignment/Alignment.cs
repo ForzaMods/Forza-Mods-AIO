@@ -1,103 +1,104 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Alignment;
 
 public abstract class Alignment
 {
-    private static readonly Overlay.MenuOption CamberNegValue = new ("Negative Value", Overlay.MenuOption.OptionType.Float, -5f);
-    private static readonly Overlay.MenuOption CamberPosValue = new ("Positive Value", Overlay.MenuOption.OptionType.Float, 5f);
+    private static readonly MenuOption CamberNegValue = new ("Negative Value", OptionType.Float, -5f);
+    private static readonly MenuOption CamberPosValue = new ("Positive Value", OptionType.Float, 5f);
     
-    private static readonly Overlay.MenuOption ToeNegValue = new ("Negative Value", Overlay.MenuOption.OptionType.Float, -5f);
-    private static readonly Overlay.MenuOption ToePosValue = new ("Positive Value", Overlay.MenuOption.OptionType.Float, 5f);
+    private static readonly MenuOption ToeNegValue = new ("Negative Value", OptionType.Float, -5f);
+    private static readonly MenuOption ToePosValue = new ("Positive Value", OptionType.Float, 5f);
     
-    private static readonly Overlay.MenuOption CamberPull = new ("Pull values",Overlay.MenuOption.OptionType.Button, new Action(() =>
+    private static readonly MenuOption CamberPull = new ("Pull values",OptionType.Button, () =>
     {
-        var Alignment = Tabs.Tuning.DropDownTabs.Alignment.al;
+        var alignment = Tabs.Tuning.DropDownTabs.Alignment.Al;
         
-        Alignment.Dispatcher.Invoke(() =>
+        alignment.Dispatcher.Invoke(() =>
         {
-            if (Alignment.CamberNegBox.Value == null || Alignment.CamberPosBox.Value == null)
+            if (alignment.CamberNegBox.Value == null || alignment.CamberPosBox.Value == null)
                 return;
 
-            CamberNegValue.Value = (float)Alignment.CamberNegBox.Value;
-            CamberPosValue.Value = (float)Alignment.CamberPosBox.Value;
+            CamberNegValue.Value = (float)alignment.CamberNegBox.Value;
+            CamberPosValue.Value = (float)alignment.CamberPosBox.Value;
         });
-    }));
+    });
     
-    private static readonly Overlay.MenuOption ToePull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
+    private static readonly MenuOption ToePull = new ("Pull values", OptionType.Button, () =>
     {
-        var Alignment = Tabs.Tuning.DropDownTabs.Alignment.al;
+        var alignment = Tabs.Tuning.DropDownTabs.Alignment.Al;
         
-        Alignment.Dispatcher.Invoke(() =>
+        alignment.Dispatcher.Invoke(() =>
         {
-            if (Alignment.ToeNegBox.Value == null || Alignment.ToePosBox.Value == null)
+            if (alignment.ToeNegBox.Value == null || alignment.ToePosBox.Value == null)
                 return;
 
-            ToeNegValue.Value = (float)Alignment.ToeNegBox.Value;
-            ToePosValue.Value = (float)Alignment.ToePosBox.Value;
+            ToeNegValue.Value = (float)alignment.ToeNegBox.Value;
+            ToePosValue.Value = (float)alignment.ToePosBox.Value;
         });
-    }));
+    });
 
     private static void CamberNegValueChanged(object s, EventArgs e)
     {
-        var Alignment = Tabs.Tuning.DropDownTabs.Alignment.al;
+        var alignment = Tabs.Tuning.DropDownTabs.Alignment.Al;
 
-        Alignment.Dispatcher.Invoke(() =>
+        alignment.Dispatcher.Invoke(() =>
         {
-            if ((float)s.GetType().GetProperty("Value")!.GetValue(s)! > Alignment.CamberNegBox.Maximum)
-                CamberNegValue.Value = (float)Alignment.CamberNegBox.Maximum;
+            if ((float)s.GetType().GetProperty("Value")!.GetValue(s)! > alignment.CamberNegBox.Maximum)
+                CamberNegValue.Value = (float)alignment.CamberNegBox.Maximum;
             else
-                Alignment.CamberNegBox.Value = (float)Math.Round((float)s.GetType().GetProperty("Value")!.GetValue(s)!, 1);
+                alignment.CamberNegBox.Value = (float)Math.Round((float)s.GetType().GetProperty("Value")!.GetValue(s)!, 1);
         });
     }
     
     private static void CamberPosValueChanged(object s, EventArgs e)
     {
-        var Alignment = Tabs.Tuning.DropDownTabs.Alignment.al;
+        var alignment = Tabs.Tuning.DropDownTabs.Alignment.Al;
 
-        Alignment.Dispatcher.Invoke(() =>
+        alignment.Dispatcher.Invoke(() =>
         {
-            if ((float)s.GetType().GetProperty("Value")!.GetValue(s)! < Alignment.CamberPosBox.Minimum)
-                CamberPosValue.Value = (float)Alignment.CamberPosBox.Minimum;
+            if ((float)s.GetType().GetProperty("Value")!.GetValue(s)! < alignment.CamberPosBox.Minimum)
+                CamberPosValue.Value = (float)alignment.CamberPosBox.Minimum;
             else
-                Alignment.CamberPosBox.Value = (float)Math.Round((float)s.GetType().GetProperty("Value")!.GetValue(s)!, 1);
+                alignment.CamberPosBox.Value = (float)Math.Round((float)s.GetType().GetProperty("Value")!.GetValue(s)!, 1);
         });
     }
     
     private static void ToeNegValueChanged(object s, EventArgs e)
     {
-        var Alignment = Tabs.Tuning.DropDownTabs.Alignment.al;
+        var alignment = Tabs.Tuning.DropDownTabs.Alignment.Al;
 
-        Alignment.Dispatcher.Invoke(() =>
+        alignment.Dispatcher.Invoke(() =>
         {
-            if ((float)s.GetType().GetProperty("Value")!.GetValue(s)! > Alignment.ToeNegBox.Maximum)
-                ToeNegValue.Value = (float)Alignment.ToeNegBox.Maximum;
+            if ((float)s.GetType().GetProperty("Value")!.GetValue(s)! > alignment.ToeNegBox.Maximum)
+                ToeNegValue.Value = (float)alignment.ToeNegBox.Maximum;
             else
-                Alignment.ToeNegBox.Value = (float)Math.Round((float)s.GetType().GetProperty("Value")!.GetValue(s)!, 1);
+                alignment.ToeNegBox.Value = (float)Math.Round((float)s.GetType().GetProperty("Value")!.GetValue(s)!, 1);
         });
     }
     
     private static void ToePosValueChanged(object s, EventArgs e)
     {
-        var Alignment = Tabs.Tuning.DropDownTabs.Alignment.al;
+        var alignment = Tabs.Tuning.DropDownTabs.Alignment.Al;
 
-        Alignment.Dispatcher.Invoke(() =>
+        alignment.Dispatcher.Invoke(() =>
         {
-            if ((float)s.GetType().GetProperty("Value")!.GetValue(s)! < Alignment.ToePosBox.Minimum)
-                ToePosValue.Value = (float)Alignment.ToePosBox.Minimum;
+            if ((float)s.GetType().GetProperty("Value")!.GetValue(s)! < alignment.ToePosBox.Minimum)
+                ToePosValue.Value = (float)alignment.ToePosBox.Minimum;
             else
-                Alignment.ToePosBox.Value = (float)Math.Round((float)s.GetType().GetProperty("Value")!.GetValue(s)!, 1);
+                alignment.ToePosBox.Value = (float)Math.Round((float)s.GetType().GetProperty("Value")!.GetValue(s)!, 1);
         });
     }
     
-    public static readonly List<Overlay.MenuOption> AlignmentOptions = new()
+    public static readonly List<MenuOption> AlignmentOptions = new()
     {
-        new("Camber", Overlay.MenuOption.OptionType.SubHeader),
+        new("Camber", OptionType.SubHeader),
         CamberNegValue,
         CamberPosValue,
         CamberPull,
-        new("Toe", Overlay.MenuOption.OptionType.SubHeader),
+        new("Toe", OptionType.SubHeader),
         ToeNegValue,
         ToePosValue,
         ToePull

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.SelfCarMenu.PhotomodeMenu;
 
@@ -8,54 +9,54 @@ public abstract class PhotomodeMenu
 {
     #region Submenu Options
 
-    private static readonly Overlay.MenuOption SamplesValue = new("Samples", Overlay.MenuOption.OptionType.Int, 0);
-    private static readonly Overlay.MenuOption ShutterSpeedValue = new("Shutter Speed", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption TimeSliceValue = new("Time Slice", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption ApertureScaleValue = new("Aperture Scale", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption CarInFocusValue = new("Car In Focus", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly MenuOption SamplesValue = new("Samples", OptionType.Int, 0);
+    private static readonly MenuOption ShutterSpeedValue = new("Shutter Speed", OptionType.Float, 0f);
+    private static readonly MenuOption TimeSliceValue = new("Time Slice", OptionType.Float, 0f);
+    private static readonly MenuOption ApertureScaleValue = new("Aperture Scale", OptionType.Float, 0f);
+    private static readonly MenuOption CarInFocusValue = new("Car In Focus", OptionType.Float, 0f);
 
-    private static readonly Overlay.MenuOption TurnSpeedValue = new("Turn Speed", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption SamplesMultiplierValue = new("Samples Multiplier", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption MovementSpeedValue = new("Movement Speed", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly MenuOption TurnSpeedValue = new("Turn Speed", OptionType.Float, 0f);
+    private static readonly MenuOption SamplesMultiplierValue = new("Samples Multiplier", OptionType.Float, 0f);
+    private static readonly MenuOption MovementSpeedValue = new("Movement Speed", OptionType.Float, 0f);
 
-    private static readonly Overlay.MenuOption NoClipToggle = new("No Clip", Overlay.MenuOption.OptionType.Bool, false);
-    private static readonly Overlay.MenuOption UnlimitedAltitudeToggle = new("Unlimited Altitude", Overlay.MenuOption.OptionType.Bool, false);
-    private static readonly Overlay.MenuOption IncreasedZoomToggle = new("Increased Zoom", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly MenuOption NoClipToggle = new("No Clip", OptionType.Bool, false);
+    private static readonly MenuOption UnlimitedAltitudeToggle = new("Unlimited Altitude", OptionType.Bool, false);
+    private static readonly MenuOption IncreasedZoomToggle = new("Increased Zoom", OptionType.Bool, false);
     
-    private static readonly Overlay.MenuOption PullValues = new("Pull All Values", Overlay.MenuOption.OptionType.Button, () =>
+    private static readonly MenuOption PullValues = new("Pull All Values", OptionType.Button, () =>
     {
-        var PhotoPage = PhotomodePage.PhotoPage;
+        var photoPage = PhotomodePage.PhotoPage;
         
-        PhotoPage.Dispatcher.Invoke(delegate
+        photoPage.Dispatcher.Invoke(delegate
         {
-            SamplesValue.Value = (int)PhotoPage.SamplesBox.Value;
-            ShutterSpeedValue.Value = Convert.ToSingle(PhotoPage.ShutterSpeedBox.Value);
-            TimeSliceValue.Value = Convert.ToSingle(PhotoPage.TimeSliceBox.Value);
-            ApertureScaleValue.Value = Convert.ToSingle(PhotoPage.ApertureScaleBox.Value);
-            CarInFocusValue.Value = Convert.ToSingle(PhotoPage.CarInFocusBox.Value);
-            TurnSpeedValue.Value = Convert.ToSingle(PhotoPage.TurnSpeed.Value);
-            SamplesMultiplierValue.Value = Convert.ToSingle(PhotoPage.SamplesMultiplierSlider.Value);
-            MovementSpeedValue.Value = Convert.ToSingle(PhotoPage.SpeedSlider.Value);
+            SamplesValue.Value = (int)photoPage.SamplesBox.Value;
+            ShutterSpeedValue.Value = Convert.ToSingle(photoPage.ShutterSpeedBox.Value);
+            TimeSliceValue.Value = Convert.ToSingle(photoPage.TimeSliceBox.Value);
+            ApertureScaleValue.Value = Convert.ToSingle(photoPage.ApertureScaleBox.Value);
+            CarInFocusValue.Value = Convert.ToSingle(photoPage.CarInFocusBox.Value);
+            TurnSpeedValue.Value = Convert.ToSingle(photoPage.TurnSpeed.Value);
+            SamplesMultiplierValue.Value = Convert.ToSingle(photoPage.SamplesMultiplierSlider.Value);
+            MovementSpeedValue.Value = Convert.ToSingle(photoPage.SpeedSlider.Value);
         });
     });
 
     #endregion
     
-    public static readonly List<Overlay.MenuOption> PhotomodeOptions = new()
+    public static readonly List<MenuOption> PhotomodeOptions = new()
     {
-        new Overlay.MenuOption("Photomode Values", Overlay.MenuOption.OptionType.MenuButton),
-        new Overlay.MenuOption("Photomode Toggles", Overlay.MenuOption.OptionType.MenuButton)
+        new MenuOption("Photomode Values", OptionType.MenuButton),
+        new MenuOption("Photomode Toggles", OptionType.MenuButton)
     };
 
-    public static readonly List<Overlay.MenuOption> PhotomodeValues = new()
+    public static readonly List<MenuOption> PhotomodeValues = new()
     {
-        new("Numerics", Overlay.MenuOption.OptionType.SubHeader),
+        new("Numerics", OptionType.SubHeader),
         SamplesValue,
         ShutterSpeedValue,
         TimeSliceValue,
         ApertureScaleValue,
         CarInFocusValue,
-        new("Sliders", Overlay.MenuOption.OptionType.SubHeader),
+        new("Sliders", OptionType.SubHeader),
         TurnSpeedValue,
         SamplesMultiplierValue,
         MovementSpeedValue,
@@ -63,7 +64,7 @@ public abstract class PhotomodeMenu
 
     };
 
-    public static readonly List<Overlay.MenuOption> PhotomodeToggles = new()
+    public static readonly List<MenuOption> PhotomodeToggles = new()
     {
         NoClipToggle,
         UnlimitedAltitudeToggle,

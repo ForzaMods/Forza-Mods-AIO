@@ -31,9 +31,9 @@ public partial class OverlayKeybindings
     
     private void UpdateKeybinds() 
     {
-        var SettingsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods AIO\Overlay Settings.ini";
+        var settingsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Forza Mods AIO\Overlay Settings.ini";
         
-        if (!File.Exists(SettingsFilePath))
+        if (!File.Exists(settingsFilePath))
         {
             Overlay.SettingsMenu.SettingsMenu.LoadSettings.IsEnabled = false;
             return;
@@ -41,15 +41,15 @@ public partial class OverlayKeybindings
 
         try
         {
-            var Parser = new FileIniDataParser();
-            var IniData = Parser.ReadFile(SettingsFilePath);
-            TryParse(IniData["Keybinds"]["Up"], out Overlay.OverlayHandling.Up);
-            TryParse(IniData["Keybinds"]["Down"], out Overlay.OverlayHandling.Down);
-            TryParse(IniData["Keybinds"]["Left"], out Overlay.OverlayHandling.Left);
-            TryParse(IniData["Keybinds"]["Right"], out Overlay.OverlayHandling.Right);
-            TryParse(IniData["Keybinds"]["Confirm"], out Overlay.OverlayHandling.Confirm);
-            TryParse(IniData["Keybinds"]["Leave"], out Overlay.OverlayHandling.Leave);
-            TryParse(IniData["Keybinds"]["Visibility"], out Overlay.OverlayHandling.OverlayVisibility);            
+            var parser = new FileIniDataParser();
+            var iniData = parser.ReadFile(settingsFilePath);
+            TryParse(iniData["Keybinds"]["Up"], out Overlay.OverlayHandling.Up);
+            TryParse(iniData["Keybinds"]["Down"], out Overlay.OverlayHandling.Down);
+            TryParse(iniData["Keybinds"]["Left"], out Overlay.OverlayHandling.Left);
+            TryParse(iniData["Keybinds"]["Right"], out Overlay.OverlayHandling.Right);
+            TryParse(iniData["Keybinds"]["Confirm"], out Overlay.OverlayHandling.Confirm);
+            TryParse(iniData["Keybinds"]["Leave"], out Overlay.OverlayHandling.Leave);
+            TryParse(iniData["Keybinds"]["Visibility"], out Overlay.OverlayHandling.OverlayVisibility);            
             
         }
         catch {}

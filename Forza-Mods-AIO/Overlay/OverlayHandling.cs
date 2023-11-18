@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -11,542 +12,666 @@ using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Forza_Mods_AIO.Resources;
+using static Forza_Mods_AIO.MainWindow;
 using Brush = System.Windows.Media.Brush;
 using Brushes = System.Windows.Media.Brushes;
 using Timer = System.Windows.Forms.Timer;
+using static Forza_Mods_AIO.Overlay.Overlay;
+using static Forza_Mods_AIO.Resources.DllImports;
 
-namespace Forza_Mods_AIO.Overlay
+namespace Forza_Mods_AIO.Overlay;
+
+public partial class OverlayHandling
 {
-    public class OverlayHandling
+    #region Blur DLLImports
+    //Credits to Rafael Rivera for the blur https://github.com/riverar/sample-win32-acrylicblur
+    internal enum AccentState
     {
-        #region DLLImports
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetForegroundWindow();
+        AccentEnableBlurbehind = 3
+    }
 
-        [DllImport("user32.dll")]
-        public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+    [StructLayout(LayoutKind.Sequential)]
+    private struct AccentPolicy
+    {
+        public AccentState AccentState;
+        public uint AccentFlags;
+        public uint GradientColor;
+        public uint AnimationId;
+    }
 
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
+    [StructLayout(LayoutKind.Sequential)]
+    private struct WindowCompositionAttributeData
+    {
+        public WindowCompositionAttribute Attribute;
+        public IntPtr Data;
+        public int SizeOfData;
+    }
 
-        [DllImport("user32.dll")]
-        public static extern short GetAsyncKeyState(Keys vKey);
+    private enum WindowCompositionAttribute
+    {
+        WcaAccentPolicy = 19
+    }
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
+    [LibraryImport("user32.dll")]
+    private static partial void SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+    #endregion
+    #region Variables
+    public static Keys Up = Keys.NumPad8;
+    public static Keys Down = Keys.NumPad2;
+    public static Keys Left = Keys.NumPad4;
+    public static Keys Right = Keys.NumPad6;
+    public static Keys Confirm = Keys.NumPad5;
+    public static Keys Leave = Keys.NumPad0;
+    public static Keys OverlayVisibility = Keys.Subtract;
+    // Menu operational vars
+    private string[] _menuHeaders;
+    int _selectedOptionIndex;
+    int _levelIndex;
+    public string CurrentMenu = "MainOptions";
+    private bool _hidden;
+    Dictionary<int, string> _history = new()
+    {
+        {  0 ,"MainOptions" }
+    };
+
+    // Key vars
+    private bool _upKeyDown, _downKeyDown, _leftKeyDown, _rightKeyDown;
+
+    //Theme vars
+    public Brush MainBackColour = Brushes.Transparent;
+    public Brush DescriptionBackColour = Brushes.Transparent;
+    public Brush MainBorderColour = Brushes.Black;
+    public Brush DescriptionBorderColour = Brushes.Black;
+    public int HeaderIndex = 0;
+    public readonly List<object[]> Headers = new();
+    private BitmapImage _headerImage;
+    #endregion
+    // Caches all the headers
+    public void CacheHeaders()
+    {
+        if (!Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers"))
         {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
+            return;
         }
 
-        public static Keys Up = Keys.NumPad8;
-        public static Keys Down = Keys.NumPad2;
-        public static Keys Left = Keys.NumPad4;
-        public static Keys Right = Keys.NumPad6;
-        public static Keys Confirm = Keys.NumPad5;
-        public static Keys Leave = Keys.NumPad0;
-        public static Keys OverlayVisibility = Keys.Subtract;
-        #endregion
-        #region Blur DLLImports
-        //Credits to Rafael Rivera for the blur https://github.com/riverar/sample-win32-acrylicblur
-        internal enum AccentState
+        _menuHeaders = Directory.GetFiles(Environment.CurrentDirectory + @"\Overlay\Headers");
+        foreach (string header in _menuHeaders)
         {
-            ACCENT_ENABLE_BLURBEHIND = 3
+            var inCachedBitmaps = Headers.Any(item => item[0].ToString().Contains(header.Split('\\').Last().Split('.').First()));
+            if (inCachedBitmaps) continue;
+            Headers.Add(new object[] { header.Split('\\').Last().Split('.').First(), new BitmapImage(new Uri(header)) });
         }
+    }
+        
+    public void LoadSettings()
+    {
+            
+    }
 
-        [StructLayout(LayoutKind.Sequential)]
-        internal struct AccentPolicy
+    public void SaveSettings()
+    {
+            
+    }
+        
+    // Handles the position of the overlay
+    public void OverlayPosAndScale(CancellationToken ct)
+    {
+        CacheHeaders();
+        while (true)
         {
-            public AccentState AccentState;
-            public uint AccentFlags;
-            public uint GradientColor;
-            public uint AnimationId;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        internal struct WindowCompositionAttributeData
-        {
-            public WindowCompositionAttribute Attribute;
-            public IntPtr Data;
-            public int SizeOfData;
-        }
-
-        internal enum WindowCompositionAttribute
-        {
-            // ...
-            WCA_ACCENT_POLICY = 19
-            // ...
-        }
-
-        [DllImport("user32.dll")]
-        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
-        #endregion
-        #region Variables
-        // Menu operational vars
-        public string[] MenuHeaders;
-        int MainAOBScanProg = 0;
-        int SelectedOptionIndex = 0;
-        int LevelIndex = 0;
-        public string CurrentMenu = "MainOptions";
-        bool Hidden = false;
-        Dictionary<int, string> History = new()
-        {
-            {  0 ,"MainOptions" }
-        };
-
-        // Key vars
-        bool UpKeyDown = false;
-        bool DownKeyDown = false;
-        bool LeftKeyDown = false;
-        bool RightKeyDown = false;
-
-        //Theme vars
-        public Brush MainBackColour = Brushes.Transparent;
-        public Brush DescriptionBackColour = Brushes.Transparent;
-        public Brush MainBorderColour = Brushes.Black;
-        public Brush DescriptionBorderColour = Brushes.Black;
-        public int HeaderIndex = 0;
-        public List<object[]> Headers = new();
-        public BitmapImage HeaderImage;
-
-        // Opacity vars (not used with fast blur mode)
-        private uint _blurBackgroundColor = 0x990000;
-        private uint _blurOpacity = 0x4B;
-        #endregion
-        // Caches all the headers
-        public void CacheHeaders()
-        {
-            if (!Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers"))
+            Task.Delay(10, ct).Wait(ct);
+            if (ct.IsCancellationRequested)
             {
                 return;
             }
 
-            MenuHeaders = Directory.GetFiles(Environment.CurrentDirectory + @"\Overlay\Headers");
-            foreach (string header in MenuHeaders)
+            DllImports.Rect forzaWindow = new DllImports.Rect();
+
+            GetWindowRect(Mw.Gvp.Process.MainWindowHandle, ref forzaWindow);
+            GetClientRect(Mw.Gvp.Process.MainWindowHandle, out var forzaClientWindow);
+
+            double offset = forzaClientWindow.Bottom / 20;
+
+            // Forza window x and y coords
+            double posTop = forzaWindow.Top + ((forzaWindow.Bottom - forzaWindow.Top - forzaClientWindow.Bottom) / 1.3) + offset;
+            double posLeft = forzaWindow.Left + ((forzaWindow.Right - forzaWindow.Left - forzaClientWindow.Right) / 2) + offset;
+
+            // Forzas current resolution (doesnt account for scaling)
+            double yRes = forzaClientWindow.Bottom - ((forzaWindow.Bottom - forzaWindow.Top - forzaClientWindow.Bottom) / 1.3);
+
+            // Calculate the right numbers for the menu to scale to resolution
+            double headerY = yRes / 10.8;
+            double headerX = headerY * 4;
+
+            // Select header
+            if (!Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers") || _menuHeaders.Length == 0)
             {
-                var InCachedBitmaps = Headers.Any(item => item[0].ToString().Contains(header.Split('\\').Last().Split('.').First()));
-                if (InCachedBitmaps) continue;
-                Headers.Add(new object[] { header.Split('\\').Last().Split('.').First(), new BitmapImage(new Uri(header)) });
+                if (_headerImage is { IsFrozen: true })
+                {
+                    _headerImage = _headerImage.Clone();
+                }
+
+                _headerImage = new BitmapImage(new Uri("pack://application:,,,/Overlay/Headers/pog header.png", UriKind.RelativeOrAbsolute));
+                try
+                {
+                    _headerImage.Freeze();
+                }
+                catch
+                {
+                    _headerImage.Dispatcher.Invoke(() => { _headerImage.Freeze(); });
+                }
             }
-        }
-        
-        public void LoadSettings()
-        {
-            
-        }
-
-        public void SaveSettings()
-        {
-            
-        }
-        
-        // Handles the position of the overlay
-        public void OverlayPosAndScale(CancellationToken ct)
-        {
-            CacheHeaders();
-            while (true)
+            else if (_headerImage.UriSource.LocalPath != _menuHeaders[HeaderIndex])
             {
-                Thread.Sleep(5);
-                if (ct.IsCancellationRequested)
-                    return;
-
-                RECT ForzaWindow = new RECT();
-                RECT ForzaClientWindow = new RECT();
-
-                GetWindowRect(MainWindow.mw.gvp.Process.MainWindowHandle, ref ForzaWindow);
-                GetClientRect(MainWindow.mw.gvp.Process.MainWindowHandle, out ForzaClientWindow);
-
-                double Offset = ForzaClientWindow.Bottom / 20;
-
-                // Forza window x and y coords
-                double PosTop = ForzaWindow.Top + ((ForzaWindow.Bottom - ForzaWindow.Top - ForzaClientWindow.Bottom) / 1.3) + Offset;
-                double PosLeft = ForzaWindow.Left + ((ForzaWindow.Right - ForzaWindow.Left - ForzaClientWindow.Right) / 2) + Offset;
-
-                // Forzas current resolution (doesnt account for scaling)
-                double yRes = ForzaClientWindow.Bottom - ((ForzaWindow.Bottom - ForzaWindow.Top - ForzaClientWindow.Bottom) / 1.3);
-
-                // Calculate the right numbers for the menu to scale to resolution
-                double HeaderY = yRes / 10.8;
-                double HeaderX = HeaderY * 4;
-
-                // Select header
-                if (!Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers") || MenuHeaders.Length == 0)
+                if (_headerImage is { IsFrozen: true })
                 {
-                    if (HeaderImage is { IsFrozen: true })
-                        HeaderImage = HeaderImage.Clone();
-                    HeaderImage = new BitmapImage(new Uri("pack://application:,,,/Overlay/Headers/pog header.png", UriKind.Relative));
-                    try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
-                }
-                else if (HeaderImage == null || HeaderImage.UriSource.LocalPath != MenuHeaders[HeaderIndex])
-                {
-                    if (HeaderImage is { IsFrozen: true })
-                        HeaderImage = HeaderImage.Clone();
-                    HeaderImage = (BitmapImage)Headers.Find(x => x[0].ToString().Contains(MenuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))[1];
-                    try { HeaderImage.Freeze(); } catch { HeaderImage.Dispatcher.Invoke(() => { HeaderImage.Freeze(); }); }
+                    _headerImage = _headerImage.Clone();
                 }
 
-                if (MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow())
+                _headerImage = (BitmapImage)Headers.Find(x => x[0].ToString().Contains(_menuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))[1];
+                try
                 {
-                    Overlay.o.Dispatcher.Invoke(delegate ()
-                    {
-                        // Set position
-                        Overlay.o.Top = PosTop;
-                        Overlay.o.Left = PosLeft;
-
-                        // Set width of menu and set header size (scale with resolution)
-                        Overlay.o.Width = HeaderX;
-                        Overlay.o.TopSection.Height = new GridLength(HeaderY);
-
-                        Overlay.o.Header.Width = Overlay.o.Width;
-                        Overlay.o.Header.Height = Overlay.o.TopSection.ActualHeight;
-
-                        // Set height of menu depending on items present
-                        if (Overlay.o.OptionsBlock.Inlines.Count == (Overlay.o.AllMenus[CurrentMenu].Count * 2) - 1)
-                        {
-                            Overlay.o.MainSection.Height = new GridLength(5 + Overlay.o.OptionsBlock.ActualHeight + 5);
-                            Overlay.o.DescriptionSection.Height = Overlay.o.DescriptionBlock.Text != string.Empty ? new GridLength(5 + 5 + Overlay.o.DescriptionBlock.ActualHeight + 5) : new GridLength(0);
-
-                            Overlay.o.Height = Overlay.o.TopSection.ActualHeight + Overlay.o.MainSection.ActualHeight + Overlay.o.DescriptionSection.ActualHeight;
-                        }
-
-                        // Set menu header image
-                        Overlay.o.Header.Source = HeaderImage;
-
-
-                        // Set colours of menu
-                        Overlay.o.MainBorder.Background = MainBackColour;
-                        Overlay.o.MainBorder.BorderBrush = MainBorderColour;
-
-                        Overlay.o.DescriptionBorder.Background = DescriptionBackColour;
-                        Overlay.o.DescriptionBorder.BorderBrush = DescriptionBorderColour;
-
-                        if (Overlay.o.Visibility == Visibility.Hidden && !Hidden)
-                            Overlay.o.Show();
-                    });
+                    _headerImage.Freeze();
                 }
-                else { Overlay.o.Dispatcher.Invoke(delegate () { Overlay.o.Hide(); }); }
+                catch
+                {
+                    _headerImage.Dispatcher.Invoke(() => { _headerImage.Freeze(); });
+                }
             }
-        }
 
-        // Updates the menu, eg selected option, values etc
-        public void UpdateMenuOptions(CancellationToken ct)
-        {
-            while (true)
+            if (Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow())
             {
-                if (ct.IsCancellationRequested)
-                    return;
-
-                Thread.Sleep(10);
-                
-                // Clears the menu
-                Overlay.o.Dispatcher.BeginInvoke((Action)delegate () { Overlay.o.OptionsBlock.Inlines.Clear(); Overlay.o.ValueBlock.Inlines.Clear(); });
-                int index = 0;
-
-                // Gets y resolution of the forza client window
-                RECT ForzaWindow = new RECT();
-                RECT ForzaClientWindow = new RECT();
-
-                GetWindowRect(MainWindow.mw.gvp.Process.MainWindowHandle, ref ForzaWindow);
-                GetClientRect(MainWindow.mw.gvp.Process.MainWindowHandle, out ForzaClientWindow);
-
-                double yRes = ForzaClientWindow.Bottom - ((ForzaWindow.Bottom - ForzaWindow.Top - ForzaClientWindow.Bottom) / 1.3);
-
-                // Selected option background
-                Overlay.o.Dispatcher.Invoke((Action)delegate ()
+                o?.Dispatcher.Invoke(delegate ()
                 {
-                    if (Overlay.o.OptionsBlock.Inlines.Count <= 1) return;
-                    // Remove previous highlight box
-                    foreach (UIElement Child in Overlay.o.Layout.Children)
+                    // Set position
+                    o.Top = posTop;
+                    o.Left = posLeft;
+
+                    // Set width of menu and set header size (scale with resolution)
+                    o.Width = headerX;
+                    o.TopSection.Height = new GridLength(headerY);
+
+                    o.Header.Width = o.Width;
+                    o.Header.Height = o.TopSection.ActualHeight;
+
+                    // Set height of menu depending on items present
+                    if (o.OptionsBlock.Inlines.Count == o.AllMenus[CurrentMenu].Count * 2 - 1)
                     {
-                        if (Child.GetType().GetProperty("Name").GetValue(Child) != "Highlight") continue;
-                        Overlay.o.Layout.Children.Remove(Child);
-                        break;
+                        o.MainSection.Height = new GridLength(5 + o.OptionsBlock.ActualHeight + 5);
+                        o.DescriptionSection.Height = o.DescriptionBlock.Text != string.Empty ? new GridLength(5 + 5 + o.DescriptionBlock.ActualHeight + 5) : new GridLength(0);
+
+                        o.Height = o.TopSection.ActualHeight + o.MainSection.ActualHeight + o.DescriptionSection.ActualHeight;
                     }
-                    // Create new highlight box
-                    float height = (float)(((Overlay.o.OptionsBlock.ActualHeight / Overlay.o.AllMenus[CurrentMenu].Count) * SelectedOptionIndex) + 5);
-                    Border Highlighted = new Border()
-                    {
-                        Name = "Highlight",
-                        VerticalAlignment = VerticalAlignment.Top,
-                        Background = Brushes.Black,
-                        Width = Overlay.o.Layout.ActualWidth,
-                        Height = Overlay.o.OptionsBlock.ActualHeight / Overlay.o.AllMenus[CurrentMenu].Count,
-                        Margin = new Thickness(0, height, 0, 0)
-                    };
-                    Grid.SetColumn(Highlighted, 0);
-                    Grid.SetRow(Highlighted, 1);
 
-                    // Put highlight box behind text, add to layout
-                    System.Windows.Controls.Panel.SetZIndex(Highlighted, 1);
-                    Overlay.o.Layout.Children.Add(Highlighted);
+                    // Set menu header image
+                    o.Header.Source = _headerImage;
+                    
+                    // Set colours of menu
+                    o.MainBorder.Background = MainBackColour;
+                    o.MainBorder.BorderBrush = MainBorderColour;
+
+                    o.DescriptionBorder.Background = DescriptionBackColour;
+                    o.DescriptionBorder.BorderBrush = DescriptionBorderColour;
+
+                    if (o.Visibility == Visibility.Hidden && !_hidden)
+                    {
+                        o.Show();
+                    }
                 });
-
-                // Adds all menu options to the menu
-                foreach (var item in Overlay.o.AllMenus[CurrentMenu])
+            }
+            else
+            {
+                o?.Dispatcher.Invoke(delegate
                 {
-                    string Text = string.Empty, Value = string.Empty, Description = string.Empty;
-                    SolidColorBrush FColour;
-                    if (index == SelectedOptionIndex)
-                    {
-                        Text = $"[{item.Name}]";
-                        FColour = item.IsEnabled ? Brushes.Green : Brushes.DarkOliveGreen;
-                        Description = item.Description;
-                    }
-                    else
-                    {
-                        Text += $"{item.Name}";
-                        FColour = item.IsEnabled ? Brushes.White : Brushes.DimGray;
-                    }
-
-                    Value = item.Type switch
-                    {
-                        Overlay.MenuOption.OptionType.MenuButton => ">",
-                        Overlay.MenuOption.OptionType.Float when item.Value.GetType() == typeof(object) => $"<{item.Value.GetType().GetProperty("Value").GetValue(item):0.00000}>",
-                        Overlay.MenuOption.OptionType.Float => $"<{item.Value:0.00000}>",
-                        Overlay.MenuOption.OptionType.Int when item.Value.GetType() == typeof(object) => $"<{item.Value.GetType().GetProperty("Value").GetValue(item)}>",
-                        Overlay.MenuOption.OptionType.Int => $"<{item.Value}>",
-                        Overlay.MenuOption.OptionType.Bool when (bool)item.Value => "[X]",
-                        Overlay.MenuOption.OptionType.Bool when (bool)item.Value == false => "[ ]",
-                        _ => Value
-                    };
-
-                    Overlay.o.Dispatcher.BeginInvoke((Action<int>)delegate (int idx)
-                    {
-                        try
-                        {
-                            if (item.Type != Overlay.MenuOption.OptionType.SubHeader)
-                            {
-                                Overlay.o.OptionsBlock.Inlines.Add(new Run(Text) { Foreground = FColour, FontSize = yRes / 45 });
-                                Overlay.o.ValueBlock.Inlines.Add(new Run(Value) { Foreground = FColour, FontSize = yRes / 45 });
-                                if (Description != string.Empty && idx == SelectedOptionIndex)
-                                { Overlay.o.DescriptionBlock.Text = Description; Overlay.o.DescriptionBlock.FontSize = yRes / 45; Overlay.o.DescriptionBlock.Foreground = Brushes.White; }
-                                else if (idx == SelectedOptionIndex)
-                                    Overlay.o.DescriptionBlock.Text = string.Empty;
-                            }
-                            else
-                            {
-                                Overlay.o.OptionsBlock.Inlines.Add(new InlineUIContainer
-                                {
-                                    Child = new TextBlock
-                                    {
-                                        Text = Text,
-                                        Foreground = FColour,
-                                        FontSize = yRes / 45,
-                                        Width = Overlay.o.Width - 10,
-                                        HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
-                                        TextAlignment = TextAlignment.Center
-                                    }
-                                });
-                                Overlay.o.ValueBlock.Inlines.Add(new Run("") { FontSize = yRes / 45 });
-                            }
-                        }
-                        catch { }
-                    }, index);
-
-                    if (Overlay.o.AllMenus[CurrentMenu].IndexOf(item) != Overlay.o.AllMenus[CurrentMenu].Count - 1)
-                        Overlay.o.Dispatcher.BeginInvoke((Action)delegate () { Overlay.o.OptionsBlock.Inlines.Add("\n"); Overlay.o.ValueBlock.Inlines.Add("\n"); });
-                    index++;
-                }
+                    o.Hide();
+                });
             }
         }
+    }
 
-        // Handles the input
-        public void KeyHandler(CancellationToken ct)
+    // Updates the menu, eg selected option, values etc
+    public void UpdateMenuOptions(CancellationToken ct)
+    {
+        while (true)
         {
-            while (true)
+            Task.Delay(10, ct).Wait(ct);
+            if (ct.IsCancellationRequested)
+                return;
+            
+            // Clears the menu
+            o.Dispatcher.BeginInvoke((Action)delegate
             {
-                if (ct.IsCancellationRequested)
-                    return;
-                if (GetAsyncKeyState(Down) is 1 or Int16.MinValue && !DownKeyDown && !Hidden)
-                    DownKeyDown = true;
-                if (GetAsyncKeyState(Down) is not 1 and not Int16.MinValue && DownKeyDown && !Hidden)
-                    DownKeyDown = false;
-                if (GetAsyncKeyState(Up) is 1 or Int16.MinValue && !UpKeyDown && !Hidden)
-                    UpKeyDown = true;
-                if (GetAsyncKeyState(Up) is not 1 and not Int16.MinValue && UpKeyDown && !Hidden)
-                    UpKeyDown = false;
-                if (GetAsyncKeyState(Left) is 1 or Int16.MinValue && !LeftKeyDown && !Hidden)
-                    LeftKeyDown = true;
-                if (GetAsyncKeyState(Left) is not 1 and not Int16.MinValue && LeftKeyDown && !Hidden)
-                    LeftKeyDown = false;
-                if (GetAsyncKeyState(Right) is 1 or Int16.MinValue && !RightKeyDown && !Hidden)
-                    RightKeyDown = true;
-                if (GetAsyncKeyState(Right) is not 1 and not Int16.MinValue && RightKeyDown && !Hidden)
-                    RightKeyDown = false;
+                o.OptionsBlock.Inlines.Clear(); 
+                o.ValueBlock.Inlines.Clear();
+            });
+            int index = 0;
 
-                var IsGameFocused = MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow();
-                
-                if (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue && !Hidden && IsGameFocused)
-                {
-                    if (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].IsEnabled)
-                    {
-                        switch (Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type)
-                        {
-                            case Overlay.MenuOption.OptionType.MenuButton:
-                            {
-                                LevelIndex++;
-                                var NameSplit = Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Name.Split(' ', '/', '[', ']', '&');
-                                CurrentMenu = string.Empty;
-                                foreach (var item in NameSplit)
-                                    CurrentMenu += char.ToUpper(item[0]) + item[1..];
-                                CurrentMenu += "Options";
-                                History.Add(LevelIndex, CurrentMenu);
-                                SelectedOptionIndex = 0;
-                                break;
-                            }
-                            case Overlay.MenuOption.OptionType.Bool:
-                            {
-                                Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = !(bool)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value;
-                                break;
-                            }
-                            case Overlay.MenuOption.OptionType.Button:
-                            {
-                                ((Action)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value)();
-                                break;
-                            }
-                        }
-                    }
+            // Gets y resolution of the forza client window
+            DllImports.Rect forzaWindow = new DllImports.Rect();
 
-                    while (GetAsyncKeyState(Confirm) is 1 or Int16.MinValue)
-                        Thread.Sleep(10);
-                }
-                if (GetAsyncKeyState(Leave) is 1 or Int16.MinValue && !Hidden && IsGameFocused)
+            GetWindowRect(Mw.Gvp.Process.MainWindowHandle, ref forzaWindow);
+            GetClientRect(Mw.Gvp.Process.MainWindowHandle, out var forzaClientWindow);
+
+            double yRes = forzaClientWindow.Bottom - ((forzaWindow.Bottom - forzaWindow.Top - forzaClientWindow.Bottom) / 1.3);
+
+            // Selected option background
+            o.Dispatcher.Invoke((Action)delegate ()
+            {
+                if (o.OptionsBlock.Inlines.Count <= 1) return;
+                // Remove previous highlight box
+                foreach (UIElement child in o.Layout.Children)
                 {
-                    if (LevelIndex == 0)
+                    if ((string)child.GetType().GetProperty("Name")?.GetValue(child)! != "Highlight")
                     {
-                        Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Hide(); });
-                        Hidden = true;
                         continue;
                     }
-                    LevelIndex--;
-                    CurrentMenu = History[LevelIndex];
-                    History.Remove(LevelIndex + 1);
-                    SelectedOptionIndex = 0;
-                    while (GetAsyncKeyState(Leave) is 1 or Int16.MinValue)
-                        Thread.Sleep(10);
+                    o.Layout.Children.Remove(child);
+                    break;
                 }
-                if (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue && IsGameFocused)
+                // Create new highlight box
+                var height = (float)(o.OptionsBlock.ActualHeight / o.AllMenus[CurrentMenu].Count * _selectedOptionIndex + 5);
+                var highlighted = new Border
                 {
-                    if (Overlay.o.Visibility == Visibility.Visible && !Hidden)
-                        Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Hide(); });
-                    else
-                        Overlay.o.Dispatcher.Invoke(delegate { Overlay.o.Show(); });
-                    Hidden = !Hidden;
-                    while (GetAsyncKeyState(OverlayVisibility) is 1 or Int16.MinValue)
-                        Thread.Sleep(10);
+                    Name = "Highlight",
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Background = Brushes.Black,
+                    Width = o.Layout.ActualWidth,
+                    Height = o.OptionsBlock.ActualHeight / o.AllMenus[CurrentMenu].Count,
+                    Margin = new Thickness(0, height, 0, 0)
+                };
+                Grid.SetColumn(highlighted, 0);
+                Grid.SetRow(highlighted, 1);
+
+                // Put highlight box behind text, add to layout
+                System.Windows.Controls.Panel.SetZIndex(highlighted, 1);
+                o.Layout.Children.Add(highlighted);
+            });
+
+            // Adds all menu options to the menu
+            foreach (var item in o.AllMenus[CurrentMenu])
+            {
+                string text = string.Empty, value = string.Empty, description = string.Empty;
+                SolidColorBrush fColour;
+                if (index == _selectedOptionIndex)
+                {
+                    text = $"[{item.Name}]";
+                    fColour = item.IsEnabled ? Brushes.Green : Brushes.DarkOliveGreen;
+                    description = item.Description;
                 }
-                Thread.Sleep(10);
+                else
+                {
+                    text = $"{item.Name}";
+                    fColour = item.IsEnabled ? Brushes.White : Brushes.DimGray;
+                }
+
+                value = item.Type switch
+                {
+                    OptionType.MenuButton => ">",
+                    OptionType.Float => $"<{item.Value:0.00000}>",
+                    OptionType.Int => $"<{item.Value}>",
+                    OptionType.Bool when (bool)item.Value => "[X]",
+                    OptionType.Bool when (bool)item.Value == false => "[ ]",
+                    _ => value
+                };
+
+                o.Dispatcher.BeginInvoke((Action<int>)delegate (int idx)
+                {
+                    try
+                    {
+                        if (item.Type != OptionType.SubHeader)
+                        {
+                            o.OptionsBlock.Inlines.Add(new Run(text)
+                            {
+                                Foreground = fColour, 
+                                FontSize = yRes / 45
+                            });
+                            
+                            o.ValueBlock.Inlines.Add(new Run(value)
+                            {
+                                Foreground = fColour,
+                                FontSize = yRes / 45
+                            });
+                            
+                            if (description != string.Empty && idx == _selectedOptionIndex)
+                            {
+                                o.DescriptionBlock.Text = description; 
+                                o.DescriptionBlock.FontSize = yRes / 45; 
+                                o.DescriptionBlock.Foreground = Brushes.White;
+                            }
+                            else if (idx == _selectedOptionIndex)
+                            {
+                                o.DescriptionBlock.Text = string.Empty;
+                            }
+                        }
+                        else
+                        {
+                            o.OptionsBlock.Inlines.Add(new InlineUIContainer
+                            {
+                                Child = new TextBlock
+                                {
+                                    Text = text,
+                                    Foreground = fColour,
+                                    FontSize = yRes / 45,
+                                    Width = o.Width - 10,
+                                    HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                                    TextAlignment = TextAlignment.Center
+                                }
+                            });
+                            o.ValueBlock.Inlines.Add(new Run("") { FontSize = yRes / 45 });
+                        }
+                    }
+                    catch { }
+                }, index);
+
+                if (o.AllMenus[CurrentMenu].IndexOf(item) != o.AllMenus[CurrentMenu].Count - 1)
+                {
+                    o.Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        o.OptionsBlock.Inlines.Add("\n"); 
+                        o.ValueBlock.Inlines.Add("\n");
+                    });
+                }
+                index++;
             }
         }
-        public void ChangeSelection(CancellationToken ct)
+    }
+
+    // Handles the input
+    public void KeyHandler(CancellationToken ct)
+    {
+        while (true)
         {
-            while (true)
+            Task.Delay(10, ct).Wait(ct);
+            if (ct.IsCancellationRequested)
             {
-                if (ct.IsCancellationRequested)
-                    return;
-                var IsGameFocused = MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow();
-                if (DownKeyDown && IsGameFocused)
-                {
-                    void Down()
-                    {
-                        SelectedOptionIndex++;
-                        if (SelectedOptionIndex > Overlay.o.AllMenus[CurrentMenu].Count - 1)
-                            SelectedOptionIndex = 0;
-                    }
-                    Down();
-
-                    var timer = new Timer();
-                    timer.Interval = 150;
-                    timer.Tick += delegate
-                    {
-                        Down();
-                        Thread.Sleep(5);
-                    };
-                    Overlay.o.Dispatcher.Invoke(delegate { timer.Start(); });
-                    while (DownKeyDown) { Thread.Sleep(1); }
-                    Overlay.o.Dispatcher.Invoke(delegate { timer.Dispose(); });
-                }
-                else if (UpKeyDown && IsGameFocused)
-                {
-                    void Up()
-                    {
-                        SelectedOptionIndex--;
-                        if (SelectedOptionIndex < 0)
-                            SelectedOptionIndex = Overlay.o.AllMenus[CurrentMenu].Count - 1;
-                    }
-                    Up();
-
-                    var timer = new Timer();
-                    timer.Interval = 150;
-                    timer.Tick += delegate
-                    { 
-                        Up();
-                        Thread.Sleep(5);
-                    };
-                    Overlay.o.Dispatcher.Invoke(delegate { timer.Start(); });
-                    while (UpKeyDown) { Thread.Sleep(1); }
-                    Overlay.o.Dispatcher.Invoke(delegate { timer.Dispose(); });
-                }
-                Thread.Sleep(10);
+                return;
             }
-        }
 
-        public void ChangeValue(CancellationToken ct)
-        {
-            while (true)
+            if (_hidden)
             {
-                if (ct.IsCancellationRequested)
-                    return;
-                var IsGameFocused = MainWindow.mw.gvp.Process.MainWindowHandle == GetForegroundWindow();
-                
-                if (RightKeyDown && Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].IsEnabled && IsGameFocused)
+                continue;
+            }
+
+            var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
+
+            if (!isGameFocused)
+            {
+                continue;
+            }
+            
+            if (GetAsyncKeyState(Down) is 1 or short.MinValue && !_downKeyDown )
+            {
+                _downKeyDown = true;
+            }
+
+            if (GetAsyncKeyState(Down) is not 1 and not short.MinValue && _downKeyDown )
+            {
+                _downKeyDown = false;
+            }
+
+            if (GetAsyncKeyState(Up) is 1 or short.MinValue && !_upKeyDown )
+            {
+                _upKeyDown = true;
+            }
+
+            if (GetAsyncKeyState(Up) is not 1 and not short.MinValue && _upKeyDown )
+            {
+                _upKeyDown = false;
+            }
+
+            if (GetAsyncKeyState(Left) is 1 or short.MinValue && !_leftKeyDown )
+            {
+                _leftKeyDown = true;
+            }
+
+            if (GetAsyncKeyState(Left) is not 1 and not short.MinValue && _leftKeyDown )
+            {
+                _leftKeyDown = false;
+            }
+
+            if (GetAsyncKeyState(Right) is 1 or short.MinValue && !_rightKeyDown )
+            {
+                _rightKeyDown = true;
+            }
+
+            if (GetAsyncKeyState(Right) is not 1 and not short.MinValue && _rightKeyDown )
+            {
+                _rightKeyDown = false;
+            }
+            
+            var currentOption = o.AllMenus[CurrentMenu][_selectedOptionIndex];
+            
+            if (GetAsyncKeyState(Confirm) is 1 or short.MinValue && currentOption.IsEnabled)
+            {
+                switch (currentOption.Type)
                 {
-                    Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type switch
+                    case OptionType.MenuButton:
                     {
-                        Overlay.MenuOption.OptionType.Float => Convert.ToSingle(Math.Round((float)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value + 0.1f, 1)),
-                        Overlay.MenuOption.OptionType.Int => (int)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value + 1,
-                        _ => Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value
-                    };
+                        _levelIndex++;
+                        
+                        var nameSplit = currentOption.Name.Split(' ', '/', '[', ']', '&');
+                        CurrentMenu = string.Empty;
+                            
+                        foreach (var item in nameSplit)
+                        {
+                            CurrentMenu += char.ToUpper(item[0]) + item[1..];
+                        }
+
+                        CurrentMenu += "Options";
+                        _history.Add(_levelIndex, CurrentMenu);
+                        _selectedOptionIndex = 0;
+                        break;
+                    }
+                    case OptionType.Bool:
+                    {
+                        currentOption.Value = !(bool)currentOption.Value;
+                        break;
+                    }
+                    case OptionType.Button:
+                    {
+                        ((Action)currentOption.Value)();
+                        break;
+                    }
+                }
+
+                while (GetAsyncKeyState(Confirm) is 1 or short.MinValue)
+                {
+                    Task.Delay(10, ct).Wait(ct);
+                }
+            }
+            else if (GetAsyncKeyState(Leave) is 1 or short.MinValue)
+            {
+                if (_levelIndex == 0)
+                {
+                    o.Dispatcher.Invoke(delegate { o.Hide(); });
+                    _hidden = true;
+                    continue;
+                }
                     
-                }
-                else if (LeftKeyDown && Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].IsEnabled && IsGameFocused)
+                _levelIndex--;
+                CurrentMenu = _history[_levelIndex];
+                _history.Remove(_levelIndex + 1);
+                _selectedOptionIndex = 0;
+                while (GetAsyncKeyState(Leave) is 1 or short.MinValue)
                 {
-                    Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value = Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Type switch
-                    {
-                        Overlay.MenuOption.OptionType.Float => Convert.ToSingle(Math.Round((float)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value - 0.1f, 1)), 
-                        Overlay.MenuOption.OptionType.Int => (int)Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value - 1,
-                        _ => Overlay.o.AllMenus[CurrentMenu][SelectedOptionIndex].Value
-                    };
+                    Task.Delay(10, ct).Wait(ct);
                 }
-                Thread.Sleep(50);
+            }
+            else if (GetAsyncKeyState(OverlayVisibility) is 1 or short.MinValue)
+            {
+                    
+                if (o.Visibility == Visibility.Visible)
+                {
+                    o.Dispatcher.Invoke(delegate { o.Hide(); });
+                }
+                else
+                {
+                    o.Dispatcher.Invoke(delegate { o.Show(); });
+                }
+
+                _hidden = !_hidden;
+                while (GetAsyncKeyState(OverlayVisibility) is 1 or short.MinValue)
+                {
+                    Task.Delay(10, ct).Wait(ct);
+                }
             }
         }
-
-        // Configs and enables blur
-        internal static void EnableBlur()
+    }
+    public void ChangeSelection(CancellationToken ct)
+    {
+        while (true)
         {
-            var windowHelper = new WindowInteropHelper(Overlay.o);
+            Task.Delay(10, ct).Wait(ct);
+                
+            if (ct.IsCancellationRequested)
+            {
+                break;
+            }
 
-            var accent = new AccentPolicy();
-            accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
-            //accent.GradientColor = ((_blurOpacity << 24) | (_blurBackgroundColor & 0xFFFFFF));
+            if (_hidden)
+            {
+                continue;
+            }
+            
+            var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
 
-            var accentStructSize = Marshal.SizeOf(accent);
+            if (!isGameFocused)
+            {
+                continue;
+            }
+            
+            if (_downKeyDown && isGameFocused)
+            {
+                void Down()
+                {
+                    _selectedOptionIndex++;
+                    if (_selectedOptionIndex > o.AllMenus[CurrentMenu].Count - 1)
+                        _selectedOptionIndex = 0;
+                }
+                Down();
 
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-            Marshal.StructureToPtr(accent, accentPtr, false);
+                var timer = new Timer();
+                timer.Interval = 150;
+                timer.Tick += delegate
+                {
+                    Down();
+                    Task.Delay(5, ct).Wait(ct);
+                };
+                
+                o.Dispatcher.Invoke(delegate
+                {
+                    timer.Start();
+                });
+                
+                while (_downKeyDown)
+                {
+                    Task.Delay(1, ct).Wait(ct);
+                }
+                
+                o.Dispatcher.Invoke(delegate
+                {
+                    timer.Dispose();
+                });
+            }
+            else if (_upKeyDown && isGameFocused)
+            {
+                void Up()
+                {
+                    _selectedOptionIndex--;
+                    if (_selectedOptionIndex < 0)
+                        _selectedOptionIndex = o.AllMenus[CurrentMenu].Count - 1;
+                }
+                Up();
 
-            var data = new WindowCompositionAttributeData();
-            data.Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY;
-            data.SizeOfData = accentStructSize;
-            data.Data = accentPtr;
-
-            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
-
-            Marshal.FreeHGlobal(accentPtr);
+                var timer = new Timer();
+                timer.Interval = 150;
+                timer.Tick += delegate
+                { 
+                    Up();
+                    Task.Delay(5, ct).Wait(ct);
+                };
+                
+                o.Dispatcher.Invoke(delegate
+                {
+                    timer.Start();
+                });
+                
+                while (_upKeyDown)
+                {
+                    Task.Delay(1, ct).Wait(ct);
+                }
+                
+                o.Dispatcher.Invoke(delegate
+                {
+                    timer.Dispose();
+                });
+            }
         }
+    }
+
+    public void ChangeValue(CancellationToken ct)
+    {
+        while (true)
+        {
+            Task.Delay(50, ct).Wait(ct);
+                
+            if (ct.IsCancellationRequested)
+            {
+                return;
+            }
+
+            var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
+
+            var currentOption = o.AllMenus[CurrentMenu][_selectedOptionIndex];
+            
+            if (_rightKeyDown && currentOption.IsEnabled && isGameFocused)
+            {
+                currentOption.Value = currentOption.Type switch
+                {
+                    OptionType.Float => Convert.ToSingle(Math.Round((float)currentOption.Value + 0.1f, 1)),
+                    OptionType.Int => (int)currentOption.Value + 1,
+                    _ => currentOption.Value
+                };
+                    
+            }
+            else if (_leftKeyDown && currentOption.IsEnabled && isGameFocused)
+            {
+                currentOption.Value = currentOption.Type switch
+                {
+                    OptionType.Float => Convert.ToSingle(Math.Round((float)currentOption.Value - 0.1f, 1)), 
+                    OptionType.Int => (int)currentOption.Value - 1,
+                    _ => currentOption.Value
+                };
+            }
+
+        }
+    }
+
+    // Configs and enables blur
+    internal static void EnableBlur()
+    {
+        var windowHelper = new WindowInteropHelper(o);
+
+        var accent = new AccentPolicy
+        {
+            AccentState = AccentState.AccentEnableBlurbehind
+        };
+
+        var accentStructSize = Marshal.SizeOf(accent);
+
+        var accentPtr = Marshal.AllocHGlobal(accentStructSize);
+        Marshal.StructureToPtr(accent, accentPtr, false);
+
+        var data = new WindowCompositionAttributeData
+        {
+            Attribute = WindowCompositionAttribute.WcaAccentPolicy,
+            SizeOfData = accentStructSize,
+            Data = accentPtr
+        };
+
+        SetWindowCompositionAttribute(windowHelper.Handle, ref data);
+            
+        Marshal.FreeHGlobal(accentPtr);
     }
 }

@@ -1,80 +1,81 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Tires;
 
 public abstract class Tires
 {
-    private static readonly Overlay.MenuOption TireFrontLeftValue = new ("Left", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption TireFrontRightValue = new ("Right", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption TireRearLeftValue = new ("Left", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption TireRearRightValue = new ("Right", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly MenuOption TireFrontLeftValue = new ("Left", OptionType.Float, 0f);
+    private static readonly MenuOption TireFrontRightValue = new ("Right", OptionType.Float, 0f);
+    private static readonly MenuOption TireRearLeftValue = new ("Left", OptionType.Float, 0f);
+    private static readonly MenuOption TireRearRightValue = new ("Right", OptionType.Float, 0f);
 
-    private static readonly Overlay.MenuOption RearTiresPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, (() =>
+    private static readonly MenuOption RearTiresPull = new ("Pull values", OptionType.Button, () =>
     {
-        var Tires = Tabs.Tuning.DropDownTabs.Tires.t;
+        var tires = Tabs.Tuning.DropDownTabs.Tires.T;
         
-        Tires.Dispatcher.Invoke(() =>
+        tires.Dispatcher.Invoke(() =>
         {  
-            TireRearLeftValue.Value = (float)Tires.TireRearLeftBox.Value!;    
-            TireRearRightValue.Value = (float)Tires.TireRearRightBox.Value!;    
+            TireRearLeftValue.Value = (float)tires.TireRearLeftBox.Value!;    
+            TireRearRightValue.Value = (float)tires.TireRearRightBox.Value!;    
         });
-    }));
+    });
     
-    private static readonly Overlay.MenuOption FrontTiresPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, (() =>
+    private static readonly MenuOption FrontTiresPull = new ("Pull values", OptionType.Button, () =>
     {
-        var Tires = Tabs.Tuning.DropDownTabs.Tires.t;
+        var tires = Tabs.Tuning.DropDownTabs.Tires.T;
         
-        Tires.Dispatcher.Invoke(() =>
+        tires.Dispatcher.Invoke(() =>
         {
-            TireFrontLeftValue.Value = (float)Tires.TireFrontLeftBox.Value!;    
-            TireFrontRightValue.Value = (float)Tires.TireFrontRightBox.Value!;    
+            TireFrontLeftValue.Value = (float)tires.TireFrontLeftBox.Value!;    
+            TireFrontRightValue.Value = (float)tires.TireFrontRightBox.Value!;    
         });
-    }));
+    });
 
     private static void TireFrontLeftValueChanged(object s, EventArgs e)
     {
-        var Tires = Tabs.Tuning.DropDownTabs.Tires.t;
-        Tires.Dispatcher.Invoke(() =>
+        var tires = Tabs.Tuning.DropDownTabs.Tires.T;
+        tires.Dispatcher.Invoke(() =>
         {
-            Tires.TireFrontLeftBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            tires.TireFrontLeftBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
     
     private static void TireFrontRightValueChanged(object s, EventArgs e)
     {
-        var Tires = Tabs.Tuning.DropDownTabs.Tires.t;
-        Tires.Dispatcher.Invoke(() =>
+        var tires = Tabs.Tuning.DropDownTabs.Tires.T;
+        tires.Dispatcher.Invoke(() =>
         {
-            Tires.TireFrontRightBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            tires.TireFrontRightBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void TireRearLeftValueChanged(object s, EventArgs e)
     {
-        var Tires = Tabs.Tuning.DropDownTabs.Tires.t;
-        Tires.Dispatcher.Invoke(() =>
+        var tires = Tabs.Tuning.DropDownTabs.Tires.T;
+        tires.Dispatcher.Invoke(() =>
         {
-            Tires.TireRearLeftBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            tires.TireRearLeftBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void TireRearRightValueChanged(object s, EventArgs e)
     {
-        var Tires = Tabs.Tuning.DropDownTabs.Tires.t;
-        Tires.Dispatcher.Invoke(() =>
+        var tires = Tabs.Tuning.DropDownTabs.Tires.T;
+        tires.Dispatcher.Invoke(() =>
         {
-            Tires.TireRearRightBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            tires.TireRearRightBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
-    public static readonly List<Overlay.MenuOption> TiresOptions = new()
+    public static readonly List<MenuOption> TiresOptions = new()
     {
-        new Overlay.MenuOption("Front Tires", Overlay.MenuOption.OptionType.SubHeader),
+        new MenuOption("Front Tires", OptionType.SubHeader),
         TireFrontLeftValue,
         TireFrontRightValue,
         FrontTiresPull,
-        new Overlay.MenuOption("Rear Tires", Overlay.MenuOption.OptionType.SubHeader),
+        new MenuOption("Rear Tires", OptionType.SubHeader),
         TireRearLeftValue,
         TireRearRightValue,
         RearTiresPull

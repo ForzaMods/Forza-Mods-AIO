@@ -16,35 +16,35 @@
 
             <!--#region Labels-->
             <!--#region Angle-->
-            <Label x:Name="SteeringAngleMaxLabel"
+            <Label
                Content="Steering Angle Max"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="18,22,0,0"/>
-            <Label x:Name="SteeringAngleMax2Label"
+            <Label
                Content="Steering Angle Max 2"
                VerticalAlignment="Top" HorizontalAlignment="Right"
                
                Margin="0,22,163,0"/>
             <!--#endregion-->
             <!--#region Velocity-->
-            <Label x:Name="TimeLabel"
+            <Label
                Content="Steering Angle Time to Max Steering"
                VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18,226,0,0"/>
-            <Label x:Name="StraightLabel"
+            <Label
                Content="Velocity Straight"
                VerticalAlignment="Top" HorizontalAlignment="Left"
                
                Margin="18,88,0,0" RenderTransformOrigin="0.817,0.623"/>
-            <Label x:Name="TurningLabel"
+            <Label
                Content="Velocity Turning"
                VerticalAlignment="Top" Margin="18,122,0,0" HorizontalAlignment="Left"
                />
-            <Label x:Name="CountersteerLabel"
+            <Label
                Content="Velocity Countersteer"
                VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,156,435,0"
                />
-            <Label x:Name="DynamicPeekLabel"
+            <Label
                Content="Velocity Dynamic Peak"
                VerticalAlignment="Top" HorizontalAlignment="Right"
                

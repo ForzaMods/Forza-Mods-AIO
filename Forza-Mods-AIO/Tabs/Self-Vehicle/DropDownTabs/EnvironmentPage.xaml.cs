@@ -3,8 +3,10 @@ using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using Keys = System.Windows.Forms.Keys;
-using Forza_Mods_AIO.Resources;
+using System.Windows.Forms;
+using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
+using static Forza_Mods_AIO.MainWindow;
+using static Forza_Mods_AIO.Resources.DllImports;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
@@ -25,17 +27,17 @@ public partial class EnvironmentPage
             {
                 case "SunRedSlider":
                 {
-                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SunRedAddr, (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
+                    Mw.M.WriteMemory(SunRedAddr, (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
                     break;
                 }
                 case "SunGreenSlider":
                 {
-                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SunGreenAddr, (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
+                    Mw.M.WriteMemory(SunGreenAddr, (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
                     break;
                 }
                 case "SunBlueSlider":
                 {
-                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SunBlueAddr, (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
+                    Mw.M.WriteMemory(SunBlueAddr, (Convert.ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!) / 1000000000000));
                     break;
                 }
             }
@@ -59,19 +61,19 @@ public partial class EnvironmentPage
                 case "RedResetButton":
                 {
                     SunRedSlider.Value = 3.921569E+09;
-                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SunRedAddr, ((float)3.921569E+09 / 1000000000000));
+                    Mw.M.WriteMemory(SunRedAddr, ((float)3.921569E+09 / 1000000000000));
                     break;
                 }
                 case "GreenResetButton":
                 {
                     SunGreenSlider.Value = 3.921569E+09;
-                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SunGreenAddr, ((float)3.921569E+09 / 1000000000000));
+                    Mw.M.WriteMemory(SunGreenAddr, ((float)3.921569E+09 / 1000000000000));
                     break;
                 }
                 case "BlueResetButton":
                 {
                     SunBlueSlider.Value = 3.921569E+09;
-                    MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.SunBlueAddr, ((float)3.921569E+09 / 1000000000000));
+                    Mw.M.WriteMemory(SunBlueAddr, ((float)3.921569E+09 / 1000000000000));
                     break;
                 }
             }
@@ -93,21 +95,37 @@ public partial class EnvironmentPage
             switch ((string)sender.GetType().GetProperty("Name")!.GetValue(sender))
             {
                 case "AidsSwitch":
-                    if ((bool)sender.GetType().GetProperty("IsOn")!.GetValue(sender)!)
+                {
+                    if (AidsSwitch.IsOn)
+                    {
                         Task.Run(() => AidsMode());
+                    }
+
                     break;
+                }
                 case "TimeSwitch":
+                {
                     if (TimeSwitch.IsOn)
-                        Task.Run((() => ManualTime()));
+                    {
+                        Task.Run(() => ManualTime(TimeSwitch));
+                    }
                     else
-                        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.TimeNOPAddr, new byte[] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x83, 0xC4, 0x40 });
+                    {
+                        Mw.M.WriteArrayMemory(TimeNopAddr, new byte[] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x83, 0xC4, 0x40 });
+                    }
+
                     break;
+                }
                 case "OOBSwitch":
+                {
                     if (!OOBSwitch.IsOn)
+                    {
                         return;
-                    
+                    }
+
                     Task.Run(() => OOB_Bypass());
                     break;
+                }
             }
         }
         catch
@@ -126,38 +144,40 @@ public partial class EnvironmentPage
 
         while (true)
         {
-            bool Toggled = true;
-            Dispatcher.Invoke((() => Toggled = AidsSwitch.IsOn));
+            bool toggled = true;
+            Dispatcher.Invoke(() => toggled = AidsSwitch.IsOn);
             
-            if (!Toggled)
+            if (!toggled)
                 break;
             
-            float Last = 0;
+            float last = 0;
             
-            Color Rainbow = EnvironmentPage.Rainbow(I);
+            var rainbow = EnvironmentPage.Rainbow(I);
             Dispatcher.Invoke(() =>
             {
-                SunRedSlider.Value = ((float)Rainbow.R / 255) * (float)1E+10;
-                SunGreenSlider.Value = ((float)Rainbow.G / 255) * (float)1E+10;
-                SunBlueSlider.Value = ((float)Rainbow.B / 255) * (float)1E+10;
-                Last = (float)SunRedSlider.Value;
+                SunRedSlider.Value = (float)rainbow.R / 255 * (float)1E+10;
+                SunGreenSlider.Value = (float)rainbow.G / 255 * (float)1E+10;
+                SunBlueSlider.Value = (float)rainbow.B / 255 * (float)1E+10;
+                last = (float)SunRedSlider.Value;
             });
             I += 25 / 10000;
-            Thread.Sleep(25);
+            Task.Delay(25).Wait();
 
             Dispatcher.Invoke(() =>
             {
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
-                if (SunRedSlider.Value != Last)
+                if (SunRedSlider.Value != last)
+                {
                     AidsSwitch.IsOn = false;
+                }
             });
         }
     }
 
     // Might have to fix it for release, Ill leave it like this for now.
-    private static Color Rainbow(float Progress)
+    private static Color Rainbow(float progress)
     {
-        float div = (Math.Abs(Progress % 1) * 6);
+        float div = (Math.Abs(progress % 1) * 6);
         int ascending = (int)((div % 1) * 255);
         int descending = 255 - ascending;
 
@@ -176,51 +196,75 @@ public partial class EnvironmentPage
 
     #region Manual Time
 
-    private double LastCustomTime;
+    private double _lastCustomTime;
     
-    private void ManualTime()
+    private void ManualTime(object sender)
     {
-        if (Self_Vehicle_Addrs.TimeAddr == "0" || Self_Vehicle_Addrs.TimeAddr == "8" || Self_Vehicle_Addrs.TimeAddr == null)
-            Self_Vehicle_ASM.GetTimeAddr();
-        
-        MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.TimeNOPAddr, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 });
+        if (TimeAddr is 0 or 8)
+        {
+            GetTimeAddr(sender);
+        }
 
-        if (LastCustomTime != 0)
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TimeAddr, LastCustomTime);
-        
+        Mw.M.WriteArrayMemory(TimeNopAddr, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 });
+
+        if (_lastCustomTime != 0)
+        {
+            Mw.M.WriteMemory(TimeAddr, _lastCustomTime);
+        }
+
         while (true)
         {
-            bool Toggled = true;
-            Dispatcher.Invoke((() => Toggled = TimeSwitch.IsOn));
+            var toggled = true;
+            Dispatcher.Invoke(() => toggled = TimeSwitch.IsOn);
             
-            if (!Toggled)
+            if (!toggled)
+            {
                 break;
+            }
 
-            if (DLLImports.GetAsyncKeyState(Keys.NumPad6) is 1 or Int16.MinValue || (DLLImports.GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && (DLLImports.GetAsyncKeyState(Keys.OemPeriod) is 1 or Int16.MinValue)))
-                TimeForward();
+            if (Mw.Gvp.Process.MainWindowHandle != GetForegroundWindow())
+            {
+                Task.Delay(25).Wait();
+                continue;
+            }
             
-            else if (DLLImports.GetAsyncKeyState(Keys.NumPad4) is 1 or Int16.MinValue || (DLLImports.GetAsyncKeyState(Keys.LShiftKey) is 1 or Int16.MinValue && (DLLImports.GetAsyncKeyState(Keys.Oemcomma) is 1 or Int16.MinValue)))
-                TimeBackwards();
+            if (GetAsyncKeyState(Keys.NumPad6) is 1 or short.MinValue || (GetAsyncKeyState(Keys.LShiftKey) is 1 or short.MinValue && GetAsyncKeyState(Keys.OemPeriod) is 1 or short.MinValue))
+            {
+                TimeForward();
+            }
 
-            LastCustomTime = MainWindow.mw.m.ReadMemory<double>(Self_Vehicle_Addrs.TimeAddr);
-            Thread.Sleep(15);
+            else if (GetAsyncKeyState(Keys.NumPad4) is 1 or short.MinValue || (GetAsyncKeyState(Keys.LShiftKey) is 1 or short.MinValue && GetAsyncKeyState(Keys.Oemcomma) is 1 or short.MinValue))
+            {
+                TimeBackwards();
+            }
+
+            _lastCustomTime = Mw.M.ReadMemory<double>(TimeAddr);
+            Task.Delay(15).Wait();
         }
     }
     
     private static void TimeForward()
     {
-        if (DLLImports.GetAsyncKeyState(Keys.LControlKey) is 1 or Int16.MinValue)
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TimeAddr, (MainWindow.mw.m.ReadMemory<double>(Self_Vehicle_Addrs.TimeAddr) + 100));
+        if (GetAsyncKeyState(Keys.LControlKey) is 1 or Int16.MinValue)
+        {
+            Mw.M.WriteMemory(TimeAddr, Mw.M.ReadMemory<double>(TimeAddr) + 100);
+        }
         else
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TimeAddr, (MainWindow.mw.m.ReadMemory<double>(Self_Vehicle_Addrs.TimeAddr) + 25));
+        {
+            Mw.M.WriteMemory(TimeAddr, Mw.M.ReadMemory<double>(TimeAddr) + 25);
+        }
     }
 
     private static void TimeBackwards()
     {
-        if (DLLImports.GetAsyncKeyState(Keys.LControlKey) is 1 or Int16.MinValue)
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TimeAddr, (MainWindow.mw.m.ReadMemory<double>(Self_Vehicle_Addrs.TimeAddr) - 100));
+        if (GetAsyncKeyState(Keys.LControlKey) is 1 or Int16.MinValue)
+        {
+            Mw.M.WriteMemory(TimeAddr, Mw.M.ReadMemory<double>(TimeAddr) - 100);
+        }
         else
-            MainWindow.mw.m.WriteMemory(Self_Vehicle_Addrs.TimeAddr, (MainWindow.mw.m.ReadMemory<double>(Self_Vehicle_Addrs.TimeAddr) - 25));
+        {
+            Mw.M.WriteMemory(TimeAddr, Mw.M.ReadMemory<double>(TimeAddr) - 25);
+        }
     }
 
     #endregion
@@ -232,22 +276,24 @@ public partial class EnvironmentPage
         while (true)
         {
             Thread.Sleep(25);
-            bool Toggled = true;
-            Dispatcher.Invoke((() => Toggled = OOBSwitch.IsOn));
+            var toggled = true;
+            Dispatcher.Invoke(() => toggled = OOBSwitch.IsOn);
             
-            if (!Toggled)
+            if (!toggled)
+            {
                 break;
+            }
 
-            var Before = MainWindow.mw.gvp.Name == "Forza Horizon 4" ?  new byte[] { 0x0F, 0x11, 0x9B, 0xE0, 0xFA, 0xFF, 0xFF } : new byte[] { 0x0F, 0x11, 0x9B, 0x60, 0xFA, 0xFF, 0xFF };
-            var NOP = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
+            var before = Mw.Gvp.Name == "Forza Horizon 4" ?  new byte[] { 0x0F, 0x11, 0x9B, 0xE0, 0xFA, 0xFF, 0xFF } : new byte[] { 0x0F, 0x11, 0x9B, 0x60, 0xFA, 0xFF, 0xFF };
+            var nop = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
 
             try
             {
-                MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.OOBnopAddr, OOB_Check() ? Before : NOP);
+                Mw.M.WriteArrayMemory(OobNopAddr, OOB_Check() ? before : nop);
             }
             catch
             {
-                MainWindow.mw.m.WriteArrayMemory(Self_Vehicle_Addrs.OOBnopAddr, Before);
+                Mw.M.WriteArrayMemory(OobNopAddr, before);
             }
         }
     }
@@ -256,6 +302,11 @@ public partial class EnvironmentPage
     {
         return true;
         //return (MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.InPauseAddr) == 1 || (MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.OnGroundAddr) == 0 && (float)(Math.Sqrt(Math.Pow(MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.xVelocityAddr), 2) + Math.Pow(MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.yVelocityAddr), 2) + Math.Pow(MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.zVelocityAddr), 2)) * 2.23694) == 0));
+    }
+
+    private void GetTimeAddr(object sender)
+    {
+        // 51 48 8B 4B 08 48 89 0D 06 00 00 00 59
     }
     
     #endregion

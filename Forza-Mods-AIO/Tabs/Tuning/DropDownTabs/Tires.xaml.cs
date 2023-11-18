@@ -8,49 +8,73 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
 
 public partial class Tires
 {
-    public static Tires t;
+    public static Tires T;
     public static float TireFrontLeftDivider = 1f, TireFrontRightDivider = 1f, TireRearLeftDivider = 1f, TireRearRightDivider = 1f;
 
     public Tires()
     {
         InitializeComponent();
-        t = this;
+        T = this;
     }
 
     private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        string Address = null;
+        string? address = null;
 
-        foreach (var Field in typeof(Tuning_Addresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(string)))
+        foreach (var field in typeof(TuningAddresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(string)))
         {
-            if (Field.Name != sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!.Remove(sender.GetType()!.GetProperty("Name")!.GetValue(sender)!.ToString()!.Length - 3)) continue;
-            Address = Field.GetValue(Field) as string;
+            var senderName = sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!;
+            
+            if (field.Name != senderName.Remove(senderName.Length - 3))
+            {
+                continue;
+            }
+            
+            address = field.GetValue(field) as string;
         }
 
-        foreach (FrameworkElement Element in t.GetChildren())
+        foreach (var visual in T.GetChildren())
         {
-            if (Element.GetType() != typeof(ComboBox) && Element.Name != ((NumericUpDown)sender).Name.Replace("Box", "_Psi_Bar_Box")) continue;
-            var Multiply = ((ComboBox)Element).SelectedIndex is 0 or -1 ? 1 : 14.5f;
-            MainWindow.mw.m.WriteMemory(Address, (float)(((NumericUpDown)sender)!.Value! * Multiply));
+            var element = (FrameworkElement)visual;
+            
+            if (element.GetType() != typeof(ComboBox) &&
+                element.Name != ((NumericUpDown)sender).Name.Replace("Box", "UnitBox"))
+            {
+                continue;
+            }
+            
+            var multiply = ((ComboBox)element).SelectedIndex is 0 or -1 ? 1 : 14.5f;
+            MainWindow.Mw.M.WriteMemory(address, (float)(((NumericUpDown)sender)!.Value! * multiply));
         }
     }
 
     private void SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        bool PSI = ((ComboBox)sender).SelectedIndex is 0 or -1;
+        var psi = ((ComboBox)sender).SelectedIndex is 0 or -1;
         
-        foreach (var Divider in typeof(Tires).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(float)))
+        foreach (var divider in typeof(Tires).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(float)))
         {
-            if (Divider.Name != sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!.Remove(sender.GetType()!.GetProperty("Name")!.GetValue(sender)!.ToString()!.Length - 12) + "Divider") continue;
-            Divider.SetValue(Divider, PSI ? 1f : 14.5f);
+            var senderName = sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!;
+            
+            if (divider.Name != senderName.Remove(senderName.Length - 12) + "Divider")
+            {
+                continue;
+            }
+            
+            divider.SetValue(divider, psi ? 1f : 14.5f);
         }
 
-        foreach (FrameworkElement Element in t.GetChildren())
+        foreach (var visual in T.GetChildren())
         {
-            var ElementName = Element.GetType().GetProperty("Name")!.GetValue(Element)!.ToString();
-            var SenderName = sender.GetType().GetProperty("Name")!.GetValue(Element)!.ToString();
-            if (ElementName != SenderName!.Remove(SenderName.Length - 12) + "Box") continue;
-            Element.GetType()!.GetProperty("Interval")!.SetValue(Element, PSI ? 1 : 0.1);
+            var element = (FrameworkElement)visual;
+            var elementName = element.GetType().GetProperty("Name")!.GetValue(element)!.ToString();
+            var senderName = sender.GetType().GetProperty("Name")!.GetValue(element)!.ToString();
+            
+            if (elementName != senderName!.Remove(senderName.Length - 12) + "Box")
+            {
+                continue;
+            }
+            element.GetType()!.GetProperty("Interval")!.SetValue(element, psi ? 1 : 0.1);
         }
     }
 }

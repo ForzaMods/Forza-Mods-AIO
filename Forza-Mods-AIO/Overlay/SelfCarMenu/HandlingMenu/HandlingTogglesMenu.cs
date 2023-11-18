@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
 
@@ -8,24 +9,24 @@ public abstract class HandlingTogglesMenu
 {
     #region Submenu Options
 
-    private static readonly Overlay.MenuOption CarNoClipToggle = new("Car No-Clip", Overlay.MenuOption.OptionType.Bool, false);
-    private static readonly Overlay.MenuOption WallNoClipToggle = new("Wall No-Clip", Overlay.MenuOption.OptionType.Bool, false);
-    private static readonly Overlay.MenuOption StopAllWheelsToggle = new("Stop All Wheels", Overlay.MenuOption.OptionType.Bool, false);
-    private static readonly Overlay.MenuOption SuperBrakeToggle = new("Super Brake", Overlay.MenuOption.OptionType.Bool, false);
-    private static readonly Overlay.MenuOption SuperCarToggle = new("Super Car", Overlay.MenuOption.OptionType.Bool, false);
-    private static readonly Overlay.MenuOption StopWaterDragToggle = new("Stop Water Drag", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly MenuOption CarNoClipToggle = new("Car No-Clip", OptionType.Bool, false);
+    private static readonly MenuOption WallNoClipToggle = new("Wall No-Clip", OptionType.Bool, false);
+    private static readonly MenuOption StopAllWheelsToggle = new("Stop All Wheels", OptionType.Bool, false);
+    private static readonly MenuOption SuperBrakeToggle = new("Super Brake", OptionType.Bool, false);
+    private static readonly MenuOption SuperCarToggle = new("Super Car", OptionType.Bool, false);
+    private static readonly MenuOption StopWaterDragToggle = new("Stop Water Drag", OptionType.Bool, false);
 
     #endregion
     
-    public static readonly List<Overlay.MenuOption> HandlingTogglesOptions = new()
+    public static readonly List<MenuOption> HandlingTogglesOptions = new()
     {
-        new ("No-Clips", Overlay.MenuOption.OptionType.SubHeader),
+        new ("No-Clips", OptionType.SubHeader),
         CarNoClipToggle,
         WallNoClipToggle,
-        new ("Braking", Overlay.MenuOption.OptionType.SubHeader),
+        new ("Braking", OptionType.SubHeader),
         StopAllWheelsToggle,
         SuperBrakeToggle,
-        new ("Other", Overlay.MenuOption.OptionType.SubHeader),
+        new ("Other", OptionType.SubHeader),
         SuperCarToggle,
         StopWaterDragToggle
     };
@@ -46,18 +47,18 @@ public abstract class HandlingTogglesMenu
 
     private static void NoClip_OnToggled(object? s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(() =>
+        HandlingPage.Shp.Dispatcher.Invoke(() =>
         {
             switch ((string)s!.GetType().GetProperty("Name")!.GetValue(s)!)
             {
                 case "Car No-Clip":
                 {
-                    HandlingPage.shp.CarNoclipSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    HandlingPage.Shp.CarNoclipSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
                 case "Wall No-Clip":
                 {
-                    HandlingPage.shp.WallNoclipSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    HandlingPage.Shp.WallNoclipSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
             }
@@ -71,20 +72,20 @@ public abstract class HandlingTogglesMenu
 
     private static void Braking_OnToggled(object? s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(() =>
+        HandlingPage.Shp.Dispatcher.Invoke(() =>
         {
             switch ((string)s!.GetType().GetProperty("Name")!.GetValue(s)!)
             {
                 case "Stop All Wheels":
                 {
                     SuperBrakeToggle.IsEnabled = !SuperBrakeToggle.IsEnabled;
-                    HandlingPage.shp.StopAllWheelsSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    HandlingPage.Shp.StopAllWheelsSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
                 case "Super Brake":
                 {                    
                     StopAllWheelsToggle.IsEnabled = !StopAllWheelsToggle.IsEnabled;
-                    HandlingPage.shp.SuperBrakeSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    HandlingPage.Shp.SuperBrakeSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
             }
@@ -97,18 +98,18 @@ public abstract class HandlingTogglesMenu
 
     private static void Other_OnToggled(object? s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(() =>
+        HandlingPage.Shp.Dispatcher.Invoke(() =>
         {
             switch ((string)s!.GetType().GetProperty("Name")!.GetValue(s)!)
             {
                 case "Super Car":
                 {
-                    HandlingPage.shp.SuperCarSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    HandlingPage.Shp.SuperCarSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
                 case "Stop Water Drag":
                 {                    
-                    HandlingPage.shp.WaterDragSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    HandlingPage.Shp.WaterDragSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
             }

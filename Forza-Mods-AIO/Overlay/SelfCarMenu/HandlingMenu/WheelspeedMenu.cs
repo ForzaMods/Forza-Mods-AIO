@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
 
 public abstract class WheelspeedMenu
 {
-    private static readonly Overlay.MenuOption WheelspeedMode = new("Mode", Overlay.MenuOption.OptionType.Int, 1);
-    private static readonly Overlay.MenuOption WheelspeedStrength = new("Strength", Overlay.MenuOption.OptionType.Int, 10);
-    private static readonly Overlay.MenuOption WheelspeedInterval = new("Interval", Overlay.MenuOption.OptionType.Int, 1);
-    private static readonly Overlay.MenuOption WheelspeedEnable = new("Enable", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly MenuOption WheelspeedMode = new("Mode", OptionType.Int, 1);
+    private static readonly MenuOption WheelspeedStrength = new("Strength", OptionType.Int, 10);
+    private static readonly MenuOption WheelspeedInterval = new("Interval", OptionType.Int, 1);
+    private static readonly MenuOption WheelspeedEnable = new("Enable", OptionType.Bool, false);
 
-    public static readonly List<Overlay.MenuOption> WheelSpeedOptions = new()
+    public static readonly List<MenuOption> WheelSpeedOptions = new()
     {
-        new ("Wheelspeed", Overlay.MenuOption.OptionType.SubHeader),
+        new ("Wheelspeed", OptionType.SubHeader),
         WheelspeedMode,
         WheelspeedStrength,
         WheelspeedInterval,
@@ -30,48 +31,48 @@ public abstract class WheelspeedMenu
 
     private static void WheelspeedModeChanged(object s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(delegate
+        HandlingPage.Shp.Dispatcher.Invoke(delegate
         {
             if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > 2)
                 WheelspeedMode.Value = 1;
             else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < 1)
                 WheelspeedMode.Value = 2;
             else
-                HandlingPage.shp.WheelSpeedModeComboBox.SelectedIndex = (int)s.GetType().GetProperty("Value")!.GetValue(s)! - 1;
+                HandlingPage.Shp.WheelSpeedModeComboBox.SelectedIndex = (int)s.GetType().GetProperty("Value")!.GetValue(s)! - 1;
         });
     }
 
     private static void WheelspeedStrengthChanged(object s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(delegate
+        HandlingPage.Shp.Dispatcher.Invoke(delegate
         {
-            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.shp.Var1NumBox.Maximum)
-                WheelspeedStrength.Value = (int)HandlingPage.shp.Var1NumBox.Maximum;
-            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.shp.Var1NumBox.Minimum)
-                WheelspeedStrength.Value = (int)HandlingPage.shp.Var1NumBox.Minimum;
+            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.Shp.StrengthBox.Maximum)
+                WheelspeedStrength.Value = (int)HandlingPage.Shp.StrengthBox.Maximum;
+            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.Shp.StrengthBox.Minimum)
+                WheelspeedStrength.Value = (int)HandlingPage.Shp.StrengthBox.Minimum;
             else
-                HandlingPage.shp.Var1NumBox.Value = Convert.ToSingle(s.GetType().GetProperty("Value")!.GetValue(s)!);
+                HandlingPage.Shp.StrengthBox.Value = Convert.ToSingle(s.GetType().GetProperty("Value")!.GetValue(s)!);
         });
     }
 
     private static void WheelspeedIntervalChanged(object s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(delegate
+        HandlingPage.Shp.Dispatcher.Invoke(delegate
         {
-            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.shp.Var2NumBox.Maximum)
-                WheelspeedInterval.Value = (int)HandlingPage.shp.Var2NumBox.Maximum;
-            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.shp.Var2NumBox.Minimum)
-                WheelspeedInterval.Value = (int)HandlingPage.shp.Var2NumBox.Minimum;
+            if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! > HandlingPage.Shp.IntervalBox.Maximum)
+                WheelspeedInterval.Value = (int)HandlingPage.Shp.IntervalBox.Maximum;
+            else if ((int)s.GetType().GetProperty("Value")!.GetValue(s)! < HandlingPage.Shp.IntervalBox.Minimum)
+                WheelspeedInterval.Value = (int)HandlingPage.Shp.IntervalBox.Minimum;
             else
-                HandlingPage.shp.Var2NumBox.Value = (int)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                HandlingPage.Shp.IntervalBox.Value = (int)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 
     private static void WheelspeedToggled(object s, EventArgs e)
     {
-        HandlingPage.shp.Dispatcher.Invoke(() =>
+        HandlingPage.Shp.Dispatcher.Invoke(() =>
         {
-            HandlingPage.shp.WheelSpeedSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            HandlingPage.Shp.WheelSpeedSwitch.IsOn = (bool)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.SelfCarMenu.FovMenu;
 
 public abstract class FovLock
 {
-    private static readonly Overlay.MenuOption FovLockValue = new("Value", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption FovLockToggle = new("Enable", Overlay.MenuOption.OptionType.Bool, false);
+    private static readonly MenuOption FovLockValue = new("Value", OptionType.Float, 0f);
+    private static readonly MenuOption FovLockToggle = new("Enable", OptionType.Bool, false);
         
     public static void InitiateSubMenu()
     {
@@ -17,33 +18,33 @@ public abstract class FovLock
     // Event handlers
     private static void FovLockValueChanged(object s, EventArgs e)
     {
-        var FovPage = Tabs.Self_Vehicle.DropDownTabs.FovPage._fovPage;
+        var fovPage = Tabs.Self_Vehicle.DropDownTabs.FovPage._FovPage;
     
-        FovPage.Dispatcher.Invoke(delegate 
+        fovPage.Dispatcher.Invoke(delegate 
         {
-            if ((float)s.GetType().GetProperty("Value").GetValue(s) > FovPage.FovSlider.Maximum) 
-                FovLockValue.Value = (float)FovPage.FovSlider.Maximum;
-            else if ((float)s.GetType().GetProperty("Value").GetValue(s) < FovPage.FovSlider.Minimum)
-                FovLockValue.Value = (float)FovPage.FovSlider.Minimum;
+            if ((float)s.GetType().GetProperty("Value").GetValue(s) > fovPage.FovSlider.Maximum) 
+                FovLockValue.Value = (float)fovPage.FovSlider.Maximum;
+            else if ((float)s.GetType().GetProperty("Value").GetValue(s) < fovPage.FovSlider.Minimum)
+                FovLockValue.Value = (float)fovPage.FovSlider.Minimum;
             else
-                FovPage.FovSlider.Value = (float)Math.Round((float)s.GetType().GetProperty("Value").GetValue(s), 1);
+                fovPage.FovSlider.Value = (float)Math.Round((float)s.GetType().GetProperty("Value").GetValue(s), 1);
         });
     }
     
     private static void FovLockToggled(object s, EventArgs e)
     {
-        var FovPage = Tabs.Self_Vehicle.DropDownTabs.FovPage._fovPage;
+        var fovPage = Tabs.Self_Vehicle.DropDownTabs.FovPage._FovPage;
     
-        FovPage.Dispatcher.Invoke(() =>
+        fovPage.Dispatcher.Invoke(() =>
         {
-            FovPage.FovSwitch.IsOn = (bool)FovLockToggle.Value;
+            fovPage.FovSwitch.IsOn = (bool)FovLockToggle.Value;
         });
     }
     
     // Menu list for this section
-    public static List<Overlay.MenuOption> FovLockOptions = new()
+    public static List<MenuOption> FovLockOptions = new()
     {
-        new ("Fov Lock", Overlay.MenuOption.OptionType.SubHeader),
+        new ("Fov Lock", OptionType.SubHeader),
         FovLockValue,
         FovLockToggle
     };

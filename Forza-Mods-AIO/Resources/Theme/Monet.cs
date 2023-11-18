@@ -1,223 +1,222 @@
-﻿using ColorThiefDotNet;
-using ControlzEx.Theming;
-using MahApps.Metro.Controls;
-using System;
+﻿using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
-using System.Windows.Media;
-using Forza_Mods_AIO.Tabs.AIO_Info;
 using System.Windows.Controls;
+using System.Windows.Media;
+using ColorThiefDotNet;
+using ControlzEx.Theming;
+using Forza_Mods_AIO.Tabs.AIO_Info;
+using MahApps.Metro.Controls;
+using Brush = System.Windows.Media.Brush;
+using ColorConverter = System.Windows.Media.ColorConverter;
+using MColor = System.Windows.Media.Color;
+using DColor = System.Drawing.Color;
+using static Forza_Mods_AIO.Resources.DllImports;
 
-namespace Forza_Mods_AIO.CustomTheming
+namespace Forza_Mods_AIO.Resources.Theme;
+
+internal abstract class Monet
 {
-    internal class Monet
+    #region Variables
+    
+    public static Brush? MainColour = new SolidColorBrush((MColor)ColorConverter.ConvertFromString("#4C566A"));
+    public static Brush? DarkishColour = new SolidColorBrush((MColor)ColorConverter.ConvertFromString("#434C5E"));
+    public static Brush? DarkColour = new SolidColorBrush((MColor)ColorConverter.ConvertFromString("#3B4252"));
+    public static Brush? DarkerColour = new SolidColorBrush((MColor)ColorConverter.ConvertFromString("#2E3440"));
+    private const uint PwClientOnly = 1, PwRenderFullContent = 2;
+    
+    #endregion
+    #region Functions
+    
+    
+    private static Bitmap CaptureWindow(IntPtr handle)
     {
-        #region Variables
-        public static Brush MainColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#4C566A"));
-        public static Brush DarkishColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#434C5E"));
-        public static Brush DarkColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#3B4252"));
-        public static Brush DarkerColour = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString("#2E3440"));
-        #endregion
-        #region DLL imports
-        [DllImport("User32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
-        [DllImport("user32.dll")]
-        static extern bool GetWindowRect(IntPtr handle, ref System.Drawing.Rectangle rect);
-        [DllImport("user32.dll", SetLastError = false)]
-        static extern IntPtr GetShellWindow();
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool EnumChildWindows(IntPtr hwndParent, EnumWindowsProc lpEnumFunc, IntPtr lParam);
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        static extern int GetWindowTextLength(IntPtr hWnd);
+        //https://stackoverflow.com/questions/69605967/c-printwindow-api-returns-black-or-partial-images-alternative-methods#comment129026870_69605967
+        //fix for some windows showing up as black/blank
+        var rect = new Rectangle();
+        GetWindowRect(handle, ref rect);
 
-        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
-        #endregion
-        #region Functions
-        public static System.Drawing.Bitmap CaptureWindow(IntPtr handle)
+        rect.Width -= rect.X;
+        rect.Height -= rect.Y;
+
+        var bitmap = new Bitmap(rect.Width, rect.Height);
+        using var g = Graphics.FromImage(bitmap);
+        var hdc = g.GetHdc();
+        if (!PrintWindow(handle, hdc, PwClientOnly | PwRenderFullContent))
         {
-            //https://stackoverflow.com/questions/69605967/c-printwindow-api-returns-black-or-partial-images-alternative-methods#comment129026870_69605967
-            //fix for some windows showing up as black/blank
-            uint PW_CLIENTONLY = 0x1; uint PW_RENDERFULLCONTENT = 0x2;
-            System.Drawing.Rectangle rect = new System.Drawing.Rectangle();
-            GetWindowRect(handle, ref rect);
-
-            rect.Width = rect.Width - rect.X;
-            rect.Height = rect.Height - rect.Y;
-
-            System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(rect.Width, rect.Height);
-            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(bitmap))
-            {
-                IntPtr hdc = g.GetHdc();
-                if (!PrintWindow(handle, hdc, PW_CLIENTONLY | PW_RENDERFULLCONTENT))
-                {
-                    int error = Marshal.GetLastWin32Error();
-                    var exception = new System.ComponentModel.Win32Exception(error);
-                }
-                g.ReleaseHdc(hdc);
-            }
-            return bitmap;
+            Marshal.GetLastWin32Error();
         }
-        private static System.Drawing.Color ColorFromHSV(double hue, double saturation, double value)
-        {
-            int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
-            double f = hue / 60 - Math.Floor(hue / 60);
-
-            value = value * 255;
-            int v = Convert.ToInt32(value);
-            int p = Convert.ToInt32(value * (1 - saturation));
-            int q = Convert.ToInt32(value * (1 - f * saturation));
-            int t = Convert.ToInt32(value * (1 - (1 - f) * saturation));
-
-            if (hi == 0)
-                return System.Drawing.Color.FromArgb(255, v, t, p);
-            else if (hi == 1)
-                return System.Drawing.Color.FromArgb(255, q, v, p);
-            else if (hi == 2)
-                return System.Drawing.Color.FromArgb(255, p, v, t);
-            else if (hi == 3)
-                return System.Drawing.Color.FromArgb(255, p, q, v);
-            else if (hi == 4)
-                return System.Drawing.Color.FromArgb(255, t, p, v);
-            else
-                return System.Drawing.Color.FromArgb(255, v, p, q);
-        }
-        private static void ColorToHSV(System.Drawing.Color color, out double hue, out double saturation, out double value)
-        {
-            int max = Math.Max(color.R, Math.Max(color.G, color.B));
-            int min = Math.Min(color.R, Math.Min(color.G, color.B));
-
-            hue = color.GetHue();
-            saturation = (max == 0) ? 0 : 1d - (1d * min / max);
-            value = max / 255d;
-        }
-        public static void ApplyMonet()
-        {
-            IntPtr Window = IntPtr.Zero;
-            var Windows = EnumWindows(new EnumWindowsProc((hwnd, lParam) =>
-            {
-                IntPtr ParentHandle = hwnd;
-                EnumChildWindows(hwnd, new EnumWindowsProc((hwnd, lParam) =>
-                {
-                    var sb = new StringBuilder(GetWindowTextLength(hwnd) + 1);
-                    GetWindowText(hwnd, sb, sb.Capacity);
-                    if (sb.ToString().Contains("WPE"))
-                    {
-                        Window = ParentHandle;
-                        return true;
-                    }
-                    return true;
-                }), (IntPtr)0);
-                return true;
-            }), (IntPtr)0);
-
-            var colorThief = new ColorThief();
-            if (Window == IntPtr.Zero)
-                Window = GetShellWindow();
-
-            System.Drawing.Bitmap DesktopWallpaper = CaptureWindow(Window);
-            QuantizedColor Colour = colorThief.GetColor(DesktopWallpaper);
-            DesktopWallpaper.Dispose();
-            ColorThiefDotNet.Color Colour2 = Colour.Color;
-
-            double H, S, V1, V2, V3, V4;
-
-            MainWindow.mw.Dispatcher.BeginInvoke((Action)delegate ()
-            {
-                ColorToHSV(System.Drawing.ColorTranslator.FromHtml(Colour2.ToHexString()), out H, out S, out V1);
-                V2 = V1;
-                V3 = V1;
-                V4 = V1;
-                V1 *= AIO_Info.ai.LightnessSlider.Value / AIO_Info.ai.LightnessSlider.Maximum;
-                if (V1 < 0) V1 = 0;
-                V2 *= (AIO_Info.ai.LightnessSlider.Value / 1.25) / AIO_Info.ai.LightnessSlider.Maximum;
-                if (V2 < 0) V2 = 0;
-                V3 *= (AIO_Info.ai.LightnessSlider.Value / 1.5) / AIO_Info.ai.LightnessSlider.Maximum;
-                if (V3 < 0) V3 = 0;
-                V4 *= (AIO_Info.ai.LightnessSlider.Value / 2) / AIO_Info.ai.LightnessSlider.Maximum;
-                if (V4 < 0) V4 = 0;
-
-                System.Drawing.Color FinalColour1 = ColorFromHSV(H, S, V1);
-                System.Drawing.Color FinalColour2 = ColorFromHSV(H, S, V2);
-                System.Drawing.Color FinalColour3 = ColorFromHSV(H, S, V3);
-                System.Drawing.Color FinalColour4 = ColorFromHSV(H, S, V4);
-                string ColourHex1 = System.Drawing.ColorTranslator.ToHtml(FinalColour1);
-                string ColourHex2 = System.Drawing.ColorTranslator.ToHtml(FinalColour2);
-                string ColourHex3 = System.Drawing.ColorTranslator.ToHtml(FinalColour3);
-                string ColourHex4 = System.Drawing.ColorTranslator.ToHtml(FinalColour4);
-
-                var converter = new BrushConverter();
-                MainColour = (Brush)converter.ConvertFromString(ColourHex1);
-                DarkishColour = (Brush)converter.ConvertFromString(ColourHex2);
-                DarkColour = (Brush)converter.ConvertFromString(ColourHex3);
-                DarkerColour = (Brush)converter.ConvertFromString(ColourHex4);
-
-                if (MainWindow.mw.Background.Background.ToString() == MainColour.ToString())
-                    return;
-
-                MainWindow.mw.Background.Background = MainColour;
-                MainWindow.mw.FrameBorder.Background = MainColour;
-                MainWindow.mw.SideBar.Background = DarkishColour;
-                MainWindow.mw.TopBar1.Background = DarkColour;
-                MainWindow.mw.TopBar2.Background = DarkColour;
-
-                string RandName = Guid.NewGuid().ToString();
-                ThemeManager.Current.ClearThemes();
-                ThemeManager.Current.AddTheme(new Theme(RandName, RandName, "Dark", "Red", (System.Windows.Media.Color)ColorConverter.ConvertFromString(ColourHex4), DarkerColour, true, false));
-                ThemeManager.Current.ChangeTheme(Application.Current, RandName);
-
-                MainWindow.mw.CategoryButton_Click(new Object(), new RoutedEventArgs());
-                foreach (FrameworkElement Element in MainWindow.mw.Window.GetChildren(true))
-                {
-                    if (Element.GetType() == typeof(System.Windows.Controls.Button))
-                    {
-                        Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
-                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
-                    }
-                    if (Element.GetType() == typeof(System.Windows.Controls.Border))
-                    {
-                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
-                    }
-                    if (Element.GetType() == typeof(NumericUpDown))
-                    {
-                        Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
-                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
-                    }
-                    if (Element.GetType() == typeof(System.Windows.Controls.ComboBox))
-                    {
-                        Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
-                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
-                    }
-                    if (Element.GetType() == typeof(ListBox))
-                    {
-                        Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
-                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
-                    }
-                    if (Element.GetType() == typeof(ListBoxItem))
-                    {
-                        Element.GetType().GetProperty("Background").SetValue(Element, MainColour);
-                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, MainColour);
-                    }
-                    if (Element.GetType() == typeof(ComboBoxItem))
-                    {
-                        Element.GetType().GetProperty("Background").SetValue(Element, MainColour);
-                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, MainColour);
-                    }
-                    if (Element.GetType() == typeof(MetroProgressBar))
-                    {
-                        Element.GetType().GetProperty("Background").SetValue(Element, DarkerColour);
-                        Element.GetType().GetProperty("BorderBrush").SetValue(Element, DarkerColour);
-                    }
-                }
-            });
-        }
-        #endregion
+        g.ReleaseHdc(hdc);
+        return bitmap;
     }
+    private static DColor ColorFromHsv(double hue, double saturation, double value)
+    {
+        var hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
+        var f = hue / 60 - Math.Floor(hue / 60);
+
+        value *= 255;
+        var v = Convert.ToInt32(value);
+        var p = Convert.ToInt32(value * (1 - saturation));
+        var q = Convert.ToInt32(value * (1 - f * saturation));
+        var t = Convert.ToInt32(value * (1 - (1 - f) * saturation));
+
+        return hi switch
+        {
+            0 => DColor.FromArgb(255, v, t, p),
+            1 => DColor.FromArgb(255, q, v, p),
+            2 => DColor.FromArgb(255, p, v, t),
+            3 => DColor.FromArgb(255, p, q, v),
+            4 => DColor.FromArgb(255, t, p, v),
+            _ => DColor.FromArgb(255, v, p, q)
+        };
+    }
+    private static void ColorToHsv(DColor color, out double hue, out double saturation, out double value)
+    {
+        int max = Math.Max(color.R, Math.Max(color.G, color.B));
+        int min = Math.Min(color.R, Math.Min(color.G, color.B));
+
+        hue = color.GetHue();
+        saturation = max == 0 ? 0 : 1d - 1d * min / max;
+        value = max / 255d;
+    }
+    public static void ApplyMonet()
+    {
+        var window = IntPtr.Zero;
+        EnumWindows((hwnd, _) =>
+        {
+            var parentHandle = hwnd;
+            EnumChildWindows(hwnd, (hwnd, _) =>
+            {
+                var sb = new StringBuilder(GetWindowTextLength(hwnd) + 1);
+                GetWindowText(hwnd, sb, sb.Capacity);
+                if (!sb.ToString().Contains("WPE"))
+                {
+                    return true;
+                }
+
+                window = parentHandle;
+                return true;
+            }, 0);
+            return true;
+        }, 0);
+
+        var colorThief = new ColorThief();
+        if (window == IntPtr.Zero)
+        {
+            window = GetShellWindow();
+        }
+
+        var desktopWallpaper = CaptureWindow(window);
+        var colour = colorThief.GetColor(desktopWallpaper).Color;
+        desktopWallpaper.Dispose();
+
+        MainWindow.Mw.Dispatcher.Invoke(() =>
+        {
+            ColorToHsv(ColorTranslator.FromHtml(colour.ToHexString()), out var h, out var s, out var v1);
+            v1 *= AioInfo.Ai.LightnessSlider.Value / AioInfo.Ai.LightnessSlider.Maximum;
+            if (v1 < 0)
+            {
+                v1 = 0;
+            }
+
+            var v2 = v1 * AioInfo.Ai.LightnessSlider.Value / 1.25 / AioInfo.Ai.LightnessSlider.Maximum;
+            if (v2 < 0)
+            {
+                v2 = 0;
+            }
+
+            var v3 = v1 * AioInfo.Ai.LightnessSlider.Value / 1.5 / AioInfo.Ai.LightnessSlider.Maximum;
+            if (v3 < 0)
+            {
+                v3 = 0;
+            }
+
+            var v4 = v1 * AioInfo.Ai.LightnessSlider.Value / 2 / AioInfo.Ai.LightnessSlider.Maximum;
+            if (v4 < 0)
+            {
+                v4 = 0;
+            }
+
+            var colourHex1 = ColorTranslator.ToHtml(ColorFromHsv(h, s, v1));
+            var colourHex2 = ColorTranslator.ToHtml(ColorFromHsv(h, s, v2));
+            var colourHex3 = ColorTranslator.ToHtml(ColorFromHsv(h, s, v3));
+            var colourHex4 = ColorTranslator.ToHtml(ColorFromHsv(h, s, v4));
+
+            var converter = new BrushConverter();
+            MainColour = (Brush)converter.ConvertFromString(colourHex1)!;
+
+            if (MainWindow.Mw.Background.Background.ToString() == MainColour.ToString())
+            {
+                return;
+            }
+
+            DarkishColour = (Brush)converter.ConvertFromString(colourHex2)!;
+            DarkColour = (Brush)converter.ConvertFromString(colourHex3)!;
+            DarkerColour = (Brush)converter.ConvertFromString(colourHex4)!;
+
+            MainWindow.Mw.Background.Background = MainColour;
+            MainWindow.Mw.FrameBorder.Background = MainColour;
+            MainWindow.Mw.SideBar.Background = DarkishColour;
+            MainWindow.Mw.TopBar1.Background = DarkColour;
+            MainWindow.Mw.TopBar2.Background = DarkColour;
+
+            var randName = Guid.NewGuid().ToString();
+            ThemeManager.Current.ClearThemes();
+            ThemeManager.Current.AddTheme(new(randName, randName, "Dark", "Red", (MColor)ColorConverter.ConvertFromString(colourHex4), DarkerColour, true, false));
+            ThemeManager.Current.ChangeTheme(Application.Current, randName);
+
+            MainWindow.Mw.CategoryButton_Click(new object(), new RoutedEventArgs());
+            foreach (var visual in MainWindow.Mw.Window.GetChildren())
+            {
+                var element = (FrameworkElement)visual;
+                var elementType = element.GetType();
+                if (elementType == typeof(Button))
+                {
+                    element.GetType().GetProperty("Background")?.SetValue(element, DarkerColour);
+                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
+                }
+                else if (elementType == typeof(Border))
+                {
+                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
+                }
+                else if (elementType == typeof(NumericUpDown))
+                {
+                    element.GetType().GetProperty("Background")?.SetValue(element, DarkerColour);
+                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
+                }
+                else if (elementType == typeof(ComboBox))
+                {
+                    element.GetType().GetProperty("Background")?.SetValue(element, DarkerColour);
+                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
+                }
+                else if (elementType == typeof(ListBox))
+                {
+                    element.GetType().GetProperty("Background")?.SetValue(element, DarkerColour);
+                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
+                }
+                else if (elementType == typeof(ListBoxItem))
+                {
+                    element.GetType().GetProperty("Background")?.SetValue(element, MainColour);
+                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, MainColour);
+                }
+                else if (elementType == typeof(ComboBoxItem))
+                {
+                    element.GetType().GetProperty("Background")?.SetValue(element, MainColour);
+                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, MainColour);
+                }
+                else if (element.GetType() == typeof(MetroProgressBar))
+                {
+                    element.GetType().GetProperty("Background")?.SetValue(element, DarkerColour);
+                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
+                }
+            }
+            
+            
+        });
+    }
+    
+    
+    #endregion
 }

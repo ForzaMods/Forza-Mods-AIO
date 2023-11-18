@@ -17,8 +17,8 @@ public partial class Keybindings
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         if (!UpdateUi.AnimCompleted) return;
-        UpdateUi.Animate(sender, IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()], Sizes, IsClicked, this);
-        IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()] = !IsClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()];
+        UpdateUi.Animate(sender, _isClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()], Sizes, _isClicked, this);
+        _isClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()] = !_isClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()];
     }
 
     private static readonly Dictionary<string, double> Sizes = new()
@@ -27,7 +27,7 @@ public partial class Keybindings
         { "HandlingButton", 180 }
     };
 
-    private static Dictionary<string, bool> IsClicked = new()
+    private static Dictionary<string, bool> _isClicked = new()
     {
         { "OverlayButton", false },
         { "HandlingButton", false }

@@ -20,7 +20,7 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="KBJmpHack"
+                <Button x:Name="KbJmpHackButton"
                         Content="LControlKey"
                         HorizontalAlignment="Left"
                         Margin="180 7.5"
@@ -36,7 +36,7 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CTJmpHack"
+                <Button x:Name="CtJmpHacButton"
                         Content="RightThumb"
                         HorizontalAlignment="Right"
                         Margin="7.5 7.5"
@@ -59,7 +59,7 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="KBBrakeHack"
+                <Button x:Name="KbBrakeHackButton"
                         Content="Space"
                         HorizontalAlignment="Left"
                         Margin="180 7.5"
@@ -98,8 +98,8 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="KBVelHack"
-                        Content="LShiftKey"
+                <Button x:Name="KbVelHackButton"
+                        Content="ALT"
                         HorizontalAlignment="Left"
                         Focusable="False"
                         Margin="180 7.5"

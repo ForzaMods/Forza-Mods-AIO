@@ -1,44 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs.SubMenus;
 
 public abstract class SpringsValues
 {
-    private static readonly Overlay.MenuOption FrontSpringsMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption FrontSpringsMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption RearSpringsMinValue = new ("Min Value", Overlay.MenuOption.OptionType.Float, 0f);
-    private static readonly Overlay.MenuOption RearSpringsMaxValue = new ("Max Value", Overlay.MenuOption.OptionType.Float, 0f);
+    private static readonly MenuOption FrontSpringsMinValue = new ("Min Value", OptionType.Float, 0f);
+    private static readonly MenuOption FrontSpringsMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption RearSpringsMinValue = new ("Min Value", OptionType.Float, 0f);
+    private static readonly MenuOption RearSpringsMaxValue = new ("Max Value", OptionType.Float, 0f);
     
-    private static readonly Overlay.MenuOption FrontSpringsPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
+    private static readonly MenuOption FrontSpringsPull = new ("Pull values", OptionType.Button, () =>
     {
-        var Springs = Tabs.Tuning.DropDownTabs.Springs.sp;
+        var springs = Tabs.Tuning.DropDownTabs.Springs.Sp;
         
-        Springs.Dispatcher.Invoke(() =>
+        springs.Dispatcher.Invoke(() =>
         {
-            FrontSpringsMinValue.Value = (float)Springs.SpringFrontMinBox.Value!;
-            FrontSpringsMaxValue.Value = (float)Springs.SpringFrontMaxBox.Value!;
+            FrontSpringsMinValue.Value = (float)springs.SpringFrontMinBox.Value!;
+            FrontSpringsMaxValue.Value = (float)springs.SpringFrontMaxBox.Value!;
         });
-    }));
+    });
     
-    private static readonly Overlay.MenuOption RearSpringsPull = new ("Pull values", Overlay.MenuOption.OptionType.Button, new Action(() =>
+    private static readonly MenuOption RearSpringsPull = new ("Pull values", OptionType.Button, () =>
     {
-        var Springs = Tabs.Tuning.DropDownTabs.Springs.sp;
+        var springs = Tabs.Tuning.DropDownTabs.Springs.Sp;
         
-        Springs.Dispatcher.Invoke(() =>
+        springs.Dispatcher.Invoke(() =>
         {
-            RearSpringsMinValue.Value = (float)Springs.SpringRearMinBox.Value!;
-            RearSpringsMaxValue.Value = (float)Springs.SpringRearMaxBox.Value!;
+            RearSpringsMinValue.Value = (float)springs.SpringRearMinBox.Value!;
+            RearSpringsMaxValue.Value = (float)springs.SpringRearMaxBox.Value!;
         });
-    }));
+    });
     
-    public static readonly List<Overlay.MenuOption> SpringsSubMenuOptions = new()
+    public static readonly List<MenuOption> SpringsSubMenuOptions = new()
     {
-        new ("Front Springs", Overlay.MenuOption.OptionType.SubHeader),
+        new ("Front Springs", OptionType.SubHeader),
         FrontSpringsMinValue,
         FrontSpringsMaxValue,
         FrontSpringsPull,
-        new ("Rear Springs", Overlay.MenuOption.OptionType.SubHeader),
+        new ("Rear Springs", OptionType.SubHeader),
         RearSpringsMinValue,
         RearSpringsMaxValue,
         RearSpringsPull
@@ -54,41 +55,41 @@ public abstract class SpringsValues
 
     private static void FrontSpringsMinValueChanged(object s, EventArgs e)
     {
-        var Springs = Tabs.Tuning.DropDownTabs.Springs.sp;
+        var springs = Tabs.Tuning.DropDownTabs.Springs.Sp;
 
-        Springs.Dispatcher.Invoke(() =>
+        springs.Dispatcher.Invoke(() =>
         {
-            Springs.SpringFrontMinBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            springs.SpringFrontMinBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
     
     private static void FrontSpringsMaxValueChanged(object s, EventArgs e)
     {
-        var Springs = Tabs.Tuning.DropDownTabs.Springs.sp;
+        var springs = Tabs.Tuning.DropDownTabs.Springs.Sp;
 
-        Springs.Dispatcher.Invoke(() =>
+        springs.Dispatcher.Invoke(() =>
         {
-            Springs.SpringFrontMaxBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            springs.SpringFrontMaxBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
     
     private static void RearSpringsMinValueChanged(object s, EventArgs e)
     {
-        var Springs = Tabs.Tuning.DropDownTabs.Springs.sp;
+        var springs = Tabs.Tuning.DropDownTabs.Springs.Sp;
 
-        Springs.Dispatcher.Invoke(() =>
+        springs.Dispatcher.Invoke(() =>
         {
-            Springs.SpringRearMinBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            springs.SpringRearMinBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
     
     private static void RearSpringsMaxValueChanged(object s, EventArgs e)
     {
-        var Springs = Tabs.Tuning.DropDownTabs.Springs.sp;
+        var springs = Tabs.Tuning.DropDownTabs.Springs.Sp;
 
-        Springs.Dispatcher.Invoke(() =>
+        springs.Dispatcher.Invoke(() =>
         {
-            Springs.SpringRearMaxBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+            springs.SpringRearMaxBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
         });
     }
 }

@@ -4,7 +4,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Forza_Mods_AIO.Overlay"
         mc:Ignorable="d"
         Title="Overlay" Height="400" Width="400" Topmost="True"
         WindowStyle="None"
@@ -20,20 +19,20 @@
         <TextBlock x:Name="OptionsBlock"
                        Grid.Row="1"
                        TextWrapping="Wrap"
-                       Text="Options" FontFamily="Manrope" Foreground="Black" FontSize="24"
+                       Text="Options" Foreground="Black" FontSize="24"
                        HorizontalAlignment="Left" VerticalAlignment="Top"
                        TextAlignment="Left" Margin="15,5,0,5" Panel.ZIndex="2"/>
         <TextBlock x:Name="ValueBlock"
                        Grid.Row="1"
                        TextWrapping="Wrap"
-                       Text="Values" FontFamily="Manrope" Foreground="Black" FontSize="24"
+                       Text="Values" Foreground="Black" FontSize="24"
                        HorizontalAlignment="Right" VerticalAlignment="Top"
                        TextAlignment="Right" Margin="0,5,15,5" Panel.ZIndex="2"/>
         <Border x:Name="DescriptionBorder" Grid.Column="0" Grid.Row="2" BorderBrush="Black" BorderThickness="5,5,5,5" Margin="0,5,0,0"/>
         <TextBlock x:Name="DescriptionBlock"
                        Grid.Row="2"
                        TextWrapping="Wrap"
-                       Text="Description" FontFamily="Manrope" Foreground="Black" FontSize="24"
+                       Text="Description" Foreground="Black" FontSize="24"
                        HorizontalAlignment="Left" VerticalAlignment="Top"
                        TextAlignment="Left" Margin="15,10,15,5"/>
     </Grid>

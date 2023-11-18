@@ -1,11 +1,11 @@
-﻿<Page x:Class="Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.UnlocksPage"
+﻿    <Page x:Class="Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.UnlocksPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d"
-      d:DesignHeight="180"
+      d:DesignHeight="235"
       d:DesignWidth="580"
       Title="UnlocksPage"
       Background="{DynamicResource ApplicationBackgroundBrush}">
@@ -37,7 +37,56 @@
                 Width="556" 
                 Height="46" 
                 BorderBrush="#FF2E3440" 
-                Margin="0,120,0,0" />
+                Margin="0,176,0,0" />
+        
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Width="556" 
+                Height="46" 
+                BorderBrush="#FF2E3440" 
+                Margin="0,120,0,0">
+            <Grid>
+                <mah:NumericUpDown x:Name="SeriesNum"
+                                   HideUpDownButtons="True"
+                                   BorderThickness="0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="7.5"
+                                   TextAlignment="Left"
+                                   Value="999"
+                                   Width="100"
+                                   Background="#FF2E3440"
+                                   ValueChanged="SeriesNum_OnValueChanged"/>
+                
+                <mah:ToggleSwitch x:Name="SeriesToggle"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Left"
+                                  Margin="120 0"
+                                  FontSize="12"
+                                  Content="Series Points"
+                                  Toggled="SeriesToggle_OnToggled"/>
+                
+                <mah:NumericUpDown x:Name="SeasonalNum"
+                                   HideUpDownButtons="True"
+                                   BorderThickness="0"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Left"
+                                   Margin="170, 7.5"
+                                   Value="100"
+                                   Width="100"
+                                   Background="#FF2E3440"
+                                   ValueChanged="SeasonalNum_OnValueChanged"/>
+                
+                <mah:ToggleSwitch x:Name="SeasonalToggle"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Right"
+                                  FontSize="12"
+                                  Content="Seasonal Points"
+                                  Toggled="SeasonalToggle_OnToggled"/>
+            </Grid>
+        </Border>
         
         <mah:ToggleSwitch x:Name="DiscoverRoadsSwitch"
                           VerticalAlignment="Top"
@@ -45,13 +94,13 @@
                           Content=""
                           IsEnabled="False"
                           MinWidth="1"
-                          Margin="80 127.5 0 0"
+                          Margin="80 182.5 0 0"
                           Toggled="DiscoverRoadsSwitch_OnToggled"/>
         
         <Label Content="Discover All Roads"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
-               Margin="130 130 0 0"/>
+               Margin="130 185 0 0"/>
         
         <mah:ToggleSwitch x:Name="SmashBoardsSwitch"
                           VerticalAlignment="Top"
@@ -59,13 +108,13 @@
                           Content=""
                           IsEnabled="False"
                           MinWidth="1"
-                          Margin="290 127.5 0 0"
+                          Margin="290 182.5 0 0"
                           Toggled="SmashBoardsSwitch_OnToggled"/>
         
         <Label Content="Smash All Collectable Boards"
                HorizontalAlignment="Right"
                VerticalAlignment="Top"
-               Margin="0 130 75 0"/>
+               Margin="0 185 75 0"/>
         
         <Label Content="Unlock all:"
                HorizontalAlignment="Left"
@@ -141,7 +190,8 @@
                            Width="135"
                            BorderThickness="0"
                            Background="#FF2E3440"
-                           Margin="20, 20" IsEnabled="False"
+                           Margin="20, 20" 
+                           IsEnabled="False"
                            HideUpDownButtons="True"
                            TrackMouseWheelWhenMouseOver="True"
                            Minimum="0"

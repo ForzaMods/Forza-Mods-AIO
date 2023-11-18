@@ -7,6 +7,7 @@ using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others.SubMenu;
 using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs.SubMenus;
 using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Steering;
 using Forza_Mods_AIO.Overlay.Tuning.SubMenus.Tires;
+using static Forza_Mods_AIO.Overlay.Overlay;
 
 namespace Forza_Mods_AIO.Overlay.Tuning;
 
@@ -14,16 +15,16 @@ public abstract class Tuning
 {
     // Menu lists for this section (i.e. Modifiers and its sub menus)
     // All of these are submenus, so they have their own folders
-    public static readonly List<Overlay.MenuOption> TuningOptions = new()
+    public static readonly List<MenuOption> TuningOptions = new()
     {
-        new Overlay.MenuOption("Aero", Overlay.MenuOption.OptionType.MenuButton),
-        new Overlay.MenuOption("Alignment", Overlay.MenuOption.OptionType.MenuButton),
-        new Overlay.MenuOption("Damping", Overlay.MenuOption.OptionType.MenuButton),
-        new Overlay.MenuOption("Gearing", Overlay.MenuOption.OptionType.MenuButton),
-        new Overlay.MenuOption("Others", Overlay.MenuOption.OptionType.MenuButton),
-        new Overlay.MenuOption("Springs", Overlay.MenuOption.OptionType.MenuButton),
-        new Overlay.MenuOption("Steering", Overlay.MenuOption.OptionType.MenuButton),
-        new Overlay.MenuOption("Tires", Overlay.MenuOption.OptionType.MenuButton)
+        new MenuOption("Aero", OptionType.MenuButton),
+        new MenuOption("Alignment", OptionType.MenuButton),
+        new MenuOption("Damping", OptionType.MenuButton),
+        new MenuOption("Gearing", OptionType.MenuButton),
+        new MenuOption("Others", OptionType.MenuButton),
+        new MenuOption("Springs", OptionType.MenuButton),
+        new MenuOption("Steering", OptionType.MenuButton),
+        new MenuOption("Tires", OptionType.MenuButton)
     };
 
     public static void InitiateSubMenu()
