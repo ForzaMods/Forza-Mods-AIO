@@ -1,90 +1,15 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
+using static Memory.Imps;
 using static System.Buffer;
 using static Forza_Mods_AIO.MainWindow;
-using static Memory.Imps;
+using static System.Windows.Threading.Dispatcher;
 
 namespace Forza_Mods_AIO.Resources;
 
 public class Detour : Asm
 {
-    /// <summary>
-    /// Setup the detour.
-    /// </summary>
-    /// <param name="button">Button bound to the detour</param>
-    /// <param name="addr">Source address for the detour</param>
-    /// <param name="detourBytes">Bytes for inside the detour</param>
-    /// <param name="replaceCount">How many bytes to replace on the address of signature</param>
-    /// <param name="useVarAddress">Creates an address for variables after jmp back of detour</param>
-    /// <param name="varAddressOffset">Offset from the originally calculated variable address</param>
-    /// <param name="saveOrigBytesToDetour">Adds the original bytes of the detour at the start of it</param>
-    /// <returns>True if is setup, successfully created or false if failed at some point</returns>
-    /// <throws>Exception if: sig is null or whitespace, detour bytes are null, replace count is less than 5</throws>
-    public bool Setup(object? button,
-        UIntPtr addr,
-        byte[] detourBytes,
-        int replaceCount,
-        bool useVarAddress = false,
-        UIntPtr varAddressOffset = 0,
-        bool saveOrigBytesToDetour = false)
-    {
-        // return true if detour was already setup
-        if (_isSetup)
-        {
-            return true;
-        }
-
-        if (addr <= 0)
-        {
-            throw new Exception("Addr argument is invalid");
-        }
-        
-        _detourAddr = addr;
-        
-        if (detourBytes == null)
-        {
-            throw new Exception("Detour bytes argument cant be null");
-        }
-
-        if (replaceCount < 5)
-        {
-            replaceCount = 5;
-        }
-        
-        // disable the button bound to the detour for the detour create time
-        button?.GetType().GetProperty("IsEnabled")?.SetValue(button, false);
-
-        // save original bytes to toggle the hook
-        _originalBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, replaceCount);
-
-        // finally, create detour
-        if (!CreateDetour(detourBytes, replaceCount))
-        {
-            button?.GetType().GetProperty("IsEnabled")?.SetValue(button, true);
-            return false;
-        }
-
-        
-        if (saveOrigBytesToDetour)
-        {
-            BlockCopy(_originalBytes, 0, detourBytes, 0, _originalBytes.Length);
-        }
-
-        
-        if (useVarAddress)
-        {
-            // address of allocated mem + size of detour bytes + offset + size of jmp back
-            _variableAddress = _allocatedAddress + (UIntPtr)detourBytes.Length + varAddressOffset + 5;
-        }
-
-        // save new/jmp bytes for hook toggle
-        _newBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, replaceCount);
-        
-        // then, enable the button and return true
-        button?.GetType().GetProperty("IsEnabled")?.SetValue(button, true);        
-        return IsHooked = _isSetup = true;
-    }
-
     /// <summary>
     /// Setup the detour.
     /// </summary>
@@ -106,14 +31,14 @@ public class Detour : Asm
         bool saveOrigBytesToDetour = false)
     {
         // return true if detour was already setup
-        if (_isSetup)
+        if (IsSetup)
         {
             return true;
         }
 
-        if (addr <= 0)
+        if (addr <= (UIntPtr)Mw.Gvp.Process.MainModule.BaseAddress)
         {
-            throw new Exception("Addr argument is invalid");
+            return false;
         }
 
         _detourAddr = addr;
@@ -129,7 +54,10 @@ public class Detour : Asm
         }
         
         // disable the button bound to the detour for the detour create time
-        button?.GetType().GetProperty("IsEnabled")?.SetValue(button, false);
+        CurrentDispatcher.BeginInvoke(delegate ()
+        {
+            button?.GetType().GetProperty("IsEnabled")?.SetValue(button, false);
+        });
 
         // save original bytes to toggle the hook
         _originalBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, replaceCount);
@@ -144,13 +72,19 @@ public class Detour : Asm
 
         if (saveOrigBytesToDetour)
         {
-            BlockCopy(_originalBytes, 0, finalDetourBytes, 0, _originalBytes.Length);
+            var combinedBytes = new byte[_originalBytes.Length + finalDetourBytes.Length];
+            BlockCopy(_originalBytes, 0, combinedBytes, 0, _originalBytes.Length);
+            BlockCopy(finalDetourBytes, 0, combinedBytes, _originalBytes.Length, finalDetourBytes.Length);
+            finalDetourBytes = combinedBytes;
         }
         
         // finally, create detour
         if (!CreateDetour(finalDetourBytes, replaceCount))
         {
-            button?.GetType().GetProperty("IsEnabled")?.SetValue(button, true);
+            CurrentDispatcher.BeginInvoke(delegate ()
+            {
+                button?.GetType().GetProperty("IsEnabled")?.SetValue(button, true);
+            });
             return false;
         }
         
@@ -164,10 +98,34 @@ public class Detour : Asm
         _newBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, replaceCount);
         
         // then, enable the button and return true
-        button?.GetType().GetProperty("IsEnabled")?.SetValue(button, true);
-        return IsHooked = _isSetup = true;
+        CurrentDispatcher.BeginInvoke(delegate ()
+        {
+            button?.GetType().GetProperty("IsEnabled")?.SetValue(button, true);
+        });
+        return IsHooked = IsSetup = true;
     }
-
+    
+    /// <summary>
+    /// Setup the detour.
+    /// </summary>
+    /// <param name="addr">Source address for the detour</param>
+    /// <param name="detourBytes">Bytes for inside the detour</param>
+    /// <param name="replaceCount">How many bytes to replace on the address of signature</param>
+    /// <param name="useVarAddress">Creates an address for variables after jmp back of detour</param>
+    /// <param name="varAddressOffset">Offset from the originally calculated variable address</param>
+    /// <param name="saveOrigBytesToDetour">Adds the original bytes of the detour at the start of it</param>
+    /// <returns>True if is setup, successfully created or false if failed at some point </returns>
+    /// <throws>Exception if: sig or detour bytes are null or whitespace, replace count is less than 5</throws>
+    public bool Setup(UIntPtr addr,
+        string detourBytes,
+        int replaceCount,
+        bool useVarAddress = false,
+        UIntPtr varAddressOffset = 0,
+        bool saveOrigBytesToDetour = false)
+    {
+        return Setup(null, addr, detourBytes, replaceCount, useVarAddress, varAddressOffset, saveOrigBytesToDetour);
+    }
+    
     /// <summary>
     /// Deallocates the memory and unhooks
     /// </summary>
@@ -189,7 +147,7 @@ public class Detour : Asm
     {
         _detourAddr = _allocatedAddress = _variableAddress = UIntPtr.Zero;
         _originalBytes = _newBytes = null;
-        _isSetup = false;
+        IsSetup = false;
         _firstTime = true;
     }
     
@@ -215,8 +173,8 @@ public class Detour : Asm
         IsHooked = !IsHooked;
     }
 
-    public void Hook() => Mw.M.WriteArrayMemory(_detourAddr, _newBytes);
-    public void UnHook() => Mw.M.WriteArrayMemory(_detourAddr, _originalBytes);
+    private void Hook() => Mw.M.WriteArrayMemory(_detourAddr, _newBytes);
+    private void UnHook() => Mw.M.WriteArrayMemory(_detourAddr, _originalBytes);
     
     private bool CreateDetour(byte[] caveBytes, int replaceCount)
     {
@@ -224,38 +182,57 @@ public class Detour : Asm
         return _allocatedAddress != UIntPtr.Zero;
     }
 
-    public void UpdateVariable<T>(T value) where T : unmanaged
+    public void UpdateVariable<T>(T value, UIntPtr varOffset = 0) where T : unmanaged
     {
         if (_variableAddress == UIntPtr.Zero)
         {
             return;
         }
         
-        Mw.M.WriteMemory(_variableAddress, value);
+        Mw.M.WriteMemory(_variableAddress + varOffset, value);
     }
     
-    public void UpdateVariable<T>(T[] value) where T : unmanaged
+    public void UpdateVariable<T>(T[] value, UIntPtr varOffset = 0) where T : unmanaged
     {
         if (_variableAddress == UIntPtr.Zero)
         {
             return;
         }
         
-        Mw.M.WriteArrayMemory(_variableAddress, value);
+        Mw.M.WriteArrayMemory(_variableAddress + varOffset, value);
     }
     
-    public T ReadVariable<T>() where T : unmanaged
+    public T ReadVariable<T>(UIntPtr varOffset = 0) where T : unmanaged
     {
-        return _variableAddress == UIntPtr.Zero ? new T() : Mw.M.ReadMemory<T>(_variableAddress);
+        return _variableAddress == UIntPtr.Zero ? new T() : Mw.M.ReadMemory<T>(_variableAddress + varOffset);
     }
     
-    public T[] ReadArrayVariable<T>(int length) where T : unmanaged
+    public override string ToString()
     {
-        return _variableAddress == UIntPtr.Zero ? Array.Empty<T>() : Mw.M.ReadArrayMemory<T>(_variableAddress, length);
+        var sb = new StringBuilder(512);
+        sb.Append("IsHooked: ").AppendLine(IsHooked.ToString());
+        sb.Append("IsSetup: ").AppendLine(IsSetup.ToString());
+        sb.Append("First Time Toggle: ").AppendLine(_firstTime.ToString());
+        sb.Append("Detour Addr: ").AppendLine(_detourAddr.ToString("X"));
+        sb.Append("Allocated Addr: ").AppendLine(_allocatedAddress.ToString("X"));
+        sb.Append("Variable Addr: ").AppendLine(_variableAddress.ToString("X"));
+
+        if (_originalBytes != null)
+        {
+            sb.Append("Original Bytes: ").AppendLine(BitConverter.ToString(_originalBytes).Replace("-", " "));
+        }
+
+        if (_newBytes != null)
+        {
+            sb.Append("New Bytes: ").AppendLine(BitConverter.ToString(_newBytes).Replace("-", " "));
+        }
+        
+        return sb.ToString();
     }
     
-    public bool IsHooked;
+    public bool IsHooked { get; private set; }
+    public bool IsSetup { get; private set; }
     private UIntPtr _detourAddr, _allocatedAddress, _variableAddress;
     private byte[]? _originalBytes, _newBytes;
-    private bool _isSetup, _firstTime = true;
+    private bool _firstTime = true;
 }

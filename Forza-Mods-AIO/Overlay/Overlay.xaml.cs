@@ -11,13 +11,14 @@ namespace Forza_Mods_AIO.Overlay;
 /// <summary>
 ///     Interaction logic for Overlay.xaml
 /// </summary>
-public partial class Overlay : Window
+public partial class Overlay
 {
     public enum OptionType
     {
         Float,
         Int,
         Bool,
+        Selection,
         MenuButton,
         Button,
         SubHeader
@@ -26,7 +27,9 @@ public partial class Overlay : Window
     public class MenuOption
     {
         public string Name { get; }
+        public string? Description { get; }
         public OptionType Type { get; }
+        
         public object Value
         {
             get => _value;
@@ -37,10 +40,18 @@ public partial class Overlay : Window
             }
         }
         private object _value;
-        public string Description { get; }
+        
+        public object? Min { get; }
+        public object? Max { get; }
+        public object? Interval { get; }
+        
+        public string[]? Selections { get; }
+        
         public bool IsEnabled { get; set; }
+        
         // Value changed event handler
         public event EventHandler ValueChangedHandler;
+        
         private void ValueChanged(object value)
         {
             var handler = ValueChangedHandler;
@@ -49,11 +60,14 @@ public partial class Overlay : Window
             
         //Constructors for different value types
         //float
-        public MenuOption(string name, OptionType type, float value, string description = null, bool isEnabled = true)
+        public MenuOption(string name, OptionType type, float value, float? min = null, float? max = null, float? interval = null, string? description = null, bool isEnabled = true)
         {
             Name = name;
             Type = type;
             Value = value;
+            Min = min;
+            Max = max;
+            Interval = interval;
             Description = description;
             IsEnabled = isEnabled;
         }
@@ -67,16 +81,19 @@ public partial class Overlay : Window
             IsEnabled = isEnabled;
         }
         //int
-        public MenuOption(string name, OptionType type, int value, string description = null, bool isEnabled = true)
+        public MenuOption(string name, OptionType type, int value, int? min = null, int? max = null, int? interval = null, string? description = null, bool isEnabled = true)
         {
             Name = name;
             Type = type;
             Value = value;
+            Min = min;
+            Max = max;
+            Interval = interval;
             Description = description;
             IsEnabled = isEnabled;
         }
         //method
-        public MenuOption(string name, OptionType type, Action value, string description = null, bool isEnabled = true)
+        public MenuOption(string name, OptionType type, Action value, string? description = null, bool isEnabled = true)
         {
             Name = name;
             Type = type;
@@ -85,16 +102,26 @@ public partial class Overlay : Window
             IsEnabled = isEnabled;
         }
         //null value
-        public MenuOption(string name, OptionType type, string description = null, bool isEnabled = true)
+        public MenuOption(string name, OptionType type, string? description = null, bool isEnabled = true)
         {
             Name = name;
             Type = type;
-            Value = null;
+            Value = null!;
             Description = description;
             IsEnabled = isEnabled;
         }
-
+        
+        public MenuOption(string name, OptionType type, int value, string[] selections, string? description = null, bool isEnabled = true)
+        {
+            Name = name;
+            Type = type;
+            Value = value;
+            Selections = selections;
+            Description = description;
+            IsEnabled = isEnabled;
+        }
     }
+    
     #region Click Through DLLImports
     //Credits to Oleg Kolosov for the transparency https://stackoverflow.com/a/3367137
     private const int WsExTransparent = 0x00000020;
@@ -160,7 +187,9 @@ public partial class Overlay : Window
                 { "TiresOptions" , Tuning.SubMenus.Tires.Tires.TiresOptions },  
             { "SettingsOptions" , SettingsMenu.SettingsMenu.SettingsOptions},
                 { "MainAreaOptions" , SettingsMenu.SettingsMenu.MainAreaOptions},
-                { "DescriptionAreaOptions" , SettingsMenu.SettingsMenu.DescriptionAreaOptions}
+                { "DescriptionAreaOptions" , SettingsMenu.SettingsMenu.DescriptionAreaOptions},
+                { "PositionOptions", SettingsMenu.SettingsMenu.PositionOptions },
+                { "FontSettingsOptions", SettingsMenu.SettingsMenu.FontOptions }
     };
     
     public static readonly MenuOption AutoshowGarageOption = new("Autoshow/Garage", OptionType.MenuButton, "Mods for the Autoshow such as free cars, all cars etc", false);

@@ -2,8 +2,11 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using Forza_Mods_AIO.Overlay;
 using IniParser;
 using static System.Enum;
+using static Forza_Mods_AIO.Overlay.OverlayHandling;
+using static Forza_Mods_AIO.MainWindow;
 
 namespace Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs;
 
@@ -18,10 +21,10 @@ public partial class OverlayKeybindings
 
     private void KBButton_OnClick(object sender, RoutedEventArgs e)
     {
-        if (MainWindow.Grabbing) return;
-        MainWindow.IsClicked = MainWindow.Grabbing = true;
-        MainWindow.ClickedButton = (Button)sender;
-        MainWindow.ClickedButton.Content = "Change Key";   
+        if (Mw.Grabbing) return;
+        Mw.IsClicked = Mw.Grabbing = true;
+        Mw.ClickedButton = (Button)sender;
+        Mw.ClickedButton.Content = "Change Key";   
     }
     
     private void CTButton_OnClick(object sender, RoutedEventArgs e)
@@ -43,13 +46,14 @@ public partial class OverlayKeybindings
         {
             var parser = new FileIniDataParser();
             var iniData = parser.ReadFile(settingsFilePath);
-            TryParse(iniData["Keybinds"]["Up"], out Overlay.OverlayHandling.Up);
-            TryParse(iniData["Keybinds"]["Down"], out Overlay.OverlayHandling.Down);
-            TryParse(iniData["Keybinds"]["Left"], out Overlay.OverlayHandling.Left);
-            TryParse(iniData["Keybinds"]["Right"], out Overlay.OverlayHandling.Right);
-            TryParse(iniData["Keybinds"]["Confirm"], out Overlay.OverlayHandling.Confirm);
-            TryParse(iniData["Keybinds"]["Leave"], out Overlay.OverlayHandling.Leave);
-            TryParse(iniData["Keybinds"]["Visibility"], out Overlay.OverlayHandling.OverlayVisibility);            
+            TryParse(iniData["Keybinds"]["Up"], out Up);
+            TryParse(iniData["Keybinds"]["Down"], out Down);
+            TryParse(iniData["Keybinds"]["Left"], out Left);
+            TryParse(iniData["Keybinds"]["Right"], out Right);
+            TryParse(iniData["Keybinds"]["Confirm"], out Confirm);
+            TryParse(iniData["Keybinds"]["Leave"], out Leave);
+            TryParse(iniData["Keybinds"]["Visibility"], out OverlayVisibility);            
+            TryParse(iniData["Keybinds"]["RapidAdjust"], out OverlayHandling.RapidAdjust);            
             
         }
         catch {}
@@ -57,12 +61,13 @@ public partial class OverlayKeybindings
 
     private void UpdateKeybindButtons()
     {
-        UpButton.Content = Overlay.OverlayHandling.Up;
-        DownButton.Content = Overlay.OverlayHandling.Down;
-        LeftButton.Content = Overlay.OverlayHandling.Left;
-        RightButton.Content = Overlay.OverlayHandling.Right;
-        LeaveButton.Content = Overlay.OverlayHandling.Leave;
-        ConfirmButton.Content = Overlay.OverlayHandling.Confirm;
-        OverlayVisibilityButton.Content = Overlay.OverlayHandling.OverlayVisibility;
+        UpButton.Content = Up;
+        DownButton.Content = Down;
+        LeftButton.Content = Left;
+        RightButton.Content = Right;
+        LeaveButton.Content = Leave;
+        ConfirmButton.Content = Confirm;
+        OverlayVisibilityButton.Content = OverlayVisibility;
+        RapidAdjust.Content = OverlayHandling.RapidAdjust;
     }
 }

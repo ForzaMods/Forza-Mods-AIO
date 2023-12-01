@@ -14,7 +14,6 @@ public abstract class Bypass
 
     private static readonly Detour Check1Detour = new(), Check2Detour = new(), Check3Detour = new(), Check4Detour = new();
     private static UIntPtr _memCopyAddress = UIntPtr.Zero;
-    private const uint MemRelease = 0x8000;
     
     public static void DisableAntiCheat(int ver)
     {
@@ -50,17 +49,16 @@ public abstract class Bypass
             Task.Delay(5).Wait();
         }
 
-        var checkAddr1 = Mw.M.ScanForSig("40 8A ? E9 ? ? ? ? CC").FirstOrDefault();
+        UIntPtr checkAddr1;
 
-        while (checkAddr1 == 0)
+        while ((checkAddr1 = Mw.M.ScanForSig("40 8A ? E9 ? ? ? ? CC").FirstOrDefault()) == 0)
         {
-            checkAddr1 = Mw.M.ScanForSig("40 8A ? E9 ? ? ? ? CC").FirstOrDefault();
-            Task.Delay(5).Wait();
+            Task.Delay(1).Wait();
         }
         
         checkAddr1 += Mw.Gvp.Plat == "MS" ? (UIntPtr)325 : 333;
 
-        if (checkAddr1 is 325 or 333)
+        if (Mw.M.ReadMemory<byte>(checkAddr1) == 0xE9)
         {
             return;
         }
@@ -99,15 +97,5 @@ public abstract class Bypass
         
         Check4Detour.Setup(null, checkAddr4, check4Bytes, 5, true);
         Check4Detour.UpdateVariable(addresses);
-    }
-
-    public static void Destroy()
-    {
-        Check1Detour.Destroy();
-        Check2Detour.Destroy();
-        Check3Detour.Destroy();
-        Check4Detour.Destroy();
-
-        VirtualFreeEx(Mw.Gvp.Process.Handle, _memCopyAddress, 0, MemRelease);
     }
 }

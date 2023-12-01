@@ -30,7 +30,7 @@ public partial class CustomizationPage : Page
         if (!GlowingPaintDetour.Setup(sender, GlowingPaintAddr,
                 Mw.Gvp.Name.Contains('5') ? "0F590D490000000F110AC642F001" : "0F590D49000000410F114A10",
                 Mw.Gvp.Name.Contains('5') ? 7 : 5,
-                true, 63))
+                true, Mw.Gvp.Name.Contains('5') ? (nuint)61 : 63))
         {
             GlowingPaintSwitch.Toggled -= GlowingPaintSwitch_Toggled;
             GlowingPaintSwitch.IsOn = false;
@@ -56,8 +56,7 @@ public partial class CustomizationPage : Page
         {
             GlowingPaintSlider.Value = Convert.ToDouble(GlowingPaintNum.Value);
             var value = Convert.ToSingle(GlowingPaintNum.Value);
-            Vector3 glowingPaintMultiplier = new() { X = value, Y = value, Z = value };
-            GlowingPaintDetour.UpdateVariable(glowingPaintMultiplier);
+            GlowingPaintDetour.UpdateVariable(new Vector3(value));
         }
         catch
         {

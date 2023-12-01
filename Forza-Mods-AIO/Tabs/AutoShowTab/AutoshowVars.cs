@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using Lunar;
 using MahApps.Metro.Controls;
 using static Forza_Mods_AIO.MainWindow;
-using static Forza_Mods_AIO.Resources.UpdateUi;
+using static Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus.GarageModifications;
+using static Forza_Mods_AIO.Overlay.Overlay;
+using static Forza_Mods_AIO.Resources.UiManager;
 using static Forza_Mods_AIO.Tabs.AutoShowTab.AutoShow;
 
 namespace Forza_Mods_AIO.Tabs.AutoShowTab;
@@ -55,75 +57,78 @@ internal class AutoshowVars
             
         if (Mw.Gvp.Name == "Forza Horizon 4")
         {
-            const int scanAmount = 15;
+            As.UiManager.Index = 0;
+            As.UiManager.ScanAmount = 15;
                 
             Sql2 = Mw.M.ScanForSig(Sql2Aob).FirstOrDefault();
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
             Sql3 = Mw.M.ScanForSig(Sql3Aob).FirstOrDefault();
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
             Sql4 = Mw.M.ScanForSig(Sql4Aob).FirstOrDefault();
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
             Sql7 = Mw.M.ScanForSig(Sql7Aob).FirstOrDefault();
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
             Sql8 = Mw.M.ScanForSig(Sql8Aob).FirstOrDefault();
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
             Sql9 = Mw.M.ScanForSig(Sql9Aob).FirstOrDefault();
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
             Sql10 = Mw.M.ScanForSig(Sql10Aob).FirstOrDefault();
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
             Sql11 = Mw.M.ScanForSig(Sql11Aob).FirstOrDefault();
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
             var sqlBase1 = Mw.M.ScanForSig(SqlBase1Aob);
             var enumerable1 = sqlBase1 as UIntPtr[] ?? sqlBase1.ToArray();
             Sql12 = enumerable1.FirstOrDefault();
-            Sql13 = (enumerable1.FirstOrDefault() + 2047);
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            Sql13 = enumerable1.FirstOrDefault() + 2047;
+            As.UiManager.AddProgress();
                 
             Sql1 = Mw.M.ScanForSig(Sql1Aob).FirstOrDefault();
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
             var sqlBase2 = Mw.M.ScanForSig(SqlBase2Aob);
             var enumerable2 = sqlBase2 as UIntPtr[] ?? sqlBase2.ToArray();
             Sql5 = enumerable2.FirstOrDefault();
             Sql6 = enumerable2.FirstOrDefault() + 26;
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
             Sql14 = Mw.M.ScanForSig(Sql14Aob).FirstOrDefault();
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
             Sql15 = Mw.M.ScanForSig(Sql15Aob).FirstOrDefault() + 2047;
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
             Sql16 = Mw.M.ScanForSig(Sql16Aob).FirstOrDefault();
-            AddProgress(scanAmount, ref scanIndex, As.AobProgressBar);
+            As.UiManager.AddProgress();
                 
-            Overlay.Overlay.AutoshowGarageOption.IsEnabled = true;
-            Overlay.AutoShowMenu.SubMenus.GarageModifications.PaintLegoCarsToggle.IsEnabled = true;
-            UpdateUI(true, As);
+            AutoshowGarageOption.IsEnabled = PaintLegoCarsToggle.IsEnabled = true;
+            As.UiManager.ToggleUiElements(true);
             return;
         }
+        
+        As.UiManager.Index = 0;
+        As.UiManager.ScanAmount = 1;
             
         Mw.Mapper = new LibraryMapper(Mw.M.MProc.Process, Properties.Resources.SQL_DLL);
-        AddProgress(2, ref scanIndex, As.AobProgressBar);
         Mw.Mapper.MapLibrary();
-        Overlay.Overlay.AutoshowGarageOption.IsEnabled = Mw.Mapper.DllBaseAddress != IntPtr.Zero;
-        AddProgress(2, ref scanIndex, As.AobProgressBar);
             
         As.Dispatcher.Invoke(() =>
         {
             As.PaintLegoCars.IsEnabled = false;
         });    
             
-        Overlay.AutoShowMenu.SubMenus.GarageModifications.PaintLegoCarsToggle.IsEnabled = false;
-        UpdateUI(Mw.Mapper.DllBaseAddress != IntPtr.Zero, As);
+        PaintLegoCarsToggle.IsEnabled = false;
+        AutoshowGarageOption.IsEnabled = Mw.Mapper.DllBaseAddress != IntPtr.Zero;
+        
+        As.UiManager.AddProgress();
+        As.UiManager.ToggleUiElements(Mw.Mapper.DllBaseAddress != IntPtr.Zero);
     }
 
     internal static void ResetMem()
@@ -133,28 +138,21 @@ internal class AutoshowVars
             return;
         }
             
-        try
-        {
-            Mw.M.WriteStringMemory(Sql1, "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
-            Mw.M.WriteStringMemory(Sql2, "I");
-            Mw.M.WriteStringMemory(Sql3, "AND NOT IsBarnFind");
-            Mw.M.WriteStringMemory(Sql4, "Garage.Id!=");
-            Mw.M.WriteStringMemory(Sql5, "AND NotAvailableInAutoshow=0");
-            Mw.M.WriteStringMemory(Sql6, "=0                                    ");
-            Mw.M.WriteStringMemory(Sql7, "AND IsCarVisibleAndReleased(Garage.ModelId)");
-            Mw.M.WriteStringMemory(Sql8, "Garage.ModelId!=");
-            Mw.M.WriteStringMemory(Sql9, "AND UnobtainableCars.Ordinal IS NULL");
-            Mw.M.WriteStringMemory(Sql10, "D");
-            Mw.M.WriteStringMemory(Sql11, "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
-            Mw.M.WriteArrayMemory(Sql12, Sql12OriginalBytes);
-            Mw.M.WriteStringMemory(Sql14, "HideNormalColors");
-            Mw.M.WriteStringMemory(Sql15, "HideSpecialColors");
-            Mw.M.WriteStringMemory(Sql16, "AND NOT IsMidnightCar");
-        }
-        catch
-        {
-            // ignored
-        }
+        Mw.M.WriteStringMemory(Sql1, "NOT Garage.NotAvailableInAutoshow AS PurchasableCar,");
+        Mw.M.WriteStringMemory(Sql2, "I");
+        Mw.M.WriteStringMemory(Sql3, "AND NOT IsBarnFind");
+        Mw.M.WriteStringMemory(Sql4, "Garage.Id!=");
+        Mw.M.WriteStringMemory(Sql5, "AND NotAvailableInAutoshow=0");
+        Mw.M.WriteStringMemory(Sql6, "=0                                    ");
+        Mw.M.WriteStringMemory(Sql7, "AND IsCarVisibleAndReleased(Garage.ModelId)");
+        Mw.M.WriteStringMemory(Sql8, "Garage.ModelId!=");
+        Mw.M.WriteStringMemory(Sql9, "AND UnobtainableCars.Ordinal IS NULL");
+        Mw.M.WriteStringMemory(Sql10, "D");
+        Mw.M.WriteStringMemory(Sql11, "UPDATE %s SET TopSpeed=%f, DistanceDriven=%u, TimeDriven=%u, TotalWinnings=%u, TotalRepairs=%u, NumPodiums=%u, NumVictories=%u, NumRaces=%u, NumOwners=%u, NumTimesSold=%u, TimeDrivenInRoadTrips=%u, CurOwnerNumRaces=%u, CurOwnerWinnings=%u, NumSkillPointsEarned=%u, HighestSkillScore=%u, HasCurrentOwnerViewedCar=%u WHERE Id=%u                                     ");
+        Mw.M.WriteArrayMemory(Sql12, Sql12OriginalBytes);
+        Mw.M.WriteStringMemory(Sql14, "HideNormalColors");
+        Mw.M.WriteStringMemory(Sql15, "HideSpecialColors");
+        Mw.M.WriteStringMemory(Sql16, "AND NOT IsMidnightCar");
     }
         
     public static async void ExecSql(ToggleSwitch button, RoutedEventHandler action, string sql)

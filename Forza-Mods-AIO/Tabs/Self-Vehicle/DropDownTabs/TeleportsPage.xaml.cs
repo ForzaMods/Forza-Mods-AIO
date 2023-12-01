@@ -12,8 +12,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 public partial class TeleportsPage
 {
     public static TeleportsPage T;
+    public static bool WaypointDetoured;
     private Vector3 _oldPosition, _teleportPosition;
-    private bool _waypointDetoured;
     
     public TeleportsPage()
     {
@@ -194,11 +194,11 @@ public partial class TeleportsPage
 
             case "Waypoint":
             {
-                if (!_waypointDetoured)
+                if (!WaypointDetoured)
                 {
                     await Task.Run(() => SetupWaypointDetour(null));
                     _teleportPosition = WaypointPosition;
-                    _waypointDetoured = true;
+                    WaypointDetoured = true;
                     return;
                 }
                 
@@ -222,10 +222,10 @@ public partial class TeleportsPage
     {
         Vector3 lastWp = new();
 
-        if (!_waypointDetoured)
+        if (!WaypointDetoured)
         {
             await Task.Run(() => SetupWaypointDetour(sender));
-            _waypointDetoured = true;
+            WaypointDetoured = true;
         }
 
         Task.Run(() =>
@@ -257,6 +257,7 @@ public partial class TeleportsPage
 
                     _oldPosition = Position;
                     Position = newWp;
+                    LinearVelocity = new Vector3 { X = 0f, Z = 0f, Y = 0f };
                     lastWp = newWp;
                 }
                 catch

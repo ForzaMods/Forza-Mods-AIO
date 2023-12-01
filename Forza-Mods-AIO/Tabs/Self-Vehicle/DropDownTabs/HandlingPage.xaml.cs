@@ -23,7 +23,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 public partial class HandlingPage : Page
 {
     public static HandlingPage? Shp;
-    public static readonly Detour FlyhackDetour = new();
+    public static readonly Detour FlyHackDetour = new();
     
     private readonly byte[] _before1 = { 0x0F, 0x11, 0x41, 0x10 },
                             _before2 = { 0x0F, 0x11, 0x49, 0x20 },
@@ -45,19 +45,12 @@ public partial class HandlingPage : Page
 
     private void VelocityValueNum_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (Shp == null)
+        if (VelocitySwitch == null)
         {
             return;
         }
 
-        try
-        {
-            VelocitySlider.Value = (float)e.NewValue;
-        }
-        catch
-        {
-            // ignored
-        }
+        VelocitySlider.Value = ToDouble(e.NewValue);
     }
 
     private void VelocitySwitch_Toggled(object sender, RoutedEventArgs e)
@@ -122,8 +115,8 @@ public partial class HandlingPage : Page
                 
                 Dispatcher.Invoke(delegate
                 {
-                    mode = (string)WheelSpeedModeComboBox.SelectedItem;
-                    interval = (int)IntervalBox.Value;
+                    mode = WheelSpeedModeComboBox.SelectedItem.ToString();
+                    interval = ToInt32(IntervalBox.Value);
                 });
                 
                 switch (mode)
@@ -174,78 +167,55 @@ public partial class HandlingPage : Page
     {
         var type = sender.GetType();
         
-        if (!(bool)type.GetProperty("IsOn").GetValue(sender))
+        if (!(bool)type.GetProperty("IsOn")?.GetValue(sender)!)
         {
             return;
         }
 
-        float original;
-        var mode = ((string)type.GetProperty("Name").GetValue(sender)).Contains("Gravity") ? "Gravity" : "Accel";
-            
+        var mode = ((string)type.GetProperty("Name")?.GetValue(sender)!).Contains("Gravity") ? "Gravity" : "Accel";
+        var setSwitch = mode == "Gravity" ? GravitySetSwitch : AccelSetSwitch;
+        var valueNum = mode == "Gravity" ? GravityValueNum : AccelValueNum;
+        var original = mode == "Gravity" ? Gravity : Acceleration;
+        var lastPlayerEnt = PlayerCarEntity;
+        
         Task.Run(() =>
         {
-            original = mode == "Gravity" ? Gravity : Acceleration;
-                
             while (true)
             {
-                Thread.Sleep(100);
+                Task.Delay(100).Wait();
                 var toggled = true;
-                if (mode == "Gravity")
-                {
-                    Dispatcher.Invoke(delegate
-                    {
-                        toggled = GravitySetSwitch.IsOn;
-                    });
-                }
-                else
-                {
-                    Dispatcher.Invoke(delegate
-                    {
-                        toggled = AccelSetSwitch.IsOn;
-                    });
-                }
+                Dispatcher.Invoke(() => toggled = setSwitch.IsOn);
 
-                if (!toggled && mode == "Gravity")
+                if (!toggled)
                 {
-                    Gravity = original;
-                    Dispatcher.Invoke(delegate
-                    {
-                        GravityValueNum.Value = ToDouble(original);
-                    });
+                    _ = mode == "Gravity" ? Gravity = original : Acceleration = original;
+                    Dispatcher.Invoke(() => valueNum.Value = ToDouble(original));
                     break;
                 }
-
-                if (!toggled && mode == "Accel")
+                
+                if (Mw.Gvp.Process!.MainWindowHandle != GetForegroundWindow())
                 {
-                    Acceleration = original;
-                    Dispatcher.Invoke(delegate
-                    {
-                        AccelValueNum.Value = ToDouble(original);
-                    });
-                    break;
+                    Task.Delay(25).Wait();
+                    continue;
                 }
-
+                
+                if (lastPlayerEnt != BaseDetour.ReadVariable<UIntPtr>())
+                {
+                    if (Acceleration is < 0.2f and > 0f)
+                    {
+                        original = mode == "Gravity" ? Gravity : Acceleration;
+                        lastPlayerEnt = BaseDetour.ReadVariable<UIntPtr>();
+                    }
+                    continue;
+                }
+                
                 float setValue = 0;
-                if (mode == "Gravity")
-                {
-                    Dispatcher.Invoke(delegate
-                    {
-                        setValue = ToSingle(GravityValueNum.Value);
-                    });
-                    Gravity = setValue;
-                }
-                else
-                {
-                    Dispatcher.Invoke(delegate
-                    {
-                        setValue = ToSingle(AccelValueNum.Value);
-                    });
-                    Acceleration = setValue;
-                }
+                Dispatcher.Invoke(() => setValue = ToSingle(valueNum.Value));
+                _ = mode == "Gravity" ? Gravity = setValue : Acceleration = setValue;
             }
         });
     }
-
+    
     private void TurnAssistSwitch_Toggled(object sender, RoutedEventArgs e)
     {
         if (!TurnAssistSwitch.IsOn)
@@ -278,9 +248,9 @@ public partial class HandlingPage : Page
                 float ratio = 1f, strength = 1f;
                 Dispatcher.Invoke(() =>
                 {
-                    interval = (int)TurnAssistIntervalBox.Value;
-                    ratio = (float)TurnAssistRatioBox.Value;
-                    strength = (float)TurnAssistStrengthBox.Value;
+                    interval = ToInt32(TurnAssistIntervalBox.Value);
+                    ratio = ToSingle(TurnAssistRatioBox.Value);
+                    strength = ToSingle(TurnAssistStrengthBox.Value);
                 });
                     
                 if (GetAsyncKeyState(Keys.A) is 1 or Int16.MinValue)
@@ -341,16 +311,7 @@ public partial class HandlingPage : Page
 
     private void WaterDragSwitch_Toggled(object sender, RoutedEventArgs e)
     {
-        if (WaterDragSwitch.IsOn)
-        {
-            byte[] enable = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-            Mw.M.WriteArrayMemory(WaterAddr, enable);
-        }
-        else
-        {
-            byte[] disable = { 0xCD, 0xCC, 0x4C, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x67, 0x45, 0x00, 0xF0, 0x52, 0x46, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x3F, 0x00, 0x00, 0x00, 0x00, 0xCD, 0xCC, 0xCC, 0x3D, 0x00, 0x00, 0x00, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0xC4, 0x44, 0x00, 0x00, 0xFF, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x42, 0x00, 0x00, 0xC8, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x00, 0x00, 0x70, 0x41 };
-            Mw.M.WriteArrayMemory(WaterAddr, disable);
-        }
+        Mw.M.WriteMemory(WaterAddr, WaterDragSwitch.IsOn ? new Vector3(0f, 0f, 0f) : new Vector3(0f, 3700f, 13500f));
     }
 
     private void SuperBrakeSwitch_Toggled(object sender, RoutedEventArgs e)
@@ -411,7 +372,7 @@ public partial class HandlingPage : Page
                     break;
                 }
 
-                if (Mw.Gvp.Process.MainWindowHandle != GetForegroundWindow())
+                if (Mw.Gvp.Process!.MainWindowHandle != GetForegroundWindow())
                 {
                     Task.Delay(25).Wait();
                     continue;
@@ -430,16 +391,8 @@ public partial class HandlingPage : Page
         
     private void FlyHackSwitch_OnToggled(object? sender, RoutedEventArgs e)
     {
-        if (Mw.Gvp.Name == "Forza Horizon 4" && FlyHackSwitch.IsOn)
-        {
-            FlyHackSwitch.Toggled -= FlyHackSwitch_OnToggled;
-            FlyHackSwitch.IsOn = false;
-            FlyHackSwitch.Toggled += FlyHackSwitch_OnToggled;
-            return;
-        }
-
         GravitySetSwitch.IsEnabled = !GravitySetSwitch.IsEnabled;
-        FlyhackDetour.Toggle();
+        FlyHackDetour.Toggle();
         
         if (!FlyHackSwitch.IsOn)
         {
@@ -452,16 +405,16 @@ public partial class HandlingPage : Page
             GravitySetSwitch.IsOn = false;
         }
 
-        if (!FlyhackDetour.Setup(sender, (UIntPtr)RotationAddrLong, "483B0D190000000F8409000000F3440F108994000000", 9, true))
+        if (!FlyHackDetour.Setup(sender, RotationAddr, "48 39 0D 10 00 00 00 74 09 F3 44 0F 10 89 94 00 00 00", 9, true))
         {
             FlyHackSwitch.Toggled -= FlyHackSwitch_OnToggled;
             FlyHackSwitch.IsOn = false;
             FlyHackSwitch.Toggled += FlyHackSwitch_OnToggled;
-            FlyhackDetour.Clear();
+            FlyHackDetour.Clear();
             return;
         }
         _originalGrav = Gravity;
-        FlyhackDetour.UpdateVariable(BitConverter.GetBytes(PlayerCarEntity));
+        FlyHackDetour.UpdateVariable(BitConverter.GetBytes(PlayerCarEntity));
         Gravity = 0f;
             
         // Rotation
@@ -474,7 +427,6 @@ public partial class HandlingPage : Page
                 
             while (true)
             {
-
                 var toggled = true;
                 Dispatcher.Invoke(() => toggled = FlyHackSwitch.IsOn);
                     
@@ -489,111 +441,27 @@ public partial class HandlingPage : Page
                     continue;
                 }
 
-                if (GetAsyncKeyState(Keys.A) is 1 or short.MinValue && !aDown)
-                {
-                    aDown = true;
-                }
-
-                if (GetAsyncKeyState(Keys.A) is not 1 and not short.MinValue && aDown)
-                {
-                    aDown = false;
-                }
-
-                if (GetAsyncKeyState(Keys.D) is 1 or short.MinValue && !dDown)
-                {
-                    dDown = true;
-                }
-
-                if (GetAsyncKeyState(Keys.D) is not 1 and not short.MinValue && dDown)
-                {
-                    dDown = false;
-                }
+                UpdateRotationKeyStates(ref aDown, ref dDown);
 
                 if (!aDown && !dDown)
                 {
+                    Task.Delay(25).Wait();
                     continue;
                 }
 
                 var flyHackRotSpeed = 1f;
                 Dispatcher.Invoke(() => flyHackRotSpeed = ToSingle(FlyHackRotSpeedNum.Value / 2));
-                    
-                if (aDown)
-                {
-                    Rotation = Rotation.X switch
-                    {
-                        // Top right
-                        >= 0 when Rotation.Y >= 0 => Rotation with
-                        {
-                            X = Rotation.X + flyHackRotSpeed / 10,
-                            Y = Rotation.Y - flyHackRotSpeed / 10
-                        },
-                        // Bottom right
-                        >= 0 when Rotation.Y <= 0 => Rotation with
-                        {
-                            X = Rotation.X - flyHackRotSpeed / 10,
-                            Y = Rotation.Y - flyHackRotSpeed / 10
-                        },
-                        // Bottom Left
-                        <= 0 when Rotation.Y <= 0 => Rotation with
-                        {
-                            X = Rotation.X - flyHackRotSpeed / 10,
-                            Y = Rotation.Y + flyHackRotSpeed / 10
-                        },
-                        // Top Left
-                        <= 0 when Rotation.Y >= 0 => Rotation with
-                        {
-                            X = Rotation.X + flyHackRotSpeed / 10,
-                            Y = Rotation.Y + flyHackRotSpeed / 10
-                        },
-                        _ => Rotation
-                    };
-                }
-                    
-                else if (dDown)
-                {
-                    Rotation = Rotation.X switch
-                    {
-                        // Top right
-                        >= 0 when Rotation.Y >= 0 => Rotation with
-                        {
-                            X = Rotation.X - flyHackRotSpeed / 10,
-                            Y = Rotation.Y + flyHackRotSpeed / 10
-                        },
-                        // Bottom right
-                        >= 0 when Rotation.Y <= 0 => Rotation with
-                        {
-                            X = Rotation.X + flyHackRotSpeed / 10,
-                            Y = Rotation.Y + flyHackRotSpeed / 10
-                        },
-                        // Bottom Left
-                        <= 0 when Rotation.Y <= 0 => Rotation with
-                        {
-                            X = Rotation.X + flyHackRotSpeed / 10,
-                            Y = Rotation.Y - flyHackRotSpeed / 10
-                        },
-                        // Top Left
-                        <= 0 when Rotation.Y >= 0 => Rotation with
-                        {
-                            X = Rotation.X - flyHackRotSpeed / 10,
-                            Y = Rotation.Y - flyHackRotSpeed / 10
-                        },
-                        _ => Rotation
-                    };
-                }
+
+                HandleRotation(flyHackRotSpeed, aDown, dDown);
+                
                 Task.Delay(10).Wait();
             }
         });
-
-            
+        
         // Movement
         Task.Run(() =>
         {
             CultureInfo.CurrentCulture = new CultureInfo("en-GB");
-                
-            var wDown = false;
-            var sDown = false;
-            var shiftDown = false;
-            var controlDown = false;
                 
             while (true)
             {
@@ -607,55 +475,20 @@ public partial class HandlingPage : Page
 
                 Rotation = Rotation with { Z = 1f };
                 LinearVelocity = new Vector3 { X = 0f, Z = 0f, Y = 0f };
+                AngularVelocity = new Vector3 { X = 0f, Z = 0f, Y = 0f };
 
                 if (Mw.Gvp.Process.MainWindowHandle != GetForegroundWindow())
                 {
                     Task.Delay(25).Wait();
                     continue;
                 }
-                    
-                if (GetAsyncKeyState(Keys.W) is 1 or short.MinValue && !wDown)
-                {
-                    wDown = true;
-                }
-
-                if (GetAsyncKeyState(Keys.W) is not 1 and not short.MinValue && wDown)
-                {
-                    wDown = false;
-                }
-
-                if (GetAsyncKeyState(Keys.S) is 1 or short.MinValue && !sDown)
-                {
-                    sDown = true;
-                }
-
-                if (GetAsyncKeyState(Keys.S) is not 1 and not short.MinValue && sDown)
-                {
-                    sDown = false;
-                }
-
-                if (GetAsyncKeyState(Keys.LShiftKey) is 1 or short.MinValue && !shiftDown)
-                {
-                    shiftDown = true;
-                }
-
-                if (GetAsyncKeyState(Keys.LShiftKey) is not 1 and not short.MinValue && shiftDown)
-                {
-                    shiftDown = false;
-                }
-
-                if (GetAsyncKeyState(Keys.LControlKey) is 1 or short.MinValue && !controlDown)
-                {
-                    controlDown = true;
-                }
-
-                if (GetAsyncKeyState(Keys.LControlKey) is not 1 and not short.MinValue && controlDown)
-                {
-                    controlDown = false;
-                }
+                
+                bool wDown = false, sDown = false, shiftDown = false, controlDown = false;
+                UpdateMovementKeyStates(ref wDown, ref sDown, ref shiftDown, ref controlDown);
 
                 if (!wDown && !sDown && !shiftDown && !controlDown)
                 {
+                    Task.Delay(25).Wait();
                     continue;
                 }
 
@@ -664,111 +497,247 @@ public partial class HandlingPage : Page
                 {
                     angle += 360;
                 }
-
+                
                 float flyHackMoveSpeed = 1;
                 Dispatcher.Invoke(() => flyHackMoveSpeed = ToSingle(FlyHackMoveSpeedNum.Value / 2));
-                    
-                if (wDown)
-                {
-                    float xComp = 0f, zComp = 0f;
-                        
-                    switch (angle)
-                    {
-                        // Top Left
-                        case < 90:
-                        {
-                            xComp = -(float)Math.Sin(Math.PI * angle / 180);
-                            zComp = (float)Math.Cos(Math.PI * angle / 180);
-                            break;
-                        }
-                        // Bottom Left
-                        case > 90 and < 180:
-                        {
-                            xComp = -(float)Math.Sin(Math.PI * (180 - angle) / 180);
-                            zComp = -(float)Math.Cos(Math.PI * (180 - angle) / 180);
-                            break;
-                        }
-                        // Bottom Right
-                        case > 180 and < 270:
-                        {
-                            xComp = (float)Math.Cos(Math.PI * (270 - angle) / 180);
-                            zComp = -(float)Math.Sin(Math.PI * (270 - angle) / 180);
-                            break;
-                        }
-                        // Top Right
-                        case > 270:
-                        {
-                            xComp = (float)Math.Sin(Math.PI * (360 - angle) / 180);
-                            zComp = (float)Math.Cos(Math.PI * (360 - angle) / 180);
-                            break;
-                        }
-                    }
-                        
-                        
-                    Position = Position with
-                    {
-                        X = Position.X + flyHackMoveSpeed * 5 * xComp,
-                        Z = Position.Z + flyHackMoveSpeed * 5 * zComp
-                    };
-                }
-                else if (sDown)
-                {
-                    float xComp = 0f, zComp = 0f;
-                        
-                    switch (angle)
-                    {
-                        // Top Left
-                        case < 90:
-                        {
-                            xComp = (float)Math.Sin(Math.PI * angle / 180);
-                            zComp = -(float)Math.Cos(Math.PI * angle / 180);
-                            break;
-                        }
-                        // Bottom Left
-                        case > 90 and < 180:
-                        {
-                            xComp = (float)Math.Sin(Math.PI * (180 - angle) / 180);
-                            zComp = (float)Math.Cos(Math.PI * (180 - angle) / 180);
-                            break;
-                        }
-                        // Bottom Right
-                        case > 180 and < 270:
-                        {
-                            xComp = -(float)Math.Cos(Math.PI * (270 - angle) / 180);
-                            zComp = (float)Math.Sin(Math.PI * (270 - angle) / 180);
-                            break;
-                        }
-                        // Top Right
-                        case > 270:
-                        {
-                            xComp = -(float)Math.Sin(Math.PI * (360 - angle) / 180);
-                            zComp = -(float)Math.Cos(Math.PI * (360 - angle) / 180);
-                            break;
-                        }
-                    }
-
-                    Position = Position with
-                    {
-                        X = Position.X + flyHackMoveSpeed * 5 * xComp,
-                        Z = Position.Z + flyHackMoveSpeed * 5 * zComp
-                    };
-                }
-
-                if (shiftDown)
-                {
-                    Position = Position with { Y = Position.Y + flyHackMoveSpeed * 5 };
-                }
-                else if (controlDown)
-                {
-                    Position = Position with { Y = Position.Y - flyHackMoveSpeed * 5 };
-                }
+                
+                HandleMovement(angle,flyHackMoveSpeed,wDown,sDown,shiftDown,controlDown);
 
                 Task.Delay(10).Wait();
             }
         });
     }
 
-        
+    private void HandleRotation(float speed, bool aDown, bool dDown)
+    {
+        if (aDown)
+        {
+            Rotation = Rotation.X switch
+            {
+                // Top right
+                >= 0 when Rotation.Y >= 0 => Rotation with
+                {
+                    X = Rotation.X + speed / 10,
+                    Y = Rotation.Y - speed / 10
+                },
+                // Bottom right
+                >= 0 when Rotation.Y <= 0 => Rotation with
+                {
+                    X = Rotation.X - speed / 10,
+                    Y = Rotation.Y - speed / 10
+                },
+                // Bottom Left
+                <= 0 when Rotation.Y <= 0 => Rotation with
+                {
+                    X = Rotation.X - speed / 10,
+                    Y = Rotation.Y + speed / 10
+                },
+                // Top Left
+                <= 0 when Rotation.Y >= 0 => Rotation with
+                {
+                    X = Rotation.X + speed / 10,
+                    Y = Rotation.Y + speed / 10
+                },
+                _ => Rotation
+            };
+        }
+                    
+        else if (dDown)
+        {
+            Rotation = Rotation.X switch
+            {
+                // Top right
+                >= 0 when Rotation.Y >= 0 => Rotation with
+                {
+                    X = Rotation.X - speed / 10,
+                    Y = Rotation.Y + speed / 10
+                },
+                // Bottom right
+                >= 0 when Rotation.Y <= 0 => Rotation with
+                {
+                    X = Rotation.X + speed / 10,
+                    Y = Rotation.Y + speed / 10
+                },
+                // Bottom Left
+                <= 0 when Rotation.Y <= 0 => Rotation with
+                {
+                    X = Rotation.X + speed / 10,
+                    Y = Rotation.Y - speed / 10
+                },
+                // Top Left
+                <= 0 when Rotation.Y >= 0 => Rotation with
+                {
+                    X = Rotation.X - speed / 10,
+                    Y = Rotation.Y - speed / 10
+                },
+                _ => Rotation
+            };
+        }
+    }
+
+    private void HandleMovement(float angle, float speed, bool wDown, bool sDown, bool shiftDown, bool controlDown)
+    {
+        if (wDown)
+        {
+            float xComp = 0f, zComp = 0f;
+                        
+            switch (angle)
+            {
+                // Top Left
+                case < 90:
+                {
+                    xComp = -(float)Math.Sin(Math.PI * angle / 180);
+                    zComp = (float)Math.Cos(Math.PI * angle / 180);
+                    break;
+                }
+                // Bottom Left
+                case > 90 and < 180:
+                {
+                    xComp = -(float)Math.Sin(Math.PI * (180 - angle) / 180);
+                    zComp = -(float)Math.Cos(Math.PI * (180 - angle) / 180);
+                    break;
+                }
+                // Bottom Right
+                case > 180 and < 270:
+                {
+                    xComp = (float)Math.Cos(Math.PI * (270 - angle) / 180);
+                    zComp = -(float)Math.Sin(Math.PI * (270 - angle) / 180);
+                    break;
+                }
+                // Top Right
+                case > 270:
+                {
+                    xComp = (float)Math.Sin(Math.PI * (360 - angle) / 180);
+                    zComp = (float)Math.Cos(Math.PI * (360 - angle) / 180);
+                    break;
+                }
+            }
+                    
+            Position = Position with
+            {
+                X = Position.X + speed * 5 * xComp,
+                Z = Position.Z + speed * 5 * zComp
+            };
+        }
+        else if (sDown)
+        {
+            float xComp = 0f, zComp = 0f;
+                        
+            switch (angle)
+            {
+                // Top Left
+                case < 90:
+                {
+                    xComp = (float)Math.Sin(Math.PI * angle / 180);
+                    zComp = -(float)Math.Cos(Math.PI * angle / 180);
+                    break;
+                }
+                // Bottom Left
+                case > 90 and < 180:
+                {
+                    xComp = (float)Math.Sin(Math.PI * (180 - angle) / 180);
+                    zComp = (float)Math.Cos(Math.PI * (180 - angle) / 180);
+                    break;
+                }
+                // Bottom Right
+                case > 180 and < 270:
+                {
+                    xComp = -(float)Math.Cos(Math.PI * (270 - angle) / 180);
+                    zComp = (float)Math.Sin(Math.PI * (270 - angle) / 180);
+                    break;
+                }
+                // Top Right
+                case > 270:
+                {
+                    xComp = -(float)Math.Sin(Math.PI * (360 - angle) / 180);
+                    zComp = -(float)Math.Cos(Math.PI * (360 - angle) / 180);
+                    break;
+                }
+            }
+
+            Position = Position with
+            {
+                X = Position.X + speed * 5 * xComp,
+                Z = Position.Z + speed * 5 * zComp
+            };
+        }
+
+        if (shiftDown)
+        {
+            Position = Position with { Y = Position.Y + speed * 5 };
+        }
+        else if (controlDown)
+        {
+            Position = Position with { Y = Position.Y - speed * 5 };
+        }
+    }
+
+    private void UpdateMovementKeyStates(ref bool wDown, ref bool sDown, ref bool shiftDown, ref bool controlDown)
+    {
+        if (GetAsyncKeyState(Keys.W) is 1 or short.MinValue && !wDown)
+        {
+            wDown = true;
+        }
+
+        if (GetAsyncKeyState(Keys.W) is not 1 and not short.MinValue && wDown)
+        {
+            wDown = false;
+        }
+
+        if (GetAsyncKeyState(Keys.S) is 1 or short.MinValue && !sDown)
+        {
+            sDown = true;
+        }
+
+        if (GetAsyncKeyState(Keys.S) is not 1 and not short.MinValue && sDown)
+        {
+            sDown = false;
+        }
+
+        if (GetAsyncKeyState(Keys.LShiftKey) is 1 or short.MinValue && !shiftDown)
+        {
+            shiftDown = true;
+        }
+
+        if (GetAsyncKeyState(Keys.LShiftKey) is not 1 and not short.MinValue && shiftDown)
+        {
+            shiftDown = false;
+        }
+
+        if (GetAsyncKeyState(Keys.LControlKey) is 1 or short.MinValue && !controlDown)
+        {
+            controlDown = true;
+        }
+
+        if (GetAsyncKeyState(Keys.LControlKey) is not 1 and not short.MinValue && controlDown)
+        {
+            controlDown = false;
+        }
+    }
+    
+    private void UpdateRotationKeyStates(ref bool aDown, ref bool dDown)
+    {
+        if (GetAsyncKeyState(Keys.A) is 1 or short.MinValue && !aDown)
+        {
+            aDown = true;
+        }
+
+        if (GetAsyncKeyState(Keys.A) is not 1 and not short.MinValue && aDown)
+        {
+            aDown = false;
+        }
+
+        if (GetAsyncKeyState(Keys.D) is 1 or short.MinValue && !dDown)
+        {
+            dDown = true;
+        }
+
+        if (GetAsyncKeyState(Keys.D) is not 1 and not short.MinValue && dDown)
+        {
+            dDown = false;
+        }
+    }
+    
     private void CarNoclipSwitch_OnToggled(object sender, RoutedEventArgs e)
     {            
         if (!CarNoclipSwitch.IsOn)
@@ -851,7 +820,7 @@ public partial class HandlingPage : Page
                 }
 
                 var jmpVal = 1f;
-                Dispatcher.Invoke(() => jmpVal = ToSingle(JumpHackVelocityNum.Value) );
+                Dispatcher.Invoke(() => jmpVal = ToSingle(JumpHackVelocityNum.Value));
                 LinearVelocity = LinearVelocity with { Y = LinearVelocity.Y + jmpVal };
                 Task.Delay(50).Wait();
             }

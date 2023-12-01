@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      d:DesignHeight="400" 
+      d:DesignHeight="460" 
       d:DesignWidth="580"
       Title="OverlayKeybindings"
       Background="Transparent">
@@ -244,6 +244,41 @@
                        HorizontalAlignment="Left"/>
                 
                 <Button x:Name="CTVisibilityKey"
+                        HorizontalAlignment="Right"
+                        Margin="7.5 7.5"
+                        Width="85"
+                        IsEnabled="False"
+                        Click="CTButton_OnClick"
+                        Height="25"
+                        Background="#FF2E3440"
+                        BorderBrush="#FF2E3440"/>
+                
+            </Grid>    
+        </Border>
+        
+        <Border x:Name="OverlayRapidAdjust" BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,400,0,0" BorderBrush="#FF2E3440" >
+            <Grid>
+                
+                <Label Content="Keyboard Rapid Value Adjust"
+                       Margin="5 7.5 0 0"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"/>
+                
+                <Button x:Name="RapidAdjust"
+                        HorizontalAlignment="Left"
+                        Margin="170 7.5"
+                        Width="85"
+                        Click="KBButton_OnClick"
+                        Height="25"
+                        Background="#FF2E3440"
+                        BorderBrush="#FF2E3440"/>
+                
+                <Label Content="Controller Rapid Value Adjust"
+                       Margin="285 7.5 0 0"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"/>
+                
+                <Button x:Name="CTRapidAdjust"
                         HorizontalAlignment="Right"
                         Margin="7.5 7.5"
                         Width="85"

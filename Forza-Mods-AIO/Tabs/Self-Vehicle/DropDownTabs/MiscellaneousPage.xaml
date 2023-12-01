@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah='http://metro.mahapps.com/winfx/xaml/controls'
       mc:Ignorable="d"
-      d:DesignHeight="70" 
+      d:DesignHeight="290" 
       d:DesignWidth="580"
       Title="MiscellaneousPage"
       Background="Transparent">
@@ -54,5 +54,224 @@
                VerticalAlignment="Top"
                HorizontalAlignment="Left"
                Margin="360 20 0 0"/>
+        
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Width="560"
+                Height="46" 
+                Margin="0,66,0,0" 
+                BorderBrush="#FF2E3440" >
+            <Grid>
+                    
+                    <mah:NumericUpDown x:Name="ScaleNum"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="7.5"
+                                       Width="100"
+                                       TextAlignment="Left"
+                                       Minimum="1"
+                                       Value="10"
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       Background="#FF2E3440"
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="ScaleNum_OnValueChanged"/>
+                
+                    <mah:ToggleSwitch x:Name="ScaleSwitch"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Center"
+                                      Margin="115 0"
+                                      Content="Spin Prize Scale"
+                                      FontSize="11.5"
+                                      MinWidth="0"
+                                      Toggled="ScaleSwitch_OnToggled"/>
+                    
+                    
+                    <mah:NumericUpDown x:Name="SellFactorNum"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       Margin="180 0"
+                                       Width="100"
+                                       TextAlignment="Left"
+                                       Minimum="1"
+                                       Value="100"
+                                       ParsingNumberStyle="Integer"
+                                       NumericInputMode="Numbers"
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       Background="#FF2E3440"
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="SellFactorNum_OnValueChanged"/>
+                
+                    <mah:ToggleSwitch x:Name="SellFactorSwitch"
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Center"
+                                      Margin="7.5 0"
+                                      Content="Wheelspin Sell Factor"
+                                      FontSize="11.5"
+                                      Toggled="SellFactorSwitch_OnToggled"/>
+                    
+                    
+            </Grid>
+        </Border>
+        
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Width="560"
+                Height="46" 
+                Margin="0,230,0,0" 
+                BorderBrush="#FF2E3440" >
+            <Grid>
+                
+                <mah:NumericUpDown x:Name="ScoreNum" 
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Value="0"
+                                   Width="100"
+                                   Margin="7.5 0"
+                                   TextAlignment="Left"
+                                   Minimum="1"
+                                   Maximum="1000"
+                                   ParsingNumberStyle="Integer"
+                                   Background="#FF2E3440"
+                                   BorderBrush="#FF2E3440"
+                                   ValueChanged="ScoreNum_OnValueChanged"/>
+                
+                <Slider x:Name="ScoreSlider"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Width="260"
+                        Margin="-60 0 0 0"
+                        TickFrequency="1"
+                        IsSnapToTickEnabled="True"
+                        Minimum="1"
+                        Maximum="1000"
+                        ValueChanged="ScoreSlider_OnValueChanged"/>
+                
+                <mah:ToggleSwitch x:Name="ScoreToggle"
+                                  HorizontalAlignment="Right"
+                                  VerticalAlignment="Center"
+                                  MinWidth="0"
+                                  Content="Skill Score Multiplier"
+                                  FontSize="11.5"
+                                  Margin="7.5 0"
+                                  Toggled="ScoreToggle_OnToggled"/>
+                    
+            </Grid>
+        </Border>
+        
+        <Border BorderThickness="2,2,2,2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Width="560"
+                Height="46"
+                Margin="0,176,0,0"
+                BorderBrush="#FF2E3440">
+                
+            <Grid>
+                    
+                    <ComboBox x:Name="CleanlinessComboBox"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Left"
+                              SelectedIndex="0"
+                              Width="60"
+                              Margin="7.5 0"
+                              BorderBrush="#FF2E3440" 
+                              Background="#FF2E3440" 
+                              SelectionChanged="CleanlinessComboBox_OnSelectionChanged">
+                        <ComboBoxItem Content="Dirt"/>
+                        <ComboBoxItem Content="Mud"/>
+                    </ComboBox>
+                    
+                    <mah:NumericUpDown x:Name="CleanlinessNum" 
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       TextAlignment="Left"
+                                       Width="125"
+                                       Margin="75 0"
+                                       Value="0"
+                                       Maximum="1"
+                                       Minimum="0"
+                                       BorderBrush="#FF2E3440" 
+                                       Background="#FF2E3440" 
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       ValueChanged="CleanlinessNum_OnValueChanged"/>
+                        
+                    <Slider x:Name="CleanlinessSlider" 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="215"
+                            Margin="85 0 0 0"
+                            Maximum="1"
+                            Minimum="0"
+                            ValueChanged="CleanlinessSlider_OnValueChanged"/>
+                        
+                    <mah:ToggleSwitch x:Name="CleanlinessSwitch"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Right"
+                                      Content="Dirt Level"
+                                      FontSize="11.5"
+                                      MinWidth="0"
+                                      Margin="10 0"
+                                      Toggled="CleanlinessSwitch_OnToggled"/>
+            </Grid>
+                
+        </Border>
+        
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Width="560" 
+                Height="46"
+                Margin="0,120,0,0" 
+                BorderBrush="#FF2E3440">
+        
+            <Grid>
+                
+                <mah:ToggleSwitch x:Name="SkillTreeEditToggle" 
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Left"
+                                  Margin="115 0"
+                                  MinWidth="0"
+                                  FontSize="11.5"
+                                  Content="Skill Tree Wide-Editing"
+                                  Toggled="SkillTreeEditToggle_OnToggled"/>
+                
+                <mah:NumericUpDown x:Name="SkillTreeNum" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   BorderBrush="#FF2E3440"
+                                   Background="#FF2E3440"
+                                   Margin="6.5 0"
+                                   Width="100"
+                                   ParsingNumberStyle="Integer"
+                                   TextAlignment="Left"
+                                   Value="10000"
+                                   ValueChanged="SkillTreeNum_OnValueChanged"/>
+                
+                <mah:ToggleSwitch x:Name="SkillCostToggle"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Right"
+                                  Content="Skill Tree Perks Cost"
+                                  FontSize="11.5"
+                                  Margin="6.5 0"
+                                  MinWidth="0"
+                                  Toggled="SkillCostToggle_OnToggled"/>
+                
+                <mah:NumericUpDown x:Name="SkillCostNum" 
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   BorderBrush="#FF2E3440"
+                                   Background="#FF2E3440"
+                                   Margin="167.5 0"
+                                   Width="95"
+                                   ParsingNumberStyle="Integer"
+                                   TextAlignment="Left"
+                                   Value="0"
+                                   ValueChanged="SkillCostNum_OnValueChanged"/>
+                
+            </Grid>
+            
+        </Border>
     </Grid>
 </Page>

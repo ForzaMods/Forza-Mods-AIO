@@ -17,7 +17,9 @@
                 <RowDefinition Height="35" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <mah:MetroProgressBar x:Name="AOBProgressBar" HorizontalAlignment="Left" Height="10" Margin="15,12.5,0,0" VerticalAlignment="Top" Width="100" Background="#FF2E3440"/>
+            
+            
+            <mah:MetroProgressBar x:Name="AobProgressBar" HorizontalAlignment="Left" Height="10" Margin="15,12.5,0,0" VerticalAlignment="Top" Width="100" Background="#FF2E3440"/>
             <Frame x:Name="HandlingPage" Content="Frame" Width="580" Source="DropDownTabs/HandlingPage.xaml" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="UnlocksPage" Content="Frame" Width="580" Source="DropDownTabs/UnlocksPage.xaml" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="PhotomodePage" Content="Frame" Width="580" Source="DropDownTabs/PhotomodePage.xaml" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
@@ -27,8 +29,7 @@
             <Frame x:Name="CustomizationPage" Content="Frame" Width="580" Source="DropDownTabs/CustomizationPage.xaml" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="MiscellaneousPage" Content="Frame" Width="580" Source="DropDownTabs/MiscellaneousPage.xaml" HorizontalAlignment="Center" Margin="0,255,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="FovPage" Content="Frame" Width="580" Source="DropDownTabs/FovPage.xaml" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-
-
+            
             <Button x:Name="HandlingButton" Content="Handling" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
             <Button x:Name="UnlocksButton" Content="Unlocks" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
             <Button x:Name="PhotomodeButton" Content="Photo-mode" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>

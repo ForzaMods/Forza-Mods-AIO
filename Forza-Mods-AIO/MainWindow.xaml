@@ -1,25 +1,25 @@
 ﻿<!-- RESIZE {Binding ActualHeight, ElementName=grid, Converter={StaticResource math}, ConverterParameter=(x-50)/7} -->
 
 <mah:MetroWindow x:Class="Forza_Mods_AIO.MainWindow"
-        x:Name="Window"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-        mc:Ignorable="d"
-        Height="450" Width="800"
-        MinHeight="450" MinWidth="800"
-        WindowStyle="None"
-        ResizeMode="NoResize"
-        Background="Transparent"
-        AllowsTransparency="True"
-        MouseDown="Window_MouseDown"
-        Closing="Window_Closing"
-        KeyDown="Window_OnKeyDown"
-        ShowTitleBar="False" ShowCloseButton="False" BorderThickness="0"
-        WindowTransitionsEnabled="False" Title="Forza Mods AIO"
-        WindowStartupLocation="CenterOwner">
+                 x:Name="Window"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 mc:Ignorable="d"
+                 Height="450" Width="800"
+                 MinHeight="450" MinWidth="800"
+                 WindowStyle="None"
+                 ResizeMode="NoResize"
+                 Background="Transparent"
+                 AllowsTransparency="True"
+                 MouseDown="Window_MouseDown"
+                 Closing="Window_Closing"
+                 KeyDown="Window_OnKeyDown"
+                 ShowTitleBar="False" ShowCloseButton="False" BorderThickness="0"
+                 WindowTransitionsEnabled="False" Title="Forza Mods AIO"
+                 WindowStartupLocation="CenterOwner">
     
     <Border x:Name="Background" Background="#111111"
             CornerRadius="20">
@@ -78,16 +78,16 @@
                              FontSize="14" 
                              Style="{StaticResource MenuButtonTheme}" Click="CategoryButton_Click" FontFamily="Manrope" Focusable="False"/>
             </StackPanel>
-            <Border x:Name="FrameBorder" Grid.Row="3" Grid.Column="1" CornerRadius="0,0,20,0" Background="#111111"/>
-            <Grid Grid.Row="3" Grid.Column="1">
+            <Border x:Name="FrameBorder" Grid.Row="2" Grid.Column="1" CornerRadius="0,0,20,0" Background="#111111"/>
+            <Grid Grid.Row="2" Grid.Column="1">
                 <Grid.OpacityMask>
                     <VisualBrush Visual="{Binding ElementName=FrameBorder}" />
                 </Grid.OpacityMask>
-                <Frame x:Name="AIO_InfoFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AIO-Info/AIO-Info.xaml" Visibility="Visible" Focusable="False" IsTabStop="False"/>
-                <Frame x:Name="AutoShowFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/AutoShowTab/AutoShow.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
-                <Frame x:Name="Self_VehicleFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Self-Vehicle/Self-Vehicle.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
-                <Frame x:Name="TuningFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Tuning/Tuning.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
-                <Frame x:Name="KeybindingsFrame" Grid.Column="1" Grid.Row="2" Content="Frame" Source="/Tabs/Keybindings/Keybindings.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
+                <Frame x:Name="AIO_InfoFrame" Content="Frame" Source="/Tabs/AIO-Info/AIO-Info.xaml" Visibility="Visible" Focusable="False" IsTabStop="False"/>
+                <Frame x:Name="AutoShowFrame" Content="Frame" Source="/Tabs/AutoShowTab/AutoShow.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
+                <Frame x:Name="Self_VehicleFrame" Content="Frame" Source="/Tabs/Self-Vehicle/Self-Vehicle.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
+                <Frame x:Name="TuningFrame" Content="Frame" Source="/Tabs/Tuning/Tuning.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
+                <Frame x:Name="KeybindingsFrame" Content="Frame" Source="/Tabs/Keybindings/Keybindings.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
             </Grid>
             <Label x:Name="AttachedLabel" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" FontFamily="Manrope" Foreground="White" FontSize="10" Height="20" Grid.Column="1"/>
             <Path x:Name="ExitIcon"

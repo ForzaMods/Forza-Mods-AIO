@@ -29,7 +29,71 @@
                 Width="556" 
                 Height="46"
                 Margin="0,66,0,0" 
-                BorderBrush="#FF2E3440" />
+                BorderBrush="#FF2E3440">
+        
+            <Grid>
+                
+                <Label Content="Unlock all:"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="5 0 0 0"/>
+                
+                <mah:ToggleSwitch x:Name="HornUnlockerSwitch"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Left"
+                                  Content=""
+                                  MinWidth="1"
+                                  Margin="75 0 0 0"
+                                  Toggled="HornUnlockerSwitch_OnToggled"/>
+                
+                <Label Content="Horns"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="125 0 0 0"/>
+                
+                <mah:ToggleSwitch x:Name="EmoteUnlockerSwitch"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"
+                                  Content=""
+                                  MinWidth="1"
+                                  Margin="-140 0 0 0"
+                                  Toggled="EmoteUnlockerSwitch_OnToggled"/>
+        
+                <Label Content="Emotes"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="0 0 45 0"/>
+                
+                <mah:ToggleSwitch x:Name="QuickChatsUnlockerSwitch"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Right"
+                                  Content=""
+                                  MinWidth="1"
+                                  Margin="0 0 205 0"
+                                  Toggled="QuickChatsUnlockerSwitch_OnToggled"/>
+        
+                <Label Content="Quick Chats"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Margin="0 0 140 0"/>
+                
+                
+                <mah:ToggleSwitch x:Name="CosmeticUnlockerSwitch"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Right"
+                                  Content=""
+                                  MinWidth="1"
+                                  Margin="0 0 70 0"
+                                  Toggled="CosmeticUnlockerSwitch_OnToggled"/>
+        
+                <Label Content="Cosmetics"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Margin="0 0 10 0"/>
+                
+            </Grid>
+            
+        </Border> 
         
         <Border BorderThickness="2,2,2,2" 
                 HorizontalAlignment="Center" 
@@ -88,6 +152,7 @@
             </Grid>
         </Border>
         
+        
         <mah:ToggleSwitch x:Name="DiscoverRoadsSwitch"
                           VerticalAlignment="Top"
                           HorizontalAlignment="Left"
@@ -115,68 +180,6 @@
                HorizontalAlignment="Right"
                VerticalAlignment="Top"
                Margin="0 185 75 0"/>
-        
-        <Label Content="Unlock all:"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               Margin="20 75 0 0"/>
-        
-        <mah:ToggleSwitch x:Name="HornUnlockerSwitch"
-                          VerticalAlignment="Top"
-                          HorizontalAlignment="Left"
-                          Content=""
-                          IsEnabled="False"
-                          MinWidth="1"
-                          Margin="90,73 0 0"
-                          Toggled="HornUnlockerSwitch_OnToggled"/>
-        
-        <Label Content="Horns"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               Margin="140 75 0 0"/>
-        
-        <mah:ToggleSwitch x:Name="EmoteUnlockerSwitch"
-                          VerticalAlignment="Top"
-                          HorizontalAlignment="Center"
-                          Content=""
-                          IsEnabled="False"
-                          MinWidth="1"
-                          Margin="-130 73 0 0"
-                          Toggled="EmoteUnlockerSwitch_OnToggled"/>
-        
-        <Label Content="Emotes"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Top"
-               Margin="0 75 35 0"/>
-        
-        <mah:ToggleSwitch x:Name="QuickChatsUnlockerSwitch"
-                          VerticalAlignment="Top"
-                          HorizontalAlignment="Right"
-                          Content=""
-                          IsEnabled="False"
-                          MinWidth="1"
-                          Margin="0 73 215 0"
-                          Toggled="QuickChatsUnlockerSwitch_OnToggled"/>
-        
-        <Label Content="Quick Chats"
-               HorizontalAlignment="Right"
-               VerticalAlignment="Top"
-               Margin="0 75 150 0"/>
-        
-        <mah:ToggleSwitch x:Name="CosmeticUnlockerSwitch"
-                          VerticalAlignment="Top"
-                          HorizontalAlignment="Right"
-                          Content=""
-                          IsEnabled="False"
-                          MinWidth="1"
-                          Margin="0 73 80 0"
-                          Toggled="CosmeticUnlockerSwitch_OnToggled"/>
-        
-        <Label Content="Cosmetics"
-               HorizontalAlignment="Right"
-               VerticalAlignment="Top"
-               Margin="0 75 20 0"/>
-        
         
         <Label Content="XP On Unpause"
                HorizontalAlignment="Left"

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using System.Threading.Tasks;
 using Forza_Mods_AIO.Resources;
 using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
@@ -19,6 +20,7 @@ public abstract class CarEntity
         {
             var baseDetourBytes = Mw.Gvp.Name == "Forza Horizon 5" ? BaseDetourBytesFh5 : BaseDetourBytesFh4;
             BaseDetour.Setup(null, BaseAddrHook, baseDetourBytes, 8, true);
+            Task.Delay(25).Wait();
         }
 
         PlayerCarEntity = BaseDetour.ReadVariable<UIntPtr>();

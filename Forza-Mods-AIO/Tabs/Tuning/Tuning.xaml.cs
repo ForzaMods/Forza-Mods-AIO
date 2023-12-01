@@ -7,21 +7,20 @@ namespace Forza_Mods_AIO.Tabs.Tuning;
 public partial class Tuning
 {
     public static Tuning? T;
+    public readonly UiManager UiManager;
 
     public Tuning()
     {
         InitializeComponent();
         T = this;
-        UpdateUi.UpdateUI(false, this);
+        UiManager = new UiManager(this, AOBProgressBar, Sizes, IsClicked);
+        UiManager.ToggleUiElements(false);
     }
 
     #region Interaction
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        if (!UpdateUi.AnimCompleted) return;
-        var senderName = sender.GetType().GetProperty("Name")?.GetValue(sender)?.ToString();
-        UpdateUi.Animate(sender, IsClicked[senderName], Sizes, IsClicked, this);
-        IsClicked[senderName] = !IsClicked[senderName];
+        UiManager.ToggleDropDown(sender);
     }
         
     private static readonly Dictionary<string, double> Sizes = new()

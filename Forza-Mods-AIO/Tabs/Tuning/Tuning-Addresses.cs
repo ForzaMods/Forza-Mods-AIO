@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
 using static System.Windows.Application;
 using static Forza_Mods_AIO.MainWindow;
-using static Forza_Mods_AIO.Resources.UpdateUi;
+using static Forza_Mods_AIO.Overlay.Overlay;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Aero;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Damping;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Gearing;
@@ -132,8 +132,6 @@ internal class TuningAddresses
     public static UIntPtr TuningTableHook3;
     public static UIntPtr TuningTableHook4;
         
-    private const int ScanAmount = 6;
-
     private const string Hook1SigFh4 = "0F 29 ? ? 33 F6 49 81 C7";
     private const string Hook1SigFh5 = "F3 0F ? ? ? ? ? ? F3 0F ? ? F3 0F ? ? F3 0F ? ? 0F 57 ? F3 0F ? ? ? ? ? ? F3 0F ? ? C3";
     private const string Hook2SigFh4 = "49 8B ? 48 8D ? ? 49 8B ? FF 90 ? ? ? ? 44 0F ? ? 41 8B";
@@ -152,9 +150,10 @@ internal class TuningAddresses
         ToeNegStatic = CamberNegStatic + 0x8;
         ToePosStatic = CamberNegStatic + 0xC;
 
-        var scanIndex = 0;
+        Tuning.T!.UiManager.Index = 0;
+        Tuning.T.UiManager.ScanAmount = 6;
             
-        AddProgress(ScanAmount, ref scanIndex, Tuning.T!.AOBProgressBar);
+        Tuning.T.UiManager.AddProgress();
 
         if (Mw.Gvp.Name == "Forza Horizon 4")
         {
@@ -165,7 +164,7 @@ internal class TuningAddresses
             TuningTableHook1 = Mw.M.ScanForSig(Hook1SigFh5).FirstOrDefault();
         }
         
-        AddProgress(ScanAmount, ref scanIndex, Tuning.T.AOBProgressBar);
+        Tuning.T.UiManager.AddProgress();
 
         if (Mw.Gvp.Name == "Forza Horizon 4")
         {
@@ -176,7 +175,7 @@ internal class TuningAddresses
             TuningTableHook2 = Mw.M.ScanForSig(Hook2SigFh5).FirstOrDefault() + 1130;
         }
         
-        AddProgress(ScanAmount, ref scanIndex, Tuning.T.AOBProgressBar);
+        Tuning.T.UiManager.AddProgress();
 
         if (Mw.Gvp.Name == "Forza Horizon 4")
         {
@@ -187,7 +186,7 @@ internal class TuningAddresses
             TuningTableHook3 = Mw.M.ScanForSig(Hook3SigFh5).FirstOrDefault();
         }
         
-        AddProgress(ScanAmount, ref scanIndex, Tuning.T.AOBProgressBar);
+        Tuning.T.UiManager.AddProgress();
                 
         if (Mw.Gvp.Name == "Forza Horizon 4")
         {
@@ -198,13 +197,13 @@ internal class TuningAddresses
             TuningTableHook4 = Mw.M.ScanForSig(Hook4SigFh5).FirstOrDefault();
         }
         
-        AddProgress(ScanAmount, ref scanIndex, Tuning.T.AOBProgressBar);
+        Tuning.T.UiManager.AddProgress();
 
         TuningAsm.GetTuningBaseAddresses();
         Task.Run(() => ReadValues());
-        Overlay.Overlay.TuningOption.IsEnabled = true;
-        AddProgress(ScanAmount, ref scanIndex, Tuning.T.AOBProgressBar);
-        UpdateUI(true, Tuning.T);
+        TuningOption.IsEnabled = true;
+        Tuning.T.UiManager.AddProgress();
+        Tuning.T.UiManager.ToggleUiElements(true);
     }
 
     private const int AeroOffset = 0x3A0;
@@ -226,8 +225,8 @@ internal class TuningAddresses
         FourthGear = Base1 + (UIntPtr)(Mw.Gvp.Name == "Forza Horizon 4" ? 0xB1C : GearOffset + 60);
         FifthGear = Base1 + (UIntPtr)(Mw.Gvp.Name == "Forza Horizon 4" ? 0xB30 : GearOffset + 80);
         SixthGear = Base1 + (UIntPtr)(Mw.Gvp.Name == "Forza Horizon 4" ? 0xB44 : GearOffset + 100);
-        SeventhGear = Base1 + (UIntPtr)(Mw.Gvp.Name == "Forza Horizon 4" ? 0xB58 : GearOffset + 120);
         EighthGear = Base1 + (UIntPtr)(Mw.Gvp.Name == "Forza Horizon 4" ? 0xB6C : GearOffset + 140);
+        SeventhGear = Base1 + (UIntPtr)(Mw.Gvp.Name == "Forza Horizon 4" ? 0xB58 : GearOffset + 120);
         NinthGear = Base1 + (UIntPtr)(Mw.Gvp.Name == "Forza Horizon 4" ? 0xB80 : GearOffset + 160);
         TenthGear = Base1 + (UIntPtr)(Mw.Gvp.Name == "Forza Horizon 4" ? 0xB94 : GearOffset + 180);
             
@@ -305,7 +304,7 @@ internal class TuningAddresses
         {
             Task.Delay(500).Wait();
                 
-            Current.Dispatcher.Invoke(() =>
+            Current.Dispatcher.BeginInvoke(() =>
             {
                 #region Aero
 
@@ -388,10 +387,10 @@ internal class TuningAddresses
                 #endregion
                 #region Tires
                     
-                Tires.T.TireFrontLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireFrontLeft) / TireFrontLeftDivider, 5);
-                Tires.T.TireFrontRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireFrontRight) / TireFrontRightDivider, 5);
-                Tires.T.TireRearLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearLeft) / TireRearLeftDivider, 5);
-                Tires.T.TireRearRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearRight) / TireRearRightDivider, 5);
+                T.TireFrontLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireFrontLeft) / TireFrontLeftDivider, 5);
+                T.TireFrontRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireFrontRight) / TireFrontRightDivider, 5);
+                T.TireRearLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearLeft) / TireRearLeftDivider, 5);
+                T.TireRearRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearRight) / TireRearRightDivider, 5);
                     
                 #endregion
             });

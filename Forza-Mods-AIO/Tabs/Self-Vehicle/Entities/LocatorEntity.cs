@@ -11,9 +11,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 public abstract class LocatorEntity
 {
     private static UIntPtr _waypointEntity;
+    public static readonly Detour WaypointDetour = new();
     //private static UIntPtr CheckpointEntity;
-    
-    private static readonly Detour WaypointDetour = new();
     
 
     public static void SetupWaypointDetour(object? sender)

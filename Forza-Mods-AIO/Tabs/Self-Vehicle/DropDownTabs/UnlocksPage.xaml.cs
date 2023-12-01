@@ -1,6 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Forza_Mods_AIO.Resources;
+using MahApps.Metro.Controls;
+using static System.Convert;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
 using static Forza_Mods_AIO.MainWindow;
 
@@ -17,7 +18,7 @@ public partial class UnlocksPage
     private const string XpDetourFh4 = "41 54 F3 0F 2C C6 4C 8B 25 1E 00 00 00 4C 89 65 B8 41 5C";
     private const string XpDetourFh5 = "41 54 F3 0F 2C C6 4C 8B 25 1E 00 00 00 4C 89 65 B0 41 5C";
     private const string Seasonal = "53 48 8B 1D 0F 00 00 00 48 89 58 28 5B F3 0F 10 40 28";
-    private const string Series = "53 4C 39 C0 74 04 48 8B 1D 11 00 00 00 48 89 58 14 5B 8B 40 14 C3 31 C0 C3";
+    private const string Series = "F3 0F 10 35 0A 00 00 00 F3 0F 11 71 28";
     
     public UnlocksPage()
     {
@@ -29,9 +30,7 @@ public partial class UnlocksPage
     {
         if (!CrDetour.Setup(sender, CreditsHookAddr, CrDetourBytes, 7, true, 34))
         {
-            CreditsSwitch.Toggled -= CreditsSwitch_OnToggled;
-            CreditsSwitch.IsOn = false;
-            CreditsSwitch.Toggled += CreditsSwitch_OnToggled;
+            FailedHandler(CreditsSwitch, CreditsSwitch_OnToggled);
             CrDetour.Clear();
             MessageBox.Show("Failed");
             return;
@@ -44,7 +43,7 @@ public partial class UnlocksPage
     {
         try
         {
-            CrDetour.UpdateVariable(Convert.ToInt32(CreditsNum.Value));
+            CrDetour.UpdateVariable(ToInt32(CreditsNum.Value));
         }
         catch { /* ignored */ }
     }
@@ -54,9 +53,7 @@ public partial class UnlocksPage
         var xpDetourBytes = Mw.Gvp.Name!.Contains('5') ? XpDetourFh4 : XpDetourFh5;
         if (!XpDetour.Setup(sender, XpAddr, xpDetourBytes, 7, true, 19))
         {
-            XpSwitch.Toggled -= XpSwitch_OnToggled;
-            XpSwitch.IsOn = false;
-            XpSwitch.Toggled += XpSwitch_OnToggled;
+            FailedHandler(XpSwitch, XpSwitch_OnToggled);
             XpDetour.Clear();
             MessageBox.Show("Failed.");
             return;
@@ -81,7 +78,7 @@ public partial class UnlocksPage
     {
         try
         {
-            XpDetour.UpdateVariable(Convert.ToInt32(XpNum.Value));
+            XpDetour.UpdateVariable(ToInt32(XpNum.Value));
         }
         catch { /* ignored */ }
     }
@@ -118,11 +115,16 @@ public partial class UnlocksPage
 
     private void SeasonalToggle_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (SeasonalToggle.IsOn && Mw.Gvp.Name == "Forza Horizon 4")
+        {
+            FailedHandler(SeasonalToggle, SeriesToggle_OnToggled);
+            MessageBox.Show("This feature was never ported to fh4");
+            return;
+        }
+        
         if (!SeasonalDetour.Setup(sender, SeasonalAddr, Seasonal, 5, true))
         {
-            SeasonalToggle.Toggled -= SeasonalToggle_OnToggled;
-            SeasonalToggle.IsOn = false;
-            SeasonalToggle.Toggled += SeasonalToggle_OnToggled;
+            FailedHandler(SeasonalToggle, SeriesToggle_OnToggled);
             SeasonalDetour.Clear();
             MessageBox.Show("Failed");
             return;
@@ -139,19 +141,15 @@ public partial class UnlocksPage
     private void SeriesToggle_OnToggled(object sender, RoutedEventArgs e)
     {
         if (SeriesToggle.IsOn && Mw.Gvp.Name == "Forza Horizon 4")
-        {
-            SeriesToggle.Toggled -= SeriesToggle_OnToggled;
-            SeriesToggle.IsOn = false;
-            SeriesToggle.Toggled += SeriesToggle_OnToggled;
+        {            
+            FailedHandler(SeriesToggle, SeriesToggle_OnToggled);
             MessageBox.Show("This feature was never ported to fh4");
             return;
         }
         
         if (!SeriesDetour.Setup(sender, SeriesAddr, Series, 5, true))
         {
-            SeriesToggle.Toggled -= SeriesToggle_OnToggled;
-            SeriesToggle.IsOn = false;
-            SeriesToggle.Toggled += SeriesToggle_OnToggled;
+            FailedHandler(SeriesToggle, SeriesToggle_OnToggled);
             SeriesDetour.Clear();
             MessageBox.Show("Failed");
             return;
@@ -168,7 +166,7 @@ public partial class UnlocksPage
     {
         try
         {
-            SeasonalDetour.UpdateVariable(Convert.ToSingle(SeasonalNum.Value));
+            SeasonalDetour.UpdateVariable(ToSingle(SeasonalNum.Value));
         }
         catch
         {
@@ -180,11 +178,18 @@ public partial class UnlocksPage
     {
         try
         {
-            SeriesDetour.UpdateVariable(Convert.ToInt32(SeriesNum.Value));
+            SeriesDetour.UpdateVariable(ToInt32(SeriesNum.Value));
         }
         catch
         {
             // ignored
         }
+    }
+
+    private void FailedHandler(ToggleSwitch @switch, RoutedEventHandler action)
+    {
+        @switch.Toggled -= action;
+        @switch.IsOn = false;
+        @switch.Toggled += action;
     }
 }

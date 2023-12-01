@@ -5,29 +5,30 @@ using Forza_Mods_AIO.Resources;
 namespace Forza_Mods_AIO.Tabs.Keybindings;
 
 /// <summary>
-///     Interaction logic for Settings.xaml
+///     Interaction logic for Keybindings.xaml
 /// </summary>
 public partial class Keybindings
 {
+    private readonly UiManager _uiManager;
+    
     public Keybindings()
     {
         InitializeComponent();
+        _uiManager = new UiManager(this, Sizes, IsClicked);
     }
     
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        if (!UpdateUi.AnimCompleted) return;
-        UpdateUi.Animate(sender, _isClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()], Sizes, _isClicked, this);
-        _isClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()] = !_isClicked[sender.GetType().GetProperty("Name").GetValue(sender).ToString()];
+        _uiManager.ToggleDropDown(sender);
     }
 
     private static readonly Dictionary<string, double> Sizes = new()
     {
-        { "OverlayButton", 400 }, // Button name for page, height of page
+        { "OverlayButton", 460 }, // Button name for page, height of page
         { "HandlingButton", 180 }
     };
 
-    private static Dictionary<string, bool> _isClicked = new()
+    private static readonly Dictionary<string, bool> IsClicked = new()
     {
         { "OverlayButton", false },
         { "HandlingButton", false }

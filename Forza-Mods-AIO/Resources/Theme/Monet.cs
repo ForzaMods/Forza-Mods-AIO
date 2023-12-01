@@ -6,14 +6,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using ColorThiefDotNet;
-using ControlzEx.Theming;
-using Forza_Mods_AIO.Tabs.AIO_Info;
 using MahApps.Metro.Controls;
 using Brush = System.Windows.Media.Brush;
-using ColorConverter = System.Windows.Media.ColorConverter;
 using MColor = System.Windows.Media.Color;
 using DColor = System.Drawing.Color;
 using static Forza_Mods_AIO.Resources.DllImports;
+using static Forza_Mods_AIO.Tabs.AIO_Info.AioInfo;
+using static System.Drawing.ColorTranslator;
+using static System.Windows.Media.ColorConverter;
+using static ControlzEx.Theming.ThemeManager;
+using static Forza_Mods_AIO.MainWindow;
 
 namespace Forza_Mods_AIO.Resources.Theme;
 
@@ -21,10 +23,10 @@ internal abstract class Monet
 {
     #region Variables
     
-    public static Brush? MainColour = new SolidColorBrush((MColor)ColorConverter.ConvertFromString("#4C566A"));
-    public static Brush? DarkishColour = new SolidColorBrush((MColor)ColorConverter.ConvertFromString("#434C5E"));
-    public static Brush? DarkColour = new SolidColorBrush((MColor)ColorConverter.ConvertFromString("#3B4252"));
-    public static Brush? DarkerColour = new SolidColorBrush((MColor)ColorConverter.ConvertFromString("#2E3440"));
+    public static Brush? MainColour = new SolidColorBrush((MColor)ConvertFromString("#4C566A"));
+    public static Brush? DarkishColour = new SolidColorBrush((MColor)ConvertFromString("#434C5E"));
+    public static Brush? DarkColour = new SolidColorBrush((MColor)ConvertFromString("#3B4252"));
+    public static Brush? DarkerColour = new SolidColorBrush((MColor)ConvertFromString("#2E3440"));
     private const uint PwClientOnly = 1, PwRenderFullContent = 2;
     
     #endregion
@@ -75,10 +77,9 @@ internal abstract class Monet
     private static void ColorToHsv(DColor color, out double hue, out double saturation, out double value)
     {
         int max = Math.Max(color.R, Math.Max(color.G, color.B));
-        int min = Math.Min(color.R, Math.Min(color.G, color.B));
 
         hue = color.GetHue();
-        saturation = max == 0 ? 0 : 1d - 1d * min / max;
+        saturation = color.GetSaturation();;
         value = max / 255d;
     }
     public static void ApplyMonet()
@@ -112,42 +113,46 @@ internal abstract class Monet
         var colour = colorThief.GetColor(desktopWallpaper).Color;
         desktopWallpaper.Dispose();
 
-        MainWindow.Mw.Dispatcher.Invoke(() =>
+        Mw.Dispatcher.Invoke(() =>
         {
-            ColorToHsv(ColorTranslator.FromHtml(colour.ToHexString()), out var h, out var s, out var v1);
-            v1 *= AioInfo.Ai.LightnessSlider.Value / AioInfo.Ai.LightnessSlider.Maximum;
+            ColorToHsv(FromHtml(colour.ToHexString()), out var h, out var s, out var v1);
+
+            var value = Ai.LightnessSlider.Value;
+            var maximum = Ai.LightnessSlider.Maximum;
+            
+            v1 *= value / maximum;
             if (v1 < 0)
             {
                 v1 = 0;
             }
 
-            var v2 = v1 * AioInfo.Ai.LightnessSlider.Value / 1.25 / AioInfo.Ai.LightnessSlider.Maximum;
+            var v2 = v1 * value / 1.25 / maximum;
             if (v2 < 0)
             {
                 v2 = 0;
             }
 
-            var v3 = v1 * AioInfo.Ai.LightnessSlider.Value / 1.5 / AioInfo.Ai.LightnessSlider.Maximum;
+            var v3 = v1 * value / 1.5 / maximum;
             if (v3 < 0)
             {
                 v3 = 0;
             }
 
-            var v4 = v1 * AioInfo.Ai.LightnessSlider.Value / 2 / AioInfo.Ai.LightnessSlider.Maximum;
+            var v4 = v1 * value / 2 / maximum;
             if (v4 < 0)
             {
                 v4 = 0;
             }
 
-            var colourHex1 = ColorTranslator.ToHtml(ColorFromHsv(h, s, v1));
-            var colourHex2 = ColorTranslator.ToHtml(ColorFromHsv(h, s, v2));
-            var colourHex3 = ColorTranslator.ToHtml(ColorFromHsv(h, s, v3));
-            var colourHex4 = ColorTranslator.ToHtml(ColorFromHsv(h, s, v4));
+            var colourHex1 = ToHtml(ColorFromHsv(h, s, v1));
+            var colourHex2 = ToHtml(ColorFromHsv(h, s, v2));
+            var colourHex3 = ToHtml(ColorFromHsv(h, s, v3));
+            var colourHex4 = ToHtml(ColorFromHsv(h, s, v4));
 
             var converter = new BrushConverter();
             MainColour = (Brush)converter.ConvertFromString(colourHex1)!;
 
-            if (MainWindow.Mw.Background.Background.ToString() == MainColour.ToString())
+            if (Mw.Background.Background.ToString() == MainColour.ToString())
             {
                 return;
             }
@@ -156,19 +161,19 @@ internal abstract class Monet
             DarkColour = (Brush)converter.ConvertFromString(colourHex3)!;
             DarkerColour = (Brush)converter.ConvertFromString(colourHex4)!;
 
-            MainWindow.Mw.Background.Background = MainColour;
-            MainWindow.Mw.FrameBorder.Background = MainColour;
-            MainWindow.Mw.SideBar.Background = DarkishColour;
-            MainWindow.Mw.TopBar1.Background = DarkColour;
-            MainWindow.Mw.TopBar2.Background = DarkColour;
+            Mw.Background.Background = MainColour;
+            Mw.FrameBorder.Background = MainColour;
+            Mw.SideBar.Background = DarkishColour;
+            Mw.TopBar1.Background = DarkColour;
+            Mw.TopBar2.Background = DarkColour;
 
             var randName = Guid.NewGuid().ToString();
-            ThemeManager.Current.ClearThemes();
-            ThemeManager.Current.AddTheme(new(randName, randName, "Dark", "Red", (MColor)ColorConverter.ConvertFromString(colourHex4), DarkerColour, true, false));
-            ThemeManager.Current.ChangeTheme(Application.Current, randName);
+            Current.ClearThemes();
+            Current.AddTheme(new(randName, randName, "Dark", "Red", (MColor)ConvertFromString(colourHex4), DarkerColour, true, false));
+            Current.ChangeTheme(Application.Current, randName);
 
-            MainWindow.Mw.CategoryButton_Click(new object(), new RoutedEventArgs());
-            foreach (var visual in MainWindow.Mw.Window.GetChildren())
+            Mw.CategoryButton_Click(new object(), new RoutedEventArgs());
+            foreach (var visual in Mw.Window.GetChildren())
             {
                 var element = (FrameworkElement)visual;
                 var elementType = element.GetType();
