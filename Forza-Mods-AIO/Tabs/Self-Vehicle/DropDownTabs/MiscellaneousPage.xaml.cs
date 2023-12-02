@@ -18,7 +18,8 @@ public partial class MiscellaneousPage
     public static MiscellaneousPage? MiscPage;
     public static readonly Detour Build1Detour = new(), Build2Detour = new(), ScaleDetour = new(), SellDetour = new();
     public static readonly Detour SkillTreeDetour = new(), CleanlinessDetour = new(), ScoreDetour = new();
-    public static readonly Detour SkillCostDetour = new(), UnbSkillDetour = new();
+    public static readonly Detour SkillCostDetour = new(), DriftDetour = new();
+    private static readonly Detour UnbSkillDetour = new();
     public bool WasSkillDetoured;
 
     private double _mudValue, _dirtValue;
@@ -40,6 +41,7 @@ public partial class MiscellaneousPage
     private const string CleanlinessFh5 = "53 80 3D 3E 00 00 00 01 75 0E 48 8B 1D 2C 00 00 00 48 89 98 04 8A 00 00 80 3D 26 00 00 00 01 75 0E 48 8B 1D 19 00 00 00 48 89 98 08 8A 00 00 5B F3 0F 10 88 80 8C 00 00";
     private const string ScoreFh4 = "8B 78 04 0F AF 3D 08 00 00 00 48 85 DB";
     private const string ScoreFh5 = "0F AF 3D 05 00 00 00";
+    private const string Drift = "80 3D 4B 00 00 00 01 75 20 53 48 8B 1D 39 00 00 00 48 89 9F D8 00 00 00 48 8B 1D 2F 00 00 00 48 89 9F DC 00 00 00 5B EB 14 C7 87 D8 00 00 00 00 00 34 42 C7 87 DC 00 00 00 00 00 5C 42 F3 0F 10 9F D8 00 00 00";
     
     public MiscellaneousPage()
     {
@@ -369,5 +371,49 @@ public partial class MiscellaneousPage
         }
         
         SkillCostDetour.UpdateVariable(ToInt32(e.NewValue));
+    }
+
+    private void DriftNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        switch (sender.GetType().GetProperty("Name").GetValue(sender))
+        {
+            case "DriftMinNum":
+            {
+                DriftDetour.UpdateVariable(ToSingle(45 * DriftMinNum.Value));
+                break;
+            }
+            case "DriftMaxNum":
+            {
+                DriftDetour.UpdateVariable(ToSingle(55 * DriftMaxNum.Value), 4);
+                break;
+            }
+            default:
+            {
+                throw new ArgumentOutOfRangeException(nameof(sender));
+            }
+        }
+    }
+
+    private void DriftToggle_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (Mw.Gvp.Name == "Forza Horizon 4" && DriftToggle.IsOn)
+        {
+            FailedHandler((ToggleSwitch)sender, DriftToggle_OnToggled);
+            MessageBox.Show("This feature was never ported to FH4");
+            return;
+        }
+
+        if (!DriftDetour.Setup(DriftToggle, DriftScoreAddr, Drift, 8, true))
+        {
+            FailedHandler((ToggleSwitch)sender, DriftToggle_OnToggled);
+            DriftDetour.Clear();
+            MessageBox.Show("Failed");
+            return;
+        }
+        
+        DriftDetour.UpdateVariable(ToSingle(45 * DriftMinNum.Value));
+        DriftDetour.UpdateVariable(ToSingle(55 * DriftMaxNum.Value), 4);
+        DriftDetour.UpdateVariable(DriftToggle.IsOn ? (byte)1 : (byte)0, 8);
+        
     }
 }

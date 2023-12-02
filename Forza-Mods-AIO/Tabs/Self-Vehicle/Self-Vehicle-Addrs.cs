@@ -16,6 +16,7 @@ internal class SelfVehicleAddresses
     
     #region Addresses
 
+    public static UIntPtr DriftScoreAddr;
     public static UIntPtr SkillScoreAddr;
     public static UIntPtr CleanlinessAddr;
     public static UIntPtr SkillTreeAddr, SkillCostAddr;
@@ -48,12 +49,13 @@ internal class SelfVehicleAddresses
 
     #region Signatures
 
+    private static string? _driftScoreSig;
     private static string? _unbreakableSkillComboSig;
     private static string? _baseAddrHookAob;
     private static string? _sunRgbAob;
     private static string? _car1Aob, _car2Aob, _wall1Aob, _wall2Aob;
     private static string? _timeAob;
-    private static string? _checkPointXAsmAob, _wayPointXAsmAob;
+    private static string? _wayPointXAsmAob;
     private static string? _xpAob, _creditsAsmAob;
     private static string? _oobAob;
     private static string? _superCarAob;
@@ -93,7 +95,6 @@ internal class SelfVehicleAddresses
         _wall1Aob = "F3 0F ? ? ? 0F 59 ? 0F C6 ED ? 0F C6 F6";
         _wall2Aob = "0F 28 ? 0F C6 C1 ? 0F 28 ? 0F C6 CB ? 41 0F ? ? F3 0F ? ? 41 0F ? ? 0F C6 C0 ? 0F C6 E4";
         _timeAob = "20 F2 0F 11 43 08 48 83";
-        _checkPointXAsmAob = "0F 28 ? ? ? ? ? 0F 29 ? ? 0F 29 ? ? C3 90 48 8B ? 55";
         _wayPointXAsmAob = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50 C1 83 E0 07 3C 07";
         _xpAob = "F3 0F ? ? 89 45 ? 48 8D ? ? ? ? ? 41 83 BD C0 00 00 00";
         _oobAob = "0F 11 ? ? ? ? ? 0F 5C ? 0F 59 ? 0F 28 ? 0F C6 CA ? F3 0F";
@@ -120,6 +121,7 @@ internal class SelfVehicleAddresses
 
     private static void SignaturesFive()
     {
+        _driftScoreSig = "48 8D ? ? ? ? ? E8 ? ? ? ? F3 0F ? ? ? ? 45 33";
         _unbreakableSkillComboSig = "F3 0F ? ? ? ? ? ? F6 C2";
         _creditsAsmAob = "5F 48 FF ? 48 8B ? ? E8";
         _baseAddrHookAob = "48 63 ? 48 69 D0 ? ? ? ? 48 8B ? ? ? ? ? ? 48 85 ? 74 ? 48 8B ? ? ? ? ? C3 C3 40";
@@ -132,7 +134,6 @@ internal class SelfVehicleAddresses
         _superCarAob = "0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 48 83 C2";
         _wayPointXAsmAob = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50";
         _oobAob = "48 83 EC ? 0F 10 ? 41 0F ? ? 0F 10"; // + 83 OR + 0x53
-        _checkPointXAsmAob = "33 C0 48 89 ? 48 89 ? ? 48 E9 ? ? ? ? 90 40 F3";
         _discoverRoadsAob = "00 96 ? ? ? ? 42 88";
         _waterAob = "3D ? ? ? ? 00 00 A0 ? ? ? ? ? ? ? ? 3F 00 00";
         _aixAob = "0F 11 41 50 0F 28 EB";
@@ -166,7 +167,7 @@ internal class SelfVehicleAddresses
         SignaturesFive();
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 31;
+        Sv.UiManager.ScanAmount = 32;
 
         XpAddr = Mw.M.ScanForSig(_xpAob).FirstOrDefault() - 14;
         XpAmountAddr = XpAddr - 133;
@@ -270,6 +271,9 @@ internal class SelfVehicleAddresses
         Sv.UiManager.AddProgress();
 
         SkillCostAddr = Mw.M.ScanForSig(_skillCostSig).FirstOrDefault() + 39;
+        Sv.UiManager.AddProgress();
+
+        DriftScoreAddr = Mw.M.ScanForSig(_driftScoreSig).FirstOrDefault() - 62;
         Sv.UiManager.AddProgress();
         
         SelfVehicleOption.IsEnabled = true;

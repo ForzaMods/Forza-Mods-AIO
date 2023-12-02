@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah='http://metro.mahapps.com/winfx/xaml/controls'
       mc:Ignorable="d"
-      d:DesignHeight="290" 
+      d:DesignHeight="345" 
       d:DesignWidth="580"
       Title="MiscellaneousPage"
       Background="Transparent">
@@ -156,6 +156,68 @@
                                   FontSize="11.5"
                                   Margin="7.5 0"
                                   Toggled="ScoreToggle_OnToggled"/>
+                    
+            </Grid>
+        </Border>
+        
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Width="560"
+                Height="46" 
+                Margin="0,286,0,0" 
+                BorderBrush="#FF2E3440" >
+            <Grid>
+                
+                <mah:NumericUpDown x:Name="DriftMinNum" 
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Value="5"
+                                   Width="100"
+                                   Margin="7.5 0"
+                                   TextAlignment="Left"
+                                   Minimum="1"
+                                   Maximum="10"
+                                   ParsingNumberStyle="Integer"
+                                   Background="#FF2E3440"
+                                   BorderBrush="#FF2E3440"
+                                   ValueChanged="DriftNum_OnValueChanged"/>
+                
+                <Label VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       FontSize="11.5"
+                       Content="Min Multi"
+                       Margin="115 0"/>
+                
+                <mah:NumericUpDown x:Name="DriftMaxNum" 
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Value="5"
+                                   Width="100"
+                                   Margin="197.5 0"
+                                   TextAlignment="Left"
+                                   Minimum="1"
+                                   Maximum="10"
+                                   ParsingNumberStyle="Integer"
+                                   Background="#FF2E3440"
+                                   BorderBrush="#FF2E3440"
+                                   ValueChanged="DriftNum_OnValueChanged"/>
+                
+                <Label VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="11.5"
+                       Content="Max Multi"
+                       Margin="115 0 0 0"/>
+                
+                
+                <mah:ToggleSwitch x:Name="DriftToggle"
+                                  HorizontalAlignment="Right"
+                                  VerticalAlignment="Center"
+                                  MinWidth="0"
+                                  Content="Drift Score Multiplier"
+                                  FontSize="11.5"
+                                  Margin="7.5 0"
+                                  Toggled="DriftToggle_OnToggled"/>
                     
             </Grid>
         </Border>

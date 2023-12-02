@@ -44,7 +44,7 @@ public partial class SelfVehicle
         { "TeleportsButton", 70 },
         { "EnvironmentButton", 235 },
         { "CustomizationButton", 70 },
-        { "MiscellaneousButton", 290 },
+        { "MiscellaneousButton", 345 },
         { "FovButton", 347.5 }
     };
 

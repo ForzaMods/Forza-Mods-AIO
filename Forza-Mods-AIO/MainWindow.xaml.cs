@@ -310,6 +310,7 @@ public partial class MainWindow
         MiscellaneousPage.ScoreDetour.Clear();
         HandlingPage.FlyHackDetour.Clear();
         MiscellaneousPage.SkillCostDetour.Clear();
+        MiscellaneousPage.DriftDetour.Clear();
         MiscellaneousPage.MiscPage!.WasSkillDetoured = false;
         EnvironmentPage.WasTimeDetoured = false;
         TeleportsPage.WaypointDetoured = false;
@@ -362,6 +363,7 @@ public partial class MainWindow
         MiscellaneousPage.CleanlinessDetour.Destroy();
         MiscellaneousPage.ScoreDetour.Destroy();
         MiscellaneousPage.SkillCostDetour.Destroy();
+        MiscellaneousPage.DriftDetour.Destroy();
 
         try
         {
