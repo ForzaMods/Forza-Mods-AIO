@@ -27,7 +27,7 @@ public class UiManager
         _elements = page.GetChildren(page).OfType<FrameworkElement>()
             .Where(element => element.GetType() == typeof(ToggleSwitch) ||
                               element.GetType() == typeof(ComboBox) ||
-                              element.GetType() == typeof(Button));
+                              element.GetType() == typeof(Button) && element.Name != "ScanButton");
     }
     
     public UiManager(Page? page,
@@ -40,9 +40,9 @@ public class UiManager
         _sizes = sizes;
         _isClicked = isClicked;
         _elements = page.GetChildren(page).OfType<FrameworkElement>()
-            .Where(element => element.GetType() == typeof(ToggleSwitch) ||
+            .Where(element => (element.GetType() == typeof(ToggleSwitch) ||
                               element.GetType() == typeof(ComboBox) ||
-                              element.GetType() == typeof(Button));
+                              element.GetType() == typeof(Button)) && element.Name != "ScanButton");
     }
     
     public UiManager(Page? page,
@@ -96,16 +96,17 @@ public class UiManager
             var elementName = element.GetType().GetProperty("Name")?.GetValue(element)!.ToString();
             var type = element.GetType();
 
+            if (string.IsNullOrWhiteSpace(elementName))
+            {
+                continue;
+            }
+            
             if (elementName == "PART_ClearText" || (type != typeof(Button) && type != typeof(Frame)))
             {
                 continue;
             }
 
-            DoubleAnimation danimationPage;
-            ThicknessAnimation tanimationPage;
-            ThicknessAnimation tanimationButton;
             var storyboard = new Storyboard();
-
             const double animationDuration = 0.1;
             var duration = new Duration(TimeSpan.FromSeconds(animationDuration));
                 
@@ -120,7 +121,7 @@ public class UiManager
                 element.Visibility = Visibility.Visible;
 
                 //Page move height of button
-                var start = (Thickness)element.GetType().GetProperty("Margin").GetValue(element);
+                var start = (Thickness)(type.GetProperty("Margin")?.GetValue(element) ?? throw new InvalidOperationException());
                 var end = new Thickness(start.Left, start.Top + 25, start.Right, start.Bottom);
                     
                 if (alreadyOpen)
@@ -128,22 +129,22 @@ public class UiManager
                     end = new Thickness(start.Left, start.Top - 25, start.Right, start.Bottom);
                 }
                     
-                tanimationPage = new ThicknessAnimation(end, duration);
+                var thicknessAnimation = new ThicknessAnimation(end, duration);
 
                 //Page change height
-                danimationPage = new DoubleAnimation(_sizes[senderName], duration);
+                var doubleAnimation = new DoubleAnimation(_sizes[senderName], duration);
                 if (alreadyOpen)
                 {
-                    danimationPage = new DoubleAnimation(25, duration);
+                    doubleAnimation = new DoubleAnimation(25, duration);
                 }
 
-                SetTargetName(tanimationPage, elementName);
-                SetTargetProperty(tanimationPage, new PropertyPath(FrameworkElement.MarginProperty));
-                storyboard.Children.Add(tanimationPage);
+                SetTargetName(thicknessAnimation, elementName);
+                SetTargetProperty(thicknessAnimation, new PropertyPath(FrameworkElement.MarginProperty));
+                storyboard.Children.Add(thicknessAnimation);
 
-                SetTargetName(danimationPage, elementName);
-                SetTargetProperty(danimationPage, new PropertyPath(FrameworkElement.HeightProperty));
-                storyboard.Children.Add(danimationPage);
+                SetTargetName(doubleAnimation, elementName);
+                SetTargetProperty(doubleAnimation, new PropertyPath(FrameworkElement.HeightProperty));
+                storyboard.Children.Add(doubleAnimation);
                 storyboard.Begin(element);
             }
             else if ((type == typeof(Button)
@@ -153,18 +154,18 @@ public class UiManager
                          && _isClicked.Keys.ToList().IndexOf(elementName.Replace("Page", "Button")) > _isClicked.Keys.ToList().IndexOf(senderName)))   // Page is below the button that was clicked
             {
                 //Move all buttons down by size of page opened
-                var start = (Thickness)type.GetProperty("Margin").GetValue(element);
+                var start = (Thickness)(type.GetProperty("Margin")?.GetValue(element) ?? throw new InvalidOperationException());
                 var end = new Thickness(start.Left, start.Top + _sizes[senderName], start.Right, start.Bottom);
                 if (alreadyOpen)
                 {
                     end = new Thickness(start.Left, start.Top - _sizes[senderName], start.Right, start.Bottom);
                 }
 
-                tanimationButton = new ThicknessAnimation(end, duration);
+                var thicknessAnimation = new ThicknessAnimation(end, duration);
 
-                SetTargetName(tanimationButton, elementName);
-                SetTargetProperty(tanimationButton, new PropertyPath(FrameworkElement.MarginProperty));
-                storyboard.Children.Add(tanimationButton);
+                SetTargetName(thicknessAnimation, elementName);
+                SetTargetProperty(thicknessAnimation, new PropertyPath(FrameworkElement.MarginProperty));
+                storyboard.Children.Add(thicknessAnimation);
                 storyboard.Begin(element);
             }
         }
@@ -172,7 +173,24 @@ public class UiManager
         _isClicked[senderName] = !_isClicked[senderName];
         return _isClicked[senderName];
     }
+
+    public void Reset()
+    {
+        if (_sizes == null! || _isClicked == null!) return;
         
+        foreach (var button in _page.GetChildren(_page).Where(button => button.GetType() == typeof(Button)))
+        {
+            var buttonName = button.GetType().GetProperty("Name")?.GetValue(button)!.ToString();
+            
+            if (string.IsNullOrWhiteSpace(buttonName) || !_isClicked.ContainsKey(buttonName) || !_isClicked[buttonName])
+            {
+                continue;
+            }
+            
+            ToggleDropDown(button);
+        }
+    }
+    
     public void AddProgress()
     {
         if (_progressBar == null || _page == null)

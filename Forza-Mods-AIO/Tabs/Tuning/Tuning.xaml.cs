@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using Forza_Mods_AIO.Resources;
 
@@ -6,15 +7,26 @@ namespace Forza_Mods_AIO.Tabs.Tuning;
 
 public partial class Tuning
 {
-    public static Tuning? T;
+    public static Tuning T { get; private set; } = null!;
     public readonly UiManager UiManager;
 
     public Tuning()
     {
         InitializeComponent();
         T = this;
-        UiManager = new UiManager(this, AOBProgressBar, Sizes, IsClicked);
+        UiManager = new UiManager(this, AobProgressBar, Sizes, IsClicked);
         UiManager.ToggleUiElements(false);
+    }
+
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (!MainWindow.Mw.Attached)
+        {
+            return;
+        }
+
+        Task.Run(() => TuningAddresses.Scan());
+        ScanButton.IsEnabled = false;
     }
 
     #region Interaction

@@ -9,7 +9,6 @@ using MahApps.Metro.Controls;
 using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus.GarageModifications;
 using static Forza_Mods_AIO.Overlay.Overlay;
-using static Forza_Mods_AIO.Resources.UiManager;
 using static Forza_Mods_AIO.Tabs.AutoShowTab.AutoShow;
 
 namespace Forza_Mods_AIO.Tabs.AutoShowTab;
@@ -53,8 +52,6 @@ internal class AutoshowVars
 
     public static void Scan()
     {
-        var scanIndex = 0;
-            
         if (Mw.Gvp.Name == "Forza Horizon 4")
         {
             As.UiManager.Index = 0;
@@ -133,7 +130,7 @@ internal class AutoshowVars
 
     internal static void ResetMem()
     {
-        if (Mw.Gvp.Name != "Forza Horizon 4")
+        if (Mw.Gvp.Name != "Forza Horizon 4" || !Mw.Attached)
         {
             return;
         }
@@ -157,6 +154,11 @@ internal class AutoshowVars
         
     public static async void ExecSql(ToggleSwitch button, RoutedEventHandler action, string sql)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         button.GetType().GetProperty("IsEnabled")?.SetValue(button, false);
             
         var retValue = false;

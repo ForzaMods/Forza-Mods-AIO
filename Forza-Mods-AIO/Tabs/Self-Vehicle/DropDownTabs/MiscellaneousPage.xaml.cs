@@ -1,9 +1,6 @@
 using System;
-using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Threading;
 using Forza_Mods_AIO.Resources;
 using MahApps.Metro.Controls;
 using static System.Convert;
@@ -15,15 +12,12 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
 public partial class MiscellaneousPage
 {
-    public static MiscellaneousPage? MiscPage;
+    public static MiscellaneousPage MiscPage { get; private set; } = null!;
     public static readonly Detour Build1Detour = new(), Build2Detour = new(), ScaleDetour = new(), SellDetour = new();
-    public static readonly Detour SkillTreeDetour = new(), CleanlinessDetour = new(), ScoreDetour = new();
-    public static readonly Detour SkillCostDetour = new(), DriftDetour = new();
+    public static readonly Detour SkillTreeDetour = new(), ScoreDetour = new();
+    public static readonly Detour SkillCostDetour = new(), DriftDetour = new(), TimeScaleDetour = new();
     private static readonly Detour UnbSkillDetour = new();
     public bool WasSkillDetoured;
-
-    private double _mudValue, _dirtValue;
-    private bool _mudToggled, _dirtToggled;
     
     private const string Build1Fh4 = "F3 0F 11 B3 DC 03 00 00 C7 83 DC 03 00 00 00 00 00 00";
     private const string Build1Fh5 = "F3 0F 11 83 4C 04 00 00 C7 83 4C 04 00 00 00 00 00 00";
@@ -37,12 +31,11 @@ public partial class MiscellaneousPage
     private const string SellFh4 = "8B 3D 05 00 00 00";
     private const string SkillTree = "50 48 8B 05 0F 00 00 00 48 89 43 48 58 F3 0F 10 73 48";
     private const string SkillCost = "8B 05 05 00 00 00";
-    private const string CleanlinessFh4 = "53 80 3D 3E 00 00 00 01 75 0E 48 8B 1D 2C 00 00 00 48 89 98 7C 8C 00 00 80 3D 26 00 00 00 01 75 0E 48 8B 1D 19 00 00 00 48 89 98 80 8C 00 00 5B F3 0F 10 88 80 8C 00 00";
-    private const string CleanlinessFh5 = "53 80 3D 3E 00 00 00 01 75 0E 48 8B 1D 2C 00 00 00 48 89 98 04 8A 00 00 80 3D 26 00 00 00 01 75 0E 48 8B 1D 19 00 00 00 48 89 98 08 8A 00 00 5B F3 0F 10 88 80 8C 00 00";
     private const string ScoreFh4 = "8B 78 04 0F AF 3D 08 00 00 00 48 85 DB";
     private const string ScoreFh5 = "0F AF 3D 05 00 00 00";
     private const string Drift = "80 3D 4B 00 00 00 01 75 20 53 48 8B 1D 39 00 00 00 48 89 9F D8 00 00 00 48 8B 1D 2F 00 00 00 48 89 9F DC 00 00 00 5B EB 14 C7 87 D8 00 00 00 00 00 34 42 C7 87 DC 00 00 00 00 00 5C 42 F3 0F 10 9F D8 00 00 00";
-    
+    private const string TimeScale = "F3 0F 59 3D 11 00 00 00 F3 0F 5C C7 F3 0F 11 87 0C 04 00 00";
+        
     public MiscellaneousPage()
     {
         InitializeComponent();
@@ -51,6 +44,11 @@ public partial class MiscellaneousPage
 
     private void RemoveBuildCapSwitch_OnToggled(object? sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         var fh5 = Mw.Gvp.Name!.Contains('5');
         var build1 = fh5 ? Build1Fh5 : Build1Fh4;
         var build2 = fh5 ? Build2Fh5 : Build2Fh4;
@@ -67,12 +65,18 @@ public partial class MiscellaneousPage
         Build2Detour.Toggle();
     }
 
-    private async void Skill_OnToggled(object sender, RoutedEventArgs e)
+    private void Skill_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         if (!WasSkillDetoured)
         {
             GetSkillAddresses(sender);
             WasSkillDetoured = true;
+            return;
         }
 
         Mw.M.WriteMemory(WorldCollisionThreshold, SkillToggle.IsOn ? 9999999999f : 12f);
@@ -80,8 +84,13 @@ public partial class MiscellaneousPage
         Mw.M.WriteMemory(SmashableCollisionTolerance,SkillToggle.IsOn ? 9999999999f : 22f);
     }
 
-    private void GetSkillAddresses(object sender)
+    private async void GetSkillAddresses(object sender)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         var bytes = Mw.Gvp.Name.Contains('4') ? SkillDetourFh4 : SkillDetourFh5;
         var replace = Mw.Gvp.Name.Contains('4') ? 6 : 5;
         
@@ -93,11 +102,13 @@ public partial class MiscellaneousPage
             return;
         }
 
-        Task.Run(() =>
+        SkillToggle.IsEnabled = false;
+
+        await Task.Run(() =>
         {
             while ((WorldCollisionThreshold = UnbSkillDetour.ReadVariable<UIntPtr>()) == 0)
             {
-                Task.Delay(1).Wait();
+                Task.Delay(25).Wait();
             }
 
             WorldCollisionThreshold += 0x2C;
@@ -105,13 +116,24 @@ public partial class MiscellaneousPage
             CarCollisionThreshold = WorldCollisionThreshold + 4;
             SmashableCollisionTolerance = WorldCollisionThreshold + 8;
         
+            Mw.M.WriteMemory(WorldCollisionThreshold, 9999999999f);
+            Mw.M.WriteMemory(CarCollisionThreshold,9999999999f);
+            Mw.M.WriteMemory(SmashableCollisionTolerance,9999999999f);
+            
             UnbSkillDetour.Destroy();
             UnbSkillDetour.Clear();
         });
+        
+        SkillToggle.IsEnabled = true;
     }
 
     private void SellFactorSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         var sell = Mw.Gvp.Name == "Forza Horizon 5" ? SellFh5 : SellFh4;
         var count = Mw.Gvp.Name == "Forza Horizon 5" ? 7 : 6;
         
@@ -123,28 +145,41 @@ public partial class MiscellaneousPage
             return;
         }
 
-        SellDetour.UpdateVariable(ToSingle(SellFactorNum.Value));
+        if (Mw.Gvp.Name.Contains('5'))
+        {
+            SellDetour.UpdateVariable(ToInt32(SellFactorNum.Value) * 50);
+        }
+        else
+        {
+            SellDetour.UpdateVariable(ToSingle(SellFactorNum.Value) * 50);
+        }
+        
         SellDetour.Toggle();
     }
 
     private void SellFactorNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (SellFactorSwitch == null)
+        if (!Mw.Attached)
         {
+            return;
+        }
+
+        if (Mw.Gvp.Name.Contains('5'))
+        {
+            SellDetour.UpdateVariable(ToInt32(SellFactorNum.Value) * 50);
             return;
         }
         
-        if (Mw.Gvp.Name!.Contains('5'))
-        {
-            SellDetour.UpdateVariable(ToInt32(e.NewValue));
-            return;
-        }
-            
-        SellDetour.UpdateVariable(ToSingle(e.NewValue));
+        SellDetour.UpdateVariable(ToSingle(SellFactorNum.Value) * 50);
     }
 
     private void ScaleSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         var scale = Mw.Gvp.Name == "Forza Horizon 5" ? ScaleFh5 : ScaleFh4;
         
         if (!ScaleDetour.Setup(ScaleSwitch, ScaleAddr, scale, 5, true, 0, true))
@@ -161,7 +196,7 @@ public partial class MiscellaneousPage
 
     private void ScaleNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (ScaleSwitch == null)
+        if (!Mw.Attached)
         {
             return;
         }
@@ -171,6 +206,11 @@ public partial class MiscellaneousPage
     
     private void SkillTreeEditToggle_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         if (Mw.Gvp.Name == "Forza Horizon 4" && SkillTreeEditToggle.IsOn)
         {
             FailedHandler((ToggleSwitch)sender, SkillTreeEditToggle_OnToggled);
@@ -190,7 +230,7 @@ public partial class MiscellaneousPage
         SkillTreeDetour.Toggle();
     }
 
-    private void FailedHandler(ToggleSwitch? @switch, RoutedEventHandler action)
+    private static void FailedHandler(ToggleSwitch? @switch, RoutedEventHandler action)
     {
         @switch!.Toggled -= action;
         @switch.IsOn = false;
@@ -199,7 +239,7 @@ public partial class MiscellaneousPage
 
     private void SkillTreeNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (SkillTreeEditToggle == null)
+        if (!Mw.Attached)
         {
             return;
         }
@@ -207,114 +247,20 @@ public partial class MiscellaneousPage
         SkillTreeDetour.UpdateVariable(ToSingle(SkillTreeNum.Value));
     }
 
-    private void CleanlinessNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-    {
-        var selected = ((ComboBoxItem)CleanlinessComboBox.SelectedItem).Content.ToString();
-        if (selected == "Dirt")
-        {
-            _dirtValue = ToDouble(e.NewValue);
-        }
-        else
-        {
-            _mudValue = ToDouble(e.NewValue);
-        }
-
-        if (!CleanlinessDetour.IsSetup)
-        {
-            return;
-        }
-
-        if (selected == "Dirt")
-        {
-            CleanlinessDetour.UpdateVariable(ToSingle(e.NewValue));
-        }
-        else
-        {
-            CleanlinessDetour.UpdateVariable(ToSingle(e.NewValue), 4);
-        }
-    }
-
-    private void CleanlinessSwitch_OnToggled(object sender, RoutedEventArgs e)
-    {
-        var cleanlinessBytes = Mw.Gvp.Name!.Contains('5') ? CleanlinessFh5 : CleanlinessFh4;
-        
-        if (!CleanlinessDetour.Setup(sender, CleanlinessAddr, cleanlinessBytes, 8, true))
-        {
-            CleanlinessSwitch.Toggled -= CleanlinessSwitch_OnToggled;
-            CleanlinessSwitch.IsOn = false;
-            CleanlinessSwitch.Toggled -= CleanlinessSwitch_OnToggled;
-            MessageBox.Show("Failed");
-            return;
-        }
-        
-        var selected = ((ComboBoxItem)CleanlinessComboBox.SelectedItem).Content.ToString();
-        if (selected == "Dirt")
-        {
-            CleanlinessDetour.UpdateVariable(ToSingle(CleanlinessNum.Value));
-            CleanlinessDetour.UpdateVariable(CleanlinessSwitch.IsOn ? (byte)1 : (byte)0, 9);
-            _dirtToggled = CleanlinessDetour.ReadVariable<byte>(9) == 1;
-        }
-        else
-        {
-            CleanlinessDetour.UpdateVariable(ToSingle(CleanlinessNum.Value), 4);
-            CleanlinessDetour.UpdateVariable(CleanlinessSwitch.IsOn ? (byte)1 : (byte)0, 8);
-            _mudToggled = CleanlinessDetour.ReadVariable<byte>(8) == 1;
-        }
-    }
-
-    private void CleanlinessSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-    {
-        if (CleanlinessSwitch == null)
-        {
-            return;
-        }
-        
-        CleanlinessNum.Value = Round(e.NewValue, 5);
-    }
-
-    private void CleanlinessComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (CleanlinessSwitch == null)
-        {
-            return;
-        }
-
-        var selected = ((ComboBoxItem)CleanlinessComboBox.SelectedItem).Content.ToString();
-        CleanlinessSwitch.Content = $"{selected} Level";
-
-        switch (selected)
-        {
-            case "Dirt":
-            {
-                CleanlinessNum.Value = _dirtValue;
-                CleanlinessSlider.Value = _dirtValue;
-                CleanlinessSwitch.IsOn = _dirtToggled;
-                break;
-            }
-            
-            case "Mud":
-            {
-                CleanlinessNum.Value = _mudValue;
-                CleanlinessSlider.Value = _mudValue;                
-                CleanlinessSwitch.IsOn = _mudToggled;
-                break;
-            }
-        }
-    }
 
     private void ScoreSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        if (ScoreToggle == null)
-        {
-            return;
-        }
-        
         ScoreSlider.Value = Round(ScoreSlider.Value);
         ScoreNum.Value = ScoreSlider.Value;
     }
 
     private void ScoreToggle_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         var fh4 = Mw.Gvp.Name == "Forza Horizon 4";
         var bytes = fh4 ? ScoreFh4 : ScoreFh5;
         var replace = fh4 ? 6 : 7;
@@ -339,11 +285,23 @@ public partial class MiscellaneousPage
             return;
         }
         
+        ScoreSlider.Value = ToDouble(e.NewValue);
+
+        if (!Mw.Attached)
+        {
+            return;
+        }
+        
         ScoreDetour.UpdateVariable(ToInt32(e.NewValue));
     }
 
     private void SkillCostToggle_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         if (Mw.Gvp.Name == "Forza Horizon 4" && SkillCostToggle.IsOn)
         {
             FailedHandler((ToggleSwitch)sender, SkillCostToggle_OnToggled);
@@ -365,7 +323,7 @@ public partial class MiscellaneousPage
 
     private void SkillCostNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (SkillCostToggle == null)
+        if (!Mw.Attached)
         {
             return;
         }
@@ -375,6 +333,11 @@ public partial class MiscellaneousPage
 
     private void DriftNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         switch (sender.GetType().GetProperty("Name").GetValue(sender))
         {
             case "DriftMinNum":
@@ -396,6 +359,11 @@ public partial class MiscellaneousPage
 
     private void DriftToggle_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+        
         if (Mw.Gvp.Name == "Forza Horizon 4" && DriftToggle.IsOn)
         {
             FailedHandler((ToggleSwitch)sender, DriftToggle_OnToggled);
@@ -415,5 +383,58 @@ public partial class MiscellaneousPage
         DriftDetour.UpdateVariable(ToSingle(55 * DriftMaxNum.Value), 4);
         DriftDetour.UpdateVariable(DriftToggle.IsOn ? (byte)1 : (byte)0, 8);
         
+    }
+
+    private void TimeScaleSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+        
+        if (Mw.Gvp.Name == "Forza Horizon 4" && TimeScaleSwitch.IsOn)
+        {
+            FailedHandler((ToggleSwitch)sender, TimeScaleSwitch_OnToggled);
+            MessageBox.Show("This feature was never ported to FH4");
+            return;
+        }
+
+        if (!TimeScaleDetour.Setup(TimeScaleAddr, TimeScale, 12, true))
+        {
+            FailedHandler(sender as ToggleSwitch, TimeScaleSwitch_OnToggled);
+            TimeScaleDetour.Clear();
+            MessageBox.Show("Failed");
+            return;
+        }
+        
+        TimeScaleDetour.UpdateVariable(ToSingle(TimeScaleNum.Value));
+        TimeScaleDetour.Toggle();
+    }
+
+    private void TimeScaleNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (TimeScaleSwitch == null || TimeScaleSlider == null)
+        {
+            return;
+        }
+        
+        TimeScaleSlider.Value = ToDouble(e.NewValue);
+        
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
+        TimeScaleDetour.UpdateVariable(ToSingle(e.NewValue));
+    }
+
+    private void TimeScaleSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (TimeScaleSwitch == null)
+        {
+            return;
+        }
+
+        TimeScaleNum.Value = ToDouble(Round(e.NewValue, 4));
     }
 }

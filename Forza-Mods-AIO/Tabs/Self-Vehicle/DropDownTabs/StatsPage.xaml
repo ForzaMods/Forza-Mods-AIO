@@ -7,7 +7,8 @@
       mc:Ignorable="d"
       d:DesignHeight="70" 
       d:DesignWidth="580"
-      Title="StatsPage">
+      Title="StatsPage"
+      Background="Transparent">
 
     <Grid>
         <Border BorderBrush="#FF2E3440" 

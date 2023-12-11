@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Forza_Mods_AIO.Resources;
@@ -17,7 +18,7 @@ public partial class AutoShow
 {
     #region Variables
 
-    public static AutoShow? As;
+    public static AutoShow As { get; private set; } = null!;
     public readonly UiManager UiManager;
     private string _clearGarageString = "DELETE FROM Profile0_Career_Garage WHERE Id > 0;";
     private const string FreePerfString = "UPDATE List_UpgradeAntiSwayFront SET price=0;UPDATE List_UpgradeAntiSwayRear SET price=0;UPDATE List_UpgradeBrakes SET price=0;UPDATE List_UpgradeCarBodyChassisStiffness SET price=0;UPDATE List_UpgradeCarBody SET price=0;UPDATE List_UpgradeCarBodyTireWidthFront SET price=0;UPDATE List_UpgradeCarBodyTireWidthRear SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingFront SET price=0;UPDATE List_UpgradeCarBodyTrackSpacingRear SET price=0;UPDATE List_UpgradeCarBodyWeight SET price=0;UPDATE List_UpgradeDrivetrain SET price=0;UPDATE List_UpgradeDrivetrainClutch SET price=0;UPDATE List_UpgradeDrivetrainDifferential  SET price=0;UPDATE List_UpgradeDrivetrainDriveline SET price=0;UPDATE List_UpgradeDrivetrainTransmission SET price=0;UPDATE List_UpgradeEngine SET price=0;UPDATE List_UpgradeEngineCamshaft SET price=0;UPDATE List_UpgradeEngineCSC SET price=0;UPDATE List_UpgradeEngineDisplacement SET price=0;UPDATE List_UpgradeEngineDSC SET price=0;UPDATE List_UpgradeEngineExhaust SET price=0;UPDATE List_UpgradeEngineFlywheel SET price=0;UPDATE List_UpgradeEngineFuelSystem SET price=0;UPDATE List_UpgradeEngineIgnition SET price=0;UPDATE List_UpgradeEngineIntake SET price=0;UPDATE List_UpgradeEngineIntercooler SET price=0;UPDATE List_UpgradeEngineManifold SET price=0;UPDATE List_UpgradeEngineOilCooling SET price=0;UPDATE List_UpgradeEnginePistonsCompression SET price=0;UPDATE List_UpgradeEngineRestrictorPlate SET price=0;UPDATE List_UpgradeEngineTurboQuad SET price=0;UPDATE List_UpgradeEngineTurboSingle SET price=0;UPDATE List_UpgradeEngineTurboTwin SET price=0;UPDATE List_UpgradeEngineValves SET price=0;UPDATE List_UpgradeMotor SET price=0;UPDATE List_UpgradeMotorParts SET price=0;UPDATE List_UpgradeSpringDamper SET price=0;UPDATE List_UpgradeTireCompound SET price=0;UPDATE List_Wheels SET price=1;";
@@ -52,6 +53,17 @@ public partial class AutoShow
         _toggleSwitchList.Add(ToggleFreeCars);
     }
 
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
+        Task.Run(() => Scan());
+        ScanButton.IsEnabled = false;
+    }
+
     private void ToggleButtons(ToggleSwitch sender, bool on)
     {
         if (Mw.Gvp.Name != "Forza Horizon 4")
@@ -67,6 +79,11 @@ public partial class AutoShow
 
     private void AllCars_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         ToggleRareCars.IsEnabled = !ToggleRareCars.IsEnabled;
         switch (ToggleAllCars.IsOn)
         {
@@ -121,6 +138,11 @@ public partial class AutoShow
 
     private void RareCars_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         ToggleAllCars.IsEnabled = !ToggleAllCars.IsEnabled;
             
         switch (ToggleRareCars.IsOn)
@@ -174,6 +196,11 @@ public partial class AutoShow
 
     private void FreeCars_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         ToggleButtons((ToggleSwitch)sender, (bool)sender.GetType().GetProperty("IsOn")?.GetValue(sender));
             
         switch (ToggleFreeCars.IsOn)
@@ -203,6 +230,11 @@ public partial class AutoShow
 
     private void PaintLegoCars_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         switch (PaintLegoCars.IsOn)
         {
             case true:
@@ -223,6 +255,11 @@ public partial class AutoShow
 
     private void RemoveAnyCar_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         if (RemoveAnyCar.IsOn)
         {
             Mw.M.WriteStringMemory(Sql10, "b");
@@ -237,6 +274,11 @@ public partial class AutoShow
 
     private void ClearGarage_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         ToggleButtons((ToggleSwitch)sender, (bool)sender.GetType().GetProperty("IsOn")?.GetValue(sender));
             
         switch (ClearGarage.IsOn)
@@ -262,6 +304,11 @@ public partial class AutoShow
 
     private void FixThumbnails_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         ToggleButtons((ToggleSwitch)sender, (bool)sender.GetType().GetProperty("IsOn")?.GetValue(sender));
             
         switch (FixThumbnails.IsOn)
@@ -286,6 +333,11 @@ public partial class AutoShow
 
     private void AddRareCars_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         var addCarsString = "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
                             " INSERT INTO Profile0_FreeCars SELECT Id, 1 FROM Data_Car WHERE Id NOT IN (SELECT CarId AS Id FROM Profile0_FreeCars WHERE CarID IS NOT NULL);" +
                             " UPDATE ContentOffersMapping SET Quantity = 9999 ;" +
@@ -321,6 +373,11 @@ public partial class AutoShow
 
     private void AddAllCars_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         var addCarsString = "INSERT INTO ContentOffersMapping (OfferId, ContentId, ContentType, IsPromo, IsAutoRedeem, ReleaseDateUTC, Quantity) SELECT 3, Id, 1, 0, 1, NULL, 1 FROM Data_Car WHERE Id NOT IN (SELECT ContentId AS Id FROM ContentOffersMapping WHERE ContentId IS NOT NULL);" +
                             " INSERT INTO Profile0_FreeCars SELECT ContentId, 1 FROM ContentOffersMapping;" +
                             " UPDATE ContentOffersMapping SET IsAutoRedeem = 1 WHERE ContentId NOT IN(SELECT ContentId FROM ContentOffersMapping WHERE ReleaseDateUTC > '" + DateTime.Now.ToString("yyyy-MM-dd") + " 00:00' OR ReleaseDateUTC IS NULL)" +
@@ -354,6 +411,11 @@ public partial class AutoShow
 
     private void FreeVisualUpgrades_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         switch (FreeVisualUpgrades.IsOn)
         {
             case true when Mw.Gvp.Name == "Forza Horizon 5":
@@ -380,6 +442,11 @@ public partial class AutoShow
 
     private void FreePerfUpgrades_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         switch (FreePerfUpgrades.IsOn)
         {
             case true when Mw.Gvp.Name == "Forza Horizon 5":
@@ -406,6 +473,11 @@ public partial class AutoShow
 
     private void ShowTrafficHSNull_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         ToggleButtons((ToggleSwitch)sender, (bool)sender.GetType().GetProperty("IsOn")?.GetValue(sender)!);
             
         switch (ShowTrafficHsNull.IsEnabled)
@@ -431,6 +503,11 @@ public partial class AutoShow
 
     private void UnlockHiddenDecals_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         ToggleButtons((ToggleSwitch)sender, (bool)sender.GetType().GetProperty("IsOn")?.GetValue(sender)!);
             
         switch (UnlockHiddenDecals.IsEnabled)
@@ -455,6 +532,11 @@ public partial class AutoShow
 
     private void UnlockHiddenPresets_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         ToggleButtons((ToggleSwitch)sender, (bool)sender.GetType().GetProperty("IsOn")?.GetValue(sender)!);
             
         switch (UnlockHiddenPresets.IsEnabled)
@@ -502,6 +584,11 @@ public partial class AutoShow
 
     private void ClearTag_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         ToggleButtons((ToggleSwitch)sender, (bool)sender.GetType().GetProperty("IsOn")?.GetValue(sender)!);
             
         switch (ClearTag.IsOn)

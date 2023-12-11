@@ -8,23 +8,21 @@ namespace Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs;
 
 public partial class HandlingKeybindings
 {
-    public static Forms.Keys KbJmpHack = LControlKey, KbBrakeHack = Space, KbVelHack = Alt;
+    public Forms.Keys JmpHack = LControlKey, BrakeHack = Space, VelHack = LShiftKey, WheelspeedHack = W;
+    public static HandlingKeybindings Hk { get; private set; } = null!;
     
     public HandlingKeybindings()
     {
         InitializeComponent();
+        Hk = this;
     }
 
     private void KBButton_OnClick(object sender, RoutedEventArgs e)
     {
-        if (Mw.Grabbing)
-        {
-            return;
-        }
-        
+        if (Mw.Grabbing) return;
         Mw.IsClicked = Mw.Grabbing = true;
         Mw.ClickedButton = (Button)sender;
-        Mw.ClickedButton.Content = "Change Key";
+        Mw.ClickedButton.Content = "Change Key"; 
     }
     
     private void CTButton_OnClick(object sender, RoutedEventArgs e)

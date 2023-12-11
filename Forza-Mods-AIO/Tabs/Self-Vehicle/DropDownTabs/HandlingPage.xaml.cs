@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Globalization;
 using System.Numerics;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using Forza_Mods_AIO.Resources;
 using static System.Convert;
+using static System.Math;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
 using static Forza_Mods_AIO.MainWindow;
-using static Forza_Mods_AIO.Overlay.OverlayHandling;
 using static Forza_Mods_AIO.Resources.DllImports;
 using static Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs.HandlingKeybindings;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.Entities.CarEntity;
@@ -20,9 +19,9 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 /// <summary>
 /// Interaction logic for SpeedHacksPage.xaml
 /// </summary>
-public partial class HandlingPage : Page
+public partial class HandlingPage
 {
-    public static HandlingPage? Shp;
+    public static HandlingPage Shp { get; private set; } = null!;
     public static readonly Detour FlyHackDetour = new();
     
     private readonly byte[] _before1 = { 0x0F, 0x11, 0x41, 0x10 },
@@ -38,24 +37,9 @@ public partial class HandlingPage : Page
         Shp = this;
     }
 
-    private void VelocitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-    {
-        VelocityValueNum.Value = Math.Round(e.NewValue, 5);
-    }
-
-    private void VelocityValueNum_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-    {
-        if (VelocitySwitch == null)
-        {
-            return;
-        }
-
-        VelocitySlider.Value = ToDouble(e.NewValue);
-    }
-
     private void VelocitySwitch_Toggled(object sender, RoutedEventArgs e)
     {
-        if (!VelocitySwitch.IsOn)
+        if (!VelocitySwitch.IsOn || !Mw.Attached)
         {
             return;
         }
@@ -64,7 +48,6 @@ public partial class HandlingPage : Page
         {
             while (true)
             {
-                // TODO wrap for controlls / ishplement controls
                 var toggled = true;
                 Dispatcher.Invoke(() => toggled = VelocitySwitch.IsOn);
                 if (!toggled)
@@ -72,23 +55,65 @@ public partial class HandlingPage : Page
                     break;
                 }
 
-                if (Mw.Gvp.Process.MainWindowHandle != GetForegroundWindow())
+                if (Mw.Gvp.Process.MainWindowHandle != GetForegroundWindow() ||
+                    GetAsyncKeyState(Hk.VelHack) is not (1 or short.MinValue))
                 {
-                    Thread.Sleep(25);
+                    Task.Delay(25).Wait();
                     continue;
                 }
                 
-                float multiply = 1;
-                Dispatcher.Invoke(() => multiply = (float)VelocityValueNum.Value);
-                LinearVelocity = LinearVelocity with { X = LinearVelocity.X * multiply, Z = LinearVelocity.Z * multiply };
-                Thread.Sleep(50);
+                var speed = Sqrt(Pow(LinearVelocity.X, 2) + Pow(LinearVelocity.Y, 2) + Pow(LinearVelocity.Z, 2)) * 2.23694;
+
+                double limit = 0;
+                Dispatcher.Invoke(delegate
+                {
+                    limit = ToDouble(VelLimitBox.Value);
+                });
+                
+                if (speed > limit)
+                {
+                    Task.Delay(25).Wait();
+                    continue;   
+                }
+                
+                var multiply = 1f;
+                var mode = "";
+                const int baseInterval = 100;
+                var interval = baseInterval;
+                
+                Dispatcher.Invoke(delegate
+                {
+                    mode = ((ComboBoxItem)VelModeBox.SelectedItem).Content.ToString();
+                });
+
+                switch (mode)
+                {
+                    case "Dynamic":
+                    {
+                        Dispatcher.Invoke(() => multiply += ToSingle(VelValueNum.Value) / ToSingle(VelLimitBox.Value / 3));
+                        interval = ToInt32(baseInterval + multiply);
+                        break;
+                    }
+                    case "Direct":
+                    {
+                        Dispatcher.Invoke(() => multiply += ToSingle(VelValueNum.Value) / 10);
+                        break;
+                    }
+                }  
+                
+                LinearVelocity = LinearVelocity with
+                {
+                    X = LinearVelocity.X * multiply,
+                    Z = LinearVelocity.Z * multiply
+                };
+                Task.Delay(interval).Wait();
             }
         });
     }
 
     private void WheelSpeedSwitch_Toggled(object sender, RoutedEventArgs e)
     {
-        if (!WheelSpeedSwitch.IsOn)
+        if (!WheelSpeedSwitch.IsOn || !Mw.Attached)
         {
             return;
         }
@@ -115,13 +140,13 @@ public partial class HandlingPage : Page
                 
                 Dispatcher.Invoke(delegate
                 {
-                    mode = WheelSpeedModeComboBox.SelectedItem.ToString();
+                    mode = ((ComboBoxItem)WheelSpeedModeComboBox.SelectedItem).Content.ToString();
                     interval = ToInt32(IntervalBox.Value);
                 });
                 
                 switch (mode)
                 {
-                    case "Static" when GetAsyncKeyState(KbVelHack) is 1 or short.MinValue:
+                    case "Static" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
                     {
                         float currentWheelSpeed = WheelSpeed.X, boostStrength = 0;
                         Dispatcher.Invoke(() => boostStrength = ToSingle(StrengthBox.Value));
@@ -130,19 +155,19 @@ public partial class HandlingPage : Page
                         break;
                     }
                         
-                    case "Linear" when GetAsyncKeyState(KbVelHack) is 1 or short.MinValue:
+                    case "Linear" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
                     {
                         float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
                         Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
-                        float boostStrength = boostFactor / 10 - 1 + (currentWheelSpeed - 100) / 100 * -5;
+                        var boostStrength = boostFactor / 10 - 1 + (currentWheelSpeed - 100) / 100 * -5;
                         
                         if (boostStrength <= 0)
                         {
-                            boostStrength = 0;
+                            boostStrength = 1;
                         }
                         
                         var boost = currentWheelSpeed + boostStrength;
-                        WheelSpeed = new Vector4 { X = boost, Y = boost, Z = boost, W = boost };
+                        WheelSpeed = new Vector4(boost);
                         break;
                     }
                 }
@@ -153,6 +178,11 @@ public partial class HandlingPage : Page
 
     public void PullButton_Click(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+        
         if (sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity"))
         {
             GravityValueNum.Value = Gravity;
@@ -165,6 +195,11 @@ public partial class HandlingPage : Page
 
     private void SetSwitch_Toggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+        
         var type = sender.GetType();
         
         if (!(bool)type.GetProperty("IsOn")?.GetValue(sender)!)
@@ -218,7 +253,7 @@ public partial class HandlingPage : Page
     
     private void TurnAssistSwitch_Toggled(object sender, RoutedEventArgs e)
     {
-        if (!TurnAssistSwitch.IsOn)
+        if (!TurnAssistSwitch.IsOn || !Mw.Attached)
         {
             return;
         }
@@ -255,7 +290,7 @@ public partial class HandlingPage : Page
                     
                 if (GetAsyncKeyState(Keys.A) is 1 or Int16.MinValue)
                 {
-                    if (Math.Abs(frontRight - frontLeft) < frontRight / ratio && Math.Abs(backRight - frontLeft) < backRight / ratio)
+                    if (Abs(frontRight - frontLeft) < frontRight / ratio && Abs(backRight - frontLeft) < backRight / ratio)
                     {
                         frontLeft -= strength;
                         backLeft -= strength;
@@ -265,7 +300,7 @@ public partial class HandlingPage : Page
                 }
                 else if (GetAsyncKeyState(Keys.D) is 1 or Int16.MinValue)
                 {
-                    if (Math.Abs(frontLeft - frontRight) < frontLeft / ratio && Math.Abs(backLeft - frontRight) < backLeft / ratio)
+                    if (Abs(frontLeft - frontRight) < frontLeft / ratio && Abs(backLeft - frontRight) < backLeft / ratio)
                     {
                         frontRight -= strength;
                         backRight -= strength;
@@ -282,6 +317,11 @@ public partial class HandlingPage : Page
 
     private void SuperCarSwitch_Toggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+        
         if (SuperCarSwitch.IsOn)
         {
             if (Mw.Gvp.Name == "Forza Horizon 5")
@@ -316,7 +356,7 @@ public partial class HandlingPage : Page
 
     private void SuperBrakeSwitch_Toggled(object sender, RoutedEventArgs e)
     {
-        if (!SuperBrakeSwitch.IsOn)
+        if (!SuperBrakeSwitch.IsOn || !Mw.Attached)
             return;
             
         Task.Run(() =>
@@ -339,7 +379,7 @@ public partial class HandlingPage : Page
                     continue;
                 }
                     
-                if (GetAsyncKeyState(KbBrakeHack) is 1 or short.MinValue)
+                if (GetAsyncKeyState(Hk.BrakeHack) is 1 or short.MinValue)
                 {
                     LinearVelocity = LinearVelocity with
                     {
@@ -354,7 +394,7 @@ public partial class HandlingPage : Page
 
     private void StopAllWheelsSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (!StopAllWheelsSwitch.IsOn)
+        if (!StopAllWheelsSwitch.IsOn || !Mw.Attached)
         {
             return;
         }
@@ -378,7 +418,7 @@ public partial class HandlingPage : Page
                     continue;
                 }
 
-                if (GetAsyncKeyState(KbBrakeHack) is 1 or short.MinValue)
+                if (GetAsyncKeyState(Hk.BrakeHack) is 1 or short.MinValue)
                 {
                     WheelSpeed = new Vector4(0f, 0f, 0f, 0f);
                 }
@@ -391,6 +431,11 @@ public partial class HandlingPage : Page
         
     private void FlyHackSwitch_OnToggled(object? sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+        
         GravitySetSwitch.IsEnabled = !GravitySetSwitch.IsEnabled;
         FlyHackDetour.Toggle();
         
@@ -492,7 +537,7 @@ public partial class HandlingPage : Page
                     continue;
                 }
 
-                var angle = (float)((float)Math.Atan2(Rotation.X, Rotation.Y) * (180 / Math.PI));
+                var angle = (float)((float)Atan2(Rotation.X, Rotation.Y) * (180 / PI));
                 if (angle < 0)
                 {
                     angle += 360;
@@ -508,7 +553,7 @@ public partial class HandlingPage : Page
         });
     }
 
-    private void HandleRotation(float speed, bool aDown, bool dDown)
+    private static void HandleRotation(float speed, bool aDown, bool dDown)
     {
         if (aDown)
         {
@@ -575,7 +620,7 @@ public partial class HandlingPage : Page
         }
     }
 
-    private void HandleMovement(float angle, float speed, bool wDown, bool sDown, bool shiftDown, bool controlDown)
+    private static void HandleMovement(float angle, float speed, bool wDown, bool sDown, bool shiftDown, bool controlDown)
     {
         if (wDown)
         {
@@ -586,29 +631,29 @@ public partial class HandlingPage : Page
                 // Top Left
                 case < 90:
                 {
-                    xComp = -(float)Math.Sin(Math.PI * angle / 180);
-                    zComp = (float)Math.Cos(Math.PI * angle / 180);
+                    xComp = -(float)Sin(PI * angle / 180);
+                    zComp = (float)Cos(PI * angle / 180);
                     break;
                 }
                 // Bottom Left
                 case > 90 and < 180:
                 {
-                    xComp = -(float)Math.Sin(Math.PI * (180 - angle) / 180);
-                    zComp = -(float)Math.Cos(Math.PI * (180 - angle) / 180);
+                    xComp = -(float)Sin(PI * (180 - angle) / 180);
+                    zComp = -(float)Cos(PI * (180 - angle) / 180);
                     break;
                 }
                 // Bottom Right
                 case > 180 and < 270:
                 {
-                    xComp = (float)Math.Cos(Math.PI * (270 - angle) / 180);
-                    zComp = -(float)Math.Sin(Math.PI * (270 - angle) / 180);
+                    xComp = (float)Cos(PI * (270 - angle) / 180);
+                    zComp = -(float)Sin(PI * (270 - angle) / 180);
                     break;
                 }
                 // Top Right
                 case > 270:
                 {
-                    xComp = (float)Math.Sin(Math.PI * (360 - angle) / 180);
-                    zComp = (float)Math.Cos(Math.PI * (360 - angle) / 180);
+                    xComp = (float)Sin(PI * (360 - angle) / 180);
+                    zComp = (float)Cos(PI * (360 - angle) / 180);
                     break;
                 }
             }
@@ -628,29 +673,29 @@ public partial class HandlingPage : Page
                 // Top Left
                 case < 90:
                 {
-                    xComp = (float)Math.Sin(Math.PI * angle / 180);
-                    zComp = -(float)Math.Cos(Math.PI * angle / 180);
+                    xComp = (float)Sin(PI * angle / 180);
+                    zComp = -(float)Cos(PI * angle / 180);
                     break;
                 }
                 // Bottom Left
                 case > 90 and < 180:
                 {
-                    xComp = (float)Math.Sin(Math.PI * (180 - angle) / 180);
-                    zComp = (float)Math.Cos(Math.PI * (180 - angle) / 180);
+                    xComp = (float)Sin(PI * (180 - angle) / 180);
+                    zComp = (float)Cos(PI * (180 - angle) / 180);
                     break;
                 }
                 // Bottom Right
                 case > 180 and < 270:
                 {
-                    xComp = -(float)Math.Cos(Math.PI * (270 - angle) / 180);
-                    zComp = (float)Math.Sin(Math.PI * (270 - angle) / 180);
+                    xComp = -(float)Cos(PI * (270 - angle) / 180);
+                    zComp = (float)Sin(PI * (270 - angle) / 180);
                     break;
                 }
                 // Top Right
                 case > 270:
                 {
-                    xComp = -(float)Math.Sin(Math.PI * (360 - angle) / 180);
-                    zComp = -(float)Math.Cos(Math.PI * (360 - angle) / 180);
+                    xComp = -(float)Sin(PI * (360 - angle) / 180);
+                    zComp = -(float)Cos(PI * (360 - angle) / 180);
                     break;
                 }
             }
@@ -739,7 +784,12 @@ public partial class HandlingPage : Page
     }
     
     private void CarNoclipSwitch_OnToggled(object sender, RoutedEventArgs e)
-    {            
+    {           
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         if (!CarNoclipSwitch.IsOn)
         {
             Mw.M.WriteArrayMemory(Car1Addr, Mw.Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 });
@@ -755,6 +805,11 @@ public partial class HandlingPage : Page
 
     private void WallNoclipSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         if (!WallNoclipSwitch.IsOn)
         {
             Mw.M.WriteArrayMemory(Wall1Addr, Mw.Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 } );
@@ -767,29 +822,22 @@ public partial class HandlingPage : Page
 
     private void JumpHackSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        JumpHackVelocityNum.Value = Math.Round(e.NewValue, 4);
+        JumpHackVelocityNum.Value = Round(e.NewValue, 4);
     }
 
     private void JumpHackVelocityNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (Shp == null)
+        if (JumpHackSwitch == null)
         {
             return;
         }
         
-        try
-        {
-            JumpHackSlider.Value = (double)JumpHackVelocityNum.Value;
-        }
-        catch
-        {
-            
-        }
+        JumpHackSlider.Value = (double)JumpHackVelocityNum.Value;
     }
 
     private void JumpHackSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (!JumpHackSwitch.IsOn)
+        if (!JumpHackSwitch.IsOn || !Mw.Attached)
         {
             return;
         }
@@ -808,7 +856,7 @@ public partial class HandlingPage : Page
                     break;
                 }
 
-                if (GetAsyncKeyState(KbJmpHack) is not (1 or short.MinValue))
+                if (GetAsyncKeyState(Hk.JmpHack) is not (1 or short.MinValue))
                 {
                     Task.Delay(25).Wait();
                     continue;
@@ -825,5 +873,10 @@ public partial class HandlingPage : Page
                 Task.Delay(50).Wait();
             }
         });
+    }
+
+    private void VelValueNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        VelValueNum.Value = Round(ToDouble(e.NewValue), 2);
     }
 }

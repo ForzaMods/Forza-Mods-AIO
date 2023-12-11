@@ -88,10 +88,10 @@ internal abstract class Monet
         EnumWindows((hwnd, _) =>
         {
             var parentHandle = hwnd;
-            EnumChildWindows(hwnd, (hwnd, _) =>
+            EnumChildWindows(hwnd, (hWnd, _) =>
             {
-                var sb = new StringBuilder(GetWindowTextLength(hwnd) + 1);
-                GetWindowText(hwnd, sb, sb.Capacity);
+                var sb = new StringBuilder(GetWindowTextLength(hWnd) + 1);
+                GetWindowText(hWnd, sb, sb.Capacity);
                 if (!sb.ToString().Contains("WPE"))
                 {
                     return true;

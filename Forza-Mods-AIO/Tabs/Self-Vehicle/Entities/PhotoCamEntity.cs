@@ -5,7 +5,10 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 
 public abstract class PhotoCamEntity
 {
-    public static UIntPtr MainPhotoCamEntity, Speed, _NoClip, _ShutterSpeed;
+    public static UIntPtr MainPhotoCamEntity { get; set; }
+    public static UIntPtr SpeedBase { get; set; }
+    public static UIntPtr NoClipBase { get; set; }
+    public static UIntPtr ShutterSpeedBase { get; set; }
     
     public static int Samples
     {
@@ -33,8 +36,8 @@ public abstract class PhotoCamEntity
     
     public static float ShutterSpeed
     {
-        get => Mw.M.ReadMemory<float>(_ShutterSpeed);
-        set => Mw.M.WriteMemory(_ShutterSpeed, value);
+        get => Mw.M.ReadMemory<float>(ShutterSpeedBase);
+        set => Mw.M.WriteMemory(ShutterSpeedBase, value);
     }
     
     public static float SamplesMultiplier
@@ -44,26 +47,26 @@ public abstract class PhotoCamEntity
     
     public static float TurnAndZoomSpeed
     {
-        set => Mw.M.WriteMemory(Mw.Gvp.Name == "Forza Horizon 5" ? Speed + 0x2E0 : Speed, value);
+        set => Mw.M.WriteMemory(Mw.Gvp.Name.Contains('5') ? SpeedBase + 0x2E0 : SpeedBase, value);
     }
     
     public static float MovementSpeed
     {
-        set => Mw.M.WriteMemory(Mw.Gvp.Name == "Forza Horizon 5" ? Speed + 0x2DC : Speed + 0x4, value);
+        set => Mw.M.WriteMemory(Mw.Gvp.Name.Contains('5') ? SpeedBase + 0x2DC : SpeedBase + 0x4, value);
     }
 
     public static bool NoClip
     {
-        set => Mw.M.WriteMemory(_NoClip, value ? 0 : 2);
+        set => Mw.M.WriteMemory(NoClipBase, value ? 0 : 2);
     }
     
     public static bool RemoveMaxHeight
     {
-        set => Mw.M.WriteMemory(Mw.Gvp.Name == "Forza Horizon 5" ? _NoClip - 400 : _NoClip - 468, value ? 9999 : 4);
+        set => Mw.M.WriteMemory(Mw.Gvp.Name == "Forza Horizon 5" ? NoClipBase - 400 : NoClipBase - 468, value ? 9999 : 4);
     }
     
     public static bool IncreasedZoom
     {
-        set => Mw.M.WriteMemory(Mw.Gvp.Name == "Forza Horizon 5" ? _NoClip - 392 : _NoClip - 376, value ? 0f : 2.25f );
+        set => Mw.M.WriteMemory(Mw.Gvp.Name == "Forza Horizon 5" ? NoClipBase - 392 : NoClipBase - 376, value ? 0f : 2.25f );
     }
 }

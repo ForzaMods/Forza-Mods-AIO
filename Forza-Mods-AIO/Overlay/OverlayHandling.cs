@@ -70,19 +70,17 @@ public partial class OverlayHandling
     public static Keys RapidAdjust = Keys.Alt;
     public static Keys OverlayVisibility = Keys.Subtract;
     // Menu operational vars
-    private string[] _menuHeaders;
-    int _selectedOptionIndex;
-    int _levelIndex;
+    private string[] _menuHeaders = null!;
+    private int _selectedOptionIndex, _levelIndex;
     public string CurrentMenu = "MainOptions";
     private bool _hidden;
-    private double _PosTop, _PosLeft;
+    private double _posTop, _posLeft;
     public float FontSize = 5;
     public string FontWeight = "Normal";
     public string FontStyle = "Normal";
-    public int XOffset = 0;
-    public int YOffset = 0;
+    public int XOffset = 0, YOffset = 0; 
 
-    Dictionary<int, string> _history = new()
+    private readonly Dictionary<int, string> _history = new()
     {
         {  0 ,"MainOptions" }
     };
@@ -97,7 +95,7 @@ public partial class OverlayHandling
     public Brush DescriptionBorderColour = Brushes.Black;
     public int HeaderIndex = 0;
     public readonly List<object[]> Headers = new();
-    private BitmapImage _headerImage;
+    private BitmapImage _headerImage = null!;
     #endregion
     // Caches all the headers
     public void CacheHeaders()
@@ -143,9 +141,9 @@ public partial class OverlayHandling
             GetWindowRect(Mw.Gvp.Process.MainWindowHandle, ref forzaWindow);
             GetClientRect(Mw.Gvp.Process.MainWindowHandle, out var forzaClientWindow);
 
-            var Offset = forzaClientWindow.Bottom / 20d;
-            _PosLeft = forzaWindow.Left + (forzaWindow.Right - forzaWindow.Left - forzaClientWindow.Right) / 2d + Offset;
-            _PosTop = forzaWindow.Top + (forzaWindow.Bottom - forzaWindow.Top - forzaClientWindow.Bottom) / 1.5d + Offset;
+            var offset = forzaClientWindow.Bottom / 20d;
+            _posLeft = forzaWindow.Left + (forzaWindow.Right - forzaWindow.Left - forzaClientWindow.Right) / 2d + offset;
+            _posTop = forzaWindow.Top + (forzaWindow.Bottom - forzaWindow.Top - forzaClientWindow.Bottom) / 1.5d + offset;
             
             // top right
             // saving in case I need it
@@ -161,50 +159,50 @@ public partial class OverlayHandling
 
             if (Mw.Gvp.Process.MainWindowHandle != GetForegroundWindow())
             {
-                o?.Dispatcher.Invoke(() => o.Hide());
+                O?.Dispatcher.Invoke(() => O.Hide());
                 continue;
             }
             
-            o?.Dispatcher.Invoke(() =>
+            O?.Dispatcher.Invoke(() =>
             {
                 // Set position
-                o.Top = _PosTop;
-                o.Left = _PosLeft;
+                O.Top = _posTop;
+                O.Left = _posLeft;
 
                 // Set font options
                 HandleFontSettings();
                     
                 // Set width of menu and set header size (scale with resolution)
-                o.Width = HeaderX;
-                o.TopSection.Height = new GridLength(HeaderY);
+                O.Width = HeaderX;
+                O.TopSection.Height = new GridLength(HeaderY);
 
-                o.Header.Width = o.Width;
-                o.Header.Height = o.TopSection.ActualHeight;
+                O.Header.Width = O.Width;
+                O.Header.Height = O.TopSection.ActualHeight;
 
                 // Set height of menu depending on items present
-                if (o.OptionsBlock.Inlines.Count == o.AllMenus[CurrentMenu].Count * 2 - 1)
+                if (O.OptionsBlock.Inlines.Count == O.AllMenus[CurrentMenu].Count * 2 - 1)
                 {
-                    o.MainSection.Height = new GridLength(o.OptionsBlock.ActualHeight + 10);
-                    o.DescriptionSection.Height = o.DescriptionBlock.Text != string.Empty 
-                        ? new GridLength(o.DescriptionBlock.ActualHeight + 15)
+                    O.MainSection.Height = new GridLength(O.OptionsBlock.ActualHeight + 10);
+                    O.DescriptionSection.Height = O.DescriptionBlock.Text != string.Empty 
+                        ? new GridLength(O.DescriptionBlock.ActualHeight + 15)
                         : new GridLength(0);
 
-                    o.Height = o.TopSection.ActualHeight + o.MainSection.ActualHeight + o.DescriptionSection.ActualHeight;
+                    O.Height = O.TopSection.ActualHeight + O.MainSection.ActualHeight + O.DescriptionSection.ActualHeight;
                 }
 
                 // Set menu header image
-                o.Header.Source = _headerImage;
+                O.Header.Source = _headerImage;
                     
                 // Set colours of menu
-                o.MainBorder.Background = MainBackColour;
-                o.MainBorder.BorderBrush = MainBorderColour;
+                O.MainBorder.Background = MainBackColour;
+                O.MainBorder.BorderBrush = MainBorderColour;
 
-                o.DescriptionBorder.Background = DescriptionBackColour;
-                o.DescriptionBorder.BorderBrush = DescriptionBorderColour;
+                O.DescriptionBorder.Background = DescriptionBackColour;
+                O.DescriptionBorder.BorderBrush = DescriptionBorderColour;
 
-                if (o.Visibility != Hidden || _hidden) return;
+                if (O.Visibility != Hidden || _hidden) return;
                 
-                o.Show();
+                O.Show();
             });
         }
     }
@@ -247,7 +245,7 @@ public partial class OverlayHandling
             {
                 continue;
             }
-            o.FontWeight = fontWeight;
+            O.FontWeight = fontWeight;
             break;
         }
         
@@ -263,7 +261,7 @@ public partial class OverlayHandling
             {
                 continue;
             }
-            o.FontStyle = fontStyle;
+            O.FontStyle = fontStyle;
             break;
         }
     }
@@ -278,10 +276,10 @@ public partial class OverlayHandling
                 return;
             
             // Clears the menu
-            o.Dispatcher.BeginInvoke((Action)delegate
+            O.Dispatcher.BeginInvoke((Action)delegate
             {
-                o.OptionsBlock.Inlines.Clear(); 
-                o.ValueBlock.Inlines.Clear();
+                O.OptionsBlock.Inlines.Clear(); 
+                O.ValueBlock.Inlines.Clear();
             });
             int index = 0;
 
@@ -294,28 +292,28 @@ public partial class OverlayHandling
             var yRes = forzaClientWindow.Bottom - (forzaWindow.Bottom - forzaWindow.Top - forzaClientWindow.Bottom) / 1.3;
 
             // Selected option background
-            o.Dispatcher.Invoke((Action)delegate ()
+            O.Dispatcher.Invoke((Action)delegate ()
             {
-                if (o.OptionsBlock.Inlines.Count <= 1) return;
+                if (O.OptionsBlock.Inlines.Count <= 1) return;
                 // Remove previous highlight box
-                foreach (UIElement child in o.Layout.Children)
+                foreach (UIElement child in O.Layout.Children)
                 {
                     if ((string)child.GetType().GetProperty("Name")?.GetValue(child)! != "Highlight")
                     {
                         continue;
                     }
-                    o.Layout.Children.Remove(child);
+                    O.Layout.Children.Remove(child);
                     break;
                 }
                 // Create new highlight box
-                var height = (float)(o.OptionsBlock.ActualHeight / o.AllMenus[CurrentMenu].Count * _selectedOptionIndex + 5);
+                var height = (float)(O.OptionsBlock.ActualHeight / O.AllMenus[CurrentMenu].Count * _selectedOptionIndex + 5);
                 var highlighted = new Border
                 {
                     Name = "Highlight",
                     VerticalAlignment = VerticalAlignment.Top,
                     Background = Brushes.Black,
-                    Width = o.Layout.ActualWidth,
-                    Height = o.OptionsBlock.ActualHeight / o.AllMenus[CurrentMenu].Count,
+                    Width = O.Layout.ActualWidth,
+                    Height = O.OptionsBlock.ActualHeight / O.AllMenus[CurrentMenu].Count,
                     Margin = new Thickness(0, height, 0, 0)
                 };
                 Grid.SetColumn(highlighted, 0);
@@ -323,7 +321,7 @@ public partial class OverlayHandling
 
                 // Put highlight box behind text, add to layout
                 System.Windows.Controls.Panel.SetZIndex(highlighted, 1);
-                o.Layout.Children.Add(highlighted);
+                O.Layout.Children.Add(highlighted);
             });
             
             AddMenuOptions(yRes,index);
@@ -333,7 +331,7 @@ public partial class OverlayHandling
     private void AddMenuOptions(double yRes, int index)
     {
         // Adds all menu options to the menu
-        foreach (var item in o.AllMenus[CurrentMenu])
+        foreach (var item in O.AllMenus[CurrentMenu])
         {
             string? text, value = string.Empty, description = string.Empty;
             SolidColorBrush fColour;
@@ -360,19 +358,19 @@ public partial class OverlayHandling
                 _ => value
             };
 
-            o.Dispatcher.BeginInvoke((Action<int>)delegate (int idx)
+            O.Dispatcher.BeginInvoke((Action<int>)delegate (int idx)
             {
                 try
                 {
                     if (item.Type != SubHeader)
                     {
-                        o.OptionsBlock.Inlines.Add(new Run(text)
+                        O.OptionsBlock.Inlines.Add(new Run(text)
                         {
                             Foreground = fColour,
                             FontSize = yRes / (5d / FontSize * 45d)
                         });
 
-                        o.ValueBlock.Inlines.Add(new Run(value)
+                        O.ValueBlock.Inlines.Add(new Run(value)
                         {
                             Foreground = fColour,
                             FontSize = yRes / (5d / FontSize * 45d)
@@ -380,46 +378,46 @@ public partial class OverlayHandling
 
                         if (description != string.Empty && idx == _selectedOptionIndex)
                         {
-                            o.DescriptionBlock.Text = description;
-                            o.DescriptionBlock.FontSize = yRes / (5d / FontSize * 45d);
-                            o.DescriptionBlock.Foreground = Brushes.White;
+                            O.DescriptionBlock.Text = description;
+                            O.DescriptionBlock.FontSize = yRes / (5d / FontSize * 45d);
+                            O.DescriptionBlock.Foreground = Brushes.White;
                         }
                         else if (idx == _selectedOptionIndex)
                         {
-                            o.DescriptionBlock.Text = string.Empty;
+                            O.DescriptionBlock.Text = string.Empty;
                         }
                     }
                     else
                     {
-                        o.OptionsBlock.Inlines.Add(new InlineUIContainer
+                        O.OptionsBlock.Inlines.Add(new InlineUIContainer
                         {
                             Child = new TextBlock
                             {
                                 Text = text,
                                 Foreground = fColour,
                                 FontSize = yRes / (5d / FontSize * 45d),
-                                Width = o.Width - 10,
+                                Width = O.Width - 10,
                                 HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                                 TextAlignment = TextAlignment.Center
                             }
                         });
-                        o.ValueBlock.Inlines.Add(new Run("") { FontSize = yRes / (5d / FontSize * 45d) });
+                        O.ValueBlock.Inlines.Add(new Run("") { FontSize = yRes / (5d / FontSize * 45d) });
                     }
                 }
                 catch
                 {
-                    o.OverlayToggle(false);
+                    O.OverlayToggle(false);
                     Task.Delay(25).Wait();
-                    o.OverlayToggle(true);
+                    O.OverlayToggle(true);
                 }
             }, index);
 
-            if (o.AllMenus[CurrentMenu].IndexOf(item) != o.AllMenus[CurrentMenu].Count - 1)
+            if (O.AllMenus[CurrentMenu].IndexOf(item) != O.AllMenus[CurrentMenu].Count - 1)
             {
-                o.Dispatcher.BeginInvoke((Action)delegate
+                O.Dispatcher.BeginInvoke((Action)delegate
                 {
-                    o.OptionsBlock.Inlines.Add("\n"); 
-                    o.ValueBlock.Inlines.Add("\n");
+                    O.OptionsBlock.Inlines.Add("\n"); 
+                    O.ValueBlock.Inlines.Add("\n");
                 });
             }
             index++;
@@ -446,7 +444,7 @@ public partial class OverlayHandling
 
             UpdateKeyStates();
             
-            var currentOption = o.AllMenus[CurrentMenu][_selectedOptionIndex];
+            var currentOption = O.AllMenus[CurrentMenu][_selectedOptionIndex];
             
             if (GetAsyncKeyState(Confirm) is 1 or short.MinValue && currentOption.IsEnabled)
             {
@@ -505,13 +503,13 @@ public partial class OverlayHandling
             else if (GetAsyncKeyState(OverlayVisibility) is 1 or short.MinValue)
             {
                     
-                if (o.Visibility == Visible)
+                if (O.Visibility == Visible)
                 {
-                    o.Dispatcher.Invoke(delegate { o.Hide(); });
+                    O.Dispatcher.Invoke(delegate { O.Hide(); });
                 }
                 else
                 {
-                    o.Dispatcher.Invoke(delegate { o.Show(); });
+                    O.Dispatcher.Invoke(delegate { O.Show(); });
                 }
 
                 _hidden = !_hidden;
@@ -572,7 +570,7 @@ public partial class OverlayHandling
                 void Down()
                 {
                     _selectedOptionIndex++;
-                    if (_selectedOptionIndex > o.AllMenus[CurrentMenu].Count - 1)
+                    if (_selectedOptionIndex > O.AllMenus[CurrentMenu].Count - 1)
                         _selectedOptionIndex = 0;
                 }
                 Down();
@@ -585,7 +583,7 @@ public partial class OverlayHandling
                     Task.Delay(5, ct).Wait(ct);
                 };
                 
-                o.Dispatcher.Invoke(delegate
+                O.Dispatcher.Invoke(delegate
                 {
                     timer.Start();
                 });
@@ -595,7 +593,7 @@ public partial class OverlayHandling
                     Task.Delay(1, ct).Wait(ct);
                 }
                 
-                o.Dispatcher.Invoke(delegate
+                O.Dispatcher.Invoke(delegate
                 {
                     timer.Dispose();
                 });
@@ -606,7 +604,7 @@ public partial class OverlayHandling
                 {
                     _selectedOptionIndex--;
                     if (_selectedOptionIndex < 0)
-                        _selectedOptionIndex = o.AllMenus[CurrentMenu].Count - 1;
+                        _selectedOptionIndex = O.AllMenus[CurrentMenu].Count - 1;
                 }
                 Up();
 
@@ -618,7 +616,7 @@ public partial class OverlayHandling
                     Task.Delay(5, ct).Wait(ct);
                 };
                 
-                o.Dispatcher.Invoke(delegate
+                O.Dispatcher.Invoke(delegate
                 {
                     timer.Start();
                 });
@@ -628,7 +626,7 @@ public partial class OverlayHandling
                     Task.Delay(1, ct).Wait(ct);
                 }
                 
-                o.Dispatcher.Invoke(delegate
+                O.Dispatcher.Invoke(delegate
                 {
                     timer.Dispose();
                 });
@@ -648,7 +646,7 @@ public partial class OverlayHandling
             }
 
             var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
-            var currentOption = o.AllMenus[CurrentMenu][_selectedOptionIndex];
+            var currentOption = O.AllMenus[CurrentMenu][_selectedOptionIndex];
 
             if (_rightKeyDown && currentOption.IsEnabled && isGameFocused)
             {
@@ -713,7 +711,7 @@ public partial class OverlayHandling
     // Configs and enables blur
     internal static void EnableBlur()
     {
-        var windowHelper = new WindowInteropHelper(o!);
+        var windowHelper = new WindowInteropHelper(O!);
 
         var accent = new AccentPolicy
         {

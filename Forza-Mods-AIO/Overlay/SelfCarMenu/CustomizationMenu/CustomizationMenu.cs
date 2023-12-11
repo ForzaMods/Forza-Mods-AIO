@@ -18,7 +18,7 @@ public abstract class CustomizationMenu
     // Event handlers
     private static void GlowingPaintValueChanged(object s, EventArgs e)
     {
-        var customPage = Tabs.Self_Vehicle.DropDownTabs.CustomizationPage._CustomizationPage;
+        var customPage = Tabs.Self_Vehicle.DropDownTabs.CustomizationPage.Customization;
 
         customPage.Dispatcher.Invoke(delegate 
         {
@@ -33,7 +33,7 @@ public abstract class CustomizationMenu
 
     private static void GlowingPaintToggled(object s, EventArgs e)
     {
-        var customPage = Tabs.Self_Vehicle.DropDownTabs.CustomizationPage._CustomizationPage;
+        var customPage = Tabs.Self_Vehicle.DropDownTabs.CustomizationPage.Customization;
 
         customPage.Dispatcher.Invoke(() =>
         {

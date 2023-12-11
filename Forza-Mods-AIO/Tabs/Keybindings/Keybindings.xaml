@@ -13,8 +13,8 @@
             <Button x:Name="OverlayButton" Content="Overlay Keybindings" HorizontalAlignment="Left" Margin="10,10,10,0" VerticalAlignment="Top" Focusable="False" Width="580" Height="25" MinHeight="0" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
             <Button x:Name="HandlingButton" Content="Handling Keybindings" HorizontalAlignment="Left" Margin="10,45,10,0" VerticalAlignment="Top" Focusable="False" Width="580" Height="25" MinHeight="0" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
         
-            <Frame x:Name="OverlayPage" Content="Frame" Width="580" Source="DropDownTabs/OverlayKeybindings.xaml" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="HandlingPage" Content="Frame" Width="580" Source="DropDownTabs/HandlingKeybindings.xaml" Margin="10,45,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="OverlayPage" Content="Frame" Width="580" Source="DropDownTabs/OverlayKeybindings.xaml" Margin="10,10,10,0" VerticalAlignment="Top" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="HandlingPage" Content="Frame" Width="580" Source="DropDownTabs/HandlingKeybindings.xaml" Margin="10,45,10,0" VerticalAlignment="Top" Height="25" Visibility="Hidden" IsTabStop="False"/>
         </Grid>
     </ScrollViewer>
 </Page>

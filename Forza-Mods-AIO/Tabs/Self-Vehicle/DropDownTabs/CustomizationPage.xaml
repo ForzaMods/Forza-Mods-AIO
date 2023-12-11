@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d"
-      d:DesignHeight="70" 
+      d:DesignHeight="180" 
       d:DesignWidth="580"
       Title="CustomisationPage"
       Background="Transparent">
@@ -21,59 +21,174 @@
                 Width="556" 
                 Height="46"
                 Margin="0,10,0,0" 
-                BorderBrush="#FF2E3440" />
+                BorderBrush="#FF2E3440">
+
+            <StackPanel Orientation="Horizontal">
+                
+                <mah:NumericUpDown x:Name="GlowingPaintNum"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="6.5 0 0 0"
+                                   Width="100"
+                                   Background="#FF2E3440"
+                                   BorderBrush="#FF2E3440" 
+                                   Minimum="1"
+                                   Maximum="50"
+                                   Value="50"
+                                   TextAlignment="Left"
+                                   ValueChanged="GlowingPaintNum_ValueChanged"/>
+                
+                <Slider x:Name="GlowingPaintSlider"
+                        Minimum="1"
+                        Maximum="50"
+                        Value="50"
+                        Width="290"
+                        Margin="8 0 0 0"
+                        ValueChanged="GlowingPaintSlider_ValueChanged"/>
+                
+                
+                <mah:ToggleSwitch x:Name="GlowingPaintSwitch"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Left"
+                                  Margin="8 0 0 0"
+                                  Content="Glowing Paint" 
+                                  FontSize="12"
+                                  Toggled="GlowingPaintSwitch_Toggled" />
+                
+            </StackPanel>
         
-        <Label Content="Glowing Paint" 
-               HorizontalAlignment="Left"
-               Margin="481,20,0,0"
-               VerticalAlignment="Top" 
-               Height="26" 
-               Width="87" />
+        </Border>
         
-        <mah:NumericUpDown x:Name="GlowingPaintNum" 
-                           Margin="20,20,458,0" 
-                           ParsingNumberStyle="Float"
-                           TextAlignment="Left" 
-                           Minimum="1" 
-                           Maximum="30" 
-                           Value="30" 
-                           Height="0"
-                           VerticalAlignment="Top"
-                           NumericInputMode="Decimal"
-                           ValueChanged="GlowingPaintNum_ValueChanged"
-                           UpDownButtonsFocusable="False"
-                           TrackMouseWheelWhenMouseOver="True"
-                           Culture="en-GB"
-                           ChangeValueOnTextChanged="False"
-                           IsTabStop="False"
-                           Background="#FF2E3440"
-                           BorderBrush="#FF2E3440" />
+                
+        <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,66,0,0">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <mah:NumericUpDown x:Name="HeadlightRed" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="6.5 0 0 0"
+                                   Background="#FF2E3440"
+                                   BorderBrush="#FF2E3440" 
+                                   Width="85"
+                                   Interval="0.1"
+                                   Minimum="0"
+                                   Maximum="1"
+                                   Value="1"
+                                   TrackMouseWheelWhenMouseOver="True"
+                                   TextAlignment="Left"
+                                   ValueChanged="HeadlightColour_OnValueChanged"/>
+                                
+                <Label HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="5 0 0 0"
+                       Content="Red"/>
+                                
+                <mah:NumericUpDown x:Name="HeadlightGreen" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="6.5 0 0 0"
+                                   Background="#FF2E3440"
+                                   BorderBrush="#FF2E3440" 
+                                   Width="85"
+                                   Interval="0.1"
+                                   Minimum="0"
+                                   Maximum="1"
+                                   Value="1"
+                                   TrackMouseWheelWhenMouseOver="True"
+                                   TextAlignment="Left"
+                                   ValueChanged="HeadlightColour_OnValueChanged"/>
+                                
+                <Label HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="6.5 0 0 0"
+                       Content="Green"/>
+                                
+                <mah:NumericUpDown x:Name="HeadlightBlue" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="6.5 0 0 0"
+                                   Background="#FF2E3440"
+                                   BorderBrush="#FF2E3440" 
+                                   Width="85"
+                                   Interval="0.1"
+                                   Minimum="0"
+                                   Maximum="1"
+                                   Value="1"
+                                   TrackMouseWheelWhenMouseOver="True"
+                                   TextAlignment="Left"
+                                   ValueChanged="HeadlightColour_OnValueChanged"/>
+                                
+                <Label HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="6.5 0 0 0"
+                       Content="Blue"/>
+                                
+                <mah:ToggleSwitch x:Name="HeadlightToggle" 
+                                  Content="Headlight Color"
+                                  FontSize="12"
+                                  Margin="6.5 0 0 0"
+                                  Toggled="HeadlightColor_OnToggled"/>
+                                
+             </StackPanel>
+                    
+        </Border>
         
-        <mah:ToggleSwitch Height="31" 
-                          x:Name="GlowingPaintSwitch"
-                          Margin="435,18,0,0" 
-                          VerticalAlignment="Top"
-                          Width="46" 
-                          Content="" 
-                          MinWidth="0" 
-                          HorizontalContentAlignment="Left"
-                          UseLayoutRounding="False" 
-                          Toggled="GlowingPaintSwitch_Toggled" 
-                          IsTabStop="False" />
-        
-        <Slider x:Name="GlowingPaintSlider"
-                HorizontalAlignment="Left"
+              <Border BorderThickness="2,2,2,2"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Width="296"
-                Minimum="1"
-                Maximum="30"
-                Value="30" 
-                Foreground="#FF2E3440" 
-                BorderBrush="{x:Null}"
-                Focusable="False"
-                Margin="128,20,0,0"
-                Height="26" 
-                TickPlacement="None"
-                ValueChanged="GlowingPaintSlider_ValueChanged" />
+                Width="556"
+                Height="46"
+                Margin="0,120,0,0"
+                BorderBrush="#FF2E3440">
+                
+            <Grid>
+                    
+                    <ComboBox x:Name="CleanlinessComboBox"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Left"
+                              SelectedIndex="0"
+                              Width="60"
+                              Margin="7.5 0"
+                              BorderBrush="#FF2E3440" 
+                              Background="#FF2E3440" 
+                              SelectionChanged="CleanlinessComboBox_OnSelectionChanged">
+                        <ComboBoxItem Content="Dirt"/>
+                        <ComboBoxItem Content="Mud"/>
+                    </ComboBox>
+                    
+                    <mah:NumericUpDown x:Name="CleanlinessNum" 
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       TextAlignment="Left"
+                                       Width="125"
+                                       Margin="75 0"
+                                       Value="0"
+                                       Interval="0.025"
+                                       Maximum="1"
+                                       Minimum="0"
+                                       BorderBrush="#FF2E3440" 
+                                       Background="#FF2E3440" 
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       ValueChanged="CleanlinessNum_OnValueChanged"/>
+                        
+                    <Slider x:Name="CleanlinessSlider" 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="215"
+                            Margin="85 0 0 0"
+                            Maximum="1"
+                            Minimum="0"
+                            ValueChanged="CleanlinessSlider_OnValueChanged"/>
+                        
+                    <mah:ToggleSwitch x:Name="CleanlinessSwitch"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Right"
+                                      Content="Dirt Level"
+                                      FontSize="11.5"
+                                      MinWidth="0"
+                                      Margin="10 0"
+                                      Toggled="CleanlinessSwitch_OnToggled"/>
+            </Grid>
+                
+        </Border>
     </Grid>
 </Page>

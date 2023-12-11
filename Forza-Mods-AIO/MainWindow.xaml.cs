@@ -18,8 +18,7 @@ using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 using Forza_Mods_AIO.Tabs.Tuning;
 using Lunar;
-using Keys = System.Windows.Forms.Keys;
-using Monet = Forza_Mods_AIO.Resources.Theme.Monet;
+using MahApps.Metro.Controls;
 using static System.Diagnostics.FileVersionInfo;
 using static System.IO.Path;
 using static System.Threading.Tasks.Task;
@@ -30,6 +29,12 @@ using static ControlzEx.Theming.ThemeManager;
 using static Forza_Mods_AIO.Overlay.Overlay;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
 using static Forza_Mods_AIO.Resources.Bypass;
+using Keys = System.Windows.Forms.Keys;
+using Monet = Forza_Mods_AIO.Resources.Theme.Monet;
+using Application = System.Windows.Application;
+using Button = System.Windows.Controls.Button;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using RadioButton = System.Windows.Controls.RadioButton;
 
 namespace Forza_Mods_AIO;
 
@@ -47,33 +52,37 @@ public partial class MainWindow
 
         public GameVerPlat(string? name, string? plat, Process? process, string? update)
         {
-            Name = name; Plat = plat; Process = process; Update = update;
+            Name = name;
+            Plat = plat;
+            Process = process;
+            Update = update;
         }
     }
 
     #region Variables
-    public static MainWindow Mw = new();
+
+    public static MainWindow Mw { get; private set; } = null!;
+
     public readonly Mem M = new()
     {
-        SigScanTasks = Environment.ProcessorCount * 5
+        SigScanTasks = Environment.ProcessorCount * (Environment.ProcessorCount / 2)
     };
+
     public LibraryMapper Mapper = null!;
     public GameVerPlat Gvp = new(null, null, null, null);
     public bool Attached;
     private IEnumerable<Visual>? _visuals;
-    private readonly Dictionary<string, bool> _isScanned = new()
-    {
-        { "AutoShow", false },
-        { "Self_Vehicle", false },
-        { "Tuning", false }
-    };
+
     #endregion
+
     #region Starting
+
     public MainWindow()
     {
         InitializeComponent();
         Mw = this;
-        Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ConvertFromString("#FF2E3440")!, new SolidColorBrush((Color)ConvertFromString("#FF2E3440")!), true, false));
+        Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ConvertFromString("#FF2E3440")!,
+            new SolidColorBrush((Color)ConvertFromString("#FF2E3440")!), true, false));
         Current.ChangeTheme(Application.Current, "AccentCol");
         AIO_Info.IsChecked = true;
         Background.Background = Monet.MainColour;
@@ -81,19 +90,25 @@ public partial class MainWindow
         SideBar.Background = Monet.DarkishColour;
         TopBar1.Background = Monet.DarkColour;
         TopBar2.Background = Monet.DarkColour;
-        CategoryButton_Click(new Object(), new RoutedEventArgs());
+        CategoryButton_Click(AIO_Info, new RoutedEventArgs());
         Loaded += (_, _) => ToggleButtons(false);
-        Run(() => IsAttached());
+        Run(IsAttached);
     }
+
     #endregion
+
     #region Dragging
+
     private void Window_MouseDown(object sender, MouseButtonEventArgs e)
     {
         if (e.ChangedButton == MouseButton.Left && System.Windows.Forms.Control.MousePosition.Y < Window.Top + 50)
             DragMove();
     }
+
     #endregion
+
     #region Buttons
+
     private void ExitButton_MouseDown(object sender, MouseButtonEventArgs e)
     {
         Close();
@@ -103,9 +118,16 @@ public partial class MainWindow
     {
         var rbName = "";
 
-        foreach (RadioButton rb in ButtonStack.Children)
+        foreach (var element in ButtonStack.Children)
         {
-            // RB Isnt the checked one
+            if (element.GetType() != typeof(RadioButton))
+            {
+                continue;
+            }
+
+            var rb = (RadioButton)element;
+            
+            // RB Isn't the checked one
             if (rb.IsChecked != true)
             {
                 rb.Background = Monet.DarkishColour;
@@ -133,39 +155,12 @@ public partial class MainWindow
                 element.Visibility = Visibility.Hidden;
             }
         }
-            
-        // Scanned is true
-        if (!(_isScanned.TryGetValue(rbName, out var isScanned) && !isScanned && Attached))
-        {
-            return;
-        }
-
-        // Scanned is not true, scan
-        _isScanned[rbName] = true;
-        switch (rbName)
-        {
-            case "AutoShow":
-            {
-                Run(AutoshowVars.Scan);
-                break;
-            }
-            case "Self_Vehicle":
-            {
-                if (Gvp.Name == "Forza Horizon 5")
-                    Run(FH5_Scan);
-                else
-                    Run(FH4_Scan);
-                break;
-            }
-            case "Tuning":
-            {
-                Run(TuningAddresses.Scan);
-                break;
-            }
-        }
     }
+
     #endregion
+
     #region Attaching/Behaviour
+
     private void IsAttached()
     {
         while (true)
@@ -175,7 +170,7 @@ public partial class MainWindow
             {
                 if (Attached)
                     continue;
-                    
+
                 GvpMaker(5);
                 DisableAntiCheat(5);
                 ToggleButtons(true);
@@ -185,7 +180,7 @@ public partial class MainWindow
             {
                 if (Attached)
                     continue;
-                    
+
                 GvpMaker(4);
                 DisableAntiCheat(4);
                 ToggleButtons(true);
@@ -195,7 +190,7 @@ public partial class MainWindow
             {
                 if (!Attached)
                     continue;
-                    
+
                 ResetAio();
                 Attached = false;
             }
@@ -220,47 +215,33 @@ public partial class MainWindow
             Tools.Fill = on ? Brushes.White : Brushes.DarkGray;
         });
     }
+
     private void GvpMaker(int ver)
     {
         string platform;
         string? update;
-        var name = $"Forza Horizon {ver}";
         var process = M.MProc.Process;
-        var forzaPath = process.MainModule!.FileName;
-            
-        if (forzaPath.Contains("Microsoft.624F8B84B80") || forzaPath.Contains("Microsoft.SunriseBaseGame"))
+        var gamePath = process.MainModule!.FileName;
+
+        if (gamePath.Contains("Microsoft.624F8B84B80") || gamePath.Contains("Microsoft.SunriseBaseGame"))
         {
             platform = "MS";
-            try
-            {
-                var filePath = Combine(GetDirectoryName(forzaPath), "appxmanifest.xml");
-                var xml = Load(filePath);
-                var descendants = xml.Descendants().Where(e => e.Name.LocalName == "Identity");
-                var version = descendants.Select(e => e.Attribute("Version")).FirstOrDefault();
-                update = version == null ? "Unable to get update info" : version.Value;
-            }
-            catch { update = "Unable to get update info"; }
+            var filePath = Combine(GetDirectoryName(gamePath) ?? throw new Exception(), "appxmanifest.xml");
+            var xml = Load(filePath);
+            var descendants = xml.Descendants().Where(e => e.Name.LocalName == "Identity");
+            var version = descendants.Select(e => e.Attribute("Version")).FirstOrDefault();
+            update = version == null ? "Unable to get update info" : version.Value;
         }
         else
         {
-            try
-            {
-                var filePath = Combine(GetDirectoryName(forzaPath), "OnlineFix64.dll");
-                platform = File.Exists(filePath) ? "OnlineFix - Steam" : "Steam";
-            }
-            catch
-            {
-                platform = "Unable to get platform info";
-            }
-            try
-            {
-                update = GetVersionInfo(process.MainModule!.FileName).FileVersion;
-            }
-            catch { update = "Unable to get update info"; }
+            var filePath = Combine(GetDirectoryName(gamePath) ?? throw new Exception(), "OnlineFix64.dll");
+            platform = File.Exists(filePath) ? "OnlineFix - Steam" : "Steam";
+            update = GetVersionInfo(process.MainModule!.FileName).FileVersion;
         }
-        Gvp = new GameVerPlat(name, platform, process, update);
-            
-        Dispatcher.Invoke(delegate 
+
+        Gvp = new GameVerPlat($"Forza Horizon {ver}", platform, process, update);
+
+        Dispatcher.Invoke(delegate
         {
             AttachedLabel.Content = $"{Gvp.Name}, {Gvp.Plat}, {Gvp.Update}";
             Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsEnabled = true;
@@ -269,10 +250,24 @@ public partial class MainWindow
 
     private void ResetAio()
     {
-        Dispatcher.Invoke(delegate 
+        ClearDetours();
+        ResetUi();
+        ResetMisc();
+    }
+
+    private static void ResetMisc()
+    {
+        AutoshowGarageOption.IsEnabled = false;
+        SelfVehicleOption.IsEnabled = false;
+        TuningOption.IsEnabled = false;
+    }
+
+    private void ResetUi()
+    {
+        Dispatcher.Invoke(delegate
         {
             AttachedLabel.Content = "Launch FH4/5";
-            Tabs.Tuning.Tuning.T.AOBProgressBar.Value = 0;
+            Tabs.Tuning.Tuning.T.AobProgressBar.Value = 0;
             Tabs.Self_Vehicle.SelfVehicle.Sv.AobProgressBar.Value = 0;
             Tabs.AutoShowTab.AutoShow.As.AobProgressBar.Value = 0;
             if (Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsOn)
@@ -284,34 +279,63 @@ public partial class MainWindow
             AIO_Info.IsChecked = true;
             CategoryButton_Click(new object(), new RoutedEventArgs());
         });
-        _isScanned["Autoshow"] = false;
-        _isScanned["Self_Vehicle"] = false;
-        _isScanned["Tuning"] = false;
 
         ToggleButtons(false);
-            
-        AutoshowGarageOption.IsEnabled = false;
-        SelfVehicleOption.IsEnabled = false;
-        TuningOption.IsEnabled = false;
-            
+
+        Dispatcher.Invoke(delegate
+        {
+            foreach (var visual in Window.GetChildren())
+            {
+                var element = (FrameworkElement)visual;
+
+                if (element.GetType() != typeof(ToggleSwitch))
+                {
+                    continue;
+                }
+
+                ((ToggleSwitch)element).IsOn = false;
+            }
+        });
+
+        Tabs.Tuning.Tuning.T.UiManager.ToggleUiElements(false);
+        Tabs.Self_Vehicle.SelfVehicle.Sv.UiManager.ToggleUiElements(false);
+        Tabs.AutoShowTab.AutoShow.As.UiManager.ToggleUiElements(false);
+
+        Dispatcher.BeginInvoke(delegate ()
+        {
+            Tabs.Tuning.Tuning.T.UiManager.Reset();
+            Tabs.Self_Vehicle.SelfVehicle.Sv.UiManager.Reset();
+            Tabs.Tuning.Tuning.T.ScanButton.IsEnabled = true;
+            Tabs.Self_Vehicle.SelfVehicle.Sv.ScanButton.IsEnabled = true;
+            Tabs.AutoShowTab.AutoShow.As.ScanButton.IsEnabled = true;
+        });
+    }
+
+
+    private static void ClearDetours()
+    {
         UnlocksPage.XpDetour.Clear();
         UnlocksPage.CrDetour.Clear();
+        UnlocksPage.CrCompareDetour.Clear();
         CustomizationPage.GlowingPaintDetour.Clear();
+        CustomizationPage.HeadlightDetour.Clear();
+        CustomizationPage.CleanlinessDetour.Clear();
         FovPage.FovLockDetour.Clear();
         EnvironmentPage.TimeDetour.Clear();
         LocatorEntity.WaypointDetour.Clear();
         CarEntity.BaseDetour.Clear();
+        LocatorEntity.WaypointDetour.Clear();
         MiscellaneousPage.ScaleDetour.Clear();
         MiscellaneousPage.SellDetour.Clear();
         MiscellaneousPage.Build1Detour.Clear();
         MiscellaneousPage.Build2Detour.Clear();
         MiscellaneousPage.SkillTreeDetour.Clear();
-        MiscellaneousPage.CleanlinessDetour.Clear();
         MiscellaneousPage.ScoreDetour.Clear();
         HandlingPage.FlyHackDetour.Clear();
         MiscellaneousPage.SkillCostDetour.Clear();
         MiscellaneousPage.DriftDetour.Clear();
-        MiscellaneousPage.MiscPage!.WasSkillDetoured = false;
+        MiscellaneousPage.TimeScaleDetour.Clear();
+        MiscellaneousPage.MiscPage.WasSkillDetoured = false;
         EnvironmentPage.WasTimeDetoured = false;
         TeleportsPage.WaypointDetoured = false;
         IsScanRunning = false;
@@ -323,7 +347,7 @@ public partial class MainWindow
         Window.Hide();
         try
         {
-            o?.OverlayToggle(false);
+            O.OverlayToggle(false);
         }
         catch { /* ignored */ }
 
@@ -349,9 +373,13 @@ public partial class MainWindow
         UnlocksPage.CrDetour.Destroy();
         UnlocksPage.SeasonalDetour.Destroy();   
         UnlocksPage.SeriesDetour.Destroy();   
+        UnlocksPage.CrCompareDetour.Destroy();
         CustomizationPage.GlowingPaintDetour.Destroy();
+        CustomizationPage.HeadlightDetour.Destroy();
+        CustomizationPage.CleanlinessDetour.Destroy();
         FovPage.FovLockDetour.Destroy();
         CarEntity.BaseDetour.Destroy();
+        LocatorEntity.WaypointDetour.Destroy();
         EnvironmentPage.TimeDetour.Destroy();
         LocatorEntity.WaypointDetour.Destroy();
         HandlingPage.FlyHackDetour.Destroy();
@@ -360,10 +388,10 @@ public partial class MainWindow
         MiscellaneousPage.ScaleDetour.Destroy();
         MiscellaneousPage.SellDetour.Destroy();
         MiscellaneousPage.SkillTreeDetour.Destroy();
-        MiscellaneousPage.CleanlinessDetour.Destroy();
         MiscellaneousPage.ScoreDetour.Destroy();
         MiscellaneousPage.SkillCostDetour.Destroy();
         MiscellaneousPage.DriftDetour.Destroy();
+        MiscellaneousPage.TimeScaleDetour.Destroy();
 
         try
         {
@@ -406,7 +434,7 @@ public partial class MainWindow
         if (!Grabbing || !IsClicked) return;
         Grabbing = false;
         IsClicked = false;
-        var oldKey = ClickedButton.Content;
+        var oldKey = ClickedButton?.Content;
 
         // proper conversion from wpf key to win-forms
         // https://stackoverflow.com/a/1153059
@@ -418,19 +446,19 @@ public partial class MainWindow
                 continue;
             }
             
-            field.SetValue(new OverlayHandling(), (Keys)KeyInterop.VirtualKeyFromKey(e.Key));
+            field.SetValue(Oh, (Keys)KeyInterop.VirtualKeyFromKey(e.Key));
             ClickedButton.Content = e.Key;
             return;
         }
         
         foreach (var field in typeof(HandlingKeybindings).GetFields())
         {
-            if (field.Name.ToLower() != ClickedButton?.Name.ToLower().Replace("Button", string.Empty))
+            if (field.Name != ClickedButton?.Name.Replace("Button", string.Empty))
             {
                 continue;
             }
-            
-            field.SetValue(new HandlingKeybindings(), (Keys)KeyInterop.VirtualKeyFromKey(e.Key));
+
+            field.SetValue(HandlingKeybindings.Hk, (Keys)KeyInterop.VirtualKeyFromKey(e.Key));
             ClickedButton.Content = e.Key;
             return; 
         }
@@ -490,9 +518,10 @@ public static class GetChildrenExtension
         return GetChildrenPrivate(parent, target, recurse);
     }
 
-    private static bool IsOnTarget(Visual visual, Visual target)
+    private static bool IsOnTarget(DependencyObject visual, Visual target)
     {
         var currentVisual = visual;
+
         while (currentVisual != null)
         {
             if (currentVisual == target)
@@ -500,7 +529,7 @@ public static class GetChildrenExtension
                 return true;
             }
 
-            currentVisual = GetParent(currentVisual) as FrameworkElement;
+            currentVisual = GetParent(currentVisual);
         }
 
         return false;

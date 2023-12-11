@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
+using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.PhotomodePage;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.TeleportsPage;
 
@@ -13,7 +14,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle;
 /// </summary>
 public partial class SelfVehicle
 {
-    public static SelfVehicle? Sv;
+    public static SelfVehicle Sv { get; private set; } = null!;
     public readonly UiManager UiManager;
 
     public SelfVehicle()
@@ -22,6 +23,17 @@ public partial class SelfVehicle
         Sv = this;
         UiManager = new UiManager(this, AobProgressBar, Sizes, IsClicked);
         UiManager.ToggleUiElements(false);
+    }
+
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+        
+        SelfVehicleAddresses.Scan();
+        ScanButton.IsEnabled = false;
     }
     
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -38,13 +50,13 @@ public partial class SelfVehicle
     private static readonly Dictionary<string, double> Sizes = new()
     {
         { "HandlingButton", 465 }, // Button name for page, height of page
-        { "UnlocksButton", 235 },
+        { "UnlocksButton", 180 },
         { "PhotomodeButton", 285 },
         { "StatsButton", 70 },
         { "TeleportsButton", 70 },
         { "EnvironmentButton", 235 },
-        { "CustomizationButton", 70 },
-        { "MiscellaneousButton", 345 },
+        { "CustomizationButton", 180 },
+        { "MiscellaneousButton", 340 },
         { "FovButton", 347.5 }
     };
 
@@ -63,56 +75,61 @@ public partial class SelfVehicle
 
     private static void HandleOpenButton(string name)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+        
         switch (name)
         {
-            case "TeleportsButton" when MainWindow.Mw.Gvp.Name == "Forza Horizon 5":
+            case "TeleportsButton" when Mw.Gvp.Name == "Forza Horizon 5":
             {
-                if (T.TeleportBox.Items.Contains("Guanajuato (Main City)"))
+                if (Teleports.TeleportBox.Items.Contains("Guanajuato (Main City)"))
                 {
                     return;
                 }
 
-                T.TeleportBox.Items.Clear();
-                T.TeleportBox.Items.Add("Waypoint");
-                T.TeleportBox.Items.Add("Airstrip");
-                T.TeleportBox.Items.Add("Bridge");
-                T.TeleportBox.Items.Add("Dirt Circuit");
-                T.TeleportBox.Items.Add("Dunes");
-                T.TeleportBox.Items.Add("Golf Course");
-                T.TeleportBox.Items.Add("Guanajuato (Main City)");
-                T.TeleportBox.Items.Add("Motorway");
-                T.TeleportBox.Items.Add("Mulege");
-                T.TeleportBox.Items.Add("Playa Azul");
-                T.TeleportBox.Items.Add("River");
-                T.TeleportBox.Items.Add("Stadium");
-                T.TeleportBox.Items.Add("Temple");
-                T.TeleportBox.Items.Add("Temple Drag");
-                T.TeleportBox.Items.Add("Top Of Volcano");
+                Teleports.TeleportBox.Items.Clear();
+                Teleports.TeleportBox.Items.Add("Waypoint");
+                Teleports.TeleportBox.Items.Add("Airstrip");
+                Teleports.TeleportBox.Items.Add("Bridge");
+                Teleports.TeleportBox.Items.Add("Dirt Circuit");
+                Teleports.TeleportBox.Items.Add("Dunes");
+                Teleports.TeleportBox.Items.Add("Golf Course");
+                Teleports.TeleportBox.Items.Add("Guanajuato (Main City)");
+                Teleports.TeleportBox.Items.Add("Motorway");
+                Teleports.TeleportBox.Items.Add("Mulege");
+                Teleports.TeleportBox.Items.Add("Playa Azul");
+                Teleports.TeleportBox.Items.Add("River");
+                Teleports.TeleportBox.Items.Add("Stadium");
+                Teleports.TeleportBox.Items.Add("Temple");
+                Teleports.TeleportBox.Items.Add("Temple Drag");
+                Teleports.TeleportBox.Items.Add("Top Of Volcano");
                 break;
             }
             case "TeleportsButton" when MainWindow.Mw.Gvp.Name == "Forza Horizon 4":
             {
-                if (T.TeleportBox.Items.Contains("Edinburgh"))
+                if (Teleports.TeleportBox.Items.Contains("Edinburgh"))
                 {
                     return;
                 }
 
-                T.TeleportBox.Items.Clear();
-                T.TeleportBox.Items.Add("Waypoint");
-                T.TeleportBox.Items.Add("Adventure Park");
-                T.TeleportBox.Items.Add("Ambleside");
-                T.TeleportBox.Items.Add("Beach");
-                T.TeleportBox.Items.Add("Broadway");
-                T.TeleportBox.Items.Add("Dam");
-                T.TeleportBox.Items.Add("Edinburgh");
-                T.TeleportBox.Items.Add("Festival");
-                T.TeleportBox.Items.Add("Greendale Airstrip");
-                T.TeleportBox.Items.Add("Lake Island");
-                T.TeleportBox.Items.Add("Mortimer Gardens");
-                T.TeleportBox.Items.Add("Quarry");
-                T.TeleportBox.Items.Add("Railyard");
-                T.TeleportBox.Items.Add("Start of Motorway");
-                T.TeleportBox.Items.Add("Top of Mountain");
+                Teleports.TeleportBox.Items.Clear();
+                Teleports.TeleportBox.Items.Add("Waypoint");
+                Teleports.TeleportBox.Items.Add("Adventure Park");
+                Teleports.TeleportBox.Items.Add("Ambleside");
+                Teleports.TeleportBox.Items.Add("Beach");
+                Teleports.TeleportBox.Items.Add("Broadway");
+                Teleports.TeleportBox.Items.Add("Dam");
+                Teleports.TeleportBox.Items.Add("Edinburgh");
+                Teleports.TeleportBox.Items.Add("Festival");
+                Teleports.TeleportBox.Items.Add("Greendale Airstrip");
+                Teleports.TeleportBox.Items.Add("Lake Island");
+                Teleports.TeleportBox.Items.Add("Mortimer Gardens");
+                Teleports.TeleportBox.Items.Add("Quarry");
+                Teleports.TeleportBox.Items.Add("Railyard");
+                Teleports.TeleportBox.Items.Add("Start of Motorway");
+                Teleports.TeleportBox.Items.Add("Top of Mountain");
                 break;
             }
             case "PhotomodeButton":

@@ -12,27 +12,25 @@ namespace Forza_Mods_AIO.Tabs.AIO_Info;
 /// </summary>
 public partial class AioInfo
 {
-    public static AioInfo? Ai;
+    public static AioInfo Ai { get; private set; } = null!;
 
-    //static Overlay.Overlay o = new Overlay.Overlay();
     public AioInfo()
     {
         InitializeComponent();
-        // should be fine but I'd preferably just bind the version in XAML itself
         VersionLabel.Content += Assembly.GetExecutingAssembly().GetName().Version!.ToString(); 
         Ai = this;
     }
 
     private void WallButton_Click(object sender, RoutedEventArgs e)
     {
-        Task.Run(() => Monet.ApplyMonet());
+        Task.Run(Monet.ApplyMonet);
     }
 
     private void OverlaySwitch_Toggled(object sender, RoutedEventArgs e)
     {
-        if (Overlay.Overlay.o == null)
+        if (Overlay.Overlay.O == null)
             _ = new Overlay.Overlay();
-        Overlay.Overlay.o.OverlayToggle(OverlaySwitch.IsOn);
+        Overlay.Overlay.O.OverlayToggle(OverlaySwitch.IsOn);
     }
 
     private void Button_OnMouseDown(object sender, MouseButtonEventArgs e)
@@ -72,6 +70,11 @@ public partial class AioInfo
             case "ForzaModsDiscord":
             {
                 Process.Start("explorer.exe", "https://discord.gg/forzamods");
+                break;
+            }
+            case "MerikCoffee":
+            {
+                Process.Start("explorer.exe", "https://www.buymeacoffee.com/merika");
                 break;
             }
         }

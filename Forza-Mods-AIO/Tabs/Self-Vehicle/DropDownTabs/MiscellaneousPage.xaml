@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah='http://metro.mahapps.com/winfx/xaml/controls'
       mc:Ignorable="d"
-      d:DesignHeight="345" 
+      d:DesignHeight="340" 
       d:DesignWidth="580"
       Title="MiscellaneousPage"
       Background="Transparent">
@@ -126,12 +126,12 @@
                 <mah:NumericUpDown x:Name="ScoreNum" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Left"
-                                   Value="0"
+                                   Value="50"
                                    Width="100"
                                    Margin="7.5 0"
                                    TextAlignment="Left"
                                    Minimum="1"
-                                   Maximum="1000"
+                                   Maximum="2500"
                                    ParsingNumberStyle="Integer"
                                    Background="#FF2E3440"
                                    BorderBrush="#FF2E3440"
@@ -141,11 +141,12 @@
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Width="260"
+                        Value="50"
                         Margin="-60 0 0 0"
                         TickFrequency="1"
                         IsSnapToTickEnabled="True"
                         Minimum="1"
-                        Maximum="1000"
+                        Maximum="2500"
                         ValueChanged="ScoreSlider_OnValueChanged"/>
                 
                 <mah:ToggleSwitch x:Name="ScoreToggle"
@@ -178,6 +179,7 @@
                                    TextAlignment="Left"
                                    Minimum="1"
                                    Maximum="10"
+                                   TrackMouseWheelWhenMouseOver="True"
                                    ParsingNumberStyle="Integer"
                                    Background="#FF2E3440"
                                    BorderBrush="#FF2E3440"
@@ -195,6 +197,7 @@
                                    Value="5"
                                    Width="100"
                                    Margin="197.5 0"
+                                   TrackMouseWheelWhenMouseOver="True"
                                    TextAlignment="Left"
                                    Minimum="1"
                                    Maximum="10"
@@ -222,64 +225,6 @@
             </Grid>
         </Border>
         
-        <Border BorderThickness="2,2,2,2"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Width="560"
-                Height="46"
-                Margin="0,176,0,0"
-                BorderBrush="#FF2E3440">
-                
-            <Grid>
-                    
-                    <ComboBox x:Name="CleanlinessComboBox"
-                              VerticalAlignment="Center"
-                              HorizontalAlignment="Left"
-                              SelectedIndex="0"
-                              Width="60"
-                              Margin="7.5 0"
-                              BorderBrush="#FF2E3440" 
-                              Background="#FF2E3440" 
-                              SelectionChanged="CleanlinessComboBox_OnSelectionChanged">
-                        <ComboBoxItem Content="Dirt"/>
-                        <ComboBoxItem Content="Mud"/>
-                    </ComboBox>
-                    
-                    <mah:NumericUpDown x:Name="CleanlinessNum" 
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       TextAlignment="Left"
-                                       Width="125"
-                                       Margin="75 0"
-                                       Value="0"
-                                       Maximum="1"
-                                       Minimum="0"
-                                       BorderBrush="#FF2E3440" 
-                                       Background="#FF2E3440" 
-                                       TrackMouseWheelWhenMouseOver="True"
-                                       ValueChanged="CleanlinessNum_OnValueChanged"/>
-                        
-                    <Slider x:Name="CleanlinessSlider" 
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Width="215"
-                            Margin="85 0 0 0"
-                            Maximum="1"
-                            Minimum="0"
-                            ValueChanged="CleanlinessSlider_OnValueChanged"/>
-                        
-                    <mah:ToggleSwitch x:Name="CleanlinessSwitch"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Right"
-                                      Content="Dirt Level"
-                                      FontSize="11.5"
-                                      MinWidth="0"
-                                      Margin="10 0"
-                                      Toggled="CleanlinessSwitch_OnToggled"/>
-            </Grid>
-                
-        </Border>
-        
         <Border BorderThickness="2,2,2,2" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Top" 
@@ -304,6 +249,7 @@
                                    VerticalAlignment="Center"
                                    BorderBrush="#FF2E3440"
                                    Background="#FF2E3440"
+                                   TrackMouseWheelWhenMouseOver="True"
                                    Margin="6.5 0"
                                    Width="100"
                                    ParsingNumberStyle="Integer"
@@ -324,8 +270,9 @@
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Center"
                                    BorderBrush="#FF2E3440"
+                                   TrackMouseWheelWhenMouseOver="True"
                                    Background="#FF2E3440"
-                                   Margin="167.5 0"
+                                   Margin="170 0"
                                    Width="95"
                                    ParsingNumberStyle="Integer"
                                    TextAlignment="Left"
@@ -334,6 +281,51 @@
                 
             </Grid>
             
+        </Border>
+        
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Width="560"
+                Height="46" 
+                Margin="0,176,0,0" 
+                BorderBrush="#FF2E3440" >
+            <Grid>
+                
+                <mah:ToggleSwitch x:Name="TimeScaleSwitch" 
+                                  Content="Mission Time Scale" 
+                                  FontSize="12"
+                                  Margin="0 0 6.5 0"
+                                  HorizontalAlignment="Right"
+                                  VerticalAlignment="Center"
+                                  Toggled="TimeScaleSwitch_OnToggled"/>
+                    
+                <mah:NumericUpDown x:Name="TimeScaleNum"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Value="0.5"
+                                   Width="100"
+                                   Margin="7.5 0"
+                                   TextAlignment="Left"
+                                   Minimum="0"
+                                   Maximum="1"
+                                   TrackMouseWheelWhenMouseOver="True"
+                                   ParsingNumberStyle="Integer"
+                                   Background="#FF2E3440"
+                                   BorderBrush="#FF2E3440"
+                                   ValueChanged="TimeScaleNum_OnValueChanged"/>
+                
+                <Slider x:Name="TimeScaleSlider" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Minimum="0"
+                        Maximum="1"
+                        Value="0.5"
+                        Width="265"
+                        Margin="-60 0 0 0"
+                        ValueChanged="TimeScaleSlider_OnValueChanged"/>
+                
+            </Grid>
         </Border>
     </Grid>
 </Page>

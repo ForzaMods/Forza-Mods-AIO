@@ -39,7 +39,7 @@ public partial class Overlay
                 ValueChanged(_value);
             }
         }
-        private object _value;
+        private object _value = null!;
         
         public object? Min { get; }
         public object? Max { get; }
@@ -50,7 +50,7 @@ public partial class Overlay
         public bool IsEnabled { get; set; }
         
         // Value changed event handler
-        public event EventHandler ValueChangedHandler;
+        public event EventHandler? ValueChangedHandler;
         
         private void ValueChanged(object value)
         {
@@ -72,7 +72,7 @@ public partial class Overlay
             IsEnabled = isEnabled;
         }
         //bool
-        public MenuOption(string name, OptionType type, bool value, string description = null, bool isEnabled = true)
+        public MenuOption(string name, OptionType type, bool value, string? description = null, bool isEnabled = true)
         {
             Name = name;
             Type = type;
@@ -135,7 +135,7 @@ public partial class Overlay
     #endregion
     #region Variables
     private static CancellationTokenSource? _cts;
-    public static Overlay? o;
+    public static Overlay O { get; private set; } = null!;
     public static OverlayHandling Oh = new();
     #endregion
     #region Menus
@@ -211,13 +211,13 @@ public partial class Overlay
     };
 
     // Add all sub menu classes here for event handling
-    SettingsMenu.SettingsMenu _sm = new();
+    private readonly SettingsMenu.SettingsMenu _sm = new();
     #endregion
     #region Main
     public Overlay()
     {
         InitializeComponent();
-        o = this;
+        O = this;
         DataContext = this;
         InitializeAllSubMenus();
     }

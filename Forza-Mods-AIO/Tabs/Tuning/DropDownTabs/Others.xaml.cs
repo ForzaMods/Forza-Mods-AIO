@@ -1,30 +1,46 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
-using MahApps.Metro.Controls;
+using static Forza_Mods_AIO.MainWindow;
 
-namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
+namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
+
+public partial class Others
 {
-    public partial class Others : Page
+    public static Others O { get; private set; } = null!;
+    public Others()
     {
-        public static Others O;
-        public Others()
+        InitializeComponent();
+        O = this;
+    }
+
+    private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (!Mw.Attached)
         {
-            InitializeComponent();
-            O = this;
+            return;
+        }
+    
+        UIntPtr address = 0;
+
+        foreach (var field in typeof(TuningAddresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(UIntPtr)))
+        {
+            var senderName = sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!;
+            
+            if (field.Name != senderName.Remove(senderName.Length - 3))
+            {
+                continue;
+            }
+
+            address = (UIntPtr)(field.GetValue(field) ?? 0);
         }
 
-        public void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        if (address == 0)
         {
-            try
-            {
-                // Got this looping method from here and slightly modified it: https://stackoverflow.com/a/51424624
-                foreach (FieldInfo address in typeof(TuningAddresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(field => field.FieldType == typeof(string)))
-                    if (address.Name == sender.GetType().GetProperty("Name").GetValue(sender).ToString().Remove(sender.GetType().GetProperty("Name").GetValue(sender).ToString().Length - 3))
-                        MainWindow.Mw.M.WriteMemory(address.GetValue(null) as string, (float)((MahApps.Metro.Controls.NumericUpDown)sender).Value);
-            }
-            catch { }
+            return;
         }
+    
+        Mw.M.WriteMemory(address, (float)((MahApps.Metro.Controls.NumericUpDown)sender).Value);
     }
 }

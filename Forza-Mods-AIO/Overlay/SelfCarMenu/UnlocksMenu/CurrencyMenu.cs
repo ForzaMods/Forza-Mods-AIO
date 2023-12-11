@@ -11,9 +11,9 @@ public abstract class CurrencyMenu
     private static readonly MenuOption XpToggle = new("Toggle", OptionType.Bool, false);
     private static readonly MenuOption XpPull = new("Pull", OptionType.Button, () =>
     {
-        UnlocksPage.Up.Dispatcher.Invoke(() =>
+        UnlocksPage.Unlocks.Dispatcher.Invoke(() =>
         {
-            XpValue.Value = Convert.ToInt32(UnlocksPage.Up.XpNum.Value);
+            XpValue.Value = Convert.ToInt32(UnlocksPage.Unlocks.XpNum.Value);
         });
     });
     
@@ -21,9 +21,9 @@ public abstract class CurrencyMenu
     private static readonly MenuOption CreditsToggle = new("Toggle", OptionType.Bool, false);
     private static readonly MenuOption CreditsPull = new("Pull", OptionType.Button, () =>
     {
-        UnlocksPage.Up.Dispatcher.Invoke(() =>
+        UnlocksPage.Unlocks.Dispatcher.Invoke(() =>
         {
-            CreditsValue.Value = Convert.ToInt32(UnlocksPage.Up.CreditsNum.Value);
+            CreditsValue.Value = Convert.ToInt32(UnlocksPage.Unlocks.CreditsNum.Value);
         });
     });
     
@@ -49,34 +49,34 @@ public abstract class CurrencyMenu
 
     private static void XpValue_OnChanged(object s, EventArgs e)
     {
-        UnlocksPage.Up.Dispatcher.Invoke(() =>
+        UnlocksPage.Unlocks.Dispatcher.Invoke(() =>
         {
-            UnlocksPage.Up.XpNum.Value = (int)XpValue.Value;
+            UnlocksPage.Unlocks.XpNum.Value = (int)XpValue.Value;
         });
     }
     
     private static void XpToggle_OnChanged(object s, EventArgs e)
     {
-        UnlocksPage.Up.Dispatcher.Invoke(() =>
+        UnlocksPage.Unlocks.Dispatcher.Invoke(() =>
         {
             XpValue.IsEnabled = true;
-            UnlocksPage.Up.XpSwitch.IsOn = (bool)XpToggle.Value;
+            UnlocksPage.Unlocks.XpSwitch.IsOn = (bool)XpToggle.Value;
         });
     }
     
     private static void CreditsValue_OnChanged(object s, EventArgs e)
     {
-        UnlocksPage.Up.Dispatcher.Invoke(() =>
+        UnlocksPage.Unlocks.Dispatcher.Invoke(() =>
         {
-            UnlocksPage.Up.CreditsNum.Value = (int)CreditsValue.Value;
+            UnlocksPage.Unlocks.CreditsNum.Value = (int)CreditsValue.Value;
         });
     }
     
     private static void CreditsToggle_OnChanged(object s, EventArgs e)
     {
-        UnlocksPage.Up.Dispatcher.Invoke(() =>
+        UnlocksPage.Unlocks.Dispatcher.Invoke(() =>
         {
-            UnlocksPage.Up.CreditsSwitch.IsOn = (bool)CreditsToggle.Value;
+            UnlocksPage.Unlocks.CreditsSwitch.IsOn = (bool)CreditsToggle.Value;
         });
     }
 }

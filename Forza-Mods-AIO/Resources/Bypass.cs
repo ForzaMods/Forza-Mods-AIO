@@ -33,7 +33,7 @@ public abstract class Bypass
     }
 
 
-    public static bool IsScanRunning;
+    public static bool IsScanRunning { get; set; }
     
     private static void PointChecksToCopy()
     {
@@ -49,13 +49,7 @@ public abstract class Bypass
             Task.Delay(5).Wait();
         }
 
-        UIntPtr checkAddr1;
-
-        while ((checkAddr1 = Mw.M.ScanForSig("40 8A ? E9 ? ? ? ? CC").FirstOrDefault()) == 0)
-        {
-            Task.Delay(1).Wait();
-        }
-        
+        var checkAddr1 = Mw.M.ScanForSig("40 8A ? E9 ? ? ? ? CC").FirstOrDefault();
         checkAddr1 += Mw.Gvp.Plat == "MS" ? (UIntPtr)325 : 333;
 
         if (Mw.M.ReadMemory<byte>(checkAddr1) == 0xE9)
@@ -69,7 +63,6 @@ public abstract class Bypass
 
         var baseAddress = (long)Mw.Gvp.Process.MainModule!.BaseAddress;
         var endAddress = baseAddress + Mw.Gvp.Process.MainModule.ModuleMemorySize;
-        
         var procHandle = Mw.Gvp.Process.Handle;
         var memSize = (uint)Mw.Gvp.Process.MainModule.ModuleMemorySize;
 

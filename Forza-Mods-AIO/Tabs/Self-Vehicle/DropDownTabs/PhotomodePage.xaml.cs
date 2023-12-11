@@ -1,11 +1,12 @@
 ﻿using System.Windows;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
+using static Forza_Mods_AIO.MainWindow;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
 public partial class PhotomodePage
 {
-    public static PhotomodePage PhotoPage;
+    public static PhotomodePage PhotoPage { get; private set; } = null!;
 
     public PhotomodePage()
     {
@@ -21,11 +22,12 @@ public partial class PhotomodePage
     /// </summary>
     private void NoClip_Toggled(object sender, RoutedEventArgs e)
     {
-        try
+        if (!Mw.Attached)
         {
-            PhotoCamEntity.NoClip = NoClip.IsOn;
+            return;
         }
-        catch {}
+
+        PhotoCamEntity.NoClip = NoClip.IsOn;
     }
 
     /// <summary>
@@ -35,24 +37,26 @@ public partial class PhotomodePage
 
     private void IncreasedZoom_OnToggled(object sender, RoutedEventArgs e)
     {
-        try
+        if (!Mw.Attached)
         {
-            PhotoCamEntity.IncreasedZoom = IncreasedZoom.IsOn;
+            return;
         }
-        catch {}
+
+        PhotoCamEntity.IncreasedZoom = IncreasedZoom.IsOn;
     }
 
     /// <summary>
     ///     No max height
-    ///     How does it work? Replaces the maxheight 4 flag with 9999
+    ///     How does it work? Replaces the MaxHeight 4 flag with 9999
     /// </summary> 
-    private void NoheightRestriction_Toggled(object sender, RoutedEventArgs e)
+    private void NoHeightRestriction_Toggled(object sender, RoutedEventArgs e)
     {
-        try
+        if (!Mw.Attached)
         {
-            PhotoCamEntity.RemoveMaxHeight = NoheightRestriction.IsOn;
+            return;
         }
-        catch {}
+
+        PhotoCamEntity.RemoveMaxHeight = NoheightRestriction.IsOn;
     }
     
     #endregion
@@ -61,74 +65,82 @@ public partial class PhotomodePage
     
     private void SpeedSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        try
+        if (!Mw.Attached)
         {
-            PhotoCamEntity.MovementSpeed = (float)SpeedSlider.Value;
+            return;
         }
-        catch {}
+
+        PhotoCamEntity.MovementSpeed = (float)SpeedSlider.Value;
     }
 
     private void SamplesMultiplierSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        try
+        if (!Mw.Attached)
         {
-            PhotoCamEntity.SamplesMultiplier = (float)SamplesMultiplierSlider.Value;
+            return;
         }
-        catch {}
+           
+        PhotoCamEntity.SamplesMultiplier = (float)SamplesMultiplierSlider.Value;
     }
 
     private void TurnSpeed_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        try
+        if (!Mw.Attached)
         {
-            PhotoCamEntity.TurnAndZoomSpeed = (float)TurnSpeed.Value;
+            return;
         }
-        catch{}
+
+        PhotoCamEntity.TurnAndZoomSpeed = (float)TurnSpeed.Value;
     }
 
     private void SamplesBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        try
+        if (!Mw.Attached)
         {
-            PhotoCamEntity.Samples = (int)SamplesBox.Value; 
+            return;
         }
-        catch {}
+
+        PhotoCamEntity.Samples = (int)SamplesBox.Value; 
     }
 
     private void ShutterSpeedBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        try
+        if (!Mw.Attached)
         {
-            PhotoCamEntity.ShutterSpeed = (float)ShutterSpeedBox.Value; 
+            return;
         }
-        catch {}
+
+        PhotoCamEntity.ShutterSpeed = (float)ShutterSpeedBox.Value; 
     }
 
     private void ApertureScaleBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        try
+        if (!Mw.Attached)
         {
-            PhotoCamEntity.ApertureScale = (float)ApertureScaleBox.Value; 
+            return;
         }
-        catch {}
+
+        PhotoCamEntity.ApertureScale = (float)ApertureScaleBox.Value; 
     }
 
     private void CarInFocusBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        try
+        if (!Mw.Attached)
         {
-            PhotoCamEntity.CarInFocus = (float)CarInFocusBox.Value; 
+            return;
         }
-        catch {}
+
+        PhotoCamEntity.CarInFocus = (float)CarInFocusBox.Value; 
     }
 
     private void TimeSliceBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        try
+        if (!Mw.Attached)
         {
-            PhotoCamEntity.TimeSlice = (float)TimeSliceBox.Value;
+            return;
         }
-        catch {}
+
+        PhotoCamEntity.TimeSlice = (float)TimeSliceBox.Value;
     }
     
     #endregion

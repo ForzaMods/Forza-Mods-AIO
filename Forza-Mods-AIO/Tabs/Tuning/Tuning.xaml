@@ -14,7 +14,22 @@
                 <RowDefinition Height="35" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <mah:MetroProgressBar x:Name="AOBProgressBar" HorizontalAlignment="Left" Height="10" Margin="15,12.5,0,0" VerticalAlignment="Top" Width="100" Background="#FF2E3440"/>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 7.5 0 0">
+                
+                <Button x:Name="ScanButton" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center"
+                        Margin="10 0 0 0"
+                        Content="Scan"              
+                        Focusable="False"
+                        Background="#FF2E3440"
+                        BorderBrush="#FF2E3440"
+                        Click="ButtonBase_OnClick"/>
+                
+                <mah:MetroProgressBar x:Name="AobProgressBar" HorizontalAlignment="Left" Height="10" Margin="10 0 0 0" VerticalAlignment="Center" Width="100" Background="#FF2E3440"/>
+                    
+            </StackPanel>
+            
 
             <Frame x:Name="TiresPage" Content="Frame" Width="580" Source="DropDownTabs/Tires.xaml" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="GearingPage" Content="Frame" Width="580" Source="DropDownTabs/Gearing.xaml" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>

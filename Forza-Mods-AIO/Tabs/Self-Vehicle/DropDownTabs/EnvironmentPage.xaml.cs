@@ -15,8 +15,8 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 public partial class EnvironmentPage
 {
     public static readonly Detour TimeDetour = new();
-    public static bool WasTimeDetoured;
-    private const string TimeDetourBytes = "51 48 8B 4B 08 48 89 0D 06 00 00 00 59";
+    public static bool WasTimeDetoured { get; set; }
+    private const string TimeDetourBytes = "51 48 83 C3 08 48 89 1D 0A 00 00 00 48 83 EB 08 59";
     
     public EnvironmentPage()
     {
@@ -27,7 +27,7 @@ public partial class EnvironmentPage
 
     private void SunRGBSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        if (TimeSwitch == null)
+        if (TimeSwitch == null || !Mw.Attached)
         {
             return;
         }
@@ -61,23 +61,31 @@ public partial class EnvironmentPage
 
     private void ResetButton_OnClick(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+        
         switch (sender.GetType().GetProperty("Name")!.GetValue(sender))
         {
             case "RedResetButton":
             {
                 SunRedSlider.Value = 3.921569E+09;
+                if (!Mw.Attached) return;
                 Mw.M.WriteMemory(SunRedAddr, 3.921569E+09f / 1000000000000);
                 break;
             }
             case "GreenResetButton":
             {
                 SunGreenSlider.Value = 3.921569E+09;
+                if (!Mw.Attached) return;
                 Mw.M.WriteMemory(SunGreenAddr, 3.921569E+09f / 1000000000000);
                 break;
             }
             case "BlueResetButton":
             {
                 SunBlueSlider.Value = 3.921569E+09;
+                if (!Mw.Attached) return;
                 Mw.M.WriteMemory(SunBlueAddr, 3.921569E+09f / 1000000000000);
                 break;
             }
@@ -90,7 +98,7 @@ public partial class EnvironmentPage
 
     private void SwitchToggled(object sender, RoutedEventArgs e)
     {
-        if (sender == null)
+        if (!Mw.Attached)
         {
             return;
         }
@@ -189,6 +197,11 @@ public partial class EnvironmentPage
     
     private void ManualTime()
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+        
         WasTimeDetoured = GetTimeAddr();
         
         if (!WasTimeDetoured)
@@ -307,7 +320,7 @@ public partial class EnvironmentPage
             return true;
         }
         
-        if (!TimeDetour.Setup(TimeSwitch, TimeNopAddr, TimeDetourBytes, 5))
+        if (!TimeDetour.Setup(TimeSwitch, TimeNopAddr, TimeDetourBytes, 5, true, 0, true))
         {
             return false;
         }
@@ -318,8 +331,6 @@ public partial class EnvironmentPage
         {
             Task.Delay(1).Wait();
         }
-
-        TimeAddr += 8;
         
         return true;
     }

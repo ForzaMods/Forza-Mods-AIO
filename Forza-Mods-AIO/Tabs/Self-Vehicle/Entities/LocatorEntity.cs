@@ -12,12 +12,22 @@ public abstract class LocatorEntity
 {
     private static UIntPtr _waypointEntity;
     public static readonly Detour WaypointDetour = new();
-    //private static UIntPtr CheckpointEntity;
-    
 
     public static void SetupWaypointDetour(object? sender)
     {
-        if (!WaypointDetour.Setup(sender, WayPointXAsmAddr, "48 89 3D 05 00 00 00", 5, true, 0, true))
+        if (Mw.Gvp.Name.Contains('4'))
+        {
+            SetupWaypointDetourFh4(sender);
+        }
+        else
+        {
+            SetupWaypointDetourFh5(sender);
+        }
+    }
+
+    private static void SetupWaypointDetourFh4(object? sender)
+    {
+        if (!WaypointDetour.Setup(sender, WayPointXAsmAddr, "48 89 3D 05 00 00 00", 7, true, 0, true))
         {
             sender?.GetType().GetProperty("IsOn")?.SetValue(sender, false);
             WaypointDetour.Clear();
@@ -34,7 +44,19 @@ public abstract class LocatorEntity
         WaypointDetour.Destroy();
     }
     
-    public static Vector3 WaypointPosition => Mw.M.ReadMemory<Vector3>((UIntPtr)(_waypointEntity + Mw.Gvp.Name == "Forza Horizon 4" ? 928 : 560));
+    private static void SetupWaypointDetourFh5(object? sender)
+    {
+        if (!WaypointDetour.Setup(sender, WayPointXAsmAddr, "0F 11 15 05 00 00 00", 7, true, 0, true))
+        {
+            sender?.GetType().GetProperty("IsOn")?.SetValue(sender, false);
+            WaypointDetour.Clear();
+            MessageBox.Show("Failed");
+            return;
+        }
 
-    // TODO; Add Checkpoint Back
+        Task.Delay(25).Wait();
+        _waypointEntity = WaypointDetour.VariableAddress;
+    }
+    
+    public static Vector3 WaypointPosition => Mw.M.ReadMemory<Vector3>(_waypointEntity + (UIntPtr)(Mw.Gvp.Name == "Forza Horizon 4" ? 928 : 0));
 }

@@ -107,7 +107,7 @@
                           VerticalAlignment="Bottom"
                           Margin="280,0,0,17"
                           FontSize="12"
-                          Toggled="NoheightRestriction_Toggled" Width="95" />
+                          Toggled="NoHeightRestriction_Toggled" Width="95" />
 
         <Label Content="Increased zoom"
                VerticalAlignment="Bottom" HorizontalAlignment="Left"

@@ -9,21 +9,23 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 
 public abstract class CarEntity
 {
-    public static UIntPtr PlayerCarEntity;
+    public static UIntPtr PlayerCarEntity { get; private set; }
     public static readonly Detour BaseDetour = new();
     private const string BaseDetourBytesFh5 = "48 81 E9 70 05 00 00 48 89 0D 0C 00 00 00 48 81 C1 70 05 00 00";
     private const string BaseDetourBytesFh4 = "48 81 E9 60 05 00 00 48 89 0D 0C 00 00 00 48 81 C1 60 05 00 00";
     
-    private static void Hook()
+    public static void Hook()
     {
         if (!BaseDetour.IsHooked)
         {
             var baseDetourBytes = Mw.Gvp.Name == "Forza Horizon 5" ? BaseDetourBytesFh5 : BaseDetourBytesFh4;
-            BaseDetour.Setup(null, BaseAddrHook, baseDetourBytes, 8, true);
-            Task.Delay(25).Wait();
+            BaseDetour.Setup(BaseAddrHook, baseDetourBytes, 8, true);
         }
 
-        PlayerCarEntity = BaseDetour.ReadVariable<UIntPtr>();
+        while ((PlayerCarEntity = BaseDetour.ReadVariable<UIntPtr>()) == 0)
+        {
+            Task.Delay(1).Wait();
+        }
     }
     
     #region Floats

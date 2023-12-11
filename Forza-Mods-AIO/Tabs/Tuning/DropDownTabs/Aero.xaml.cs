@@ -1,28 +1,46 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
+using static Forza_Mods_AIO.MainWindow;
 
-namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs
+namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
+
+public partial class Aero
 {
-    public partial class Aero : Page
+    public static Aero Ae { get; private set; } = null!;
+    public Aero()
     {
-        public static Aero Ae;
-        public Aero()
+        InitializeComponent();
+        Ae = this;
+    }
+    
+    private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (!Mw.Attached)
         {
-            InitializeComponent();
-            Ae = this;
+            return;
         }
-        public void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    
+        UIntPtr address = 0;
+
+        foreach (var field in typeof(TuningAddresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(UIntPtr)))
         {
-            try
+            var senderName = sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!;
+            
+            if (field.Name != senderName.Remove(senderName.Length - 3))
             {
-                // Got this looping method from here and slightly modified it: https://stackoverflow.com/a/51424624
-                foreach (FieldInfo address in typeof(TuningAddresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(field => field.FieldType == typeof(string)))
-                    if (address.Name == sender.GetType().GetProperty("Name").GetValue(sender).ToString().Remove(sender.GetType().GetProperty("Name").GetValue(sender).ToString().Length - 3))
-                        MainWindow.Mw.M.WriteMemory(address.GetValue(null) as string, (float)((MahApps.Metro.Controls.NumericUpDown)sender).Value);
+                continue;
             }
-            catch { }
+
+            address = (UIntPtr)(field.GetValue(field) ?? 0);
         }
+
+        if (address == 0)
+        {
+            return;
+        }
+    
+        Mw.M.WriteMemory(address, (float)((MahApps.Metro.Controls.NumericUpDown)sender).Value);
     }
 }

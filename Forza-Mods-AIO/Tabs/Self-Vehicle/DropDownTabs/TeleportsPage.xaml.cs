@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Forza_Mods_AIO.Resources;
+using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.Entities.CarEntity;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.Entities.LocatorEntity;
 
@@ -11,19 +11,19 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
 public partial class TeleportsPage
 {
-    public static TeleportsPage T;
-    public static bool WaypointDetoured;
+    public static TeleportsPage Teleports { get; private set; } = null!;
+    public static bool WaypointDetoured { get; set; }
     private Vector3 _oldPosition, _teleportPosition;
     
     public TeleportsPage()
     {
         InitializeComponent();
-        T = this;
+        Teleports = this;
     }
 
     private async void TeleportBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (TeleportBox.SelectedItem == null)
+        if (TeleportBox.SelectedItem == null || !Mw.Attached)
         {
             return;
         }
@@ -197,7 +197,6 @@ public partial class TeleportsPage
                 if (!WaypointDetoured)
                 {
                     await Task.Run(() => SetupWaypointDetour(null));
-                    _teleportPosition = WaypointPosition;
                     WaypointDetoured = true;
                     return;
                 }
@@ -220,6 +219,11 @@ public partial class TeleportsPage
 
     private async void AutoTpToWaypoint_Toggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         Vector3 lastWp = new();
 
         if (!WaypointDetoured)

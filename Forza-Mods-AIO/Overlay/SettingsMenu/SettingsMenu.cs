@@ -99,7 +99,7 @@ public class SettingsMenu
         XOffset.ValueChangedHandler += XOffsetValueChanged;
         YOffset.ValueChangedHandler += YOffsetValueChanged;
 
-        o?.Dispatcher.Invoke(() =>
+        O?.Dispatcher.Invoke(() =>
         {
             Oh.MainBackColour = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
             Oh.DescriptionBackColour = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
@@ -109,7 +109,7 @@ public class SettingsMenu
     // Event handlers
     void ColourValueChanged(object S, EventArgs E)
     {
-        o?.Dispatcher.Invoke(() =>
+        O?.Dispatcher.Invoke(() =>
         {
             if (Oh.CurrentMenu.Contains("MainArea"))
             {

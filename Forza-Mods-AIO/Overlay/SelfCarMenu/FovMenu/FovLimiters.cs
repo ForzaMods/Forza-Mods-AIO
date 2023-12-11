@@ -42,7 +42,7 @@ public abstract class FovLimiters
     
     private static readonly MenuOption ChasePull = new ("Pull values", OptionType.Button, () =>
     {
-        var fovLimiters = FovPage._FovPage!;
+        var fovLimiters = FovPage.Fov!;
         
         fovLimiters.Dispatcher.Invoke(() =>
         {
@@ -56,7 +56,7 @@ public abstract class FovLimiters
     
     private static readonly MenuOption FarChasePull = new ("Pull values", OptionType.Button, () =>
     {
-        var fovLimiters = FovPage._FovPage!;
+        var fovLimiters = FovPage.Fov!;
         
         fovLimiters.Dispatcher.Invoke(() =>
         {
@@ -89,7 +89,7 @@ public abstract class FovLimiters
     
     private static readonly MenuOption DriverPull = new ("Pull values", OptionType.Button, () =>
     {
-        var fovLimiters = FovPage._FovPage!;
+        var fovLimiters = FovPage.Fov!;
         
         fovLimiters.Dispatcher.Invoke(() =>
         {
@@ -117,7 +117,7 @@ public abstract class FovLimiters
     
     private static readonly MenuOption HoodPull = new ("Pull values", OptionType.Button, () =>
     {
-        var fovLimiters = FovPage._FovPage!;
+        var fovLimiters = FovPage.Fov!;
         
         fovLimiters.Dispatcher.Invoke(() =>
         {
@@ -146,7 +146,7 @@ public abstract class FovLimiters
     
     private static readonly MenuOption BumperPull = new ("Pull values", OptionType.Button, () =>
     {
-        var fovLimiters = FovPage._FovPage!;
+        var fovLimiters = FovPage.Fov!;
         
         fovLimiters.Dispatcher.Invoke(() =>
         {
@@ -173,18 +173,18 @@ public abstract class FovLimiters
 
     private static void ChaseLimiters_OnChanged(object? s, EventArgs e)
     {
-        FovPage._FovPage!.Dispatcher.Invoke(() =>
+        FovPage.Fov!.Dispatcher.Invoke(() =>
         {
             switch ((string)s!.GetType().GetProperty("Name")!.GetValue(s)!)
             {
                 case "Min Value":
                 {
-                    FovPage._FovPage.ChaseMinNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    FovPage.Fov.ChaseMinNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
                 case "Max Value":
                 {
-                    FovPage._FovPage.ChaseMaxNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    FovPage.Fov.ChaseMaxNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
             }
@@ -193,18 +193,18 @@ public abstract class FovLimiters
     
     private static void FarChaseLimiters_OnChanged(object? s, EventArgs e)
     {
-        FovPage._FovPage!.Dispatcher.Invoke(() =>
+        FovPage.Fov!.Dispatcher.Invoke(() =>
         {
             switch ((string)s!.GetType().GetProperty("Name")!.GetValue(s)!)
             {
                 case "Min Value":
                 {
-                    FovPage._FovPage.FarChaseMinNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    FovPage.Fov.FarChaseMinNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
                 case "Max Value":
                 {
-                    FovPage._FovPage.FarChaseMaxNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    FovPage.Fov.FarChaseMaxNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
             }
@@ -213,18 +213,18 @@ public abstract class FovLimiters
     
     private static void DriverLimiters_OnChanged(object? s, EventArgs e)
     {
-        FovPage._FovPage!.Dispatcher.Invoke(() =>
+        FovPage.Fov!.Dispatcher.Invoke(() =>
         {
             switch ((string)s!.GetType().GetProperty("Name")!.GetValue(s)!)
             {
                 case "Min Value":
                 {
-                    FovPage._FovPage.DriverMinNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    FovPage.Fov.DriverMinNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
                 case "Max Value":
                 {
-                    FovPage._FovPage.DriverMaxNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    FovPage.Fov.DriverMaxNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
             }
@@ -233,18 +233,18 @@ public abstract class FovLimiters
     
     private static void HoodLimiters_OnChanged(object? s, EventArgs e)
     {
-        FovPage._FovPage!.Dispatcher.Invoke(() =>
+        FovPage.Fov!.Dispatcher.Invoke(() =>
         {
             switch ((string)s!.GetType().GetProperty("Name")!.GetValue(s)!)
             {
                 case "Min Value":
                 {
-                    FovPage._FovPage.HoodMinNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    FovPage.Fov.HoodMinNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
                 case "Max Value":
                 {
-                    FovPage._FovPage.HoodMaxNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    FovPage.Fov.HoodMaxNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
             }
@@ -253,18 +253,18 @@ public abstract class FovLimiters
     
     private static void BumperLimiters_OnChanged(object? s, EventArgs e)
     {
-        FovPage._FovPage!.Dispatcher.Invoke(() =>
+        FovPage.Fov!.Dispatcher.Invoke(() =>
         {
             switch ((string)s!.GetType().GetProperty("Name")!.GetValue(s)!)
             {
                 case "Min Value":
                 {
-                    FovPage._FovPage.BumperMinNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    FovPage.Fov.BumperMinNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
                 case "Max Value":
                 {
-                    FovPage._FovPage.BumperMaxNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
+                    FovPage.Fov.BumperMaxNum.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
                     break;
                 }
             }

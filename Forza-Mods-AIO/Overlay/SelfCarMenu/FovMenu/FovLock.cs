@@ -18,7 +18,7 @@ public abstract class FovLock
     // Event handlers
     private static void FovLockValueChanged(object s, EventArgs e)
     {
-        var fovPage = Tabs.Self_Vehicle.DropDownTabs.FovPage._FovPage;
+        var fovPage = Tabs.Self_Vehicle.DropDownTabs.FovPage.Fov;
     
         fovPage.Dispatcher.Invoke(delegate 
         {
@@ -33,7 +33,7 @@ public abstract class FovLock
     
     private static void FovLockToggled(object s, EventArgs e)
     {
-        var fovPage = Tabs.Self_Vehicle.DropDownTabs.FovPage._FovPage;
+        var fovPage = Tabs.Self_Vehicle.DropDownTabs.FovPage.Fov;
     
         fovPage.Dispatcher.Invoke(() =>
         {

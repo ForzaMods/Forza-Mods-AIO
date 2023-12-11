@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Forza_Mods_AIO.Overlay.SelfCarMenu.FovMenu;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
@@ -15,7 +16,9 @@ internal class SelfVehicleAddresses
 {
     
     #region Addresses
-
+    
+    public static UIntPtr HeadlightAddr;
+    public static UIntPtr TimeScaleAddr;
     public static UIntPtr DriftScoreAddr;
     public static UIntPtr SkillScoreAddr;
     public static UIntPtr CleanlinessAddr;
@@ -33,7 +36,7 @@ internal class SelfVehicleAddresses
     public static UIntPtr DiscoverRoadsAddr;
     public static UIntPtr WaterAddr;
     public static UIntPtr AiXAddr;
-    public static UIntPtr XpAddr, XpAmountAddr, CreditsHookAddr;
+    public static UIntPtr XpAddr, XpAmountAddr, CreditsHookAddr, CreditsCompareAddr;
     public static UIntPtr GlowingPaintAddr;
     public static UIntPtr BuildAddr1, BuildAddr2;
     public static UIntPtr SeasonalAddr, SeriesAddr;
@@ -71,6 +74,9 @@ internal class SelfVehicleAddresses
     private static string? _cleanlinessSig;
     private static string? _skillScoreSig;
     private static string? _skillCostSig;
+    private static string? _timeScaleSig;
+    private static string? _headlightSig;
+    private static string? _creditsCompareSig;
     
 
     #endregion
@@ -135,7 +141,7 @@ internal class SelfVehicleAddresses
         _wayPointXAsmAob = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50";
         _oobAob = "48 83 EC ? 0F 10 ? 41 0F ? ? 0F 10"; // + 83 OR + 0x53
         _discoverRoadsAob = "00 96 ? ? ? ? 42 88";
-        _waterAob = "3D ? ? ? ? 00 00 A0 ? ? ? ? ? ? ? ? 3F 00 00";
+        _waterAob = "3D ? ? ? ? 00 00 A0 ? ? ? ? ? ? ? ? 3F 00 00 80";
         _aixAob = "0F 11 41 50 0F 28 EB";
         _cameraSpeedBaseAob = "54 00 52 ? 41 00 ? ? 4B 00 ? 00 00 00 00 00 05";
         _cameraShutterSpeedAob = "C0 79 C4 ? C0 79 C4 ? C0 79 C4 ? C0 79 C4 ? 00 00";
@@ -152,14 +158,38 @@ internal class SelfVehicleAddresses
         _cleanlinessSig = "F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? B9 ? ? ? ? E8";
         _skillScoreSig = "48 8B ? ? E8 ? ? ? ? 8B 78";
         _skillCostSig = "48 89 5C 24 08 57 48 83 EC 20 48 8B 79 18 33 D2 48 8B 4F 30";
+        _timeScaleSig = "74 ? 48 8B ? 48 8B ? FF 90 ? ? ? ? F3 0F ? ? ? ? ? ? F3 0F";
+        _headlightSig = "0F 10 ? ? F3 44 ? ? ? ? ? ? ? 83 7B 48";
+        _creditsCompareSig = "48 89 ? ? ? 57 48 83 EC ? 48 8D ? ? E8 ? ? ? ? 48 8B";
     }
 
     #endregion
 
-    #region FH5 Scan
-    public static void FH5_Scan()
+    public static void Scan()
     {
-        if (Sv == null)
+        switch (Mw.Gvp.Name)
+        {
+            case "Forza Horizon 5":
+            {
+                Task.Run(() => FH5_Scan());
+                break;
+            }
+            case "Forza Horizon 4":
+            {
+                Task.Run(() => FH4_Scan());
+                break;
+            }
+            default:
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+        }
+    }
+    
+    #region FH5 Scan
+    private static void FH5_Scan()
+    {
+        if (!Mw.Attached)
         {
             return;
         }
@@ -167,7 +197,7 @@ internal class SelfVehicleAddresses
         SignaturesFive();
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 32;
+        Sv.UiManager.ScanAmount = 35;
 
         XpAddr = Mw.M.ScanForSig(_xpAob).FirstOrDefault() - 14;
         XpAmountAddr = XpAddr - 133;
@@ -234,16 +264,16 @@ internal class SelfVehicleAddresses
         OobNopAddr = Mw.M.ScanForSig(_oobAob).FirstOrDefault() + 83;
         Sv.UiManager.AddProgress();
 
-        PhotoCamEntity.Speed = Mw.M.ScanForSig(_cameraSpeedBaseAob).FirstOrDefault();
+        PhotoCamEntity.SpeedBase = Mw.M.ScanForSig(_cameraSpeedBaseAob).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
         PhotoCamEntity.MainPhotoCamEntity = Mw.M.ScanForSig(_cameraBaseAob).FirstOrDefault() - 53;
         Sv.UiManager.AddProgress();
 
-        PhotoCamEntity.Speed = Mw.M.ScanForSig(_cameraShutterSpeedAob).FirstOrDefault();
+        PhotoCamEntity.SpeedBase = Mw.M.ScanForSig(_cameraShutterSpeedAob).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
-        PhotoCamEntity._NoClip = Mw.M.ScanForSig(_cameraNoClipSig).FirstOrDefault() + 1656;
+        PhotoCamEntity.NoClipBase = Mw.M.ScanForSig(_cameraNoClipSig).FirstOrDefault() + 1656;
         Sv.UiManager.AddProgress();
 
         SeasonalAddr = Mw.M.ScanForSig(_seasonalSig).FirstOrDefault() + 2;
@@ -275,6 +305,15 @@ internal class SelfVehicleAddresses
 
         DriftScoreAddr = Mw.M.ScanForSig(_driftScoreSig).FirstOrDefault() - 62;
         Sv.UiManager.AddProgress();
+
+        TimeScaleAddr = Mw.M.ScanForSig(_timeScaleSig).FirstOrDefault() + 22;
+        Sv.UiManager.AddProgress();
+
+        HeadlightAddr = Mw.M.ScanForSig(_headlightSig).FirstOrDefault();
+        Sv.UiManager.AddProgress();
+
+        CreditsCompareAddr = Mw.M.ScanForSig(_creditsCompareSig).FirstOrDefault() - 140;
+        Sv.UiManager.AddProgress();
         
         SelfVehicleOption.IsEnabled = true;
         Sv.UiManager.ToggleUiElements(true);
@@ -282,9 +321,9 @@ internal class SelfVehicleAddresses
     #endregion
 
     #region FH4 Scan
-    public static void FH4_Scan()
+    private static void FH4_Scan()
     {
-        if (Sv == null)
+        if (!Mw.Attached)
         {
             return;
         }
@@ -341,7 +380,7 @@ internal class SelfVehicleAddresses
         Sv.UiManager.AddProgress();
         
         SuperCarAddr = Mw.M.ScanForSig(_superCarAob).FirstOrDefault();
-        Shp!.SuperCarSwitch.IsEnabled = true;
+        Shp!.Dispatcher.Invoke(() => Shp.SuperCarSwitch.IsEnabled = true);
         Sv.UiManager.AddProgress();
 
         DiscoverRoadsAddr = Mw.M.ScanForSig(_discoverRoadsAob).FirstOrDefault();
@@ -353,16 +392,16 @@ internal class SelfVehicleAddresses
         AiXAddr = Mw.M.ScanForSig(_aixAob).FirstOrDefault() + 16;
         Sv.UiManager.AddProgress();
         
-        PhotoCamEntity.Speed = Mw.M.ScanForSig(_cameraSpeedBaseAob).FirstOrDefault();
+        PhotoCamEntity.SpeedBase = Mw.M.ScanForSig(_cameraSpeedBaseAob).FirstOrDefault();
         Sv.UiManager.AddProgress();
         
         PhotoCamEntity.MainPhotoCamEntity = Mw.M.ScanForSig(_cameraBaseAob).FirstOrDefault() - 665;
         Sv.UiManager.AddProgress(); 
         
-        PhotoCamEntity._ShutterSpeed = Mw.M.ScanForSig(_cameraShutterSpeedAob).FirstOrDefault() - 0x31;
+        PhotoCamEntity.ShutterSpeedBase = Mw.M.ScanForSig(_cameraShutterSpeedAob).FirstOrDefault() - 0x31;
         Sv.UiManager.AddProgress();
         
-        PhotoCamEntity._NoClip = Mw.M.ScanForSig(_cameraNoClipSig).FirstOrDefault() + 1532;
+        PhotoCamEntity.NoClipBase = Mw.M.ScanForSig(_cameraNoClipSig).FirstOrDefault() + 1532;
         Sv.UiManager.AddProgress();
 
         FovMenu.FovLock.IsEnabled = false;
@@ -403,6 +442,6 @@ internal class SelfVehicleAddresses
         BumperMax = bases2.FirstOrDefault() - 0x20;
         HoodMin = bases2.LastOrDefault() - 0x20 - 4;
         HoodMax = bases2.LastOrDefault() - 0x20;
-        FovPage._FovPage!.Dispatcher.Invoke(() => FovPage._FovPage.UpdateValues());
+        FovPage.Fov!.Dispatcher.Invoke(() => FovPage.Fov.UpdateValues());
     }
 }

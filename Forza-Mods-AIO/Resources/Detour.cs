@@ -91,7 +91,7 @@ public class Detour : Asm
         if (useVarAddress)
         {
             // address of allocated mem + size of detour bytes + offset + size of jmp back
-            _variableAddress = _allocatedAddress + (UIntPtr)finalDetourBytes.Length + varAddressOffset + 5;
+            VariableAddress = _allocatedAddress + (UIntPtr)finalDetourBytes.Length + varAddressOffset + 5;
         }
 
         // save new/jmp bytes for hook toggle
@@ -145,7 +145,7 @@ public class Detour : Asm
     /// </summary>
     public void Clear()
     {
-        _detourAddr = _allocatedAddress = _variableAddress = UIntPtr.Zero;
+        _detourAddr = _allocatedAddress = VariableAddress = UIntPtr.Zero;
         _originalBytes = _newBytes = null;
         IsSetup = false;
         _firstTime = true;
@@ -159,7 +159,7 @@ public class Detour : Asm
             return;
         }
         
-        var currentBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, _originalBytes!.Length);
+        var currentBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, _originalBytes.Length);
         
         if (currentBytes.SequenceEqual(_originalBytes))
         {
@@ -184,27 +184,27 @@ public class Detour : Asm
 
     public void UpdateVariable<T>(T value, UIntPtr varOffset = 0) where T : unmanaged
     {
-        if (_variableAddress == UIntPtr.Zero)
+        if (VariableAddress == UIntPtr.Zero)
         {
             return;
         }
         
-        Mw.M.WriteMemory(_variableAddress + varOffset, value);
+        Mw.M.WriteMemory(VariableAddress + varOffset, value);
     }
     
     public void UpdateVariable<T>(T[] value, UIntPtr varOffset = 0) where T : unmanaged
     {
-        if (_variableAddress == UIntPtr.Zero)
+        if (VariableAddress == UIntPtr.Zero)
         {
             return;
         }
         
-        Mw.M.WriteArrayMemory(_variableAddress + varOffset, value);
+        Mw.M.WriteArrayMemory(VariableAddress + varOffset, value);
     }
     
     public T ReadVariable<T>(UIntPtr varOffset = 0) where T : unmanaged
     {
-        return _variableAddress == UIntPtr.Zero ? new T() : Mw.M.ReadMemory<T>(_variableAddress + varOffset);
+        return VariableAddress == UIntPtr.Zero ? new T() : Mw.M.ReadMemory<T>(VariableAddress + varOffset);
     }
     
     public override string ToString()
@@ -215,7 +215,7 @@ public class Detour : Asm
         sb.Append("First Time Toggle: ").AppendLine(_firstTime.ToString());
         sb.Append("Detour Addr: ").AppendLine(_detourAddr.ToString("X"));
         sb.Append("Allocated Addr: ").AppendLine(_allocatedAddress.ToString("X"));
-        sb.Append("Variable Addr: ").AppendLine(_variableAddress.ToString("X"));
+        sb.Append("Variable Addr: ").AppendLine(VariableAddress.ToString("X"));
 
         if (_originalBytes != null)
         {
@@ -232,7 +232,8 @@ public class Detour : Asm
     
     public bool IsHooked { get; private set; }
     public bool IsSetup { get; private set; }
-    private UIntPtr _detourAddr, _allocatedAddress, _variableAddress;
+    public UIntPtr VariableAddress { get; private set; }
+    private UIntPtr _detourAddr, _allocatedAddress;
     private byte[]? _originalBytes, _newBytes;
     private bool _firstTime = true;
 }

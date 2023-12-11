@@ -19,13 +19,21 @@
         
         <Grid Row="0">
        
-            <mah:MetroProgressBar x:Name="AobProgressBar" 
-                                  HorizontalAlignment="Left" 
-                                  Height="10" 
-                                  Margin="15,12.5" 
-                                  VerticalAlignment="Top" 
-                                  Width="100" 
-                                  Background="#FF2E3440"/>
+               <StackPanel Grid.Row="0" Margin="0 7.5 0 0" VerticalAlignment="Top" Orientation="Horizontal">
+                
+                      <Button x:Name="ScanButton" 
+                              HorizontalAlignment="Left" 
+                              VerticalAlignment="Center"
+                              Margin="10 0 0 0"                        
+                              Focusable="False"
+                              Content="Scan"
+                              Background="#FF2E3440"
+                              BorderBrush="#FF2E3440"
+                              Click="ButtonBase_OnClick"/>
+                
+                      <mah:MetroProgressBar x:Name="AobProgressBar" HorizontalAlignment="Left" Height="10" Margin="10 0 0 0" VerticalAlignment="Center" Width="100" Background="#FF2E3440"/>
+                    
+               </StackPanel>
         
             <Label Content="Auto-show Filters" 
                    HorizontalAlignment="Center" 
