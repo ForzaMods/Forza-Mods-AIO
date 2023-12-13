@@ -14,7 +14,8 @@ public abstract class SelfCarMenu
         new("Photomode", OptionType.MenuButton),
         new("Customization", OptionType.MenuButton),
         new("Miscellaneous", OptionType.MenuButton),
-        new("FOV", OptionType.MenuButton)
+        new("FOV", OptionType.MenuButton),
+        new("Backfire", OptionType.MenuButton),
     };
 
     public static void InitiateSubMenu()
@@ -26,5 +27,6 @@ public abstract class SelfCarMenu
         CustomizationMenu.CustomizationMenu.InitiateSubMenu();
         HandlingMenu.HandlingMenu.InitiateSubMenu();
         UnlocksMenu.CurrencyMenu.InitiateSubMenu();
+        BackfireMenu.InitiateSubMenu();
     }
 }

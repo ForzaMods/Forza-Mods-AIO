@@ -16,7 +16,8 @@ internal class SelfVehicleAddresses
 {
     
     #region Addresses
-    
+
+    public static UIntPtr BackfireTimeAddr, BackfireTypeAddr;
     public static UIntPtr HeadlightAddr;
     public static UIntPtr TimeScaleAddr;
     public static UIntPtr DriftScoreAddr;
@@ -77,6 +78,7 @@ internal class SelfVehicleAddresses
     private static string? _timeScaleSig;
     private static string? _headlightSig;
     private static string? _creditsCompareSig;
+    private static string? _backfireSig;
     
 
     #endregion
@@ -161,6 +163,7 @@ internal class SelfVehicleAddresses
         _timeScaleSig = "74 ? 48 8B ? 48 8B ? FF 90 ? ? ? ? F3 0F ? ? ? ? ? ? F3 0F";
         _headlightSig = "0F 10 ? ? F3 44 ? ? ? ? ? ? ? 83 7B 48";
         _creditsCompareSig = "48 89 ? ? ? 57 48 83 EC ? 48 8D ? ? E8 ? ? ? ? 48 8B";
+        _backfireSig = "48 8B ? ? F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? E8 ? ? ? ? 0F 28";
     }
 
     #endregion
@@ -197,7 +200,7 @@ internal class SelfVehicleAddresses
         SignaturesFive();
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 35;
+        Sv.UiManager.ScanAmount = 37;
 
         XpAddr = Mw.M.ScanForSig(_xpAob).FirstOrDefault() - 14;
         XpAmountAddr = XpAddr - 133;
@@ -314,6 +317,10 @@ internal class SelfVehicleAddresses
 
         CreditsCompareAddr = Mw.M.ScanForSig(_creditsCompareSig).FirstOrDefault() - 140;
         Sv.UiManager.AddProgress();
+    
+        BackfireTimeAddr = Mw.M.ScanForSig(_backfireSig).FirstOrDefault() + 4;
+        BackfireTypeAddr = BackfireTimeAddr + 125;
+        Sv.UiManager.AddProgress();
         
         SelfVehicleOption.IsEnabled = true;
         Sv.UiManager.ToggleUiElements(true);
@@ -420,9 +427,11 @@ internal class SelfVehicleAddresses
 
         SkillScoreAddr = Mw.M.ScanForSig(_skillScoreSig).FirstOrDefault() + 3;
         Sv.UiManager.AddProgress();
-        
+
         SelfVehicleOption.IsEnabled = true;
         Sv.UiManager.ToggleUiElements(true);
+        
+        Sv.Dispatcher.Invoke(() => Sv.BackFireButton.IsEnabled = false);
     }
     #endregion
 

@@ -8,6 +8,9 @@ using static System.Windows.Threading.Dispatcher;
 
 namespace Forza_Mods_AIO.Resources;
 
+/// <summary>
+/// Detour class automatically handling everything for you.
+/// </summary>
 public class Detour : Asm
 {
     /// <summary>
@@ -184,7 +187,7 @@ public class Detour : Asm
 
     public void UpdateVariable<T>(T value, UIntPtr varOffset = 0) where T : unmanaged
     {
-        if (VariableAddress == UIntPtr.Zero)
+        if (VariableAddress == UIntPtr.Zero || !IsSetup)
         {
             return;
         }
@@ -194,7 +197,7 @@ public class Detour : Asm
     
     public void UpdateVariable<T>(T[] value, UIntPtr varOffset = 0) where T : unmanaged
     {
-        if (VariableAddress == UIntPtr.Zero)
+        if (VariableAddress == UIntPtr.Zero || !IsSetup)
         {
             return;
         }
@@ -204,7 +207,7 @@ public class Detour : Asm
     
     public T ReadVariable<T>(UIntPtr varOffset = 0) where T : unmanaged
     {
-        return VariableAddress == UIntPtr.Zero ? new T() : Mw.M.ReadMemory<T>(VariableAddress + varOffset);
+        return VariableAddress == UIntPtr.Zero || !IsSetup ? new T() : Mw.M.ReadMemory<T>(VariableAddress + varOffset);
     }
     
     public override string ToString()

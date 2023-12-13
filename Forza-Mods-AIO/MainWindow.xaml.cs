@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using ControlzEx.Theming;
 using Memory;
 using Forza_Mods_AIO.Overlay;
+using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.AutoShowTab;
 using Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
@@ -335,6 +337,8 @@ public partial class MainWindow
         MiscellaneousPage.SkillCostDetour.Clear();
         MiscellaneousPage.DriftDetour.Clear();
         MiscellaneousPage.TimeScaleDetour.Clear();
+        BackFirePage.BackFire.BackfireTimeDetour.Clear();
+        BackFirePage.BackFire.BackfireTypeDetour.Clear();
         MiscellaneousPage.MiscPage.WasSkillDetoured = false;
         EnvironmentPage.WasTimeDetoured = false;
         TeleportsPage.WaypointDetoured = false;
@@ -392,6 +396,8 @@ public partial class MainWindow
         MiscellaneousPage.SkillCostDetour.Destroy();
         MiscellaneousPage.DriftDetour.Destroy();
         MiscellaneousPage.TimeScaleDetour.Destroy();
+        BackFirePage.BackFire.BackfireTimeDetour.Destroy();
+        BackFirePage.BackFire.BackfireTypeDetour.Destroy();
 
         try
         {
@@ -411,14 +417,16 @@ public partial class MainWindow
 
             M.WriteMemory(WaterAddr, new Vector3(0f, 3700f, 13500f));
             
-            
             M.WriteArrayMemory(Wall1Addr, Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 });
             M.WriteArrayMemory(Wall2Addr, Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 });
-            M.WriteArrayMemory(Car1Addr, Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 }); 
-            
-            Mw.M.WriteMemory(WorldCollisionThreshold, 12f);
-            Mw.M.WriteMemory(CarCollisionThreshold,12f);
-            Mw.M.WriteMemory(SmashableCollisionTolerance,22f);
+            M.WriteArrayMemory(Car1Addr, Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 });
+
+            if (WorldCollisionThreshold != 0)
+            {
+                Mw.M.WriteMemory(WorldCollisionThreshold, 12f);
+                Mw.M.WriteMemory(CarCollisionThreshold,12f);
+                Mw.M.WriteMemory(SmashableCollisionTolerance,22f);
+            }
 
             M.WriteArrayMemory(AiXAddr, new byte[] { 0x0F, 0x11, 0x41, 0x50, 0x48, 0x8B, 0xFA });
             M.WriteArrayMemory(Car2Addr, new byte[] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00 });
@@ -436,8 +444,23 @@ public partial class MainWindow
         IsClicked = false;
         var oldKey = ClickedButton?.Content;
 
-        // proper conversion from wpf key to win-forms
-        // https://stackoverflow.com/a/1153059
+        var keyBuffer = string.Empty;
+        while (keyBuffer is { Length: 0 })
+        {
+            foreach (int i in Enum.GetValues(typeof(Keys)))
+            {
+                if (i is 0 or 1 or 2 or 3 or 4 or 12) continue;
+                
+                int x = DllImports.GetAsyncKeyState(i);
+                if (x is not (1 or short.MinValue)) continue;
+                
+                keyBuffer = Enum.GetName(typeof(Keys), i);
+            }
+
+            Delay(5).Wait();
+        }
+        
+        var key = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
         
         foreach (var field in typeof(OverlayHandling).GetFields())
         {
@@ -446,7 +469,7 @@ public partial class MainWindow
                 continue;
             }
             
-            field.SetValue(Oh, (Keys)KeyInterop.VirtualKeyFromKey(e.Key));
+            field.SetValue(Oh, key);
             ClickedButton.Content = e.Key;
             return;
         }
@@ -458,7 +481,7 @@ public partial class MainWindow
                 continue;
             }
 
-            field.SetValue(HandlingKeybindings.Hk, (Keys)KeyInterop.VirtualKeyFromKey(e.Key));
+            field.SetValue(HandlingKeybindings.Hk, key);
             ClickedButton.Content = e.Key;
             return; 
         }

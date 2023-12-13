@@ -45,7 +45,7 @@ public partial class Tires
             return;
         }
 
-        foreach (var visual in T.GetChildren())
+        foreach (var visual in T.GetChildren(this))
         {
             var element = (FrameworkElement)visual;
             
@@ -76,7 +76,7 @@ public partial class Tires
             divider.SetValue(divider, psi ? 1f : 14.5f);
         }
 
-        foreach (var visual in T.GetChildren())
+        foreach (var visual in T.GetChildren(this))
         {
             var element = (FrameworkElement)visual;
             var elementName = element.GetType().GetProperty("Name")!.GetValue(element)!.ToString();

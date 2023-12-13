@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -23,6 +24,7 @@ using Timer = System.Windows.Forms.Timer;
 using static Forza_Mods_AIO.Overlay.Overlay;
 using static Forza_Mods_AIO.Overlay.Overlay.OptionType;
 using static Forza_Mods_AIO.Resources.DllImports;
+using TextAlignment = System.Windows.TextAlignment;
 
 namespace Forza_Mods_AIO.Overlay;
 

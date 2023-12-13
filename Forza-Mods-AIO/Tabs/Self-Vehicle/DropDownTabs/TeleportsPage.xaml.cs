@@ -198,7 +198,6 @@ public partial class TeleportsPage
                 {
                     await Task.Run(() => SetupWaypointDetour(null));
                     WaypointDetoured = true;
-                    return;
                 }
                 
                 if (WaypointPosition.X == 0)

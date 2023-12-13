@@ -64,9 +64,9 @@ public partial class Overlay
         {
             Name = name;
             Type = type;
-            Value = value;
-            Min = min;
-            Max = max;
+            Value = Convert.ToSingle(value);
+            Min = min == null ? min : Convert.ToSingle(min);
+            Max = max == null ? max : Convert.ToSingle(max);
             Interval = interval;
             Description = description;
             IsEnabled = isEnabled;
@@ -85,9 +85,9 @@ public partial class Overlay
         {
             Name = name;
             Type = type;
-            Value = value;
-            Min = min;
-            Max = max;
+            Value = Convert.ToInt32(value);
+            Min = min == null ? min : Convert.ToInt32(min);
+            Max = max == null ? min : Convert.ToInt32(max);
             Interval = interval;
             Description = description;
             IsEnabled = isEnabled;
@@ -169,6 +169,7 @@ public partial class Overlay
                         { "DriverLimitersOptions" , SelfCarMenu.FovMenu.FovLimiters.DriverLimitersOptions },
                         { "HoodLimitersOptions" , SelfCarMenu.FovMenu.FovLimiters.HoodLimitersOptions },
                         { "BumperLimitersOptions" , SelfCarMenu.FovMenu.FovLimiters.BumperLimitersOptions },
+                { "BackfireOptions" , SelfCarMenu.BackfireMenu.BackfireMenuOptions },
             { "TuningOptions" , Tuning.Tuning.TuningOptions },
                 { "AeroOptions" , Tuning.SubMenus.Aero.Aero.AeroOptions },
                 { "AlignmentOptions" , Tuning.SubMenus.Alignment.Alignment.AlignmentOptions },

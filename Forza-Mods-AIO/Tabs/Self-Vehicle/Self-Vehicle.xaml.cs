@@ -57,7 +57,8 @@ public partial class SelfVehicle
         { "EnvironmentButton", 235 },
         { "CustomizationButton", 180 },
         { "MiscellaneousButton", 340 },
-        { "FovButton", 347.5 }
+        { "FovButton", 347.5 },
+        { "BackFireButton", 125 }
     };
 
     private static readonly Dictionary<string, bool> IsClicked = new()
@@ -70,7 +71,8 @@ public partial class SelfVehicle
         { "EnvironmentButton", false },
         { "CustomizationButton", false },
         { "MiscellaneousButton", false },
-        { "FovButton", false }
+        { "FovButton", false },
+        { "BackFireButton", false }
     };
 
     private static void HandleOpenButton(string name)
