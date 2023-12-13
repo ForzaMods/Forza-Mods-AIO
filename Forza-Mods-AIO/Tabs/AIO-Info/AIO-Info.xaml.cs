@@ -47,24 +47,9 @@ public partial class AioInfo
                 Process.Start("explorer.exe", "https://www.buymeacoffee.com/Yeethan69");
                 break;
             }
-            case "DraffCoffee":
-            {
-                Process.Start("explorer.exe", "https://www.buymeacoffee.com/comamnds");
-                break;
-            }
             case "EthanPaypal":
             {
                 Process.Start("explorer.exe", "https://www.paypal.com/donate?hosted_button_id=DACQKRJ4HTZR");
-                break;
-            }
-            case "DraffPaypal":
-            {
-                Process.Start("explorer.exe", "https://www.paypal.com/donate?hosted_button_id=H37GURADQ2SX");
-                break;
-            }
-            case "DraffYoutube":
-            {
-                Process.Start("explorer.exe", "https://www.youtube.com/c/comamnds/");
                 break;
             }
             case "ForzaModsDiscord":
