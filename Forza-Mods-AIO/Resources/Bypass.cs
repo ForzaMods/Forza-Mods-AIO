@@ -79,16 +79,16 @@ public abstract class Bypass
         const string check3Bytes = "53 48 8D 58 10 48 3B 1D 2A 00 00 00 72 1D 48 3B 1D 29 00 00 00 77 14 48 2B 1D 18 00 00 00 48 03 1D 21 00 00 00 F3 0F 6F 03 EB 05 F3 0F 6F 40 10 5B";
         const string check4Bytes = "53 48 8D 58 20 48 3B 1D 2A 00 00 00 72 1D 48 3B 1D 29 00 00 00 77 14 48 2B 1D 18 00 00 00 48 03 1D 21 00 00 00 F3 0F 6F 03 EB 05 F3 0F 6F 40 20 5B";
         
-        Check1Detour.Setup(null, checkAddr1, check1Bytes, 5, true);
+        Check1Detour.Setup(checkAddr1, check1Bytes, 5, true);
         Check1Detour.UpdateVariable(addresses);
         
-        Check2Detour.Setup(null, checkAddr2, check2Bytes, 9, true);
+        Check2Detour.Setup(checkAddr2, check2Bytes, 9, true);
         Check2Detour.UpdateVariable(addresses);
         
-        Check3Detour.Setup(null, checkAddr3, check3Bytes, 5, true);
+        Check3Detour.Setup(checkAddr3, check3Bytes, 5, true);
         Check3Detour.UpdateVariable(addresses);
         
-        Check4Detour.Setup(null, checkAddr4, check4Bytes, 5, true);
+        Check4Detour.Setup(checkAddr4, check4Bytes, 5, true);
         Check4Detour.UpdateVariable(addresses);
     }
 }

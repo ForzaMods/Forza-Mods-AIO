@@ -67,7 +67,7 @@ public partial class MainWindow
 
     public readonly Mem M = new()
     {
-        SigScanTasks = Environment.ProcessorCount * (Environment.ProcessorCount / 2)
+        SigScanTasks = Convert.ToInt32(Environment.ProcessorCount * (Environment.ProcessorCount / 2))
     };
 
     public LibraryMapper Mapper = null!;

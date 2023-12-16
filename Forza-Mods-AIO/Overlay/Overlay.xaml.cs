@@ -76,7 +76,7 @@ public partial class Overlay
         {
             Name = name;
             Type = type;
-            Value = value;
+            Value = Convert.ToBoolean(value);
             Description = description;
             IsEnabled = isEnabled;
         }
