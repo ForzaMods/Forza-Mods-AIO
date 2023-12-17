@@ -367,7 +367,7 @@ public partial class OverlayHandling
             Task.Delay(10, ct).Wait(ct);
             if (ct.IsCancellationRequested)
                 return;
-            
+
             // Clears the menu
             O.Dispatcher.BeginInvoke((Action)delegate
             {
@@ -522,94 +522,103 @@ public partial class OverlayHandling
     {
         while (true)
         {
-            Task.Delay(10, ct).Wait(ct);
-            if (ct.IsCancellationRequested)
+            try
             {
-                return;
-            }
 
-            var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
-
-            if (!isGameFocused)
-            {
-                continue;
-            }
-
-            UpdateKeyStates();
-            
-            var currentOption = O.AllMenus[CurrentMenu][_selectedOptionIndex];
-            
-            if (GetAsyncKeyState(Confirm) is 1 or short.MinValue && currentOption.IsEnabled)
-            {
-                switch (currentOption.Type)
+                Task.Delay(10, ct).Wait(ct);
+                if (ct.IsCancellationRequested)
                 {
-                    case MenuButton:
-                    {
-                        _levelIndex++;
-                        
-                        var nameSplit = currentOption.Name.Split(' ', '/', '[', ']', '&');
-                        CurrentMenu = string.Empty;
-                            
-                        foreach (var item in nameSplit)
-                        {
-                            CurrentMenu += char.ToUpper(item[0]) + item[1..];
-                        }
-
-                        CurrentMenu += "Options";
-                        _history.Add(_levelIndex, CurrentMenu);
-                        _selectedOptionIndex = 0;
-                        break;
-                    }
-                    case Bool:
-                    {
-                        currentOption.Value = !(bool)currentOption.Value;
-                        break;
-                    }
-                    case OptionType.Button:
-                    {
-                        ((Action)currentOption.Value)();
-                        break;
-                    }
+                    return;
                 }
 
-                while (GetAsyncKeyState(Confirm) is 1 or short.MinValue)
-                {
-                    Task.Delay(10, ct).Wait(ct);
-                }
-            }
-            else if (GetAsyncKeyState(Leave) is 1 or short.MinValue)
-            {
-                if (_levelIndex == 0)
+                var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
+
+                if (!isGameFocused)
                 {
                     continue;
                 }
-                    
-                _levelIndex--;
-                CurrentMenu = _history[_levelIndex];
-                _history.Remove(_levelIndex + 1);
-                _selectedOptionIndex = 0;
-                while (GetAsyncKeyState(Leave) is 1 or short.MinValue)
+
+                UpdateKeyStates();
+
+                var currentOption = O.AllMenus[CurrentMenu][_selectedOptionIndex];
+
+                if (GetAsyncKeyState(Confirm) is 1 or short.MinValue && currentOption.IsEnabled)
                 {
-                    Task.Delay(10, ct).Wait(ct);
+                    switch (currentOption.Type)
+                    {
+                        case MenuButton:
+                        {
+                            _levelIndex++;
+
+                            var nameSplit = currentOption.Name.Split(' ', '/', '[', ']', '&');
+                            CurrentMenu = string.Empty;
+
+                            foreach (var item in nameSplit)
+                            {
+                                CurrentMenu += char.ToUpper(item[0]) + item[1..];
+                            }
+
+                            CurrentMenu += "Options";
+                            _history.Add(_levelIndex, CurrentMenu);
+                            _selectedOptionIndex = 0;
+                            break;
+                        }
+                        case Bool:
+                        {
+                            currentOption.Value = !(bool)currentOption.Value;
+                            break;
+                        }
+                        case OptionType.Button:
+                        {
+                            ((Action)currentOption.Value)();
+                            break;
+                        }
+                    }
+
+                    while (GetAsyncKeyState(Confirm) is 1 or short.MinValue)
+                    {
+                        Task.Delay(10, ct).Wait(ct);
+                    }
+                }
+                else if (GetAsyncKeyState(Leave) is 1 or short.MinValue)
+                {
+                    if (_levelIndex == 0)
+                    {
+                        continue;
+                    }
+
+                    _levelIndex--;
+                    CurrentMenu = _history[_levelIndex];
+                    _history.Remove(_levelIndex + 1);
+                    _selectedOptionIndex = 0;
+                    while (GetAsyncKeyState(Leave) is 1 or short.MinValue)
+                    {
+                        Task.Delay(10, ct).Wait(ct);
+                    }
+                }
+                else if (GetAsyncKeyState(OverlayVisibility) is 1 or short.MinValue)
+                {
+
+                    if (O.Visibility == Visible)
+                    {
+                        O.Dispatcher.Invoke(delegate { O.Hide(); });
+                    }
+                    else
+                    {
+                        O.Dispatcher.Invoke(delegate { O.Show(); });
+                    }
+
+                    _hidden = !_hidden;
+                    while (GetAsyncKeyState(OverlayVisibility) is 1 or short.MinValue)
+                    {
+                        Task.Delay(10, ct).Wait(ct);
+                    }
                 }
             }
-            else if (GetAsyncKeyState(OverlayVisibility) is 1 or short.MinValue)
+            catch (Exception exception)
             {
-                    
-                if (O.Visibility == Visible)
-                {
-                    O.Dispatcher.Invoke(delegate { O.Hide(); });
-                }
-                else
-                {
-                    O.Dispatcher.Invoke(delegate { O.Show(); });
-                }
-
-                _hidden = !_hidden;
-                while (GetAsyncKeyState(OverlayVisibility) is 1 or short.MinValue)
-                {
-                    Task.Delay(10, ct).Wait(ct);
-                }
+                Debug.WriteLine(exception.Message);
+                Debug.WriteLine(exception.StackTrace);
             }
         }
     }
@@ -639,90 +648,99 @@ public partial class OverlayHandling
     {
         while (true)
         {
-            Task.Delay(10, ct).Wait(ct);
-                
-            if (ct.IsCancellationRequested)
+            try
             {
-                break;
-            }
-
-            if (_hidden)
-            {
-                continue;
-            }
-            
-            var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
-
-            if (!isGameFocused)
-            {
-                continue;
-            }
-            
-            if (_downKeyDown && isGameFocused)
-            {
-                void Down()
+                Task.Delay(10, ct).Wait(ct);
+                    
+                if (ct.IsCancellationRequested)
                 {
-                    _selectedOptionIndex++;
-                    if (_selectedOptionIndex > O.AllMenus[CurrentMenu].Count - 1)
-                        _selectedOptionIndex = 0;
+                    break;
                 }
-                Down();
 
-                var timer = new Timer();
-                timer.Interval = 150;
-                timer.Tick += delegate
+                if (_hidden)
                 {
+                    continue;
+                }
+                
+                var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
+
+                if (!isGameFocused)
+                {
+                    continue;
+                }
+                
+                if (_downKeyDown && isGameFocused)
+                {
+                    void Down()
+                    {
+                        _selectedOptionIndex++;
+                        if (_selectedOptionIndex > O.AllMenus[CurrentMenu].Count - 1)
+                            _selectedOptionIndex = 0;
+                    }
                     Down();
-                    Task.Delay(5, ct).Wait(ct);
-                };
-                
-                O.Dispatcher.Invoke(delegate
-                {
-                    timer.Start();
-                });
-                
-                while (_downKeyDown)
-                {
-                    Task.Delay(1, ct).Wait(ct);
-                }
-                
-                O.Dispatcher.Invoke(delegate
-                {
-                    timer.Dispose();
-                });
-            }
-            else if (_upKeyDown && isGameFocused)
-            {
-                void Up()
-                {
-                    _selectedOptionIndex--;
-                    if (_selectedOptionIndex < 0)
-                        _selectedOptionIndex = O.AllMenus[CurrentMenu].Count - 1;
-                }
-                Up();
 
-                var timer = new Timer();
-                timer.Interval = 150;
-                timer.Tick += delegate
-                { 
-                    Up();
-                    Task.Delay(5, ct).Wait(ct);
-                };
-                
-                O.Dispatcher.Invoke(delegate
-                {
-                    timer.Start();
-                });
-                
-                while (_upKeyDown)
-                {
-                    Task.Delay(1, ct).Wait(ct);
+                    var timer = new Timer();
+                    timer.Interval = 150;
+                    timer.Tick += delegate
+                    {
+                        Down();
+                        Task.Delay(5, ct).Wait(ct);
+                    };
+                    
+                    O.Dispatcher.Invoke(delegate
+                    {
+                        timer.Start();
+                    });
+                    
+                    while (_downKeyDown)
+                    {
+                        Task.Delay(1, ct).Wait(ct);
+                    }
+                    
+                    O.Dispatcher.Invoke(delegate
+                    {
+                        timer.Dispose();
+                    });
                 }
-                
-                O.Dispatcher.Invoke(delegate
+                else if (_upKeyDown && isGameFocused)
                 {
-                    timer.Dispose();
-                });
+                    void Up()
+                    {
+                        _selectedOptionIndex--;
+                        if (_selectedOptionIndex < 0)
+                            _selectedOptionIndex = O.AllMenus[CurrentMenu].Count - 1;
+                    }
+                    Up();
+
+                    var timer = new Timer();
+                    timer.Interval = 150;
+                    timer.Tick += delegate
+                    { 
+                        Up();
+                        Task.Delay(5, ct).Wait(ct);
+                    };
+                    
+                    O.Dispatcher.Invoke(delegate
+                    {
+                        timer.Start();
+                    });
+                    
+                    while (_upKeyDown)
+                    {
+                        Task.Delay(1, ct).Wait(ct);
+                    }
+                    
+                    O.Dispatcher.Invoke(delegate
+                    {
+                        timer.Dispose();
+                    });
+                }
+
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception.Message);
+                Debug.WriteLine(exception.StackTrace);
             }
         }
     }
@@ -731,71 +749,79 @@ public partial class OverlayHandling
     {
         while (true)
         {
-            Task.Delay(_rapidKeyDown ? 5 : 100, ct).Wait(ct);
-
-            if (ct.IsCancellationRequested)
+            try
             {
-                return;
-            }
+                Task.Delay(_rapidKeyDown ? 5 : 100, ct).Wait(ct);
 
-            var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
-            var currentOption = O.AllMenus[CurrentMenu][_selectedOptionIndex];
-
-            if (_rightKeyDown && currentOption.IsEnabled && isGameFocused)
-            {
-                var min = currentOption.Min;
-                var max = currentOption.Max;
-                var value = currentOption.Value;
-                
-                currentOption.Value = currentOption.Type switch
+                if (ct.IsCancellationRequested)
                 {
-                    // Value is more than 0 so set to the first selection
-                    Selection when (int)currentOption.Value >= currentOption.Selections!.Length - 1 => 0,
-                    
-                    // Value is more than max, set to min if exists
-                    Float when min != null && max != null && (float)value >= (float)max => currentOption.Value = min,
-                    Int when min != null && max != null && (int)value >= (int)max => currentOption.Value = min,
-                    
-                    // Value is more than max, set to max bc min doesnt exist
-                    Float when max != null && (float)value >= (float)max => currentOption.Value = max,
-                    Int when max != null && (int)value >= (int)max => currentOption.Value = max,
-                    
-                    // Default increment
-                    Float => ToSingle(Math.Round((float)currentOption.Value + (float)(currentOption.Interval ?? 0.1f), 1)),
-                    Int => (int)currentOption.Value + (int)(currentOption.Interval ?? 1),
-                    Selection => (int)currentOption.Value + 1,
-                    
-                    Bool => currentOption.Value = true,
-                    _ => currentOption.Value
-                };
-            }
-            else if (_leftKeyDown && currentOption.IsEnabled && isGameFocused)
-            {
-                var min = currentOption.Min;
-                var max = currentOption.Max;
-                var value = currentOption.Value;
+                    return;
+                }
+
+                var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
+                var currentOption = O.AllMenus[CurrentMenu][_selectedOptionIndex];
                 
-                currentOption.Value = currentOption.Type switch
+                if (_rightKeyDown && currentOption.IsEnabled && isGameFocused)
                 {
-                    // Value is less than 0 so set to the last selection
-                    Selection when (int)currentOption.Value <= 0 => currentOption.Selections!.Length - 1,
+                    var min = currentOption.Min;
+                    var max = currentOption.Max;
+                    var value = currentOption.Value;
                     
-                    // Value is less than min, set to max if exists
-                    Float when min != null && max != null && (float)value <= (float)min => currentOption.Value = max,
-                    Int when min != null && max != null && (int)value <= (int)min => currentOption.Value = max,
+                    currentOption.Value = currentOption.Type switch
+                    {
+                        // Value is more than 0 so set to the first selection
+                        Selection when (int)currentOption.Value >= currentOption.Selections!.Length - 1 => 0,
+                        
+                        // Value is more than max, set to min if exists
+                        Float when min != null && max != null && (float)value >= (float)max => currentOption.Value = min,
+                        Int when min != null && max != null && (int)value >= (int)max => currentOption.Value = min,
+                        
+                        // Value is more than max, set to max bc min doesnt exist
+                        Float when max != null && (float)value >= (float)max => currentOption.Value = max,
+                        Int when max != null && (int)value >= (int)max => currentOption.Value = max,
+                        
+                        // Default increment
+                        Float => ToSingle(Math.Round((float)currentOption.Value + (float)(currentOption.Interval ?? 0.1f), 1)),
+                        Int => (int)currentOption.Value + (int)(currentOption.Interval ?? 1),
+                        Selection => (int)currentOption.Value + 1,
+                        
+                        Bool => currentOption.Value = true,
+                        _ => currentOption.Value
+                    };
+                }
+                else if (_leftKeyDown && currentOption.IsEnabled && isGameFocused)
+                {
+                    var min = currentOption.Min;
+                    var max = currentOption.Max;
+                    var value = currentOption.Value;
                     
-                    // Value is less than min, set to min bc max doesn't exist
-                    Float when min != null && (float)value <= (float)min => currentOption.Value = min,
-                    Int when min != null && (int)value <= (int)min => currentOption.Value = min,
-                    
-                    // Default decrement
-                    Float => ToSingle(Math.Round((float)currentOption.Value - (float)(currentOption.Interval ?? 0.1f), 1)),
-                    Int => (int)currentOption.Value - (int)(currentOption.Interval ?? 1),
-                    Selection => (int)currentOption.Value - 1,
-                    
-                    Bool => currentOption.Value = false,
-                    _ => currentOption.Value
-                };
+                    currentOption.Value = currentOption.Type switch
+                    {
+                        // Value is less than 0 so set to the last selection
+                        Selection when (int)currentOption.Value <= 0 => currentOption.Selections!.Length - 1,
+                        
+                        // Value is less than min, set to max if exists
+                        Float when min != null && max != null && (float)value <= (float)min => currentOption.Value = max,
+                        Int when min != null && max != null && (int)value <= (int)min => currentOption.Value = max,
+                        
+                        // Value is less than min, set to min bc max doesn't exist
+                        Float when min != null && (float)value <= (float)min => currentOption.Value = min,
+                        Int when min != null && (int)value <= (int)min => currentOption.Value = min,
+                        
+                        // Default decrement
+                        Float => ToSingle(Math.Round((float)currentOption.Value - (float)(currentOption.Interval ?? 0.1f), 1)),
+                        Int => (int)currentOption.Value - (int)(currentOption.Interval ?? 1),
+                        Selection => (int)currentOption.Value - 1,
+                        
+                        Bool => currentOption.Value = false,
+                        _ => currentOption.Value
+                    };
+                }
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception.Message);
+                Debug.WriteLine(exception.StackTrace);
             }
         }
     }
