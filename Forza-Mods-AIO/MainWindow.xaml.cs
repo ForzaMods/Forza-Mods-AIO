@@ -471,6 +471,7 @@ public partial class MainWindow
             
             field.SetValue(Oh, key);
             ClickedButton.Content = e.Key;
+            OverlayKeybindings.SaveKeybinds();
             return;
         }
         

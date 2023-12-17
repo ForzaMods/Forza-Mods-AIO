@@ -15,7 +15,9 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Forza_Mods_AIO.Resources;
+using IniParser;
 using static System.Convert;
+using static System.Environment;
 using static System.Windows.Visibility;
 using static Forza_Mods_AIO.MainWindow;
 using Brush = System.Windows.Media.Brush;
@@ -82,6 +84,8 @@ public partial class OverlayHandling
     public string FontStyle = "Normal";
     public int XOffset = 0, YOffset = 0; 
 
+    private readonly string _settingsFilePath = GetFolderPath(SpecialFolder.MyDocuments) + @"\Forza Mods AIO\Overlay Settings.ini";
+    
     private readonly Dictionary<int, string> _history = new()
     {
         {  0 ,"MainOptions" }
@@ -102,12 +106,12 @@ public partial class OverlayHandling
     // Caches all the headers
     public void CacheHeaders()
     {
-        if (!Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers"))
+        if (!Directory.Exists(CurrentDirectory + @"\Overlay\Headers"))
         {
             return;
         }
 
-        _menuHeaders = Directory.GetFiles(Environment.CurrentDirectory + @"\Overlay\Headers");
+        _menuHeaders = Directory.GetFiles(CurrentDirectory + @"\Overlay\Headers");
         foreach (var header in _menuHeaders)
         {
             var inCachedBitmaps = Headers.Any(item => item[0].ToString().Contains(header.Split('\\').Last().Split('.').First()));
@@ -118,18 +122,105 @@ public partial class OverlayHandling
         
     public void LoadSettings()
     {
-            
+        if (!File.Exists(_settingsFilePath))
+        {
+            return;
+        }
+
+        try
+        {
+            var parser = new FileIniDataParser();
+            var iniData = parser.ReadFile(_settingsFilePath);
+
+            foreach (var menuOption in typeof(SettingsMenu.SettingsMenu)
+                         .GetFields(BindingFlags.Public | BindingFlags.Static)
+                         .Where(f => f.FieldType == typeof(MenuOption)))
+            {
+                var mainQuery = menuOption.Name.Contains("Main") ? "Main" : "Description";
+
+                if (menuOption.Name.Contains("Font"))
+                {
+                    mainQuery = "Font";
+                }
+                    
+                var name = menuOption.Name;
+                var value = iniData[mainQuery][name];
+
+                var type = (OptionType)menuOption.FieldType.GetProperty("Type").GetValue(menuOption.GetValue(O.Sm));
+
+                switch (type)
+                {
+                    case Float:
+                    {
+                        if (float.TryParse(value, out var result))
+                        {
+                            menuOption.FieldType.GetProperty("Value").SetValue(menuOption.GetValue(O.Sm), result);
+                        }
+                        break;
+                    }
+                    case Selection:
+                    case Int:
+                    {
+                        if (int.TryParse(value, out var result))
+                        {
+                            menuOption.FieldType.GetProperty("Value").SetValue(menuOption.GetValue(O.Sm), result);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            Debug.WriteLine(ex.StackTrace);
+        }       
     }
 
     public void SaveSettings()
     {
+        if (!File.Exists(_settingsFilePath))
+        {
+            using (File.Create(_settingsFilePath)) ;
+        }
+
+        try
+        {
+            var parser = new FileIniDataParser();
+            var iniData = parser.ReadFile(_settingsFilePath);
+
+            foreach (var menuOption in typeof(SettingsMenu.SettingsMenu)
+                         .GetFields(BindingFlags.Public | BindingFlags.Static)
+                         .Where(f => f.FieldType == typeof(MenuOption)))
+            {
+                var mainQuery = menuOption.Name.Contains("Main") ? "Main" : "Description";
+
+                if (menuOption.Name.Contains("Font"))
+                {
+                    mainQuery = "Font";
+                }
+                    
+                var name = menuOption.GetType().GetProperty("Name")?.GetValue(menuOption)?.ToString();
+                var valueProperty = menuOption.FieldType.GetProperty("Value");
+                if (valueProperty == null) continue;
+                var value = valueProperty.GetValue(menuOption.GetValue(null));
+                iniData[mainQuery][name] = value?.ToString();
+            }
             
+            parser.WriteFile(_settingsFilePath, iniData);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            Debug.WriteLine(ex.StackTrace);
+        }
     }
         
     // Handles the position of the overlay
     public void OverlayPosAndScale(CancellationToken ct)
     {
         CacheHeaders();
+        LoadSettings();
         while (true)
         {
             Task.Delay(10, ct).Wait(ct);
@@ -211,7 +302,7 @@ public partial class OverlayHandling
 
     private void SelectHeader()
     {
-        if (!Directory.Exists(Environment.CurrentDirectory + @"\Overlay\Headers") || _menuHeaders.Length == 0)
+        if (!Directory.Exists(CurrentDirectory + @"\Overlay\Headers") || _menuHeaders.Length == 0)
         {
             if (_headerImage is { IsFrozen: true })
             {
@@ -673,7 +764,6 @@ public partial class OverlayHandling
                     Float => ToSingle(Math.Round((float)currentOption.Value + (float)(currentOption.Interval ?? 0.1f), 1)),
                     Int => (int)currentOption.Value + (int)(currentOption.Interval ?? 1),
                     Selection => (int)currentOption.Value + 1,
-                    
                     
                     Bool => currentOption.Value = true,
                     _ => currentOption.Value

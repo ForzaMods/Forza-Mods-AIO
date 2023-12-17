@@ -212,7 +212,7 @@ public partial class Overlay
     };
 
     // Add all sub menu classes here for event handling
-    private readonly SettingsMenu.SettingsMenu _sm = new();
+    public readonly SettingsMenu.SettingsMenu Sm = new();
     #endregion
     #region Main
     public Overlay()
@@ -226,7 +226,7 @@ public partial class Overlay
     // This is to make sure all sub menus have their event handlers subscribed
     void InitializeAllSubMenus()
     {
-        _sm.InitiateSubMenu();
+        Sm.InitiateSubMenu();
         SelfCarMenu.SelfCarMenu.InitiateSubMenu();
         AutoShowMenu.AutoShowMenu.InitiateSubMenu();
         Tuning.Tuning.InitiateSubMenu();
