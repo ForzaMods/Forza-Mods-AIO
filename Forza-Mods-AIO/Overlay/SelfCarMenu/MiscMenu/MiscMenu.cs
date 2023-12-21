@@ -7,8 +7,8 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.MiscMenu;
 
 public abstract class MiscMenu
 {
-    private static readonly MenuOption UnlimitedBuildBudgetToggle = new("Unlimited Build Budget", OptionType.Bool, false);
-    private static readonly MenuOption UnbreakableSkillScoreToggle = new("Unbreakable Skill Score", OptionType.Bool, false);
+    private static readonly MenuOption UnlimitedBuildBudgetToggle = new("Unlimited Build Budget", false);
+    private static readonly MenuOption UnbreakableSkillScoreToggle = new("Unbreakable Skill Score", false);
 
     public static readonly List<MenuOption> MiscMenuOptions = new()
     {

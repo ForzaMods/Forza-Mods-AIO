@@ -1,31 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using IniParser;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Threading;
+using System.Reflection;
+using System.Diagnostics;
+using System.Windows.Forms;
+using System.Windows.Media;
+using System.Windows.Interop;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Forza_Mods_AIO.Resources;
-using IniParser;
+using System.Collections.Generic;
+using System.Windows.Media.Imaging;
+using System.Runtime.InteropServices;
+using System.Windows.Media.Animation;
 using static System.Convert;
 using static System.Environment;
+using static System.Math;
 using static System.Windows.Visibility;
 using static Forza_Mods_AIO.MainWindow;
-using Brush = System.Windows.Media.Brush;
-using Brushes = System.Windows.Media.Brushes;
-using Timer = System.Windows.Forms.Timer;
 using static Forza_Mods_AIO.Overlay.Overlay;
-using static Forza_Mods_AIO.Overlay.Overlay.OptionType;
+using static System.Windows.HorizontalAlignment;
 using static Forza_Mods_AIO.Resources.DllImports;
+using static Forza_Mods_AIO.Overlay.Overlay.OptionType;
+
+using Brush = System.Windows.Media.Brush;
+using Timer = System.Windows.Forms.Timer;
+using Brushes = System.Windows.Media.Brushes;
 using TextAlignment = System.Windows.TextAlignment;
 
 namespace Forza_Mods_AIO.Overlay;
@@ -76,9 +80,8 @@ public partial class OverlayHandling
     // Menu operational vars
     private string[] _menuHeaders = null!;
     private int _selectedOptionIndex, _levelIndex;
-    public string CurrentMenu = "MainOptions";
+    private string _currentMenu = "MainOptions";
     private bool _hidden;
-    private double _posTop, _posLeft;
     public float FontSize = 5;
     public string FontWeight = "Normal";
     public string FontStyle = "Normal";
@@ -101,7 +104,7 @@ public partial class OverlayHandling
     public Brush DescriptionBorderColour = Brushes.Black;
     public int HeaderIndex = 0;
     public readonly List<object[]> Headers = new();
-    private BitmapImage _headerImage = null!;
+    private BitmapImage? _headerImage = null!;
     #endregion
     // Caches all the headers
     public void CacheHeaders()
@@ -114,7 +117,7 @@ public partial class OverlayHandling
         _menuHeaders = Directory.GetFiles(CurrentDirectory + @"\Overlay\Headers");
         foreach (var header in _menuHeaders)
         {
-            var inCachedBitmaps = Headers.Any(item => item[0].ToString().Contains(header.Split('\\').Last().Split('.').First()));
+            var inCachedBitmaps = Headers.Any(item => item[0].ToString()!.Contains(header.Split('\\').Last().Split('.').First()));
             if (inCachedBitmaps) continue;
             Headers.Add(new object[] { header.Split('\\').Last().Split('.').First(), new BitmapImage(new Uri(header)) });
         }
@@ -127,56 +130,47 @@ public partial class OverlayHandling
             return;
         }
 
-        try
-        {
-            var parser = new FileIniDataParser();
-            var iniData = parser.ReadFile(_settingsFilePath);
+        var parser = new FileIniDataParser();
+        var iniData = parser.ReadFile(_settingsFilePath);
 
-            foreach (var menuOption in typeof(SettingsMenu.SettingsMenu)
-                         .GetFields(BindingFlags.Public | BindingFlags.Static)
-                         .Where(f => f.FieldType == typeof(MenuOption)))
+        foreach (var menuOption in typeof(SettingsMenu.SettingsMenu)
+                     .GetFields(BindingFlags.Public | BindingFlags.Static)
+                     .Where(f => f.FieldType == typeof(MenuOption)))
+        {
+            var name = menuOption.Name;
+            var mainQuery = name.Contains("Font") ? "Font" : name.Contains("Main") ? "Main" : "Description";
+            var value = iniData[mainQuery][name];
+            var type = (OptionType?)menuOption.FieldType.GetProperty("Type")?.GetValue(menuOption.GetValue(O.Sm));
+
+            if (type == null)
             {
-                var mainQuery = menuOption.Name.Contains("Main") ? "Main" : "Description";
-
-                if (menuOption.Name.Contains("Font"))
-                {
-                    mainQuery = "Font";
-                }
-                    
-                var name = menuOption.Name;
-                var value = iniData[mainQuery][name];
-
-                var type = (OptionType)menuOption.FieldType.GetProperty("Type").GetValue(menuOption.GetValue(O.Sm));
-
-                switch (type)
-                {
-                    case Float:
-                    {
-                        if (float.TryParse(value, out var result))
-                        {
-                            menuOption.FieldType.GetProperty("Value").SetValue(menuOption.GetValue(O.Sm), result);
-                        }
-                        break;
-                    }
-                    case Selection:
-                    case Int:
-                    {
-                        if (int.TryParse(value, out var result))
-                        {
-                            menuOption.FieldType.GetProperty("Value").SetValue(menuOption.GetValue(O.Sm), result);
-                        }
-                        break;
-                    }
-                }
+                continue;
             }
+
+            ParseAndSetValueBasedOnTheType(menuOption, type, value);
         }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            Debug.WriteLine(ex.StackTrace);
-        }       
     }
 
+    private static void ParseAndSetValueBasedOnTheType(FieldInfo menuOption, OptionType? type, string? value)
+    {
+        switch (type)
+        {
+            case Float:
+            {
+                if (!float.TryParse(value, out var result)) return;
+                menuOption.FieldType.GetProperty("Value")?.SetValue(menuOption.GetValue(O.Sm), result);
+                break;
+            }
+            case Selection:
+            case Int:
+            {
+                if (!int.TryParse(value, out var result)) return;
+                menuOption.FieldType.GetProperty("Value")?.SetValue(menuOption.GetValue(O.Sm), result);
+                break;
+            }
+        }
+    }
+    
     public void SaveSettings()
     {
         if (!File.Exists(_settingsFilePath))
@@ -184,36 +178,27 @@ public partial class OverlayHandling
             using (File.Create(_settingsFilePath)) ;
         }
 
-        try
-        {
-            var parser = new FileIniDataParser();
-            var iniData = parser.ReadFile(_settingsFilePath);
+        var parser = new FileIniDataParser();
+        var iniData = parser.ReadFile(_settingsFilePath);
 
-            foreach (var menuOption in typeof(SettingsMenu.SettingsMenu)
-                         .GetFields(BindingFlags.Public | BindingFlags.Static)
-                         .Where(f => f.FieldType == typeof(MenuOption)))
+        foreach (var menuOption in typeof(SettingsMenu.SettingsMenu)
+                     .GetFields(BindingFlags.Public | BindingFlags.Static)
+                     .Where(f => f.FieldType == typeof(MenuOption)))
+        {
+            var mainQuery = menuOption.Name.Contains("Main") ? "Main" : "Description";
+
+            if (menuOption.Name.Contains("Font"))
             {
-                var mainQuery = menuOption.Name.Contains("Main") ? "Main" : "Description";
-
-                if (menuOption.Name.Contains("Font"))
-                {
-                    mainQuery = "Font";
-                }
-                    
-                var name = menuOption.GetType().GetProperty("Name")?.GetValue(menuOption)?.ToString();
-                var valueProperty = menuOption.FieldType.GetProperty("Value");
-                if (valueProperty == null) continue;
-                var value = valueProperty.GetValue(menuOption.GetValue(null));
-                iniData[mainQuery][name] = value?.ToString();
+                mainQuery = "Font";
             }
+                    
+            var name = menuOption.GetType().GetProperty("Name")?.GetValue(menuOption)?.ToString();
+            var valueProperty = menuOption.FieldType.GetProperty("Value");
+            var value = valueProperty?.GetValue(menuOption.GetValue(null));
+            iniData[mainQuery][name] = value?.ToString();
+        }
             
-            parser.WriteFile(_settingsFilePath, iniData);
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            Debug.WriteLine(ex.StackTrace);
-        }
+        parser.WriteFile(_settingsFilePath, iniData);
     }
         
     // Handles the position of the overlay
@@ -221,6 +206,7 @@ public partial class OverlayHandling
     {
         CacheHeaders();
         LoadSettings();
+
         while (true)
         {
             Task.Delay(10, ct).Wait(ct);
@@ -229,75 +215,87 @@ public partial class OverlayHandling
                 return;
             }
 
-            var forzaWindow = new DllImports.Rect();
+            if (Mw.Gvp.Process == null)
+            {
+                continue;
+            }
 
-            GetWindowRect(Mw.Gvp.Process.MainWindowHandle, ref forzaWindow);
-            GetClientRect(Mw.Gvp.Process.MainWindowHandle, out var forzaClientWindow);
+            var gameWindow = new DllImports.Rect();
 
-            var offset = forzaClientWindow.Bottom / 20d;
-            _posLeft = forzaWindow.Left + (forzaWindow.Right - forzaWindow.Left - forzaClientWindow.Right) / 2d + offset;
-            _posTop = forzaWindow.Top + (forzaWindow.Bottom - forzaWindow.Top - forzaClientWindow.Bottom) / 1.5d + offset;
+            GetWindowRect(Mw.Gvp.Process.MainWindowHandle, ref gameWindow);
+            GetClientRect(Mw.Gvp.Process.MainWindowHandle, out var gameClientWindow);
+
+            var offset = gameClientWindow.Bottom / 20d;
+            var posLeft = gameWindow.Left + (gameWindow.Right - gameWindow.Left - gameClientWindow.Right) / 2d + offset;
+            var posTop = gameWindow.Top + (gameWindow.Bottom - gameWindow.Top - gameClientWindow.Bottom) / 1.5d + offset;
             
             // top right
-            // saving in case I need it
             //var xOffset = ForzaClientWindow.Bottom / 2.5d;
             //var PosLeft = ForzaWindow.Right - (ForzaWindow.Right - ForzaWindow.Left - ForzaClientWindow.Right) - xOffset;
             
-            var YRes = forzaClientWindow.Bottom - (forzaWindow.Bottom - forzaWindow.Top - forzaClientWindow.Bottom) / 1.3;
-
-            // Calculate the right numbers for the menu to scale to resolution
-            double HeaderY = YRes / 10.8d, HeaderX = HeaderY * 4;
+            var yRes = gameClientWindow.Bottom - (gameWindow.Bottom - gameWindow.Top - gameClientWindow.Bottom) / 1.3;
+            double headerY = yRes / 10.8d, headerX = headerY * 4;
 
             SelectHeader();
 
-            if (Mw.Gvp.Process.MainWindowHandle != GetForegroundWindow())
+            if (!IsGameFocused())
             {
                 O?.Dispatcher.Invoke(() => O.Hide());
                 continue;
             }
-            
-            O?.Dispatcher.Invoke(() =>
-            {
-                // Set position
-                O.Top = _posTop;
-                O.Left = _posLeft;
 
-                // Set font options
-                HandleFontSettings();
-                    
-                // Set width of menu and set header size (scale with resolution)
-                O.Width = HeaderX;
-                O.TopSection.Height = new GridLength(HeaderY);
-
-                O.Header.Width = O.Width;
-                O.Header.Height = O.TopSection.ActualHeight;
-
-                // Set height of menu depending on items present
-                if (O.OptionsBlock.Inlines.Count == O.AllMenus[CurrentMenu].Count * 2 - 1)
-                {
-                    O.MainSection.Height = new GridLength(O.OptionsBlock.ActualHeight + 10);
-                    O.DescriptionSection.Height = O.DescriptionBlock.Text != string.Empty 
-                        ? new GridLength(O.DescriptionBlock.ActualHeight + 15)
-                        : new GridLength(0);
-
-                    O.Height = O.TopSection.ActualHeight + O.MainSection.ActualHeight + O.DescriptionSection.ActualHeight;
-                }
-
-                // Set menu header image
-                O.Header.Source = _headerImage;
-                    
-                // Set colours of menu
-                O.MainBorder.Background = MainBackColour;
-                O.MainBorder.BorderBrush = MainBorderColour;
-
-                O.DescriptionBorder.Background = DescriptionBackColour;
-                O.DescriptionBorder.BorderBrush = DescriptionBorderColour;
-
-                if (O.Visibility != Hidden || _hidden) return;
-                
-                O.Show();
-            });
+            SetWindowAttributes(posTop, posLeft, headerY, headerX);
         }
+    }
+
+    private void SetWindowAttributes(double posTop, double posLeft, double headerY, double headerX)
+    {
+        O.Dispatcher.Invoke(() =>
+        {
+            O.Top = posTop;
+            O.Left = posLeft;
+
+            HandleFontSettings();
+                    
+            O.Width = headerX;
+            O.TopSection.Height = new GridLength(headerY);
+
+            O.Header.Width = O.Width;
+            O.Header.Height = O.TopSection.ActualHeight;
+
+            if (O.OptionsBlock.Inlines.Count == O.AllMenus[_currentMenu].Count * 2 - 1)
+            {
+                O.MainSection.Height = new GridLength(O.OptionsBlock.ActualHeight + 10);
+                O.DescriptionSection.Height = O.DescriptionBlock.Text != string.Empty 
+                    ? new GridLength(O.DescriptionBlock.ActualHeight + 15)
+                    : new GridLength(0);
+
+                var finalWindowHeight = O.TopSection.ActualHeight + O.MainSection.ActualHeight +
+                                  O.DescriptionSection.ActualHeight;
+                
+                var windowHeightAnimation = new DoubleAnimation
+                {
+                    From = O.Height,
+                    To = finalWindowHeight,
+                    Duration = TimeSpan.FromMilliseconds(50), 
+                    EasingFunction = new QuadraticEase()
+                };
+                
+                O.BeginAnimation(FrameworkElement.HeightProperty, windowHeightAnimation);
+            }
+            
+            O.Header.Source = _headerImage;
+                    
+            O.MainBorder.Background = MainBackColour;
+            O.MainBorder.BorderBrush = MainBorderColour;
+
+            O.DescriptionBorder.Background = DescriptionBackColour;
+            O.DescriptionBorder.BorderBrush = DescriptionBorderColour;
+
+            if (O.Visibility != Hidden || _hidden) return;
+                
+            O.Show();
+        });
     }
 
     private void SelectHeader()
@@ -311,18 +309,24 @@ public partial class OverlayHandling
             _headerImage = new BitmapImage(new Uri("pack://application:,,,/Overlay/Headers/pog header.png", UriKind.RelativeOrAbsolute));
             _headerImage.Dispatcher.Invoke(() => _headerImage.Freeze());
         }
-        else if (_headerImage.UriSource.LocalPath != _menuHeaders[HeaderIndex])
+        else if (_headerImage?.UriSource.LocalPath != _menuHeaders[HeaderIndex])
         {
             if (_headerImage is { IsFrozen: true })
             {
                 _headerImage = _headerImage.Clone();
             }
-            _headerImage = (BitmapImage)Headers.Find(x => x[0].ToString().Contains(_menuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))[1];
-            _headerImage.Dispatcher.Invoke(() => _headerImage.Freeze());
+            _headerImage = (BitmapImage)Headers.Find(x => x[0].ToString().Contains(_menuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))?[1];
+            _headerImage?.Dispatcher.Invoke(() => _headerImage.Freeze());
         }
     }
 
     private void HandleFontSettings()
+    {
+        HandleFontWeight();
+        HandleFontStyle();
+    }
+
+    private void HandleFontWeight()
     {
         foreach (var field in typeof(FontWeights).GetProperties(BindingFlags.Public | BindingFlags.Static))
         {
@@ -331,7 +335,7 @@ public partial class OverlayHandling
                 continue;
             }
     
-            var fontWeight = (FontWeight)field.GetValue(null);
+            var fontWeight = (FontWeight)(field.GetValue(null) ?? FontWeights.Normal);
             var cleanFontWeight = FontWeight.Replace(" ", "");
     
             if (!string.Equals(fontWeight.ToString(), cleanFontWeight, StringComparison.CurrentCultureIgnoreCase))
@@ -341,14 +345,17 @@ public partial class OverlayHandling
             O.FontWeight = fontWeight;
             break;
         }
-        
+    }
+
+    private void HandleFontStyle()
+    {
         foreach (var field in typeof(FontStyles).GetProperties(BindingFlags.Public | BindingFlags.Static))
         {
             if (field.PropertyType != typeof(FontStyle))
             {
                 continue;
             }
-            var fontStyle = (FontStyle)field.GetValue(null);
+            var fontStyle = (FontStyle)(field.GetValue(null) ?? FontStyles.Normal);
     
             if (!string.Equals(fontStyle.ToString(), FontStyle, StringComparison.CurrentCultureIgnoreCase))
             {
@@ -358,73 +365,77 @@ public partial class OverlayHandling
             break;
         }
     }
-    
-    // Updates the menu, eg selected option, values etc
+
     public void UpdateMenuOptions(CancellationToken ct)
     {
         while (true)
         {
             Task.Delay(10, ct).Wait(ct);
-            if (ct.IsCancellationRequested)
-                return;
-
-            // Clears the menu
-            O.Dispatcher.BeginInvoke((Action)delegate
-            {
-                O.OptionsBlock.Inlines.Clear(); 
-                O.ValueBlock.Inlines.Clear();
-            });
-            int index = 0;
-
-            // Gets y resolution of the forza client window
-            DllImports.Rect forzaWindow = new DllImports.Rect();
-
-            GetWindowRect(Mw.Gvp.Process.MainWindowHandle, ref forzaWindow);
-            GetClientRect(Mw.Gvp.Process.MainWindowHandle, out var forzaClientWindow);
-
-            var yRes = forzaClientWindow.Bottom - (forzaWindow.Bottom - forzaWindow.Top - forzaClientWindow.Bottom) / 1.3;
-
-            // Selected option background
-            O.Dispatcher.Invoke((Action)delegate ()
-            {
-                if (O.OptionsBlock.Inlines.Count <= 1) return;
-                // Remove previous highlight box
-                foreach (UIElement child in O.Layout.Children)
-                {
-                    if ((string)child.GetType().GetProperty("Name")?.GetValue(child)! != "Highlight")
-                    {
-                        continue;
-                    }
-                    O.Layout.Children.Remove(child);
-                    break;
-                }
-                // Create new highlight box
-                var height = (float)(O.OptionsBlock.ActualHeight / O.AllMenus[CurrentMenu].Count * _selectedOptionIndex + 5);
-                var highlighted = new Border
-                {
-                    Name = "Highlight",
-                    VerticalAlignment = VerticalAlignment.Top,
-                    Background = Brushes.Black,
-                    Width = O.Layout.ActualWidth,
-                    Height = O.OptionsBlock.ActualHeight / O.AllMenus[CurrentMenu].Count,
-                    Margin = new Thickness(0, height, 0, 0)
-                };
-                Grid.SetColumn(highlighted, 0);
-                Grid.SetRow(highlighted, 1);
-
-                // Put highlight box behind text, add to layout
-                System.Windows.Controls.Panel.SetZIndex(highlighted, 1);
-                O.Layout.Children.Add(highlighted);
-            });
             
-            AddMenuOptions(yRes,index);
+            if (ct.IsCancellationRequested)
+            {
+                return;
+            }
+
+            ClearMenuAndHighlightOption();
+            AddAllMenuOptions();
         }
     }
 
-    private void AddMenuOptions(double yRes, int index)
+    private void ClearMenuAndHighlightOption()
     {
-        // Adds all menu options to the menu
-        foreach (var item in O.AllMenus[CurrentMenu])
+        O.Dispatcher.BeginInvoke((Action)delegate
+        {
+            O.OptionsBlock.Inlines.Clear(); 
+            O.ValueBlock.Inlines.Clear();
+        });
+
+        O.Dispatcher.Invoke((Action)delegate
+        {
+            if (O.OptionsBlock.Inlines.Count <= 1) return;
+            foreach (UIElement child in O.Layout.Children)
+            {
+                if ((string)child.GetType().GetProperty("Name")?.GetValue(child)! != "Highlight")
+                {   
+                    continue;
+                }
+
+                O.Layout.Children.Remove(child);
+                break;
+            }
+            
+            var height = (float)(O.OptionsBlock.ActualHeight / O.AllMenus[_currentMenu].Count * _selectedOptionIndex + 5);
+            var highlighted = new Border
+            {
+                Name = "Highlight",
+                VerticalAlignment = VerticalAlignment.Top,
+                Background = Brushes.Black,
+                Width = O.Layout.ActualWidth,
+                Height = O.OptionsBlock.ActualHeight / O.AllMenus[_currentMenu].Count,
+                Margin = new Thickness(0, height, 0, 0)
+            };
+            Grid.SetColumn(highlighted, 0);
+            Grid.SetRow(highlighted, 1);
+
+            System.Windows.Controls.Panel.SetZIndex(highlighted, 1);
+            O.Layout.Children.Add(highlighted);
+        });
+    }
+    
+    private void AddAllMenuOptions()
+    {
+        if (Mw.Gvp.Process == null)
+        {
+            return;
+        }
+        
+        var gameWindow = new DllImports.Rect();
+        GetWindowRect(Mw.Gvp.Process.MainWindowHandle, ref gameWindow);
+        GetClientRect(Mw.Gvp.Process.MainWindowHandle, out var gameClientWindow);
+        var yRes = gameClientWindow.Bottom - (gameWindow.Bottom - gameWindow.Top - gameClientWindow.Bottom) / 1.3;
+        var index = 0;
+        
+        foreach (var item in O.AllMenus[_currentMenu])
         {
             string? text, value = string.Empty, description = string.Empty;
             SolidColorBrush fColour;
@@ -443,186 +454,205 @@ public partial class OverlayHandling
             value = item.Type switch
             {
                 MenuButton => ">",
-                Float => $"<{item.Value:0.00000}>",
-                Int => $"<{item.Value}>",
+                Int or Float => $"<{item.Value}>",
                 Selection => $"<{item.Selections?[(int)item.Value]}>",
-                Bool when (bool)item.Value => "[X]",
-                Bool when (bool)item.Value == false => "[ ]",
+                Bool when (bool)item.Value  => "[X]",
+                Bool when !(bool)item.Value => "[ ]",
                 _ => value
             };
 
-            O.Dispatcher.BeginInvoke((Action<int>)delegate (int idx)
-            {
-                try
-                {
-                    if (item.Type != SubHeader)
-                    {
-                        O.OptionsBlock.Inlines.Add(new Run(text)
-                        {
-                            Foreground = fColour,
-                            FontSize = yRes / (5d / FontSize * 45d)
-                        });
-
-                        O.ValueBlock.Inlines.Add(new Run(value)
-                        {
-                            Foreground = fColour,
-                            FontSize = yRes / (5d / FontSize * 45d)
-                        });
-
-                        if (description != string.Empty && idx == _selectedOptionIndex)
-                        {
-                            O.DescriptionBlock.Text = description;
-                            O.DescriptionBlock.FontSize = yRes / (5d / FontSize * 45d);
-                            O.DescriptionBlock.Foreground = Brushes.White;
-                        }
-                        else if (idx == _selectedOptionIndex)
-                        {
-                            O.DescriptionBlock.Text = string.Empty;
-                        }
-                    }
-                    else
-                    {
-                        O.OptionsBlock.Inlines.Add(new InlineUIContainer
-                        {
-                            Child = new TextBlock
-                            {
-                                Text = text,
-                                Foreground = fColour,
-                                FontSize = yRes / (5d / FontSize * 45d),
-                                Width = O.Width - 10,
-                                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
-                                TextAlignment = TextAlignment.Center
-                            }
-                        });
-                        O.ValueBlock.Inlines.Add(new Run("") { FontSize = yRes / (5d / FontSize * 45d) });
-                    }
-                }
-                catch
-                {
-                    O.OverlayToggle(false);
-                    Task.Delay(25).Wait();
-                    O.OverlayToggle(true);
-                }
-            }, index);
-
-            if (O.AllMenus[CurrentMenu].IndexOf(item) != O.AllMenus[CurrentMenu].Count - 1)
-            {
-                O.Dispatcher.BeginInvoke((Action)delegate
-                {
-                    O.OptionsBlock.Inlines.Add("\n"); 
-                    O.ValueBlock.Inlines.Add("\n");
-                });
-            }
+            AddMenuOption(item, index, text, description, value, fColour, yRes);
             index++;
         }
     }
+
+    private void AddMenuOption(
+        MenuOption item,
+        int index,
+        string text,
+        string? description,
+        string value,
+        Brush fColour,
+        double yRes)
+    {
+        O.Dispatcher.BeginInvoke((Action<int>)delegate (int idx)
+        {
+            if (item.Type == SubHeader)
+            {
+                var child = new TextBlock
+                {
+                    Text = text,
+                    Foreground = fColour,
+                    FontSize = yRes / (5d / FontSize * 45d),
+                    Width = O.Width - 10,
+                    HorizontalAlignment = Center,
+                    TextAlignment = TextAlignment.Center
+                };
+                    
+                O.OptionsBlock.Inlines.Add(new InlineUIContainer(child));
+                O.ValueBlock.Inlines.Add(new Run("") { FontSize = yRes / (5d / FontSize * 45d) });
+                return;
+            }
+
+            O.OptionsBlock.Inlines.Add(new Run(text)
+            {
+                Foreground = fColour,
+                FontSize = yRes / (5d / FontSize * 45d)
+            });
+
+            O.ValueBlock.Inlines.Add(new Run(value)
+            {
+                Foreground = fColour,
+                FontSize = yRes / (5d / FontSize * 45d)
+            });
+
+            if (description != string.Empty && idx == _selectedOptionIndex)
+            {
+                O.DescriptionBlock.Text = description;
+                O.DescriptionBlock.FontSize = yRes / (5d / FontSize * 45d);
+                O.DescriptionBlock.Foreground = Brushes.White;
+                return;
+            }
+
+            if (idx != _selectedOptionIndex) return;
+            O.DescriptionBlock.Text = string.Empty;
+        }, index);
+
+        if (O.AllMenus[_currentMenu].IndexOf(item) == O.AllMenus[_currentMenu].Count - 1) return;
+        
+        O.Dispatcher.BeginInvoke((Action)delegate
+        {
+            O.OptionsBlock.Inlines.Add("\n"); 
+            O.ValueBlock.Inlines.Add("\n");
+        });
+    }
+
+    private static bool IsGameFocused()
+    {
+        if (Mw.Gvp.Process == null)
+        {
+            return false;
+        }
+        
+        return Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
+    }
     
-    // Handles the input
     public void KeyHandler(CancellationToken ct)
     {
         while (true)
         {
-            try
+            Task.Delay(10, ct).Wait(ct);
+            if (ct.IsCancellationRequested)
             {
-
-                Task.Delay(10, ct).Wait(ct);
-                if (ct.IsCancellationRequested)
-                {
-                    return;
-                }
-
-                var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
-
-                if (!isGameFocused)
-                {
-                    continue;
-                }
-
-                UpdateKeyStates();
-
-                var currentOption = O.AllMenus[CurrentMenu][_selectedOptionIndex];
-
-                if (GetAsyncKeyState(Confirm) is 1 or short.MinValue && currentOption.IsEnabled)
-                {
-                    switch (currentOption.Type)
-                    {
-                        case MenuButton:
-                        {
-                            _levelIndex++;
-
-                            var nameSplit = currentOption.Name.Split(' ', '/', '[', ']', '&');
-                            CurrentMenu = string.Empty;
-
-                            foreach (var item in nameSplit)
-                            {
-                                CurrentMenu += char.ToUpper(item[0]) + item[1..];
-                            }
-
-                            CurrentMenu += "Options";
-                            _history.Add(_levelIndex, CurrentMenu);
-                            _selectedOptionIndex = 0;
-                            break;
-                        }
-                        case Bool:
-                        {
-                            currentOption.Value = !(bool)currentOption.Value;
-                            break;
-                        }
-                        case OptionType.Button:
-                        {
-                            ((Action)currentOption.Value)();
-                            break;
-                        }
-                    }
-
-                    while (GetAsyncKeyState(Confirm) is 1 or short.MinValue)
-                    {
-                        Task.Delay(10, ct).Wait(ct);
-                    }
-                }
-                else if (GetAsyncKeyState(Leave) is 1 or short.MinValue)
-                {
-                    if (_levelIndex == 0)
-                    {
-                        continue;
-                    }
-
-                    _levelIndex--;
-                    CurrentMenu = _history[_levelIndex];
-                    _history.Remove(_levelIndex + 1);
-                    _selectedOptionIndex = 0;
-                    while (GetAsyncKeyState(Leave) is 1 or short.MinValue)
-                    {
-                        Task.Delay(10, ct).Wait(ct);
-                    }
-                }
-                else if (GetAsyncKeyState(OverlayVisibility) is 1 or short.MinValue)
-                {
-
-                    if (O.Visibility == Visible)
-                    {
-                        O.Dispatcher.Invoke(delegate { O.Hide(); });
-                    }
-                    else
-                    {
-                        O.Dispatcher.Invoke(delegate { O.Show(); });
-                    }
-
-                    _hidden = !_hidden;
-                    while (GetAsyncKeyState(OverlayVisibility) is 1 or short.MinValue)
-                    {
-                        Task.Delay(10, ct).Wait(ct);
-                    }
-                }
+                return;
             }
-            catch (Exception exception)
+
+            if (!IsGameFocused())
             {
-                Debug.WriteLine(exception.Message);
-                Debug.WriteLine(exception.StackTrace);
+                continue;
+            }
+
+            UpdateKeyStates();
+            HandleKeyEvents(ct);
+        }
+    }
+
+    private void HandleKeyEvents(CancellationToken ct)
+    {
+        var currentOption = O.AllMenus[_currentMenu][_selectedOptionIndex];
+        if (IsKeyPressed(Confirm) && currentOption.IsEnabled)
+        {
+            HandleConfirmPress(currentOption);
+            while (IsKeyPressed(Confirm))
+            {
+                Task.Delay(10, ct).Wait(ct);
+            }
+        }
+        else if (IsKeyPressed(Leave))
+        {
+            HandleLeavePress();
+            while (IsKeyPressed(Leave))
+            {
+                Task.Delay(10, ct).Wait(ct);
+            }
+        }
+        else if (IsKeyPressed(OverlayVisibility))
+        {
+            HandleVisibilityPress();
+            while (IsKeyPressed(OverlayVisibility))
+            {
+                Task.Delay(10, ct).Wait(ct);
             }
         }
     }
 
+    private void HandleConfirmPress(MenuOption currentOption)
+    {
+        switch (currentOption.Type)
+        {
+            case MenuButton:
+            {
+                _levelIndex++;
+                var nameSplit = currentOption.Name.Split(' ', '/', '[', ']', '&');
+                _currentMenu = string.Concat(nameSplit.Select(item => char.ToUpper(item[0]) + item[1..])) + "Options";
+                _history.Add(_levelIndex, _currentMenu);
+                _selectedOptionIndex = 0;
+                break;
+            }
+            case Bool:
+            {
+                currentOption.Value = !(bool)currentOption.Value;
+                break;
+            }
+            case OptionType.Button:
+            {
+                ((Action)currentOption.Value)();
+                break;
+            }
+        }
+    }
+
+    private void HandleLeavePress()
+    {
+        if (_levelIndex == 0)
+        {
+            return;
+        }
+
+        _levelIndex--;
+        _currentMenu = _history[_levelIndex];
+        _history.Remove(_levelIndex + 1);
+        _selectedOptionIndex = 0;
+    }
+
+    private void HandleVisibilityPress()
+    {
+        if (O.Visibility == Visible)
+        {
+            O.Dispatcher.Invoke(delegate { O.Hide(); });
+        }
+        else
+        {
+            O.Dispatcher.Invoke(delegate { O.Show(); });
+        }
+
+        _hidden = !_hidden;
+    }
+    private static void UpdateKeyState(Keys key, ref bool keyDownBool)
+    {
+        keyDownBool = IsKeyPressed(key) switch
+        {
+            true when !keyDownBool => true,
+            false when keyDownBool => false,
+            _ => keyDownBool
+        };
+    }
+
+    private static bool IsKeyPressed(Keys key)
+    {
+        return (GetAsyncKeyState(key) & (1 | short.MinValue)) != 0;
+    }
+    
     private void UpdateKeyStates()
     {
         UpdateKeyState(Down, ref _downKeyDown);
@@ -632,212 +662,191 @@ public partial class OverlayHandling
         UpdateKeyState(RapidAdjust, ref _rapidKeyDown);
     }
     
-    private static void UpdateKeyState(Keys key, ref bool keyDownBool)
-    {
-        var isKeyPressed = (GetAsyncKeyState(key) & (1 | short.MinValue)) != 0;
-
-        keyDownBool = isKeyPressed switch
-        {
-            true when !keyDownBool => true,
-            false when keyDownBool => false,
-            _ => keyDownBool
-        };
-    }
-    
     public void ChangeSelection(CancellationToken ct)
     {
         while (true)
         {
-            try
+            Task.Delay(10, ct).Wait(ct);
+                
+            if (ct.IsCancellationRequested)
             {
-                Task.Delay(10, ct).Wait(ct);
-                    
-                if (ct.IsCancellationRequested)
-                {
-                    break;
-                }
-
-                if (_hidden)
-                {
-                    continue;
-                }
-                
-                var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
-
-                if (!isGameFocused)
-                {
-                    continue;
-                }
-                
-                if (_downKeyDown && isGameFocused)
-                {
-                    void Down()
-                    {
-                        _selectedOptionIndex++;
-                        if (_selectedOptionIndex > O.AllMenus[CurrentMenu].Count - 1)
-                            _selectedOptionIndex = 0;
-                    }
-                    Down();
-
-                    var timer = new Timer();
-                    timer.Interval = 150;
-                    timer.Tick += delegate
-                    {
-                        Down();
-                        Task.Delay(5, ct).Wait(ct);
-                    };
-                    
-                    O.Dispatcher.Invoke(delegate
-                    {
-                        timer.Start();
-                    });
-                    
-                    while (_downKeyDown)
-                    {
-                        Task.Delay(1, ct).Wait(ct);
-                    }
-                    
-                    O.Dispatcher.Invoke(delegate
-                    {
-                        timer.Dispose();
-                    });
-                }
-                else if (_upKeyDown && isGameFocused)
-                {
-                    void Up()
-                    {
-                        _selectedOptionIndex--;
-                        if (_selectedOptionIndex < 0)
-                            _selectedOptionIndex = O.AllMenus[CurrentMenu].Count - 1;
-                    }
-                    Up();
-
-                    var timer = new Timer();
-                    timer.Interval = 150;
-                    timer.Tick += delegate
-                    { 
-                        Up();
-                        Task.Delay(5, ct).Wait(ct);
-                    };
-                    
-                    O.Dispatcher.Invoke(delegate
-                    {
-                        timer.Start();
-                    });
-                    
-                    while (_upKeyDown)
-                    {
-                        Task.Delay(1, ct).Wait(ct);
-                    }
-                    
-                    O.Dispatcher.Invoke(delegate
-                    {
-                        timer.Dispose();
-                    });
-                }
-
+                break;
             }
-            catch (Exception exception)
+
+            if (_hidden || !IsGameFocused())
             {
-                Debug.WriteLine(exception.Message);
-                Debug.WriteLine(exception.StackTrace);
+                continue;
+            }
+            
+            if (_downKeyDown)
+            {
+                HandleDownNavigation(ct);    
+            }
+            else if (_upKeyDown)
+            {
+                HandleUpNavigation(ct);
             }
         }
     }
 
+    private void HandleDownNavigation(CancellationToken ct)
+    {
+        NavigateDown();
+
+        var timer = new Timer();
+        timer.Interval = 150;
+        timer.Tick += delegate
+        {
+            NavigateDown();
+            Task.Delay(5, ct).Wait(ct);
+        };
+                
+        O.Dispatcher.Invoke(delegate
+        {
+            timer.Start();
+        });
+                
+        while (_downKeyDown)
+        {
+            Task.Delay(1, ct).Wait(ct);
+        }
+                
+        O.Dispatcher.Invoke(delegate
+        {
+            timer.Dispose();
+        });
+    }
+    
+    private void NavigateDown()
+    {
+        _selectedOptionIndex++;
+        if (_selectedOptionIndex > O.AllMenus[_currentMenu].Count - 1)
+            _selectedOptionIndex = 0;
+    }
+    
+    private void HandleUpNavigation(CancellationToken ct)
+    {
+        NavigateUp();
+        
+        var timer = new Timer();
+        timer.Interval = 150;
+        timer.Tick += delegate
+        { 
+            NavigateUp();
+            Task.Delay(5, ct).Wait(ct);
+        };
+                
+        O.Dispatcher.Invoke(delegate
+        {
+            timer.Start();
+        });
+                
+        while (_upKeyDown)
+        {
+            Task.Delay(1, ct).Wait(ct);
+        }
+                
+        O.Dispatcher.Invoke(delegate
+        {
+            timer.Dispose();
+        });
+    }
+    
+    
+    private void NavigateUp()
+    {
+        _selectedOptionIndex--;
+        if (_selectedOptionIndex < 0)
+            _selectedOptionIndex = O.AllMenus[_currentMenu].Count - 1;
+    }
+    
     public void ChangeValue(CancellationToken ct)
     {
         while (true)
         {
-            try
+            Task.Delay(_rapidKeyDown ? 5 : 100, ct).Wait(ct);
+
+            if (ct.IsCancellationRequested)
             {
-                Task.Delay(_rapidKeyDown ? 5 : 100, ct).Wait(ct);
-
-                if (ct.IsCancellationRequested)
-                {
-                    return;
-                }
-
-                var isGameFocused = Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
-                var currentOption = O.AllMenus[CurrentMenu][_selectedOptionIndex];
-                
-                if (_rightKeyDown && currentOption.IsEnabled && isGameFocused)
-                {
-                    var min = currentOption.Min;
-                    var max = currentOption.Max;
-                    var value = currentOption.Value;
-                    
-                    currentOption.Value = currentOption.Type switch
-                    {
-                        // Value is more than 0 so set to the first selection
-                        Selection when (int)currentOption.Value >= currentOption.Selections!.Length - 1 => 0,
-                        
-                        // Value is more than max, set to min if exists
-                        Float when min != null && max != null && (float)value >= (float)max => currentOption.Value = min,
-                        Int when min != null && max != null && (int)value >= (int)max => currentOption.Value = min,
-                        
-                        // Value is more than max, set to max bc min doesnt exist
-                        Float when max != null && (float)value >= (float)max => currentOption.Value = max,
-                        Int when max != null && (int)value >= (int)max => currentOption.Value = max,
-                        
-                        // Default increment
-                        Float => ToSingle(Math.Round((float)currentOption.Value + (float)(currentOption.Interval ?? 0.1f), 1)),
-                        Int => (int)currentOption.Value + (int)(currentOption.Interval ?? 1),
-                        Selection => (int)currentOption.Value + 1,
-                        
-                        Bool => currentOption.Value = true,
-                        _ => currentOption.Value
-                    };
-                }
-                else if (_leftKeyDown && currentOption.IsEnabled && isGameFocused)
-                {
-                    var min = currentOption.Min;
-                    var max = currentOption.Max;
-                    var value = currentOption.Value;
-                    
-                    currentOption.Value = currentOption.Type switch
-                    {
-                        // Value is less than 0 so set to the last selection
-                        Selection when (int)currentOption.Value <= 0 => currentOption.Selections!.Length - 1,
-                        
-                        // Value is less than min, set to max if exists
-                        Float when min != null && max != null && (float)value <= (float)min => currentOption.Value = max,
-                        Int when min != null && max != null && (int)value <= (int)min => currentOption.Value = max,
-                        
-                        // Value is less than min, set to min bc max doesn't exist
-                        Float when min != null && (float)value <= (float)min => currentOption.Value = min,
-                        Int when min != null && (int)value <= (int)min => currentOption.Value = min,
-                        
-                        // Default decrement
-                        Float => ToSingle(Math.Round((float)currentOption.Value - (float)(currentOption.Interval ?? 0.1f), 1)),
-                        Int => (int)currentOption.Value - (int)(currentOption.Interval ?? 1),
-                        Selection => (int)currentOption.Value - 1,
-                        
-                        Bool => currentOption.Value = false,
-                        _ => currentOption.Value
-                    };
-                }
+                return;
             }
-            catch (Exception exception)
+            
+            var currentOption = O.AllMenus[_currentMenu][_selectedOptionIndex];
+            if (!IsGameFocused() || !currentOption.IsEnabled)
             {
-                Debug.WriteLine(exception.Message);
-                Debug.WriteLine(exception.StackTrace);
+                continue;
+            }
+            
+            if (_rightKeyDown)
+            {
+                IncreaseValue(currentOption);
+            }
+            else if (_leftKeyDown)
+            {
+                DecreaseValue(currentOption);
             }
         }
     }
 
-    // Configs and enables blur
+    private static void IncreaseValue(MenuOption currentOption)
+    {
+        var min = currentOption.Min;
+        var max = currentOption.Max;
+        var value = currentOption.Value;
+                    
+        currentOption.Value = currentOption.Type switch
+        {
+            Selection when (int)currentOption.Value >= currentOption.Selections!.Length - 1 => 0,
+                        
+            Float when min != null && max != null && (float)value >= (float)max => currentOption.Value = min,
+            Int when min != null && max != null && (int)value >= (int)max => currentOption.Value = min,
+                        
+            Float when max != null && (float)value >= (float)max => currentOption.Value = max,
+            Int when max != null && (int)value >= (int)max => currentOption.Value = max,
+                        
+            Float => ToSingle(Round((float)currentOption.Value + (float)(currentOption.Interval ?? 0.1f), 1)),
+            Int => (int)currentOption.Value + (int)(currentOption.Interval ?? 1),
+            Selection => (int)currentOption.Value + 1,
+                        
+            Bool => currentOption.Value = true,
+            _ => currentOption.Value
+        };
+    }
+
+    private static void DecreaseValue(MenuOption currentOption)
+    {
+        var min = currentOption.Min;
+        var max = currentOption.Max;
+        var value = currentOption.Value;
+                    
+        currentOption.Value = currentOption.Type switch
+        {
+            Selection when (int)currentOption.Value <= 0 => currentOption.Selections!.Length - 1,
+                        
+            Float when min != null && max != null && (float)value <= (float)min => currentOption.Value = max,
+            Int when min != null && max != null && (int)value <= (int)min => currentOption.Value = max,
+                        
+            Float when min != null && (float)value <= (float)min => currentOption.Value = min,
+            Int when min != null && (int)value <= (int)min => currentOption.Value = min,
+                        
+            Float => ToSingle(Round((float)currentOption.Value - (float)(currentOption.Interval ?? 0.1f), 1)),
+            Int => (int)currentOption.Value - (int)(currentOption.Interval ?? 1),
+            Selection => (int)currentOption.Value - 1,
+                        
+            Bool => currentOption.Value = false,
+            _ => currentOption.Value
+        };
+    }
+
     internal static void EnableBlur()
     {
-        var windowHelper = new WindowInteropHelper(O!);
-
+        var windowHelper = new WindowInteropHelper(O);
         var accent = new AccentPolicy
         {
             AccentState = AccentState.AccentEnableBlurBehind
         };
 
         var accentStructSize = Marshal.SizeOf(accent);
-
         var accentPtr = Marshal.AllocHGlobal(accentStructSize);
         Marshal.StructureToPtr(accent, accentPtr, false);
 
@@ -849,7 +858,6 @@ public partial class OverlayHandling
         };
 
         SetWindowCompositionAttribute(windowHelper.Handle, ref data);
-            
         Marshal.FreeHGlobal(accentPtr);
     }
 }

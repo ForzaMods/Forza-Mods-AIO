@@ -6,13 +6,13 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping.SubMenus;
 
 public abstract class AntirollBarsDamping
 {
-    private static readonly MenuOption FrontAntirollBarMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption FrontAntirollBarMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption FrontAntirollBarMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption FrontAntirollBarMaxValue = new ("Max Value", 0f);
     
-    private static readonly MenuOption RearAntirollBarMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption RearAntirollBarMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption RearAntirollBarMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption RearAntirollBarMaxValue = new ("Max Value", 0f);
     
-    private static readonly MenuOption FrontAntirollBarsPull = new ("Pull values", OptionType.Button, new Action(() => { FrontAntirollBarsPullAction(); }));
+    private static readonly MenuOption FrontAntirollBarsPull = new ("Pull values",  new Action(() => { FrontAntirollBarsPullAction(); }));
 
     private static void FrontAntirollBarsPullAction()
     {
@@ -28,7 +28,7 @@ public abstract class AntirollBarsDamping
         });
     }
 
-    private static readonly MenuOption RearAntirollBarsPull = new ("Pull values", OptionType.Button, new Action(() => { RearAntirollBarsPullAction(); }));
+    private static readonly MenuOption RearAntirollBarsPull = new ("Pull values",  new Action(() => { RearAntirollBarsPullAction(); }));
 
     private static void RearAntirollBarsPullAction()
     {

@@ -6,20 +6,20 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Gearing;
 
 public abstract class Gearing
 {
-    private static readonly MenuOption FinalDriveValue = new ("Final Drive", OptionType.Float, 0f);
-    private static readonly MenuOption ReverseGearValue = new ("Reverse Gear", OptionType.Float, 0f);
-    private static readonly MenuOption FirstGearValue = new ("First Gear", OptionType.Float, 0f);
-    private static readonly MenuOption SecondGearValue = new ("Second Gear", OptionType.Float, 0f);
-    private static readonly MenuOption ThirdGearValue = new ("Third Gear", OptionType.Float, 0f);
-    private static readonly MenuOption FourthGearValue = new ("Fourth Gear", OptionType.Float, 0f);
-    private static readonly MenuOption FifthGearValue = new ("Fifth Gear", OptionType.Float, 0f);
-    private static readonly MenuOption SixthGearValue = new ("Sixth Gear", OptionType.Float, 0f);
-    private static readonly MenuOption SeventhGearValue = new ("Seventh Gear", OptionType.Float, 0f);
-    private static readonly MenuOption EighthGearValue = new ("Eighth Gear", OptionType.Float, 0f);
-    private static readonly MenuOption NinthGearValue = new ("Ninth Gear", OptionType.Float, 0f);
-    private static readonly MenuOption TenthGearValue = new ("Tenth Gear", OptionType.Float, 0f);
+    private static readonly MenuOption FinalDriveValue = new ("Final Drive", 0f);
+    private static readonly MenuOption ReverseGearValue = new ("Reverse Gear", 0f);
+    private static readonly MenuOption FirstGearValue = new ("First Gear", 0f);
+    private static readonly MenuOption SecondGearValue = new ("Second Gear", 0f);
+    private static readonly MenuOption ThirdGearValue = new ("Third Gear", 0f);
+    private static readonly MenuOption FourthGearValue = new ("Fourth Gear", 0f);
+    private static readonly MenuOption FifthGearValue = new ("Fifth Gear", 0f);
+    private static readonly MenuOption SixthGearValue = new ("Sixth Gear", 0f);
+    private static readonly MenuOption SeventhGearValue = new ("Seventh Gear", 0f);
+    private static readonly MenuOption EighthGearValue = new ("Eighth Gear", 0f);
+    private static readonly MenuOption NinthGearValue = new ("Ninth Gear", 0f);
+    private static readonly MenuOption TenthGearValue = new ("Tenth Gear", 0f);
 
-    private static readonly MenuOption GearingPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption GearingPull = new ("Pull values",  () =>
     {
         var gearing = Tabs.Tuning.DropDownTabs.Gearing.G;
         

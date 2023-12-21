@@ -6,15 +6,15 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs.SubMenus;
 
 public abstract class RideHeight
 {
-    private static readonly MenuOption FrontRideHeightMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption FrontRideHeightMaxValue = new ("Max Value", OptionType.Float, 0f);
-    private static readonly MenuOption RearRideHeightMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption RearRideHeightMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption FrontRideHeightMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption FrontRideHeightMaxValue = new ("Max Value", 0f);
+    private static readonly MenuOption RearRideHeightMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption RearRideHeightMaxValue = new ("Max Value", 0f);
     
-    private static readonly MenuOption FrontRideHeightRestriction = new ("Restriction", OptionType.Bool, false);
-    private static readonly MenuOption RearRideHeightRestriction = new ("Restriction", OptionType.Bool, false);
+    private static readonly MenuOption FrontRideHeightRestriction = new ("Restriction", false);
+    private static readonly MenuOption RearRideHeightRestriction = new ("Restriction", false);
     
-    private static readonly MenuOption FrontRideHeightPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption FrontRideHeightPull = new ("Pull values",  () =>
     {
         var springs = Tabs.Tuning.DropDownTabs.Springs.Sp;
         
@@ -25,7 +25,7 @@ public abstract class RideHeight
         });
     });
     
-    private static readonly MenuOption RearRideHeightPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption RearRideHeightPull = new ("Pull values",  () =>
     {
         var springs = Tabs.Tuning.DropDownTabs.Springs.Sp;
         

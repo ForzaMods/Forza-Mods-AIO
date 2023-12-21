@@ -6,12 +6,12 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Tires;
 
 public abstract class Tires
 {
-    private static readonly MenuOption TireFrontLeftValue = new ("Left", OptionType.Float, 0f);
-    private static readonly MenuOption TireFrontRightValue = new ("Right", OptionType.Float, 0f);
-    private static readonly MenuOption TireRearLeftValue = new ("Left", OptionType.Float, 0f);
-    private static readonly MenuOption TireRearRightValue = new ("Right", OptionType.Float, 0f);
+    private static readonly MenuOption TireFrontLeftValue = new ("Left", 0f);
+    private static readonly MenuOption TireFrontRightValue = new ("Right", 0f);
+    private static readonly MenuOption TireRearLeftValue = new ("Left", 0f);
+    private static readonly MenuOption TireRearRightValue = new ("Right", 0f);
 
-    private static readonly MenuOption RearTiresPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption RearTiresPull = new ("Pull values",  () =>
     {
         var tires = Tabs.Tuning.DropDownTabs.Tires.T;
         
@@ -22,7 +22,7 @@ public abstract class Tires
         });
     });
     
-    private static readonly MenuOption FrontTiresPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption FrontTiresPull = new ("Pull values",  () =>
     {
         var tires = Tabs.Tuning.DropDownTabs.Tires.T;
         

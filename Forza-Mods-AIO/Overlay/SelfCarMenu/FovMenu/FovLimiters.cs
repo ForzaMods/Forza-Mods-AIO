@@ -35,12 +35,12 @@ public abstract class FovLimiters
 
     #region Chase and Far Chase
 
-    private static readonly MenuOption ChaseMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption ChaseMaxValue = new ("Max Value", OptionType.Float, 0f);
-    private static readonly MenuOption FarChaseMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption FarChaseMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption ChaseMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption ChaseMaxValue = new ("Max Value", 0f);
+    private static readonly MenuOption FarChaseMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption FarChaseMaxValue = new ("Max Value", 0f);
     
-    private static readonly MenuOption ChasePull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption ChasePull = new ("Pull values",  () =>
     {
         var fovLimiters = FovPage.Fov!;
         
@@ -54,7 +54,7 @@ public abstract class FovLimiters
         });
     });
     
-    private static readonly MenuOption FarChasePull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption FarChasePull = new ("Pull values",  () =>
     {
         var fovLimiters = FovPage.Fov!;
         
@@ -84,10 +84,10 @@ public abstract class FovLimiters
 
     #region Driver
     
-    private static readonly MenuOption DriverMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption DriverMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption DriverMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption DriverMaxValue = new ("Max Value", 0f);
     
-    private static readonly MenuOption DriverPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption DriverPull = new ("Pull values",  () =>
     {
         var fovLimiters = FovPage.Fov!;
         
@@ -112,10 +112,10 @@ public abstract class FovLimiters
 
     #region Hood
 
-    private static readonly MenuOption HoodMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption HoodMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption HoodMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption HoodMaxValue = new ("Max Value", 0f);
     
-    private static readonly MenuOption HoodPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption HoodPull = new ("Pull values",  () =>
     {
         var fovLimiters = FovPage.Fov!;
         
@@ -141,10 +141,10 @@ public abstract class FovLimiters
 
     #region Bumper
 
-    private static readonly MenuOption BumperMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption BumperMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption BumperMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption BumperMaxValue = new ("Max Value", 0f);
     
-    private static readonly MenuOption BumperPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption BumperPull = new ("Pull values",  () =>
     {
         var fovLimiters = FovPage.Fov!;
         

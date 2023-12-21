@@ -9,27 +9,27 @@ public abstract class PhotomodeMenu
 {
     #region Submenu Options
 
-    private static readonly MenuOption SamplesValue = new("Samples", OptionType.Int, 0);
-    private static readonly MenuOption ShutterSpeedValue = new("Shutter Speed", OptionType.Float, 0f);
-    private static readonly MenuOption TimeSliceValue = new("Time Slice", OptionType.Float, 0f);
-    private static readonly MenuOption ApertureScaleValue = new("Aperture Scale", OptionType.Float, 0f);
-    private static readonly MenuOption CarInFocusValue = new("Car In Focus", OptionType.Float, 0f);
+    private static readonly MenuOption SamplesValue = new("Samples", 0);
+    private static readonly MenuOption ShutterSpeedValue = new("Shutter Speed", 0f);
+    private static readonly MenuOption TimeSliceValue = new("Time Slice", 0f);
+    private static readonly MenuOption ApertureScaleValue = new("Aperture Scale", 0f);
+    private static readonly MenuOption CarInFocusValue = new("Car In Focus", 0f);
 
-    private static readonly MenuOption TurnSpeedValue = new("Turn Speed", OptionType.Float, 0f);
-    private static readonly MenuOption SamplesMultiplierValue = new("Samples Multiplier", OptionType.Float, 0f);
-    private static readonly MenuOption MovementSpeedValue = new("Movement Speed", OptionType.Float, 0f);
+    private static readonly MenuOption TurnSpeedValue = new("Turn Speed", 0f);
+    private static readonly MenuOption SamplesMultiplierValue = new("Samples Multiplier", 0f);
+    private static readonly MenuOption MovementSpeedValue = new("Movement Speed", 0f);
 
-    private static readonly MenuOption NoClipToggle = new("No Clip", OptionType.Bool, false);
-    private static readonly MenuOption UnlimitedAltitudeToggle = new("Unlimited Altitude", OptionType.Bool, false);
-    private static readonly MenuOption IncreasedZoomToggle = new("Increased Zoom", OptionType.Bool, false);
+    private static readonly MenuOption NoClipToggle = new("No Clip", false);
+    private static readonly MenuOption UnlimitedAltitudeToggle = new("Unlimited Altitude", false);
+    private static readonly MenuOption IncreasedZoomToggle = new("Increased Zoom", false);
     
-    private static readonly MenuOption PullValues = new("Pull All Values", OptionType.Button, () =>
+    private static readonly MenuOption PullValues = new("Pull All Values",  () =>
     {
         var photoPage = PhotomodePage.PhotoPage;
         
         photoPage.Dispatcher.Invoke(delegate
         {
-            SamplesValue.Value = (int)photoPage.SamplesBox.Value;
+            SamplesValue.Value = Convert.ToInt32(photoPage.SamplesBox.Value);
             ShutterSpeedValue.Value = Convert.ToSingle(photoPage.ShutterSpeedBox.Value);
             TimeSliceValue.Value = Convert.ToSingle(photoPage.TimeSliceBox.Value);
             ApertureScaleValue.Value = Convert.ToSingle(photoPage.ApertureScaleBox.Value);

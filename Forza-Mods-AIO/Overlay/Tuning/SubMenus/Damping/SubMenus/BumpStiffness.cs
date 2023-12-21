@@ -6,13 +6,13 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Damping.SubMenus;
 
 public abstract class BumpStiffness
 {
-    private static readonly MenuOption FrontBumpStiffnessMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption FrontBumpStiffnessMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption FrontBumpStiffnessMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption FrontBumpStiffnessMaxValue = new ("Max Value", 0f);
     
-    private static readonly MenuOption RearBumpStiffnessMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption RearBumpStiffnessMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption RearBumpStiffnessMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption RearBumpStiffnessMaxValue = new ("Max Value", 0f);
     
-    private static readonly MenuOption FrontBumpStiffnessPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption FrontBumpStiffnessPull = new ("Pull values",  () =>
     {
         var damping = Tabs.Tuning.DropDownTabs.Damping.D;
         
@@ -26,7 +26,7 @@ public abstract class BumpStiffness
         });
     });
     
-    private static readonly MenuOption RearBumpStiffnessPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption RearBumpStiffnessPull = new ("Pull values",  () =>
     {
         var damping = Tabs.Tuning.DropDownTabs.Damping.D;
         

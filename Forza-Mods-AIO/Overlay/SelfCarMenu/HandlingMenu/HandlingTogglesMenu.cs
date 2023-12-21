@@ -9,12 +9,12 @@ public abstract class HandlingTogglesMenu
 {
     #region Submenu Options
 
-    private static readonly MenuOption CarNoClipToggle = new("Car No-Clip", OptionType.Bool, false);
-    private static readonly MenuOption WallNoClipToggle = new("Wall No-Clip", OptionType.Bool, false);
-    private static readonly MenuOption StopAllWheelsToggle = new("Stop All Wheels", OptionType.Bool, false);
-    private static readonly MenuOption SuperBrakeToggle = new("Super Brake", OptionType.Bool, false);
-    private static readonly MenuOption SuperCarToggle = new("Super Car", OptionType.Bool, false);
-    private static readonly MenuOption StopWaterDragToggle = new("Stop Water Drag", OptionType.Bool, false);
+    private static readonly MenuOption CarNoClipToggle = new("Car No-Clip", false);
+    private static readonly MenuOption WallNoClipToggle = new("Wall No-Clip", false);
+    private static readonly MenuOption StopAllWheelsToggle = new("Stop All Wheels", false);
+    private static readonly MenuOption SuperBrakeToggle = new("Super Brake", false);
+    private static readonly MenuOption SuperCarToggle = new("Super Car", false);
+    private static readonly MenuOption StopWaterDragToggle = new("Stop Water Drag", false);
 
     #endregion
     

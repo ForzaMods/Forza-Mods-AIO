@@ -7,13 +7,13 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
 
 public abstract class FlyhackMenu
 {
-    private static readonly MenuOption FlyhackRotationSpeed = new("Rotation Speed", OptionType.Int, 1);
-    private static readonly MenuOption FlyhackMovementSpeed = new("Movement Speed", OptionType.Int, 1);
-    private static readonly MenuOption FlyhackToggle = new("Toggle", OptionType.Bool, false);
+    private static readonly MenuOption FlyhackRotationSpeed = new("Rotation Speed", 1);
+    private static readonly MenuOption FlyhackMovementSpeed = new("Movement Speed", 1);
+    private static readonly MenuOption FlyhackToggle = new("Toggle",false);
 
     public static readonly List<MenuOption> FlyhackOptions = new()
     {
-        new ("Flyhack", OptionType.SubHeader),
+        new MenuOption("Flyhack", OptionType.SubHeader),
         FlyhackRotationSpeed,
         FlyhackMovementSpeed,
         FlyhackToggle

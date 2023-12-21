@@ -6,13 +6,13 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Alignment;
 
 public abstract class Alignment
 {
-    private static readonly MenuOption CamberNegValue = new ("Negative Value", OptionType.Float, -5f);
-    private static readonly MenuOption CamberPosValue = new ("Positive Value", OptionType.Float, 5f);
+    private static readonly MenuOption CamberNegValue = new ("Negative Value", -5f);
+    private static readonly MenuOption CamberPosValue = new ("Positive Value", 5f);
     
-    private static readonly MenuOption ToeNegValue = new ("Negative Value", OptionType.Float, -5f);
-    private static readonly MenuOption ToePosValue = new ("Positive Value", OptionType.Float, 5f);
+    private static readonly MenuOption ToeNegValue = new ("Negative Value", -5f);
+    private static readonly MenuOption ToePosValue = new ("Positive Value", 5f);
     
-    private static readonly MenuOption CamberPull = new ("Pull values",OptionType.Button, () =>
+    private static readonly MenuOption CamberPull = new ("Pull values", () =>
     {
         var alignment = Tabs.Tuning.DropDownTabs.Alignment.Al;
         
@@ -26,7 +26,7 @@ public abstract class Alignment
         });
     });
     
-    private static readonly MenuOption ToePull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption ToePull = new ("Pull values",  () =>
     {
         var alignment = Tabs.Tuning.DropDownTabs.Alignment.Al;
         

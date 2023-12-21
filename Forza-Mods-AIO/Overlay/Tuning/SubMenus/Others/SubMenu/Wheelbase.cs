@@ -6,13 +6,13 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Others.SubMenu;
 
 public abstract class Wheelbase
 {
-    private static readonly MenuOption WheelbaseValue = new ("Wheelbase", OptionType.Float, 0f);
-    private static readonly MenuOption FrontWidthValue = new ("Front Width", OptionType.Float, 0f);
-    private static readonly MenuOption RearWidthValue = new ("Rear Width", OptionType.Float, 0f);
-    private static readonly MenuOption FrontSpacerValue = new ("Front Spacer", OptionType.Float, 0f);
-    private static readonly MenuOption RearSpacerValue = new ("Rear Spacer", OptionType.Float, 0f);
+    private static readonly MenuOption WheelbaseValue = new ("Wheelbase", 0f);
+    private static readonly MenuOption FrontWidthValue = new ("Front Width", 0f);
+    private static readonly MenuOption RearWidthValue = new ("Rear Width", 0f);
+    private static readonly MenuOption FrontSpacerValue = new ("Front Spacer", 0f);
+    private static readonly MenuOption RearSpacerValue = new ("Rear Spacer", 0f);
     
-    private static readonly MenuOption WheelbasePull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption WheelbasePull = new ("Pull values",  () =>
     {
         var others = Tabs.Tuning.DropDownTabs.Others.O;
         

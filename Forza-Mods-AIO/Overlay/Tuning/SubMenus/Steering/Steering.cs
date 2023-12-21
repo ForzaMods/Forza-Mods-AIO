@@ -7,10 +7,10 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Steering;
 public abstract class Steering
 {
     
-    private static readonly MenuOption AngleMax1Value = new ("Max 1", OptionType.Float, 0f);
-    private static readonly MenuOption AngleMax2Value = new ("Max 2", OptionType.Float, 0f);
+    private static readonly MenuOption AngleMax1Value = new ("Max 1", 0f);
+    private static readonly MenuOption AngleMax2Value = new ("Max 2", 0f);
     
-    private static readonly MenuOption AnglePull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption AnglePull = new ("Pull values",  () =>
     {
         var steering = Tabs.Tuning.DropDownTabs.Steering.St;
         
@@ -22,13 +22,13 @@ public abstract class Steering
     });
     
         
-    private static readonly MenuOption VelCountersteerValue = new ("Countersteer Value", OptionType.Float, 0f);
-    private static readonly MenuOption VelStraightValue = new ("Straight Value", OptionType.Float, 0f);
-    private static readonly MenuOption VelTurningValue = new ("Turning Value", OptionType.Float, 0f);
-    private static readonly MenuOption VelDynamicPeekValue = new ("Dynamic Peek Value", OptionType.Float, 0f);
-    private static readonly MenuOption VelTimeValue = new ("Time Value", OptionType.Float, 0f);
+    private static readonly MenuOption VelCountersteerValue = new ("Countersteer Value", 0f);
+    private static readonly MenuOption VelStraightValue = new ("Straight Value", 0f);
+    private static readonly MenuOption VelTurningValue = new ("Turning Value", 0f);
+    private static readonly MenuOption VelDynamicPeekValue = new ("Dynamic Peek Value", 0f);
+    private static readonly MenuOption VelTimeValue = new ("Time Value", 0f);
     
-    private static readonly MenuOption VelocityPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption VelocityPull = new ("Pull values",  () =>
     {
         var steering = Tabs.Tuning.DropDownTabs.Steering.St;
         

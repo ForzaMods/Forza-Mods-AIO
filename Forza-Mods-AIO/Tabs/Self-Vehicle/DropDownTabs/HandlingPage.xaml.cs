@@ -450,7 +450,7 @@ public partial class HandlingPage
             GravitySetSwitch.IsOn = false;
         }
 
-        if (!FlyHackDetour.Setup(sender, RotationAddr, "48 39 0D 10 00 00 00 74 09 F3 44 0F 10 89 94 00 00 00", 9, true))
+        if (!FlyHackDetour.Setup(sender, FlyhackHookAddr, "48 39 0D 10 00 00 00 74 09 F3 44 0F 10 89 94 00 00 00", 9, true))
         {
             FlyHackSwitch.Toggled -= FlyHackSwitch_OnToggled;
             FlyHackSwitch.IsOn = false;

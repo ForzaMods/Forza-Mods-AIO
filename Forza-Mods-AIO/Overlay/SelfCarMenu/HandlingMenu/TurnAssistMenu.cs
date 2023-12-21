@@ -7,10 +7,10 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
 
 public abstract class TurnAssistMenu
 {
-    private static readonly MenuOption TurnAssistRatio = new("Ratio", OptionType.Int, 1);
-    private static readonly MenuOption TurnAssistStrength = new("Strength", OptionType.Int, 10);
-    private static readonly MenuOption TurnAssistInterval = new("Interval", OptionType.Int, 1);
-    private static readonly MenuOption TurnAssistEnable = new("Enable", OptionType.Bool, false);
+    private static readonly MenuOption TurnAssistRatio = new("Ratio", 1);
+    private static readonly MenuOption TurnAssistStrength = new("Strength", 10);
+    private static readonly MenuOption TurnAssistInterval = new("Interval", 1);
+    private static readonly MenuOption TurnAssistEnable = new("Enable", false);
 
     public static readonly List<MenuOption> TurnAssistOptions = new()
     {

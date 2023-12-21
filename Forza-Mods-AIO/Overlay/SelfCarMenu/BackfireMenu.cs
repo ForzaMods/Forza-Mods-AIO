@@ -9,12 +9,12 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu;
 
 public abstract class BackfireMenu
 {
-    private static readonly MenuOption MinTime = new("Min Value", OptionType.Int, 1000, 0);
-    private static readonly MenuOption MaxTime = new("Max Value", OptionType.Int, 2500, 0);
-    private static readonly MenuOption TimeToggle = new("Toggle", OptionType.Bool, false);
+    private static readonly MenuOption MinTime = new("Min Value", 1000, 0);
+    private static readonly MenuOption MaxTime = new("Max Value", 2500, 0);
+    private static readonly MenuOption TimeToggle = new("Toggle",  false);
     
-    private static readonly MenuOption AntiLagToggle = new("Force Anti-lag Style", OptionType.Bool, false);
-    private static readonly MenuOption NormalToggle = new("Force Normal Style", OptionType.Bool, false);
+    private static readonly MenuOption AntiLagToggle = new("Force Anti-lag Style",false);
+    private static readonly MenuOption NormalToggle = new("Force Normal Style",false);
     
     public static readonly List<MenuOption> BackfireMenuOptions = new()
     {

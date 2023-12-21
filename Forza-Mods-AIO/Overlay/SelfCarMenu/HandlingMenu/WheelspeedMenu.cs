@@ -7,10 +7,10 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
 
 public abstract class WheelspeedMenu
 {
-    private static readonly MenuOption WheelspeedMode = new("Mode", OptionType.Int, 1);
-    private static readonly MenuOption WheelspeedStrength = new("Strength", OptionType.Int, 10);
-    private static readonly MenuOption WheelspeedInterval = new("Interval", OptionType.Int, 1);
-    private static readonly MenuOption WheelspeedEnable = new("Enable", OptionType.Bool, false);
+    private static readonly MenuOption WheelspeedMode = new("Mode", 1);
+    private static readonly MenuOption WheelspeedStrength = new("Strength", 10);
+    private static readonly MenuOption WheelspeedInterval = new("Interval", 1);
+    private static readonly MenuOption WheelspeedEnable = new("Enable", false);
 
     public static readonly List<MenuOption> WheelSpeedOptions = new()
     {

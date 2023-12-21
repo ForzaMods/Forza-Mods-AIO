@@ -7,9 +7,9 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.UnlocksMenu;
 
 public abstract class CurrencyMenu
 {
-    private static readonly MenuOption XpValue = new("Value", OptionType.Int, 0, isEnabled: false);
-    private static readonly MenuOption XpToggle = new("Toggle", OptionType.Bool, false);
-    private static readonly MenuOption XpPull = new("Pull", OptionType.Button, () =>
+    private static readonly MenuOption XpValue = new("Value", 0, isEnabled: false);
+    private static readonly MenuOption XpToggle = new("Toggle", false);
+    private static readonly MenuOption XpPull = new("Pull",  () =>
     {
         UnlocksPage.Unlocks.Dispatcher.Invoke(() =>
         {
@@ -17,9 +17,9 @@ public abstract class CurrencyMenu
         });
     });
     
-    private static readonly MenuOption CreditsValue = new("Value", OptionType.Int, 0);
-    private static readonly MenuOption CreditsToggle = new("Toggle", OptionType.Bool, false);
-    private static readonly MenuOption CreditsPull = new("Pull", OptionType.Button, () =>
+    private static readonly MenuOption CreditsValue = new("Value", 0);
+    private static readonly MenuOption CreditsToggle = new("Toggle", false);
+    private static readonly MenuOption CreditsPull = new("Pull",  () =>
     {
         UnlocksPage.Unlocks.Dispatcher.Invoke(() =>
         {

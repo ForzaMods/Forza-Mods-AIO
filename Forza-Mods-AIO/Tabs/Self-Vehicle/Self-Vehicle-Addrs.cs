@@ -25,7 +25,7 @@ internal class SelfVehicleAddresses
     public static UIntPtr CleanlinessAddr;
     public static UIntPtr SkillTreeAddr, SkillCostAddr;
     public static UIntPtr ScaleAddr, SellFactorAddr;
-    public static UIntPtr RotationAddr;
+    public static UIntPtr FlyhackHookAddr;
     public static UIntPtr UnbSkillHook;
     public static UIntPtr WorldCollisionThreshold, CarCollisionThreshold, SmashableCollisionTolerance;
     public static UIntPtr BaseAddrHook;
@@ -79,7 +79,7 @@ internal class SelfVehicleAddresses
     private static string? _headlightSig;
     private static string? _creditsCompareSig;
     private static string? _backfireSig;
-    
+    private static string? _flyhackSig;
 
     #endregion
 
@@ -164,6 +164,7 @@ internal class SelfVehicleAddresses
         _headlightSig = "0F 10 ? ? F3 44 ? ? ? ? ? ? ? 83 7B 48";
         _creditsCompareSig = "48 89 ? ? ? 57 48 83 EC ? 48 8D ? ? E8 ? ? ? ? 48 8B";
         _backfireSig = "48 8B ? ? F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? E8 ? ? ? ? 0F 28";
+        _flyhackSig = "F3 44 ? ? ? ? ? ? ? F3 44 ? ? ? ? ? ? ? F3 44 ? ? ? ? ? ? ? F3 41 ? ? ? F3 41";
     }
 
     #endregion
@@ -231,7 +232,7 @@ internal class SelfVehicleAddresses
         CreditsHookAddr = Mw.M.ScanForSig(_creditsAsmAob).FirstOrDefault() + 13;
         Sv.UiManager.AddProgress();
 
-        RotationAddr = Mw.M.ScanForSig("F3 44 0F 10 89 ? ? 00 00 F3 44 0F 10 B9").FirstOrDefault();
+        FlyhackHookAddr = Mw.M.ScanForSig(_flyhackSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
         
         BaseAddrHook = Mw.M.ScanForSig(_baseAddrHookAob).FirstOrDefault() - 279;
@@ -365,7 +366,7 @@ internal class SelfVehicleAddresses
         Wall2Addr = Mw.M.ScanForSig(_wall2Aob).FirstOrDefault() - 446;
         Sv.UiManager.AddProgress();
         
-        RotationAddr = Mw.M.ScanForSig("F3 44 0F 10 89 ? ? 00 00 F3 44 0F 10 B9").LastOrDefault();
+        FlyhackHookAddr = Mw.M.ScanForSig("F3 44 0F 10 89 ? ? 00 00 F3 44 0F 10 B9").LastOrDefault();
         Sv.UiManager.AddProgress();
         
         BaseAddrHook = Mw.M.ScanForSig(_baseAddrHookAob).FirstOrDefault();

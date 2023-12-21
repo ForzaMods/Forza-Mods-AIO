@@ -13,36 +13,36 @@ namespace Forza_Mods_AIO.Overlay.SettingsMenu;
 public class SettingsMenu
 {
     // Header Option
-    private static readonly MenuOption HeaderImage = new("Header", OptionType.Int, 1);
+    private static readonly MenuOption HeaderImage = new("Header", 1);
 
-    private static readonly MenuOption XOffset = new("X Offset", OptionType.Int, 0, min: 0);
-    private static readonly MenuOption YOffset = new("Y Offset", OptionType.Int, 0, min: 0);
+    private static readonly MenuOption XOffset = new("X Offset", 0, min: 0);
+    private static readonly MenuOption YOffset = new("Y Offset", 0, min: 0);
         
     #region Background options
 
-    public static readonly MenuOption MainBackgroundR = new("Background R", OptionType.Int, 0, min: 0, max: 255);
-    public static readonly MenuOption MainBackgroundG = new("Background G", OptionType.Int, 0, min: 0, max: 255);
-    public static readonly MenuOption MainBackgroundB = new("Background B", OptionType.Int, 0, min: 0, max: 255);
-    public static readonly MenuOption MainBackgroundA = new("Background Alpha", OptionType.Int, 120, min: 0, max: 255);
+    public static readonly MenuOption MainBackgroundR = new("Background R", 0, min: 0, max: 255);
+    public static readonly MenuOption MainBackgroundG = new("Background G", 0, min: 0, max: 255);
+    public static readonly MenuOption MainBackgroundB = new("Background B", 0, min: 0, max: 255);
+    public static readonly MenuOption MainBackgroundA = new("Background Alpha", 120, min: 0, max: 255);
 
-    public static readonly MenuOption DescriptionBackgroundR = new("Background R", OptionType.Int, 0, min: 0, max: 255);
-    public static readonly MenuOption DescriptionBackgroundG = new("Background G", OptionType.Int, 0, min: 0, max: 255);
-    public static readonly MenuOption DescriptionBackgroundB = new("Background B", OptionType.Int, 0, min: 0, max: 255);
-    public static readonly MenuOption DescriptionBackgroundA = new("Background Alpha", OptionType.Int, 120, min: 0, max: 255);
+    public static readonly MenuOption DescriptionBackgroundR = new("Background R", 0, min: 0, max: 255);
+    public static readonly MenuOption DescriptionBackgroundG = new("Background G", 0, min: 0, max: 255);
+    public static readonly MenuOption DescriptionBackgroundB = new("Background B", 0, min: 0, max: 255);
+    public static readonly MenuOption DescriptionBackgroundA = new("Background Alpha", 120, min: 0, max: 255);
 
     #endregion
 
     #region Border options
 
-    public static readonly MenuOption MainBorderR = new("Border R", OptionType.Int, 0, min: 0, max: 255);
-    public static readonly MenuOption MainBorderG = new("Border G", OptionType.Int, 0, min: 0, max: 255);
-    public static readonly MenuOption MainBorderB = new("Border B", OptionType.Int, 0, min: 0, max: 255);
-    public static readonly MenuOption MainBorderA = new("Border Alpha", OptionType.Int, 255, min: 0, max: 255);
+    public static readonly MenuOption MainBorderR = new("Border R", 0, min: 0, max: 255);
+    public static readonly MenuOption MainBorderG = new("Border G", 0, min: 0, max: 255);
+    public static readonly MenuOption MainBorderB = new("Border B", 0, min: 0, max: 255);
+    public static readonly MenuOption MainBorderA = new("Border Alpha", 255, min: 0, max: 255);
 
-    public static readonly MenuOption DescriptionBorderR = new("Border R", OptionType.Int, 0, min: 0, max: 255);
-    public static readonly MenuOption DescriptionBorderG = new("Border G", OptionType.Int, 0, min: 0, max: 255);
-    public static readonly MenuOption DescriptionBorderB = new("Border B", OptionType.Int, 0, min: 0, max: 255);
-    public static readonly MenuOption DescriptionBorderA = new("Border Alpha", OptionType.Int, 255, min: 0, max: 255);
+    public static readonly MenuOption DescriptionBorderR = new("Border R", 0, min: 0, max: 255);
+    public static readonly MenuOption DescriptionBorderG = new("Border G", 0, min: 0, max: 255);
+    public static readonly MenuOption DescriptionBorderB = new("Border B", 0, min: 0, max: 255);
+    public static readonly MenuOption DescriptionBorderA = new("Border Alpha", 255, min: 0, max: 255);
 
 
     #endregion
@@ -64,9 +64,9 @@ public class SettingsMenu
         "Extra Bold",
     };
     
-    public static readonly MenuOption FontSize = new("Size", OptionType.Float, 5f, min: 1f, max: 5f);
-    public static readonly MenuOption FontWeight = new("Weight", OptionType.Selection, 1, FontWeighs);
-    public static readonly MenuOption FontStyle = new("Style", OptionType.Selection, 0, FontStyles);
+    public static readonly MenuOption FontSize = new("Size", 5f, min: 1f, max: 5f);
+    public static readonly MenuOption FontWeight = new("Weight", 1, FontWeighs);
+    public static readonly MenuOption FontStyle = new("Style", 0, FontStyles);
     
     // Subscribes menu options to event handlers
 
@@ -206,13 +206,13 @@ public class SettingsMenu
     public static readonly List<MenuOption> SettingsOptions = new()
     {
         HeaderImage,
-        new MenuOption("Refresh Headers", OptionType.Button, delegate { Oh.CacheHeaders(); }),
+        new MenuOption("Refresh Headers",  delegate { Oh.CacheHeaders(); }),
         //new MenuOption("Position", OptionType.MenuButton),
         new MenuOption("Font Settings", OptionType.MenuButton),
         new MenuOption("Main area", OptionType.MenuButton),
         new MenuOption("Description area", OptionType.MenuButton),
-        new MenuOption("Save Settings", OptionType.Button, delegate { Oh.SaveSettings(); }),
-        new MenuOption("Load Settings", OptionType.Button, delegate { Oh.LoadSettings(); }) 
+        new MenuOption("Save Settings",  delegate { Oh.SaveSettings(); }),
+        new MenuOption("Load Settings",  delegate { Oh.LoadSettings(); }) 
     };
 
     // Submenu lists

@@ -16,8 +16,8 @@ public abstract class ModifiersMenu
     }
     
     // Gravity menu options
-    static MenuOption _gravityValue = new("Value", OptionType.Float, 0f);
-    static MenuOption _gravityPull = new("Pull", OptionType.Button, () => 
+    static MenuOption _gravityValue = new("Value", 0f);
+    static MenuOption _gravityPull = new("Pull",  () => 
     {
         Tabs.Self_Vehicle.DropDownTabs.HandlingPage.Shp.Dispatcher.Invoke(delegate ()
         {
@@ -25,11 +25,11 @@ public abstract class ModifiersMenu
             _gravityValue.Value = (float)Tabs.Self_Vehicle.DropDownTabs.HandlingPage.Shp.GravityValueNum.Value;
         });
     });
-    static MenuOption _gravityToggle = new("Enable", OptionType.Bool, false);
+    static MenuOption _gravityToggle = new("Enable", false);
 
     // Acceleration menu options
-    static MenuOption _accelerationValue = new("Value", OptionType.Float, 0f);
-    static MenuOption _accelerationPull = new("Pull", OptionType.Button, () => 
+    static MenuOption _accelerationValue = new("Value", 0f);
+    static MenuOption _accelerationPull = new("Pull",  () => 
     {
         Tabs.Self_Vehicle.DropDownTabs.HandlingPage.Shp.Dispatcher.Invoke(delegate ()
         {
@@ -37,7 +37,7 @@ public abstract class ModifiersMenu
             _accelerationValue.Value = (float)Tabs.Self_Vehicle.DropDownTabs.HandlingPage.Shp.AccelValueNum.Value;
         });
     });
-    static MenuOption _accelerationToggle = new("Enable", OptionType.Bool, false);
+    static MenuOption _accelerationToggle = new("Enable", false);
     
     public static readonly List<MenuOption> ModifiersOptions = new()
     {

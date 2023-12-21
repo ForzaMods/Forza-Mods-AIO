@@ -7,13 +7,13 @@ namespace Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus;
 
 public abstract class GarageModifications
 {
-    public static readonly MenuOption ShowTrafficHsNullToggle = new("Show Traffic/HS/Null", OptionType.Bool, false);
-    public static readonly MenuOption UnlockHiddenDecalsToggle = new("Unlock Hidden Decals", OptionType.Bool, false);
-    public static readonly MenuOption UnlockHiddenPresetsToggle = new("Unlock Hidden Presets", OptionType.Bool, false);
-    public static readonly MenuOption RemoveAnyCarToggle = new("Remove Any Car", OptionType.Bool, false);
-    public static readonly MenuOption FixThumbnailsToggle = new("Fix Thumbnails", OptionType.Bool, false);
-    public static readonly MenuOption PaintLegoCarsToggle = new("Paint Lego Cars", OptionType.Bool, false);
-    public static readonly MenuOption ClearTagToggle = new("Clear \"new\" tag on cars", OptionType.Bool, false);
+    public static readonly MenuOption ShowTrafficHsNullToggle = new("Show Traffic/HS/Null", false);
+    public static readonly MenuOption UnlockHiddenDecalsToggle = new("Unlock Hidden Decals", false);
+    public static readonly MenuOption UnlockHiddenPresetsToggle = new("Unlock Hidden Presets", false);
+    public static readonly MenuOption RemoveAnyCarToggle = new("Remove Any Car", false);
+    public static readonly MenuOption FixThumbnailsToggle = new("Fix Thumbnails", false);
+    public static readonly MenuOption PaintLegoCarsToggle = new("Paint Lego Cars", false);
+    public static readonly MenuOption ClearTagToggle = new("Clear \"new\" tag on cars", false);
 
     public static readonly List<MenuOption> GarageModificationsOptions = new()
     {

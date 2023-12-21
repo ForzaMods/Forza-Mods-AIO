@@ -6,12 +6,12 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Springs.SubMenus;
 
 public abstract class SpringsValues
 {
-    private static readonly MenuOption FrontSpringsMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption FrontSpringsMaxValue = new ("Max Value", OptionType.Float, 0f);
-    private static readonly MenuOption RearSpringsMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption RearSpringsMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption FrontSpringsMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption FrontSpringsMaxValue = new ("Max Value", 0f);
+    private static readonly MenuOption RearSpringsMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption RearSpringsMaxValue = new ("Max Value", 0f);
     
-    private static readonly MenuOption FrontSpringsPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption FrontSpringsPull = new ("Pull values",  () =>
     {
         var springs = Tabs.Tuning.DropDownTabs.Springs.Sp;
         
@@ -22,7 +22,7 @@ public abstract class SpringsValues
         });
     });
     
-    private static readonly MenuOption RearSpringsPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption RearSpringsPull = new ("Pull values",  () =>
     {
         var springs = Tabs.Tuning.DropDownTabs.Springs.Sp;
         

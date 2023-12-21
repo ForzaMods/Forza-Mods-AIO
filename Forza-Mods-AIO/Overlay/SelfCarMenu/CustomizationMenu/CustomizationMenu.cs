@@ -6,8 +6,8 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.CustomizationMenu;
 
 public abstract class CustomizationMenu
 {
-    private static readonly MenuOption GlowingPaintValue = new("Value", OptionType.Float, 30f);
-    private static readonly MenuOption GlowingPaintToggle = new("Enable", OptionType.Bool, false);
+    private static readonly MenuOption GlowingPaintValue = new("Value", 30f);
+    private static readonly MenuOption GlowingPaintToggle = new("Enable", false);
     
     public static void InitiateSubMenu()
     {

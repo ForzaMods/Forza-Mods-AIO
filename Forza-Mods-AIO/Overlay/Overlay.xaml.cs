@@ -58,52 +58,108 @@ public partial class Overlay
             handler?.Invoke(this, EventArgs.Empty);
         }
             
-        //Constructors for different value types
-        //float
-        public MenuOption(string name, OptionType type, float value, float? min = null, float? max = null, float? interval = null, string? description = null, bool isEnabled = true)
+        /// <summary>
+        /// Float based constructor for a menu option
+        /// </summary>
+        /// <param name="name">The name of the menu option.</param>
+        /// <param name="value">The initial float value of the menu option.</param>
+        /// <param name="min">The minimum allowed value for the menu option. (Optional)</param>
+        /// <param name="max">The maximum allowed value for the menu option. (Optional)</param>
+        /// <param name="interval">Specify the interval for the menu option value. (Optional)</param>
+        /// <param name="description">A description providing additional information about the menu option. (Optional)</param>
+        /// <param name="isEnabled">A bool indicating whether the menu option is enabled. Defaults to true. (Optional)</param>
+        public MenuOption(string name, float value, float? min = null, float? max = null, float? interval = null, string? description = null, bool isEnabled = true)
         {
+            
+            if (min != null && max != null && min.Value >= max.Value)
+            {
+                throw new ArgumentException("Minimum value must be less than the maximum value.");
+            }
+            
             Name = name;
-            Type = type;
+            Type = OptionType.Float;
             Value = Convert.ToSingle(value);
-            Min = min == null ? min : Convert.ToSingle(min);
-            Max = max == null ? max : Convert.ToSingle(max);
+            Min = min == null ? null : Convert.ToSingle(min);
+            Max = max == null ? null : Convert.ToSingle(max);
             Interval = interval;
             Description = description;
             IsEnabled = isEnabled;
         }
-        //bool
-        public MenuOption(string name, OptionType type, bool value, string? description = null, bool isEnabled = true)
+        
+        /// <summary>
+        /// Bool based constructor for a menu option
+        /// </summary>
+        /// <param name="name">The name of the menu option.</param>
+        /// <param name="value">The initial bool value of the menu option.</param>
+        /// <param name="description">A description providing additional information about the menu option. (Optional)</param>
+        /// <param name="isEnabled">A bool indicating whether the menu option is enabled. Defaults to true. (Optional)</param>
+        public MenuOption(string name, bool value, string? description = null, bool isEnabled = true)
         {
             Name = name;
-            Type = type;
+            Type = OptionType.Bool;
             Value = Convert.ToBoolean(value);
             Description = description;
             IsEnabled = isEnabled;
         }
-        //int
-        public MenuOption(string name, OptionType type, int value, int? min = null, int? max = null, int? interval = null, string? description = null, bool isEnabled = true)
+        
+        /// <summary>
+        /// Int based constructor for a menu option
+        /// </summary>
+        /// <param name="name">The name of the menu option.</param>
+        /// <param name="value">The initial int value of the menu option.</param>
+        /// <param name="min">The minimum allowed value for the menu option. (Optional)</param>
+        /// <param name="max">The maximum allowed value for the menu option. (Optional)</param>
+        /// <param name="interval">The interval for the value for the menu option. (Optional)</param>
+        /// <param name="description">A description providing additional information about the menu option. (Optional)</param>
+        /// <param name="isEnabled">A bool indicating whether the menu option is enabled. Defaults to true. (Optional)</param>
+        public MenuOption(string name, int value, int? min = null, int? max = null, int? interval = null, string? description = null, bool isEnabled = true)
         {
+            if (min != null && max != null && min.Value >= max.Value)
+            {
+                throw new ArgumentException("Minimum value must be less than the maximum value.");
+            }
+            
             Name = name;
-            Type = type;
+            Type = OptionType.Int;
             Value = Convert.ToInt32(value);
-            Min = min == null ? min : Convert.ToInt32(min);
-            Max = max == null ? min : Convert.ToInt32(max);
+            Min = min == null ? null : Convert.ToInt32(min);
+            Max = max == null ? null : Convert.ToInt32(max);
             Interval = interval;
             Description = description;
             IsEnabled = isEnabled;
         }
-        //method
-        public MenuOption(string name, OptionType type, Action value, string? description = null, bool isEnabled = true)
+
+        /// <summary>
+        /// Button/Action based constructor for a menu option
+        /// </summary>
+        /// <param name="name">The name of the menu option.</param>
+        /// <param name="value">The action that will execute when clicking on the button.</param>
+        /// <param name="description">A description providing additional information about the menu option. (Optional)</param>
+        /// <param name="isEnabled">A bool indicating whether the menu option is enabled. Defaults to true. (Optional)</param>
+        public MenuOption(string name, Action value, string? description = null, bool isEnabled = true)
         {
             Name = name;
-            Type = type;
+            Type = OptionType.Button;
             Value = value;
             Description = description;
             IsEnabled = isEnabled;
         }
-        //null value
+
+        /// <summary>
+        /// Subheader/MenuOption based constructor for a menu option
+        /// </summary>
+        /// <param name="name">The name of the menu option.</param>
+        /// <param name="type">The type for the menu option. (needs to be either SubHeader or MenuButton)</param>
+        /// <param name="isScannable">A bool indicating whether the menu option contains a progressbar and is able to be scanned. (applies only when the type is MenuButton)</param>
+        /// <param name="description">A description providing additional information about the menu option. (Optional)</param>
+        /// <param name="isEnabled">A bool indicating whether the menu option is enabled. Defaults to true. (Optional)</param>
         public MenuOption(string name, OptionType type, string? description = null, bool isEnabled = true)
         {
+            if (type != OptionType.MenuButton && type != OptionType.SubHeader)
+            {
+                throw new ArgumentException("The type for this constructor needs to be either MenuButton or SubHeader");
+            }
+            
             Name = name;
             Type = type;
             Value = null!;
@@ -111,10 +167,18 @@ public partial class Overlay
             IsEnabled = isEnabled;
         }
         
-        public MenuOption(string name, OptionType type, int value, string[] selections, string? description = null, bool isEnabled = true)
+        /// <summary>
+        /// Null value based constructor for a menu option
+        /// </summary>
+        /// <param name="name">The name of the menu option.</param>
+        /// <param name="value">The initial index of the menu option.</param>
+        /// <param name="selections">An array of strings representing the available selections for the menu option.</param>
+        /// <param name="description">A description providing additional information about the menu option. (Optional)</param>
+        /// <param name="isEnabled">A bool indicating whether the menu option is enabled. Defaults to true. (Optional)</param>
+        public MenuOption(string name, int value, string[] selections, string? description = null, bool isEnabled = true)
         {
             Name = name;
-            Type = type;
+            Type = OptionType.Selection;
             Value = value;
             Selections = selections;
             Description = description;
@@ -128,15 +192,15 @@ public partial class Overlay
     private const int GwlExStyle = -20;
 
     [DllImport("user32.dll")]
-    private static extern int GetWindowLong(IntPtr hwnd, int index);
+    private static extern int GetWindowLong(IntPtr hWnd, int index);
 
     [DllImport("user32.dll")]
-    private static extern int SetWindowLong(IntPtr hwnd, int index, int newStyle);
+    private static extern int SetWindowLong(IntPtr hWnd, int index, int newStyle);
     #endregion
     #region Variables
     private static CancellationTokenSource? _cts;
     public static Overlay O { get; private set; } = null!;
-    public static OverlayHandling Oh = new();
+    public static readonly OverlayHandling Oh = new();
     #endregion
     #region Menus
     // Every single menu/submenu has to be put in here to work
@@ -156,7 +220,7 @@ public partial class Overlay
                     { "FlyhackOptions", SelfCarMenu.HandlingMenu.FlyhackMenu.FlyhackOptions },
                     { "HandlingTogglesOptions", SelfCarMenu.HandlingMenu.HandlingTogglesMenu.HandlingTogglesOptions }, 
                 { "CustomizationOptions", SelfCarMenu.CustomizationMenu.CustomizationMenu.CustomizationOptions },
-                { "UnlocksOptions" , UnlocksOptions},
+                { "UnlocksOptions" , SelfCarMenu.UnlocksMenu.CurrencyMenu.CurrencyMenuOptions },
                     { "CurrencyOptions" , SelfCarMenu.UnlocksMenu.CurrencyMenu.CurrencyMenuOptions },
                 { "PhotomodeOptions" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeOptions},
                     { "PhotomodeValuesOptions" , SelfCarMenu.PhotomodeMenu.PhotomodeMenu.PhotomodeValues },
@@ -194,8 +258,8 @@ public partial class Overlay
     };
     
     public static readonly MenuOption AutoshowGarageOption = new("Autoshow/Garage", OptionType.MenuButton, "Mods for the Autoshow such as free cars, all cars etc", false);
-    public static readonly MenuOption SelfVehicleOption = new("Self/Vehicle", OptionType.MenuButton, "Mods for yourself such as speedhack, flyhack etc", false);
-    public static readonly MenuOption TuningOption = new("Tuning", OptionType.MenuButton, "Mods such as extended tuning limits ect", false);
+    public static readonly MenuOption SelfVehicleOption = new("Self/Vehicle", OptionType.MenuButton,"Mods for yourself such as speedhack, flyhack etc", false);
+    public static readonly MenuOption TuningOption = new("Tuning", OptionType.MenuButton,"Mods such as extended tuning limits ect", false);
         
     // Main menu items, all submenus have their own class in Tabs.Overlay
     private static readonly List<MenuOption> MainOptions = new()
@@ -204,11 +268,6 @@ public partial class Overlay
         SelfVehicleOption,
         TuningOption,
         new MenuOption("Settings", OptionType.MenuButton)
-    };
-    private static readonly List<MenuOption> UnlocksOptions = new()
-    {
-        new MenuOption("Currency", OptionType.MenuButton),
-        new MenuOption("Cosmetics", OptionType.MenuButton, isEnabled: false)
     };
 
     // Add all sub menu classes here for event handling
@@ -224,7 +283,7 @@ public partial class Overlay
     }
 
     // This is to make sure all sub menus have their event handlers subscribed
-    void InitializeAllSubMenus()
+    private void InitializeAllSubMenus()
     {
         Sm.InitiateSubMenu();
         SelfCarMenu.SelfCarMenu.InitiateSubMenu();
@@ -234,9 +293,9 @@ public partial class Overlay
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         OverlayHandling.EnableBlur();
-        var windowHwnd = new WindowInteropHelper(this).Handle;
-        var extendedStyle = GetWindowLong(windowHwnd, GwlExStyle);
-        SetWindowLong(windowHwnd, GwlExStyle, extendedStyle | WsExTransparent);
+        var windowHandle = new WindowInteropHelper(this).Handle;
+        var extendedStyle = GetWindowLong(windowHandle, GwlExStyle);
+        _ = SetWindowLong(windowHandle, GwlExStyle, extendedStyle | WsExTransparent);
     }
     public void OverlayToggle(bool toggle)
     {

@@ -6,13 +6,13 @@ namespace Forza_Mods_AIO.Overlay.Tuning.SubMenus.Aero;
 
 public abstract class Aero
 {
-    private static readonly MenuOption FrontAeroMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption FrontAeroMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption FrontAeroMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption FrontAeroMaxValue = new ("Max Value", 0f);
     
-    private static readonly MenuOption RearAeroMinValue = new ("Min Value", OptionType.Float, 0f);
-    private static readonly MenuOption RearAeroMaxValue = new ("Max Value", OptionType.Float, 0f);
+    private static readonly MenuOption RearAeroMinValue = new ("Min Value", 0f);
+    private static readonly MenuOption RearAeroMaxValue = new ("Max Value", 0f);
     
-    private static readonly MenuOption FrontAeroPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption FrontAeroPull = new ("Pull values",  () =>
     {
         var aero = Tabs.Tuning.DropDownTabs.Aero.Ae;
         
@@ -26,7 +26,7 @@ public abstract class Aero
         });
     });
     
-    private static readonly MenuOption RearAeroPull = new ("Pull values", OptionType.Button, () =>
+    private static readonly MenuOption RearAeroPull = new ("Pull values",  () =>
     {
         var aero = Tabs.Tuning.DropDownTabs.Aero.Ae;
         

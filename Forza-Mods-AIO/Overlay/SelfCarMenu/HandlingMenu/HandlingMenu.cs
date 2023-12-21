@@ -7,8 +7,8 @@ namespace Forza_Mods_AIO.Overlay.SelfCarMenu.HandlingMenu;
 public class HandlingMenu
 {
     // Velocity menu options
-    static MenuOption _velocityValue = new("Value", OptionType.Float, 0f);
-    static MenuOption _velocityToggle = new("Enable", OptionType.Bool, false);
+    static MenuOption _velocityValue = new("Value", 0f);
+    static MenuOption _velocityToggle = new("Enable", false);
         
 
     // Subscribes menu options to event handlers
