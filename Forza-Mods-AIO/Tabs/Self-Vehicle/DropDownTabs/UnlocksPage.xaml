@@ -130,7 +130,6 @@
                            BorderThickness="0"
                            Background="#FF2E3440"
                            Margin="20, 20" 
-                           IsEnabled="False"
                            HideUpDownButtons="True"
                            TrackMouseWheelWhenMouseOver="True"
                            Minimum="0"

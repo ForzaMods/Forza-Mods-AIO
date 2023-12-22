@@ -17,6 +17,8 @@ using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using System.Runtime.InteropServices;
 using System.Windows.Media.Animation;
+using Forza_Mods_AIO.Overlay.Menus.SettingsMenu;
+using Forza_Mods_AIO.Overlay.Options;
 using static System.Convert;
 using static System.Environment;
 using static System.Math;
@@ -25,8 +27,7 @@ using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Overlay.Overlay;
 using static System.Windows.HorizontalAlignment;
 using static Forza_Mods_AIO.Resources.DllImports;
-using static Forza_Mods_AIO.Overlay.Overlay.OptionType;
-
+using Application = System.Windows.Application;
 using Brush = System.Windows.Media.Brush;
 using Timer = System.Windows.Forms.Timer;
 using Brushes = System.Windows.Media.Brushes;
@@ -79,7 +80,7 @@ public partial class OverlayHandling
     public static Keys OverlayVisibility = Keys.Subtract;
     // Menu operational vars
     private string[] _menuHeaders = null!;
-    private int _selectedOptionIndex, _levelIndex;
+    private int _lastSelectedOptionIndex, _selectedOptionIndex, _levelIndex;
     private string _currentMenu = "MainOptions";
     private bool _hidden;
     public float FontSize = 5;
@@ -133,39 +134,45 @@ public partial class OverlayHandling
         var parser = new FileIniDataParser();
         var iniData = parser.ReadFile(_settingsFilePath);
 
-        foreach (var menuOption in typeof(SettingsMenu.SettingsMenu)
+        foreach (var menuOption in typeof(SettingsMenu)
                      .GetFields(BindingFlags.Public | BindingFlags.Static)
-                     .Where(f => f.FieldType == typeof(MenuOption)))
+                     .Where(f => f.FieldType == typeof(FloatOption) || 
+                                 f.FieldType == typeof (SelectionOption) ||
+                                 f.FieldType == typeof (IntOption)))
         {
             var name = menuOption.Name;
             var mainQuery = name.Contains("Font") ? "Font" : name.Contains("Main") ? "Main" : "Description";
             var value = iniData[mainQuery][name];
-            var type = (OptionType?)menuOption.FieldType.GetProperty("Type")?.GetValue(menuOption.GetValue(O.Sm));
-
-            if (type == null)
-            {
-                continue;
-            }
-
-            ParseAndSetValueBasedOnTheType(menuOption, type, value);
+            
+            ParseAndSetValueBasedOnTheType((MenuOption?)menuOption.GetValue(menuOption), value);
         }
     }
 
-    private static void ParseAndSetValueBasedOnTheType(FieldInfo menuOption, OptionType? type, string? value)
+    private static void ParseAndSetValueBasedOnTheType(MenuOption? menuOption, string? value)
     {
-        switch (type)
+        if (menuOption == null)
         {
-            case Float:
+            return;
+        }
+        
+        switch (menuOption)
+        {
+            case FloatOption floatOption:
             {
                 if (!float.TryParse(value, out var result)) return;
-                menuOption.FieldType.GetProperty("Value")?.SetValue(menuOption.GetValue(O.Sm), result);
+                floatOption.Value = result;
                 break;
             }
-            case Selection:
-            case Int:
+            case SelectionOption selectionOption:
             {
                 if (!int.TryParse(value, out var result)) return;
-                menuOption.FieldType.GetProperty("Value")?.SetValue(menuOption.GetValue(O.Sm), result);
+                selectionOption.Index = result;                
+                break;   
+            }
+            case IntOption intOption:
+            {
+                if (!int.TryParse(value, out var result)) return;
+                intOption.Value = result;
                 break;
             }
         }
@@ -181,9 +188,11 @@ public partial class OverlayHandling
         var parser = new FileIniDataParser();
         var iniData = parser.ReadFile(_settingsFilePath);
 
-        foreach (var menuOption in typeof(SettingsMenu.SettingsMenu)
+        foreach (var menuOption in typeof(SettingsMenu)
                      .GetFields(BindingFlags.Public | BindingFlags.Static)
-                     .Where(f => f.FieldType == typeof(MenuOption)))
+                     .Where(f => f.FieldType == typeof(FloatOption) || 
+                                 f.FieldType == typeof (SelectionOption) ||
+                                 f.FieldType == typeof (IntOption)))
         {
             var mainQuery = menuOption.Name.Contains("Main") ? "Main" : "Description";
 
@@ -265,20 +274,24 @@ public partial class OverlayHandling
 
             if (O.OptionsBlock.Inlines.Count == O.AllMenus[_currentMenu].Count * 2 - 1)
             {
-                O.MainSection.Height = new GridLength(O.OptionsBlock.ActualHeight + 10);
-                O.DescriptionSection.Height = O.DescriptionBlock.Text != string.Empty 
+                var mainSectionHeight = new GridLength(O.OptionsBlock.ActualHeight + 10);
+                var descriptionSectionHeight = O.DescriptionBlock.Text != string.Empty 
                     ? new GridLength(O.DescriptionBlock.ActualHeight + 15)
                     : new GridLength(0);
 
-                var finalWindowHeight = O.TopSection.ActualHeight + O.MainSection.ActualHeight +
-                                  O.DescriptionSection.ActualHeight;
-                
+                var finalWindowHeight = O.TopSection.ActualHeight + mainSectionHeight.Value + descriptionSectionHeight.Value;
                 var windowHeightAnimation = new DoubleAnimation
                 {
                     From = O.Height,
                     To = finalWindowHeight,
-                    Duration = TimeSpan.FromMilliseconds(50), 
+                    Duration = TimeSpan.FromMilliseconds(25), 
                     EasingFunction = new QuadraticEase()
+                };
+                
+                windowHeightAnimation.Completed += (_, _) =>
+                {
+                    O.MainSection.Height = mainSectionHeight;
+                    O.DescriptionSection.Height = descriptionSectionHeight;
                 };
                 
                 O.BeginAnimation(FrameworkElement.HeightProperty, windowHeightAnimation);
@@ -292,9 +305,10 @@ public partial class OverlayHandling
             O.DescriptionBorder.Background = DescriptionBackColour;
             O.DescriptionBorder.BorderBrush = DescriptionBorderColour;
 
-            if (O.Visibility != Hidden || _hidden) return;
+            if (O.Visibility != Hidden || _hidden) return Task.CompletedTask;
                 
             O.Show();
+            return Task.CompletedTask;
         });
     }
 
@@ -451,13 +465,13 @@ public partial class OverlayHandling
                 fColour = item.IsEnabled ? Brushes.White : Brushes.DimGray;
             }
 
-            value = item.Type switch
+            value = item switch
             {
-                MenuButton => ">",
-                Int or Float => $"<{item.Value}>",
-                Selection => $"<{item.Selections?[(int)item.Value]}>",
-                Bool when (bool)item.Value  => "[X]",
-                Bool when !(bool)item.Value => "[ ]",
+                MenuButtonOption => ">",
+                IntOption intOption => $"<{intOption.Value}>",
+                FloatOption floatOption => $"<{floatOption.Value}>",
+                SelectionOption selectionOption => $"<{selectionOption.Selections[selectionOption.Index]}>",
+                ToggleOption toggleOption => toggleOption.IsOn ? "[X]" : "[ ]",
                 _ => value
             };
 
@@ -477,7 +491,7 @@ public partial class OverlayHandling
     {
         O.Dispatcher.BeginInvoke((Action<int>)delegate (int idx)
         {
-            if (item.Type == SubHeader)
+            if (item is SubHeaderOption)
             {
                 var child = new TextBlock
                 {
@@ -588,25 +602,27 @@ public partial class OverlayHandling
 
     private void HandleConfirmPress(MenuOption currentOption)
     {
-        switch (currentOption.Type)
+        switch (currentOption)
         {
-            case MenuButton:
+            case MenuButtonOption menuButtonOption:
             {
                 _levelIndex++;
                 var nameSplit = currentOption.Name.Split(' ', '/', '[', ']', '&');
                 _currentMenu = string.Concat(nameSplit.Select(item => char.ToUpper(item[0]) + item[1..])) + "Options";
                 _history.Add(_levelIndex, _currentMenu);
                 _selectedOptionIndex = 0;
+                if (menuButtonOption.Action == null) return;
+                Application.Current.Dispatcher.BeginInvoke(() => menuButtonOption.Action());
                 break;
             }
-            case Bool:
+            case ToggleOption toggleOption:
             {
-                currentOption.Value = !(bool)currentOption.Value;
+                toggleOption.IsOn = !toggleOption.IsOn;
                 break;
             }
-            case OptionType.Button:
+            case ButtonOption buttonOption:
             {
-                ((Action)currentOption.Value)();
+                Application.Current.Dispatcher.BeginInvoke(() => buttonOption.Action());
                 break;
             }
         }
@@ -720,8 +736,8 @@ public partial class OverlayHandling
     private void NavigateDown()
     {
         _selectedOptionIndex++;
-        if (_selectedOptionIndex > O.AllMenus[_currentMenu].Count - 1)
-            _selectedOptionIndex = 0;
+        if (_selectedOptionIndex <= O.AllMenus[_currentMenu].Count - 1) return;
+        _selectedOptionIndex = 0;
     }
     
     private void HandleUpNavigation(CancellationToken ct)
@@ -756,8 +772,8 @@ public partial class OverlayHandling
     private void NavigateUp()
     {
         _selectedOptionIndex--;
-        if (_selectedOptionIndex < 0)
-            _selectedOptionIndex = O.AllMenus[_currentMenu].Count - 1;
+        if (_selectedOptionIndex >= 0) return;
+        _selectedOptionIndex = O.AllMenus[_currentMenu].Count - 1;
     }
     
     public void ChangeValue(CancellationToken ct)
@@ -790,52 +806,118 @@ public partial class OverlayHandling
 
     private static void IncreaseValue(MenuOption currentOption)
     {
-        var min = currentOption.Min;
-        var max = currentOption.Max;
-        var value = currentOption.Value;
-                    
-        currentOption.Value = currentOption.Type switch
+        switch (currentOption)
         {
-            Selection when (int)currentOption.Value >= currentOption.Selections!.Length - 1 => 0,
-                        
-            Float when min != null && max != null && (float)value >= (float)max => currentOption.Value = min,
-            Int when min != null && max != null && (int)value >= (int)max => currentOption.Value = min,
-                        
-            Float when max != null && (float)value >= (float)max => currentOption.Value = max,
-            Int when max != null && (int)value >= (int)max => currentOption.Value = max,
-                        
-            Float => ToSingle(Round((float)currentOption.Value + (float)(currentOption.Interval ?? 0.1f), 1)),
-            Int => (int)currentOption.Value + (int)(currentOption.Interval ?? 1),
-            Selection => (int)currentOption.Value + 1,
-                        
-            Bool => currentOption.Value = true,
-            _ => currentOption.Value
-        };
+            case FloatOption floatOption when floatOption.Minimum != float.MinValue &&
+                                              floatOption.Maximum != float.MaxValue &&
+                                              floatOption.Value >= floatOption.Maximum:
+            {
+                floatOption.Value = floatOption.Minimum;
+                break;
+            }
+            case IntOption intOption when intOption.Minimum != int.MinValue &&
+                                          intOption.Maximum != int.MaxValue &&
+                                          intOption.Value >= intOption.Maximum:
+            {
+                intOption.Value = intOption.Minimum;
+                break;
+            }
+            case FloatOption floatOption when floatOption.Minimum != float.MinValue &&
+                                              floatOption.Value >= floatOption.Maximum:
+            {
+                floatOption.Value = floatOption.Maximum;
+                break;
+            }
+            case IntOption intOption when intOption.Minimum != int.MinValue &&
+                                          intOption.Value >= intOption.Maximum:
+            {
+                intOption.Value = intOption.Maximum;
+                break;
+            }
+            case FloatOption floatOption:
+            {
+                floatOption.Value = ToSingle(Round(floatOption.Value + 0.1f, 1));
+                break;
+            }
+            case IntOption intOption:
+            {
+                intOption.Value += 1;
+                break;
+            }
+            case SelectionOption selectionOption when selectionOption.Index >= selectionOption.Selections.Length - 1:
+            {
+                selectionOption.Index = 0;
+                break;
+            }
+            case SelectionOption selectionOption:
+            {
+                selectionOption.Index += 1;
+                break;
+            }
+            case ToggleOption toggleOption:
+            {
+                toggleOption.IsOn = true;
+                break;
+            }
+        }
     }
 
     private static void DecreaseValue(MenuOption currentOption)
     {
-        var min = currentOption.Min;
-        var max = currentOption.Max;
-        var value = currentOption.Value;
-                    
-        currentOption.Value = currentOption.Type switch
+        switch (currentOption)
         {
-            Selection when (int)currentOption.Value <= 0 => currentOption.Selections!.Length - 1,
-                        
-            Float when min != null && max != null && (float)value <= (float)min => currentOption.Value = max,
-            Int when min != null && max != null && (int)value <= (int)min => currentOption.Value = max,
-                        
-            Float when min != null && (float)value <= (float)min => currentOption.Value = min,
-            Int when min != null && (int)value <= (int)min => currentOption.Value = min,
-                        
-            Float => ToSingle(Round((float)currentOption.Value - (float)(currentOption.Interval ?? 0.1f), 1)),
-            Int => (int)currentOption.Value - (int)(currentOption.Interval ?? 1),
-            Selection => (int)currentOption.Value - 1,
-                        
-            Bool => currentOption.Value = false,
-            _ => currentOption.Value
-        };
+            case FloatOption floatOption when floatOption.Minimum != float.MinValue &&
+                                              floatOption.Maximum != float.MaxValue &&
+                                              floatOption.Value <= floatOption.Minimum:
+            {
+                floatOption.Value = floatOption.Maximum;
+                break;
+            }
+            case IntOption intOption when intOption.Minimum != int.MinValue &&
+                                          intOption.Maximum != int.MaxValue &&
+                                          intOption.Value <= intOption.Minimum:
+            {
+                intOption.Value = intOption.Maximum;
+                break;
+            }
+            case FloatOption floatOption when floatOption.Minimum != float.MinValue &&
+                                              floatOption.Value <= floatOption.Minimum:
+            {
+                floatOption.Value = floatOption.Maximum;
+                break;
+            }
+            case IntOption intOption when intOption.Minimum != int.MinValue &&
+                                          intOption.Value <= intOption.Minimum:
+            {
+                intOption.Value = intOption.Maximum;
+                break;
+            }
+            case FloatOption floatOption:
+            {
+                floatOption.Value = ToSingle(Round(floatOption.Value - 0.1f, 1));
+                break;
+            }
+            case IntOption intOption:
+            {
+                intOption.Value -= 1;
+                break;
+            }
+            case SelectionOption { Index: <= 0 } selectionOption:
+            {
+                selectionOption.Index = selectionOption.Selections.Length - 1;
+                break;
+            }
+            case SelectionOption selectionOption:
+            {
+                selectionOption.Index -= 1;
+                break;
+            }
+            case ToggleOption toggleOption:
+            {
+                toggleOption.IsOn = false;
+                break;
+            }
+        }
     }
 
     internal static void EnableBlur()

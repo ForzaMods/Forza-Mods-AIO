@@ -23,7 +23,6 @@ using Lunar;
 using MahApps.Metro.Controls;
 using static System.Diagnostics.FileVersionInfo;
 using static System.IO.Path;
-using static System.Threading.Tasks.Task;
 using static System.Windows.Media.ColorConverter;
 using static System.Windows.Media.VisualTreeHelper;
 using static System.Xml.Linq.XElement;
@@ -94,7 +93,7 @@ public partial class MainWindow
         TopBar2.Background = Monet.DarkColour;
         CategoryButton_Click(AIO_Info, new RoutedEventArgs());
         Loaded += (_, _) => ToggleButtons(false);
-        Run(IsAttached);
+        Task.Run(IsAttached);
     }
 
     #endregion
@@ -129,14 +128,12 @@ public partial class MainWindow
 
             var rb = (RadioButton)element;
             
-            // RB Isn't the checked one
             if (rb.IsChecked != true)
             {
                 rb.Background = Monet.DarkishColour;
                 continue;
             }
 
-            // RB Is the checked one
             rb.Background = Monet.DarkerColour;
             rbName = rb.Name;
         }
@@ -145,16 +142,14 @@ public partial class MainWindow
 
         foreach (var element in _visuals.Cast<FrameworkElement>())
         {
-            // Page is RB.name + Frame
             if (element.Name == rbName + "Frame")
             {
                 element.Visibility = Visibility.Visible;
             }
 
-            // Page is not RB.name + Frame
             else if (element is Frame frame && frame.Name.Contains("Frame"))
             {
-                element.Visibility = Visibility.Hidden;
+                frame.Visibility = Visibility.Hidden;
             }
         }
     }
@@ -167,7 +162,7 @@ public partial class MainWindow
     {
         while (true)
         {
-            Delay(1000).Wait();
+            Task.Delay(Attached ? 500 : 1000).Wait();
             if (M.OpenProcess("ForzaHorizon5"))
             {
                 if (Attached)
@@ -457,7 +452,7 @@ public partial class MainWindow
                 keyBuffer = Enum.GetName(typeof(Keys), i);
             }
 
-            Delay(5).Wait();
+            Task.Delay(5).Wait();
         }
         
         var key = (Keys)Enum.Parse(typeof(Keys), keyBuffer);

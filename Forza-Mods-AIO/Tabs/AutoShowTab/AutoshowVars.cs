@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Lunar;
 using MahApps.Metro.Controls;
 using static Forza_Mods_AIO.MainWindow;
-using static Forza_Mods_AIO.Overlay.AutoShowMenu.SubMenus.GarageModifications;
+using static Forza_Mods_AIO.Overlay.Menus.AutoShowMenu.SubMenus.GarageModifications;
 using static Forza_Mods_AIO.Overlay.Overlay;
 using static Forza_Mods_AIO.Tabs.AutoShowTab.AutoShow;
 

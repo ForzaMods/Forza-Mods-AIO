@@ -28,29 +28,23 @@ public partial class FovPage
             return;
         }
 
-        string? address = null;
+        UIntPtr address = 0;
         var type = sender.GetType();
         var name = type.GetProperty("Name")?.GetValue(sender)?.ToString()?.Replace("Num", "");
 
         var fields = typeof(SelfVehicleAddresses).GetFields(BindingFlags.Public | BindingFlags.Static);
-        foreach (var field in fields.Where(f => f.FieldType == typeof(string)))
+        foreach (var field in fields.Where(f => f.FieldType == typeof(UIntPtr)))
         {
             if (field.Name != name)
             {
                 continue;
             }
 
-            address = field.GetValue(field) as string;
+            address = (UIntPtr)(field.GetValue(field) ?? 0);
         }
 
-        try
-        {
-            Mw.M.WriteMemory(address, Convert.ToSingle(type.GetProperty("Value")?.GetValue(sender)));
-        }
-        catch
-        {
-            
-        }
+        if (address == 0) return;
+        Mw.M.WriteMemory(address, Convert.ToSingle(type.GetProperty("Value")?.GetValue(sender)));
     }
 
     public void UpdateValues()
@@ -98,6 +92,7 @@ public partial class FovPage
             return;
         }
 
+        FovLockDetour.UpdateVariable(Convert.ToSingle(FovNum.Value));
         FovLockDetour.Toggle();
     }
 
