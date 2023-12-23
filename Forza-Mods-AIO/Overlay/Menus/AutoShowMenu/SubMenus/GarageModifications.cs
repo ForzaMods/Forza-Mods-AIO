@@ -28,13 +28,13 @@ public abstract class GarageModifications
 
     public static void InitiateSubMenu()
     {
-        ShowTrafficHsNullToggle.ToggledEventHandler += ShowTrafficHsNullToggled;
-        UnlockHiddenDecalsToggle.ToggledEventHandler += UnlockHiddenDecalsToggled;
-        UnlockHiddenPresetsToggle.ToggledEventHandler += UnlockHiddenPresetsToggled;
-        RemoveAnyCarToggle.ToggledEventHandler += RemoveAnyCarToggled;
-        PaintLegoCarsToggle.ToggledEventHandler += PaintLegoCarsToggled;
-        FixThumbnailsToggle.ToggledEventHandler += FixThumbnailsToggled;
-        ClearTagToggle.ToggledEventHandler += ClearTagToggled;
+        ShowTrafficHsNullToggle.Toggled += ShowTrafficHsNullToggled;
+        UnlockHiddenDecalsToggle.Toggled += UnlockHiddenDecalsToggled;
+        UnlockHiddenPresetsToggle.Toggled += UnlockHiddenPresetsToggled;
+        RemoveAnyCarToggle.Toggled += RemoveAnyCarToggled;
+        PaintLegoCarsToggle.Toggled += PaintLegoCarsToggled;
+        FixThumbnailsToggle.Toggled += FixThumbnailsToggled;
+        ClearTagToggle.Toggled += ClearTagToggled;
     }
 
     private static void ShowTrafficHsNullToggled(object s, EventArgs e)

@@ -35,11 +35,11 @@ public abstract class Wheelbase
 
     public static void InitiateSubMenu()
     {
-        WheelbaseValue.ValueChangedEventHandler += WheelbaseValueChanged;
-        FrontWidthValue.ValueChangedEventHandler += FrontWidthValueChanged;
-        RearWidthValue.ValueChangedEventHandler += RearWidthValueChanged;
-        FrontSpacerValue.ValueChangedEventHandler += FrontSpacerValueChanged;
-        RearSpacerValue.ValueChangedEventHandler += RearSpacerValueChanged;
+        WheelbaseValue.ValueChanged += WheelbaseValueChanged;
+        FrontWidthValue.ValueChanged += FrontWidthValueChanged;
+        RearWidthValue.ValueChanged += RearWidthValueChanged;
+        FrontSpacerValue.ValueChanged += FrontSpacerValueChanged;
+        RearSpacerValue.ValueChanged += RearSpacerValueChanged;
     }
 
     private static void WheelbaseValueChanged(object s, EventArgs e)

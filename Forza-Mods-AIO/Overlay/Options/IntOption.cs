@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Forza_Mods_AIO.Overlay.Options;
 
-public sealed class IntOption : MenuOption
+public class IntOption : MenuOption
 {
     public int Value
     {
@@ -21,13 +21,13 @@ public sealed class IntOption : MenuOption
     public int Minimum { get; } = int.MinValue;
     public int Maximum { get; } = int.MaxValue;
 
-    public event EventHandler? ValueChangedEventHandler;
-    public event EventHandler? MinimumReachedEventHandler;
-    public event EventHandler? MaximumReachedEventHandler;
+    public event EventHandler? ValueChanged;
+    public event EventHandler? MinimumReached;
+    public event EventHandler? MaximumReached;
 
-    private void OnValueChanged()
+    protected virtual void OnValueChanged()
     {
-        var handler = ValueChangedEventHandler;
+        var handler = ValueChanged;
         if (handler == null)
         {
             return;
@@ -36,14 +36,14 @@ public sealed class IntOption : MenuOption
         Application.Current.Dispatcher.BeginInvoke(() => handler(this, EventArgs.Empty));
     }
 
-    private void OnMinimumReached(int value)
+    protected virtual void OnMinimumReached(int value)
     {
         if (Minimum != value)
         {
             return;
         }
 
-        var handler = MinimumReachedEventHandler;
+        var handler = MinimumReached;
         if (handler == null)
         {
             return;
@@ -52,14 +52,14 @@ public sealed class IntOption : MenuOption
         Application.Current.Dispatcher.BeginInvoke(() => handler(this, EventArgs.Empty));
     }
 
-    private void OnMaximumReached(int value)
+    protected virtual void OnMaximumReached(int value)
     {
         if (Maximum != value)
         {
             return;
         }
 
-        var handler = MaximumReachedEventHandler;
+        var handler = MaximumReached;
         if (handler == null)
         {
             return;

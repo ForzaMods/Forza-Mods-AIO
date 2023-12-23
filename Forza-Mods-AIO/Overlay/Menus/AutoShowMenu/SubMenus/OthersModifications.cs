@@ -22,10 +22,10 @@ public abstract class OthersModifications
     
     public static void InitiateSubMenu()
     {
-        FreePerfUpgradesToggle.ToggledEventHandler += FreePerfUpgradesToggled;
-        FreeVisualUpgradeToggle.ToggledEventHandler += FreeVisualUpgradesToggled;
-        QuickAddAllCarsToggle.ToggledEventHandler += QuickAddAllCarsToggled;
-        QuickAddRareCarsToggle.ToggledEventHandler += QuickAddRareCarsToggled;
+        FreePerfUpgradesToggle.Toggled += FreePerfUpgradesToggled;
+        FreeVisualUpgradeToggle.Toggled += FreeVisualUpgradesToggled;
+        QuickAddAllCarsToggle.Toggled += QuickAddAllCarsToggled;
+        QuickAddRareCarsToggle.Toggled += QuickAddRareCarsToggled;
     }
 
     private static void FreePerfUpgradesToggled(object s, EventArgs e)

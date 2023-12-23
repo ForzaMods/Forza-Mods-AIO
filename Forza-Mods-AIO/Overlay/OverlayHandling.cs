@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows;
 using System.Threading;
 using System.Reflection;
-using System.Diagnostics;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Interop;
@@ -78,16 +77,26 @@ public partial class OverlayHandling
     public static Keys Leave = Keys.NumPad0;
     public static Keys RapidAdjust = Keys.Alt;
     public static Keys OverlayVisibility = Keys.Subtract;
+
+    public static string ControllerUp = "DPadUp";
+    public static string ControllerDown = "DPadDown";
+    public static string ControllerLeft = "DPadLeft";
+    public static string ControllerRight = "DPadRight";
+    public static string ControllerConfirm = "LeftThumb";
+    public static string ControllerLeave = "RightThumb";
+    public static string ControllerRapidAdjust = "LeftShoulder";
+    public static string ControllerOverlayVisibility = "RightShoulder";
+    
     // Menu operational vars
     private string[] _menuHeaders = null!;
-    private int _lastSelectedOptionIndex, _selectedOptionIndex, _levelIndex;
+    private int _selectedOptionIndex, _levelIndex;
     private string _currentMenu = "MainOptions";
     private bool _hidden;
     public float FontSize = 5;
     public string FontWeight = "Normal";
     public string FontStyle = "Normal";
-    public int XOffset = 0, YOffset = 0; 
-
+    public int XOffset = 0, YOffset = 0;
+    
     private readonly string _settingsFilePath = GetFolderPath(SpecialFolder.MyDocuments) + @"\Forza Mods AIO\Overlay Settings.ini";
     
     private readonly Dictionary<int, string> _history = new()
@@ -96,7 +105,20 @@ public partial class OverlayHandling
     };
 
     // Key vars
-    private bool _upKeyDown, _downKeyDown, _leftKeyDown, _rightKeyDown, _rapidKeyDown;
+    private bool _upKeyDown,
+        _downKeyDown,
+        _leftKeyDown,
+        _rightKeyDown,
+        _rapidKeyDown;
+    
+    private bool _controllerUpKeyDown,
+        _controllerDownKeyDown,
+        _controllerLeftKeyDown,
+        _controllerRightKeyDown,
+        _controllerRapidKeyDown,
+        _controllerLeaveKeyDown,
+        _controllerConfirmKeyDown,
+        _controllerVisibilityKeyDown;
 
     //Theme vars
     public Brush MainBackColour = Brushes.Transparent;
@@ -203,7 +225,9 @@ public partial class OverlayHandling
                     
             var name = menuOption.GetType().GetProperty("Name")?.GetValue(menuOption)?.ToString();
             var valueProperty = menuOption.FieldType.GetProperty("Value");
-            var value = valueProperty?.GetValue(menuOption.GetValue(null));
+            var indexProperty = menuOption.FieldType.GetProperty("Index");
+            var value = indexProperty?.GetValue(menuOption.GetValue(null)) ??
+                        valueProperty?.GetValue(menuOption.GetValue(null));
             iniData[mainQuery][name] = value?.ToString();
         }
             
@@ -271,30 +295,15 @@ public partial class OverlayHandling
 
             O.Header.Width = O.Width;
             O.Header.Height = O.TopSection.ActualHeight;
-
+            
             if (O.OptionsBlock.Inlines.Count == O.AllMenus[_currentMenu].Count * 2 - 1)
             {
-                var mainSectionHeight = new GridLength(O.OptionsBlock.ActualHeight + 10);
-                var descriptionSectionHeight = O.DescriptionBlock.Text != string.Empty 
+                O.MainSection.Height = new GridLength(O.OptionsBlock.ActualHeight + 10);
+                O.DescriptionSection.Height = O.DescriptionBlock.Text != string.Empty 
                     ? new GridLength(O.DescriptionBlock.ActualHeight + 15)
                     : new GridLength(0);
 
-                var finalWindowHeight = O.TopSection.ActualHeight + mainSectionHeight.Value + descriptionSectionHeight.Value;
-                var windowHeightAnimation = new DoubleAnimation
-                {
-                    From = O.Height,
-                    To = finalWindowHeight,
-                    Duration = TimeSpan.FromMilliseconds(25), 
-                    EasingFunction = new QuadraticEase()
-                };
-                
-                windowHeightAnimation.Completed += (_, _) =>
-                {
-                    O.MainSection.Height = mainSectionHeight;
-                    O.DescriptionSection.Height = descriptionSectionHeight;
-                };
-                
-                O.BeginAnimation(FrameworkElement.HeightProperty, windowHeightAnimation);
+                O.Height = O.TopSection.ActualHeight + O.MainSection.ActualHeight + O.DescriptionSection.ActualHeight;
             }
             
             O.Header.Source = _headerImage;
@@ -567,11 +576,31 @@ public partial class OverlayHandling
             }
 
             UpdateKeyStates();
-            HandleKeyEvents(ct);
+            HandleKeyEvents();
+        }
+    }
+    
+    public void ControllerKeyHandler(CancellationToken ct)
+    {
+        while (true)
+        {
+            Task.Delay(10, ct).Wait(ct);
+            if (ct.IsCancellationRequested)
+            {
+                return;
+            }
+
+            if (!IsGameFocused())
+            {
+                continue;
+            }
+
+            UpdateControllerStates();
+            HandleControllerEvents();
         }
     }
 
-    private void HandleKeyEvents(CancellationToken ct)
+    private void HandleKeyEvents()
     {
         var currentOption = O.AllMenus[_currentMenu][_selectedOptionIndex];
         if (IsKeyPressed(Confirm) && currentOption.IsEnabled)
@@ -579,7 +608,7 @@ public partial class OverlayHandling
             HandleConfirmPress(currentOption);
             while (IsKeyPressed(Confirm))
             {
-                Task.Delay(10, ct).Wait(ct);
+                Task.Delay(10).Wait();
             }
         }
         else if (IsKeyPressed(Leave))
@@ -587,7 +616,7 @@ public partial class OverlayHandling
             HandleLeavePress();
             while (IsKeyPressed(Leave))
             {
-                Task.Delay(10, ct).Wait(ct);
+                Task.Delay(10).Wait();
             }
         }
         else if (IsKeyPressed(OverlayVisibility))
@@ -595,11 +624,49 @@ public partial class OverlayHandling
             HandleVisibilityPress();
             while (IsKeyPressed(OverlayVisibility))
             {
-                Task.Delay(10, ct).Wait(ct);
+                Task.Delay(10).Wait();
             }
         }
     }
 
+    
+    private void HandleControllerEvents()
+    {
+        var currentOption = O.AllMenus[_currentMenu][_selectedOptionIndex];
+        if (_controllerConfirmKeyDown && currentOption.IsEnabled)
+        {
+            HandleConfirmPress(currentOption);
+            while (true)
+            {
+                Task.Delay(10).Wait();
+                UpdateControllerStates();
+                if (_controllerConfirmKeyDown) continue;
+                break;
+            }
+        }
+        else if (_controllerLeaveKeyDown)
+        {
+            HandleLeavePress();
+            while (true)
+            {
+                Task.Delay(10).Wait();
+                UpdateControllerStates();
+                if (_controllerLeaveKeyDown) continue;
+                break;
+            }
+        }
+        else if (_controllerVisibilityKeyDown)
+        {
+            HandleVisibilityPress();
+            while (true)
+            {
+                Task.Delay(10).Wait();
+                UpdateControllerStates();
+                if (_controllerVisibilityKeyDown) continue;
+                break;
+            }
+        }
+    }
     private void HandleConfirmPress(MenuOption currentOption)
     {
         switch (currentOption)
@@ -678,6 +745,25 @@ public partial class OverlayHandling
         UpdateKeyState(RapidAdjust, ref _rapidKeyDown);
     }
     
+    private void UpdateControllerStates()
+    {
+        Mw.Gamepad.InitializeControllersAndInput();
+        
+        if (!Mw.Gamepad.IsControllerConnected)
+        {
+            return;
+        }
+
+        _controllerDownKeyDown = Mw.Gamepad.IsButtonPressed(ControllerDown);
+        _controllerUpKeyDown = Mw.Gamepad.IsButtonPressed(ControllerUp);
+        _controllerLeftKeyDown = Mw.Gamepad.IsButtonPressed(ControllerLeft);
+        _controllerRightKeyDown = Mw.Gamepad.IsButtonPressed(ControllerRight);
+        _controllerRapidKeyDown = Mw.Gamepad.IsButtonPressed(ControllerRapidAdjust);
+        _controllerConfirmKeyDown = Mw.Gamepad.IsButtonPressed(ControllerConfirm);
+        _controllerLeaveKeyDown = Mw.Gamepad.IsButtonPressed(ControllerLeave);
+        _controllerVisibilityKeyDown = Mw.Gamepad.IsButtonPressed(ControllerOverlayVisibility);
+    }
+    
     public void ChangeSelection(CancellationToken ct)
     {
         while (true)
@@ -694,11 +780,11 @@ public partial class OverlayHandling
                 continue;
             }
             
-            if (_downKeyDown)
+            if (_downKeyDown || _controllerDownKeyDown)
             {
                 HandleDownNavigation(ct);    
             }
-            else if (_upKeyDown)
+            else if (_upKeyDown || _controllerUpKeyDown)
             {
                 HandleUpNavigation(ct);
             }
@@ -722,7 +808,7 @@ public partial class OverlayHandling
             timer.Start();
         });
                 
-        while (_downKeyDown)
+        while (_downKeyDown || _controllerDownKeyDown)
         {
             Task.Delay(1, ct).Wait(ct);
         }
@@ -757,7 +843,7 @@ public partial class OverlayHandling
             timer.Start();
         });
                 
-        while (_upKeyDown)
+        while (_upKeyDown || _controllerUpKeyDown)
         {
             Task.Delay(1, ct).Wait(ct);
         }
@@ -780,7 +866,7 @@ public partial class OverlayHandling
     {
         while (true)
         {
-            Task.Delay(_rapidKeyDown ? 5 : 100, ct).Wait(ct);
+            Task.Delay(_rapidKeyDown || _controllerRapidKeyDown ? 5 : 100, ct).Wait(ct);
 
             if (ct.IsCancellationRequested)
             {
@@ -793,11 +879,11 @@ public partial class OverlayHandling
                 continue;
             }
             
-            if (_rightKeyDown)
+            if (_rightKeyDown || _controllerRightKeyDown)
             {
                 IncreaseValue(currentOption);
             }
-            else if (_leftKeyDown)
+            else if (_leftKeyDown || _controllerLeftKeyDown)
             {
                 DecreaseValue(currentOption);
             }

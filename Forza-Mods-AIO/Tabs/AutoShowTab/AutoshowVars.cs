@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using System.IO.Pipes;
-using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Lunar;
 using MahApps.Metro.Controls;
+using static System.BitConverter;
+using static System.Buffer;
 using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Overlay.Menus.AutoShowMenu.SubMenus.GarageModifications;
 using static Forza_Mods_AIO.Overlay.Overlay;
 using static Forza_Mods_AIO.Tabs.AutoShowTab.AutoShow;
+using static Memory.Imps;
 
 namespace Forza_Mods_AIO.Tabs.AutoShowTab;
 
@@ -48,6 +50,10 @@ internal class AutoshowVars
         
     private const string SqlBase1Aob = @"55 50 44 41 54 45 20 25 73 43 61 72 65 65 72 5F 47 61 72 61 67 65 20 53 45 54 20 54 75 6E 69 6E 67 5F 66 72 6F 6E 74 44 6F 77 6E 66 6F 72 63 65 20 3D 20 25 31 2E 38 65 2C 20 54 75 6E 69 6E 67 5F 72 65 61 72 44 6F 77 6E 66 6F 72 63 65 20 3D 20 25 31 2E 38 65 2C";
     private const string SqlBase2Aob = @"41 4E 44 20 4E 6F 74 41 76 61 69 6C 61 62 6C 65 49 6E 41 75 74 6F 73 68 6F 77 3D 30";
+    
+    private static nuint _ptr = nuint.Zero;
+    private const int VirtualFunctionIndex = 9;
+
     #endregion
 
     public static void Scan()
@@ -113,8 +119,10 @@ internal class AutoshowVars
         As.UiManager.Index = 0;
         As.UiManager.ScanAmount = 1;
             
-        Mw.Mapper = new LibraryMapper(Mw.M.MProc.Process, Properties.Resources.SQL_DLL);
-        Mw.Mapper.MapLibrary();
+        /*Mw.Mapper = new LibraryMapper(Mw.M.MProc.Process, Properties.Resources.SQL_DLL);
+        Mw.Mapper.MapLibrary();*/
+
+        var sqlExecAobScan = SqlExecAobScan();
             
         As.Dispatcher.Invoke(() =>
         {
@@ -122,10 +130,12 @@ internal class AutoshowVars
         });    
             
         PaintLegoCarsToggle.IsEnabled = false;
-        AutoshowGarageOption.IsEnabled = Mw.Mapper.DllBaseAddress != IntPtr.Zero;
+        //AutoshowGarageOption.IsEnabled = Mw.Mapper.DllBaseAddress != IntPtr.Zero;
+        AutoshowGarageOption.IsEnabled = sqlExecAobScan;
         
         As.UiManager.AddProgress();
-        As.UiManager.ToggleUiElements(Mw.Mapper.DllBaseAddress != IntPtr.Zero);
+        //As.UiManager.ToggleUiElements(Mw.Mapper.DllBaseAddress != IntPtr.Zero);
+        As.UiManager.ToggleUiElements(sqlExecAobScan);
     }
 
     internal static void ResetMem()
@@ -161,9 +171,9 @@ internal class AutoshowVars
 
         button.GetType().GetProperty("IsEnabled")?.SetValue(button, false);
             
-        var retValue = false;
+        var retValue = await Task.Run(() => Query(sql));
             
-        await Task.Run(() =>
+        /*await Task.Run(() =>
         {
             using var pipeClient = new NamedPipeClientStream("PogPipe");
             var count = 0;
@@ -175,7 +185,7 @@ internal class AutoshowVars
                 }
                 catch
                 {
-                    /* ignored */
+                    // ignored
                 }
 
                 ++count;
@@ -198,7 +208,7 @@ internal class AutoshowVars
             streamWriter.WriteLine(sql);
           
             retValue = true;
-        });
+        });*/
 
         if (!retValue)
         {
@@ -208,5 +218,88 @@ internal class AutoshowVars
         }
             
         button.GetType().GetProperty("IsEnabled")?.SetValue(button, true);
+    }
+    
+    
+    
+    private static bool SqlExecAobScan()
+    {
+        if (_ptr != nuint.Zero)
+        {
+            return true;
+        }
+
+        var sigResult = Mw.M.ScanForSig("0F 84 ? ? ? ? 48 8B 35 ? ? ? ? 48 85 F6 74").FirstOrDefault();
+
+        if (sigResult == 0)
+        {
+            return false;
+        }
+        
+        var parmAddress = sigResult + 0x6 + 0x3;
+        var parm = Mw.M.ReadMemory<int>(parmAddress);
+        var pCDataBaseAddress = sigResult + (nuint)parm + 0x6 + 0x7;
+        _ptr = Mw.M.ReadMemory<nuint>(pCDataBaseAddress);
+        return true;
+    }
+    
+    
+    private static nuint GetVirtualFunctionPtr(nuint ptr, int index)
+    {
+        var pVtableBytes = new byte[8];
+        var procHandle = Mw.Gvp.Process.Handle;
+        ReadProcessMemory(procHandle, ptr, pVtableBytes, (nuint)pVtableBytes.Length, nint.Zero);
+
+        var pVtable = (nuint)ToInt64(pVtableBytes, 0);
+        var vTableBytes = new byte[8];
+        var lpBaseAddress = pVtable + (nuint)nuint.Size * (nuint)index;
+        ReadProcessMemory(procHandle, lpBaseAddress, vTableBytes, (nuint)vTableBytes.Length, nint.Zero);
+
+        return (nuint)ToInt64(vTableBytes, 0);
+    }
+    
+    [DllImport("kernel32", SetLastError = true)]
+    private static extern int WaitForSingleObject(IntPtr handle, int milliseconds);
+    
+    private static bool Query(string command)
+    {
+        if (!SqlExecAobScan())
+        {
+            return false;
+        }
+
+        var procHandle = Mw.Gvp.Process.Handle;
+        var allocShellCodeAddress = VirtualAllocEx(procHandle, nuint.Zero, 0x1000, 0x3000, 0x40);
+
+        var rcx = _ptr;
+        var rdx = VirtualAllocEx(procHandle, nuint.Zero, 0x1000, 0x3000, 0x40);
+        var r8 = VirtualAllocEx(procHandle, nuint.Zero, 0x1000, 0x3000, 0x40);
+
+        byte[] shellCode = {
+            0x48,0xBA, 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,                     
+            0x49,0xB8, 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,                    
+            0xFF,0x25, 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00 
+        };
+
+        BlockCopy(GetBytes(rdx.ToUInt64()), 0, shellCode, 0x02, 8);
+        BlockCopy(GetBytes(r8.ToUInt64()), 0, shellCode, 0x0C, 8);
+
+        var callFunction = GetVirtualFunctionPtr(_ptr, VirtualFunctionIndex);
+
+        BlockCopy(GetBytes(callFunction.ToUInt64()), 0, shellCode, shellCode.Length - 8, 8);
+
+        Mw.M.WriteStringMemory(r8, command + "\0");
+
+        WriteProcessMemory(procHandle, allocShellCodeAddress, shellCode, (nuint)shellCode.Length, nint.Zero);
+
+        var handle = CreateRemoteThread(procHandle, (nint)null, 0, allocShellCodeAddress, rcx, 0, out _);
+
+        WaitForSingleObject(handle, int.MaxValue);
+        VirtualFreeEx(procHandle, allocShellCodeAddress, 0x1000, 0x4000);
+        VirtualFreeEx(procHandle, r8, 0x1000, 0x4000);
+
+        var resultBytes = new byte[8];
+        ReadProcessMemory(procHandle, rdx, resultBytes, (nuint)resultBytes.Length, nint.Zero);
+        return true;
     }
 }

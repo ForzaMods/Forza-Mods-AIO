@@ -16,9 +16,9 @@ public abstract class VelocityMenu
     public static void InitiateSubMenu()
     {
         VelocityMode.SelectionChanged += VelocitySelectionChanged;
-        VelocityValue.ValueChangedEventHandler += VelocityValueChanged;
-        VelocityLimit.ValueChangedEventHandler += VelocityLimitChanged;
-        VelocityToggle.ToggledEventHandler += VelocityToggleChanged;
+        VelocityValue.ValueChanged += VelocityValueChanged;
+        VelocityLimit.ValueChanged += VelocityLimitChanged;
+        VelocityToggle.Toggled += VelocityToggleChanged;
     }
 
     private static void VelocitySelectionChanged(object s, EventArgs e)

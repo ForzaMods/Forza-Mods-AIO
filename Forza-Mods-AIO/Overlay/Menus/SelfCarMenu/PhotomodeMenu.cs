@@ -68,18 +68,18 @@ public abstract class PhotomodeMenu
 
     public static void InitiateSubMenu()
     {
-        SamplesValue.ValueChangedEventHandler += Values_OnValueChanged;
-        ShutterSpeedValue.ValueChangedEventHandler += Values_OnValueChanged;
-        TimeSliceValue.ValueChangedEventHandler += Values_OnValueChanged;
-        ApertureScaleValue.ValueChangedEventHandler += Values_OnValueChanged;
-        CarInFocusValue.ValueChangedEventHandler += Values_OnValueChanged;
-        TurnSpeedValue.ValueChangedEventHandler += Values_OnValueChanged;
-        SamplesMultiplierValue.ValueChangedEventHandler += Values_OnValueChanged;
-        MovementSpeedValue.ValueChangedEventHandler += Values_OnValueChanged;
+        SamplesValue.ValueChanged += Values_OnValueChanged;
+        ShutterSpeedValue.ValueChanged += Values_OnValueChanged;
+        TimeSliceValue.ValueChanged += Values_OnValueChanged;
+        ApertureScaleValue.ValueChanged += Values_OnValueChanged;
+        CarInFocusValue.ValueChanged += Values_OnValueChanged;
+        TurnSpeedValue.ValueChanged += Values_OnValueChanged;
+        SamplesMultiplierValue.ValueChanged += Values_OnValueChanged;
+        MovementSpeedValue.ValueChanged += Values_OnValueChanged;
         
-        NoClipToggle.ToggledEventHandler += Toggles_OnToggled;
-        UnlimitedAltitudeToggle.ToggledEventHandler += Toggles_OnToggled;
-        IncreasedZoomToggle.ToggledEventHandler += Toggles_OnToggled;
+        NoClipToggle.Toggled += Toggles_OnToggled;
+        UnlimitedAltitudeToggle.Toggled += Toggles_OnToggled;
+        IncreasedZoomToggle.Toggled += Toggles_OnToggled;
     }
 
     #region Value Eventhandlers

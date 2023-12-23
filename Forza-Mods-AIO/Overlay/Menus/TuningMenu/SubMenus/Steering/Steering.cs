@@ -85,12 +85,12 @@ public abstract class Steering
     
     public static void InitiateSubMenu()
     {
-        AngleMax1Value.ValueChangedEventHandler += AngleMax1ValueChanged;
-        AngleMax2Value.ValueChangedEventHandler += AngleMax2ValueChanged;
-        VelCountersteerValue.ValueChangedEventHandler += VelCountersteerValueChanged;
-        VelStraightValue.ValueChangedEventHandler += VelStraightValueChanged;
-        VelTurningValue.ValueChangedEventHandler += VelTurningValueChanged;
-        VelDynamicPeekValue.ValueChangedEventHandler += VelDynamicPeekValueChanged;
-        VelTimeValue.ValueChangedEventHandler += VelTimeValueChanged;
+        AngleMax1Value.ValueChanged += AngleMax1ValueChanged;
+        AngleMax2Value.ValueChanged += AngleMax2ValueChanged;
+        VelCountersteerValue.ValueChanged += VelCountersteerValueChanged;
+        VelStraightValue.ValueChanged += VelStraightValueChanged;
+        VelTurningValue.ValueChanged += VelTurningValueChanged;
+        VelDynamicPeekValue.ValueChanged += VelDynamicPeekValueChanged;
+        VelTimeValue.ValueChanged += VelTimeValueChanged;
     }
 }

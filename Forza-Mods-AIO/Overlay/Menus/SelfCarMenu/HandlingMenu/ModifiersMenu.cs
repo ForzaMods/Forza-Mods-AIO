@@ -10,10 +10,10 @@ public abstract class ModifiersMenu
 {
     public static void InitiateSubMenu()
     {
-        GravityValue.ValueChangedEventHandler += GravityValueChanged;
-        GravityToggle.ToggledEventHandler += GravityToggleChanged;
-        AccelerationValue.ValueChangedEventHandler += AccelerationValueChanged;
-        AccelerationToggle.ToggledEventHandler += AccelerationToggleChanged;
+        GravityValue.ValueChanged += GravityValueChanged;
+        GravityToggle.Toggled += GravityToggleChanged;
+        AccelerationValue.ValueChanged += AccelerationValueChanged;
+        AccelerationToggle.Toggled += AccelerationToggleChanged;
     }
     
     private static readonly FloatOption GravityValue = new("Value", 0f, Shp.GravityValueNum.Minimum, Shp.GravityValueNum.Maximum);

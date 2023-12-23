@@ -21,9 +21,9 @@ public abstract class FlyhackMenu
 
     public static void InitiateSubMenu()
     {
-        FlyhackRotationSpeed.ValueChangedEventHandler += FlyhackRotationSpeedChanged;
-        FlyhackMovementSpeed.ValueChangedEventHandler += FlyhackMovementSpeedChanged;
-        FlyhackToggle.ToggledEventHandler += FlyhackToggled;
+        FlyhackRotationSpeed.ValueChanged += FlyhackRotationSpeedChanged;
+        FlyhackMovementSpeed.ValueChanged += FlyhackMovementSpeedChanged;
+        FlyhackToggle.Toggled += FlyhackToggled;
     }
 
     #region Eventhandlers

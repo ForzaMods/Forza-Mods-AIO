@@ -23,6 +23,7 @@ using Lunar;
 using MahApps.Metro.Controls;
 using static System.Diagnostics.FileVersionInfo;
 using static System.IO.Path;
+using static System.Windows.Forms.Control;
 using static System.Windows.Media.ColorConverter;
 using static System.Windows.Media.VisualTreeHelper;
 using static System.Xml.Linq.XElement;
@@ -66,10 +67,11 @@ public partial class MainWindow
 
     public readonly Mem M = new()
     {
-        SigScanTasks = Convert.ToInt32(Environment.ProcessorCount * (Environment.ProcessorCount / 2))
+        SigScanTasks = Environment.ProcessorCount * (Environment.ProcessorCount / 2)
     };
 
-    public LibraryMapper Mapper = null!;
+    //public LibraryMapper Mapper = null!;
+    public readonly Gamepad Gamepad = new(); 
     public GameVerPlat Gvp = new(null, null, null, null);
     public bool Attached;
     private IEnumerable<Visual>? _visuals;
@@ -102,8 +104,8 @@ public partial class MainWindow
 
     private void Window_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (e.ChangedButton == MouseButton.Left && System.Windows.Forms.Control.MousePosition.Y < Window.Top + 50)
-            DragMove();
+        if (e.ChangedButton != MouseButton.Left || !(MousePosition.Y < Window.Top + 50)) return;
+        DragMove();
     }
 
     #endregion
@@ -162,7 +164,7 @@ public partial class MainWindow
     {
         while (true)
         {
-            Task.Delay(Attached ? 500 : 1000).Wait();
+            Task.Delay(Attached ? 1000 : 500).Wait();
             if (M.OpenProcess("ForzaHorizon5"))
             {
                 if (Attached)
@@ -353,15 +355,6 @@ public partial class MainWindow
         if (!Attached)
         {
             Environment.Exit(0);
-        }
-
-        try
-        {
-            Mapper.UnmapLibrary();
-        }
-        catch
-        {
-            // ignored
         }
         
         //TODO Cleanup here

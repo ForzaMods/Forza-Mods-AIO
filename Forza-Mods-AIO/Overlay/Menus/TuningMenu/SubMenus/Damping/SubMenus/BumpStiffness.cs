@@ -59,9 +59,9 @@ public abstract class BumpStiffness
 
     public static void InitiateSubMenu()
     {
-        FrontBumpStiffnessMinValue.ValueChangedEventHandler += FrontBumpStiffnessMinValueChanged;
-        FrontBumpStiffnessMaxValue.ValueChangedEventHandler += FrontBumpStiffnessMaxValueChanged;
-        RearBumpStiffnessMinValue.ValueChangedEventHandler += RearBumpStiffnessMinValueChanged;
-        RearBumpStiffnessMaxValue.ValueChangedEventHandler += RearBumpStiffnessMaxValueChanged;
+        FrontBumpStiffnessMinValue.ValueChanged += FrontBumpStiffnessMinValueChanged;
+        FrontBumpStiffnessMaxValue.ValueChanged += FrontBumpStiffnessMaxValueChanged;
+        RearBumpStiffnessMinValue.ValueChanged += RearBumpStiffnessMinValueChanged;
+        RearBumpStiffnessMaxValue.ValueChanged += RearBumpStiffnessMaxValueChanged;
     }
 }

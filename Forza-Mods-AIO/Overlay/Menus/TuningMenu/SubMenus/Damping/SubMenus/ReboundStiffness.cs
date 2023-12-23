@@ -59,9 +59,9 @@ public abstract class ReboundStiffness
 
     public static void InitiateSubMenu()
     {
-        FrontReboundStiffnessMinValue.ValueChangedEventHandler += FrontReboundStiffnessMinValueChanged;
-        FrontReboundStiffnessMaxValue.ValueChangedEventHandler += FrontReboundStiffnessMaxValueChanged;
-        RearReboundStiffnessMinValue.ValueChangedEventHandler += RearReboundStiffnessMinValueChanged;
-        RearReboundStiffnessMaxValue.ValueChangedEventHandler += RearReboundStiffnessMaxValueChanged;
+        FrontReboundStiffnessMinValue.ValueChanged += FrontReboundStiffnessMinValueChanged;
+        FrontReboundStiffnessMaxValue.ValueChanged += FrontReboundStiffnessMaxValueChanged;
+        RearReboundStiffnessMinValue.ValueChanged += RearReboundStiffnessMinValueChanged;
+        RearReboundStiffnessMaxValue.ValueChanged += RearReboundStiffnessMaxValueChanged;
     }
 }

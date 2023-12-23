@@ -69,34 +69,34 @@ public class SettingsMenu
     #region Eventhandlers and similar stuff
     public void InitiateSubMenu()
     {
-        HeaderImage.ValueChangedEventHandler += HeaderValueChanged;
+        HeaderImage.ValueChanged += HeaderValueChanged;
 
-        MainBackgroundR.ValueChangedEventHandler += ColourValueChanged;
-        MainBackgroundG.ValueChangedEventHandler += ColourValueChanged;
-        MainBackgroundB.ValueChangedEventHandler += ColourValueChanged;
-        MainBackgroundA.ValueChangedEventHandler += ColourValueChanged;
+        MainBackgroundR.ValueChanged += ColourValueChanged;
+        MainBackgroundG.ValueChanged += ColourValueChanged;
+        MainBackgroundB.ValueChanged += ColourValueChanged;
+        MainBackgroundA.ValueChanged += ColourValueChanged;
 
-        DescriptionBackgroundR.ValueChangedEventHandler += ColourValueChanged;
-        DescriptionBackgroundG.ValueChangedEventHandler += ColourValueChanged;
-        DescriptionBackgroundB.ValueChangedEventHandler += ColourValueChanged;
-        DescriptionBackgroundA.ValueChangedEventHandler += ColourValueChanged;
+        DescriptionBackgroundR.ValueChanged += ColourValueChanged;
+        DescriptionBackgroundG.ValueChanged += ColourValueChanged;
+        DescriptionBackgroundB.ValueChanged += ColourValueChanged;
+        DescriptionBackgroundA.ValueChanged += ColourValueChanged;
 
-        MainBorderR.ValueChangedEventHandler += ColourValueChanged;
-        MainBorderG.ValueChangedEventHandler += ColourValueChanged;
-        MainBorderB.ValueChangedEventHandler += ColourValueChanged;
-        MainBorderA.ValueChangedEventHandler += ColourValueChanged;
+        MainBorderR.ValueChanged += ColourValueChanged;
+        MainBorderG.ValueChanged += ColourValueChanged;
+        MainBorderB.ValueChanged += ColourValueChanged;
+        MainBorderA.ValueChanged += ColourValueChanged;
 
-        DescriptionBorderR.ValueChangedEventHandler += ColourValueChanged;
-        DescriptionBorderG.ValueChangedEventHandler += ColourValueChanged;
-        DescriptionBorderB.ValueChangedEventHandler += ColourValueChanged;
-        DescriptionBorderA.ValueChangedEventHandler += ColourValueChanged;
+        DescriptionBorderR.ValueChanged += ColourValueChanged;
+        DescriptionBorderG.ValueChanged += ColourValueChanged;
+        DescriptionBorderB.ValueChanged += ColourValueChanged;
+        DescriptionBorderA.ValueChanged += ColourValueChanged;
 
-        FontSize.ValueChangedEventHandler += FontSizeValueChanged;
+        FontSize.ValueChanged += FontSizeValueChanged;
         FontWeight.SelectionChanged += FontWeightSelectionChanged;
         FontStyle.SelectionChanged += FontStyleSelectionChanged;
 
-        XOffset.ValueChangedEventHandler += XOffsetValueChanged;
-        YOffset.ValueChangedEventHandler += YOffsetValueChanged;
+        XOffset.ValueChanged += XOffsetValueChanged;
+        YOffset.ValueChanged += YOffsetValueChanged;
 
         O.Dispatcher.Invoke(() =>
         {
@@ -153,9 +153,9 @@ public class SettingsMenu
 
         if (headerCount == 0)
         {
-            HeaderImage.ValueChangedEventHandler -= HeaderValueChanged;
+            HeaderImage.ValueChanged -= HeaderValueChanged;
             HeaderImage.Value = 1;
-            HeaderImage.ValueChangedEventHandler += HeaderValueChanged;
+            HeaderImage.ValueChanged += HeaderValueChanged;
             return;
         }
 

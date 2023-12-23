@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Forza_Mods_AIO.Overlay.Options;
 
-public sealed class FloatOption : MenuOption
+public class FloatOption : MenuOption
 {
     public float Value
     {
@@ -12,8 +12,8 @@ public sealed class FloatOption : MenuOption
         {
             _value = value;
             OnValueChanged();
-            OnMinimumReached();
-            OnMaximumReached();
+            OnMinimumReached(_value);
+            OnMaximumReached(_value);
         }
     }
     private float _value;
@@ -21,13 +21,13 @@ public sealed class FloatOption : MenuOption
     public float Minimum { get; } = float.MinValue;
     public float Maximum { get; } = float.MaxValue;
 
-    public event EventHandler? ValueChangedEventHandler;
-    public event EventHandler? MinimumReachedEventHandler;
-    public event EventHandler? MaximumReachedEventHandler;
+    public event EventHandler? ValueChanged;
+    public event EventHandler? MinimumReached;
+    public event EventHandler? MaximumReached;
 
-    private void OnValueChanged()
+    protected virtual void OnValueChanged()
     {
-        var handler = ValueChangedEventHandler;
+        var handler = ValueChanged;
         if (handler == null)
         {
             return;
@@ -36,9 +36,14 @@ public sealed class FloatOption : MenuOption
         Application.Current.Dispatcher.BeginInvoke(() => handler(this, EventArgs.Empty));
     }
 
-    private void OnMinimumReached()
+    protected virtual void OnMinimumReached(float value)
     {
-        var handler = MinimumReachedEventHandler;
+        if (value != Minimum)
+        {
+            return;
+        }
+        
+        var handler = MinimumReached;
         if (handler == null)
         {
             return;
@@ -47,9 +52,14 @@ public sealed class FloatOption : MenuOption
         Application.Current.Dispatcher.BeginInvoke(() => handler(this, EventArgs.Empty));
     }
 
-    private void OnMaximumReached()
+    protected virtual void OnMaximumReached(float value)
     {
-        var handler = MaximumReachedEventHandler;
+        if (value != Maximum)
+        {
+            return;
+        }
+
+        var handler = MaximumReached;
         if (handler == null)
         {
             return;

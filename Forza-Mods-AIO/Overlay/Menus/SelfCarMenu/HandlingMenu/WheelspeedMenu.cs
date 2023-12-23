@@ -25,9 +25,9 @@ public abstract class WheelspeedMenu
     public static void InitiateSubMenu()
     {
         WheelspeedMode.SelectionChanged += WheelspeedModeChanged;
-        WheelspeedStrength.ValueChangedEventHandler += WheelspeedStrengthChanged;
-        WheelspeedInterval.ValueChangedEventHandler += WheelspeedIntervalChanged;
-        WheelspeedEnable.ToggledEventHandler += WheelspeedToggled;
+        WheelspeedStrength.ValueChanged += WheelspeedStrengthChanged;
+        WheelspeedInterval.ValueChanged += WheelspeedIntervalChanged;
+        WheelspeedEnable.Toggled += WheelspeedToggled;
     }
 
     private static void WheelspeedModeChanged(object s, EventArgs e)

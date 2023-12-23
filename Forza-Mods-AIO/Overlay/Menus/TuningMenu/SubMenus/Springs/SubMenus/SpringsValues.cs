@@ -38,10 +38,10 @@ public abstract class SpringsValues
     
     public static void InitiateSubMenu()
     {
-        FrontSpringsMinValue.ValueChangedEventHandler += FrontSpringsMinValueChanged;
-        FrontSpringsMaxValue.ValueChangedEventHandler += FrontSpringsMaxValueChanged;
-        RearSpringsMinValue.ValueChangedEventHandler += RearSpringsMinValueChanged;
-        RearSpringsMaxValue.ValueChangedEventHandler += RearSpringsMaxValueChanged;
+        FrontSpringsMinValue.ValueChanged += FrontSpringsMinValueChanged;
+        FrontSpringsMaxValue.ValueChanged += FrontSpringsMaxValueChanged;
+        RearSpringsMinValue.ValueChanged += RearSpringsMinValueChanged;
+        RearSpringsMaxValue.ValueChanged += RearSpringsMaxValueChanged;
     }
 
     private static void FrontSpringsMinValueChanged(object s, EventArgs e)

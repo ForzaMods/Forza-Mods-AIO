@@ -62,9 +62,9 @@ public abstract class AntirollBarsDamping
 
     public static void InitiateSubMenu()
     {
-        FrontAntirollBarMinValue.ValueChangedEventHandler += FrontAntirollBarMinValueChanged;
-        FrontAntirollBarMaxValue.ValueChangedEventHandler += FrontAntirollBarMaxValueChanged;
-        RearAntirollBarMinValue.ValueChangedEventHandler += RearAntirollBarMinValueChanged;
-        RearAntirollBarMaxValue.ValueChangedEventHandler += RearAntirollBarMaxValueChanged;
+        FrontAntirollBarMinValue.ValueChanged += FrontAntirollBarMinValueChanged;
+        FrontAntirollBarMaxValue.ValueChanged += FrontAntirollBarMaxValueChanged;
+        RearAntirollBarMinValue.ValueChanged += RearAntirollBarMinValueChanged;
+        RearAntirollBarMaxValue.ValueChanged += RearAntirollBarMaxValueChanged;
     }
 }

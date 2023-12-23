@@ -17,6 +17,7 @@ internal class SelfVehicleAddresses
     
     #region Addresses
 
+    public static UIntPtr StatsEditorAobHook;
     public static UIntPtr BackfireTimeAddr, BackfireTypeAddr;
     public static UIntPtr HeadlightAddr;
     public static UIntPtr TimeScaleAddr;
@@ -80,6 +81,7 @@ internal class SelfVehicleAddresses
     private static string? _creditsCompareSig;
     private static string? _backfireSig;
     private static string? _flyhackSig;
+    private static string? _statsEditorSig;
 
     #endregion
 
@@ -165,6 +167,7 @@ internal class SelfVehicleAddresses
         _creditsCompareSig = "48 89 ? ? ? 57 48 83 EC ? 48 8D ? ? E8 ? ? ? ? 48 8B";
         _backfireSig = "48 8B ? ? F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? E8 ? ? ? ? 0F 28";
         _flyhackSig = "F3 44 ? ? ? ? ? ? ? F3 44 ? ? ? ? ? ? ? F3 44 ? ? ? ? ? ? ? F3 41 ? ? ? F3 41";
+        _statsEditorSig = "48 8B 5F 08 80 7B 19 00 75 22 48 8D 4B 20 48 8B D5 E8 74";
     }
 
     #endregion
@@ -201,7 +204,7 @@ internal class SelfVehicleAddresses
         SignaturesFive();
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 37;
+        Sv.UiManager.ScanAmount = 38;
 
         XpAddr = Mw.M.ScanForSig(_xpAob).FirstOrDefault() - 14;
         XpAmountAddr = XpAddr - 133;
@@ -321,6 +324,9 @@ internal class SelfVehicleAddresses
     
         BackfireTimeAddr = Mw.M.ScanForSig(_backfireSig).FirstOrDefault() + 4;
         BackfireTypeAddr = BackfireTimeAddr + 125;
+        Sv.UiManager.AddProgress();
+
+        StatsEditorAobHook = Mw.M.ScanForSig(_statsEditorSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
         
         SelfVehicleOption.IsEnabled = true;

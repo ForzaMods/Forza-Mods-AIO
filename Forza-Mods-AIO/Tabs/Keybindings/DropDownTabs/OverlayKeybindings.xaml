@@ -33,12 +33,12 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CTUpKey"
+                <Button x:Name="ControllerUpButton"
                         HorizontalAlignment="Right"
                         Margin="7.5 7.5"
                         Width="85"
-                        Click="CTButton_OnClick"
                         IsEnabled="False"
+                        Click="CTButton_OnClick"
                         Height="25"
                         Background="#FF2E3440"
                         BorderBrush="#FF2E3440"/>
@@ -68,12 +68,12 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CTDownKey"
+                <Button x:Name="ControllerDownButton"
                         HorizontalAlignment="Right"
                         Margin="7.5 7.5"
                         Width="85"
-                        Click="CTButton_OnClick"
                         IsEnabled="False"
+                        Click="CTButton_OnClick"
                         Height="25"
                         Background="#FF2E3440"
                         BorderBrush="#FF2E3440"/>
@@ -103,7 +103,7 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CTLeftKey"
+                <Button x:Name="ControllerLeftButton"
                         HorizontalAlignment="Right"
                         Margin="7.5 7.5"
                         Width="85"
@@ -138,9 +138,10 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CTRightKey"
+                <Button x:Name="ControllerRightButton"
                         HorizontalAlignment="Right"
                         Margin="7.5 7.5"
+                        
                         IsEnabled="False"
                         Width="85"
                         Click="CTButton_OnClick"
@@ -173,11 +174,12 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CTLeaveKey"
+                <Button x:Name="ControllerConfirmButton"
                         HorizontalAlignment="Right"
                         Margin="7.5 7.5"
                         Width="85"
                         Click="CTButton_OnClick"
+                        
                         IsEnabled="False"
                         Height="25"
                         Background="#FF2E3440"
@@ -208,11 +210,12 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CTConfirmKey"
+                <Button x:Name="ControllerLeaveButton"
                         HorizontalAlignment="Right"
                         Margin="7.5 7.5"
                         Width="85"
                         Click="CTButton_OnClick"
+                        
                         IsEnabled="False"
                         Height="25"
                         Background="#FF2E3440"
@@ -243,10 +246,11 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CTVisibilityKey"
+                <Button x:Name="ControllerOverlayVisibilityButton"
                         HorizontalAlignment="Right"
                         Margin="7.5 7.5"
                         Width="85"
+                        
                         IsEnabled="False"
                         Click="CTButton_OnClick"
                         Height="25"
@@ -278,10 +282,11 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CTRapidAdjust"
+                <Button x:Name="ControllerRapidAdjust"
                         HorizontalAlignment="Right"
                         Margin="7.5 7.5"
                         Width="85"
+                        
                         IsEnabled="False"
                         Click="CTButton_OnClick"
                         Height="25"

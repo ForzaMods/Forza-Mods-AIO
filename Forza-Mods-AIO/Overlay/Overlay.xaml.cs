@@ -136,6 +136,7 @@ public partial class Overlay
             Task.Run(() => Oh.OverlayPosAndScale(_cts.Token));
             Task.Run(() => Oh.UpdateMenuOptions(_cts.Token));
             Task.Run(() => Oh.KeyHandler(_cts.Token));
+            //Task.Run(() => Oh.ControllerKeyHandler(_cts.Token));
             Task.Run(() => Oh.ChangeSelection(_cts.Token));
             Task.Run(() => Oh.ChangeValue(_cts.Token));
         }

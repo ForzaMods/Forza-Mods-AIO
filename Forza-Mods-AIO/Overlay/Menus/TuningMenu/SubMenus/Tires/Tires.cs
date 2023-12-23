@@ -75,9 +75,9 @@ public abstract class Tires
     
     public static void InitiateSubMenu() 
     {
-        TireFrontLeftValue.ValueChangedEventHandler += TireFrontLeftValueChanged;
-        TireFrontRightValue.ValueChangedEventHandler += TireFrontRightValueChanged;
-        TireRearLeftValue.ValueChangedEventHandler += TireRearLeftValueChanged;
-        TireRearRightValue.ValueChangedEventHandler += TireRearRightValueChanged;
+        TireFrontLeftValue.ValueChanged += TireFrontLeftValueChanged;
+        TireFrontRightValue.ValueChanged += TireFrontRightValueChanged;
+        TireRearLeftValue.ValueChanged += TireRearLeftValueChanged;
+        TireRearRightValue.ValueChanged += TireRearRightValueChanged;
     }
 }

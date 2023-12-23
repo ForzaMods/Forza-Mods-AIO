@@ -35,10 +35,10 @@ public abstract class UnlocksMenu
 
     public static void InitiateSubMenu()
     {
-        XpValue.ValueChangedEventHandler += XpValue_OnChanged;
-        XpToggle.ToggledEventHandler += XpToggle_OnChanged;
-        CreditsValue.ValueChangedEventHandler += CreditsValue_OnChanged;
-        CreditsToggle.ToggledEventHandler += CreditsToggle_OnChanged;
+        XpValue.ValueChanged += XpValue_OnChanged;
+        XpToggle.Toggled += XpToggle_OnChanged;
+        CreditsValue.ValueChanged += CreditsValue_OnChanged;
+        CreditsToggle.Toggled += CreditsToggle_OnChanged;
     }
 
     private static void XpValue_OnChanged(object s, EventArgs e)

@@ -43,13 +43,13 @@ public abstract class RideHeight
     
     public static void InitiateSubMenu()
     {
-        FrontRideHeightMinValue.ValueChangedEventHandler += FrontRideHeightMinValueChanged;
-        FrontRideHeightMaxValue.ValueChangedEventHandler += FrontRideHeightMaxValueChanged;
-        RearRideHeightMinValue.ValueChangedEventHandler += RearRideHeightMinValueChanged;
-        RearRideHeightMaxValue.ValueChangedEventHandler += RearRideHeightMaxValueChanged;
+        FrontRideHeightMinValue.ValueChanged += FrontRideHeightMinValueChanged;
+        FrontRideHeightMaxValue.ValueChanged += FrontRideHeightMaxValueChanged;
+        RearRideHeightMinValue.ValueChanged += RearRideHeightMinValueChanged;
+        RearRideHeightMaxValue.ValueChanged += RearRideHeightMaxValueChanged;
 
-        FrontRideHeightRestriction.ToggledEventHandler += FrontRideHeightRestrictionValueChanged;
-        RearRideHeightRestriction.ToggledEventHandler += RearRideHeightRestrictionValueChanged;
+        FrontRideHeightRestriction.Toggled += FrontRideHeightRestrictionValueChanged;
+        RearRideHeightRestriction.Toggled += RearRideHeightRestrictionValueChanged;
     }
 
     private static void FrontRideHeightMinValueChanged(object s, EventArgs e)

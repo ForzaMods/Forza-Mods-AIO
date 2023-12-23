@@ -12,8 +12,8 @@ public abstract class FovLock
         
     public static void InitiateSubMenu()
     {
-        FovLockValue.ValueChangedEventHandler += FovLockValueChanged;
-        FovLockToggle.ToggledEventHandler += FovLockToggled;
+        FovLockValue.ValueChanged += FovLockValueChanged;
+        FovLockToggle.Toggled += FovLockToggled;
     }
     
     private static void FovLockValueChanged(object s, EventArgs e)

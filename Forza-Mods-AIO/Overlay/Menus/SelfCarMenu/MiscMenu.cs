@@ -19,8 +19,8 @@ public abstract class MiscMenu
 
     public static void InitiateSubMenu()
     {
-        UnlimitedBuildBudgetToggle.ToggledEventHandler += UnlimitedBuildBudgetToggleChanged;
-        UnbreakableSkillScoreToggle.ToggledEventHandler += UnbreakableSkillScoreToggleChanged;
+        UnlimitedBuildBudgetToggle.Toggled += UnlimitedBuildBudgetToggleChanged;
+        UnbreakableSkillScoreToggle.Toggled += UnbreakableSkillScoreToggleChanged;
     }
 
     private static void UnlimitedBuildBudgetToggleChanged(object s, EventArgs e)

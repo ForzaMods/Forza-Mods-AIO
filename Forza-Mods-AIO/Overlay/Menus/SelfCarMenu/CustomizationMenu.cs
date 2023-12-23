@@ -12,8 +12,8 @@ public abstract class CustomizationMenu
     
     public static void InitiateSubMenu()
     {
-        GlowingPaintValue.ValueChangedEventHandler += GlowingPaintValueChanged;
-        GlowingPaintToggle.ToggledEventHandler += GlowingPaintToggled;
+        GlowingPaintValue.ValueChanged += GlowingPaintValueChanged;
+        GlowingPaintToggle.Toggled += GlowingPaintToggled;
     }
 
     private static void GlowingPaintValueChanged(object s, EventArgs e)

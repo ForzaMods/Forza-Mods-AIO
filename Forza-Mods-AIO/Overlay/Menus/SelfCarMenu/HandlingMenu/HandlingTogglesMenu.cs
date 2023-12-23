@@ -33,14 +33,14 @@ public abstract class HandlingTogglesMenu
 
     public static void InitiateSubMenu()
     {
-        CarNoClipToggle.ToggledEventHandler += NoClip_OnToggled;
-        WallNoClipToggle.ToggledEventHandler += NoClip_OnToggled;
+        CarNoClipToggle.Toggled += NoClip_OnToggled;
+        WallNoClipToggle.Toggled += NoClip_OnToggled;
 
-        StopAllWheelsToggle.ToggledEventHandler += Braking_OnToggled;
-        SuperBrakeToggle.ToggledEventHandler += Braking_OnToggled;
+        StopAllWheelsToggle.Toggled += Braking_OnToggled;
+        SuperBrakeToggle.Toggled += Braking_OnToggled;
         
-        SuperCarToggle.ToggledEventHandler += Other_OnToggled;
-        StopWaterDragToggle.ToggledEventHandler += Other_OnToggled;
+        SuperCarToggle.Toggled += Other_OnToggled;
+        StopWaterDragToggle.Toggled += Other_OnToggled;
     }
 
     #region NoClip Toggles

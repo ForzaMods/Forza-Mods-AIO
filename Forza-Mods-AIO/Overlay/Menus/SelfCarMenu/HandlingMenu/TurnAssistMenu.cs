@@ -23,10 +23,10 @@ public abstract class TurnAssistMenu
 
     public static void InitiateSubMenu()
     {
-        TurnAssistRatio.ValueChangedEventHandler += TurnAssistRatioChanged;
-        TurnAssistStrength.ValueChangedEventHandler += TurnAssistStrengthChanged;
-        TurnAssistInterval.ValueChangedEventHandler += TurnAssistIntervalChanged;
-        TurnAssistEnable.ToggledEventHandler += TurnAssistToggled;
+        TurnAssistRatio.ValueChanged += TurnAssistRatioChanged;
+        TurnAssistStrength.ValueChanged += TurnAssistStrengthChanged;
+        TurnAssistInterval.ValueChanged += TurnAssistIntervalChanged;
+        TurnAssistEnable.Toggled += TurnAssistToggled;
     }
 
     private static void TurnAssistRatioChanged(object s, EventArgs e)

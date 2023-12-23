@@ -17,20 +17,20 @@ public abstract class FovLimiters
     
     public static void InitiateSubMenu()
     {
-        ChaseMinValue.ValueChangedEventHandler += ChaseLimiters_OnChanged;
-        ChaseMaxValue.ValueChangedEventHandler += ChaseLimiters_OnChanged;
+        ChaseMinValue.ValueChanged += ChaseLimiters_OnChanged;
+        ChaseMaxValue.ValueChanged += ChaseLimiters_OnChanged;
 
-        FarChaseMinValue.ValueChangedEventHandler += FarChaseLimiters_OnChanged;
-        FarChaseMaxValue.ValueChangedEventHandler += FarChaseLimiters_OnChanged;
+        FarChaseMinValue.ValueChanged += FarChaseLimiters_OnChanged;
+        FarChaseMaxValue.ValueChanged += FarChaseLimiters_OnChanged;
         
-        DriverMinValue.ValueChangedEventHandler += DriverLimiters_OnChanged;
-        DriverMaxValue.ValueChangedEventHandler += DriverLimiters_OnChanged;      
+        DriverMinValue.ValueChanged += DriverLimiters_OnChanged;
+        DriverMaxValue.ValueChanged += DriverLimiters_OnChanged;      
         
-        HoodMinValue.ValueChangedEventHandler += HoodLimiters_OnChanged;
-        HoodMaxValue.ValueChangedEventHandler += HoodLimiters_OnChanged;
+        HoodMinValue.ValueChanged += HoodLimiters_OnChanged;
+        HoodMaxValue.ValueChanged += HoodLimiters_OnChanged;
         
-        BumperMinValue.ValueChangedEventHandler += BumperLimiters_OnChanged;
-        BumperMaxValue.ValueChangedEventHandler += BumperLimiters_OnChanged;
+        BumperMinValue.ValueChanged += BumperLimiters_OnChanged;
+        BumperMaxValue.ValueChanged += BumperLimiters_OnChanged;
     }
 
     #region Chase and Far Chase

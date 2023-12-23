@@ -61,9 +61,9 @@ public abstract class Alignment
 
     public static void InitiateSubMenu()
     {
-        CamberNegValue.ValueChangedEventHandler += CamberNegValueChanged;
-        CamberPosValue.ValueChangedEventHandler += CamberPosValueChanged;
-        ToeNegValue.ValueChangedEventHandler += ToeNegValueChanged;
-        ToePosValue.ValueChangedEventHandler += ToePosValueChanged;
+        CamberNegValue.ValueChanged += CamberNegValueChanged;
+        CamberPosValue.ValueChanged += CamberPosValueChanged;
+        ToeNegValue.ValueChanged += ToeNegValueChanged;
+        ToePosValue.ValueChanged += ToePosValueChanged;
     }
 }

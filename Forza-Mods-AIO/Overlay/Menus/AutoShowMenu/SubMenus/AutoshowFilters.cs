@@ -20,9 +20,9 @@ public abstract class AutoshowFilters
 
     public static void InitiateSubMenu()
     {
-        AllCarsToggle.ToggledEventHandler += AllCarsChanged;
-        RareCarsToggle.ToggledEventHandler += RareCarsChanged;
-        FreeCarsToggle.ToggledEventHandler += FreeCarsChanged;
+        AllCarsToggle.Toggled += AllCarsChanged;
+        RareCarsToggle.Toggled += RareCarsChanged;
+        FreeCarsToggle.Toggled += FreeCarsChanged;
     }
 
     private static void AllCarsChanged(object s, EventArgs e)

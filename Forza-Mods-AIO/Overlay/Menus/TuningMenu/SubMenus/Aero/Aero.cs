@@ -59,9 +59,9 @@ public abstract class Aero
 
     public static void InitiateSubMenu()
     {
-        FrontAeroMinValue.ValueChangedEventHandler += FrontAeroMinValueChanged;
-        FrontAeroMaxValue.ValueChangedEventHandler += FrontAeroMaxValueChanged;
-        RearAeroMinValue.ValueChangedEventHandler += RearAeroMinValueChanged;
-        RearAeroMaxValue.ValueChangedEventHandler += RearAeroMaxValueChanged;
+        FrontAeroMinValue.ValueChanged += FrontAeroMinValueChanged;
+        FrontAeroMaxValue.ValueChanged += FrontAeroMaxValueChanged;
+        RearAeroMinValue.ValueChanged += RearAeroMinValueChanged;
+        RearAeroMaxValue.ValueChanged += RearAeroMaxValueChanged;
     }
 }

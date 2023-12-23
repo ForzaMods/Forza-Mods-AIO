@@ -31,10 +31,10 @@ public abstract class Rims
     
     public static void InitiateSubMenu()
     {
-        RimSizeFrontValue.ValueChangedEventHandler += RimSizeFrontValueChanged;
-        RimRadiusFrontValue.ValueChangedEventHandler += RimRadiusFrontValueChanged;
-        RimSizeRearValue.ValueChangedEventHandler += RimSizeRearValueChanged;
-        RimRadiusRearValue.ValueChangedEventHandler += RimRadiusRearValueChanged;
+        RimSizeFrontValue.ValueChanged += RimSizeFrontValueChanged;
+        RimRadiusFrontValue.ValueChanged += RimRadiusFrontValueChanged;
+        RimSizeRearValue.ValueChanged += RimSizeRearValueChanged;
+        RimRadiusRearValue.ValueChanged += RimRadiusRearValueChanged;
     }
 
     private static void RimSizeFrontValueChanged(object s, EventArgs e)

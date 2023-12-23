@@ -29,11 +29,11 @@ public abstract class BackfireMenu
     
     public static void InitiateSubMenu()
     {
-        MinTime.ValueChangedEventHandler += Time_OnValueChanged;
-        MaxTime.ValueChangedEventHandler += Time_OnValueChanged;
-        TimeToggle.ToggledEventHandler += TimeToggle_OnToggled;
-        AntiLagToggle.ToggledEventHandler += AntiLagToggle_OnToggled;
-        NormalToggle.ToggledEventHandler += NormalToggle_OnToggled;
+        MinTime.ValueChanged += Time_OnValueChanged;
+        MaxTime.ValueChanged += Time_OnValueChanged;
+        TimeToggle.Toggled += TimeToggle_OnToggled;
+        AntiLagToggle.Toggled += AntiLagToggle_OnToggled;
+        NormalToggle.Toggled += NormalToggle_OnToggled;
     }
 
     private static void Time_OnValueChanged(object? s, EventArgs e)
@@ -72,7 +72,7 @@ public abstract class BackfireMenu
     private static void AntiLagToggle_OnToggled(object? s, EventArgs e)
     {
         NormalToggle.IsEnabled = !NormalToggle.IsEnabled;
-        BackFire.ForceAntiLag.IsOn = NormalToggle.IsOn;
+        BackFire.ForceAntiLag.IsOn = AntiLagToggle.IsOn;
     }
     
 }

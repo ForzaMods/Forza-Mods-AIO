@@ -168,17 +168,17 @@ public abstract class Gearing
     
     public static void InitiateSubMenu()
     {
-        FinalDriveValue.ValueChangedEventHandler += FinalDriveValueChanged;
-        ReverseGearValue.ValueChangedEventHandler += ReverseGearValueChanged;
-        FirstGearValue.ValueChangedEventHandler += FirstGearValueChanged;
-        SecondGearValue.ValueChangedEventHandler += SecondGearValueChanged;
-        ThirdGearValue.ValueChangedEventHandler += ThirdGearValueChanged;
-        FourthGearValue.ValueChangedEventHandler += FourthGearValueChanged;
-        FifthGearValue.ValueChangedEventHandler += FifthGearValueChanged;
-        SixthGearValue.ValueChangedEventHandler += SixthGearValueChanged;
-        SeventhGearValue.ValueChangedEventHandler += SeventhGearValueChanged;
-        EighthGearValue.ValueChangedEventHandler += EighthGearValueChanged;
-        NinthGearValue.ValueChangedEventHandler += NinthGearValueChanged;
-        TenthGearValue.ValueChangedEventHandler += TenthGearValueChanged;
+        FinalDriveValue.ValueChanged += FinalDriveValueChanged;
+        ReverseGearValue.ValueChanged += ReverseGearValueChanged;
+        FirstGearValue.ValueChanged += FirstGearValueChanged;
+        SecondGearValue.ValueChanged += SecondGearValueChanged;
+        ThirdGearValue.ValueChanged += ThirdGearValueChanged;
+        FourthGearValue.ValueChanged += FourthGearValueChanged;
+        FifthGearValue.ValueChanged += FifthGearValueChanged;
+        SixthGearValue.ValueChanged += SixthGearValueChanged;
+        SeventhGearValue.ValueChanged += SeventhGearValueChanged;
+        EighthGearValue.ValueChanged += EighthGearValueChanged;
+        NinthGearValue.ValueChanged += NinthGearValueChanged;
+        TenthGearValue.ValueChanged += TenthGearValueChanged;
     }
 }
