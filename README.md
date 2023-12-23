@@ -10,6 +10,10 @@ Forza Mods AIO is a free Forza Horizon 4 and Forza Horzion 5 mod tool that aims 
 
 If you want to get a list of all features, planned features and requested features, just look at [our Trello](https://trello.com/b/jXY01dbN/forza-mods-aio)
 
+## License
+
+This app is under the GPL-3.0 license. You can find a copy of it [here](LICENSE). 
+
 ## Credits
 
 This project is made possible by the hard work and dedication of the following individuals:
