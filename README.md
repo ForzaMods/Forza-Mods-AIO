@@ -22,12 +22,11 @@ Ethan - Self/Vehicle, SQL, Overlay, Other backend stuff.
 
 Merik - Self/Vehicle, Overlay, Tuning, AC bypass, Backend.
 
-Draff - Autoshow, AC bypass, Backend.
-
 Mark - Backend help.
 
 Anonymous - AC bypass.
 
+Draff (quit) - Github management and previous work on V1: Autoshow, AC bypass, Backend. No involvement in V2
 
 And all of the people that contributed to the project :)
 
