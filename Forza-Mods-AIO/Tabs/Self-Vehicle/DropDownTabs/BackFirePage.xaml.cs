@@ -25,7 +25,7 @@ public partial class BackFirePage
 
     private void TimeNumerics_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || MaxTime == null)
         {
             return;
         }

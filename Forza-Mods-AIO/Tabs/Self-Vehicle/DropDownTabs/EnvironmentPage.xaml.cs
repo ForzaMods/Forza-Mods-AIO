@@ -14,6 +14,7 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
 public partial class EnvironmentPage
 {
+    public static EnvironmentPage Environment { get; private set; } = null!;
     public static readonly Detour TimeDetour = new();
     public static bool WasTimeDetoured { get; set; }
     private const string TimeDetourBytes = "51 48 83 C3 08 48 89 1D 0A 00 00 00 48 83 EB 08 59";
@@ -21,6 +22,7 @@ public partial class EnvironmentPage
     public EnvironmentPage()
     {
         InitializeComponent();
+        Environment = this;
     }
 
     #region Slider Event Handlers

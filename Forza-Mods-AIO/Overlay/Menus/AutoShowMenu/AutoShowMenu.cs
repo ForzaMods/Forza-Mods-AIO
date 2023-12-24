@@ -18,6 +18,5 @@ public abstract class AutoShowMenu
     {
         AutoshowFilters.InitiateSubMenu();
         GarageModifications.InitiateSubMenu();
-        OthersModifications.InitiateSubMenu();
     }
 }

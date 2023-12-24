@@ -67,13 +67,13 @@ public partial class MainWindow
 
     public readonly Mem M = new()
     {
-        SigScanTasks = Environment.ProcessorCount * (Environment.ProcessorCount / 2)
+        SigScanTasks = Environment.ProcessorCount * (Environment.ProcessorCount / 4)
     };
 
     //public LibraryMapper Mapper = null!;
     public readonly Gamepad Gamepad = new(); 
     public GameVerPlat Gvp = new(null, null, null, null);
-    public bool Attached;
+    public bool Attached { get; private set; }
     private IEnumerable<Visual>? _visuals;
 
     #endregion
@@ -259,6 +259,9 @@ public partial class MainWindow
         AutoshowGarageOption.IsEnabled = false;
         SelfVehicleOption.IsEnabled = false;
         TuningOption.IsEnabled = false;
+        
+        Mw.M._memoryCache.Clear();
+        Mw.M._signatureResultCache.Clear();
     }
 
     private void ResetUi()
@@ -360,7 +363,6 @@ public partial class MainWindow
         //TODO Cleanup here
 
         TuningAsm.Cleanup();
-        AutoshowVars.ResetMem();
         UnlocksPage.XpDetour.Destroy();
         UnlocksPage.CrDetour.Destroy();
         UnlocksPage.SeasonalDetour.Destroy();   

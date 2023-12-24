@@ -821,9 +821,26 @@ public partial class OverlayHandling
     
     private void NavigateDown()
     {
+        if (!O.AllMenus.TryGetValue(_currentMenu, out var value))
+        {
+            return;
+        }
+
         _selectedOptionIndex++;
-        if (_selectedOptionIndex <= O.AllMenus[_currentMenu].Count - 1) return;
-        _selectedOptionIndex = 0;
+        var menuOptionsCount = value.Count;
+        if (_selectedOptionIndex <= menuOptionsCount - 1)
+        {
+            return;
+        }
+
+        if (menuOptionsCount > 0)
+        {
+            _selectedOptionIndex %= menuOptionsCount;
+        }
+        else
+        {
+            _selectedOptionIndex = 0;
+        }
     }
     
     private void HandleUpNavigation(CancellationToken ct)
@@ -857,9 +874,25 @@ public partial class OverlayHandling
     
     private void NavigateUp()
     {
+        if (!O.AllMenus.TryGetValue(_currentMenu, out var value))
+        {
+            return;
+        }
+
         _selectedOptionIndex--;
-        if (_selectedOptionIndex >= 0) return;
-        _selectedOptionIndex = O.AllMenus[_currentMenu].Count - 1;
+        if (_selectedOptionIndex >= 0)
+        {
+            return;
+        }
+
+        if (value.Count > 0)
+        {
+            _selectedOptionIndex = (value.Count - 1 + _selectedOptionIndex) % value.Count + 1;
+        }
+        else
+        {
+            _selectedOptionIndex = 0;
+        }
     }
     
     public void ChangeValue(CancellationToken ct)

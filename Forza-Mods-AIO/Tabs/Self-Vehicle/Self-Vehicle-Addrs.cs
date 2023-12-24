@@ -204,7 +204,7 @@ internal class SelfVehicleAddresses
         SignaturesFive();
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 38;
+        Sv.UiManager.ScanAmount = 39;
 
         XpAddr = Mw.M.ScanForSig(_xpAob).FirstOrDefault() - 14;
         XpAmountAddr = XpAddr - 133;
@@ -226,7 +226,6 @@ internal class SelfVehicleAddresses
         Sv.UiManager.AddProgress();
 
         //SuperCarAddr = Mw.M.ScanForSig(_superCarAob).LastOrDefault();
-        Shp!.Dispatcher.Invoke(() => Shp.SuperCarSwitch.IsEnabled = false);
         Sv.UiManager.AddProgress();
 
         WaterAddr = Mw.M.ScanForSig(_waterAob).FirstOrDefault() + 553;
@@ -331,6 +330,12 @@ internal class SelfVehicleAddresses
         
         SelfVehicleOption.IsEnabled = true;
         Sv.UiManager.ToggleUiElements(true);
+        Sv.Dispatcher.BeginInvoke((Action)delegate
+        {
+            Sv.StatsButton.IsEnabled = false;
+            Shp.SuperCarSwitch.IsEnabled = false;
+            EnvironmentPage.Environment.OOBSwitch.IsEnabled = false;
+        });
     }
     #endregion
 
@@ -438,7 +443,12 @@ internal class SelfVehicleAddresses
         SelfVehicleOption.IsEnabled = true;
         Sv.UiManager.ToggleUiElements(true);
         
-        Sv.Dispatcher.Invoke(() => Sv.BackFireButton.IsEnabled = false);
+        Sv.Dispatcher.BeginInvoke((Action)delegate
+        {
+            Sv.BackFireButton.IsEnabled = false;
+            Sv.StatsButton.IsEnabled = false;
+            EnvironmentPage.Environment.OOBSwitch.IsEnabled = false;
+        });
     }
     #endregion
 

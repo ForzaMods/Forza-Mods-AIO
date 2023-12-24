@@ -42,43 +42,54 @@
                    FontSize="16" 
                    FontWeight="Bold"/>
             
-            <Label Content="All Cars" 
-                   HorizontalAlignment="Left" 
-                   VerticalAlignment="Top" 
-                   Margin="135,45,0,0"/>
-            
-            <Label Content="Rare Cars" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Top"
-                   Margin="0,45,0,0"/>
-            
-            <Label Content="Free Cars"
-                   HorizontalAlignment="Right" 
-                   VerticalAlignment="Top"
-                   Margin="0,45,135,0" />
-            
-            <mah:ToggleSwitch x:Name="ToggleFreeCars" 
-                              Margin="0,70,142,0" 
-                              VerticalAlignment="Top" 
-                              HorizontalAlignment="Right" 
-                              Width="45" MinWidth="0" 
-                              Content="" Toggled="FreeCars_OnToggled"/>
-            
-            <mah:ToggleSwitch x:Name="ToggleAllCars" 
-                              Margin="137.5,70,0,0" 
-                              VerticalAlignment="Top" 
-                              HorizontalAlignment="Left"
-                              Width="45" MinWidth="0" 
-                              Content="" 
-                              Toggled="AllCars_OnToggled"/>
-            
-            <mah:ToggleSwitch x:Name="ToggleRareCars" 
-                              Margin="0,70,0,0" 
-                              VerticalAlignment="Top" 
-                              HorizontalAlignment="Center" 
-                              Width="45" MinWidth="0" 
-                              Content="" 
-                              Toggled="RareCars_OnToggled"/>
+            <StackPanel Margin="0 45 0 0" HorizontalAlignment="Center" Orientation="Horizontal">
+                   
+                   <StackPanel>
+                          
+                          <Label Content="All Cars" 
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Top" />
+                          
+                          <mah:ToggleSwitch x:Name="ToggleAllCars" 
+                                            VerticalAlignment="Top" 
+                                            HorizontalAlignment="Center"
+                                            Width="45" MinWidth="0" 
+                                            Content="" 
+                                            Toggled="AllCars_OnToggled"/>
+                   </StackPanel>
+                   
+                   <StackPanel Margin="50 0 0 0">
+
+                          <Label Content="Rare Cars" 
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Top"/>
+                          
+                                      
+                          <mah:ToggleSwitch x:Name="ToggleRareCars" 
+                                            VerticalAlignment="Top" 
+                                            HorizontalAlignment="Center" 
+                                            Width="45" MinWidth="0" 
+                                            Content="" 
+                                            Toggled="RareCars_OnToggled"/>
+                          
+                   </StackPanel>
+                   
+
+                   <StackPanel Margin="50 0 0 0">
+                                      
+                          <Label Content="Free Cars"
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Top"/>
+
+                          
+                          <mah:ToggleSwitch x:Name="ToggleFreeCars" 
+                                            VerticalAlignment="Top" 
+                                            HorizontalAlignment="Center" 
+                                            Width="45" MinWidth="0" 
+                                            Content="" Toggled="FreeCars_OnToggled"/>
+                   </StackPanel>
+
+            </StackPanel>
             
         </Grid>
            
@@ -98,138 +109,151 @@
                              FontSize="16" 
                              FontWeight="Bold"/>
                       
-                      <Label Content="Clear “new” tag on cars" 
-                             HorizontalAlignment="Left" 
-                             VerticalAlignment="Top" 
-                             Margin="25,45 0 0"/>
+                      <StackPanel Orientation="Horizontal" Margin="0 45 0 0" HorizontalAlignment="Center">
+                             
+                             <StackPanel>
+                                    
+                                    <Label Content="Unlock Hidden Presets"
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Top" />
+
+
+                                    <mah:ToggleSwitch x:Name="UnlockHiddenPresets" 
+                                                      VerticalAlignment="Top" 
+                                                      HorizontalAlignment="Center"
+                                                      Width="45" MinWidth="0"
+                                                      Content="" 
+                                                      Toggled="UnlockHiddenPresets_OnToggled" />
+
+                                    
+                             </StackPanel>
+                             
+                             <StackPanel Margin="15 0 0 0">
+                                    
             
-                      <Label Content="Remove Any Car" 
-                             HorizontalAlignment="Left" 
-                             VerticalAlignment="Top"
-                             Margin="185,45 0 0" />
+                                    <Label Content="Remove Any Car" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Top"/>
+                                    
+                                    
+                                    <mah:ToggleSwitch x:Name="RemoveAnyCar" 
+                                                      VerticalAlignment="Top" 
+                                                      HorizontalAlignment="Center"
+                                                      Width="45" MinWidth="0" 
+                                                      Content="" 
+                                                      Toggled="RemoveAnyCar_OnToggled"/>
+                             </StackPanel>
+                             
+                             <StackPanel Margin="15 0 0 0">
+                                                          
             
-                      <Label Content="Fix Thumbnails" 
-                             HorizontalAlignment="Right" 
-                             VerticalAlignment="Top"
-                             Margin="0,45 185 0" />
+                                    <Label Content="Show Traffic/HS/Null" 
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Top"/>
             
-                      <Label Content="Show Traffic/HS/Null" 
-                             HorizontalAlignment="Right"
-                             VerticalAlignment="Top"
-                             Margin="0,45 25 0"/>
             
-                      <mah:ToggleSwitch x:Name="ClearTag" 
-                                        VerticalAlignment="Top"
-                                        HorizontalAlignment="Left"
-                                        Margin="65 70 0 0" 
-                                        Width="45" MinWidth="0" 
-                                        Content="" 
-                                        Toggled="ClearTag_OnToggled" />
-                      
-                      <mah:ToggleSwitch x:Name="RemoveAnyCar" 
-                                        VerticalAlignment="Top" 
-                                        HorizontalAlignment="Left"
-                                        Margin="212.5 70 0 0" 
-                                        Width="45" MinWidth="0" 
-                                        Content="" 
-                                        Toggled="RemoveAnyCar_OnToggled"/>
-                      
-                      <mah:ToggleSwitch x:Name="FixThumbnails" 
-                                        Margin="0,70,207.5,0" 
-                                        VerticalAlignment="Top" 
-                                        HorizontalAlignment="Right"
-                                        Width="45" MinWidth="0" 
-                                        Content="" 
-                                        Toggled="FixThumbnails_OnToggled"/>
-            
-                      <mah:ToggleSwitch x:Name="ShowTrafficHsNull" 
-                                        VerticalAlignment="Top"
-                                        HorizontalAlignment="Right"
-                                        Margin="0,70,63.5,0" 
-                                        Width="45" MinWidth="0" 
-                                        Content="" 
-                                        Toggled="ShowTrafficHSNull_OnToggled"/>
+                                    <mah:ToggleSwitch x:Name="ShowTrafficHsNull" 
+                                                      VerticalAlignment="Top"
+                                                      HorizontalAlignment="Center"
+                                                      Width="45" MinWidth="0" 
+                                                      Content="" 
+                                                      Toggled="ShowTrafficHSNull_OnToggled"/>
+                             </StackPanel>
+                             
+                      </StackPanel>
+
                </Grid>
                
                <Grid Row="1">
             
-                      <Label Content="Unlock Hidden Decals" 
-                             HorizontalAlignment="Left" 
-                             VerticalAlignment="Top" 
-                             Margin="25,20 0 0"/>
+                      <StackPanel Margin="0 10 0 0" HorizontalAlignment="Center" Orientation="Horizontal">
 
-                      <Label Content="Unlock Hidden Presets"
-                             HorizontalAlignment="Left" 
-                             VerticalAlignment="Top"
-                             Margin="175,20 0 0" />
+                            <StackPanel>
+                                   
+                                   <Label Content="Clear “new” tag on cars" 
+                                          HorizontalAlignment="Center" 
+                                          VerticalAlignment="Top" />
+                                   
+                                   
+                                   <Button x:Name="ClearTag" 
+                                           VerticalAlignment="Top"
+                                           HorizontalAlignment="Center"
+                                           Width="45" MinWidth="0" 
+                                           Margin="0 5 0 0"
+                                           Content="Run" 
+                                           Background="#FF2E3440"
+                                           BorderBrush="#FF2E3440"
+                                           Click="ClearTag_OnToggled" />
+                                   
+                            </StackPanel>
+                             
+                             
+                             <StackPanel Margin="15 0 0 0">
+                                    
+                                    <Label Content="Clear Garage" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                    
+                                    <StackPanel Margin="0 5 0 0" Orientation="Horizontal">
+                                           <ComboBox x:Name="ClearGarageBox"
+                                                     Width="110"
+                                                     BorderThickness="0"
+                                                     VerticalAlignment="Top"
+                                                     IsEditable="False"
+                                                     HorizontalAlignment="Right"
+                                                     SelectedIndex="0"
+                                                     Focusable="False"
+                                                     IsTabStop="False"
+                                                     Background="#FF2E3440"
+                                                     BorderBrush="#FF2E3440"
+                                                     SelectionChanged="ClearGarageBox_OnSelectionChanged">
 
-                      <Label Content="Paint Lego Cars"
-                             HorizontalAlignment="Right" 
-                             VerticalAlignment="Top"
-                             Margin="0,20 185 0" />
+                                                  <ComboBoxItem Content="All" />
+                                                  <ComboBoxItem Content="Dupes" />
+                                                  <ComboBoxItem Content="Non favorites" />
+                                                  <ComboBoxItem Content="Rare cars" />
+                                                  <ComboBoxItem Content="Auto-show cars" />
+                                                  <ComboBoxItem Content="Only untuned" />
+                                                  <ComboBoxItem Content="Non livery" />
+                                           </ComboBox>
+                                           
+                                           
+                                           <Button x:Name="ClearGarage" 
+                                                   VerticalAlignment="Top" 
+                                                   HorizontalAlignment="Right"
+                                                   Width="45" MinWidth="0" 
+                                                   Content="Run" 
+                                                   Margin="15 0 0 0"
+                                                   Background="#FF2E3440"
+                                                   BorderBrush="#FF2E3440"
+                                                   Click="ClearGarage_OnToggled" />
 
-                      <Label Content="Clear Garage"
-                             HorizontalAlignment="Right"
-                             VerticalAlignment="Top"
-                             Margin="0,20 45 0"/>
+                                           
+                                    </StackPanel>
+                                    
+                             </StackPanel>
+                             
+                             <StackPanel Margin="15 0 0 0">
+                                    
 
+                                    <Label Content="Fix Thumbnails" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Top"/>
 
-                      <mah:ToggleSwitch x:Name="UnlockHiddenDecals"
-                                        VerticalAlignment="Top" 
-                                        HorizontalAlignment="Left" 
-                                        Margin="65 45 0 0" 
-                                        Width="45" MinWidth="0"
-                                        Content="" 
-                                        Toggled="UnlockHiddenDecals_OnToggled" />
-
-
-                      <mah:ToggleSwitch x:Name="UnlockHiddenPresets" 
-                                        VerticalAlignment="Top" 
-                                        HorizontalAlignment="Left"
-                                        Margin="212.5 45 0 0" 
-                                        Width="45" MinWidth="0"
-                                        Content="" 
-                                        Toggled="UnlockHiddenPresets_OnToggled" />
-
-                      <mah:ToggleSwitch x:Name="PaintLegoCars"
-                                        VerticalAlignment="Top"
-                                        HorizontalAlignment="Right"
-                                        Margin="0,45,207.5,0"
-                                        Width="45" MinWidth="0"
-                                        Content=""
-                                        Toggled="PaintLegoCars_OnToggled" />
-
-                      <mah:ToggleSwitch x:Name="ClearGarage" 
-                                        VerticalAlignment="Top" 
-                                        HorizontalAlignment="Right"
-                                        Margin="0,45,20,0" 
-                                        Width="45" MinWidth="0" 
-                                        Content="" 
-                                        Toggled="ClearGarage_OnToggled" />
-
-                      <ComboBox x:Name="ClearGarageBox"
-                                Width="110"
-                                BorderThickness="0"
-                                VerticalAlignment="Top"
-                                IsEditable="False"
-                                HorizontalAlignment="Right"
-                                Margin="0 46.5 75 0"
-                                SelectedIndex="0"
-                                Focusable="False"
-                                IsTabStop="False"
-                                Background="#FF2E3440"
-                                BorderBrush="#FF2E3440"
-                                SelectionChanged="ClearGarageBox_OnSelectionChanged">
-
-                             <ComboBoxItem Content="All" />
-                             <ComboBoxItem Content="Dupes" />
-                             <ComboBoxItem Content="Non favorites" />
-                             <ComboBoxItem Content="Rare cars" />
-                             <ComboBoxItem Content="Auto-show cars" />
-                             <ComboBoxItem Content="Only untuned" />
-                             <ComboBoxItem Content="Non livery" />
-                      </ComboBox>
-            
+                                    
+                                    
+                                    <Button x:Name="FixThumbnails" 
+                                            VerticalAlignment="Top" 
+                                            HorizontalAlignment="Center"
+                                            Width="45" MinWidth="0" 
+                                            Margin="0 5 0 0"
+                                            Content="Run" 
+                                            Background="#FF2E3440"
+                                            BorderBrush="#FF2E3440"
+                                            Click="FixThumbnails_OnToggled"/>
+                                    
+                             </StackPanel>
+                             
+                      </StackPanel>
+                      
                       
                </Grid>
             
@@ -244,57 +268,84 @@
                      FontSize="16" 
                      FontWeight="Bold"/>
               
-              <Label Content="Free Perf Upgrades" 
-                     HorizontalAlignment="Left" 
-                     VerticalAlignment="Bottom"
-                     Margin="25,0,0,52.5" />
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 40 0 0">
+                     
+                     <StackPanel>
+                            
+                            <Label Content="Free Perf Upgrades" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center"/>
+                            
+                            <Button x:Name="FreePerfUpgrades" 
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" 
+                                    Width="45" MinWidth="0" 
+                                    Margin="0 5 0 0"
+                                    Content="Run" 
+                                    Background="#FF2E3440"
+                                    BorderBrush="#FF2E3440"
+                                    Click="FreePerfUpgrades_OnToggled"/>
+                     </StackPanel>
+                     
+                     <StackPanel Margin="15 0 0 0">
+                            
+                            <Label Content="Free Visual Upgrades"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Bottom" />
+                            
+                            <Button x:Name="FreeVisualUpgrades"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Bottom"
+                                    Width="45" MinWidth="0"
+                                    Margin="0 5 0 0"
+                                    Content="Run" 
+                                    Background="#FF2E3440"
+                                    BorderBrush="#FF2E3440"
+                                    Click="FreeVisualUpgrades_OnToggled"/>
+                     </StackPanel>
+
+                     <StackPanel Margin="15 0 0 0">
+                            
+                            <Label Content="Quick Add All Cars" 
+                                   VerticalAlignment="Bottom"
+                                   HorizontalAlignment="Center" />
+                            
+                            <Button x:Name="QuickAddAllCars" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Bottom" 
+                                    Width="45" MinWidth="0" 
+                                    Margin="0 5 0 0"
+                                    Content="Run"
+                                    Background="#FF2E3440"
+                                    BorderBrush="#FF2E3440"
+                                    Click="AddAllCars_OnToggled"/>
+                            
+                     </StackPanel>
+
+                     <StackPanel Margin="15 0 0 0">
+                            
               
-              <Label Content="Free Visual Upgrades"
-                     HorizontalAlignment="Left" 
-                     VerticalAlignment="Bottom"
-                     Margin="165,0,0,52.5" />
+                            <Label Content="Quick Add Rare Cars" 
+                                   VerticalAlignment="Bottom"
+                                   HorizontalAlignment="Center"/>
+
               
-              <Label Content="Quick Add All Cars" 
-                     VerticalAlignment="Bottom"
-                     HorizontalAlignment="Right" 
-                     Margin="0,0,165,52.5" />
+                            <Button x:Name="QuickAddRareCars" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Bottom" 
+                                    Width="45" MinWidth="0" 
+                                    Margin="0 5 0 0"
+                                    Background="#FF2E3440"
+                                    BorderBrush="#FF2E3440"
+                                    Content="Run" 
+                                    Click="AddRareCars_OnToggled"/>
+
+                            
+                     </StackPanel>
+
+              </StackPanel>
               
-              <Label Content="Quick Add Rare Cars" 
-                     VerticalAlignment="Bottom"
-                     HorizontalAlignment="Right"
-                     Margin="0,0,25,52.5"/>
               
-              <mah:ToggleSwitch x:Name="FreePerfUpgrades" 
-                                Margin="55 0 0 20" 
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Bottom" 
-                                Width="45" MinWidth="0" 
-                                Content="" 
-                                Toggled="FreePerfUpgrades_OnToggled"/>
-              
-              <mah:ToggleSwitch x:Name="FreeVisualUpgrades"
-                                Margin="200 0 0 20" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Bottom"
-                                Width="45" MinWidth="0"
-                                Content="" 
-                                Toggled="FreeVisualUpgrades_OnToggled"/>
-              <mah:ToggleSwitch x:Name="QuickAddAllCars" 
-                                Margin="0 0 200 20" 
-                                HorizontalAlignment="Right" 
-                                VerticalAlignment="Bottom" 
-                                Width="45" MinWidth="0" 
-                                Content="" 
-                                Toggled="AddAllCars_OnToggled"/>
-              
-              <mah:ToggleSwitch x:Name="QuickAddRareCars" 
-                                Margin="0 0 61.5 20" 
-                                HorizontalAlignment="Right" 
-                                VerticalAlignment="Bottom" 
-                                Width="45" MinWidth="0" 
-                                Content="" 
-                                Toggled="AddRareCars_OnToggled"/>
-        
         </Grid>
         
     </Grid>
