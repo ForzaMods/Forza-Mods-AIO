@@ -33,7 +33,6 @@ public class Detour : Asm
         UIntPtr varAddressOffset = 0,
         bool saveOrigBytesToDetour = false)
     {
-        // return true if detour was already setup
         if (IsSetup)
         {
             return true;
@@ -56,16 +55,13 @@ public class Detour : Asm
             replaceCount = 5;
         }
         
-        // disable the button bound to the detour for the detour create time
         CurrentDispatcher.BeginInvoke(delegate ()
         {
             button?.GetType().GetProperty("IsEnabled")?.SetValue(button, false);
         });
 
-        // save original bytes to toggle the hook
         _originalBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, replaceCount);
 
-        // delete any spaces if user hasn't cleared them
         if (detourBytes.Contains(' '))
         {
             detourBytes = detourBytes.Replace(" ", "");
@@ -80,8 +76,12 @@ public class Detour : Asm
             BlockCopy(finalDetourBytes, 0, combinedBytes, _originalBytes.Length, finalDetourBytes.Length);
             finalDetourBytes = combinedBytes;
         }
+
+        if (Mw.Gvp.Name.Contains('5'))
+        {
+            Bypass.DisableAntiCheat();
+        }
         
-        // finally, create detour
         if (!CreateDetour(finalDetourBytes, replaceCount))
         {
             CurrentDispatcher.BeginInvoke(delegate ()
@@ -93,14 +93,11 @@ public class Detour : Asm
         
         if (useVarAddress)
         {
-            // address of allocated mem + size of detour bytes + offset + size of jmp back
             VariableAddress = _allocatedAddress + (UIntPtr)finalDetourBytes.Length + varAddressOffset + 5;
         }
 
-        // save new/jmp bytes for hook toggle
         _newBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, replaceCount);
         
-        // then, enable the button and return true
         CurrentDispatcher.BeginInvoke(delegate ()
         {
             button?.GetType().GetProperty("IsEnabled")?.SetValue(button, true);
@@ -158,6 +155,7 @@ public class Detour : Asm
     {
         if (_firstTime)
         {
+            IsHooked = true;
             _firstTime = false;
             return;
         }

@@ -96,7 +96,7 @@ public partial class UnlocksPage
             return;
         }
         
-        var xpDetourBytes = Mw.Gvp.Name!.Contains('5') ? XpDetourFh4 : XpDetourFh5;
+        var xpDetourBytes = Mw.Gvp.Name!.Contains('5') ? XpDetourFh5 : XpDetourFh4;
         if (!XpDetour.Setup(sender, XpAddr, xpDetourBytes, 7, true, 19))
         {
             FailedHandler(XpSwitch, XpSwitch_OnToggled);
@@ -105,7 +105,7 @@ public partial class UnlocksPage
             return;
         }
 
-        XpNum.IsEnabled = true;
+        XpDetour.Toggle();
 
         if (XpDetour.IsHooked)
         {
@@ -114,10 +114,9 @@ public partial class UnlocksPage
         else
         {
             Mw.M.WriteArrayMemory(XpAmountAddr, Mw.Gvp.Name.Contains('5')
-                    ? new byte[] { 0x8B, 0x89, 0xB8, 0x00, 0x00, 0x00 }
-                    : new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
+                ? new byte[] { 0x8B, 0x89, 0xB8, 0x00, 0x00, 0x00 }
+                : new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
         }
-        XpDetour.Toggle();
     }
 
     private void XpNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -189,6 +188,8 @@ public partial class UnlocksPage
             MessageBox.Show("This feature was never ported to fh4");
             return;
         }
+
+        MessageBox.Show("In order to get target points you need to complete any series challenge");
         
         if (!SeriesDetour.Setup(sender, SeriesAddr, Series, 5, true))
         {

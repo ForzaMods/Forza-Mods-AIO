@@ -789,7 +789,8 @@ public partial class HandlingPage
         {
             return;
         }
-
+        
+        Bypass.DisableAntiCheat();
         if (!CarNoclipSwitch.IsOn)
         {
             Mw.M.WriteArrayMemory(Car1Addr, Mw.Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 });
@@ -810,6 +811,7 @@ public partial class HandlingPage
             return;
         }
 
+        Bypass.DisableAntiCheat();
         if (!WallNoclipSwitch.IsOn)
         {
             Mw.M.WriteArrayMemory(Wall1Addr, Mw.Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 } );

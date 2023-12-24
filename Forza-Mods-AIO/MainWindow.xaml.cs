@@ -63,13 +63,9 @@ public partial class MainWindow
 
     #region Variables
 
-    public static MainWindow Mw { get; private set; } = null!;
+    public static MainWindow Mw { get; private set; } = null!; 
 
-    public readonly Mem M = new()
-    {
-        SigScanTasks = Environment.ProcessorCount * (Environment.ProcessorCount / 4)
-    };
-
+    public readonly Mem M = new() { SigScanTasks = Environment.ProcessorCount };
     //public LibraryMapper Mapper = null!;
     public readonly Gamepad Gamepad = new(); 
     public GameVerPlat Gvp = new(null, null, null, null);
@@ -171,7 +167,6 @@ public partial class MainWindow
                     continue;
 
                 GvpMaker(5);
-                DisableAntiCheat(5);
                 ToggleButtons(true);
                 Attached = true;
             }
@@ -181,7 +176,6 @@ public partial class MainWindow
                     continue;
 
                 GvpMaker(4);
-                DisableAntiCheat(4);
                 ToggleButtons(true);
                 Attached = true;
             }
@@ -418,6 +412,10 @@ public partial class MainWindow
                 Mw.M.WriteMemory(SmashableCollisionTolerance,22f);
             }
 
+            Mw.M.WriteArrayMemory(XpAmountAddr, Mw.Gvp.Name.Contains('5')
+                ? new byte[] { 0x8B, 0x89, 0xB8, 0x00, 0x00, 0x00 }
+                : new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
+            
             M.WriteArrayMemory(AiXAddr, new byte[] { 0x0F, 0x11, 0x41, 0x50, 0x48, 0x8B, 0xFA });
             M.WriteArrayMemory(Car2Addr, new byte[] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00 });
         }

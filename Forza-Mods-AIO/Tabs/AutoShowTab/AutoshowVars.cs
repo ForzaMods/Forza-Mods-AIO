@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using Forza_Mods_AIO.Resources;
 using MahApps.Metro.Controls;
 using static System.BitConverter;
 using static System.Buffer;
@@ -165,7 +166,7 @@ internal class AutoshowVars
 
         BlockCopy(GetBytes(rdx.ToUInt64()), 0, shellCode, 0x02, 8);
         BlockCopy(GetBytes(r8.ToUInt64()), 0, shellCode, 0x0C, 8);
-
+        
         var callFunction = GetVirtualFunctionPtr(_ptr, VirtualFunctionIndex);
 
         BlockCopy(GetBytes(callFunction.ToUInt64()), 0, shellCode, shellCode.Length - 8, 8);
@@ -174,6 +175,11 @@ internal class AutoshowVars
 
         WriteProcessMemory(procHandle, allocShellCodeAddress, shellCode, (nuint)shellCode.Length, nint.Zero);
 
+        if (Mw.Gvp.Name.Contains('4'))
+        {
+            Bypass.DisableAntiCheat();
+        }
+        
         var handle = CreateRemoteThread(procHandle, (nint)null, 0, allocShellCodeAddress, rcx, 0, out _);
 
         WaitForSingleObject(handle, int.MaxValue);

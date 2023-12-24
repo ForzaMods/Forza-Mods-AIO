@@ -61,7 +61,7 @@ internal class SelfVehicleAddresses
     private static string? _car1Aob, _car2Aob, _wall1Aob, _wall2Aob;
     private static string? _timeAob;
     private static string? _wayPointXAsmAob;
-    private static string? _xpAob, _creditsAsmAob;
+    private static string? _xpAob, _xpAmountAob, _creditsAsmAob;
     private static string? _oobAob;
     private static string? _superCarAob;
     private static string? _discoverRoadsAob;
@@ -107,6 +107,7 @@ internal class SelfVehicleAddresses
         _timeAob = "20 F2 0F 11 43 08 48 83";
         _wayPointXAsmAob = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50 C1 83 E0 07 3C 07";
         _xpAob = "F3 0F ? ? 89 45 ? 48 8D ? ? ? ? ? 41 83 BD C0 00 00 00";
+        _xpAmountAob = "8B 89 ? ? ? ? 85 C9 0F 8E";
         _oobAob = "0F 11 ? ? ? ? ? 0F 5C ? 0F 59 ? 0F 28 ? 0F C6 CA ? F3 0F";
         _superCarAob = "0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 48 83 C2 ? 0F 11 ? ? 48 83 C1 ? E8 ? ? ? ? 0F 10";
         _discoverRoadsAob = "00 96 42 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 40 1C 45 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 03 00";
@@ -137,6 +138,7 @@ internal class SelfVehicleAddresses
         _baseAddrHookAob = "48 63 ? 48 69 D0 ? ? ? ? 48 8B ? ? ? ? ? ? 48 85 ? 74 ? 48 8B ? ? ? ? ? C3 C3 40";
         _sunRgbAob = "81 80 80 3B 81 80 80 3B 81 80 80 3B 81 80 80 3B";
         _xpAob = "41 83 BF 88 00 00 00";
+        _xpAmountAob = "8B 89 ? ? ? ? 85 C9 0F 8E";
         _car1Aob = "4C 8B ? ? ? ? ? ? 49 83 C0 ? 66 44";
         _wall1Aob = "45 0F ? ? 4D 8B ? 90";
         _wall2Aob = "45 0F ? ? 4D 8B ? 0F 1F";
@@ -207,7 +209,7 @@ internal class SelfVehicleAddresses
         Sv.UiManager.ScanAmount = 39;
 
         XpAddr = Mw.M.ScanForSig(_xpAob).FirstOrDefault() - 14;
-        XpAmountAddr = XpAddr - 133;
+        XpAmountAddr = Mw.M.ScanForSig(_xpAmountAob).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
         var sunRgbAddr = Mw.M.ScanForSig(_sunRgbAob).LastOrDefault();
@@ -362,7 +364,7 @@ internal class SelfVehicleAddresses
         Sv.UiManager.AddProgress();
 
         XpAddr = Mw.M.ScanForSig(_xpAob).FirstOrDefault();
-        XpAmountAddr = XpAddr - 80;
+        XpAmountAddr = Mw.M.ScanForSig(_xpAmountAob).FirstOrDefault();
         Sv.UiManager.AddProgress();
         
         Car1Addr = Mw.M.ScanForSig(_car1Aob).FirstOrDefault() + 106;
