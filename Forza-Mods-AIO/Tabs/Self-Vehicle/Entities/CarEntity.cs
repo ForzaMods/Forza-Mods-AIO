@@ -14,7 +14,7 @@ public abstract class CarEntity
     private const string BaseDetourBytesFh5 = "48 81 E9 70 05 00 00 48 89 0D 0C 00 00 00 48 81 C1 70 05 00 00";
     private const string BaseDetourBytesFh4 = "48 81 E9 60 05 00 00 48 89 0D 0C 00 00 00 48 81 C1 60 05 00 00";
     
-    public static void Hook()
+    public static async void Hook()
     {
         if (!BaseDetour.IsHooked)
         {
@@ -22,10 +22,19 @@ public abstract class CarEntity
             BaseDetour.Setup(BaseAddrHook, baseDetourBytes, 8, true);
         }
 
-        while ((PlayerCarEntity = BaseDetour.ReadVariable<UIntPtr>()) == 0)
+        var taskCompletionSource = new TaskCompletionSource<bool>();
+        
+        Task.Run(() =>
         {
-            Task.Delay(1).Wait();
-        }
+            while ((PlayerCarEntity = BaseDetour.ReadVariable<UIntPtr>()) == 0)
+            {
+                Task.Delay(1).Wait();
+            }
+            
+            taskCompletionSource.SetResult(true);
+        });
+
+        await taskCompletionSource.Task;
     }
     
     #region Floats

@@ -318,6 +318,7 @@ public partial class MainWindow
         CustomizationPage.CleanlinessDetour.Clear();
         FovPage.FovLockDetour.Clear();
         EnvironmentPage.TimeDetour.Clear();
+        EnvironmentPage.FreezeAiDetour.Clear();
         LocatorEntity.WaypointDetour.Clear();
         CarEntity.BaseDetour.Clear();
         LocatorEntity.WaypointDetour.Clear();
@@ -369,6 +370,7 @@ public partial class MainWindow
         CarEntity.BaseDetour.Destroy();
         LocatorEntity.WaypointDetour.Destroy();
         EnvironmentPage.TimeDetour.Destroy();
+        EnvironmentPage.FreezeAiDetour.Destroy();
         LocatorEntity.WaypointDetour.Destroy();
         HandlingPage.FlyHackDetour.Destroy();
         MiscellaneousPage.Build1Detour.Destroy();
@@ -416,7 +418,6 @@ public partial class MainWindow
                 ? new byte[] { 0x8B, 0x89, 0xB8, 0x00, 0x00, 0x00 }
                 : new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
             
-            M.WriteArrayMemory(AiXAddr, new byte[] { 0x0F, 0x11, 0x41, 0x50, 0x48, 0x8B, 0xFA });
             M.WriteArrayMemory(Car2Addr, new byte[] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00 });
         }
         catch { /* ignored */ }

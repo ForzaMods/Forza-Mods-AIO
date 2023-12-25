@@ -280,16 +280,16 @@ internal class TuningAddresses
         Wheelbase = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0xC0 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0xD0");
         FrontWidth = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0xC4 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0xD4");
         RearWidth = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0xC8 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0xD8");
-        FrontSpacer = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x610 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x9F8");
-        RearSpacer = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x614 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x9FC");
+        FrontSpacer = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x610 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x9FC");
+        RearSpacer = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x614 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0xA00");
 
-        AngleMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x534 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x824");
-        AngleMax2 = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x538 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x828");
-        VelocityStraight = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x53C : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x82C");
-        VelocityTurning = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x540 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x830");
-        VelocityCountersteer = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x544 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x834");
-        VelocityDynamicPeek = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x548 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x838");
-        TimeToMaxSteering = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x54C : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x83C");
+        AngleMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x534 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x828");
+        AngleMax2 = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x538 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x82C");
+        VelocityStraight = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x53C : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x830");
+        VelocityTurning = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x540 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x834");
+        VelocityCountersteer = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x544 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x838");
+        VelocityDynamicPeek = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x548 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x83C");
+        TimeToMaxSteering = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x54C : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x840");
     }
         
     private static void ReadValues()

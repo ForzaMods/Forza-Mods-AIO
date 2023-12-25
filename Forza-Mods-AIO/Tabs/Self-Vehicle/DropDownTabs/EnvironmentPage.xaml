@@ -41,7 +41,7 @@
         <Border BorderThickness="2,2,2,2"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Width="152.5"
+                Width="140"
                 Height="46"
                 Margin="12,176,0,0"
                 BorderBrush="#FF2E3440" />
@@ -49,18 +49,41 @@
         <Border BorderThickness="2,2,2,2"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Width="142.5"
+                Width="130"
                 Height="46"
-                Margin="172.5,176,0,0"
+                Margin="160,176,0,0"
                 BorderBrush="#FF2E3440" />
+        
+        
+        <Border BorderThickness="2,2,2,2"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="130"
+                Height="46"
+                Margin="295,176,0,0"
+                BorderBrush="#FF2E3440">
+                        
+                <Grid>
+                        
+                        <mah:ToggleSwitch x:Name="FreezeAi" 
+                                          FontSize="11"
+                                          Content="Freeze AI"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          MinWidth="0"
+                                          Toggled="FreezeAi_OnToggled"/>
+                        
+                </Grid>
+                
+        </Border>
         
         <Border BorderThickness="2,2,2,2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Width="245"
+                Width="135"
                 Height="46"
                 Margin="0,176,12,0"
-                BorderBrush="#FF2E3440" />
+                BorderBrush="#FF2E3440"/>
         
         <Label Content="Sun Red" 
                HorizontalAlignment="Right"
@@ -161,44 +184,32 @@
                 Margin="0 130 105 0"
                 Click="ResetButton_OnClick" />
         
-        <mah:ToggleSwitch Content=""
+        <mah:ToggleSwitch Content="Manual Time"
+                          FontSize="11"
                           x:Name="TimeSwitch"
                           MinWidth="0"
                           VerticalAlignment="Bottom"
                           HorizontalAlignment="Left"
-                          Margin="25 0 0 20"
-                          Toggled="SwitchToggled" />
+                          Margin="20 0 0 20"
+                          Toggled="SwitchToggled" 
+                          ToolTip="Numpad 4 OR left shift + comma to go backward&#xa;Numpad 6 OR left shift + comma to go forward&#xa;Holding CTRL makes it go faster"/>
 
-        <Label Content="Manual Time"
-               VerticalAlignment="Bottom"
-               HorizontalAlignment="Left"
-               Margin="75 0 0 23"
-               ToolTip="Numpad 4 OR left shift + comma to go backward&#xa;Numpad 6 OR left shift + comma to go forward&#xa;Holding CTRL makes it go faster"/>
-
-        <mah:ToggleSwitch Content=""
+        <mah:ToggleSwitch Content="Aids Mode"
                           x:Name="AidsSwitch"
+                          FontSize="11"
                           MinWidth="0"
                           VerticalAlignment="Bottom"
                           HorizontalAlignment="Left"
-                          Margin="185 0 0 20"
+                          Margin="170 0 0 20"
                           Toggled="SwitchToggled" />
 
-        <Label Content="Aids Mode"
-               VerticalAlignment="Bottom"
-               HorizontalAlignment="Left"
-               Margin="237.5 0 0 23" />
-
-        <mah:ToggleSwitch Content=""
+        <mah:ToggleSwitch Content="OOB Bypass"
                           x:Name="OOBSwitch"
                           MinWidth="0"
+                          FontSize="11"
                           VerticalAlignment="Bottom"
                           HorizontalAlignment="Right"
-                          Margin="0 0 190 20" 
+                          Margin="0 0 22.5 20" 
                           Toggled="SwitchToggled"/>
-
-        <Label Content="Bypass Out-Of-Bounds Teleport"
-               VerticalAlignment="Bottom"
-               HorizontalAlignment="Right"
-               Margin="0 0 20 23" />
     </Grid>
 </Page>

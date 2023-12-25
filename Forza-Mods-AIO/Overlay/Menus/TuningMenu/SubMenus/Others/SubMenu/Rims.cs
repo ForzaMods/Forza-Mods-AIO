@@ -7,10 +7,10 @@ namespace Forza_Mods_AIO.Overlay.Menus.TuningMenu.SubMenus.Others.SubMenu;
 
 public abstract class Rims
 {
-    private static readonly FloatOption RimSizeFrontValue = new("Wheelbase", 0f);
-    private static readonly FloatOption RimRadiusFrontValue = new("Front Width", 0f);
-    private static readonly FloatOption RimSizeRearValue = new("Rear Width", 0f);
-    private static readonly FloatOption RimRadiusRearValue = new("Front Spacer", 0f);
+    private static readonly FloatOption RimSizeFrontValue = new("Front", 0f);
+    private static readonly FloatOption RimSizeRearValue = new("Rear", 0f);
+    private static readonly FloatOption RimRadiusFrontValue = new("Front", 0f);
+    private static readonly FloatOption RimRadiusRearValue = new("Front", 0f);
     
     private static readonly ButtonOption RimsPull = new("Pull values",  () =>
     {
@@ -22,9 +22,11 @@ public abstract class Rims
     
     public static readonly List<MenuOption> RimsOptions = new()
     {
+        new SubHeaderOption("Rim size"),
         RimSizeFrontValue,
-        RimRadiusFrontValue,
         RimSizeRearValue,
+        new SubHeaderOption("Rim radius"),
+        RimRadiusFrontValue,
         RimRadiusRearValue,
         RimsPull
     };

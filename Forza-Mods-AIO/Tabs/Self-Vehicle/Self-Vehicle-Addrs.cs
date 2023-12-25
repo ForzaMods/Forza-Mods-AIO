@@ -148,7 +148,7 @@ internal class SelfVehicleAddresses
         _oobAob = "48 83 EC ? 0F 10 ? 41 0F ? ? 0F 10"; // + 83 OR + 0x53
         _discoverRoadsAob = "00 96 ? ? ? ? 42 88";
         _waterAob = "3D ? ? ? ? 00 00 A0 ? ? ? ? ? ? ? ? 3F 00 00 80";
-        _aixAob = "0F 11 41 50 0F 28 EB";
+        _aixAob = "0F 11 ? ? 48 8B ? 0F 10 ? ? 0F 11 ? ? ? ? ? 0F 10";
         _cameraSpeedBaseAob = "54 00 52 ? 41 00 ? ? 4B 00 ? 00 00 00 00 00 05";
         _cameraShutterSpeedAob = "C0 79 C4 ? C0 79 C4 ? C0 79 C4 ? C0 79 C4 ? 00 00";
         _cameraBaseAob = "00 80 ? ? ? ? 3C ? 00 80 ? ? ? ? C0";

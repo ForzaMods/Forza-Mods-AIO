@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Forza_Mods_AIO.Resources;
+using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 using static System.Convert;
 using Keys = System.Windows.Forms.Keys;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
@@ -16,9 +17,10 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 public partial class EnvironmentPage
 {
     public static EnvironmentPage Environment { get; private set; } = null!;
-    public static readonly Detour TimeDetour = new();
+    public static readonly Detour TimeDetour = new(), FreezeAiDetour = new();
     public static bool WasTimeDetoured { get; set; }
     private const string TimeDetourBytes = "51 48 83 C3 08 48 89 1D 0A 00 00 00 48 83 EB 08 59";
+    private const string FreezeAiBytes = "50 48 8B 05 14 00 00 00 48 39 08 74 02 EB 07 0F 11 41 50 48 8B D9 58";
     
     public EnvironmentPage()
     {
@@ -339,4 +341,29 @@ public partial class EnvironmentPage
     
     #endregion
 
+    private void FreezeAi_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (Mw.Gvp.Name.Contains('4'))
+        {
+            MessageBox.Show("This feature was not ported to FH4.");
+            FreezeAi.Toggled -= FreezeAi_OnToggled;
+            FreezeAi.IsOn = false;
+            FreezeAi.Toggled += FreezeAi_OnToggled;
+            return;
+        }
+        
+        CarEntity.Hook();
+        
+        if (!FreezeAiDetour.Setup(sender, AiXAddr, FreezeAiBytes, 7, true))
+        {
+            MessageBox.Show("Failed");
+            FreezeAi.Toggled -= FreezeAi_OnToggled;
+            FreezeAi.IsOn = false;
+            FreezeAi.Toggled += FreezeAi_OnToggled;
+            return;
+        }
+        
+        FreezeAiDetour.UpdateVariable(CarEntity.BaseDetour.VariableAddress);
+        FreezeAiDetour.Toggle();
+    }
 }
