@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -137,35 +138,35 @@ public partial class EnvironmentPage
     
     #region Aids Mode
 
+    private Vector3 _last = new(0);
+    
     private void AidsMode()
     {
         float I = 0;
 
         while (true)
         {
-            bool toggled = true;
+            var toggled = true;
             Dispatcher.Invoke(() => toggled = AidsSwitch.IsOn);
             
             if (!toggled)
                 break;
             
-            float last = 0;
             
             var rainbow = Rainbow(I);
             Dispatcher.Invoke(() =>
             {
-                SunRedSlider.Value = (float)rainbow.R / 255 * (float)1E+10;
-                SunGreenSlider.Value = (float)rainbow.G / 255 * (float)1E+10;
-                SunBlueSlider.Value = (float)rainbow.B / 255 * (float)1E+10;
-                last = (float)SunRedSlider.Value;
+                SunRedSlider.Value = rainbow.R / 255f * 1E+10f;
+                SunGreenSlider.Value = rainbow.G / 255f * 1E+10f;
+                SunBlueSlider.Value = rainbow.B / 255f * 1E+10f;
+                _last = new Vector3(ToSingle(SunRedSlider.Value), ToSingle(SunGreenSlider.Value), ToSingle(SunBlueSlider.Value));
             });
             I += 0.0025f;
             Task.Delay(25).Wait();
 
             Dispatcher.Invoke(() =>
             {
-                // ReSharper disable once CompareOfFloatsByEqualityOperator
-                if (SunRedSlider.Value != last)
+                if (new Vector3(ToSingle(SunRedSlider.Value), ToSingle(SunGreenSlider.Value), ToSingle(SunBlueSlider.Value)) != _last)
                 {
                     AidsSwitch.IsOn = false;
                 }
@@ -173,14 +174,13 @@ public partial class EnvironmentPage
         }
     }
 
-    // Might have to fix it for release, Ill leave it like this for now.
     private static Color Rainbow(float progress)
     {
-        float div = (Math.Abs(progress % 1) * 6);
-        int ascending = (int)((div % 1) * 255);
-        int descending = 255 - ascending;
+        var div = Math.Abs(progress % 1) * 6;
+        var ascending = ToInt32(div % 1 * 255);
+        var descending = 255 - ascending;
 
-        return (int)div switch
+        return ToInt32(div) switch
         {
             0 => Color.FromArgb(255, 255, ascending, 0),
             1 => Color.FromArgb(255, descending, 255, 0),

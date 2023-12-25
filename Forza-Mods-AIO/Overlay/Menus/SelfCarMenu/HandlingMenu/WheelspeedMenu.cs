@@ -7,7 +7,7 @@ namespace Forza_Mods_AIO.Overlay.Menus.SelfCarMenu.HandlingMenu;
 
 public abstract class WheelspeedMenu
 {
-    private static readonly string[] WheelspeedSelections = { "Static", "Linear" };
+    private static readonly string[] WheelspeedSelections = { "Static", "Linear", "Power", "Random", "Jitter", "Pulse", "Sway", "Surge", "Mixed"  };
     private static readonly SelectionOption WheelspeedMode = new("Mode", 0, WheelspeedSelections);
     private static readonly IntOption WheelspeedStrength = new("Strength", 10, Shp.StrengthBox.Minimum, Shp.StrengthBox.Maximum);
     private static readonly IntOption WheelspeedInterval = new("Interval", 1, Shp.IntervalBox.Minimum, Shp.IntervalBox.Maximum);

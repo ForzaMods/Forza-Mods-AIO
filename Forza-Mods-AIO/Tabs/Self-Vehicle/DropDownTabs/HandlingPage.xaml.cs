@@ -7,12 +7,14 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using Forza_Mods_AIO.Resources;
 using static System.Convert;
+using static System.DateTime;
 using static System.Math;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
 using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Resources.DllImports;
 using static Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs.HandlingKeybindings;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.Entities.CarEntity;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
@@ -122,7 +124,7 @@ public partial class HandlingPage
         {
             while (true)
             {
-                bool toggled = true;
+                var toggled = true;
                 Dispatcher.Invoke(delegate { toggled = WheelSpeedSwitch.IsOn; });
                 if (!toggled)
                 {
@@ -148,32 +150,218 @@ public partial class HandlingPage
                 {
                     case "Static" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
                     {
-                        float currentWheelSpeed = WheelSpeed.X, boostStrength = 0;
-                        Dispatcher.Invoke(() => boostStrength = ToSingle(StrengthBox.Value));
-                        var boost = currentWheelSpeed + boostStrength / 10;
-                        WheelSpeed = new Vector4 { X = boost, Y = boost, Z = boost, W = boost };
+                        StaticWheelSpeed();
                         break;
                     }
                         
                     case "Linear" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
                     {
-                        float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
-                        Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
-                        var boostStrength = boostFactor / 10 - 1 + (currentWheelSpeed - 100) / 100 * -5;
-                        
-                        if (boostStrength <= 0)
-                        {
-                            boostStrength = 1;
-                        }
-                        
-                        var boost = currentWheelSpeed + boostStrength;
-                        WheelSpeed = new Vector4(boost);
+                        LinearWheelSpeed();
+                        break;
+                    }
+                    
+                    case "Power" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    {
+                        PowerWheelSpeed();
+                        break;
+                    }
+                    
+                    case "Random" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    {
+                        RandomWheelSpeed();
+                        break;
+                    }
+                    
+                    case "Jitter" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    {
+                        JitterWheelSpeed();
+                        break;
+                    }
+                    
+                    case "Pulse" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    {
+                        PulseWheelSpeed();
+                        break;
+                    }
+                    
+                    case "Sway" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    {
+                        SwayWheelSpeed();
+                        break;
+                    }
+                    
+                    case "Surge" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    {
+                        SurgeWheelSpeed();
+                        break;
+                    }
+                    
+                    case "Mixed" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    {
+                        MixedWheelSpeed();
                         break;
                     }
                 }
                 Task.Delay(interval).Wait();
             }
         });
+    }
+
+    private void StaticWheelSpeed()
+    {
+        float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
+        Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
+        var boostStrength = boostFactor / 10;
+        
+        if (boostStrength < 0)
+        {
+            boostStrength = 0;
+        }
+        
+        var boost = currentWheelSpeed + boostStrength;
+        WheelSpeed = new Vector4(boost);
+    }
+
+    private void LinearWheelSpeed()
+    {
+        float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
+        Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
+        var boostStrength = boostFactor / 10 - 1 + (currentWheelSpeed - 100) / 100 * -5;
+        
+        if (boostStrength <= 0)
+        {
+            boostStrength = 0;
+        }
+        
+        var boost = currentWheelSpeed + boostStrength;
+        WheelSpeed = new Vector4(boost);
+    }
+    
+    private void PowerWheelSpeed()
+    {
+        float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
+        Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
+
+        const int exponent = 2;
+        const float speedFactor = 0.35f;
+    
+        var boostStrength = Pow(boostFactor / (boostFactor / (5 * speedFactor)), exponent);
+        if (boostStrength < 0)
+        {
+            boostStrength = 0;
+        }
+
+        var boost = currentWheelSpeed + boostStrength;
+        WheelSpeed = new Vector4(ToSingle(boost));
+    }
+
+    private void RandomWheelSpeed()
+    {
+        float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
+        Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
+        
+        var boostStrength = ToSingle(new Random().NextDouble() * boostFactor / 5 + 1);
+        if (boostStrength < 0)
+        {
+            boostStrength = 0;
+        }
+        
+        var boost = currentWheelSpeed + boostStrength;
+        WheelSpeed = new Vector4(boost);
+    }
+
+    private void JitterWheelSpeed()
+    {
+        float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
+        Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
+
+        var jitterAmplitude = boostFactor / 20;
+        var boostStrength = ToSingle(new Random().NextDouble() * 2 - 1) * jitterAmplitude;
+        
+        if (boostStrength < 0)
+        {
+            boostStrength = 0;
+        }
+        
+        var boost = currentWheelSpeed + boostStrength;
+
+        WheelSpeed = new Vector4(ToSingle(boost));
+    }
+
+
+    private void PulseWheelSpeed()
+    {
+        float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
+        Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
+
+        const float pulseFrequency = 0.1f;
+        var pulseEffect = 0.5f + 0.5f * ToSingle(Sin(pulseFrequency * Now.Millisecond));
+        var boostStrength = boostFactor / 10 * pulseEffect;
+        
+        if (boostStrength < 0)
+        {
+            boostStrength = 0;
+        }
+
+        var boost = currentWheelSpeed + boostStrength;
+
+        WheelSpeed = new Vector4(ToSingle(boost));
+    }
+
+    private void SwayWheelSpeed()
+    {
+        float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
+        Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
+
+        const double sway = 2;
+        var boostStrength = ToSingle(new Random().NextDouble() * sway - 1) * boostFactor / 10;
+        
+        if (boostStrength < 0)
+        {
+            boostStrength = 0;
+        }
+        
+        var boost = currentWheelSpeed + boostStrength;
+        WheelSpeed = new Vector4(ToSingle(boost));
+    }
+
+    private void SurgeWheelSpeed()
+    {
+        float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
+        Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
+
+        const float frequency = 0.1f; 
+        var amplitude = boostFactor / 10;
+        var boostStrength = 2 * amplitude * ToSingle(Asin(Sin(2 * PI * frequency * Now.Millisecond)) / (2 * PI));
+        
+        if (boostStrength < 0)
+        {
+            boostStrength = 0;
+        }
+        
+        var boost = currentWheelSpeed + boostStrength;
+        WheelSpeed = new Vector4(ToSingle(boost));
+    }
+
+    private void MixedWheelSpeed()
+    {
+        float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
+        Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
+
+        const float frequency = 0.75f;
+        var amplitude = boostFactor / 10;
+        var cosValue = ToSingle(Cos(frequency * Now.Millisecond));
+        var sinValue = ToSingle(Sin(frequency * Now.Millisecond));
+        var powValue = ToSingle(Pow(cosValue * sinValue, 2));
+
+        var boostStrength = amplitude * powValue;
+        if (boostStrength < 0)
+        {
+            boostStrength = 0;
+        }
+        
+        var boost = currentWheelSpeed + boostStrength;
+        WheelSpeed = new Vector4(ToSingle(boost));
     }
 
     public void PullButton_Click(object sender, RoutedEventArgs e)

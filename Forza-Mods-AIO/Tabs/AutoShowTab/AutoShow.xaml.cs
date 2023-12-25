@@ -174,7 +174,7 @@ public partial class AutoShow
                             " UPDATE ContentOffersMapping SET Quantity = 9999 ;" +
                             " UPDATE Profile0_FreeCars SET FreeCount = 1;" +
                             " UPDATE ContentOffersMapping SET IsAutoRedeem = 1;" +
-                            " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(3300);" +
+                            " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(\"3300\");" +
                             " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(SELECT Id AS ContentId FROM Data_Car WHERE NotAvailableInAutoshow = 0);" +
                             " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(SELECT ContentId FROM ContentOffersMapping WHERE ReleaseDateUTC > '" + DateTime.Now.ToString("yyyy-MM-dd") + " 00:00' OR ReleaseDateUTC IS NULL)" ;
             
@@ -192,7 +192,7 @@ public partial class AutoShow
                             " INSERT INTO Profile0_FreeCars SELECT ContentId, 1 FROM ContentOffersMapping;" +
                             " UPDATE ContentOffersMapping SET IsAutoRedeem = 1 WHERE ContentId NOT IN(SELECT ContentId FROM ContentOffersMapping WHERE ReleaseDateUTC > '" + DateTime.Now.ToString("yyyy-MM-dd") + " 00:00' OR ReleaseDateUTC IS NULL)" +
                             " UPDATE ContentOffersMapping SET Quantity = 1;" +
-                            " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(3300);" +
+                            " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(\"3300\");" +
                             " UPDATE ContentOffersMapping SET IsAutoRedeem = 0 WHERE ContentId IN(SELECT CarId AS ContentId FROM Profile0_Career_Garage WHERE CarId IS NOT NULL);";
             
         ExecSql(sender, AddAllCars_OnToggled, addCarsString);

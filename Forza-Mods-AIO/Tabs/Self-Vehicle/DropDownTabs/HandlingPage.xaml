@@ -109,66 +109,80 @@
                                       Toggled="WheelSpeedSwitch_Toggled" 
                                       Focusable="False"/>
                     
-                    <Label Content="Strength" 
-                           HorizontalAlignment="Left" 
-                           VerticalAlignment="Center"
-                           Margin="6.5,0,0,0" />
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                        
+                        <Label Content="Strength" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center"
+                               Margin="6.5,0,0,0" />
+                        
                     
-                    <mah:NumericUpDown x:Name="StrengthBox" 
-                                       Margin="65 0 0 0" 
-                                       ParsingNumberStyle="Float" 
-                                       VerticalAlignment="Center" 
-                                       TextAlignment="Left" 
-                                       Minimum="0" 
-                                       Maximum="100" 
-                                       Value="10" 
-                                       HorizontalAlignment="Left"
-                                       Width="75" 
-                                       NumericInputMode="Numbers" 
-                                       UpDownButtonsFocusable="False" 
-                                       TrackMouseWheelWhenMouseOver="True" 
-                                       Culture="en-GB" 
-                                       Background="#FF2E3440" 
-                                       BorderBrush="#FF2E3440"/>
+                        <mah:NumericUpDown x:Name="StrengthBox" 
+                                           Margin="6.5 0 0 0" 
+                                           ParsingNumberStyle="Float" 
+                                           VerticalAlignment="Center" 
+                                           TextAlignment="Left" 
+                                           Minimum="0" 
+                                           Maximum="100" 
+                                           Value="10" 
+                                           HorizontalAlignment="Left"
+                                           Width="75" 
+                                           NumericInputMode="Numbers" 
+                                           UpDownButtonsFocusable="False" 
+                                           TrackMouseWheelWhenMouseOver="True" 
+                                           Culture="en-GB" 
+                                           Background="#FF2E3440" 
+                                           BorderBrush="#FF2E3440"/>
+                        
+                        
+                        <Label Content="Interval" 
+                               Margin="5 0 0 0" 
+                               VerticalAlignment="Center" />
+                        
+                        
                     
-                    <Label Content="Interval" 
-                           HorizontalAlignment="Center" 
-                           Margin="-210 0 0 0" 
-                           VerticalAlignment="Center" />
+                        <mah:NumericUpDown x:Name="IntervalBox" 
+                                           Margin="5 0 0 0" 
+                                           ParsingNumberStyle="Integer" 
+                                           TextAlignment="Left" 
+                                           Minimum="1" 
+                                           Maximum="100" 
+                                           Value="1" 
+                                           VerticalAlignment="Center" 
+                                           Width="75" 
+                                           NumericInputMode="Numbers" 
+                                           UpDownButtonsFocusable="False" 
+                                           TrackMouseWheelWhenMouseOver="True" 
+                                           Culture="en-GB" 
+                                           Background="#FF2E3440" 
+                                           BorderBrush="#FF2E3440"/>
+                        
+                        
                     
-                    <mah:NumericUpDown x:Name="IntervalBox" 
-                                       Margin="-70 0 0 0" 
-                                       ParsingNumberStyle="Integer" 
-                                       TextAlignment="Left" 
-                                       Minimum="1" 
-                                       Maximum="100" 
-                                       Value="1" 
-                                       HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center" 
-                                       Width="75" 
-                                       NumericInputMode="Numbers" 
-                                       UpDownButtonsFocusable="False" 
-                                       TrackMouseWheelWhenMouseOver="True" 
-                                       Culture="en-GB" 
-                                       Background="#FF2E3440" 
-                                       BorderBrush="#FF2E3440"/>
+                        <Label Content="Mode" 
+                               VerticalAlignment="Center"
+                               Margin="5,0,0,0" />
                     
-                    <Label Content="Mode" 
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"
-                           Margin="60,0,0,0" />
-                    
-                    <ComboBox x:Name="WheelSpeedModeComboBox" 
-                              Margin="185,0,0,0" 
-                              SelectedIndex="0"
-                              Width="75"
-                              HorizontalAlignment="Center" 
-                              VerticalAlignment="Center" 
-                              Background="#FF2E3440" 
-                              BorderBrush="#FF2E3440">
-                        <ComboBoxItem Content="Static"/>
-                        <ComboBoxItem Content="Linear"/>
-                    </ComboBox>
+                        <ComboBox x:Name="WheelSpeedModeComboBox" 
+                                  Margin="5,0,0,0" 
+                                  SelectedIndex="0"
+                                  Width="78.5"
+                                  VerticalAlignment="Center" 
+                                  Background="#FF2E3440" 
+                                  BorderBrush="#FF2E3440">
+                            <ComboBoxItem Content="Static"/>
+                            <ComboBoxItem Content="Linear"/>
+                            <ComboBoxItem Content="Power"/>
+                            <ComboBoxItem Content="Random"/>
+                            <ComboBoxItem Content="Jitter"/>
+                            <ComboBoxItem Content="Pulse"/>
+                            <ComboBoxItem Content="Sway"/>
+                            <ComboBoxItem Content="Surge"/>
+                            <ComboBoxItem Content="Mixed"/>
+                        </ComboBox>
+                    </StackPanel>
                 </Grid>    
             </Border>
 
