@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using Forza_Mods_AIO.Resources;
-using MahApps.Metro.Controls;
+
 using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Tabs.AutoShowTab.AutoshowVars;
 
@@ -88,7 +86,7 @@ public partial class AutoShow
         {
             case true:
             {
-                ExecSql(sender, RareCars_OnToggled, "CREATE TABLE AutoshowTable(Id INT, NotAvailableInAutoshow INT); INSERT INTO AutoshowTable SELECT Id, NotAvailableInAutoshow FROM Data_Car; UPDATE Data_Car SET NotAvailableInAutoshow = CASE WHEN 1 THEN 0 WHEN 0 THEN 1 END;");
+                ExecSql(sender, RareCars_OnToggled, "CREATE TABLE AutoshowTable(Id INT, NotAvailableInAutoshow INT); INSERT INTO AutoshowTable SELECT Id, NotAvailableInAutoshow FROM Data_Car; UPDATE Data_Car SET NotAvailableInAutoshow = (NotAvailableInAutoshow-1)* -1;");
                 break;
             }
             case false:
@@ -129,6 +127,19 @@ public partial class AutoShow
             return;
         }
         
+        switch (RemoveAnyCar.IsOn)
+        {
+            case true:
+            {
+                ExecSql(sender, FreeCars_OnToggled ,"CREATE TABLE BarnFindsTable AS SELECT * FROM Profile0_BarnFinds; DELETE FROM Profile0_BarnFinds;");
+                break;
+            }
+            case false:
+            {
+                ExecSql(sender, FreeCars_OnToggled ,"INSERT INTO Profile0_BarnFinds SELECT * FROM BarnFindsTable; DROP TABLE BarnFindsTable;");
+                break;
+            }
+        }
     }
 
     private void ClearGarage_OnToggled(object sender, RoutedEventArgs e)

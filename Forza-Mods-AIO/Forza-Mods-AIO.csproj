@@ -8,7 +8,7 @@
     <EnableCompressionInSingleFile>false</EnableCompressionInSingleFile>
     <PublishReadyToRun>true</PublishReadyToRun>
     <RootNamespace>Forza_Mods_AIO</RootNamespace>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <DisableFody Condition="'$(Configuration)' == 'Debug'">true</DisableFody>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
@@ -23,22 +23,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>10.0</LangVersion>
     <NoWarn>1701;1702;CS4014</NoWarn>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="MVVM\**" />
-    <EmbeddedResource Remove="MVVM\**" />
-    <None Remove="MVVM\**" />
-    <Page Remove="MVVM\**" />
-  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\SQL\SQL_DLL.dll" />
     <None Remove="Overlay\pog header.png" />
@@ -75,9 +69,6 @@
     <EmbeddedResource Remove="Resources\Theme\MetroTheming.xaml" />
     <None Remove="Resources\SQL\SQL_DLL.dll" />
     <Page Remove="Resources\Theme\MetroTheming.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Lunar">
