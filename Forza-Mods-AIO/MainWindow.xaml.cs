@@ -449,6 +449,12 @@ public partial class MainWindow
             Task.Delay(5).Wait();
         }
         
+        if (keyBuffer == null)
+        {
+            ClickedButton!.Content = oldKey;
+            return;
+        }
+        
         var key = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
         
         foreach (var field in typeof(OverlayHandling).GetFields())
@@ -459,7 +465,7 @@ public partial class MainWindow
             }
             
             field.SetValue(Oh, key);
-            ClickedButton.Content = e.Key;
+            ClickedButton.Content = keyBuffer;
             OverlayKeybindings.SaveKeybinds();
             return;
         }
@@ -472,10 +478,10 @@ public partial class MainWindow
             }
 
             field.SetValue(HandlingKeybindings.Hk, key);
-            ClickedButton.Content = e.Key;
+            ClickedButton.Content = keyBuffer;
+            HandlingKeybindings.Hk.SaveKeybindings();
             return; 
         }
-
         ClickedButton!.Content = oldKey;
     }
 

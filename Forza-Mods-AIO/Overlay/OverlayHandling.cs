@@ -202,13 +202,23 @@ public partial class OverlayHandling
     
     public void SaveSettings()
     {
-        if (!File.Exists(_settingsFilePath))
+        var aioFolderPath = GetFolderPath(SpecialFolder.MyDocuments) + @"\Forza Mods AIO";
+
+        if (!Directory.Exists(aioFolderPath))
         {
-            using (File.Create(_settingsFilePath)) ;
+            Directory.CreateDirectory(aioFolderPath);
+        }
+
+        var configFile = aioFolderPath + @"\Overlay Settings.ini";
+
+        if (!File.Exists(configFile))
+        {
+            var configFileCreation = File.Create(configFile);
+            configFileCreation.Close();
         }
 
         var parser = new FileIniDataParser();
-        var iniData = parser.ReadFile(_settingsFilePath);
+        var iniData = parser.ReadFile(configFile);
 
         foreach (var menuOption in typeof(SettingsMenu)
                      .GetFields(BindingFlags.Public | BindingFlags.Static)
@@ -231,7 +241,7 @@ public partial class OverlayHandling
             iniData[mainQuery][name] = value?.ToString();
         }
             
-        parser.WriteFile(_settingsFilePath, iniData);
+        parser.WriteFile(configFile, iniData);
     }
         
     // Handles the position of the overlay

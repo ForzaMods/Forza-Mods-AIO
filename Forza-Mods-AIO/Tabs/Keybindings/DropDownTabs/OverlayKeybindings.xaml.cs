@@ -182,11 +182,11 @@ public partial class OverlayKeybindings
             TryParse(iniData["Keybinds"]["Visibility"], out OverlayVisibility);            
             TryParse(iniData["Keybinds"]["RapidAdjust"], out OverlayHandling.RapidAdjust);
 
-            if (iniData["Controller Keybinds"]["Up"] == null)
+            /*if (iniData["Controller Keybinds"]["Up"] == null)
             {
                 return;
             }
-            
+
             ControllerUp = iniData["Controller Keybinds"]["Up"];
             ControllerDown = iniData["Controller Keybinds"]["Down"];
             ControllerLeft = iniData["Controller Keybinds"]["Left"];
@@ -194,8 +194,7 @@ public partial class OverlayKeybindings
             ControllerLeave = iniData["Controller Keybinds"]["Confirm"];
             ControllerConfirm = iniData["Controller Keybinds"]["Leave"];
             ControllerOverlayVisibility = iniData["Controller Keybinds"]["Visibility"];
-            OverlayHandling.ControllerRapidAdjust = iniData["Controller Keybinds"]["RapidAdjust"];
-
+            OverlayHandling.ControllerRapidAdjust = iniData["Controller Keybinds"]["RapidAdjust"];*/
         }
         catch {}
     }
@@ -210,7 +209,7 @@ public partial class OverlayKeybindings
         ConfirmButton.Content = Confirm;
         OverlayVisibilityButton.Content = OverlayVisibility;
         RapidAdjust.Content = OverlayHandling.RapidAdjust;
-        
+
         ControllerUpButton.Content = ControllerUp;
         ControllerDownButton.Content = ControllerDown;
         ControllerLeftButton.Content = ControllerLeft;
@@ -223,26 +222,40 @@ public partial class OverlayKeybindings
 
     public static void SaveKeybinds()
     {
-        var settingsFilePath = GetFolderPath(SpecialFolder.MyDocuments) + @"\Forza Mods AIO\Overlay Settings.ini";
+        var aioFolderPath = GetFolderPath(SpecialFolder.MyDocuments) + @"\Forza Mods AIO";
+
+        if (!Directory.Exists(aioFolderPath))
+        {
+            Directory.CreateDirectory(aioFolderPath);
+        }
+
+        var configFile = aioFolderPath + @"\Overlay Settings.ini";
+
+        if (!File.Exists(configFile))
+        {
+            var configFileCreation = File.Create(configFile);
+            configFileCreation.Close();
+        }
+
         var parser = new FileIniDataParser();
-        var iniData = parser.ReadFile(settingsFilePath);
+        var iniData = parser.ReadFile(configFile);
         iniData["Keybinds"]["Up"] = Up.ToString();
         iniData["Keybinds"]["Down"] = Down.ToString();
         iniData["Keybinds"]["Left"] = Left.ToString();
         iniData["Keybinds"]["Right"] = Right.ToString();
         iniData["Keybinds"]["Confirm"] = Confirm.ToString();
         iniData["Keybinds"]["Leave"] = Leave.ToString();
-        iniData["Keybinds"]["Visibility"] = OverlayVisibility.ToString();            
-        iniData["Keybinds"]["RapidAdjust"] = OverlayHandling.RapidAdjust.ToString();     
-        
-        iniData["Controller Keybinds"]["Up"] = ControllerUp;
+        iniData["Keybinds"]["Visibility"] = OverlayVisibility.ToString();
+        iniData["Keybinds"]["RapidAdjust"] = OverlayHandling.RapidAdjust.ToString();
+
+        /*iniData["Controller Keybinds"]["Up"] = ControllerUp;
         iniData["Controller Keybinds"]["Down"] = ControllerDown;
         iniData["Controller Keybinds"]["Left"] = ControllerLeft;
         iniData["Controller Keybinds"]["Right"] = ControllerRight;
         iniData["Controller Keybinds"]["Confirm"] = ControllerConfirm;
         iniData["Controller Keybinds"]["Leave"] = ControllerLeave;
-        iniData["Controller Keybinds"]["Visibility"] = ControllerOverlayVisibility;            
-        iniData["Controller Keybinds"]["RapidAdjust"] = OverlayHandling.ControllerRapidAdjust;  
-        parser.WriteFile(settingsFilePath, iniData);
+        iniData["Controller Keybinds"]["Visibility"] = ControllerOverlayVisibility;
+        iniData["Controller Keybinds"]["RapidAdjust"] = OverlayHandling.ControllerRapidAdjust;  */
+        parser.WriteFile(configFile, iniData);
     }
 }
