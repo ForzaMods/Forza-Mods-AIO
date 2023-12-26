@@ -160,6 +160,22 @@
                                                       Toggled="ShowTrafficHSNull_OnToggled"/>
                              </StackPanel>
                              
+                             <StackPanel Margin="15 0 0 0">
+                                                          
+            
+                                    <Label Content="Car Pass Date Bypass" 
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Top"/>
+            
+            
+                                    <mah:ToggleSwitch x:Name="CarPassDateBypass" 
+                                                      VerticalAlignment="Top"
+                                                      HorizontalAlignment="Center"
+                                                      Width="45" MinWidth="0" 
+                                                      Content="" 
+                                                      Toggled="CarPassDateBypass_OnToggled"/>
+                             </StackPanel>
+                             
                       </StackPanel>
 
                </Grid>

@@ -25,6 +25,8 @@ public partial class AutoShow
     private const string ShowTrafficHsNullRevertString = "UPDATE Data_Car_Buckets SET CarBucket=NULL, BucketHero=NULL WHERE CarBucket=0 AND BucketHero=0; DELETE FROM Data_Car_Buckets WHERE CarId IN (SELECT Id FROM Data_Car WHERE Id NOT IN (SELECT CarId FROM Data_Car_Buckets)); DROP VIEW Drivable_Data_Car;";
     private const string FixThumbnailsString = "UPDATE Profile0_Career_Garage SET Thumbnail=(SELECT Thumbnail FROM Data_Car WHERE Data_Car.Id = Profile0_Career_Garage.CarId); UPDATE Profile0_Career_Garage; UPDATE Profile0_Career_Garage SET NumOwners=69";
     private const string ClearTagString = "UPDATE Profile0_Career_Garage SET HasCurrentOwnerViewedCar = 1;";
+    private const string CarPassBypassString = "UPDATE ContentOffersMapping SET ReleaseDateUTC=\"1969-04-20 00:00\" WHERE ReleaseDateUTC IS NOT NULL AND ContentType=\"1\"";
+    private const string CarPassBypassRevertString = "UPDATE ContentOffersMapping SET ReleaseDateUTC = NULL WHERE ReleaseDateUTC = '1969-04-20 00:00' AND ContentType = '1';";
     private const string UnlockPresetsString = "CREATE TABLE UpgradePresetPackagesOrig AS SELECT * FROM UpgradePresetPackages; UPDATE UpgradePresetPackages SET Purchasable = 1 WHERE Purchasable = 0;";
     private const string UnlockPresetsRevertString = "UPDATE UpgradePresetPackages SET Purchasable = (SELECT Purchasable FROM UpgradePresetPackagesOrig WHERE UpgradePresetPackages.Id == UpgradePresetPackagesOrig.Id); DROP TABLE UpgradePresetPackagesOrig;";
     
@@ -291,11 +293,33 @@ public partial class AutoShow
 
     public void ClearTag_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || ClearTag == null)
         {
             return;
         }
             
         ExecSql(sender, ClearTag_OnToggled, ClearTagString);
+    }
+
+    private void CarPassDateBypass_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (!Mw.Attached || CarPassDateBypass == null)
+        {
+            return;
+        }
+            
+        switch (CarPassDateBypass.IsEnabled)
+        {
+            case true:
+            {
+                ExecSql(sender, CarPassDateBypass_OnToggled, CarPassBypassString);
+                break;
+            }
+            case false:
+            {
+                ExecSql(sender, CarPassDateBypass_OnToggled, CarPassBypassRevertString);
+                break;
+            }
+        }
     }
 }
