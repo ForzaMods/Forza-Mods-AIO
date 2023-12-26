@@ -166,6 +166,6 @@
                HorizontalAlignment="Left"
                Margin="15"
                FontSize="14"
-               Content="Version: "/>
+               Content="Version:2.0.1.0"/>
     </Grid>
 </Page>
