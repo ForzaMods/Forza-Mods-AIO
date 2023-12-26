@@ -11,11 +11,13 @@ public class Gamepad
 {
     public Controller GetXInputController()
     {
+        InitializeControllersAndInput();
         return _controller;
     }
 
     public Joystick GetDInputController()
     {
+        InitializeControllersAndInput();
         return _joystick;
     }
 
@@ -49,21 +51,22 @@ public class Gamepad
             new Controller(UserIndex.Four)
         };
         
-        var directInput = new DirectInput();
+        //var directInput = new DirectInput();
         
         GetXInputControllers(controllers);
 
         if (_controller == null!)
         {
             IsControllerConnected = false;
-            GetDInputControllers(directInput);
+            return;
+            //GetDInputControllers(directInput);
         }
 
-        if (_controller == null! && _joystickGuid == Guid.Empty)
+        /*if (_controller == null! && _joystickGuid == Guid.Empty)
         {
             IsControllerConnected = false;
             return;
-        }
+        }*/
 
         if (!IsControllerConnected)
         {
@@ -72,12 +75,14 @@ public class Gamepad
             
         try
         {
-            _controller?.GetState();
+            _controller.GetState();
         }
         catch
         {
             _controller = null!;
         }
+
+        return;
 
         try
         {
@@ -118,12 +123,8 @@ public class Gamepad
 
     public bool IsButtonPressed(string key)
     {
-        if (_controller != null!)
-        {
-            return IsXInputButtonPressed(key);
-        }
-
-        return _joystickGuid != Guid.Empty && IsDInputButtonPressed(key);
+        return _controller != null! && IsXInputButtonPressed(key);
+        //return _joystickGuid != Guid.Empty && IsDInputButtonPressed(key);
     }
 
     private bool IsXInputButtonPressed(string key)

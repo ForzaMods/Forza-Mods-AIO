@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using Forza_Mods_AIO.Resources;
+using Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs;
 using static System.Convert;
 using static System.DateTime;
 using static System.Math;
@@ -57,8 +58,14 @@ public partial class HandlingPage
                     break;
                 }
 
-                if (Mw.Gvp.Process.MainWindowHandle != GetForegroundWindow() ||
-                    GetAsyncKeyState(Hk.VelHack) is not (1 or short.MinValue))
+                if (Mw.Gvp.Process.MainWindowHandle != GetForegroundWindow())
+                {
+                    Task.Delay(25).Wait();
+                    continue;
+                }
+
+                if (GetAsyncKeyState(Hk.VelHack) is not (1 or short.MinValue) &&
+                    !Mw.Gamepad.IsButtonPressed(VelHackController))
                 {
                     Task.Delay(25).Wait();
                     continue;
@@ -137,6 +144,13 @@ public partial class HandlingPage
                     continue;
                 }
 
+
+                if (GetAsyncKeyState(Hk.WheelspeedHack) is not (1 or short.MinValue) &&
+                    !Mw.Gamepad.IsButtonPressed(WheelspeedHackController))
+                {
+                    Task.Delay(25).Wait();
+                    continue;
+                }
                 var mode = "";
                 var interval = 1;
                 
@@ -148,55 +162,55 @@ public partial class HandlingPage
                 
                 switch (mode)
                 {
-                    case "Static" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    case "Static":
                     {
                         StaticWheelSpeed();
                         break;
                     }
                         
-                    case "Linear" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    case "Linear":
                     {
                         LinearWheelSpeed();
                         break;
                     }
                     
-                    case "Power" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    case "Power":
                     {
                         PowerWheelSpeed();
                         break;
                     }
                     
-                    case "Random" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    case "Random":
                     {
                         RandomWheelSpeed();
                         break;
                     }
                     
-                    case "Jitter" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    case "Jitter":
                     {
                         JitterWheelSpeed();
                         break;
                     }
                     
-                    case "Pulse" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    case "Pulse":
                     {
                         PulseWheelSpeed();
                         break;
                     }
                     
-                    case "Sway" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    case "Sway":
                     {
                         SwayWheelSpeed();
                         break;
                     }
                     
-                    case "Surge" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    case "Surge":
                     {
                         SurgeWheelSpeed();
                         break;
                     }
                     
-                    case "Mixed" when GetAsyncKeyState(Hk.WheelspeedHack) is 1 or short.MinValue:
+                    case "Mixed":
                     {
                         MixedWheelSpeed();
                         break;
@@ -566,15 +580,20 @@ public partial class HandlingPage
                     Task.Delay(25).Wait();
                     continue;
                 }
-                    
-                if (GetAsyncKeyState(Hk.BrakeHack) is 1 or short.MinValue)
+                
+
+                if (GetAsyncKeyState(Hk.BrakeHack) is not (1 or short.MinValue) &&
+                    !Mw.Gamepad.IsButtonPressed(BrakeHackController))
                 {
-                    LinearVelocity = LinearVelocity with
-                    {
-                        X = LinearVelocity.X * 0.95f,
-                        Z = LinearVelocity.Z * 0.95f
-                    };
+                    Task.Delay(25).Wait();
+                    continue;
                 }
+                
+                LinearVelocity = LinearVelocity with
+                {
+                    X = LinearVelocity.X * 0.95f,
+                    Z = LinearVelocity.Z * 0.95f
+                };
                 Task.Delay(10).Wait();
             }
         });
@@ -606,10 +625,14 @@ public partial class HandlingPage
                     continue;
                 }
 
-                if (GetAsyncKeyState(Hk.BrakeHack) is 1 or short.MinValue)
+                if (GetAsyncKeyState(Hk.BrakeHack) is not (1 or short.MinValue) &&
+                    !Mw.Gamepad.IsButtonPressed(BrakeHackController))
                 {
-                    WheelSpeed = new Vector4(0f, 0f, 0f, 0f);
+                    Task.Delay(25).Wait();
+                    continue;
                 }
+                
+                WheelSpeed = new Vector4(0f, 0f, 0f, 0f);
                 Task.Delay(10).Wait();
             }
         });
@@ -1034,8 +1057,6 @@ public partial class HandlingPage
 
         Task.Run(() =>
         {
-            CultureInfo.CurrentCulture = new CultureInfo("en-GB");
-                
             while (true)
             {
                 var toggled = true;
@@ -1045,22 +1066,24 @@ public partial class HandlingPage
                 {
                     break;
                 }
-
-                if (GetAsyncKeyState(Hk.JmpHack) is not (1 or short.MinValue))
+                
+                if (GetAsyncKeyState(Hk.JmpHack) is not (1 or short.MinValue) &&
+                    !Mw.Gamepad.IsButtonPressed(JmpHackController))
                 {
                     Task.Delay(25).Wait();
                     continue;
                 }
-
-                if (LinearVelocity.Y > 0.5)
-                {
-                    continue;
-                }
+                
 
                 var jmpVal = 1f;
                 Dispatcher.Invoke(() => jmpVal = ToSingle(JumpHackVelocityNum.Value));
                 LinearVelocity = LinearVelocity with { Y = LinearVelocity.Y + jmpVal };
-                Task.Delay(50).Wait();
+
+                while (GetAsyncKeyState(Hk.JmpHack) is 1 or short.MinValue ||
+                       Mw.Gamepad.IsButtonPressed(JmpHackController))
+                {
+                    Task.Delay(50).Wait();
+                }
             }
         });
     }

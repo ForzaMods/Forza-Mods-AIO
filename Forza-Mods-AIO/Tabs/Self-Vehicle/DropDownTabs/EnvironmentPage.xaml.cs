@@ -168,7 +168,12 @@ public partial class EnvironmentPage
 
             Dispatcher.Invoke(() =>
             {
-                if (new Vector3(ToSingle(SunRedSlider.Value), ToSingle(SunGreenSlider.Value), ToSingle(SunBlueSlider.Value)) != _last)
+                var currentValues = new Vector3(
+                    ToSingle(SunRedSlider.Value), 
+                    ToSingle(SunGreenSlider.Value),
+                    ToSingle(SunBlueSlider.Value));
+                
+                if (currentValues != _last)
                 {
                     AidsSwitch.IsOn = false;
                 }
@@ -182,7 +187,7 @@ public partial class EnvironmentPage
         var ascending = ToInt32(div % 1 * 255);
         var descending = 255 - ascending;
 
-        return ToInt32(div) switch
+        return (int)div switch
         {
             0 => Color.FromArgb(255, 255, ascending, 0),
             1 => Color.FromArgb(255, descending, 255, 0),

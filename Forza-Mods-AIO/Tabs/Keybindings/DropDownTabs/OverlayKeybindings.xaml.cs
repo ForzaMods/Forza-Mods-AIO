@@ -19,6 +19,7 @@ namespace Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs;
 public partial class OverlayKeybindings
 {
     private readonly string _settingsFilePath = GetFolderPath(SpecialFolder.MyDocuments) + @"\Forza Mods AIO\Overlay Settings.ini";
+    private bool _controllerReading;
     
     public OverlayKeybindings()
     {
@@ -37,21 +38,23 @@ public partial class OverlayKeybindings
     
     private void CTButton_OnClick(object sender, RoutedEventArgs e)
     {
-        Mw.Gamepad.InitializeControllersAndInput();
-
-        ((Button)sender).Content = "Change Key";
-        
-        if (Mw.Gamepad.GetXInputController() != null!)
+        if (_controllerReading)
         {
-            GetXInputKey((Button)sender);
             return;
         }
+        
+        Mw.Gamepad.InitializeControllersAndInput();
+        if (Mw.Gamepad.GetXInputController() == null!) return;
 
-        if (Mw.Gamepad.GetDInputController() == null!) return;
-        GetDInputKey((Button)sender);
+        _controllerReading = true;
+        ((Button)sender).Content = "Change Key";
+        GetXInputKey((Button)sender);
+
+        //if (Mw.Gamepad.GetDInputController() == null!) return;
+        //GetDInputKey((Button)sender);
     }
 
-    private static async void GetXInputKey(ContentControl button)
+    private async void GetXInputKey(ContentControl button)
     {
         var keyBuffer = string.Empty;
         while (keyBuffer.Length == 0)
@@ -87,6 +90,7 @@ public partial class OverlayKeybindings
             field.SetValue(Overlay.Overlay.Oh, keyBuffer);
             button.Content = keyBuffer;
             SaveKeybinds();
+            _controllerReading = false;
             return;
         }
     }
@@ -182,7 +186,7 @@ public partial class OverlayKeybindings
             TryParse(iniData["Keybinds"]["Visibility"], out OverlayVisibility);            
             TryParse(iniData["Keybinds"]["RapidAdjust"], out OverlayHandling.RapidAdjust);
 
-            /*if (iniData["Controller Keybinds"]["Up"] == null)
+            if (iniData["Controller Keybinds"]["Up"] == null)
             {
                 return;
             }
@@ -194,7 +198,7 @@ public partial class OverlayKeybindings
             ControllerLeave = iniData["Controller Keybinds"]["Confirm"];
             ControllerConfirm = iniData["Controller Keybinds"]["Leave"];
             ControllerOverlayVisibility = iniData["Controller Keybinds"]["Visibility"];
-            OverlayHandling.ControllerRapidAdjust = iniData["Controller Keybinds"]["RapidAdjust"];*/
+            OverlayHandling.ControllerRapidAdjust = iniData["Controller Keybinds"]["RapidAdjust"];
         }
         catch {}
     }
@@ -248,14 +252,14 @@ public partial class OverlayKeybindings
         iniData["Keybinds"]["Visibility"] = OverlayVisibility.ToString();
         iniData["Keybinds"]["RapidAdjust"] = OverlayHandling.RapidAdjust.ToString();
 
-        /*iniData["Controller Keybinds"]["Up"] = ControllerUp;
+        iniData["Controller Keybinds"]["Up"] = ControllerUp;
         iniData["Controller Keybinds"]["Down"] = ControllerDown;
         iniData["Controller Keybinds"]["Left"] = ControllerLeft;
         iniData["Controller Keybinds"]["Right"] = ControllerRight;
         iniData["Controller Keybinds"]["Confirm"] = ControllerConfirm;
         iniData["Controller Keybinds"]["Leave"] = ControllerLeave;
         iniData["Controller Keybinds"]["Visibility"] = ControllerOverlayVisibility;
-        iniData["Controller Keybinds"]["RapidAdjust"] = OverlayHandling.ControllerRapidAdjust;  */
+        iniData["Controller Keybinds"]["RapidAdjust"] = OverlayHandling.ControllerRapidAdjust;
         parser.WriteFile(configFile, iniData);
     }
 }

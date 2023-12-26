@@ -35,11 +35,11 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CtJmpHacButton"
-                        Content="RightThumb"
+                <Button x:Name="JmpHackControllerButton"
+                        Content=""
                         HorizontalAlignment="Right"
                         Margin="7.5 7.5"
-                        IsEnabled="False"
+                        
                         Width="85"
                         Click="CTButton_OnClick"
                         Height="25"
@@ -73,11 +73,11 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CTBrakeHack"
-                        Content="A"
+                <Button x:Name="BrakeHackControllerButton"
+                        Content=""
                         HorizontalAlignment="Right"
                         Margin="7.5 7.5"
-                        IsEnabled="False"
+                        
                         Width="85"
                         Click="CTButton_OnClick"
                         Height="25"
@@ -110,10 +110,10 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CTVelHack"
-                        Content="LeftShoulder"
+                <Button x:Name="VelHackControllerButton"
+                        Content=""
                         HorizontalAlignment="Right"
-                        IsEnabled="False"
+                        
                         Margin="7.5 7.5"
                         Width="85"
                         Click="CTButton_OnClick"
@@ -147,10 +147,10 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"/>
                 
-                <Button x:Name="CTWheelspeedHack"
-                        Content="LeftShoulder"
+                <Button x:Name="WheelspeedHackControllerButton"
+                        Content=""
                         HorizontalAlignment="Right"
-                        IsEnabled="False"
+                        
                         Margin="7.5 7.5"
                         Width="85"
                         Click="CTButton_OnClick"
