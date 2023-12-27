@@ -87,9 +87,6 @@ public abstract class TuningAsm : Asm
             Base2 = Mw.M.ReadMemory<UIntPtr>(_codeCave2 + 0x50) + (UIntPtr)(Mw.Gvp.Name == "Forza Horizon 4" ? 0 : 400);
             Base3 = Mw.M.ReadMemory<UIntPtr>(_codeCave3 + 0x50);
             Base4 = Mw.M.ReadMemory<UIntPtr>(_codeCave4 + 0x50) + (UIntPtr)(Mw.Gvp.Name == "Forza Horizon 4" ? 400 : 0);
-            
-            Addresses();
-            
             Thread.Sleep(1000);
         } 
     }

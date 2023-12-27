@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using MahApps.Metro.Controls;
 using static Forza_Mods_AIO.MainWindow;
 
 namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
@@ -17,11 +18,14 @@ public partial class Aero
     
     private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
+        ((NumericUpDown)sender).Value = Math.Round(Convert.ToDouble(((NumericUpDown)sender).Value), 3);
+        
         if (!Mw.Attached)
         {
             return;
         }
-    
+
+        
         UIntPtr address = 0;
 
         foreach (var field in typeof(TuningAddresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(UIntPtr)))
@@ -36,11 +40,13 @@ public partial class Aero
             address = (UIntPtr)(field.GetValue(field) ?? 0);
         }
 
-        if (address == 0)
+        var value = ((NumericUpDown)sender).Value;
+        
+        if (address == 0 || value == null)
         {
             return;
         }
     
-        Mw.M.WriteMemory(address, (float)((MahApps.Metro.Controls.NumericUpDown)sender).Value);
+        Mw.M.WriteMemory(address, Convert.ToSingle(value));
     }
 }

@@ -38,18 +38,17 @@ public partial class Tuning
     private static readonly Dictionary<string, double> Sizes = new()
     {
         { "TiresButton" , 240 }, // Button name for page, height of page
-        { "GearingButton" , 275 },
-        { "AlignmentButton" , 120 },
+        { "GearingButton" , 250 },
+        { "AlignmentButton" , 125 },
         { "SpringsButton" , 295 },
         { "DampingButton" , 460 },
-        { "AeroButton", 120 },
+        { "AeroButton", 125 },
         { "SteeringButton", 275 },
-        { "OthersButton", 395 },
+        { "OthersButton", 315 },
     };
 
     private static readonly Dictionary<string, bool> IsClicked = new()
     {
-        // Tuning
         {"TiresButton", false },
         {"GearingButton", false },
         {"AlignmentButton", false },

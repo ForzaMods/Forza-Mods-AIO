@@ -6,68 +6,346 @@
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignHeight="295" d:DesignWidth="580"
-      Title="Springs">
+      Title="Springs"
+      Background="Transparent">
 
     <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10">
         <Grid>
-            <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="48" BorderBrush="#FF2E3440" Margin="0,10,0,0" />
-            <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="48" BorderBrush="#FF2E3440" Margin="0,68,0,0" />
-            <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="148" BorderBrush="#FF2E3440" Margin="0,127,0,0" />
+               
+            <StackPanel>
+                <Border BorderThickness="2,2,2,2" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Top" 
+                        Width="556" 
+                        Height="46" 
+                        BorderBrush="#FF2E3440"
+                        Margin="0,10,0,0">
+                
+                    <Grid>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                            
+                            <Label Content="Front Springs Min"
+                                   Margin="6.5 0 0 0"/>
+                            
+                            <mah:NumericUpDown x:Name="SpringFrontMinBox" 
+                                               Background="#FF2E3440" 
+                                               BorderThickness="0" 
+                                               TrackMouseWheelWhenMouseOver="True" 
+                                               ParsingNumberStyle="Float" 
+                                               TextAlignment="Left" 
+                                               NumericInputMode="Decimal"
+                                               Height="25" 
+                                               Width="120" 
+                                               HorizontalAlignment="Left" 
+                                               VerticalAlignment="Top" 
+                                               Margin="10 0 0 0" 
+                                               ValueChanged="ValueChanged"/>
+     
+                        </StackPanel>
 
-            <!--#region Labels-->
-            <!--#region Wheelbase-->
-            <Label
-               Content="Front Springs Min"
-               VerticalAlignment="Top" HorizontalAlignment="Left"
-               
-               Margin="18.5,20,0,0"/>
-            <Label
-               Content="Rear Springs Min"
-               VerticalAlignment="Top" HorizontalAlignment="Left"
-               
-               Margin="18,80,0,0"/>
-            <Label
-               Content="Front Springs Max"
-               VerticalAlignment="Top" HorizontalAlignment="Left"
-               
-               Margin="302,21,0,0"/>
-            <Label
-               Content="Rear Springs Max"
-               VerticalAlignment="Top" HorizontalAlignment="Right"
-               
-               Margin="0,80,172,0"/>
-            <!--#endregion-->
-            <!--#region Rims-->
-            <Label
-               Content="Front Ride Height Min"
-               VerticalAlignment="Center" HorizontalAlignment="Left" Margin="18,0,0,0"/>
-            <Label
-               Content="Front Ride Height Max"
-               VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18,167,0,0"/>
-            <Label
-               Content="Rear Ride Height Min"
-               VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="18,0,0,65"
-               
-               />
-            <Label
-               Content="Rear Ride Height Max"
-               VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="18,0,0,31"
-               />
-            <!--#endregion-->
-            <!--#endregion-->
-            <!--#region Numeric Boxes, Buttons-->
-            <!--Spring Boxes-->
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SpringFrontMinBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="128,21,312,246" ValueChanged="ValueChanged"/>
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SpringFrontMaxBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="128,80,312,187" ValueChanged="ValueChanged"/>
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SpringRearMinBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="417,21,23,246" ValueChanged="ValueChanged"/>
-            <mah:NumericUpDown Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="SpringRearMaxBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="417,80,23,187" ValueChanged="ValueChanged"/>
-            <!--Ride Height Boxes, Buttons-->
-            <mah:NumericUpDown Interval="0.01" Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontRideHeightMinBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,124,173,123" ValueChanged="ValueChanged"/>
-            <mah:NumericUpDown Interval="0.01" Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="FrontRideHeightMaxBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,157,23,90" ValueChanged="ValueChanged"/>
-            <mah:NumericUpDown Interval="0.01" Background="#FF2E3440" BorderThickness="0" Height="25" TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearRideHeightMinBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,192,173,55" ValueChanged="ValueChanged"/>
-            <mah:NumericUpDown Interval="0.01" Background="#FF2E3440" BorderThickness="0" Height="25"  TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" x:Name="RearRideHeightMaxBox" TextAlignment="Left" NumericInputMode="Decimal" Margin="152,226,23,21" ValueChanged="ValueChanged"/>
-            <mah:ToggleSwitch x:Name="FrontRestriction" Content="Front Restriction" Height="29" Margin="410,0,0,0" FontSize="12" Toggled="FrontRestriction_Toggled" ToolTip="For stance/fix bouncing"/>
-            <mah:ToggleSwitch x:Name="RearRestriction" Content="Rear Restriction" Height="30" Margin="410,200,0,0" VerticalAlignment="Top" FontSize="12" Toggled="RearRestriction_Toggled" ToolTip="For stance/fix bouncing"/>
+                        <StackPanel Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                            
+                            <Label Content="Front Springs Max"
+                                   Margin="0 0 10 0"/>
+                            
+                            <mah:NumericUpDown x:Name="SpringFrontMaxBox" 
+                                               Background="#FF2E3440" 
+                                               BorderThickness="0" 
+                                               TrackMouseWheelWhenMouseOver="True" 
+                                               ParsingNumberStyle="Float" 
+                                               TextAlignment="Left" 
+                                               NumericInputMode="Decimal"
+                                               Height="25" 
+                                               Width="120" 
+                                               HorizontalAlignment="Left" 
+                                               VerticalAlignment="Top" 
+                                               Margin="0 0 6.5 0" 
+                                               ValueChanged="ValueChanged"/>
+     
+                        </StackPanel>
+
+                        
+                    </Grid>
+                    
+                </Border>
+                
+                <Border BorderThickness="2,2,2,2" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Top" 
+                        Width="556" 
+                        Height="46" 
+                        BorderBrush="#FF2E3440"
+                        Margin="0,10,0,0">
+                
+                    <Grid>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                            
+                            <Label Content="Rear Springs Min"
+                                   Margin="6.5 0 0 0"/>
+                            
+                            <mah:NumericUpDown x:Name="SpringRearMinBox" 
+                                               Background="#FF2E3440" 
+                                               BorderThickness="0" 
+                                               TrackMouseWheelWhenMouseOver="True" 
+                                               ParsingNumberStyle="Float" 
+                                               TextAlignment="Left" 
+                                               NumericInputMode="Decimal"
+                                               Height="25" 
+                                               Width="120" 
+                                               HorizontalAlignment="Left" 
+                                               VerticalAlignment="Top" 
+                                               Margin="15 0 0 0" 
+                                               ValueChanged="ValueChanged"/>
+     
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                            
+                            <Label Content="Rear Springs Max"
+                                   Margin="0 0 10 0"/>
+                            
+                            <mah:NumericUpDown x:Name="SpringRearMaxBox" 
+                                               Background="#FF2E3440" 
+                                               BorderThickness="0" 
+                                               TrackMouseWheelWhenMouseOver="True" 
+                                               ParsingNumberStyle="Float" 
+                                               TextAlignment="Left" 
+                                               NumericInputMode="Decimal"
+                                               Height="25" 
+                                               Width="120" 
+                                               HorizontalAlignment="Left" 
+                                               VerticalAlignment="Top" 
+                                               Margin="0 0 6.5 0" 
+                                               ValueChanged="ValueChanged"/>
+     
+                        </StackPanel>
+
+                        
+                    </Grid>
+                    
+                </Border>
+                
+                <Border BorderThickness="2,2,2,2" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Top" 
+                        Width="556" 
+                        BorderBrush="#FF2E3440" 
+                        Margin="0,10,0,0">
+                
+                    <Grid>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0">
+                            
+                            <Label Content="Front Ride Height Min"
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Left" 
+                                   Margin="5,10,0,0"/>
+                            
+                            <Label Content="Front Ride Height Max"
+                                   VerticalAlignment="Top" 
+                                   HorizontalAlignment="Left" 
+                                   Margin="5,11,0,0"/>
+                            
+                            <Label Content="Rear Ride Height Min"
+                                   VerticalAlignment="Bottom" 
+                                   HorizontalAlignment="Left" 
+                                   Margin="5,11,0,0"/>
+                            
+                            <Label Content="Rear Ride Height Max"
+                                   VerticalAlignment="Bottom" 
+                                   HorizontalAlignment="Left" 
+                                   Margin="5,11,0,10"/>
+                            
+                        </StackPanel>
+                        
+                        
+                        <StackPanel Grid.Column="1"
+                                    Margin="4 0 0 0">
+                            
+                            <StackPanel Margin="0 7.5 0 0" 
+                                        Orientation="Horizontal">
+                                
+                                <ComboBox x:Name="FrontRideHeightMinUnitBox"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Width="95"
+                                          SelectedIndex="0"
+                                          Background="#FF2E3440" 
+                                          BorderThickness="0">
+                                    
+                                    <ComboBoxItem Content="Centimeters"/>
+                                    <ComboBoxItem Content="Inches"/>
+                                    
+                                </ComboBox>
+                                
+                                <mah:NumericUpDown x:Name="FrontRideHeightMinBox"
+                                                   Interval="0.1" 
+                                                   Background="#FF2E3440" 
+                                                   BorderThickness="0"
+                                                   Width="150"
+                                                   Margin="5 0 0 0"
+                                                   TrackMouseWheelWhenMouseOver="True" 
+                                                   ParsingNumberStyle="Float" 
+                                                   TextAlignment="Left" 
+                                                   VerticalAlignment="Center"
+                                                   NumericInputMode="Decimal" 
+                                                   ValueChanged="RideHeightChanged"/>
+                                
+                                <mah:ToggleSwitch x:Name="FrontRestriction" 
+                                                  Content="Front Restriction" 
+                                                  Margin="10,0,0,0" 
+                                                  FontSize="12" 
+                                                  VerticalAlignment="Center"
+                                                  Toggled="FrontRestriction_Toggled" 
+                                                  ToolTip="For stance/fix bouncing"/>
+
+                                
+                            </StackPanel>
+                            
+                            <StackPanel Margin="0 7.5 0 0" 
+                                        Orientation="Horizontal">
+                                
+                                <ComboBox x:Name="FrontRideHeightMaxUnitBox"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Width="95"
+                                          SelectedIndex="0"
+                                          Background="#FF2E3440" 
+                                          BorderThickness="0">
+                                    
+                                    <ComboBoxItem Content="Centimeters"/>
+                                    <ComboBoxItem Content="Inches"/>
+                                    
+                                </ComboBox>
+                                
+                                <mah:NumericUpDown x:Name="FrontRideHeightMaxBox"
+                                                   Interval="0.1" 
+                                                   Background="#FF2E3440" 
+                                                   BorderThickness="0"
+                                                   Width="305"
+                                                   Margin="5 0 0 0"
+                                                   TrackMouseWheelWhenMouseOver="True" 
+                                                   ParsingNumberStyle="Float" 
+                                                   TextAlignment="Left" 
+                                                   VerticalAlignment="Center"
+                                                   NumericInputMode="Decimal" 
+                                                   ValueChanged="RideHeightChanged"/>
+
+                                
+                            </StackPanel>
+                                                    
+                            <StackPanel Margin="0 7.5 0 0" 
+                                        Orientation="Horizontal">
+                                
+                                <ComboBox x:Name="RearRideHeightMinUnitBox"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Width="95"
+                                          SelectedIndex="0"
+                                          Background="#FF2E3440" 
+                                          BorderThickness="0">
+                                    
+                                    <ComboBoxItem Content="Centimeters"/>
+                                    <ComboBoxItem Content="Inches"/>
+                                    
+                                </ComboBox>
+                                
+                                <mah:NumericUpDown x:Name="RearRideHeightMinBox"
+                                                   Interval="0.1" 
+                                                   Background="#FF2E3440" 
+                                                   BorderThickness="0"
+                                                   Width="150"
+                                                   Margin="5 0 0 0"
+                                                   TrackMouseWheelWhenMouseOver="True" 
+                                                   ParsingNumberStyle="Float" 
+                                                   TextAlignment="Left" 
+                                                   VerticalAlignment="Center"
+                                                   NumericInputMode="Decimal" 
+                                                   ValueChanged="RideHeightChanged"/>
+                                
+                                <mah:ToggleSwitch x:Name="RearRestriction" 
+                                                  Content="Rear Restriction" 
+                                                  Margin="10,0,0,0" 
+                                                  FontSize="12" 
+                                                  VerticalAlignment="Center"
+                                                  Toggled="RearRestriction_Toggled" 
+                                                  ToolTip="For stance/fix bouncing"/>
+
+                                
+                            </StackPanel>
+                            
+                            
+                            <StackPanel Margin="0 7.5 0 0" 
+                                        Orientation="Horizontal">
+                                
+                                <ComboBox x:Name="RearRideHeightMaxUnitBox"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Width="95"
+                                          SelectedIndex="0"
+                                          Background="#FF2E3440" 
+                                          BorderThickness="0"
+                                          Margin="0 0 0 10">
+                                    
+                                    <ComboBoxItem Content="Centimeters"/>
+                                    <ComboBoxItem Content="Inches"/>
+                                    
+                                </ComboBox>
+                                
+                                <mah:NumericUpDown x:Name="RearRideHeightMaxBox"
+                                                   Interval="0.1" 
+                                                   Background="#FF2E3440" 
+                                                   BorderThickness="0"
+                                                   Width="305"
+                                                   Margin="5 0 0 10"
+                                                   TrackMouseWheelWhenMouseOver="True" 
+                                                   ParsingNumberStyle="Float" 
+                                                   TextAlignment="Left" 
+                                                   VerticalAlignment="Center"
+                                                   NumericInputMode="Decimal" 
+                                                   ValueChanged="RideHeightChanged"/>
+
+                                
+                            </StackPanel>
+
+                        </StackPanel>
+                        
+                    </Grid>     
+                    
+                </Border>
+                
+            </StackPanel>
         </Grid>
     </Border>
 </Page>

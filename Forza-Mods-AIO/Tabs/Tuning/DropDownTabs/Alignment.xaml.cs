@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using static Forza_Mods_AIO.MainWindow;
 
 namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
@@ -14,41 +15,43 @@ public partial class Alignment
 
     private void CamberNegBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || CamberNegBox == null)
         {
             return;
         }   
-        try { Mw.M.WriteMemory(TuningAddresses.CamberNeg, (float)CamberNegBox.Value); } catch { }
-        try { Mw.M.WriteMemory(TuningAddresses.CamberNegStatic, (float)CamberNegBox.Value); } catch { }
+        
+        Mw.M.WriteMemory(TuningAddresses.CamberNeg, Convert.ToSingle(CamberNegBox.Value));
+        Mw.M.WriteMemory(TuningAddresses.CamberNegStatic, Convert.ToSingle(CamberNegBox.Value));
     }
 
     private void CamberPosBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || CamberPosBox == null)
         {
             return;
         }
-        try { Mw.M.WriteMemory(TuningAddresses.CamberPos, (float)CamberPosBox.Value); } catch { }
-        try { Mw.M.WriteMemory(TuningAddresses.CamberPosStatic, (float)CamberPosBox.Value); } catch { }
+        
+        Mw.M.WriteMemory(TuningAddresses.CamberPos, Convert.ToSingle(CamberPosBox.Value));
+        Mw.M.WriteMemory(TuningAddresses.CamberPosStatic, Convert.ToSingle(CamberPosBox.Value));
     }
 
     private void ToeNegBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || ToeNegBox == null)
         {
             return;
         }
-        try { Mw.M.WriteMemory(TuningAddresses.ToeNeg, (float)ToeNegBox.Value); } catch { }
-        try { Mw.M.WriteMemory(TuningAddresses.ToeNegStatic, (float)ToeNegBox.Value); } catch { }
+        Mw.M.WriteMemory(TuningAddresses.ToeNeg, Convert.ToSingle(ToeNegBox.Value));
+        Mw.M.WriteMemory(TuningAddresses.ToeNegStatic, Convert.ToSingle(ToeNegBox.Value));
     }
 
     private void ToePosBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || ToePosBox == null)
         {
             return;
         }
-        try { Mw.M.WriteMemory(TuningAddresses.ToePos, (float)ToePosBox.Value); } catch { }
-        try { Mw.M.WriteMemory(TuningAddresses.ToePosStatic, (float)ToePosBox.Value); } catch { }
+        Mw.M.WriteMemory(TuningAddresses.ToePos, Convert.ToSingle(ToePosBox.Value));
+        Mw.M.WriteMemory(TuningAddresses.ToePosStatic, Convert.ToSingle(ToePosBox.Value));
     }
 }

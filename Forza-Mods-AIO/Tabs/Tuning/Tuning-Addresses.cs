@@ -142,7 +142,14 @@ internal class TuningAddresses
     
     public static void Scan()
     {
-        CamberNegStatic = Mw.M.ScanForSig("3d ? ? ? ? 00 00 ? ? 00 00 5c").LastOrDefault() + 0xD;
+        if (Mw.Gvp.Name.Contains('5'))
+        {
+            CamberNegStatic = Mw.M.ScanForSig("3d ? ? ? ? 00 00 ? ? 00 00 5c 42").LastOrDefault() + 0xD;
+        }
+        else
+        {
+            CamberNegStatic = Mw.M.ScanForSig("3d ? ? ? ? 00 00 ? ? 00 00 5c").LastOrDefault() + 0xD;
+        }        
         CamberPosStatic = CamberNegStatic + 0x4;
         ToeNegStatic = CamberNegStatic + 0x8;
         ToePosStatic = CamberNegStatic + 0xC;
@@ -200,11 +207,6 @@ internal class TuningAddresses
         {
             TuningAsm.GetTuningBaseAddresses();
         }
-        else
-        {
-            Addresses();
-        }
-        
         Task.Run(() => ReadValues());
         TuningOption.IsEnabled = true;
         Tuning.T.UiManager.AddProgress();
@@ -244,23 +246,23 @@ internal class TuningAddresses
         ToeNeg = Mw.Gvp.Name == "Forza Horizon 4" ? Base3 + 0x3EC : Mw.M.GetCode(Base2.ToString("X") + ",0x8B0,0x498");
         ToePos = Mw.Gvp.Name == "Forza Horizon 4" ? Base3 + 0x3F0 : Mw.M.GetCode(Base2.ToString("X") + ",0x8B0,0x49C");
 
-        FrontAntirollMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x3F8 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x5EC");
-        FrontAntirollMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x3FC : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x5F0");
-        RearAntirollMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x4A4 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x740");
-        RearAntirollMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x4A8 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x744");
+        FrontAntirollMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x3F8 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x5F0");
+        FrontAntirollMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x3FC : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x5F4");
+        RearAntirollMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x4A4 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x744");
+        RearAntirollMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x4A8 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x748");
 
         SpringFrontMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x3AC : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x550");
         SpringFrontMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x3B0 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x554");
         SpringRearMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x458 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x6A4");
         SpringRearMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x45C : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x6A8");
 
-        FrontRideHeightMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x394 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x530");
-        FrontRideHeightMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x398 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x534");
-        RearRideHeightMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x440 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x684");
-        RearRideHeightMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x444 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x688");
+        FrontRideHeightMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x394 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x534");
+        FrontRideHeightMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x398 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x538");
+        RearRideHeightMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x440 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x688");
+        RearRideHeightMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x444 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x68C");
 
-        FrontRestriction = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x39C : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x538");
-        RearRestriction = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x448 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x68C");
+        FrontRestriction = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x39C : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x53C");
+        RearRestriction = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x448 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x690");
 
         FrontAeroMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x234 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x3A0");
         FrontAeroMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x23C : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x3A8");
@@ -269,13 +271,13 @@ internal class TuningAddresses
 
         FrontReboundStiffnessMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x3D4 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x580");
         FrontReboundStiffnessMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x3D8 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x584");
-        RearReboundStiffnessMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x480 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x6D4");
-        RearReboundStiffnessMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x484 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x6D8");
+        RearReboundStiffnessMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x484 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x6D8");
+        RearReboundStiffnessMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x480 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x6DC");
 
-        FrontBumpStiffnessMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x3B8 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x55C");
-        FrontBumpStiffnessMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x3BC : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x560");
-        RearBumpStiffnessMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x464 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x6B0");
-        RearBumpStiffnessMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x468 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x6B4");
+        FrontBumpStiffnessMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x3B8 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x560");
+        FrontBumpStiffnessMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x3BC : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x564");
+        RearBumpStiffnessMin = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x464 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x6B4");
+        RearBumpStiffnessMax = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0x468 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0x6B8");
 
         Wheelbase = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0xC0 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0xD0");
         FrontWidth = Mw.Gvp.Name == "Forza Horizon 4" ? Base4 + 0xC4 : Mw.M.GetCode(Base3.ToString("X") + ",0x330,0x8,0x1E0,0xD4");
@@ -294,7 +296,6 @@ internal class TuningAddresses
         
     private static void ReadValues()
     {
-        //These can be only read once as they dont change when a car is switched
         Current.Dispatcher.Invoke(() =>
         {
             Alignment.Al.CamberNegBox.Value = Mw.M.ReadMemory<float>(CamberNegStatic);
@@ -303,16 +304,17 @@ internal class TuningAddresses
             Alignment.Al.ToePosBox.Value = Mw.M.ReadMemory<float>(ToePosStatic);
         });
 
-        if (Mw.Gvp.Name.Contains('5'))
-        {
-            CarEntity.Hook();
-        }
 
-        //Rest requires a constant reading
         while (Mw.Attached)
         {
-            Task.Delay(500).Wait();
-                
+            Task.Delay(250).Wait();
+            Addresses();    
+            
+            if (Mw.Gvp.Name.Contains('5'))
+            {
+                CarEntity.Hook();
+            }
+            
             Current.Dispatcher.Invoke(() =>
             {
                 #region Aero
@@ -327,46 +329,46 @@ internal class TuningAddresses
 
                 if (Mw.Gvp.Name.Contains('5'))
                 {
-                    G.FinalDriveBox.Value = Math.Round(Mw.M.ReadMemory<float>(FinalDrive = CarEntity.PlayerCarEntity + 0x125C), 5);
-                    G.ReverseGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(ReverseGear = CarEntity.PlayerCarEntity + GearOffset - 20), 5);
-                    G.FirstGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FirstGear = CarEntity.PlayerCarEntity + GearOffset), 5);
-                    G.SecondGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(SecondGear =CarEntity.PlayerCarEntity + GearOffset + 20), 5);
-                    G.ThirdGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(ThirdGear = CarEntity.PlayerCarEntity + GearOffset + 40), 5);
-                    G.FourthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FourthGear = CarEntity.PlayerCarEntity + GearOffset + 60), 5);
-                    G.FifthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FifthGear = CarEntity.PlayerCarEntity + GearOffset + 80), 5);
-                    G.SixthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(SixthGear = CarEntity.PlayerCarEntity + GearOffset + 100), 5);
-                    G.SeventhGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(SeventhGear = CarEntity.PlayerCarEntity + GearOffset + 120), 5);
-                    G.EighthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(EighthGear = CarEntity.PlayerCarEntity + GearOffset + 140), 5);
-                    G.NinthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(NinthGear = CarEntity.PlayerCarEntity + GearOffset + 160), 5);
-                    G.TenthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(TenthGear = CarEntity.PlayerCarEntity + GearOffset + 180), 5);
+                    G.FinalDriveBox.Value = Math.Round(Mw.M.ReadMemory<float>(FinalDrive = CarEntity.PlayerCarEntity + 0x125C), 3);
+                    G.ReverseGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(ReverseGear = CarEntity.PlayerCarEntity + GearOffset), 3);
+                    G.FirstGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FirstGear = CarEntity.PlayerCarEntity + GearOffset + 20), 3);
+                    G.SecondGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(SecondGear =CarEntity.PlayerCarEntity + GearOffset + 40), 3);
+                    G.ThirdGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(ThirdGear = CarEntity.PlayerCarEntity + GearOffset + 60), 3);
+                    G.FourthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FourthGear = CarEntity.PlayerCarEntity + GearOffset + 80), 3);
+                    G.FifthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FifthGear = CarEntity.PlayerCarEntity + GearOffset + 100), 3);
+                    G.SixthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(SixthGear = CarEntity.PlayerCarEntity + GearOffset + 120),3);
+                    G.SeventhGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(SeventhGear = CarEntity.PlayerCarEntity + GearOffset + 140), 3);
+                    G.EighthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(EighthGear = CarEntity.PlayerCarEntity + GearOffset + 160), 3);
+                    G.NinthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(NinthGear = CarEntity.PlayerCarEntity + GearOffset + 180), 3);
+                    G.TenthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(TenthGear = CarEntity.PlayerCarEntity + GearOffset + 200), 3);
                 }
                 else
                 {
-                    G.FinalDriveBox.Value = Math.Round(Mw.M.ReadMemory<float>(FinalDrive), 5);
-                    G.ReverseGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(ReverseGear), 5);
-                    G.FirstGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FirstGear), 5);
-                    G.SecondGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(SecondGear), 5);
-                    G.ThirdGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(ThirdGear), 5);
-                    G.FourthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FourthGear), 5);
-                    G.FifthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FifthGear), 5);
-                    G.SixthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(SixthGear), 5);
-                    G.SeventhGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(SeventhGear), 5);
-                    G.EighthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(EighthGear), 5);
-                    G.NinthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(NinthGear), 5);
-                    G.TenthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(TenthGear), 5);
+                    G.FinalDriveBox.Value = Math.Round(Mw.M.ReadMemory<float>(FinalDrive), 3);
+                    G.ReverseGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(ReverseGear), 3);
+                    G.FirstGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FirstGear), 3);
+                    G.SecondGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(SecondGear), 3);
+                    G.ThirdGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(ThirdGear), 3);
+                    G.FourthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FourthGear), 3);
+                    G.FifthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FifthGear), 3);
+                    G.SixthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(SixthGear), 3);
+                    G.SeventhGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(SeventhGear), 3);
+                    G.EighthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(EighthGear), 3);
+                    G.NinthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(NinthGear), 3);
+                    G.TenthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(TenthGear), 3);
                 }
                 #endregion
                 #region Damping
                     
-                D.FrontAntirollMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontAntirollMin), 5);
-                D.FrontAntirollMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontAntirollMax), 5);
-                D.RearAntirollMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearAntirollMin), 5);
-                D.RearAntirollMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearAntirollMax), 5);
+                D.FrontAntirollMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontAntirollMin), 3);
+                D.FrontAntirollMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontAntirollMax), 3);
+                D.RearAntirollMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearAntirollMin), 3);
+                D.RearAntirollMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearAntirollMax), 3);
 
-                D.FrontBumpStiffnessMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontBumpStiffnessMin), 5);
-                D.FrontBumpStiffnessMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontBumpStiffnessMax), 5);
-                D.RearBumpStiffnessMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearBumpStiffnessMin), 5);
-                D.RearBumpStiffnessMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearBumpStiffnessMax), 5);
+                D.FrontBumpStiffnessMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontBumpStiffnessMin), 3);
+                D.FrontBumpStiffnessMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontBumpStiffnessMax), 3);
+                D.RearBumpStiffnessMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearBumpStiffnessMin), 3);
+                D.RearBumpStiffnessMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearBumpStiffnessMax), 3);
 
                 D.FrontReboundStiffnessMinBox.Value = Mw.M.ReadMemory<float>(FrontReboundStiffnessMin);
                 D.FrontReboundStiffnessMaxBox.Value = Mw.M.ReadMemory<float>(FrontReboundStiffnessMax);
@@ -376,15 +378,15 @@ internal class TuningAddresses
                 #endregion
                 #region Others
                     
-                Others.O.WheelbaseBox.Value = Mw.M.ReadMemory<float>(Wheelbase);
-                Others.O.RimSizeFrontBox.Value = Mw.M.ReadMemory<float>(RimSizeFront);
-                Others.O.RimSizeRearBox.Value = Mw.M.ReadMemory<float>(RimSizeRear);
-                Others.O.RimRadiusFrontBox.Value = Mw.M.ReadMemory<float>(RimRadiusFront);
-                Others.O.RimRadiusRearBox.Value = Mw.M.ReadMemory<float>(RimRadiusRear);
-                Others.O.FrontWidthBox.Value = Mw.M.ReadMemory<float>(FrontWidth);
-                Others.O.RearWidthBox.Value = Mw.M.ReadMemory<float>(RearWidth);
-                Others.O.FrontSpacerBox.Value = Mw.M.ReadMemory<float>(FrontSpacer);
-                Others.O.RearSpacerBox.Value = Mw.M.ReadMemory<float>(RearSpacer);
+                Others.O.WheelbaseBox.Value = Math.Round(Mw.M.ReadMemory<float>(Wheelbase), 3);
+                Others.O.RimSizeFrontBox.Value = Math.Round(Mw.M.ReadMemory<float>(RimSizeFront),3);
+                Others.O.RimSizeRearBox.Value = Math.Round(Mw.M.ReadMemory<float>(RimSizeRear),3);
+                Others.O.RimRadiusFrontBox.Value = Math.Round(Mw.M.ReadMemory<float>(RimRadiusFront),3);
+                Others.O.RimRadiusRearBox.Value = Math.Round(Mw.M.ReadMemory<float>(RimRadiusRear),3);
+                Others.O.FrontWidthBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontWidth),3);
+                Others.O.RearWidthBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearWidth),3);
+                Others.O.FrontSpacerBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontSpacer),3);
+                Others.O.RearSpacerBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearSpacer),3);
                     
                 #endregion
                 #region Springs
@@ -394,39 +396,43 @@ internal class TuningAddresses
                 Sp.SpringRearMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(SpringRearMin), 3);
                 Sp.SpringRearMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(SpringRearMax), 3);
 
-                Sp.FrontRideHeightMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontRideHeightMin), 6);
-                Sp.FrontRideHeightMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontRideHeightMax), 6);
-                Sp.RearRideHeightMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearRideHeightMin), 6);
-                Sp.RearRideHeightMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearRideHeightMax), 6);
+                Sp.RideHeightCodeChange = true;
+                Sp.FrontRideHeightMinBox.Value = Math.Round(ConvertGameValueToUnit(Sp.FrontRideHeightMinUnitBox.SelectedIndex,Mw.M.ReadMemory<float>(FrontRideHeightMin)), 3);
+                Sp.FrontRideHeightMaxBox.Value = Math.Round(ConvertGameValueToUnit(Sp.FrontRideHeightMaxUnitBox.SelectedIndex,Mw.M.ReadMemory<float>(FrontRideHeightMax)), 3);
+                Sp.RearRideHeightMinBox.Value = Math.Round(ConvertGameValueToUnit(Sp.RearRideHeightMinUnitBox.SelectedIndex,Mw.M.ReadMemory<float>(RearRideHeightMin)), 3);
+                Sp.RearRideHeightMaxBox.Value = Math.Round(ConvertGameValueToUnit(Sp.RearRideHeightMaxUnitBox.SelectedIndex,Mw.M.ReadMemory<float>(RearRideHeightMax)), 3);
+                Sp.RideHeightCodeChange = false;
                     
                 #endregion
                 #region Steering
                     
-                St.AngleMaxBox.Value = Mw.M.ReadMemory<float>(AngleMax);
-                St.AngleMax2Box.Value = Mw.M.ReadMemory<float>(AngleMax2);
-                St.VelocityCountersteerBox.Value = Mw.M.ReadMemory<float>(VelocityCountersteer);
-                St.VelocityDynamicPeekBox.Value = Mw.M.ReadMemory<float>(VelocityDynamicPeek);
-                St.VelocityStraightBox.Value = Mw.M.ReadMemory<float>(VelocityStraight);
-                St.VelocityTurningBox.Value = Mw.M.ReadMemory<float>(VelocityTurning);
-                St.TimeToMaxSteeringBox.Value = Math.Round(Mw.M.ReadMemory<float>(TimeToMaxSteering), 5);
+                St.AngleMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(AngleMax), 3);
+                St.AngleMax2Box.Value = Math.Round(Mw.M.ReadMemory<float>(AngleMax2), 3);
+                St.VelocityCountersteerBox.Value = Math.Round(Mw.M.ReadMemory<float>(VelocityCountersteer), 3);
+                St.VelocityDynamicPeekBox.Value = Math.Round(Mw.M.ReadMemory<float>(VelocityDynamicPeek), 3);
+                St.VelocityStraightBox.Value = Math.Round(Mw.M.ReadMemory<float>(VelocityStraight), 3);
+                St.VelocityTurningBox.Value = Math.Round(Mw.M.ReadMemory<float>(VelocityTurning), 3);
+                St.TimeToMaxSteeringBox.Value = Math.Round(Mw.M.ReadMemory<float>(TimeToMaxSteering), 3);
                     
                 #endregion
                 #region Tires
 
+                T.ValueChangeFromCode = true;
                 if (Mw.Gvp.Name.Contains('5'))
                 {
-                    T.TireFrontLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireFrontLeft = CarEntity.PlayerCarEntity + TireOffset) / TireFrontLeftDivider, 5);
-                    T.TireFrontRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireFrontRight = CarEntity.PlayerCarEntity + TireOffset + 2752) / TireFrontRightDivider, 5);
-                    T.TireRearLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearLeft = CarEntity.PlayerCarEntity + TireOffset + 5504) / TireRearLeftDivider, 5);
-                    T.TireRearRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearRight = CarEntity.PlayerCarEntity + TireOffset + 8256) / TireRearRightDivider, 5);
+                    T.TireFrontLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireFrontLeft = CarEntity.PlayerCarEntity + TireOffset) / TireFrontLeftDivider, 3);
+                    T.TireFrontRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireFrontRight = CarEntity.PlayerCarEntity + TireOffset + 2752) / TireFrontRightDivider, 3);
+                    T.TireRearLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearLeft = CarEntity.PlayerCarEntity + TireOffset + 5504) / TireRearLeftDivider, 3);
+                    T.TireRearRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearRight = CarEntity.PlayerCarEntity + TireOffset + 8256) / TireRearRightDivider, 3);
                 }
                 else
                 {
-                    T.TireFrontLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireFrontLeft) / TireFrontLeftDivider, 5);
-                    T.TireFrontRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireFrontRight) / TireFrontRightDivider, 5);
-                    T.TireRearLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearLeft) / TireRearLeftDivider, 5);
-                    T.TireRearRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearRight) / TireRearRightDivider, 5);
+                    T.TireFrontLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireFrontLeft) / TireFrontLeftDivider, 3);
+                    T.TireFrontRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireFrontRight) / TireFrontRightDivider, 3);
+                    T.TireRearLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearLeft) / TireRearLeftDivider, 3);
+                    T.TireRearRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearRight) / TireRearRightDivider, 3);
                 }
+                T.ValueChangeFromCode = false;
                 #endregion
             });
         }
