@@ -150,7 +150,6 @@ internal class SelfVehicleAddresses
         _superCarAob = "0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 0F 11 ? ? 0F 10 ? ? 48 83 C2";
         _wayPointXAsmAob = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50";
         _oobAob = "48 83 EC ? 0F 10 ? 41 0F ? ? 0F 10"; // + 83 OR + 0x53
-        _discoverRoadsAob = "00 96 ? ? ? ? 42 88";
         _waterAob = "3D ? ? ? ? 00 00 A0 ? ? ? ? ? ? ? ? 3F 00 00 80";
         _aixAob = "0F 11 ? ? 48 8B ? 0F 10 ? ? 0F 11 ? ? ? ? ? 0F 10";
         _cameraSpeedBaseAob = "54 00 52 ? 41 00 ? ? 4B 00 ? 00 00 00 00 00 05";
@@ -212,7 +211,7 @@ internal class SelfVehicleAddresses
         SignaturesFive();
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 40;
+        Sv.UiManager.ScanAmount = 39;
 
         XpAddr = Mw.M.ScanForSig(_xpAob).FirstOrDefault() - 14;
         XpAmountAddr = Mw.M.ScanForSig(_xpAmountAob).FirstOrDefault();
@@ -231,9 +230,6 @@ internal class SelfVehicleAddresses
         Sv.UiManager.AddProgress();
 
         Wall2Addr = Mw.M.ScanForSig(_wall2Aob).FirstOrDefault() - 40;
-        Sv.UiManager.AddProgress();
-
-        //SuperCarAddr = Mw.M.ScanForSig(_superCarAob).LastOrDefault();
         Sv.UiManager.AddProgress();
 
         WaterAddr = Mw.M.ScanForSig(_waterAob).FirstOrDefault() + 553;
@@ -261,9 +257,6 @@ internal class SelfVehicleAddresses
         Sv.UiManager.AddProgress();
 
         WayPointXAsmAddr = Mw.M.ScanForSig(_wayPointXAsmAob).FirstOrDefault();
-        Sv.UiManager.AddProgress();
-
-        DiscoverRoadsAddr = Mw.M.ScanForSig(_discoverRoadsAob).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
         BuildAddr1 = Mw.M.ScanForSig(_buildCap1Sig).FirstOrDefault() + 25;
@@ -348,6 +341,7 @@ internal class SelfVehicleAddresses
         {
             Sv.StatsButton.IsEnabled = false;
             Shp.SuperCarSwitch.IsEnabled = false;
+            UnlocksPage.Unlocks.DiscoverRoadsSwitch.IsEnabled = false;
             EnvironmentPage.Environment.OOBSwitch.IsEnabled = false;
         });
     }

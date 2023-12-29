@@ -79,7 +79,7 @@
                                            TrackMouseWheelWhenMouseOver="True"
                                            Minimum="0"
                                            Maximum="999999999"
-                                           Value="0"
+                                           Value="1000000"
                                            NumericInputMode="Numbers"
                                            ParsingNumberStyle="Integer"
                                            ValueChanged="CreditsNum_OnValueChanged"/>
@@ -125,8 +125,8 @@
                                            HideUpDownButtons="True"
                                            TrackMouseWheelWhenMouseOver="True"
                                            Minimum="0"
-                                           Maximum="2147483647"
-                                           Value="0"
+                                           Maximum="999999999"
+                                           Value="125"
                                            NumericInputMode="Numbers"
                                            ParsingNumberStyle="Integer"
                                            ValueChanged="SpinsNum_OnValueChanged"/>
@@ -159,7 +159,7 @@
                                            TrackMouseWheelWhenMouseOver="True"
                                            Minimum="0"
                                            Maximum="999999999"
-                                           Value="0"
+                                           Value="125"
                                            NumericInputMode="Numbers"
                                            ParsingNumberStyle="Integer"
                                            ValueChanged="SpinsNum_OnValueChanged"/>
@@ -223,12 +223,14 @@
                             <mah:NumericUpDown x:Name="SkillPointsNum"
                                                HideUpDownButtons="True"
                                                BorderThickness="0"
+                                               Minimum="0"
+                                               Maximum="2147483647"
                                                HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                Margin="7.5"
                                                TextAlignment="Left"
                                                Value="999"
-                                               Width="217.5"
+                                               Width="227.5"
                                                Background="#FF2E3440"
                                                ValueChanged="SkillPointsNum_OnValueChanged"/>
                     
@@ -238,7 +240,7 @@
                                               Margin="5 0 10 0"
                                               MinWidth="0"
                                               FontSize="12"
-                                              Content="Series Points"
+                                              Content="Skill Points"
                                               Toggled="SkillPointsToggle_OnToggled"/>
                         
                         </StackPanel>
@@ -264,6 +266,8 @@
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        Margin="7.5"
+                                       Minimum="0"
+                                       Maximum="2147483647"
                                        TextAlignment="Left"
                                        Value="999"
                                        Width="100"
@@ -285,6 +289,8 @@
                                        VerticalAlignment="Center"
                                        TextAlignment="Left"
                                        Margin="170, 7.5"
+                                       Minimum="0"
+                                       Maximum="2147483647"
                                        Value="100"
                                        Width="100"
                                        Background="#FF2E3440"

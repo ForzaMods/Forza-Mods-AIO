@@ -50,7 +50,7 @@ public partial class SelfVehicle
     private static readonly Dictionary<string, double> Sizes = new()
     {
         { "HandlingButton", 465 }, // Button name for page, height of page
-        { "UnlocksButton", 290 },
+        { "UnlocksButton", 235 },
         { "PhotomodeButton", 285 },
         { "StatsButton", 70 },
         { "TeleportsButton", 70 },

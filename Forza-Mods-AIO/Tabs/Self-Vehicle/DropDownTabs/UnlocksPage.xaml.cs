@@ -260,7 +260,11 @@ public partial class UnlocksPage
             return;
         }
 
-
+        if (((ToggleSwitch)sender).IsOn)
+        {
+            SpinsNum_OnValueChanged(NormalSpinsNum, new(NormalSpinsNum.Value, NormalSpinsNum.Value));
+        }
+        
         SpinsDetour.UpdateVariable(NormalSpinsSwitch.IsOn ? (byte)1 : (byte)0);
         SpinsDetour.UpdateVariable(SuperSpinsSwitch.IsOn ? (byte)1 :(byte) 0, 5);
     }
@@ -272,7 +276,7 @@ public partial class UnlocksPage
             return;
         }
         
-        SpinsDetour.UpdateVariable(ToInt32(SkillPointsNum.Value));
+        SkillPointsDetour.UpdateVariable(ToInt32(SkillPointsNum.Value));
     }
 
     private void SkillPointsToggle_OnToggled(object sender, RoutedEventArgs e)
@@ -290,10 +294,10 @@ public partial class UnlocksPage
             return;
         }
         
-        if (!SpinsDetour.Setup((ToggleSwitch)sender, SkillPointsAddr, SkillPoints, 6, true))
+        if (!SkillPointsDetour.Setup((ToggleSwitch)sender, SkillPointsAddr, SkillPoints, 6, true))
         {
             FailedHandler((ToggleSwitch)sender, SpinsToggle_OnToggled);
-            SpinsDetour.Clear();
+            SkillPointsDetour.Clear();
             MessageBox.Show("Failed");
             return;
         }
@@ -303,6 +307,6 @@ public partial class UnlocksPage
             SkillPointsNum_OnValueChanged(SkillPointsNum, new(SkillPointsNum.Value, SkillPointsNum.Value));
         }
         
-        SpinsDetour.Toggle();
+        SkillPointsDetour.Toggle();
     }
 }
