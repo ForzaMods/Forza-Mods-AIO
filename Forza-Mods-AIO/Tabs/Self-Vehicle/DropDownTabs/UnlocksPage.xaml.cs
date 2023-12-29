@@ -14,7 +14,7 @@ public partial class UnlocksPage
 {
     public static UnlocksPage Unlocks { get; private set; } = null!;
     public static readonly Detour CrDetour = new(), XpDetour = new(), SeasonalDetour = new(), SeriesDetour = new();
-    public static readonly Detour CrCompareDetour = new();
+    public static readonly Detour CrCompareDetour = new(), SpinsDetour = new(), SkillPointsDetour = new();
     private const string CrDetourBytesFh4 = "48 8B 05 2E 00 00 00 89 84 24 80 00 00 00";
     private const string CrDetourBytesFh5 = "56 51 48 8B 35 29 00 00 00 48 8B 0E 48 83 F9 00 74 12 48 8D 49 70 39 01 75 0A 48 8B 0D 19 00 00 00 48 8B C1 5E 59 89 84 24 80 00 00 00";
     private const string CrCompareBytes = "48 89 1D 05 00 00 00";
@@ -22,6 +22,8 @@ public partial class UnlocksPage
     private const string XpDetourFh5 = "41 54 F3 0F 2C C6 4C 8B 25 1E 00 00 00 4C 89 65 B0 41 5C";
     private const string Seasonal = "F3 0F 10 35 0A 00 00 00 F3 0F 11 71 28";
     private const string Series = "4C 39 C0 74 13 80 78 10 1C 75 02 EB 04 8B 40 14 C3 8B 05 09 00 00 00 C3 31 C0 C3";
+    private const string Spins = "31 D2 50 80 BC 24 10 01 00 00 01 75 12 80 3D 35 00 00 00 01 75 09 48 8B 05 2D 00 00 00 EB 1A 80 BC 24 10 01 00 00 02 75 17 80 3D 1E 00 00 00 01 75 0E 48 8B 05 16 00 00 00 48 FF C0 48 89 47 08 58 8B 5F 08";
+    private const string SkillPoints = "31 ED 8B 1D 0B 00 00 00 29 EB 31 D2 85 DB";
     
     public UnlocksPage()
     {
@@ -87,7 +89,8 @@ public partial class UnlocksPage
         else
         {
             CrDetour.UpdateVariable(ToInt32(CreditsNum.Value));
-        }}
+        }
+    }
     
     private void XpSwitch_OnToggled(object? sender, RoutedEventArgs e)
     {
@@ -137,16 +140,6 @@ public partial class UnlocksPage
         }
 
         MessageBox.Show("This isnt ported from AIO V1 yet");
-    }
-
-    private void SmashBoardsSwitch_OnToggled(object sender, RoutedEventArgs e)
-    {
-        if (!Mw.Attached)
-        {
-            return;
-        }
-
-        MessageBox.Show("This isnt implemented yet");
     }
 
     private void SeasonalToggle_OnToggled(object sender, RoutedEventArgs e)
@@ -231,5 +224,85 @@ public partial class UnlocksPage
         @switch.Toggled -= action;
         @switch.IsOn = false;
         @switch.Toggled += action;
+    }
+
+    private void SpinsNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (!Mw.Attached || SuperSpinsNum == null || !SpinsDetour.IsSetup)
+        {
+            return;
+        }
+
+        
+        SpinsDetour.UpdateVariable(ToInt32(NormalSpinsNum.Value), 1);
+        SpinsDetour.UpdateVariable(ToInt32(SuperSpinsNum.Value), 6);
+    }
+    
+    private void SpinsToggle_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (!Mw.Attached || SuperSpinsSwitch == null)
+        {
+            return;
+        }
+
+        if (((ToggleSwitch)sender).IsOn && Mw.Gvp.Name == "Forza Horizon 4")
+        {            
+            FailedHandler((ToggleSwitch)sender, SpinsToggle_OnToggled);
+            MessageBox.Show("This feature was never ported to FH4");
+            return;
+        }
+        
+        if (!SpinsDetour.Setup((ToggleSwitch)sender, SpinsAddr, Spins, 5, true))
+        {
+            FailedHandler((ToggleSwitch)sender, SpinsToggle_OnToggled);
+            SpinsDetour.Clear();
+            MessageBox.Show("Failed");
+            return;
+        }
+
+
+        SpinsDetour.UpdateVariable(NormalSpinsSwitch.IsOn ? (byte)1 : (byte)0);
+        SpinsDetour.UpdateVariable(SuperSpinsSwitch.IsOn ? (byte)1 :(byte) 0, 5);
+    }
+
+    private void SkillPointsNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (!Mw.Attached || SkillPointsNum == null)
+        {
+            return;
+        }
+        
+        SpinsDetour.UpdateVariable(ToInt32(SkillPointsNum.Value));
+    }
+
+    private void SkillPointsToggle_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (!Mw.Attached || SkillPointsToggle == null)
+        {
+            return;
+        }
+
+        
+        if (((ToggleSwitch)sender).IsOn && Mw.Gvp.Name == "Forza Horizon 4")
+        {            
+            FailedHandler((ToggleSwitch)sender, SpinsToggle_OnToggled);
+            MessageBox.Show("This feature was never ported to FH4");
+            return;
+        }
+        
+        if (!SpinsDetour.Setup((ToggleSwitch)sender, SkillPointsAddr, SkillPoints, 6, true))
+        {
+            FailedHandler((ToggleSwitch)sender, SpinsToggle_OnToggled);
+            SpinsDetour.Clear();
+            MessageBox.Show("Failed");
+            return;
+        }
+
+        if (SkillPointsToggle.IsOn)
+        {
+            SkillPointsNum_OnValueChanged(SkillPointsNum, new(SkillPointsNum.Value, SkillPointsNum.Value));
+        }
+        
+        SpinsDetour.Toggle();
     }
 }

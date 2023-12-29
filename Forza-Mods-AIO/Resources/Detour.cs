@@ -159,6 +159,11 @@ public class Detour : Asm
             _firstTime = false;
             return;
         }
+
+        if (!IsSetup)
+        {
+            return;
+        }
         
         var currentBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, _originalBytes.Length);
         

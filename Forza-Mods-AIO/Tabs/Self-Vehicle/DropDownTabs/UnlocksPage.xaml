@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d"
-      d:DesignHeight="180"
+      d:DesignHeight="235"
       d:DesignWidth="580"
       Title="UnlocksPage"
       Background="{DynamicResource ApplicationBackgroundBrush}">
@@ -15,167 +15,291 @@
                 BorderThickness="2,0,2,2" 
                 CornerRadius="0,0,10,10" />
 
-        <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top" 
-                Width="556" 
-                Height="46"
-                Margin="0,10,0,0" 
-                BorderBrush="#FF2E3440" />
-        
-        <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top" 
-                Width="556" 
-                Height="46" 
-                BorderBrush="#FF2E3440" 
-                Margin="0,120,0,0">
+        <StackPanel>
             
-            <Grid>
-                
-                <mah:ToggleSwitch x:Name="DiscoverRoadsSwitch"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Left"
-                                  Content=""
-                                  IsEnabled="False"
-                                  MinWidth="1"
-                                  Margin="80 0 0 0"
-                                  Toggled="DiscoverRoadsSwitch_OnToggled"/>
-        
-                <Label Content="Discover All Roads"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       Margin="130 0 0 0"/>
-        
-                <mah:ToggleSwitch x:Name="SmashBoardsSwitch"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Left"
-                                  Content=""
-                                  IsEnabled="False"
-                                  MinWidth="1"
-                                  Margin="290 0 0 0"
-                                  Toggled="SmashBoardsSwitch_OnToggled"/>
-        
-                <Label Content="Smash All Collectable Boards"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Center"
-                       Margin="0 0 50 0"/>
-                
-            </Grid>
+            <Border BorderThickness="2,2,2,2" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Top" 
+                    Width="556" 
+                    Height="46"
+                    Margin="0,10,0,0" 
+                    BorderBrush="#FF2E3440">
             
-        </Border>
-        
-        <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top" 
-                Width="556" 
-                Height="46" 
-                BorderBrush="#FF2E3440" 
-                Margin="0,66,0,0">
-            <Grid>
-                <mah:NumericUpDown x:Name="SeriesNum"
-                                   HideUpDownButtons="True"
-                                   BorderThickness="0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Margin="7.5"
-                                   TextAlignment="Left"
-                                   Value="999"
-                                   Width="100"
-                                   Background="#FF2E3440"
-                                   ValueChanged="SeriesNum_OnValueChanged"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Column="0">
+                        
+                        <mah:NumericUpDown x:Name="XpNum"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           TextAlignment="Left"
+                                           Width="135"
+                                           BorderThickness="0"
+                                           Background="#FF2E3440"
+                                           Margin="5 0 0 0" 
+                                           HideUpDownButtons="True"
+                                           TrackMouseWheelWhenMouseOver="True"
+                                           Minimum="0"
+                                           Maximum="2147483647"
+                                           Value="0"
+                                           NumericInputMode="Numbers"
+                                           ParsingNumberStyle="Integer"
+                                           ValueChanged="XpNum_OnValueChanged"/>
+
+                       
+                        <mah:ToggleSwitch x:Name="XpSwitch"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          HorizontalContentAlignment="Left"
+                                          Content="Xp On Unpause"
+                                          FontSize="11.5"
+                                          MinWidth="1"
+                                          Margin="7.5 0 0 0"
+                                          Toggled="XpSwitch_OnToggled"/>
+                        
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Column="1">
+                        
+                        
+                        <mah:NumericUpDown x:Name="CreditsNum"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           TextAlignment="Left"
+                                           Width="135"
+                                           BorderThickness="0"
+                                           Background="#FF2E3440"
+                                           HideUpDownButtons="True"
+                                           TrackMouseWheelWhenMouseOver="True"
+                                           Minimum="0"
+                                           Maximum="999999999"
+                                           Value="0"
+                                           NumericInputMode="Numbers"
+                                           ParsingNumberStyle="Integer"
+                                           ValueChanged="CreditsNum_OnValueChanged"/>
+                    
+                        <mah:ToggleSwitch x:Name="CreditsSwitch"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Right"
+                                          Content="Credits"
+                                          FontSize="11.5"
+                                          MinWidth="1"
+                                          Margin="5 0 7.5 0"
+                                          Toggled="CreditsSwitch_OnToggled"/>
+                    </StackPanel>
+                                
+                </Grid>
                 
-                <mah:ToggleSwitch x:Name="SeriesToggle"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Left"
-                                  Margin="120 0"
-                                  FontSize="12"
-                                  Content="Series Points"
-                                  Toggled="SeriesToggle_OnToggled"/>
+            </Border>
+            <Border BorderThickness="2,2,2,2" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Top" 
+                    Width="556" 
+                    Height="46"
+                    Margin="0,10,0,0" 
+                    BorderBrush="#FF2E3440">
+            
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Column="0">
+                        
+                        <mah:NumericUpDown x:Name="NormalSpinsNum"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           TextAlignment="Left"
+                                           Width="135"
+                                           BorderThickness="0"
+                                           Background="#FF2E3440"
+                                           Margin="5 0 0 0" 
+                                           HideUpDownButtons="True"
+                                           TrackMouseWheelWhenMouseOver="True"
+                                           Minimum="0"
+                                           Maximum="2147483647"
+                                           Value="0"
+                                           NumericInputMode="Numbers"
+                                           ParsingNumberStyle="Integer"
+                                           ValueChanged="SpinsNum_OnValueChanged"/>
+
+                       
+                        <mah:ToggleSwitch x:Name="NormalSpinsSwitch"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          HorizontalContentAlignment="Left"
+                                          Content="Normal Spins"
+                                          FontSize="11.5"
+                                          MinWidth="1"
+                                          Margin="7.5 0 0 0"
+                                          Toggled="SpinsToggle_OnToggled"/>
+                        
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Column="1">
+                        
+                        
+                        <mah:NumericUpDown x:Name="SuperSpinsNum"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           TextAlignment="Left"
+                                           Width="135"
+                                           BorderThickness="0"
+                                           Background="#FF2E3440"
+                                           HideUpDownButtons="True"
+                                           TrackMouseWheelWhenMouseOver="True"
+                                           Minimum="0"
+                                           Maximum="999999999"
+                                           Value="0"
+                                           NumericInputMode="Numbers"
+                                           ParsingNumberStyle="Integer"
+                                           ValueChanged="SpinsNum_OnValueChanged"/>
+                    
+                        <mah:ToggleSwitch x:Name="SuperSpinsSwitch"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Right"
+                                          Content="Super Spins"
+                                          FontSize="11.5"
+                                          MinWidth="1"
+                                          Margin="5 0 7.5 0"
+                                          Toggled="SpinsToggle_OnToggled"/>
+                    </StackPanel>
+                                
+                </Grid>
                 
-                <mah:NumericUpDown x:Name="SeasonalNum"
-                                   HideUpDownButtons="True"
-                                   BorderThickness="0"
-                                   HorizontalAlignment="Right"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Left"
-                                   Margin="170, 7.5"
-                                   Value="100"
-                                   Width="100"
-                                   Background="#FF2E3440"
-                                   ValueChanged="SeasonalNum_OnValueChanged"/>
+            </Border>
+            <StackPanel Orientation="Horizontal">
                 
-                <mah:ToggleSwitch x:Name="SeasonalToggle"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Right"
-                                  FontSize="12"
-                                  Content="Seasonal Points"
-                                  Toggled="SeasonalToggle_OnToggled"/>
-            </Grid>
-        </Border>
+                
+                <Border BorderThickness="2,2,2,2" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Height="46"
+                        Margin="12,10,0,0" 
+                        BorderBrush="#FF2E3440">
+            
+                    <Grid>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
+                    
+                        
+                            <mah:ToggleSwitch x:Name="DiscoverRoadsSwitch"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"
+                                              Content="Discover All Roads"
+                                              FontSize="11"
+                                              IsEnabled="False"
+                                              MinWidth="1"
+                                              Margin="10 0 10 0"
+                                              Toggled="DiscoverRoadsSwitch_OnToggled"/>
+                        
+                        </StackPanel>
+                                
+                    </Grid>
+                
+                </Border>
+                
+                <Border BorderThickness="2,2,2,2" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Height="46"
+                        Margin="12,10,0,0" 
+                        BorderBrush="#FF2E3440">
+            
+                    <Grid>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
+                    
+                        
+                            <mah:NumericUpDown x:Name="SkillPointsNum"
+                                               HideUpDownButtons="True"
+                                               BorderThickness="0"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Margin="7.5"
+                                               TextAlignment="Left"
+                                               Value="999"
+                                               Width="217.5"
+                                               Background="#FF2E3440"
+                                               ValueChanged="SkillPointsNum_OnValueChanged"/>
+                    
+                            <mah:ToggleSwitch x:Name="SkillPointsToggle"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"
+                                              Margin="5 0 10 0"
+                                              MinWidth="0"
+                                              FontSize="12"
+                                              Content="Series Points"
+                                              Toggled="SkillPointsToggle_OnToggled"/>
+                        
+                        </StackPanel>
+                                
+                    </Grid>
+                
+                </Border>
+                
+            </StackPanel>
+            
+                
+            <Border BorderThickness="2,2,2,2" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Top" 
+                    Width="556" 
+                    Height="46" 
+                    BorderBrush="#FF2E3440" 
+                    Margin="0,10,0,0">
+                <Grid>
+                    <mah:NumericUpDown x:Name="SeriesNum"
+                                       HideUpDownButtons="True"
+                                       BorderThickness="0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="7.5"
+                                       TextAlignment="Left"
+                                       Value="999"
+                                       Width="100"
+                                       Background="#FF2E3440"
+                                       ValueChanged="SeriesNum_OnValueChanged"/>
+                    
+                    <mah:ToggleSwitch x:Name="SeriesToggle"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Margin="120 0"
+                                      FontSize="12"
+                                      Content="Series Points"
+                                      Toggled="SeriesToggle_OnToggled"/>
+                    
+                    <mah:NumericUpDown x:Name="SeasonalNum"
+                                       HideUpDownButtons="True"
+                                       BorderThickness="0"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Left"
+                                       Margin="170, 7.5"
+                                       Value="100"
+                                       Width="100"
+                                       Background="#FF2E3440"
+                                       ValueChanged="SeasonalNum_OnValueChanged"/>
+                    
+                    <mah:ToggleSwitch x:Name="SeasonalToggle"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Right"
+                                      FontSize="12"
+                                      Content="Seasonal Points"
+                                      Toggled="SeasonalToggle_OnToggled"/>
+                </Grid>
+            </Border>
+        </StackPanel>
         
-        
- 
-        
-        <Label Content="XP On Unpause"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               Margin="215, 20"/>
-        
-        <mah:NumericUpDown x:Name="XpNum"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"
-                           TextAlignment="Left"
-                           Width="135"
-                           BorderThickness="0"
-                           Background="#FF2E3440"
-                           Margin="20, 20" 
-                           HideUpDownButtons="True"
-                           TrackMouseWheelWhenMouseOver="True"
-                           Minimum="0"
-                           Maximum="2147483647"
-                           Value="0"
-                           NumericInputMode="Numbers"
-                           ParsingNumberStyle="Integer"
-                           ValueChanged="XpNum_OnValueChanged"/>
-        
-        <mah:ToggleSwitch x:Name="XpSwitch"
-                          VerticalAlignment="Top"
-                          HorizontalAlignment="Left"
-                          HorizontalContentAlignment="Left"
-                          Content=""
-                          MinWidth="1"
-                          Margin="165,17.5"
-                          Toggled="XpSwitch_OnToggled"/>
-        
-        <Label Content="Credits"
-               HorizontalAlignment="Right"
-               VerticalAlignment="Top"
-               Margin="20, 20"/>
-        
-        <mah:NumericUpDown x:Name="CreditsNum"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Right"
-                           TextAlignment="Left"
-                           Width="135"
-                           BorderThickness="0"
-                           Background="#FF2E3440"
-                           Margin="130, 20"
-                           HideUpDownButtons="True"
-                           TrackMouseWheelWhenMouseOver="True"
-                           Minimum="0"
-                           Maximum="999999999"
-                           Value="0"
-                           NumericInputMode="Numbers"
-                           ParsingNumberStyle="Integer"
-                           ValueChanged="CreditsNum_OnValueChanged"/>
-        
-        <mah:ToggleSwitch x:Name="CreditsSwitch"
-                          VerticalAlignment="Top"
-                          HorizontalAlignment="Right"
-                          Content=""
-                          MinWidth="1"
-                          Margin="60,17.5"
-                          Toggled="CreditsSwitch_OnToggled"/>
+
     </Grid>
 </Page>

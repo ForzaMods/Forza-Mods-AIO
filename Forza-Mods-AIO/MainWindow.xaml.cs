@@ -363,6 +363,8 @@ public partial class MainWindow
         UnlocksPage.SeasonalDetour.Destroy();   
         UnlocksPage.SeriesDetour.Destroy();   
         UnlocksPage.CrCompareDetour.Destroy();
+        UnlocksPage.SpinsDetour.Destroy();
+        UnlocksPage.SkillPointsDetour.Destroy();
         CustomizationPage.GlowingPaintDetour.Destroy();
         CustomizationPage.HeadlightDetour.Destroy();
         CustomizationPage.CleanlinessDetour.Destroy();

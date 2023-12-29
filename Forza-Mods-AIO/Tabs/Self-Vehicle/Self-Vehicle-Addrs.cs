@@ -17,6 +17,8 @@ internal class SelfVehicleAddresses
     
     #region Addresses
 
+    public static UIntPtr SkillPointsAddr;
+    public static UIntPtr SpinsAddr;
     public static UIntPtr StatsEditorAobHook;
     public static UIntPtr BackfireTimeAddr, BackfireTypeAddr;
     public static UIntPtr HeadlightAddr;
@@ -82,6 +84,8 @@ internal class SelfVehicleAddresses
     private static string? _backfireSig;
     private static string? _flyhackSig;
     private static string? _statsEditorSig;
+    private static string? _spinsSig;
+    private static string? _skillPointsSig;
 
     #endregion
 
@@ -170,6 +174,8 @@ internal class SelfVehicleAddresses
         _backfireSig = "48 8B ? ? F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? E8 ? ? ? ? 0F 28";
         _flyhackSig = "F3 44 ? ? ? ? ? ? ? F3 44 ? ? ? ? ? ? ? F3 44 ? ? ? ? ? ? ? F3 41 ? ? ? F3 41";
         _statsEditorSig = "48 8B 5F 08 80 7B 19 00 75 22 48 8D 4B 20 48 8B D5 E8 74";
+        _spinsSig = "48 89 5C 24 08 57 48 83 EC 20 48 8B FA 33 D2 48 8B 4F 10";
+        _skillPointsSig = "0F 4F ? 48 8B ? ? E8 ? ? ? ? 48 8B";
     }
 
     #endregion
@@ -206,7 +212,7 @@ internal class SelfVehicleAddresses
         SignaturesFive();
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 39;
+        Sv.UiManager.ScanAmount = 40;
 
         XpAddr = Mw.M.ScanForSig(_xpAob).FirstOrDefault() - 14;
         XpAmountAddr = Mw.M.ScanForSig(_xpAmountAob).FirstOrDefault();
@@ -327,7 +333,13 @@ internal class SelfVehicleAddresses
         BackfireTypeAddr = BackfireTimeAddr + 125;
         Sv.UiManager.AddProgress();
 
-        StatsEditorAobHook = Mw.M.ScanForSig(_statsEditorSig).FirstOrDefault();
+        //StatsEditorAobHook = Mw.M.ScanForSig(_statsEditorSig).FirstOrDefault();
+        Sv.UiManager.AddProgress();
+
+        SpinsAddr = Mw.M.ScanForSig(_spinsSig).FirstOrDefault() + 28;
+        Sv.UiManager.AddProgress();
+
+        SkillPointsAddr = Mw.M.ScanForSig(_skillPointsSig).FirstOrDefault() - 6;
         Sv.UiManager.AddProgress();
         
         SelfVehicleOption.IsEnabled = true;
