@@ -70,8 +70,8 @@ public partial class HandlingPage
                     Task.Delay(25).Wait();
                     continue;
                 }
-                
-                var speed = Sqrt(Pow(LinearVelocity.X, 2) + Pow(LinearVelocity.Y, 2) + Pow(LinearVelocity.Z, 2)) * 2.23694;
+
+                var speed = GetCarSpeed();
 
                 double limit = 0;
                 Dispatcher.Invoke(delegate
@@ -215,10 +215,24 @@ public partial class HandlingPage
                         MixedWheelSpeed();
                         break;
                     }
+                    
+                    case "Accel":
+                    {
+                        AccelWheelSpeed();
+                        break;
+                    }
                 }
                 Task.Delay(interval).Wait();
             }
         });
+    }
+
+    private static double GetCarSpeed()
+    {
+        var velocitySquaredSum = Pow(LinearVelocity.X, 2) + Pow(LinearVelocity.Y, 2) + Pow(LinearVelocity.Z, 2);
+        var speedMetersPerSecond = Sqrt(velocitySquaredSum);
+        var speedMilesPerHour = speedMetersPerSecond * 2.23694;
+        return speedMilesPerHour;
     }
 
     private void StaticWheelSpeed()
@@ -308,7 +322,7 @@ public partial class HandlingPage
         float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
         Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
 
-        const float pulseFrequency = 0.1f;
+        const float pulseFrequency = 0.25f;
         var pulseEffect = 0.5f + 0.5f * ToSingle(Sin(pulseFrequency * Now.Millisecond));
         var boostStrength = boostFactor / 10 * pulseEffect;
         
@@ -327,7 +341,7 @@ public partial class HandlingPage
         float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
         Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
 
-        const double sway = 2;
+        const double sway = 3;
         var boostStrength = ToSingle(new Random().NextDouble() * sway - 1) * boostFactor / 10;
         
         if (boostStrength < 0)
@@ -339,12 +353,29 @@ public partial class HandlingPage
         WheelSpeed = new Vector4(ToSingle(boost));
     }
 
+    private void AccelWheelSpeed()
+    {
+        float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
+        Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value / 250));
+
+        const float acceleration = 0.02f;
+        var boostStrength = acceleration * boostFactor * Now.Millisecond;
+
+        if (boostStrength < 0)
+        {
+            boostStrength = 0;
+        }
+
+        var boost = currentWheelSpeed + boostStrength;
+        WheelSpeed = new Vector4(boost);
+    }
+    
     private void SurgeWheelSpeed()
     {
         float currentWheelSpeed = WheelSpeed.X, boostFactor = 0;
         Dispatcher.Invoke(() => boostFactor = ToSingle(StrengthBox.Value));
 
-        const float frequency = 0.1f; 
+        const float frequency = 0.25f; 
         var amplitude = boostFactor / 10;
         var boostStrength = 2 * amplitude * ToSingle(Asin(Sin(2 * PI * frequency * Now.Millisecond)) / (2 * PI));
         
@@ -553,6 +584,11 @@ public partial class HandlingPage
 
     private void WaterDragSwitch_Toggled(object sender, RoutedEventArgs e)
     {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+
         Mw.M.WriteMemory(WaterAddr, WaterDragSwitch.IsOn ? new Vector3(0f, 0f, 0f) : new Vector3(0f, 3700f, 13500f));
     }
 
@@ -580,7 +616,12 @@ public partial class HandlingPage
                     Task.Delay(25).Wait();
                     continue;
                 }
-                
+
+                if (GetCarSpeed() < 10)
+                {
+                    Task.Delay(25).Wait();
+                    continue;
+                }
 
                 if (GetAsyncKeyState(Hk.BrakeHack) is not (1 or short.MinValue) &&
                     !Mw.Gamepad.IsButtonPressed(BrakeHackController))
@@ -625,6 +666,13 @@ public partial class HandlingPage
                     continue;
                 }
 
+                if (GetCarSpeed() < 10)
+                {
+                    Task.Delay(25).Wait();
+                    continue;
+                }
+
+
                 if (GetAsyncKeyState(Hk.BrakeHack) is not (1 or short.MinValue) &&
                     !Mw.Gamepad.IsButtonPressed(BrakeHackController))
                 {
@@ -632,7 +680,7 @@ public partial class HandlingPage
                     continue;
                 }
                 
-                WheelSpeed = new Vector4(0f, 0f, 0f, 0f);
+                WheelSpeed = new Vector4(0f);
                 Task.Delay(10).Wait();
             }
         });

@@ -181,6 +181,7 @@
                             <ComboBoxItem Content="Sway"/>
                             <ComboBoxItem Content="Surge"/>
                             <ComboBoxItem Content="Mixed"/>
+                            <ComboBoxItem Content="Accel"/>
                         </ComboBox>
                     </StackPanel>
                 </Grid>    
