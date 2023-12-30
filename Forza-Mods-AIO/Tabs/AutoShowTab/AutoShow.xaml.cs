@@ -154,14 +154,14 @@ public partial class AutoShow
         ExecSql(sender, ClearGarage_OnToggled, _clearGarageString);
     }
 
-    public void FixThumbnails_OnToggled(object sender, RoutedEventArgs e)
+    public void FixThumbnails_OnClicked(object sender, RoutedEventArgs e)
     {
         if (!Mw.Attached || FixThumbnails == null)
         {
             return;
         }
             
-        ExecSql(sender, FixThumbnails_OnToggled, FixThumbnailsString);
+        ExecSql(sender, FixThumbnails_OnClicked, FixThumbnailsString);
     }
 
     public void AddRareCars_OnToggled(object sender, RoutedEventArgs e)
@@ -291,14 +291,14 @@ public partial class AutoShow
         };
     }
 
-    public void ClearTag_OnToggled(object sender, RoutedEventArgs e)
+    public void ClearTag_OnClicked(object sender, RoutedEventArgs e)
     {
         if (!Mw.Attached || ClearTag == null)
         {
             return;
         }
             
-        ExecSql(sender, ClearTag_OnToggled, ClearTagString);
+        ExecSql(sender, ClearTag_OnClicked, ClearTagString);
     }
 
     private void CarPassDateBypass_OnToggled(object sender, RoutedEventArgs e)

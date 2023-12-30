@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using Forza_Mods_AIO.Overlay.Menus.AutoShowMenu.SubMenus;
 using Forza_Mods_AIO.Overlay.Options;
-using static Forza_Mods_AIO.Overlay.Overlay;
 
-namespace Forza_Mods_AIO.Overlay.AutoShowMenu;
+namespace Forza_Mods_AIO.Overlay.Menus.AutoShowMenu;
 
 public abstract class AutoShowMenu
 {

@@ -40,7 +40,8 @@
         <Label Content="Event Builder Unlimited Build Budget"
                VerticalAlignment="Top"
                HorizontalAlignment="Left"
-               Margin="70 20 0 0"/>
+               Margin="70 20 0 0"
+               ToolTip="This feature removes the event builder restriction by setting the current percentage to 0."/>
         
         <mah:ToggleSwitch x:Name="SkillToggle"
                           MinWidth="1"
@@ -53,7 +54,8 @@
         <Label Content="Unbreakable Skill Score/Skill Combo"
                VerticalAlignment="Top"
                HorizontalAlignment="Left"
-               Margin="360 20 0 0"/>
+               Margin="360 20 0 0"
+               ToolTip="This option makes it so score never breaks when crashed"/>
         
         <Border BorderThickness="2,2,2,2" 
                 HorizontalAlignment="Center" 
@@ -82,6 +84,7 @@
                                       VerticalAlignment="Center"
                                       Margin="115 0"
                                       Content="Spin Prize Scale"
+                                      ToolTip="This feature increases money reward prizes in the wheelspin"
                                       FontSize="11.5"
                                       MinWidth="0"
                                       Toggled="ScaleSwitch_OnToggled"/>
@@ -107,6 +110,7 @@
                                       VerticalAlignment="Center"
                                       Margin="7.5 0"
                                       Content="Wheelspin Sell Factor"
+                                      ToolTip="This feature increases sell prices when you get a duplicate car in the wheelspin"
                                       FontSize="11.5"
                                       Toggled="SellFactorSwitch_OnToggled"/>
                     
@@ -241,6 +245,7 @@
                                   Margin="115 0"
                                   MinWidth="0"
                                   FontSize="11.5"
+                                  ToolTip="This feature adjusts the modifiers for all perks within a skill tree to a target number in the numeric box"
                                   Content="Skill Tree Wide-Editing"
                                   Toggled="SkillTreeEditToggle_OnToggled"/>
                 
@@ -294,6 +299,7 @@
                 
                 <mah:ToggleSwitch x:Name="TimeScaleSwitch" 
                                   Content="Mission Time Scale" 
+                                  ToolTip="This feature multiplies the time subtract value by the value set in the numeric box. Set to 0 for freeze."
                                   FontSize="12"
                                   Margin="0 0 6.5 0"
                                   HorizontalAlignment="Right"

@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
+using Forza_Mods_AIO.Overlay.Menus.AutoShowMenu;
 using Forza_Mods_AIO.Overlay.Menus.SettingsMenu;
 using Forza_Mods_AIO.Overlay.Options;
 
@@ -36,7 +37,7 @@ public partial class Overlay
     public readonly Dictionary<string, List<MenuOption>> AllMenus = new()
     {
         { "MainOptions" , MainOptions },
-            { "AutoshowGarageOptions" , AutoShowMenu.AutoShowMenu.AutoShowOptions},
+            { "AutoshowGarageOptions" , AutoShowMenu.AutoShowOptions},
                 { "AutoshowFiltersOptions" , Menus.AutoShowMenu.SubMenus.AutoshowFilters.AutoShowFiltersOptions},
                 { "GarageModificationsOptions" , Menus.AutoShowMenu.SubMenus.GarageModifications.GarageModificationsOptions},
                 { "OthersModificationsOptions" , Menus.AutoShowMenu.SubMenus.OthersModifications.OthersModificationsOptions},
@@ -112,7 +113,7 @@ public partial class Overlay
     {
         _sm.InitiateSubMenu();
         Menus.SelfCarMenu.SelfCarMenu.InitiateSubMenu();
-        AutoShowMenu.AutoShowMenu.InitiateSubMenu();
+        AutoShowMenu.InitiateSubMenu();
         Menus.TuningMenu.Tuning.InitiateSubMenu();
     }
     private void Window_Loaded(object sender, RoutedEventArgs e)

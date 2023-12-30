@@ -11,7 +11,7 @@ public abstract class BackfireMenu
 {
     private static readonly IntOption MinTime = IntOption.CreateWithMinimum("Min Value", 1000, 0);
     private static readonly IntOption MaxTime = IntOption.CreateWithMinimum("Max Value", 2500, 0);
-    private static readonly ToggleOption TimeToggle = new("Toggle",  false);
+    private static readonly ToggleOption TimeToggle = new("Toggle",  false, "Toggle to enable or disable custom backfire time settings");
     
     private static readonly ToggleOption AntiLagToggle = new("Force Anti-lag Style",false);
     private static readonly ToggleOption NormalToggle = new("Force Normal Style",false);

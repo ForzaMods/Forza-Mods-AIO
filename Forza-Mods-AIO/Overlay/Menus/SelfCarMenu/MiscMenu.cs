@@ -12,7 +12,7 @@ public abstract class MiscMenu
 
     public static readonly List<MenuOption> MiscMenuOptions = new()
     {
-        new SubHeaderOption("Misc Options"),
+        new SubHeaderOption("Misc Toggles"),
         UnlimitedBuildBudgetToggle,
         UnbreakableSkillScoreToggle
     };

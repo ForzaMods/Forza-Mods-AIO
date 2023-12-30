@@ -58,6 +58,7 @@
                                           HorizontalContentAlignment="Left"
                                           Content="Xp On Unpause"
                                           FontSize="11.5"
+                                          ToolTip="This feature will add XP based on how many you set in the numeric box."
                                           MinWidth="1"
                                           Margin="7.5 0 0 0"
                                           Toggled="XpSwitch_OnToggled"/>
@@ -89,6 +90,7 @@
                                           HorizontalAlignment="Right"
                                           Content="Credits"
                                           FontSize="11.5"
+                                          ToolTip="This feature will set your credits based on how the value you set in the numeric box. You must either spend/get some money, or do a wheelspin for it to take effect."
                                           MinWidth="1"
                                           Margin="5 0 7.5 0"
                                           Toggled="CreditsSwitch_OnToggled"/>
@@ -137,6 +139,7 @@
                                           HorizontalAlignment="Left"
                                           HorizontalContentAlignment="Left"
                                           Content="Normal Spins"
+                                          ToolTip="This feature will set your normal wheelspins value based on how how many you set in the numeric box. You must do a wheelspin for it to take effect."
                                           FontSize="11.5"
                                           MinWidth="1"
                                           Margin="7.5 0 0 0"
@@ -168,6 +171,7 @@
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Right"
                                           Content="Super Spins"
+                                          ToolTip="This feature will set your super wheelspins value based on how how many you set in the numeric box. You must do a wheelspin for it to take effect."
                                           FontSize="11.5"
                                           MinWidth="1"
                                           Margin="5 0 7.5 0"
@@ -240,6 +244,7 @@
                                               Margin="5 0 10 0"
                                               MinWidth="0"
                                               FontSize="12"
+                                              ToolTip="This feature will set your skill points value based on how how many you set in the numeric box. You must buy a perk in the skilltree for it to take effect."
                                               Content="Skill Points"
                                               Toggled="SkillPointsToggle_OnToggled"/>
                         

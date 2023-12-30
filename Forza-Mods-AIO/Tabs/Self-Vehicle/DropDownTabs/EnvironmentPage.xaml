@@ -68,6 +68,7 @@
                         <mah:ToggleSwitch x:Name="FreezeAi" 
                                           FontSize="11"
                                           Content="Freeze AI"
+                                          ToolTip="Freezes the drivatars in your game"
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Center"
                                           MinWidth="0"
@@ -201,6 +202,7 @@
                           VerticalAlignment="Bottom"
                           HorizontalAlignment="Left"
                           Margin="170 0 0 20"
+                          ToolTip="This feature will make the sun's RGB rainbow."
                           Toggled="SwitchToggled" />
 
         <mah:ToggleSwitch Content="OOB Bypass"

@@ -9,32 +9,27 @@ namespace Forza_Mods_AIO.Overlay.Menus.AutoShowMenu.SubMenus;
 
 public abstract class GarageModifications
 {
-    private static readonly ToggleOption ShowTrafficHsNullToggle = new("Show Traffic/HS/Null", false);
-    private static readonly ToggleOption UnlockHiddenPresetsToggle = new("Unlock Hidden Presets", false);
-    private static readonly ToggleOption RemoveAnyCarToggle = new("Remove Any Car", false);
-    private static readonly ButtonOption FixThumbnailsToggle = new("Fix Thumbnails", () => As.FixThumbnails_OnToggled(As.FixThumbnails, new RoutedEventArgs()));
-    private static readonly ButtonOption ClearTagToggle = new("Clear \"new\" tag on cars", () => As.ClearTag_OnToggled(As.ClearTag, new RoutedEventArgs()));
+    private static readonly ToggleOption UnlockHiddenPresetsToggle = new("Unlock Hidden Presets", false, "This option unlocks hidden presets from the games missions where you drive a pretuned car");
+    private static readonly ToggleOption RemoveAnyCarToggle = new("Remove Any Car", false, "This option allows you to remove any car in your garage.");
+    private static readonly ToggleOption CarPassDateBypassToggle = new("Car Pass Date Bypass", false, "This option bypasses date requirements on car pass cars.");
+    private static readonly ButtonOption FixThumbnailsButton = new("Fix Thumbnails", () => As.FixThumbnails_OnClicked(As.FixThumbnails, new RoutedEventArgs()), "This option will revert every thumbnail of every car in ur garage to its default");
+    private static readonly ButtonOption ClearTagButton = new("Clear \"new\" tag on cars", () => As.ClearTag_OnClicked(As.ClearTag, new RoutedEventArgs()), "This option will remove every the “new” tag and the annoying loading into a new car animation on every car in ur garage");
 
     public static readonly List<MenuOption> GarageModificationsOptions = new()
     {
-        ShowTrafficHsNullToggle,
         UnlockHiddenPresetsToggle,
         RemoveAnyCarToggle,
-        FixThumbnailsToggle,
-        ClearTagToggle
+        CarPassDateBypassToggle,
+        FixThumbnailsButton,
+        ClearTagButton
     };
 
     public static void InitiateSubMenu()
     {
-        ShowTrafficHsNullToggle.Toggled += ShowTrafficHsNullToggled;
         UnlockHiddenPresetsToggle.Toggled += UnlockHiddenPresetsToggled;
         RemoveAnyCarToggle.Toggled += RemoveAnyCarToggled;
     }
 
-    private static void ShowTrafficHsNullToggled(object s, EventArgs e)
-    {
-        As.ShowTrafficHsNull.IsOn = ShowTrafficHsNullToggle.IsOn; 
-    }
 
     private static void UnlockHiddenPresetsToggled(object s, EventArgs e)
     {

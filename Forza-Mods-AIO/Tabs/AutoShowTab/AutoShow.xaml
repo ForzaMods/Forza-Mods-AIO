@@ -55,6 +55,7 @@
                                             HorizontalAlignment="Center"
                                             Width="45" MinWidth="0" 
                                             Content="" 
+                                            ToolTip="This option will show every car in the autoshow.&#xa;Cannot be utilized simultaneously with rare cars toggle"
                                             Toggled="AllCars_OnToggled"/>
                    </StackPanel>
                    
@@ -70,6 +71,7 @@
                                             HorizontalAlignment="Center" 
                                             Width="45" MinWidth="0" 
                                             Content="" 
+                                            ToolTip="This option will show every rare car in the autoshow.&#xa;Cannot be utilized simultaneously with all cars toggle"
                                             Toggled="RareCars_OnToggled"/>
                           
                    </StackPanel>
@@ -85,10 +87,29 @@
                           <mah:ToggleSwitch x:Name="ToggleFreeCars" 
                                             VerticalAlignment="Top" 
                                             HorizontalAlignment="Center" 
-                                            Width="45" MinWidth="0" 
-                                            Content="" Toggled="FreeCars_OnToggled"/>
+                                            Width="45" 
+                                            MinWidth="0" 
+                                            Content="" 
+                                            ToolTip="This option will make every car in the autoshow free."
+                                            Toggled="FreeCars_OnToggled"/>
                    </StackPanel>
 
+                   <StackPanel Margin="35 0 0 0">
+                                                          
+            
+                          <Label Content="Show Traffic/HS/Null" 
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Top"/>
+            
+            
+                          <mah:ToggleSwitch x:Name="ShowTrafficHsNull" 
+                                            VerticalAlignment="Top"
+                                            HorizontalAlignment="Center"
+                                            Width="45" MinWidth="0" 
+                                            Content="" 
+                                            ToolTip="This option enables seeing all cars in the autoshow.&#xa;You must enable either all or rare cars for it to take effect."
+                                            Toggled="ShowTrafficHSNull_OnToggled"/>
+                   </StackPanel>
             </StackPanel>
             
         </Grid>
@@ -121,7 +142,9 @@
                                     <mah:ToggleSwitch x:Name="UnlockHiddenPresets" 
                                                       VerticalAlignment="Top" 
                                                       HorizontalAlignment="Center"
-                                                      Width="45" MinWidth="0"
+                                                      Width="45" 
+                                                      MinWidth="0"
+                                                      ToolTip="This option unlocks hidden presets from the games missions where you drive a pretuned car"
                                                       Content="" 
                                                       Toggled="UnlockHiddenPresets_OnToggled" />
 
@@ -139,26 +162,13 @@
                                     <mah:ToggleSwitch x:Name="RemoveAnyCar" 
                                                       VerticalAlignment="Top" 
                                                       HorizontalAlignment="Center"
-                                                      Width="45" MinWidth="0" 
+                                                      Width="45" 
+                                                      MinWidth="0" 
                                                       Content="" 
+                                                      ToolTip="This option allows you to remove any car in your garage."
                                                       Toggled="RemoveAnyCar_OnToggled"/>
                              </StackPanel>
                              
-                             <StackPanel Margin="15 0 0 0">
-                                                          
-            
-                                    <Label Content="Show Traffic/HS/Null" 
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Top"/>
-            
-            
-                                    <mah:ToggleSwitch x:Name="ShowTrafficHsNull" 
-                                                      VerticalAlignment="Top"
-                                                      HorizontalAlignment="Center"
-                                                      Width="45" MinWidth="0" 
-                                                      Content="" 
-                                                      Toggled="ShowTrafficHSNull_OnToggled"/>
-                             </StackPanel>
                              
                              <StackPanel Margin="15 0 0 0">
                                                           
@@ -171,8 +181,10 @@
                                     <mah:ToggleSwitch x:Name="CarPassDateBypass" 
                                                       VerticalAlignment="Top"
                                                       HorizontalAlignment="Center"
-                                                      Width="45" MinWidth="0" 
+                                                      Width="45" 
+                                                      MinWidth="0" 
                                                       Content="" 
+                                                      ToolTip="This option bypasses date requirements on car pass cars."
                                                       Toggled="CarPassDateBypass_OnToggled"/>
                              </StackPanel>
                              
@@ -199,7 +211,8 @@
                                            Content="Run" 
                                            Background="#FF2E3440"
                                            BorderBrush="#FF2E3440"
-                                           Click="ClearTag_OnToggled" />
+                                           ToolTip="This option will remove every the “new” tag and the annoying loading into a new car animation on every car in ur garage"
+                                           Click="ClearTag_OnClicked" />
                                    
                             </StackPanel>
                              
@@ -235,8 +248,10 @@
                                            <Button x:Name="ClearGarage" 
                                                    VerticalAlignment="Top" 
                                                    HorizontalAlignment="Right"
-                                                   Width="45" MinWidth="0" 
+                                                   Width="45" 
+                                                   MinWidth="0" 
                                                    Content="Run" 
+                                                   ToolTip="This option will delete every car in ur garage based on the selection in the combo box"
                                                    Margin="15 0 0 0"
                                                    Background="#FF2E3440"
                                                    BorderBrush="#FF2E3440"
@@ -259,12 +274,14 @@
                                     <Button x:Name="FixThumbnails" 
                                             VerticalAlignment="Top" 
                                             HorizontalAlignment="Center"
-                                            Width="45" MinWidth="0" 
+                                            Width="45" 
+                                            MinWidth="0" 
                                             Margin="0 5 0 0"
                                             Content="Run" 
+                                            ToolTip="This option will revert every thumbnail of every car in ur garage to its default"
                                             Background="#FF2E3440"
                                             BorderBrush="#FF2E3440"
-                                            Click="FixThumbnails_OnToggled"/>
+                                            Click="FixThumbnails_OnClicked"/>
                                     
                              </StackPanel>
                              
@@ -298,6 +315,7 @@
                                     Width="45" MinWidth="0" 
                                     Margin="0 5 0 0"
                                     Content="Run" 
+                                    ToolTip="This option will make every performance upgrade free. Its not revert able, unless you restart the game"
                                     Background="#FF2E3440"
                                     BorderBrush="#FF2E3440"
                                     Click="FreePerfUpgrades_OnToggled"/>
@@ -315,6 +333,7 @@
                                     Width="45" MinWidth="0"
                                     Margin="0 5 0 0"
                                     Content="Run" 
+                                    ToolTip="This option will make every performance upgrade free. Its not revert able, unless you restart the game"
                                     Background="#FF2E3440"
                                     BorderBrush="#FF2E3440"
                                     Click="FreeVisualUpgrades_OnToggled"/>
@@ -332,6 +351,7 @@
                                     Width="45" MinWidth="0" 
                                     Margin="0 5 0 0"
                                     Content="Run"
+                                    ToolTip="This option will add every car from the autoshow into ur garage, hidden, rare - it doesnt matter."
                                     Background="#FF2E3440"
                                     BorderBrush="#FF2E3440"
                                     Click="AddAllCars_OnToggled"/>
@@ -354,6 +374,7 @@
                                     Background="#FF2E3440"
                                     BorderBrush="#FF2E3440"
                                     Content="Run" 
+                                    ToolTip="This option will add rare car from the autoshow into ur garage."
                                     Click="AddRareCars_OnToggled"/>
 
                             

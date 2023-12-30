@@ -51,7 +51,8 @@
                                   VerticalAlignment="Center"
                                   HorizontalAlignment="Left"
                                   Margin="8 0 0 0"
-                                  Content="Glowing Paint" 
+                                  Content="Glowing Paint"
+                                  ToolTip="Glowing paint toggle, you must change the color in the in-game paint car section for it to take effect"
                                   FontSize="12"
                                   Toggled="GlowingPaintSwitch_Toggled" />
                 
@@ -125,6 +126,7 @@
                 <mah:ToggleSwitch x:Name="HeadlightToggle" 
                                   Content="Headlight Color"
                                   FontSize="12"
+                                  ToolTip="This feature changes the color your headlights project onto the road"
                                   Margin="6.5 0 0 0"
                                   Toggled="HeadlightColor_OnToggled"/>
                                 
@@ -185,6 +187,7 @@
                                       Content="Dirt Level"
                                       FontSize="11.5"
                                       MinWidth="0"
+                                      ToolTip="This feature allows you to change the cleanliness of your car."
                                       Margin="10 0"
                                       Toggled="CleanlinessSwitch_OnToggled"/>
             </Grid>
