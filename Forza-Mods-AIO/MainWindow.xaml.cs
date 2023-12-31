@@ -24,6 +24,8 @@ using MahApps.Metro.Controls;
 using static System.Diagnostics.FileVersionInfo;
 using static System.IO.Path;
 using static System.Windows.Forms.Control;
+using static System.Windows.Forms.DialogResult;
+using static System.Windows.Forms.MessageBoxButtons;
 using static System.Windows.Media.ColorConverter;
 using static System.Windows.Media.VisualTreeHelper;
 using static System.Xml.Linq.XElement;
@@ -36,6 +38,7 @@ using Monet = Forza_Mods_AIO.Resources.Theme.Monet;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MessageBox = System.Windows.Forms.MessageBox;
 using RadioButton = System.Windows.Controls.RadioButton;
 
 namespace Forza_Mods_AIO;
@@ -79,6 +82,7 @@ public partial class MainWindow
     public MainWindow()
     {
         InitializeComponent();
+        UpdateAio();
         Mw = this;
         Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ConvertFromString("#FF2E3440")!,
             new SolidColorBrush((Color)ConvertFromString("#FF2E3440")!), true, false));
@@ -94,6 +98,32 @@ public partial class MainWindow
         Task.Run(IsAttached);
     }
 
+    private async void UpdateAio()
+    {
+        var updater = new Updater();
+
+        if (!await updater.CheckForUpdates())
+        {  
+            updater.Dispose();
+            return;
+        }
+
+        Hide();
+        
+        if (MessageBox.Show(@"New tool version found, would you like to update?", @"Updater", YesNo) != Yes)
+        {
+            Show();
+            return;
+        }
+
+        if (await updater.DownloadAndApplyUpdate())
+        {
+            return;
+        }
+        
+        Show();
+        updater.Dispose();
+    }
     #endregion
 
     #region Dragging
