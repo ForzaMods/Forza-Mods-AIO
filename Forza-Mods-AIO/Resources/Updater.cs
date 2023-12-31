@@ -16,7 +16,7 @@ public class Updater : IDisposable
     private const string ProjectName = "Forza-Mods-AIO";
     private const string DestinationFileName = $"{ProjectName}-New.exe";
     private const string UpdaterBatchFileName = $"{ProjectName}-Updater.bat";
-    private static readonly string ToolVersion = Assembly.GetExecutingAssembly().GetName().Version!.ToString();
+    private static readonly Version ToolVersion = Assembly.GetExecutingAssembly().GetName().Version!;
     
     private readonly GitHubClient _gitHubClient = new(new ProductHeaderValue("Forza-Mods-AIO"));
     private IReadOnlyList<Release>? _releases;
@@ -33,7 +33,7 @@ public class Updater : IDisposable
         }
         
         var latestRelease = _releases[0];
-        return latestRelease.TagName != ToolVersion;
+        return new Version(latestRelease.TagName) > ToolVersion;
     }
 
     public async Task<bool> DownloadAndApplyUpdate()
