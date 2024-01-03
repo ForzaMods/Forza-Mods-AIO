@@ -100,6 +100,11 @@ public partial class MainWindow
 
     private async void UpdateAio()
     {
+        if (!await Updater.CheckInternetConnection())
+        {
+            return;
+        }
+        
         var updater = new Updater();
 
         if (!await updater.CheckForUpdates())
@@ -113,6 +118,7 @@ public partial class MainWindow
         if (MessageBox.Show(@"New tool version found, would you like to update?", @"Updater", YesNo) != Yes)
         {
             Show();
+            updater.Dispose();
             return;
         }
 
@@ -454,6 +460,7 @@ public partial class MainWindow
         }
         catch { /* ignored */ }
 
+        EnableAntiCheat();
         Environment.Exit(0);
     }
     #endregion

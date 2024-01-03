@@ -399,7 +399,7 @@ public partial class MiscellaneousPage
             return;
         }
 
-        if (!TimeScaleDetour.Setup(TimeScaleAddr, TimeScale, 12, true))
+        if (!TimeScaleDetour.Setup(TimeScaleSwitch, TimeScaleAddr, TimeScale, 12, true))
         {
             FailedHandler(sender as ToggleSwitch, TimeScaleSwitch_OnToggled);
             TimeScaleDetour.Clear();

@@ -55,7 +55,7 @@ public partial class BackFirePage
 
     private void ForceBackfireType_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (!BackfireTypeDetour.Setup(BackfireTypeAddr, BackfireTypeBytes, 7, true))
+        if (!BackfireTypeDetour.Setup(sender, BackfireTypeAddr, BackfireTypeBytes, 7, true))
         {
             MessageBox.Show("Failed");            
             return;

@@ -9,39 +9,56 @@ namespace Forza_Mods_AIO.Resources;
 
 public abstract class Bypass
 {
-    private static readonly byte[] RtlUserThreadStartOrig = { 0x48, 0x83, 0xEC, 0x78, 0x4C, 0x8B, 0xC2 };
-    private static readonly byte[] NtCreateThreadExOrig = { 0x4C, 0x8B, 0xD1, 0xB8, 0xC7, 0x00, 0x00, 0x00 };
+    private static readonly byte[] RtlUserThreadStartPatch = { 0x48, 0x83, 0xEC, 0x78, 0x4C, 0x8B, 0xC2 };
+    private static readonly byte[] NtCreateThreadExPatch = { 0x4C, 0x8B, 0xD1, 0xB8, 0xC7, 0x00, 0x00, 0x00 };
 
-    private static readonly Detour Check1Detour = new(), Check2Detour = new(), Check3Detour = new(), Check4Detour = new();
+    private static byte[]? _rtlUserThreadStartOrig;
+    private static byte[]? _ntCreateThreadExOrig;
     
-    public static void DisableAntiCheat()
+    private static readonly Detour Check1Detour = new(true), Check2Detour = new(true), Check3Detour = new(true), Check4Detour = new(true);
+    
+    public static bool DisableAntiCheat()
     {
-        if (Mw.Gvp.Name.Contains('4'))
-        {
-            DisableFh4();
-            return;
-        }
-
-        PointChecksToCopy();    
+        if (!Mw.Gvp.Name.Contains('4')) return PointChecksToCopy();
+        
+        DisableFh4();
+        return true;
     }
 
+    public static void EnableAntiCheat()
+    {
+        if (!Mw.Gvp.Name.Contains('4')) return;
+        var ntDll = GetModuleHandle("ntdll.dll");
+        var rtlUserThreadStart = GetProcAddress(ntDll, "RtlUserThreadStart");
+        var ntCreateThreadEx = GetProcAddress(ntDll, "NtCreateThreadEx");
+        Mw.M.WriteArrayMemory(rtlUserThreadStart, _rtlUserThreadStartOrig);
+        Mw.M.WriteArrayMemory(ntCreateThreadEx, _ntCreateThreadExOrig);
+    }
+    
     private static void DisableFh4()
     {
         var ntDll = GetModuleHandle("ntdll.dll");
         var rtlUserThreadStart = GetProcAddress(ntDll, "RtlUserThreadStart");
         var ntCreateThreadEx = GetProcAddress(ntDll, "NtCreateThreadEx");
-        Mw.M.WriteArrayMemory(rtlUserThreadStart, RtlUserThreadStartOrig);
-        Mw.M.WriteArrayMemory(ntCreateThreadEx, NtCreateThreadExOrig);
+        _rtlUserThreadStartOrig = Mw.M.ReadArrayMemory<byte>(rtlUserThreadStart, 7);
+        _ntCreateThreadExOrig = Mw.M.ReadArrayMemory<byte>(ntCreateThreadEx, 8);
+        Mw.M.WriteArrayMemory(rtlUserThreadStart, RtlUserThreadStartPatch);
+        Mw.M.WriteArrayMemory(ntCreateThreadEx, NtCreateThreadExPatch);
     }
 
     public static bool IsScanRunning { get; set; }
     private static bool Bypassed { get; set; }
     
-    private static void PointChecksToCopy()
+    private static bool PointChecksToCopy()
     {
-        if (IsScanRunning || Bypassed)
+        if (Bypassed)
         {
-            return;
+            return true;
+        }
+
+        if (IsScanRunning)
+        {
+            return false;
         }
         
         IsScanRunning = true;
@@ -51,16 +68,14 @@ public abstract class Bypass
 
         if (checkAddr1 == 0)
         {
-            Mw.M._memoryCache.Clear();
-            return;
+            return false;
         }
         
         checkAddr1 += Mw.Gvp.Plat == "MS" ? (UIntPtr)325 : 333;
 
         if (Mw.M.ReadMemory<byte>(checkAddr1) == 0xE9)
         {
-            Bypassed = true;
-            return;
+            return Bypassed = true;
         }
         
         var checkAddr2 = checkAddr1 + 40;
@@ -91,10 +106,11 @@ public abstract class Bypass
         Check3Detour.Setup(checkAddr3, check3Bytes, 5, true);
         Check4Detour.Setup(checkAddr4, check4Bytes, 5, true);
 
-        Check1Detour.UpdateVariable(addresses);
-        Check2Detour.UpdateVariable(addresses);
-        Check3Detour.UpdateVariable(addresses);
-        Check4Detour.UpdateVariable(addresses);
-        Bypassed = true;
+        var list = new[] {Check1Detour,Check2Detour,Check3Detour,Check4Detour };
+        Parallel.ForEach(list, detour =>
+        {
+            detour.UpdateVariable(addresses);
+        });
+        return Bypassed = true;
     }
 }

@@ -107,7 +107,7 @@
                                             HorizontalAlignment="Center"
                                             Width="45" MinWidth="0" 
                                             Content="" 
-                                            ToolTip="This option enables seeing all cars in the autoshow.&#xa;You must enable either all or rare cars for it to take effect."
+                                            ToolTip="This option enables seeing all traffic cars in the autoshow.&#xa;You must enable either all or rare cars for it to take effect."
                                             Toggled="ShowTrafficHSNull_OnToggled"/>
                    </StackPanel>
             </StackPanel>

@@ -11,7 +11,7 @@ public abstract class AutoshowFilters
     private static readonly ToggleOption AllCarsToggle = new("All Cars", false, "This option will show every car in the autoshow. Cannot be utilized simultaneously with rare cars toggle");
     private static readonly ToggleOption RareCarsToggle = new("Rare Cars", false, "This option will show every rare car in the autoshow. Cannot be utilized simultaneously with all cars toggle");
     private static readonly ToggleOption FreeCarsToggle = new("Free Cars", false, "This option will make every car in the autoshow free.");
-    private static readonly ToggleOption ShowTrafficHsNullToggle = new("Show Traffic/HS/Null", false, "This option enables seeing all cars in the autoshow. You must enable either all or rare cars for it to take effect.");
+    private static readonly ToggleOption ShowTrafficHsNullToggle = new("Show Traffic/HS/Null", false, "This option enables seeing all traffic cars in the autoshow. You must enable either all or rare cars for it to take effect.");
 
     public static readonly List<MenuOption> AutoShowFiltersOptions = new()
     {

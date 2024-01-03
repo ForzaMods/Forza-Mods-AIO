@@ -115,7 +115,7 @@ public partial class CustomizationPage
             return;
         }
         
-        if (!HeadlightDetour.Setup(HeadlightAddr, HeadlightBytes, 13, true, 0, true))
+        if (!HeadlightDetour.Setup(HeadlightToggle, HeadlightAddr, HeadlightBytes, 13, true, 0, true))
         {
             MessageBox.Show("Failed.");
             HeadlightToggle.Toggled -= HeadlightColor_OnToggled;

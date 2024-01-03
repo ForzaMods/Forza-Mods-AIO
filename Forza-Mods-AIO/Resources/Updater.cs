@@ -3,6 +3,7 @@ using Octokit;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Reflection;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -24,6 +25,26 @@ public class Updater : IDisposable
     private const string Owner = "ForzaMods";
     private const string Repository = "AIO";
 
+    public static async Task<bool> CheckInternetConnection()
+    {
+        try
+        {
+            const string url = "https://www.google.com/";
+            const int timeoutMs = 2500;
+
+            using var cts = new CancellationTokenSource(timeoutMs);
+            using var httpClient = new HttpClient();
+
+            var response = await httpClient.GetAsync(url, cts.Token);
+            response.EnsureSuccessStatusCode();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    
     public async Task<bool> CheckForUpdates()
     {
         _releases = await _gitHubClient.Repository.Release.GetAll(Owner, Repository);

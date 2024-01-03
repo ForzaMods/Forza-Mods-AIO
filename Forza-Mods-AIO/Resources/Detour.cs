@@ -13,6 +13,13 @@ namespace Forza_Mods_AIO.Resources;
 /// </summary>
 public class Detour : Asm
 {
+    private readonly bool _bypassDetour;
+    
+    public Detour(bool bypassDetour = false)
+    {
+        _bypassDetour = bypassDetour;
+    }
+
     /// <summary>
     /// Setup the detour.
     /// </summary>
@@ -38,28 +45,28 @@ public class Detour : Asm
             return true;
         }
 
+        if (string.IsNullOrWhiteSpace(detourBytes))
+        {
+            throw new Exception("Detour bytes argument cant be null nor whitespace");
+        }
+
+        if (5 > replaceCount)
+        {
+            return false;
+        }
+        
+        if (Mw.Gvp.Process?.MainModule == null)
+        {
+            return false;
+        }
+            
         if (addr <= (UIntPtr)Mw.Gvp.Process.MainModule.BaseAddress)
         {
             return false;
         }
 
         _detourAddr = addr;
-        
-        if (string.IsNullOrWhiteSpace(detourBytes))
-        {
-            throw new Exception("Detour bytes argument cant be null nor whitespace");
-        }
-
-        if (replaceCount < 5)
-        {
-            replaceCount = 5;
-        }
-        
-        CurrentDispatcher.BeginInvoke(delegate ()
-        {
-            button?.GetType().GetProperty("IsEnabled")?.SetValue(button, false);
-        });
-
+        ToggleButton(button, false);
         _originalBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, replaceCount);
 
         if (detourBytes.Contains(' '))
@@ -77,17 +84,15 @@ public class Detour : Asm
             finalDetourBytes = combinedBytes;
         }
 
-        if (Mw.Gvp.Name.Contains('5'))
+        if (Mw.Gvp.Name.Contains('5') && !_bypassDetour && !Bypass.DisableAntiCheat())
         {
-            Bypass.DisableAntiCheat();
+            ToggleButton(button, true);
+            return false;
         }
         
         if (!CreateDetour(finalDetourBytes, replaceCount))
         {
-            CurrentDispatcher.BeginInvoke(delegate ()
-            {
-                button?.GetType().GetProperty("IsEnabled")?.SetValue(button, true);
-            });
+            ToggleButton(button, true);
             return false;
         }
         
@@ -97,12 +102,16 @@ public class Detour : Asm
         }
 
         _newBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, replaceCount);
-        
+        ToggleButton(button, true);
+        return IsHooked = IsSetup = true;
+    }
+
+    private static void ToggleButton(object? button, bool enable)
+    {
         CurrentDispatcher.BeginInvoke(delegate ()
         {
-            button?.GetType().GetProperty("IsEnabled")?.SetValue(button, true);
+            button?.GetType().GetProperty("IsEnabled")?.SetValue(button, enable);
         });
-        return IsHooked = IsSetup = true;
     }
     
     /// <summary>
