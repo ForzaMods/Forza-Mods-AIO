@@ -21,5 +21,5 @@ using System.Windows;
 // Minor Version - Default number
 // Revision - Last release revision + 1
 // Build Number - Number of commits since last release
-[assembly: AssemblyVersion("2.0.3.6")]
-[assembly: AssemblyFileVersion("2.0.3.6")]
+[assembly: AssemblyVersion("2.0.4.2")]
+[assembly: AssemblyFileVersion("2.0.4.2")]
