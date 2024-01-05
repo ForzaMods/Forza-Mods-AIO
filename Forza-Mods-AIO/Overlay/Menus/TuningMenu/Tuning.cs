@@ -18,7 +18,7 @@ public abstract class Tuning
         new MenuButtonOption("Aero"),
         new MenuButtonOption("Alignment"),
         new MenuButtonOption("Damping"),
-        new MenuButtonOption("Gearing"),
+        new MenuButtonOption("Gearing", Gearing.PullValues),
         new MenuButtonOption("Others"),
         new MenuButtonOption("Springs"),
         new MenuButtonOption("Steering"),

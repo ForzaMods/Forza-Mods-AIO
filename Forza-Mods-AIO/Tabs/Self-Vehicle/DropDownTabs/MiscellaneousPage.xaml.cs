@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using Forza_Mods_AIO.Resources;
-using MahApps.Metro.Controls;
 using static System.Convert;
 using static System.Math;
 using static Forza_Mods_AIO.MainWindow;
@@ -16,13 +15,13 @@ public partial class MiscellaneousPage
     public static readonly Detour Build1Detour = new(), Build2Detour = new(), ScaleDetour = new(), SellDetour = new();
     public static readonly Detour SkillTreeDetour = new(), ScoreDetour = new();
     public static readonly Detour SkillCostDetour = new(), DriftDetour = new(), TimeScaleDetour = new();
-    private static readonly Detour UnbSkillDetour = new();
+    public static readonly Detour UnbSkillDetour = new();
     public bool WasSkillDetoured;
     
     private const string Build1Fh4 = "F3 0F 11 B3 DC 03 00 00 C7 83 DC 03 00 00 00 00 00 00";
     private const string Build1Fh5 = "F3 0F 11 83 4C 04 00 00 C7 83 4C 04 00 00 00 00 00 00";
-    private const string Build2Fh4 = "F3 0F 11 43 44 C7 43 44 00 00 00 00";
-    private const string Build2Fh5 = "F3 0F 11 43 30 C7 43 30 00 00 00 00";
+    private const string Build2Fh4 = "F3 0F 11 43 30 C7 43 30 00 00 00 00";
+    private const string Build2Fh5 = "F3 0F 11 43 44 C7 43 44 00 00 00 00";
     private const string SkillDetourFh4 = "48 89 1D 05 00 00 00";
     private const string SkillDetourFh5 = "48 89 0D 05 00 00 00";
     private const string ScaleFh5 = "F3 0F 10 35 05 00 00 00";
@@ -42,22 +41,29 @@ public partial class MiscellaneousPage
         MiscPage = this;
     }
 
-    private void RemoveBuildCapSwitch_OnToggled(object? sender, RoutedEventArgs e)
+    private void RemoveBuildCapSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
         if (!Mw.Attached)
         {
             return;
         }
 
-        var fh5 = Mw.Gvp.Name!.Contains('5');
-        var build1 = fh5 ? Build1Fh5 : Build1Fh4;
-        var build2 = fh5 ? Build2Fh5 : Build2Fh4;
-        if (!Build1Detour.Setup(sender, BuildAddr1, build1, 8) || !Build2Detour.Setup(sender, BuildAddr2, build2, 8))
+        var build1 = Mw.Gvp.Name!.Contains('5') ? Build1Fh5 : Build1Fh4;
+        var build2 = Mw.Gvp.Name!.Contains('5') ? Build2Fh5 : Build2Fh4;
+        const string build1OrigFh5 = "F3 0F11 83 4C040000";
+        const string build1OrigFh4 = "F3 0F11 B3 DC030000";
+        const string build2OrigFh5 = "F3 0F 11 43 44";
+        const string build2OrigFh4 = "F3 0F 11 43 30";
+
+        var orig1 = Mw.Gvp.Name!.Contains('5') ? build1OrigFh5 : build1OrigFh4;
+        var orig2 = Mw.Gvp.Name!.Contains('5') ? build2OrigFh5 : build2OrigFh4;
+        
+        if (!Build1Detour.Setup(sender, BuildAddr1, orig1, build1, 8) || 
+            !Build2Detour.Setup(sender, BuildAddr2, orig2, build2, 5))
         {
-            FailedHandler(sender as ToggleSwitch, RemoveBuildCapSwitch_OnToggled);
+            Detour.FailedHandler(sender, RemoveBuildCapSwitch_OnToggled);
             Build1Detour.Clear();
             Build2Detour.Clear();
-            MessageBox.Show("Failed");
             return;
         }
         
@@ -93,12 +99,15 @@ public partial class MiscellaneousPage
 
         var bytes = Mw.Gvp.Name.Contains('4') ? SkillDetourFh4 : SkillDetourFh5;
         var replace = Mw.Gvp.Name.Contains('4') ? 6 : 5;
+        const string fh5 = "F3 0F 10 41 2C";
+        const string fh4 = "48 8B 10 48 8B C8";
+
+        var orig = Mw.Gvp.Name.Contains('4') ? fh4 : fh5;
         
-        if (!UnbSkillDetour.Setup(SkillToggle, UnbSkillHook, bytes, replace, true, 0, true))
+        if (!UnbSkillDetour.Setup(SkillToggle, UnbSkillHook, orig, bytes, replace, true, 0, true))
         {
-            FailedHandler((ToggleSwitch)sender, Skill_OnToggled);
+            Detour.FailedHandler(sender, Skill_OnToggled);
             UnbSkillDetour.Clear();
-            MessageBox.Show("Failed");
             return;
         }
 
@@ -136,12 +145,15 @@ public partial class MiscellaneousPage
 
         var sell = Mw.Gvp.Name == "Forza Horizon 5" ? SellFh5 : SellFh4;
         var count = Mw.Gvp.Name == "Forza Horizon 5" ? 7 : 6;
+        const string origFh5 = "44 8B B3 80000000";
+        const string origFh4 = "8B B8 D04B0000";
+
+        var orig = Mw.Gvp.Name.Contains('5') ? origFh5 : origFh4;
         
-        if (!SellDetour.Setup(SellFactorSwitch, SellFactorAddr, sell, count, true, 0, true))
+        if (!SellDetour.Setup(SellFactorSwitch, SellFactorAddr, orig, sell, count, true, 0, true))
         {
-            FailedHandler((ToggleSwitch)sender, SellFactorSwitch_OnToggled);
+            Detour.FailedHandler(sender, SellFactorSwitch_OnToggled);
             SellDetour.Clear();
-            MessageBox.Show("Failed");
             return;
         }
 
@@ -181,12 +193,15 @@ public partial class MiscellaneousPage
         }
 
         var scale = Mw.Gvp.Name == "Forza Horizon 5" ? ScaleFh5 : ScaleFh4;
+        const string origFh5 = "F3 0F10 73 10";
+        const string origFh4 = "F3 0F59 40 10";
+
+        var orig = Mw.Gvp.Name.Contains('4') ? origFh4 : origFh5;
         
-        if (!ScaleDetour.Setup(ScaleSwitch, ScaleAddr, scale, 5, true, 0, true))
+        if (!ScaleDetour.Setup(ScaleSwitch, ScaleAddr, orig, scale, 5, true, 0, true))
         {
-            FailedHandler((ToggleSwitch)sender, ScaleSwitch_OnToggled);
+            Detour.FailedHandler(sender, ScaleSwitch_OnToggled);
             ScaleDetour.Clear();
-            MessageBox.Show("Failed");
             return;
         }
 
@@ -213,28 +228,20 @@ public partial class MiscellaneousPage
 
         if (Mw.Gvp.Name == "Forza Horizon 4" && SkillTreeEditToggle.IsOn)
         {
-            FailedHandler((ToggleSwitch)sender, SkillTreeEditToggle_OnToggled);
-            MessageBox.Show("This feature was never ported to FH4");
+            Detour.FailedHandler(sender, SkillTreeEditToggle_OnToggled, true);
             return;
         }
-        
-        if (!SkillTreeDetour.Setup(sender, SkillTreeAddr, SkillTree, 5, true))
+
+        const string orig = "F3 0F10 73 48";
+        if (!SkillTreeDetour.Setup(sender, SkillTreeAddr, orig, SkillTree, 5, true))
         {
-            FailedHandler((ToggleSwitch)sender, SkillTreeEditToggle_OnToggled);
+            Detour.FailedHandler(sender, SkillTreeEditToggle_OnToggled);
             SkillTreeDetour.Clear();
-            MessageBox.Show("Failed");
             return;
         }
         
         SkillTreeDetour.UpdateVariable(ToSingle(SkillTreeNum.Value));
         SkillTreeDetour.Toggle();
-    }
-
-    private static void FailedHandler(ToggleSwitch? @switch, RoutedEventHandler action)
-    {
-        @switch!.Toggled -= action;
-        @switch.IsOn = false;
-        @switch.Toggled += action;
     }
 
     private void SkillTreeNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -265,12 +272,16 @@ public partial class MiscellaneousPage
         var bytes = fh4 ? ScoreFh4 : ScoreFh5;
         var replace = fh4 ? 6 : 7;
         var save = !fh4;
+
+        const string origFh5 = "8B 78 08 48 8B 4D 60";
+        const string origFh4 = "8B 78 04 48 85 DB";
+
+        var orig = fh4 ? origFh4 : origFh5;
         
-        if (!ScoreDetour.Setup(sender, SkillScoreAddr, bytes, replace, true, 0, save))
+        if (!ScoreDetour.Setup(sender, SkillScoreAddr, orig,bytes, replace, true, 0, save))
         {
-            FailedHandler((ToggleSwitch)sender, ScoreToggle_OnToggled);
+            Detour.FailedHandler(sender, ScoreToggle_OnToggled);
             ScoreDetour.Clear();
-            MessageBox.Show("Failed");
             return;
         }
         
@@ -304,16 +315,15 @@ public partial class MiscellaneousPage
 
         if (Mw.Gvp.Name == "Forza Horizon 4" && SkillCostToggle.IsOn)
         {
-            FailedHandler((ToggleSwitch)sender, SkillCostToggle_OnToggled);
-            MessageBox.Show("This feature was never ported to FH4");
+            Detour.FailedHandler(sender, SkillCostToggle_OnToggled, true);
             return;
         }
-        
-        if (!SkillCostDetour.Setup(sender, SkillCostAddr, SkillCost, 7, true, 0, true))
+
+        const string orig = "8B C3 48 8B 5C 24 30";
+        if (!SkillCostDetour.Setup(sender, SkillCostAddr, orig, SkillCost, 7, true, 0, true))
         {
-            FailedHandler((ToggleSwitch)sender, SkillCostToggle_OnToggled);
+            Detour.FailedHandler(sender, SkillCostToggle_OnToggled);
             SkillCostDetour.Clear();
-            MessageBox.Show("Failed");
             return;
         }
         
@@ -366,16 +376,15 @@ public partial class MiscellaneousPage
         
         if (Mw.Gvp.Name == "Forza Horizon 4" && DriftToggle.IsOn)
         {
-            FailedHandler((ToggleSwitch)sender, DriftToggle_OnToggled);
-            MessageBox.Show("This feature was never ported to FH4");
+            Detour.FailedHandler(sender, DriftToggle_OnToggled, true);
             return;
         }
 
-        if (!DriftDetour.Setup(DriftToggle, DriftScoreAddr, Drift, 8, true))
+        const string originalBytes = "F3 0F 10 9F D8 00 00 00";
+        if (!DriftDetour.Setup(DriftToggle, DriftScoreAddr, originalBytes, Drift, 8, true))
         {
-            FailedHandler((ToggleSwitch)sender, DriftToggle_OnToggled);
+            Detour.FailedHandler(sender, DriftToggle_OnToggled);
             DriftDetour.Clear();
-            MessageBox.Show("Failed");
             return;
         }
         
@@ -394,16 +403,15 @@ public partial class MiscellaneousPage
         
         if (Mw.Gvp.Name == "Forza Horizon 4" && TimeScaleSwitch.IsOn)
         {
-            FailedHandler((ToggleSwitch)sender, TimeScaleSwitch_OnToggled);
-            MessageBox.Show("This feature was never ported to FH4");
+            Detour.FailedHandler(sender, TimeScaleSwitch_OnToggled, true);
             return;
         }
 
-        if (!TimeScaleDetour.Setup(TimeScaleSwitch, TimeScaleAddr, TimeScale, 12, true))
+        const string orig = "F3 0F5C C7 F3 0F11 87 0C040000";
+        if (!TimeScaleDetour.Setup(TimeScaleSwitch, TimeScaleAddr, orig, TimeScale, 12, true))
         {
-            FailedHandler(sender as ToggleSwitch, TimeScaleSwitch_OnToggled);
+            Detour.FailedHandler(sender, TimeScaleSwitch_OnToggled);
             TimeScaleDetour.Clear();
-            MessageBox.Show("Failed");
             return;
         }
         

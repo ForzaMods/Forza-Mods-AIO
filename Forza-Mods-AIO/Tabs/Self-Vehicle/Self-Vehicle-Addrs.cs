@@ -268,7 +268,7 @@ internal class SelfVehicleAddresses
         AiXAddr = Mw.M.ScanForSig(_aixAob).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
-        OobNopAddr = Mw.M.ScanForSig(_oobAob).FirstOrDefault() + 83;
+        //OobNopAddr = Mw.M.ScanForSig(_oobAob).FirstOrDefault() + 83;
         Sv.UiManager.AddProgress();
 
         PhotoCamEntity.SpeedBase = Mw.M.ScanForSig(_cameraSpeedBaseAob).FirstOrDefault();
@@ -403,11 +403,10 @@ internal class SelfVehicleAddresses
         WayPointXAsmAddr = Mw.M.ScanForSig(_wayPointXAsmAob).FirstOrDefault();
         Sv.UiManager.AddProgress();
         
-        OobNopAddr = Mw.M.ScanForSig(_oobAob).FirstOrDefault();
+        //OobNopAddr = Mw.M.ScanForSig(_oobAob).FirstOrDefault();
         Sv.UiManager.AddProgress();
         
         SuperCarAddr = Mw.M.ScanForSig(_superCarAob).FirstOrDefault();
-        Shp!.Dispatcher.Invoke(() => Shp.SuperCarSwitch.IsEnabled = true);
         Sv.UiManager.AddProgress();
 
         DiscoverRoadsAddr = Mw.M.ScanForSig(_discoverRoadsAob).FirstOrDefault();
@@ -476,6 +475,6 @@ internal class SelfVehicleAddresses
         BumperMax = bases2.FirstOrDefault() - 0x20;
         HoodMin = bases2.LastOrDefault() - 0x20 - 4;
         HoodMax = bases2.LastOrDefault() - 0x20;
-        FovPage.Fov!.Dispatcher.Invoke(() => FovPage.Fov.UpdateValues());
+        FovPage.Fov.Dispatcher.Invoke(() => FovPage.Fov.UpdateValues());
     }
 }

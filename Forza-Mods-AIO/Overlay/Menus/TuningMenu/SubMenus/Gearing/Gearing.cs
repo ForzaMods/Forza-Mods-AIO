@@ -20,7 +20,9 @@ public abstract class Gearing
     private static readonly FloatOption NinthGearValue = new("Ninth Gear", 0f);
     private static readonly FloatOption TenthGearValue = new("Tenth Gear", 0f);
 
-    private static readonly ButtonOption GearingPull = new("Pull values", () =>
+    private static readonly ButtonOption GearingPull = new("Pull values", PullValues);
+
+    public static void PullValues()
     {
         FinalDriveValue.Value = Convert.ToSingle(G.FinalDriveBox.Value);
         ReverseGearValue.Value = Convert.ToSingle(G.ReverseGearBox.Value);
@@ -34,119 +36,126 @@ public abstract class Gearing
         EighthGearValue.Value = Convert.ToSingle(G.EighthGearBox.Value);
         NinthGearValue.Value = Convert.ToSingle(G.NinthGearBox.Value);
         TenthGearValue.Value = Convert.ToSingle(G.TenthGearBox.Value);
-    });
+    }
 
     private static void FinalDriveValueChanged(object s, EventArgs e)
     {
-        var gearing = G;
-        gearing.Dispatcher.Invoke(() =>
+        if (s is not FloatOption floatOption)
         {
-            gearing.FinalDriveBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
-        });
+            return;
+        }
+        
+        G.FinalDriveBox.Value = floatOption.Value;
     }
     
     private static void ReverseGearValueChanged(object s, EventArgs e)
     {
-        var gearing = G;
-        gearing.Dispatcher.Invoke(() =>
+        if (s is not FloatOption floatOption)
         {
-            gearing.FinalDriveBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
-        });
+            return;
+        }
+
+        G.FinalDriveBox.Value = floatOption.Value;
     }
 
     private static void FirstGearValueChanged(object s, EventArgs e)
     {
-        var gearing = G;
-        gearing.Dispatcher.Invoke(() =>
+        if (s is not FloatOption floatOption)
         {
-            gearing.FinalDriveBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
-        });
+            return;
+        }
+
+        G.FinalDriveBox.Value = floatOption.Value;
     }
 
     private static void SecondGearValueChanged(object s, EventArgs e)
     {
-        var gearing = G;
-        gearing.Dispatcher.Invoke(() =>
+        if (s is not FloatOption floatOption)
         {
-            gearing.SecondGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
-        });
+            return;
+        }
+
+        G.SecondGearBox.Value = floatOption.Value;
     }
 
     private static void ThirdGearValueChanged(object s, EventArgs e)
     {
-        var gearing = G;
-        gearing.Dispatcher.Invoke(() =>
+        if (s is not FloatOption floatOption)
         {
-            gearing.ThirdGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
-        });
+            return;
+        }
+
+        G.ThirdGearBox.Value = floatOption.Value;
     }
 
     private static void FourthGearValueChanged(object s, EventArgs e)
     {
-        var gearing = G;
-        gearing.Dispatcher.Invoke(() =>
+        if (s is not FloatOption floatOption)
         {
-            gearing.FourthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
-        });
+            return;
+        }
+
+        G.FourthGearBox.Value = floatOption.Value;
     }
 
     private static void FifthGearValueChanged(object s, EventArgs e)
     {
-        var gearing = G;
-        gearing.Dispatcher.Invoke(() =>
+        if (s is not FloatOption floatOption)
         {
-            gearing.FifthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
-        });
+            return;
+        }
+
+        G.FifthGearBox.Value = floatOption.Value;
     }
 
     private static void SixthGearValueChanged(object s, EventArgs e)
     {
-        var gearing = G;
-        
-        gearing.Dispatcher.Invoke(() =>
+        if (s is not FloatOption floatOption)
         {
-            gearing.SixthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
-        });
+            return;
+        }
+
+        G.SixthGearBox.Value = floatOption.Value;
     }
 
     private static void SeventhGearValueChanged(object s, EventArgs e)
     {
-        var gearing = G;
-        
-        gearing.Dispatcher.Invoke(() =>
+        if (s is not FloatOption floatOption)
         {
-            gearing.SeventhGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
-        });
+            return;
+        }
+
+        G.SeventhGearBox.Value = floatOption.Value;
     }
 
     private static void EighthGearValueChanged(object s, EventArgs e)
     {
-        var gearing = G;
-
-        gearing.Dispatcher.Invoke(() =>
+        if (s is not FloatOption floatOption)
         {
-            gearing.EighthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
-        });
+            return;
+        }
+
+        G.EighthGearBox.Value = floatOption.Value;
     }
 
     private static void NinthGearValueChanged(object s, EventArgs e)
     {
-        var gearing = G;
-        
-        gearing.Dispatcher.Invoke(() =>
+        if (s is not FloatOption floatOption)
         {
-            gearing.NinthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
-        });
+            return;
+        }
+
+        G.NinthGearBox.Value = floatOption.Value;
     }
 
     private static void TenthGearValueChanged(object s, EventArgs e)
     {
-        var gearing = G;
-        
-        gearing.Dispatcher.Invoke(() =>
+        if (s is not FloatOption floatOption)
         {
-            gearing.TenthGearBox.Value = (float)s.GetType().GetProperty("Value")!.GetValue(s)!;
-        });
+            return;
+        }
+
+        G.TenthGearBox.Value = floatOption.Value;
     }
 
     public static readonly List<MenuOption> GearingOptions = new()

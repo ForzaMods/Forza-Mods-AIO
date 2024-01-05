@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -9,6 +10,8 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
 
 public partial class Aero
 {
+    public bool CodeChange;
+    
     public static Aero Ae { get; private set; } = null!;
     public Aero()
     {
@@ -18,20 +21,24 @@ public partial class Aero
     
     private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        ((NumericUpDown)sender).Value = Math.Round(Convert.ToDouble(((NumericUpDown)sender).Value), 3);
+        if (CodeChange)
+        {
+            return;
+        }
         
+        ((NumericUpDown)sender).Value = Math.Round(Convert.ToDouble(((NumericUpDown)sender).Value), 3);
+
         if (!Mw.Attached)
         {
             return;
         }
-
-        
+    
         UIntPtr address = 0;
+
+        var senderName = sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!;
 
         foreach (var field in typeof(TuningAddresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(UIntPtr)))
         {
-            var senderName = sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!;
-            
             if (field.Name != senderName.Remove(senderName.Length - 3))
             {
                 continue;

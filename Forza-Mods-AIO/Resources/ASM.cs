@@ -7,9 +7,14 @@ public abstract class Asm
 {
     protected static byte[] StringToBytes(string hex)
     {
+        if (hex.Contains(' '))
+        {
+            hex = hex.Replace(" ", "");
+        }
+        
         if (string.IsNullOrWhiteSpace(hex))
         {
-            throw new ArgumentException("Hex cannot be null/empty/whitespace");
+            throw new ArgumentException("Hex cannot be null, empty, or whitespace");
         }
 
         if (hex.Length % 2 != 0)
@@ -17,32 +22,29 @@ public abstract class Asm
             throw new FormatException("Hex must have an even number of characters");
         }
 
-        var startsWithHexStart = hex.StartsWith("0x", StringComparison.OrdinalIgnoreCase);
-
-        if (startsWithHexStart && hex.Length == 2)
+        if (hex.Length == 2 && hex.Equals("0x", StringComparison.OrdinalIgnoreCase))
         {
             throw new ArgumentException("There are no characters in the hex string");
         }
 
-
-        var startIndex = startsWithHexStart ? 2 : 0;
-
-        var bytesArr = new byte[(hex.Length - startIndex) / 2];
+        var startIndex = hex.StartsWith("0x", StringComparison.OrdinalIgnoreCase) ? 2 : 0;
+        var length = (hex.Length - startIndex) / 2;
+        var bytesArr = new byte[length];
 
         try
         {
-            var x = 0;
-            for (var i = startIndex; i < hex.Length; i += 2, x++)
+            for (int i = startIndex, x = 0; i < hex.Length; i += 2, x++)
             {
                 var left = hex[i];
                 var right = hex[i + 1];
                 bytesArr[x] = (byte)((HexMap[left] << 4) | HexMap[right]);
             }
+
             return bytesArr;
         }
         catch (KeyNotFoundException)
         {
-            throw new FormatException("Hex string has non-hex character");
+            throw new FormatException("Hex string has a non-hex character");
         }
     }
 

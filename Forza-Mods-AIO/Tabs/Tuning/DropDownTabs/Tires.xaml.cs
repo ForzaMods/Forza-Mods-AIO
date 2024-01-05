@@ -36,10 +36,10 @@ public partial class Tires
         
         UIntPtr address = 0;
 
+        var senderName = sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!;
+
         foreach (var field in typeof(TuningAddresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(UIntPtr)))
         {
-            var senderName = sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!;
-            
             if (field.Name != senderName.Replace("Box", string.Empty))
             {
                 continue;

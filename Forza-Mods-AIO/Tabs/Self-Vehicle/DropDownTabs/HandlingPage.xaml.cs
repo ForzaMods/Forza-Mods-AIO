@@ -688,10 +688,16 @@ public partial class HandlingPage
         
     private float _originalGrav;
         
-    private void FlyHackSwitch_OnToggled(object? sender, RoutedEventArgs e)
+    private void FlyHackSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
         if (!Mw.Attached)
         {
+            return;
+        }
+
+        if (Mw.Gvp.Name.Contains('4'))
+        {
+            Detour.FailedHandler(sender, FlyHackSwitch_OnToggled, true);
             return;
         }
         
@@ -708,12 +714,11 @@ public partial class HandlingPage
         {
             GravitySetSwitch.IsOn = false;
         }
-
-        if (!FlyHackDetour.Setup(sender, FlyhackHookAddr, "48 39 0D 10 00 00 00 74 09 F3 44 0F 10 89 94 00 00 00", 9, true))
+        
+        const string bytes = "48 39 0D 10 00 00 00 74 09 F3 44 0F 10 89 94 00 00 00";
+        if (!FlyHackDetour.Setup(sender, FlyhackHookAddr, null, bytes, 9, true))
         {
-            FlyHackSwitch.Toggled -= FlyHackSwitch_OnToggled;
-            FlyHackSwitch.IsOn = false;
-            FlyHackSwitch.Toggled += FlyHackSwitch_OnToggled;
+            Detour.FailedHandler(sender, FlyHackSwitch_OnToggled);
             FlyHackDetour.Clear();
             return;
         }

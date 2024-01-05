@@ -14,12 +14,10 @@ using ControlzEx.Theming;
 using Memory;
 using Forza_Mods_AIO.Overlay;
 using Forza_Mods_AIO.Resources;
-using Forza_Mods_AIO.Tabs.AutoShowTab;
 using Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 using Forza_Mods_AIO.Tabs.Tuning;
-using Lunar;
 using MahApps.Metro.Controls;
 using static System.Diagnostics.FileVersionInfo;
 using static System.IO.Path;
@@ -94,8 +92,11 @@ public partial class MainWindow
         TopBar1.Background = Monet.DarkColour;
         TopBar2.Background = Monet.DarkColour;
         CategoryButton_Click(AIO_Info, new RoutedEventArgs());
-        Loaded += (_, _) => ToggleButtons(false);
-        Task.Run(IsAttached);
+        Loaded += (_, _) =>
+        {
+            Task.Run(IsAttached);
+            ToggleButtons(false);
+        };
     }
 
     private async void UpdateAio()
@@ -194,9 +195,16 @@ public partial class MainWindow
 
     private void IsAttached()
     {
+        var firstTime = true;
         while (true)
         {
-            Task.Delay(Attached ? 1000 : 500).Wait();
+            if (!firstTime)
+            {
+                Task.Delay(Attached ? 1000 : 500).Wait();
+            }
+
+            firstTime = false;
+            
             if (M.OpenProcess("ForzaHorizon5"))
             {
                 if (Attached)
@@ -386,13 +394,19 @@ public partial class MainWindow
         }
         catch { /* ignored */ }
 
-        if (!Attached)
+        if (!Attached || Gvp.Process?.MainModule == null || Gvp.Name == null)
         {
             Environment.Exit(0);
         }
-        
-        //TODO Cleanup here
 
+        DestroyDetours();
+        RevertWrites();
+        EnableAntiCheat();
+        Environment.Exit(0);
+    }
+
+    private static void DestroyDetours()
+    {
         TuningAsm.Cleanup();
         UnlocksPage.XpDetour.Destroy();
         UnlocksPage.CrDetour.Destroy();
@@ -409,7 +423,6 @@ public partial class MainWindow
         LocatorEntity.WaypointDetour.Destroy();
         EnvironmentPage.TimeDetour.Destroy();
         EnvironmentPage.FreezeAiDetour.Destroy();
-        LocatorEntity.WaypointDetour.Destroy();
         HandlingPage.FlyHackDetour.Destroy();
         MiscellaneousPage.Build1Detour.Destroy();
         MiscellaneousPage.Build2Detour.Destroy();
@@ -420,48 +433,71 @@ public partial class MainWindow
         MiscellaneousPage.SkillCostDetour.Destroy();
         MiscellaneousPage.DriftDetour.Destroy();
         MiscellaneousPage.TimeScaleDetour.Destroy();
+        MiscellaneousPage.UnbSkillDetour.Destroy();
         BackFirePage.BackFire.BackfireTimeDetour.Destroy();
         BackFirePage.BackFire.BackfireTypeDetour.Destroy();
+    }
 
-        try
+    private void RevertWrites()
+    {
+        if (Gvp.Name != "Forza Horizon 5" && SuperCarAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
         {
-            if (Gvp.Name == "Forza Horizon 5")
-            {
-                M.WriteArrayMemory(SuperCarAddr - 4, new byte[] { 0x0F, 0x11, 0x41, 0x10 });
-            }
-                    
-            M.WriteArrayMemory(SuperCarAddr + 4, Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x11, 0x41, 0x10 } : new byte[] { 0x0F, 0x11, 0x49, 0x20 });
-            M.WriteArrayMemory(SuperCarAddr + 12, Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x11, 0x49, 0x20 } : new byte[] { 0x0F, 0x11, 0x41, 0x30 });
-            M.WriteArrayMemory(SuperCarAddr + 20, Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x11, 0x41, 0x30 } : new byte[] { 0x0F, 0x11, 0x49, 0x40 });
-            M.WriteArrayMemory(SuperCarAddr + 32, Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x11, 0x49, 0x40 } : new byte[] { 0x0F, 0x11, 0x41, 0x50 });
-                
-            M.WriteMemory(SunRedAddr,  0.003921568859f);
-            M.WriteMemory(SunGreenAddr, 0.003921568859f);
-            M.WriteMemory(SunBlueAddr, 0.003921568859f);
+            M.WriteArrayMemory(SuperCarAddr + 4, new byte[] { 0x0F, 0x11, 0x41, 0x10 });
+            M.WriteArrayMemory(SuperCarAddr + 12, new byte[] { 0x0F, 0x11, 0x49, 0x20 });
+            M.WriteArrayMemory(SuperCarAddr + 20, new byte[] { 0x0F, 0x11, 0x41, 0x30 });
+            M.WriteArrayMemory(SuperCarAddr + 32, new byte[] { 0x0F, 0x11, 0x49, 0x40 });
+        }
 
+        if (SunRedAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
+        {
+            Mw.M.WriteArrayMemory(SunRedAddr, new byte[] { 0x81, 0x80, 0x80, 0x3B, 0x81, 0x80, 0x80, 0x3B, 0x81, 0x80, 0x80, 0x3B, 0x81, 0x80, 0x80, 0x3B });
+        }
+
+        if (WaterAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
+        {
             M.WriteMemory(WaterAddr, new Vector3(0f, 3700f, 13500f));
-            
-            M.WriteArrayMemory(Wall1Addr, Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 });
-            M.WriteArrayMemory(Wall2Addr, Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 });
-            M.WriteArrayMemory(Car1Addr, Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 });
+        }
 
-            if (WorldCollisionThreshold != 0)
-            {
-                Mw.M.WriteMemory(WorldCollisionThreshold, 12f);
-                Mw.M.WriteMemory(CarCollisionThreshold,12f);
-                Mw.M.WriteMemory(SmashableCollisionTolerance,22f);
-            }
+        if (Wall1Addr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
+        {
+            M.WriteArrayMemory(Wall1Addr, Gvp.Name == "Forza Horizon 4"
+                    ? new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 }
+                    : new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 });
+        }
 
-            Mw.M.WriteArrayMemory(XpAmountAddr, Mw.Gvp.Name.Contains('5')
-                ? new byte[] { 0x8B, 0x89, 0xB8, 0x00, 0x00, 0x00 }
-                : new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
-            
+        if (Wall2Addr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
+        {
+            M.WriteArrayMemory(Wall2Addr, Gvp.Name == "Forza Horizon 4"
+                    ? new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 }
+                    : new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 });
+        }
+
+        if (Car1Addr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
+        {
+            M.WriteArrayMemory(Car1Addr, Gvp.Name == "Forza Horizon 4"
+                    ? new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 }
+                    : new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 });
+        }
+
+        if (Car2Addr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
+        {
             M.WriteArrayMemory(Car2Addr, new byte[] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00 });
         }
-        catch { /* ignored */ }
 
-        EnableAntiCheat();
-        Environment.Exit(0);
+        if (WorldCollisionThreshold != 0)
+        {
+            Mw.M.WriteMemory(WorldCollisionThreshold, 12f);
+            Mw.M.WriteMemory(CarCollisionThreshold,12f);
+            Mw.M.WriteMemory(SmashableCollisionTolerance,22f);
+        }
+
+        if (XpAmountAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
+        {
+            Mw.M.WriteArrayMemory(XpAmountAddr, Gvp.Name.Contains('5')
+                ? new byte[] { 0x8B, 0x89, 0x88, 0x00, 0x00, 0x00 }
+                : new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
+        }
+        
     }
     #endregion
 
@@ -576,18 +612,16 @@ public static class GetChildrenExtension
         return GetChildrenPrivate(parent, target, recurse);
     }
 
-    private static bool IsOnTarget(DependencyObject visual, Visual target)
+    private static bool IsOnTarget(DependencyObject? visual, Visual target)
     {
-        var currentVisual = visual;
-
-        while (currentVisual != null)
+        while (visual != null)
         {
-            if (currentVisual == target)
+            if (visual == target)
             {
                 return true;
             }
 
-            currentVisual = GetParent(currentVisual);
+            visual = GetParent(visual);
         }
 
         return false;

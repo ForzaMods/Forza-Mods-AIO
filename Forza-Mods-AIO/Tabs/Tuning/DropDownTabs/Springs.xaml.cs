@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -13,6 +14,7 @@ public partial class Springs
     private float _frontPreviousRestrictionValue;
     private float _rearPreviousRestrictionValue;
     public bool RideHeightCodeChange = false;
+    public bool CodeChange;
     
     public static Springs Sp { get; private set; } = null!;
 
@@ -24,6 +26,11 @@ public partial class Springs
 
     private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
+        if (CodeChange)
+        {
+            return;
+        }
+            
         ((NumericUpDown)sender).Value = Math.Round(Convert.ToDouble(((NumericUpDown)sender).Value), 3);
 
         if (!Mw.Attached)

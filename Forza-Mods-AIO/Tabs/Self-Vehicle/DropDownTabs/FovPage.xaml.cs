@@ -66,7 +66,7 @@ public partial class FovPage
         BumperMaxNum.Value = Mw.M.ReadMemory<float>(BumperMax);
     }
 
-    private void FovSwitch_OnToggled(object? sender, RoutedEventArgs e)
+    private void FovSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
         if (!Mw.Attached)
         {
@@ -75,20 +75,15 @@ public partial class FovPage
 
         if (Mw.Gvp.Name == "Forza Horizon 4" && FovSwitch.IsOn)
         {
-            MessageBox.Show("Fov Lock Isnt implemented for FH4. Use limiters instead");
-            FovSwitch.Toggled -= FovSwitch_OnToggled;
-            FovSwitch.IsOn = false;
-            FovSwitch.Toggled += FovSwitch_OnToggled;
+            Detour.FailedHandler(sender, FovSwitch_OnToggled, true);
             return;
         }
 
-        if (!FovLockDetour.Setup(sender, (UIntPtr)FovHookAddr, FovLockBytes, 5, true))
+        const string original = "0F10 01 B0 01";
+        if (!FovLockDetour.Setup(sender, FovHookAddr, original, FovLockBytes, 5, true))
         {
-            FovSwitch.Toggled -= FovSwitch_OnToggled;
-            FovSwitch.IsOn = false;
-            FovSwitch.Toggled += FovSwitch_OnToggled;
+            Detour.FailedHandler(sender, FovSwitch_OnToggled);
             FovLockDetour.Clear();
-            MessageBox.Show("Failed.");
             return;
         }
 

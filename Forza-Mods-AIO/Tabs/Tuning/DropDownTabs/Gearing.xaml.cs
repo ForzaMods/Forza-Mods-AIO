@@ -9,6 +9,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
 
 public partial class Gearing
 {
+    public bool CodeChange;
     public static Gearing G { get; private set; } = null!;
     public Gearing()
     {
@@ -18,6 +19,11 @@ public partial class Gearing
 
     private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
+        if (CodeChange)
+        {
+            return;
+        }
+        
         ((NumericUpDown)sender).Value = Math.Round(Convert.ToDouble(((NumericUpDown)sender).Value), 3);
 
         if (!Mw.Attached)
@@ -27,10 +33,10 @@ public partial class Gearing
     
         UIntPtr address = 0;
 
+        var senderName = sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!;
+
         foreach (var field in typeof(TuningAddresses).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(UIntPtr)))
         {
-            var senderName = sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!;
-            
             if (field.Name != senderName.Remove(senderName.Length - 3))
             {
                 continue;

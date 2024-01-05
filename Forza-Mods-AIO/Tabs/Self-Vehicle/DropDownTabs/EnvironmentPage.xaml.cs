@@ -20,7 +20,8 @@ public partial class EnvironmentPage
     public static readonly Detour TimeDetour = new(), FreezeAiDetour = new();
     public static bool WasTimeDetoured { get; set; }
     private const string TimeDetourBytes = "51 48 83 C3 08 48 89 1D 0A 00 00 00 48 83 EB 08 59";
-    private const string FreezeAiBytes = "50 48 8B 05 14 00 00 00 48 39 08 74 02 EB 07 0F 11 41 50 48 8B D9 58";
+    private const string FreezeAiBytesFh5 = "50 48 8B 05 14 00 00 00 48 39 08 74 02 EB 07 0F 11 41 50 48 8B D9 58";
+    private const string FreezeAiBytesFh4 = "50 48 8B 05 14 00 00 00 48 39 08 74 02 EB 07 0F 11 41 40 48 8B FA 58";
     
     public EnvironmentPage()
     {
@@ -123,7 +124,7 @@ public partial class EnvironmentPage
                 }
                 else
                 {
-                    Mw.M.WriteArrayMemory(TimeNopAddr, new byte[] { 0xF2, 0x0F, 0x11, 0x43, 0x08, 0x48, 0x83, 0xC4, 0x40 });
+                    Mw.M.WriteArrayMemory(TimeNopAddr, new byte[] { 0xF2, 0x0F, 0x11, 0x43, 0x08 });
                 }
 
                 break;
@@ -328,8 +329,9 @@ public partial class EnvironmentPage
         {
             return true;
         }
-        
-        if (!TimeDetour.Setup(TimeSwitch, TimeNopAddr, TimeDetourBytes, 5, true, 0, true))
+
+        const string originalBytes = "F2 0F 11 43 08 48 83";
+        if (!TimeDetour.Setup(TimeSwitch, TimeNopAddr, originalBytes, TimeDetourBytes, 5, true, 0, true))
         {
             return false;
         }
@@ -348,23 +350,23 @@ public partial class EnvironmentPage
 
     private void FreezeAi_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (Mw.Gvp.Name.Contains('4'))
+        if (!Mw.Attached)
         {
-            MessageBox.Show("This feature was not ported to FH4.");
-            FreezeAi.Toggled -= FreezeAi_OnToggled;
-            FreezeAi.IsOn = false;
-            FreezeAi.Toggled += FreezeAi_OnToggled;
             return;
         }
         
         CarEntity.Hook();
+
+        const string origFh5 = "0F 11 41 50 48 8B D9";
+        const string origFh4 = "0F 11 41 40 48 8B FA";
+
+        var isFh4 = Mw.Gvp.Name.Contains('4');
+        var orig = isFh4 ? origFh4 : origFh5;
+        var bytes = isFh4 ? FreezeAiBytesFh4 : FreezeAiBytesFh5;
         
-        if (!FreezeAiDetour.Setup(sender, AiXAddr, FreezeAiBytes, 7, true))
+        if (!FreezeAiDetour.Setup(sender, AiXAddr, orig, bytes, 7, true))
         {
-            MessageBox.Show("Failed");
-            FreezeAi.Toggled -= FreezeAi_OnToggled;
-            FreezeAi.IsOn = false;
-            FreezeAi.Toggled += FreezeAi_OnToggled;
+            Detour.FailedHandler(sender, FreezeAi_OnToggled);
             return;
         }
         

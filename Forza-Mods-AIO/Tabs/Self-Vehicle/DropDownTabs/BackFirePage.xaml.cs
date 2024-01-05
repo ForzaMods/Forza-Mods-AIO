@@ -39,13 +39,17 @@ public partial class BackFirePage
         {
             return;
         }
-        
-        if (!BackfireTimeDetour.Setup(sender, BackfireTimeAddr, BackfireTimeBytes, 8, true))
+
+        if (Mw.Gvp.Name.Contains('4'))
         {
-            BackfireToggle.Toggled -= BackfireToggle_OnToggled;
-            BackfireToggle.IsOn = false;
-            BackfireToggle.Toggled += BackfireToggle_OnToggled;
-            MessageBox.Show("Failed");            
+            Detour.FailedHandler(sender,BackfireToggle_OnToggled, true);
+            return;
+        }
+
+        const string orig = "F3 0F10 89 803A0000";
+        if (!BackfireTimeDetour.Setup(sender, BackfireTimeAddr, orig, BackfireTimeBytes, 8, useVarAddress: true))
+        {
+            Detour.FailedHandler(sender,BackfireToggle_OnToggled);
             return;
         }
 
@@ -55,9 +59,15 @@ public partial class BackFirePage
 
     private void ForceBackfireType_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (!BackfireTypeDetour.Setup(sender, BackfireTypeAddr, BackfireTypeBytes, 7, true))
+        if (Mw.Gvp.Name.Contains('4'))
         {
-            MessageBox.Show("Failed");            
+            Detour.FailedHandler(sender,BackfireToggle_OnToggled, true);
+        }
+
+        const string orig = "40 84 F6 48 0F45 D0";
+        if (!BackfireTypeDetour.Setup(sender, BackfireTypeAddr, orig, BackfireTypeBytes, 7, useVarAddress: true))
+        {
+            Detour.FailedHandler(sender,BackfireToggle_OnToggled);
             return;
         }
         

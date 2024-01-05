@@ -15,38 +15,13 @@ public abstract class LocatorEntity
 
     public static void SetupWaypointDetour(object? sender)
     {
-        if (Mw.Gvp.Name.Contains('4'))
-        {
-            SetupWaypointDetourFh4(sender);
-        }
-        else
-        {
-            SetupWaypointDetourFh5(sender);
-        }
-    }
+        const string originalFh5 = "0F10 97 30020000";
+        const string originalFh4 = "0F10 97 A0030000";
+        const string detoured = "0F 11 15 05 00 00 00";
 
-    private static void SetupWaypointDetourFh4(object? sender)
-    {
-        if (!WaypointDetour.Setup(sender, WayPointXAsmAddr, "48 89 3D 05 00 00 00", 7, true, 0, true))
-        {
-            sender?.GetType().GetProperty("IsOn")?.SetValue(sender, false);
-            WaypointDetour.Clear();
-            MessageBox.Show("Failed");
-            return;
-        }
-
-        while (WaypointDetour.ReadVariable<UIntPtr>() == 0)
-        {
-            Task.Delay(5).Wait();
-        }
-
-        _waypointEntity = WaypointDetour.ReadVariable<UIntPtr>();
-        WaypointDetour.Destroy();
-    }
-    
-    private static void SetupWaypointDetourFh5(object? sender)
-    {
-        if (!WaypointDetour.Setup(sender, WayPointXAsmAddr, "0F 11 15 05 00 00 00", 7, true, 0, true))
+        var original = Mw.Gvp.Name.Contains('4') ? originalFh4 : originalFh5;
+        
+        if (!WaypointDetour.Setup(sender, WayPointXAsmAddr,original, detoured, 7, true, 0, true))
         {
             sender?.GetType().GetProperty("IsOn")?.SetValue(sender, false);
             WaypointDetour.Clear();
@@ -58,5 +33,5 @@ public abstract class LocatorEntity
         _waypointEntity = WaypointDetour.VariableAddress;
     }
     
-    public static Vector3 WaypointPosition => Mw.M.ReadMemory<Vector3>(_waypointEntity + (UIntPtr)(Mw.Gvp.Name == "Forza Horizon 4" ? 928 : 0));
+    public static Vector3 WaypointPosition => Mw.M.ReadMemory<Vector3>(_waypointEntity);
 }

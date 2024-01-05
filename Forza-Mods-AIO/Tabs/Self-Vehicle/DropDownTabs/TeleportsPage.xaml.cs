@@ -249,7 +249,7 @@ public partial class TeleportsPage
                 {
                     var newWp = WaypointPosition;
 
-                    if (!((lastWp.X != newWp.X || lastWp.Y != newWp.Y || lastWp.Z != newWp.Z)
+                    if (!(lastWp != newWp
                           && newWp.X != 0 && newWp.Y != 0 && newWp.Z != 0
                           && newWp.X is < 10000 and > -10000
                           && newWp.Y is < 3000 and > -100

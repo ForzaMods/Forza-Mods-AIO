@@ -19,7 +19,10 @@ public abstract class CarEntity
         if (!BaseDetour.IsHooked)
         {
             var baseDetourBytes = Mw.Gvp.Name == "Forza Horizon 5" ? BaseDetourBytesFh5 : BaseDetourBytesFh4;
-            BaseDetour.Setup(BaseAddrHook, baseDetourBytes, 8, true, 0, true);
+            const string fh5 = "F3 0F 10 81 18 15 00 00";
+            const string fh4 = "F3 0F 10 81 90 01 00 00";
+            var orig = Mw.Gvp.Name.Contains('5') ? fh5 : fh4;
+            BaseDetour.Setup(BaseAddrHook, orig, baseDetourBytes, 8, true, 0, true);
         }
 
         var taskCompletionSource = new TaskCompletionSource<bool>();
