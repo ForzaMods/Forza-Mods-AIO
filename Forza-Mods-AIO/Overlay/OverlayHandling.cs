@@ -348,7 +348,8 @@ public partial class OverlayHandling
             {
                 _headerImage = _headerImage.Clone();
             }
-            _headerImage = (BitmapImage)Headers.Find(x => x[0].ToString().Contains(_menuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))?[1];
+            _headerImage = (BitmapImage)Headers.Find(x =>
+                x[0].ToString()!.Contains(_menuHeaders[HeaderIndex].Split('\\').Last().Split('.').First()))![1];
             _headerImage?.Dispatcher.Invoke(() => _headerImage.Freeze());
         }
     }

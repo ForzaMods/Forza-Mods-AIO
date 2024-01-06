@@ -28,9 +28,10 @@ public partial class AioInfo
 
     private void OverlaySwitch_Toggled(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         if (Overlay.Overlay.O == null)
             _ = new Overlay.Overlay();
-        Overlay.Overlay.O.OverlayToggle(OverlaySwitch.IsOn);
+        Overlay.Overlay.O?.OverlayToggle(OverlaySwitch.IsOn);
     }
 
     private void Button_OnMouseDown(object sender, MouseButtonEventArgs e)

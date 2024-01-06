@@ -49,9 +49,6 @@ public partial class OverlayKeybindings
         _controllerReading = true;
         ((Button)sender).Content = "Change Key";
         GetXInputKey((Button)sender);
-
-        //if (Mw.Gamepad.GetDInputController() == null!) return;
-        //GetDInputKey((Button)sender);
     }
 
     private async void GetXInputKey(ContentControl button)
@@ -70,7 +67,7 @@ public partial class OverlayKeybindings
             {
                 if (buttonFlag == GamepadButtonFlags.None) continue;
 
-                var isPressed = IsXInputButtonPressed(buttonFlag);
+                var isPressed = Mw.Gamepad.IsButtonPressed(buttonFlag.ToString());
 
                 if (!isPressed) continue;
                 keyBuffer = buttonFlag.ToString();
@@ -93,77 +90,6 @@ public partial class OverlayKeybindings
             _controllerReading = false;
             return;
         }
-    }
-    
-    private static async void GetDInputKey(ContentControl button)
-    {
-        var keyBuffer = string.Empty;
-        while (keyBuffer.Length == 0)
-        {
-            Mw.Gamepad.GetDInputController().Acquire();
-            var data = Mw.Gamepad.GetDInputController().GetCurrentState();
-            var controllerButtonState = data.Buttons;
-            var indices = new List<int>();
-            string? analogue = null;
-            for (var i = 0; i < 9; ++i)
-            {
-                analogue = data.PointOfViewControllers[0] switch
-                {
-                    0 => "DpadUp",
-                    9000 => "DpadRight",
-                    18000 => "DpadDown",
-                    27000 => "DpadLeft",
-                    _ => data.Z switch
-                    {
-                        > 50000 => "LeftTrigger",
-                        < 20000 => "RightTrigger",
-                        _ => analogue
-                    }
-                };
-                if (controllerButtonState[i])
-                {
-                    indices.Add(i);
-                }
-            }
-            
-            if (indices.Count == 1)
-            {
-                var xbButtonIndex = indices[0];
-                if (xbButtonIndex <= 9)
-                {
-                    button.Content = Gamepad.DInputMap[xbButtonIndex];
-                    keyBuffer = Gamepad.DInputMap[xbButtonIndex];
-                    break;
-                }
-            }
-            else if (analogue != null)
-            {
-                button.Content = analogue;
-                keyBuffer = analogue;
-                break;
-            }
-
-            await Task.Delay(5);
-        }
-        
-        foreach (var field in typeof(OverlayHandling).GetFields(BindingFlags.Public | BindingFlags.Static).Where(f => f.FieldType == typeof(string)))
-        {
-            if (field.Name != button?.Name.Replace("Button", string.Empty))
-            {
-                continue;
-            }
-            
-            field.SetValue(Overlay.Overlay.Oh, keyBuffer);
-            button.Content = keyBuffer;
-            SaveKeybinds();
-            return;
-        }
-    }
-    
-    private static bool IsXInputButtonPressed(GamepadButtonFlags button)
-    {
-        var state = Mw.Gamepad.GetXInputController().GetState();
-        return (state.Gamepad.Buttons & button) != 0;
     }
     
     private void UpdateKeybinds() 

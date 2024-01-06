@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using Forza_Mods_AIO.Resources;
 using static System.Convert;
 using static System.Math;
@@ -343,12 +344,12 @@ public partial class MiscellaneousPage
 
     private void DriftNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || sender is not NumericUpDown numericUpDown)
         {
             return;
         }
 
-        switch (sender.GetType().GetProperty("Name").GetValue(sender))
+        switch (numericUpDown.Name)
         {
             case "DriftMinNum":
             {

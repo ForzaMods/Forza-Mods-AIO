@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Forza_Mods_AIO.Overlay.Options;
 
-public class FloatOption : MenuOption
+public sealed class FloatOption : MenuOption
 {
     public float Value
     {
@@ -21,11 +21,11 @@ public class FloatOption : MenuOption
     public float Minimum { get; } = float.MinValue;
     public float Maximum { get; } = float.MaxValue;
 
-    public event EventHandler? ValueChanged;
-    public event EventHandler? MinimumReached;
-    public event EventHandler? MaximumReached;
+    public event RoutedEventHandler? ValueChanged;
+    public event RoutedEventHandler? MinimumReached;
+    public event RoutedEventHandler? MaximumReached;
 
-    protected virtual void OnValueChanged()
+    private void OnValueChanged()
     {
         var handler = ValueChanged;
         if (handler == null)
@@ -33,12 +33,12 @@ public class FloatOption : MenuOption
             return;
         }
 
-        Application.Current.Dispatcher.BeginInvoke(() => handler(this, EventArgs.Empty));
+        Application.Current.Dispatcher.BeginInvoke(() => handler(this, new RoutedEventArgs()));
     }
 
-    protected virtual void OnMinimumReached(float value)
+    private void OnMinimumReached(float value)
     {
-        if (value != Minimum)
+        if (Math.Abs(value - Minimum) > 0.000001)
         {
             return;
         }
@@ -49,12 +49,12 @@ public class FloatOption : MenuOption
             return;
         }
 
-        Application.Current.Dispatcher.BeginInvoke(() => handler(this, EventArgs.Empty));
+        Application.Current.Dispatcher.BeginInvoke(() => handler(this, new RoutedEventArgs()));
     }
 
-    protected virtual void OnMaximumReached(float value)
+    private void OnMaximumReached(float value)
     {
-        if (value != Maximum)
+        if (Math.Abs(value - Maximum) > 0.000001)
         {
             return;
         }
@@ -65,7 +65,7 @@ public class FloatOption : MenuOption
             return;
         }
 
-        Application.Current.Dispatcher.BeginInvoke(() => handler(this, EventArgs.Empty));
+        Application.Current.Dispatcher.BeginInvoke(() => handler(this, new RoutedEventArgs()));
     }
     
     public static FloatOption CreateWithMinimum(string name, float value, float minimum, string? description = null,

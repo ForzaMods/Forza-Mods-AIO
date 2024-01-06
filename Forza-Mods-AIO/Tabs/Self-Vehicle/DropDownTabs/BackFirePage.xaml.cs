@@ -71,7 +71,7 @@ public partial class BackFirePage
             return;
         }
         
-        var name = sender.GetType().GetProperty("Name").GetValue(sender);
+        var name = sender.GetType().GetProperty("Name")?.GetValue(sender);
 
         switch (name)
         {

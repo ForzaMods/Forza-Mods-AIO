@@ -15,6 +15,7 @@ using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Resources.DllImports;
 using static Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs.HandlingKeybindings;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.Entities.CarEntity;
+using Button = System.Windows.Controls.Button;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
@@ -25,13 +26,11 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 public partial class HandlingPage
 {
     public static HandlingPage Shp { get; private set; } = null!;
-    public static readonly Detour FlyHackDetour = new();
-    
+
     private readonly byte[] _before1 = { 0x0F, 0x11, 0x41, 0x10 },
-                            _before2 = { 0x0F, 0x11, 0x49, 0x20 },
-                            _before3 = { 0x0F, 0x11, 0x41, 0x30 },
-                            _before4 = { 0x0F, 0x11, 0x49, 0x40 },
-                            _before5 = { 0x0F, 0x11, 0x41, 0x50 };
+        _before2 = { 0x0F, 0x11, 0x49, 0x20 },
+        _before3 = { 0x0F, 0x11, 0x41, 0x30 },
+        _before4 = { 0x0F, 0x11, 0x49, 0x40 };
     private readonly byte[] _nop = { 0x90, 0x90, 0x90, 0x90 };
         
     public HandlingPage()
@@ -411,12 +410,12 @@ public partial class HandlingPage
 
     public void PullButton_Click(object sender, RoutedEventArgs e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || sender is not Button button)
         {
             return;
         }
         
-        if (sender.GetType().GetProperty("Name").GetValue(sender).ToString().Contains("Gravity"))
+        if (button.Name.Contains("Gravity"))
         {
             GravityValueNum.Value = Gravity;
         }
@@ -440,10 +439,10 @@ public partial class HandlingPage
             return;
         }
 
-        var mode = ((string)type.GetProperty("Name")?.GetValue(sender)!).Contains("Gravity") ? "Gravity" : "Accel";
-        var setSwitch = mode == "Gravity" ? GravitySetSwitch : AccelSetSwitch;
-        var valueNum = mode == "Gravity" ? GravityValueNum : AccelValueNum;
-        var original = mode == "Gravity" ? Gravity : Acceleration;
+        var isGravity = ((string)type.GetProperty("Name")?.GetValue(sender)!).Contains("Gravity");
+        var setSwitch = isGravity ? GravitySetSwitch : AccelSetSwitch;
+        var valueNum = isGravity ? GravityValueNum : AccelValueNum;
+        var original = isGravity ? Gravity : Acceleration;
         var lastPlayerEnt = PlayerCarEntity;
         
         Task.Run(() =>
@@ -456,7 +455,7 @@ public partial class HandlingPage
 
                 if (!toggled)
                 {
-                    _ = mode == "Gravity" ? Gravity = original : Acceleration = original;
+                    _ = isGravity ? Gravity = original : Acceleration = original;
                     Dispatcher.Invoke(() => valueNum.Value = ToDouble(original));
                     break;
                 }
@@ -471,7 +470,7 @@ public partial class HandlingPage
                 {
                     if (Acceleration is < 0.2f and > 0f)
                     {
-                        original = mode == "Gravity" ? Gravity : Acceleration;
+                        original = isGravity ? Gravity : Acceleration;
                         lastPlayerEnt = BaseDetour.ReadVariable<UIntPtr>();
                     }
                     continue;
@@ -479,7 +478,7 @@ public partial class HandlingPage
                 
                 float setValue = 0;
                 Dispatcher.Invoke(() => setValue = ToSingle(valueNum.Value));
-                _ = mode == "Gravity" ? Gravity = setValue : Acceleration = setValue;
+                _ = isGravity ? Gravity = setValue : Acceleration = setValue;
             }
         });
     }
@@ -521,7 +520,7 @@ public partial class HandlingPage
                     strength = ToSingle(TurnAssistStrengthBox.Value);
                 });
                     
-                if (GetAsyncKeyState(Keys.A) is 1 or Int16.MinValue)
+                if (GetAsyncKeyState(Keys.A) is 1 or short.MinValue)
                 {
                     if (Abs(frontRight - frontLeft) < frontRight / ratio && Abs(backRight - frontLeft) < backRight / ratio)
                     {
@@ -531,7 +530,7 @@ public partial class HandlingPage
                         backRight += strength;
                     }
                 }
-                else if (GetAsyncKeyState(Keys.D) is 1 or Int16.MinValue)
+                else if (GetAsyncKeyState(Keys.D) is 1 or short.MinValue)
                 {
                     if (Abs(frontLeft - frontRight) < frontLeft / ratio && Abs(backLeft - frontRight) < backLeft / ratio)
                     {
@@ -557,11 +556,6 @@ public partial class HandlingPage
         
         if (SuperCarSwitch.IsOn)
         {
-            if (Mw.Gvp.Name == "Forza Horizon 5")
-            {
-                Mw.M.WriteArrayMemory((SuperCarAddr - 4).ToString("X"), _nop);
-            }
-
             Mw.M.WriteArrayMemory((SuperCarAddr + 4).ToString("X"), _nop);
             Mw.M.WriteArrayMemory((SuperCarAddr + 12).ToString("X"), _nop);
             Mw.M.WriteArrayMemory((SuperCarAddr + 20).ToString("X"), _nop);
@@ -570,15 +564,10 @@ public partial class HandlingPage
         }
         else
         {
-            if (Mw.Gvp.Name == "Forza Horizon 5")
-            {
-                Mw.M.WriteArrayMemory((SuperCarAddr - 4).ToString("X"), _before1);
-            }
-                
-            Mw.M.WriteArrayMemory((SuperCarAddr + 4).ToString("X"), Mw.Gvp.Name == "Forza Horizon 4" ? _before1 : _before2);
-            Mw.M.WriteArrayMemory((SuperCarAddr + 12).ToString("X"), Mw.Gvp.Name == "Forza Horizon 4" ? _before2 : _before3);
-            Mw.M.WriteArrayMemory((SuperCarAddr + 20).ToString("X"), Mw.Gvp.Name == "Forza Horizon 4" ? _before3 : _before4);
-            Mw.M.WriteArrayMemory((SuperCarAddr + 32).ToString("X"), Mw.Gvp.Name == "Forza Horizon 4" ? _before4 : _before5);
+            Mw.M.WriteArrayMemory(SuperCarAddr + 4, _before1);
+            Mw.M.WriteArrayMemory(SuperCarAddr + 12, _before2);
+            Mw.M.WriteArrayMemory(SuperCarAddr + 20, _before3);
+            Mw.M.WriteArrayMemory(SuperCarAddr + 32, _before4);
         }
     }
 
@@ -707,7 +696,6 @@ public partial class HandlingPage
         }
         
         _originalGrav = Gravity;
-        FlyHackDetour.UpdateVariable(BitConverter.GetBytes(PlayerCarEntity));
         Gravity = 0f;
             
         Task.Run(() =>
@@ -752,7 +740,7 @@ public partial class HandlingPage
                         angle += 360;
                     }
                     
-                    var flyHackMoveSpeed = Dispatcher.Invoke(() => (float)FlyHackMoveSpeedNum.Value / 2);
+                    var flyHackMoveSpeed = Dispatcher.Invoke(() => ToSingle(FlyHackMoveSpeedNum.Value / 2));
                     HandleMovement(angle, flyHackMoveSpeed, wDown, sDown, shiftDown, controlDown);
                 }
                 
@@ -981,7 +969,7 @@ public partial class HandlingPage
             return;
         }
         
-        JumpHackSlider.Value = (double)JumpHackVelocityNum.Value;
+        JumpHackSlider.Value = ToDouble(JumpHackVelocityNum.Value);
     }
 
     private void JumpHackSwitch_OnToggled(object sender, RoutedEventArgs e)

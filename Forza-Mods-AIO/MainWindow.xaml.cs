@@ -48,12 +48,12 @@ public partial class MainWindow
 {
     public class GameVerPlat
     {
-        public string? Name { get; }
-        public string? Plat { get; }
-        public Process? Process { get; }
-        public string? Update { get; }
+        public string Name { get; }
+        public string Plat { get; }
+        public Process Process { get; }
+        public string Update { get; }
 
-        public GameVerPlat(string? name, string? plat, Process? process, string? update)
+        public GameVerPlat(string name, string plat, Process process, string update)
         {
             Name = name;
             Plat = plat;
@@ -69,7 +69,7 @@ public partial class MainWindow
     public readonly Mem M = new() { SigScanTasks = Environment.ProcessorCount };
     //public LibraryMapper Mapper = null!;
     public readonly Gamepad Gamepad = new(); 
-    public GameVerPlat Gvp = new(null, null, null, null);
+    public GameVerPlat Gvp = new(string.Empty, string.Empty, new Process(), string.Empty);
     public bool Attached { get; private set; }
     private IEnumerable<Visual>? _visuals;
 
@@ -86,7 +86,7 @@ public partial class MainWindow
             new SolidColorBrush((Color)ConvertFromString("#FF2E3440")!), true, false));
         Current.ChangeTheme(Application.Current, "AccentCol");
         AIO_Info.IsChecked = true;
-        Background.Background = Monet.MainColour;
+        BackgroundBorder.Background = Monet.MainColour;
         FrameBorder.Background = Monet.MainColour;
         SideBar.Background = Monet.DarkishColour;
         TopBar1.Background = Monet.DarkColour;
@@ -268,7 +268,7 @@ public partial class MainWindow
     private void GvpMaker(string name)
     {
         string platform;
-        string? update;
+        string update;
         var process = M.MProc.Process;
         var gamePath = process.MainModule!.FileName;
 
@@ -286,7 +286,7 @@ public partial class MainWindow
         {
             var filePath = Combine(GetDirectoryName(gamePath) ?? throw new Exception(), "OnlineFix64.dll");
             platform = File.Exists(filePath) ? "OnlineFix - Steam" : "Steam";
-            update = GetVersionInfo(process.MainModule!.FileName).FileVersion;
+            update = GetVersionInfo(process.MainModule!.FileName).FileVersion ?? "Unable to get update info";
         }
 
         Gvp = new GameVerPlat(name, platform, process, update);
@@ -385,7 +385,6 @@ public partial class MainWindow
         MiscellaneousPage.Build2Detour.Clear();
         MiscellaneousPage.SkillTreeDetour.Clear();
         MiscellaneousPage.ScoreDetour.Clear();
-        HandlingPage.FlyHackDetour.Clear();
         MiscellaneousPage.SkillCostDetour.Clear();
         MiscellaneousPage.DriftDetour.Clear();
         MiscellaneousPage.TimeScaleDetour.Clear();
@@ -436,7 +435,6 @@ public partial class MainWindow
         LocatorEntity.WaypointDetour.Destroy();
         EnvironmentPage.TimeDetour.Destroy();
         EnvironmentPage.FreezeAiDetour.Destroy();
-        HandlingPage.FlyHackDetour.Destroy();
         MiscellaneousPage.Build1Detour.Destroy();
         MiscellaneousPage.Build2Detour.Destroy();
         MiscellaneousPage.ScaleDetour.Destroy();
@@ -453,6 +451,11 @@ public partial class MainWindow
 
     private void RevertWrites()
     {
+        if (Gvp.Process.MainModule == null)
+        {
+            return;
+        }
+        
         if (Gvp.Name != "Forza Horizon 5" && SuperCarAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
         {
             M.WriteArrayMemory(SuperCarAddr + 4, new byte[] { 0x0F, 0x11, 0x41, 0x10 });

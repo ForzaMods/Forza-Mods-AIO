@@ -231,7 +231,7 @@ public partial class TeleportsPage
             WaypointDetoured = true;
         }
 
-        Task.Run(() =>
+        await Task.Run(() =>
         {
             while (true)
             {

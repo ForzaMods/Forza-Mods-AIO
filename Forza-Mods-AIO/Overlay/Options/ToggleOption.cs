@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Forza_Mods_AIO.Overlay.Options;
 
-public class ToggleOption : MenuOption
+public sealed class ToggleOption : MenuOption
 {
     public bool IsOn
     {
@@ -21,9 +21,9 @@ public class ToggleOption : MenuOption
     }
     private bool _isOn;
 
-    public event EventHandler? Toggled;
+    public event RoutedEventHandler? Toggled;
 
-    protected virtual void OnToggled()
+    private void OnToggled()
     {
         var handler = Toggled;
         if (handler == null)
@@ -31,7 +31,7 @@ public class ToggleOption : MenuOption
             return;
         }
 
-        Application.Current.Dispatcher.BeginInvoke(() => handler(this, EventArgs.Empty));
+        Application.Current.Dispatcher.BeginInvoke(() => handler(this, new RoutedEventArgs()));
     }
     
     public ToggleOption(string name, bool isOn, string? description = null, bool isEnabled = true)

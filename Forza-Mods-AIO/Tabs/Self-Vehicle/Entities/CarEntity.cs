@@ -27,7 +27,7 @@ public abstract class CarEntity
 
         var taskCompletionSource = new TaskCompletionSource<bool>();
         
-        Task.Run(() =>
+        await Task.Run(() =>
         {
             while ((PlayerCarEntity = BaseDetour.ReadVariable<UIntPtr>()) == 0)
             {

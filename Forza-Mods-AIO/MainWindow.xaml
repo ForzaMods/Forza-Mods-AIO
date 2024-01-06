@@ -21,7 +21,7 @@
                  WindowTransitionsEnabled="False" Title="Forza Mods AIO"
                  WindowStartupLocation="CenterOwner">
     
-    <Border x:Name="Background" Background="#111111"
+    <Border x:Name="BackgroundBorder" Background="#111111"
             CornerRadius="20">
         <Grid>
             <Grid.ColumnDefinitions>

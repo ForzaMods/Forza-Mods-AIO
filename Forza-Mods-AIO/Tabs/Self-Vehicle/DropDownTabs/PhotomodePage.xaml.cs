@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
+using static System.Convert;
 using static Forza_Mods_AIO.MainWindow;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
@@ -100,7 +101,7 @@ public partial class PhotomodePage
             return;
         }
 
-        PhotoCamEntity.Samples = (int)SamplesBox.Value; 
+        PhotoCamEntity.Samples = ToInt32(SamplesBox.Value); 
     }
 
     private void ShutterSpeedBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -110,7 +111,7 @@ public partial class PhotomodePage
             return;
         }
 
-        PhotoCamEntity.ShutterSpeed = (float)ShutterSpeedBox.Value; 
+        PhotoCamEntity.ShutterSpeed = ToSingle(ShutterSpeedBox.Value); 
     }
 
     private void ApertureScaleBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -120,7 +121,7 @@ public partial class PhotomodePage
             return;
         }
 
-        PhotoCamEntity.ApertureScale = (float)ApertureScaleBox.Value; 
+        PhotoCamEntity.ApertureScale = ToSingle(ApertureScaleBox.Value); 
     }
 
     private void CarInFocusBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -130,7 +131,7 @@ public partial class PhotomodePage
             return;
         }
 
-        PhotoCamEntity.CarInFocus = (float)CarInFocusBox.Value; 
+        PhotoCamEntity.CarInFocus = ToSingle(CarInFocusBox.Value); 
     }
 
     private void TimeSliceBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -140,7 +141,7 @@ public partial class PhotomodePage
             return;
         }
 
-        PhotoCamEntity.TimeSlice = (float)TimeSliceBox.Value;
+        PhotoCamEntity.TimeSlice = ToSingle(TimeSliceBox.Value);
     }
     
     #endregion

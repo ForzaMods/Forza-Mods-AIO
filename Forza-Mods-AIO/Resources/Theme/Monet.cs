@@ -152,7 +152,7 @@ internal abstract class Monet
             var converter = new BrushConverter();
             MainColour = (Brush)converter.ConvertFromString(colourHex1)!;
 
-            if (Mw.Background.Background.ToString() == MainColour.ToString())
+            if (Mw.BackgroundBorder.Background.ToString() == MainColour.ToString())
             {
                 return;
             }
@@ -161,7 +161,7 @@ internal abstract class Monet
             DarkColour = (Brush)converter.ConvertFromString(colourHex3)!;
             DarkerColour = (Brush)converter.ConvertFromString(colourHex4)!;
 
-            Mw.Background.Background = MainColour;
+            Mw.BackgroundBorder.Background = MainColour;
             Mw.FrameBorder.Background = MainColour;
             Mw.SideBar.Background = DarkishColour;
             Mw.TopBar1.Background = DarkColour;

@@ -38,53 +38,90 @@
                 Margin="0,120,0,0"
                 BorderBrush="#FF2E3440" />
         
-        <Border BorderThickness="2,2,2,2"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Width="140"
-                Height="46"
-                Margin="12,176,0,0"
-                BorderBrush="#FF2E3440" />
 
-        <Border BorderThickness="2,2,2,2"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Width="130"
-                Height="46"
-                Margin="160,176,0,0"
-                BorderBrush="#FF2E3440" />
         
         
-        <Border BorderThickness="2,2,2,2"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Width="130"
-                Height="46"
-                Margin="295,176,0,0"
-                BorderBrush="#FF2E3440">
+        <Grid Height="46"
+              Width="556"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Bottom"
+              Margin="0 0 0 10">
+                
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+                
+                
+                <Border BorderThickness="2,2,2,2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Grid.Column="0"
+                        Margin="0 0 5 0"
+                        Height="46"
+                        BorderBrush="#FF2E3440">
                         
-                <Grid>
+                        <Grid>
                         
-                        <mah:ToggleSwitch x:Name="FreezeAi" 
+                                <mah:ToggleSwitch x:Name="FreezeAi" 
+                                                  FontSize="11"
+                                                  Content="Freeze Drivatars"
+                                                  ToolTip="Freezes the drivatars in your game"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  MinWidth="0"
+                                                  Margin="15 0 15 0"
+                                                  Toggled="FreezeAi_OnToggled"/>
+                        
+                        </Grid>
+                
+                </Border>
+                
+                <Border BorderThickness="2,2,2,2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="5 0 5 0"
+                        Grid.Column="1"
+                        Height="46"
+                        BorderBrush="#FF2E3440">
+                        
+                        <mah:ToggleSwitch Content="Aids Mode"
+                                          x:Name="AidsSwitch"
                                           FontSize="11"
-                                          Content="Freeze AI"
-                                          ToolTip="Freezes the drivatars in your game"
+                                          MinWidth="0"
+                                          Margin="15 0 15 0"
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Center"
-                                          MinWidth="0"
-                                          Toggled="FreezeAi_OnToggled"/>
+                                          ToolTip="This feature will make the sun's RGB rainbow."
+                                          Toggled="SwitchToggled" />
                         
-                </Grid>
+                </Border>
                 
-        </Border>
+                
+                <Border BorderThickness="2,2,2,2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="5 0 0 0"
+                        Height="46"
+                        Width="225"
+                        Grid.Column="2"
+                        BorderBrush="#FF2E3440">
+                          
+                        <mah:ToggleSwitch Content="Manual Time Management"
+                                          FontSize="11"
+                                          x:Name="TimeSwitch"
+                                          MinWidth="0"
+                                          Margin="15 0 15 0"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          Toggled="SwitchToggled" 
+                                          ToolTip="Numpad 4 OR left shift + comma to go backward&#xa;Numpad 6 OR left shift + comma to go forward&#xa;Holding CTRL makes it go faster"/>
+                        
+                </Border>
+                
+        </Grid>
         
-        <Border BorderThickness="2,2,2,2"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Width="135"
-                Height="46"
-                Margin="0,176,12,0"
-                BorderBrush="#FF2E3440"/>
         
         <Label Content="Sun Red" 
                HorizontalAlignment="Right"
@@ -184,34 +221,6 @@
                 HorizontalAlignment="Right"
                 Margin="0 130 105 0"
                 Click="ResetButton_OnClick" />
-        
-        <mah:ToggleSwitch Content="Manual Time"
-                          FontSize="11"
-                          x:Name="TimeSwitch"
-                          MinWidth="0"
-                          VerticalAlignment="Bottom"
-                          HorizontalAlignment="Left"
-                          Margin="20 0 0 20"
-                          Toggled="SwitchToggled" 
-                          ToolTip="Numpad 4 OR left shift + comma to go backward&#xa;Numpad 6 OR left shift + comma to go forward&#xa;Holding CTRL makes it go faster"/>
-
-        <mah:ToggleSwitch Content="Aids Mode"
-                          x:Name="AidsSwitch"
-                          FontSize="11"
-                          MinWidth="0"
-                          VerticalAlignment="Bottom"
-                          HorizontalAlignment="Left"
-                          Margin="170 0 0 20"
-                          ToolTip="This feature will make the sun's RGB rainbow."
-                          Toggled="SwitchToggled" />
-
-        <mah:ToggleSwitch Content="OOB Bypass"
-                          x:Name="OOBSwitch"
-                          MinWidth="0"
-                          FontSize="11"
-                          VerticalAlignment="Bottom"
-                          HorizontalAlignment="Right"
-                          Margin="0 0 22.5 20" 
-                          Toggled="SwitchToggled"/>
+      
     </Grid>
 </Page>

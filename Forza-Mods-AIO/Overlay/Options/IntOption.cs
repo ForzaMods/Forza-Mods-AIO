@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Forza_Mods_AIO.Overlay.Options;
 
-public class IntOption : MenuOption
+public sealed class IntOption : MenuOption
 {
     public int Value
     {
@@ -21,11 +21,11 @@ public class IntOption : MenuOption
     public int Minimum { get; } = int.MinValue;
     public int Maximum { get; } = int.MaxValue;
 
-    public event EventHandler? ValueChanged;
-    public event EventHandler? MinimumReached;
-    public event EventHandler? MaximumReached;
+    public event RoutedEventHandler? ValueChanged;
+    public event RoutedEventHandler? MinimumReached;
+    public event RoutedEventHandler? MaximumReached;
 
-    protected virtual void OnValueChanged()
+    private void OnValueChanged()
     {
         var handler = ValueChanged;
         if (handler == null)
@@ -33,10 +33,10 @@ public class IntOption : MenuOption
             return;
         }
 
-        Application.Current.Dispatcher.BeginInvoke(() => handler(this, EventArgs.Empty));
+        Application.Current.Dispatcher.BeginInvoke(() => handler(this, new RoutedEventArgs()));
     }
 
-    protected virtual void OnMinimumReached(int value)
+    private void OnMinimumReached(int value)
     {
         if (Minimum != value)
         {
@@ -49,10 +49,10 @@ public class IntOption : MenuOption
             return;
         }
             
-        Application.Current.Dispatcher.BeginInvoke(() => handler(this, EventArgs.Empty));
+        Application.Current.Dispatcher.BeginInvoke(() => handler(this, new RoutedEventArgs()));
     }
 
-    protected virtual void OnMaximumReached(int value)
+    private void OnMaximumReached(int value)
     {
         if (Maximum != value)
         {
@@ -65,7 +65,7 @@ public class IntOption : MenuOption
             return;
         }
 
-        Application.Current.Dispatcher.BeginInvoke(() => handler(this, EventArgs.Empty));
+        Application.Current.Dispatcher.BeginInvoke(() => handler(this, new RoutedEventArgs()));
     }
     
     public static IntOption CreateWithMinimum(string name, int value, int minimum, string? description = null, bool isEnabled = true)

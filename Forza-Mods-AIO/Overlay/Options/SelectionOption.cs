@@ -18,7 +18,7 @@ public sealed class SelectionOption : MenuOption
     private int _index;
     public string[] Selections { get; }
 
-    public event EventHandler? SelectionChanged;
+    public event RoutedEventHandler? SelectionChanged;
 
     public SelectionOption(string name, int index, string[] selections, string? description = null, bool isEnabled = true)
     {
@@ -42,6 +42,11 @@ public sealed class SelectionOption : MenuOption
     private void OnSelectionChanged()
     {
         var handler = SelectionChanged;
-        Application.Current.Dispatcher.BeginInvoke(() => handler?.Invoke(this, EventArgs.Empty));
+        if (handler == null)
+        {
+            return;
+        }
+        
+        Application.Current.Dispatcher.BeginInvoke(() => handler(this, new RoutedEventArgs()));
     }
 }

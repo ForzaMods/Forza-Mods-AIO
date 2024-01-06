@@ -16,7 +16,6 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
 public partial class EnvironmentPage
 {
-    public static EnvironmentPage Environment { get; private set; } = null!;
     public static readonly Detour TimeDetour = new(), FreezeAiDetour = new();
     public static bool WasTimeDetoured { get; set; }
     private const string TimeDetourBytes = "51 48 83 C3 08 48 89 1D 0A 00 00 00 48 83 EB 08 59";
@@ -26,7 +25,6 @@ public partial class EnvironmentPage
     public EnvironmentPage()
     {
         InitializeComponent();
-        Environment = this;
     }
 
     #region Slider Event Handlers
@@ -127,11 +125,6 @@ public partial class EnvironmentPage
                     Mw.M.WriteArrayMemory(TimeNopAddr, new byte[] { 0xF2, 0x0F, 0x11, 0x43, 0x08 });
                 }
 
-                break;
-            }
-            case "OOBSwitch" when OOBSwitch.IsOn:
-            {
-                Task.Run(() => OOB_Bypass());
                 break;
             }
         }
@@ -288,41 +281,6 @@ public partial class EnvironmentPage
 
     #endregion
 
-    #region OOB Bypass
-
-    private void OOB_Bypass()
-    {
-        while (true)
-        {
-            Thread.Sleep(25);
-            var toggled = true;
-            Dispatcher.Invoke(() => toggled = OOBSwitch.IsOn);
-            
-            if (!toggled)
-            {
-                break;
-            }
-
-            var before = Mw.Gvp.Name == "Forza Horizon 4" ?  new byte[] { 0x0F, 0x11, 0x9B, 0xE0, 0xFA, 0xFF, 0xFF } : new byte[] { 0x0F, 0x11, 0x9B, 0x60, 0xFA, 0xFF, 0xFF };
-            var nop = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
-
-            try
-            {
-                Mw.M.WriteArrayMemory(OobNopAddr, OOB_Check() ? before : nop);
-            }
-            catch
-            {
-                Mw.M.WriteArrayMemory(OobNopAddr, before);
-            }
-        }
-    }
-
-    private static bool OOB_Check()
-    {
-        return true;
-        //return (MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.InPauseAddr) == 1 || (MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.OnGroundAddr) == 0 && (float)(Math.Sqrt(Math.Pow(MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.xVelocityAddr), 2) + Math.Pow(MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.yVelocityAddr), 2) + Math.Pow(MainWindow.mw.m.ReadMemory<float>(Self_Vehicle_Addrs.zVelocityAddr), 2)) * 2.23694) == 0));
-    }
-
     private bool GetTimeAddr()
     {
         if (TimeDetour.IsSetup)
@@ -330,7 +288,7 @@ public partial class EnvironmentPage
             return true;
         }
 
-        const string originalBytes = "F2 0F 11 43 08 48 83";
+        const string originalBytes = "F2 0F 11 43 08";
         if (!TimeDetour.Setup(TimeSwitch, TimeNopAddr, originalBytes, TimeDetourBytes, 5, true, 0, true))
         {
             return false;
@@ -345,8 +303,6 @@ public partial class EnvironmentPage
         
         return true;
     }
-    
-    #endregion
 
     private void FreezeAi_OnToggled(object sender, RoutedEventArgs e)
     {

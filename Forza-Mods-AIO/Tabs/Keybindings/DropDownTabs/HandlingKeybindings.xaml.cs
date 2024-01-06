@@ -73,7 +73,7 @@ public partial class HandlingKeybindings
             {
                 if (buttonFlag == GamepadButtonFlags.None) continue;
 
-                var isPressed = IsXInputButtonPressed(buttonFlag);
+                var isPressed = Mw.Gamepad.IsButtonPressed(buttonFlag.ToString());
 
                 if (!isPressed) continue;
                 keyBuffer = buttonFlag.ToString();
@@ -96,19 +96,6 @@ public partial class HandlingKeybindings
             _controllerReading = false;
             return;
         }
-    }
-    
-    private static bool IsXInputButtonPressed(GamepadButtonFlags button)
-    {
-        var gamepad = Mw.Gamepad.GetXInputController();
-
-        if (gamepad == null!)
-        {
-            return false;
-        }
-
-        var state = gamepad.GetState();
-        return (state.Gamepad.Buttons & button) != 0;
     }
 
     public void SaveKeybindings()

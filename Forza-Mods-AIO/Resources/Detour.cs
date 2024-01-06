@@ -187,7 +187,7 @@ public class Detour : Asm
             return;
         }
 
-        if (!IsSetup)
+        if (!IsSetup || _realOriginalBytes == null)
         {
             return;
         }

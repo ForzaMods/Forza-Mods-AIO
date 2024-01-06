@@ -1,8 +1,7 @@
-﻿using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
+﻿using System.Windows;
+using System.Reflection;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
-using System.Windows;
 
 [assembly: AssemblyTitle("WPF-Mockup")]
 [assembly: AssemblyDescription("")]
@@ -12,6 +11,7 @@ using System.Windows;
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: SuppressMessage("Usage", "CA1416:This call site is reachable on all platforms")]
 
 [assembly: ComVisible(false)]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None,ResourceDictionaryLocation.SourceAssembly)]
