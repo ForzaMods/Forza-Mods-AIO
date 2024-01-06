@@ -393,6 +393,7 @@ public partial class MainWindow
         MiscellaneousPage.MiscPage.WasSkillDetoured = false;
         EnvironmentPage.WasTimeDetoured = false;
         TeleportsPage.WaypointDetoured = false;
+        Clear();
         IsScanRunning = false;
     }
     #endregion

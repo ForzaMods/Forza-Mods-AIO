@@ -117,4 +117,10 @@ public abstract class Bypass
         const uint memRelease = 0x8000;
         VirtualFreeEx(Mw.Gvp.Process.Handle, _memCopyAddress, 0, memRelease);
     }
+
+    public static void Clear()
+    {
+        _memCopyAddress = 0;
+        CheckDetour.Clear();
+    }
 }
