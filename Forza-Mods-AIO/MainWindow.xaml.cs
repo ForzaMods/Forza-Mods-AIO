@@ -210,7 +210,8 @@ public partial class MainWindow
                 if (Attached)
                     continue;
 
-                GvpMaker(5);
+                const string name = "Forza Horizon 5";
+                GvpMaker(name);
                 ToggleButtons(true);
                 Attached = true;
             }
@@ -218,8 +219,19 @@ public partial class MainWindow
             {
                 if (Attached)
                     continue;
-
-                GvpMaker(4);
+                
+                const string name = "Forza Horizon 4";
+                GvpMaker(name);
+                ToggleButtons(true);
+                Attached = true;
+            }
+            else if (M.OpenProcess("forza_gaming.desktop.x64_release_final"))
+            {
+                if (Attached)
+                    continue;
+                
+                const string name = "Forza Motorsport 8";
+                GvpMaker(name);
                 ToggleButtons(true);
                 Attached = true;
             }
@@ -253,14 +265,15 @@ public partial class MainWindow
         });
     }
 
-    private void GvpMaker(int ver)
+    private void GvpMaker(string name)
     {
         string platform;
         string? update;
         var process = M.MProc.Process;
         var gamePath = process.MainModule!.FileName;
 
-        if (gamePath.Contains("Microsoft.624F8B84B80") || gamePath.Contains("Microsoft.SunriseBaseGame"))
+        if (gamePath.Contains("Microsoft.624F8B84B80") || gamePath.Contains("Microsoft.SunriseBaseGame") ||
+            gamePath.Contains("Microsoft.ForzaMotorsport"))
         {
             platform = "MS";
             var filePath = Combine(GetDirectoryName(gamePath) ?? throw new Exception(), "appxmanifest.xml");
@@ -276,7 +289,7 @@ public partial class MainWindow
             update = GetVersionInfo(process.MainModule!.FileName).FileVersion;
         }
 
-        Gvp = new GameVerPlat($"Forza Horizon {ver}", platform, process, update);
+        Gvp = new GameVerPlat(name, platform, process, update);
 
         Dispatcher.Invoke(delegate
         {

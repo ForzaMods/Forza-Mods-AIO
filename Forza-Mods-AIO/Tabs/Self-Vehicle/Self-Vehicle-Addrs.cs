@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Forza_Mods_AIO.Overlay.Menus.SelfCarMenu.FovMenu;
+using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 using static Forza_Mods_AIO.MainWindow;
@@ -28,7 +29,6 @@ internal class SelfVehicleAddresses
     public static UIntPtr CleanlinessAddr;
     public static UIntPtr SkillTreeAddr, SkillCostAddr;
     public static UIntPtr ScaleAddr, SellFactorAddr;
-    public static UIntPtr FlyhackHookAddr;
     public static UIntPtr UnbSkillHook;
     public static UIntPtr WorldCollisionThreshold, CarCollisionThreshold, SmashableCollisionTolerance;
     public static UIntPtr BaseAddrHook;
@@ -82,7 +82,6 @@ internal class SelfVehicleAddresses
     private static string? _headlightSig;
     private static string? _creditsCompareSig;
     private static string? _backfireSig;
-    private static string? _flyhackSig;
     private static string? _statsEditorSig;
     private static string? _spinsSig;
     private static string? _skillPointsSig;
@@ -100,7 +99,7 @@ internal class SelfVehicleAddresses
 
     #region Offsets + AOB's
 
-    private static void Signatures()
+    private static void FH4_Sigs()
     {
         _unbreakableSkillComboSig = "48 8B ? ? E8 ? ? ? ? 48 8B ? 48 8B ? FF 92 ? ? ? ? 84 C0 0F 85";
         _creditsAsmAob = "89 84 24 80 00 00 00 4C 8D ? ? ? ? ? 48 8B";
@@ -134,7 +133,7 @@ internal class SelfVehicleAddresses
         _skillScoreSig = "FF 50 ? 8B 78 ? 48 85";
     }
 
-    private static void SignaturesFive()
+    private static void FH5_Sigs()
     {
         _driftScoreSig = "48 8D ? ? ? ? ? E8 ? ? ? ? F3 0F ? ? ? ? 45 33";
         _unbreakableSkillComboSig = "F3 0F ? ? ? ? ? ? F6 C2";
@@ -171,12 +170,15 @@ internal class SelfVehicleAddresses
         _headlightSig = "0F 10 ? ? F3 44 ? ? ? ? ? ? ? 83 7B 48";
         _creditsCompareSig = "48 89 ? ? ? 57 48 83 EC ? 48 8D ? ? E8 ? ? ? ? 48 8B";
         _backfireSig = "48 8B ? ? F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? E8 ? ? ? ? 0F 28";
-        _flyhackSig = "F3 44 ? ? ? ? ? ? ? F3 44 ? ? ? ? ? ? ? F3 44 ? ? ? ? ? ? ? F3 41 ? ? ? F3 41";
         _statsEditorSig = "48 8B 5F 08 80 7B 19 00 75 22 48 8D 4B 20 48 8B D5 E8 74";
         _spinsSig = "48 89 5C 24 08 57 48 83 EC 20 48 8B FA 33 D2 48 8B 4F 10";
         _skillPointsSig = "0F 4F ? 48 8B ? ? E8 ? ? ? ? 48 8B";
     }
 
+    private static void FM8_Sigs()
+    {
+
+    }
     #endregion
 
     public static void Scan()
@@ -193,11 +195,32 @@ internal class SelfVehicleAddresses
                 Task.Run(() => FH4_Scan());
                 break;
             }
+            case "Forza Motorsport 8":
+            {
+                Task.Run(() => FM8_Scan());
+                break;
+            }
             default:
             {
                 throw new ArgumentOutOfRangeException();
             }
         }
+    }
+
+    private static void FM8_Scan()
+    {
+        if (!Mw.Attached)
+        {
+            return;
+        }
+        
+        FM8_Sigs();
+        
+        Sv.UiManager.Index = 0;
+        Sv.UiManager.ScanAmount = 5;
+
+        SelfVehicleOption.IsEnabled = true;
+        Sv.UiManager.ToggleUiElements(true);
     }
     
     #region FH5 Scan
@@ -208,7 +231,7 @@ internal class SelfVehicleAddresses
             return;
         }
         
-        SignaturesFive();
+        FH5_Sigs();
 
         Sv.UiManager.Index = 0;
         Sv.UiManager.ScanAmount = 39;
@@ -236,9 +259,6 @@ internal class SelfVehicleAddresses
         Sv.UiManager.AddProgress();
         
         CreditsHookAddr = Mw.M.ScanForSig(_creditsAsmAob).FirstOrDefault() + 13;
-        Sv.UiManager.AddProgress();
-
-        FlyhackHookAddr = Mw.M.ScanForSig(_flyhackSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
         
         BaseAddrHook = Mw.M.ScanForSig(_baseAddrHookAob).FirstOrDefault() - 279;
@@ -355,7 +375,7 @@ internal class SelfVehicleAddresses
             return;
         }
         
-        Signatures();
+        FH4_Sigs();
 
         Sv.UiManager.Index = 0;
         Sv.UiManager.ScanAmount = 29;
@@ -383,9 +403,6 @@ internal class SelfVehicleAddresses
         Sv.UiManager.AddProgress();
         
         Wall2Addr = Mw.M.ScanForSig(_wall2Aob).FirstOrDefault() - 446;
-        Sv.UiManager.AddProgress();
-        
-        FlyhackHookAddr = Mw.M.ScanForSig("F3 44 0F 10 89 ? ? 00 00 F3 44 0F 10 B9").LastOrDefault();
         Sv.UiManager.AddProgress();
         
         BaseAddrHook = Mw.M.ScanForSig(_baseAddrHookAob).FirstOrDefault();
