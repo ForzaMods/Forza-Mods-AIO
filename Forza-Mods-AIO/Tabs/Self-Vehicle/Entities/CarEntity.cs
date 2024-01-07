@@ -38,6 +38,15 @@ public abstract class CarEntity
             
             var replace = Mw.Gvp.Name.Contains('8') ? 7 : 8;
             BaseDetour.Setup(BaseAddrHook, orig, baseDetourBytes, replace, true, 0, true);
+
+            if (!Mw.Gvp.Name.Contains('8'))
+            {
+                return;
+            }
+            
+            Bypass.AddProtectAddress(GravityProtectAddr);
+            Mw.M.WriteArrayMemory(GravityProtectAddr, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 });
+            Mw.M.WriteArrayMemory(AccelProtectAddr, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 });
         }
 
         var taskCompletionSource = new TaskCompletionSource<bool>();

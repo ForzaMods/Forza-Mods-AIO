@@ -85,7 +85,7 @@ internal class SelfVehicleAddresses
         }
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 5;
+        Sv.UiManager.ScanAmount = 2;
 
         const string massProtectSig = "74 ? F3 0F ? ? 0F 29";
         var massProtectAddresses = Mw.M.ScanForSig(massProtectSig);
@@ -97,9 +97,15 @@ internal class SelfVehicleAddresses
         const string baseAddrSig = "0F 2F ? ? ? ? ? 72 ? 0F 2F ? ? ? ? ? 72 ? 33 DB";
         BaseAddrHook = Mw.M.ScanForSig(baseAddrSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
-        
-        SelfVehicleOption.IsEnabled = true;
-        Sv.UiManager.ToggleUiElements(true);
+
+        Sv.Dispatcher.Invoke(() =>
+        {
+            Sv.HandlingButton.IsEnabled = true;
+            Shp.CarNoclipSwitch.IsEnabled = false;
+            Shp.WallNoclipSwitch.IsEnabled = false;
+            Shp.WaterDragSwitch.IsEnabled = false;
+            Shp.SuperCarSwitch.IsEnabled = false;
+        });
     }
 
     #region FH5 Scan
