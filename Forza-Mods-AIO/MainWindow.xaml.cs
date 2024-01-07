@@ -394,7 +394,6 @@ public partial class MainWindow
         EnvironmentPage.WasTimeDetoured = false;
         TeleportsPage.WaypointDetoured = false;
         Clear();
-        IsScanRunning = false;
     }
     #endregion
     #region Exit Handling

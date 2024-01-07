@@ -15,6 +15,8 @@ internal class SelfVehicleAddresses
 {
     #region Addresses
 
+    public static UIntPtr GravityProtectAddr;
+    public static UIntPtr AccelProtectAddr;
     public static UIntPtr SkillPointsAddr;
     public static UIntPtr SpinsAddr;
     public static UIntPtr BackfireTimeAddr, BackfireTypeAddr;
@@ -85,6 +87,17 @@ internal class SelfVehicleAddresses
         Sv.UiManager.Index = 0;
         Sv.UiManager.ScanAmount = 5;
 
+        const string massProtectSig = "74 ? F3 0F ? ? 0F 29";
+        var massProtectAddresses = Mw.M.ScanForSig(massProtectSig);
+        var protectAddresses = massProtectAddresses as UIntPtr[] ?? massProtectAddresses.ToArray();
+        GravityProtectAddr = protectAddresses.FirstOrDefault() + 19;
+        AccelProtectAddr = protectAddresses.FirstOrDefault() + 35;
+        Sv.UiManager.AddProgress();
+        
+        const string baseAddrSig = "0F 2F ? ? ? ? ? 72 ? 0F 2F ? ? ? ? ? 72 ? 33 DB";
+        BaseAddrHook = Mw.M.ScanForSig(baseAddrSig).FirstOrDefault();
+        Sv.UiManager.AddProgress();
+        
         SelfVehicleOption.IsEnabled = true;
         Sv.UiManager.ToggleUiElements(true);
     }

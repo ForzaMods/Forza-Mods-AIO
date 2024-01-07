@@ -1,8 +1,7 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
-using static System.BitConverter;
 using static Memory.Imps;
+using static System.BitConverter;
 using static Forza_Mods_AIO.MainWindow;
 
 namespace Forza_Mods_AIO.Resources;
@@ -17,12 +16,18 @@ public abstract class Bypass
     
     private static readonly Detour CheckDetour = new(true);
     private static UIntPtr _memCopyAddress = UIntPtr.Zero;
-
+    private static UIntPtr _protectedAddresses = UIntPtr.Zero;
+    
     public static bool DisableAntiCheat()
     {
-        if (!Mw.Gvp.Name.Contains('4'))
+        if (Mw.Gvp.Name.Contains('5'))
         {
-            return PointChecksToCopy();
+            return PointChecksToCopyFh5();
+        }
+
+        if (Mw.Gvp.Name.Contains('8'))
+        {
+            return PointChecksToCopyFm8();
         }
         
         DisableFh4();
@@ -31,12 +36,11 @@ public abstract class Bypass
 
     public static void EnableAntiCheat()
     {
-        if (Mw.Gvp.Name.Contains('5'))
+        if (Mw.Gvp.Name.Contains('5') || Mw.Gvp.Name.Contains('8'))
         {
             Destroy();
             return;
         }
-        
         
         var ntDll = GetModuleHandle("ntdll.dll");
 
@@ -62,23 +66,15 @@ public abstract class Bypass
         Mw.M.WriteArrayMemory(ntCreateThreadEx, NtCreateThreadExPatch);
     }
 
-    public static bool IsScanRunning { get; set; }
     private static bool Bypassed { get; set; }
     
-    private static bool PointChecksToCopy()
+    private static bool PointChecksToCopyFh5()
     {
         if (Bypassed)
         {
             return true;
         }
-
-        if (IsScanRunning)
-        {
-            return false;
-        }
         
-        IsScanRunning = true;
-
         const string sig = "40 8A ? E9 ? ? ? ? CC";
         var checkAddr = Mw.M.ScanForSig(sig).FirstOrDefault();
 
@@ -110,6 +106,55 @@ public abstract class Bypass
         return Bypassed = true;
     }
 
+    private static bool PointChecksToCopyFm8()
+    {
+        if (Bypassed)
+        {
+            return true;
+        }
+
+        const string sig = "E8 ? ? ? ? 40 8A ? E9 ? ? ? ? CC";
+        var checkAddr = Mw.M.ScanForSig(sig).FirstOrDefault() + 5;
+
+        if (checkAddr < (UIntPtr)Mw.Gvp.Process.MainModule!.BaseAddress)
+        {
+            return false;
+        }
+
+        checkAddr += Mw.Gvp.Plat == "MS" ? (UIntPtr)329 : 337;
+        var procHandle = Mw.Gvp.Process.Handle;
+        var memSize = (uint)Mw.Gvp.Process.MainModule.ModuleMemorySize;
+
+        const int protectedAddressesSize = 0x800;
+        _memCopyAddress = VirtualAllocEx(procHandle, UIntPtr.Zero, memSize, MemCommit | MemReserve, ExecuteReadwrite);
+        _protectedAddresses = VirtualAllocEx(procHandle, UIntPtr.Zero, protectedAddressesSize, MemCommit | MemReserve, ExecuteReadwrite);
+        WriteProcessMemory(procHandle, _memCopyAddress, Mw.M._memoryCache["default"], memSize, nint.Zero);
+        
+        const string checkBytes = "51 56 53 52 48 31 C9 48 8B 35 48 00 00 00 48 8B 14 CE 48 83 FA 00 74 30 48 8B DA " +
+                                  "48 81 EA 00 10 00 00 48 39 D0 72 1C 48 81 C3 00 10 00 00 48 39 D8 77 10 48 2B 05 " +
+                                  "24 00 00 00 48 03 05 25 00 00 00 EB 05 48 FF C1 EB C6 5A 5B 5E 59 F3 0F 6F 50 F0";
+
+        const string checkOriginalBytes = "F3 0F 6F 50 F0";
+        
+        if (!CheckDetour.Setup(checkAddr, checkOriginalBytes, checkBytes, 5, true))
+        {
+            Destroy();
+            return false;
+        }
+
+        var baseAddress = Mw.Gvp.Process.MainModule.BaseAddress;
+        var addresses = GetBytes(_protectedAddresses).Concat(GetBytes(baseAddress)).Concat(GetBytes(_memCopyAddress)).ToArray();
+        CheckDetour.UpdateVariable(addresses);
+        AddProtectAddress(checkAddr);
+        return Bypassed = true;
+    }
+
+    public static void AddProtectAddress(UIntPtr address)
+    {
+        Mw.M.WriteMemory(_protectedAddresses, address);
+        _protectedAddresses += 8;
+    }
+    
     private static void Destroy()
     {
         CheckDetour.Destroy();

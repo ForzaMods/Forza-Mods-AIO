@@ -57,7 +57,8 @@ public class Detour : Asm
         }
 
         var process = Mw.Gvp.Process; 
-        if (5 > replaceCount || process?.MainModule == null || addr <= (UIntPtr)process.MainModule.BaseAddress)
+        process.Refresh();
+        if (5 > replaceCount || process.MainModule == null || addr <= (UIntPtr)process.MainModule.BaseAddress)
         {
             return false;
         }
@@ -94,18 +95,23 @@ public class Detour : Asm
             finalDetourBytes = combinedBytes;
         }
 
-        if (Mw.Gvp.Name.Contains('5') && !_bypassDetour && !Bypass.DisableAntiCheat())
+        if ((Mw.Gvp.Name.Contains('5') || Mw.Gvp.Name.Contains('8')) && !_bypassDetour && !Bypass.DisableAntiCheat())
         {
             ToggleButton(button, true);
             return false;
         }
-        
+
+        if (Mw.Gvp.Name.Contains('8'))
+        {
+            Bypass.AddProtectAddress(addr);
+        }
+            
         if (!CreateDetour(finalDetourBytes, replaceCount))
         {
             ToggleButton(button, true);
             return false;
         }
-        
+
         if (useVarAddress)
         {
             VariableAddress = _allocatedAddress + (UIntPtr)finalDetourBytes.Length + varAddressOffset + 5;
@@ -192,6 +198,7 @@ public class Detour : Asm
             return;
         }
         
+        Mw.Gvp.Process.Refresh();
         var currentBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, _realOriginalBytes.Length);
         
         if (currentBytes.SequenceEqual(_realOriginalBytes))
@@ -222,6 +229,7 @@ public class Detour : Asm
             return;
         }
         
+        Mw.Gvp.Process.Refresh();
         Mw.M.WriteMemory(VariableAddress + varOffset, value);
     }
     
@@ -232,6 +240,7 @@ public class Detour : Asm
             return;
         }
         
+        Mw.Gvp.Process.Refresh();
         Mw.M.WriteArrayMemory(VariableAddress + varOffset, value);
     }
     
