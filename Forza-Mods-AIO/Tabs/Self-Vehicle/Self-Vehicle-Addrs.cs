@@ -85,7 +85,7 @@ internal class SelfVehicleAddresses
         }
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 5;
+        Sv.UiManager.ScanAmount = 6;
 
         const string massProtectSig = "74 ? F3 0F ? ? 0F 29";
         var massProtectAddresses = Mw.M.ScanForSig(massProtectSig);
@@ -110,9 +110,14 @@ internal class SelfVehicleAddresses
         Car1Addr = Mw.M.ScanForSig(car1Sig).FirstOrDefault();
         Sv.UiManager.AddProgress();
         
+        const string cameraBaseSig = "48 ? 6E 64 62 ? ? 6B 65 00 ? 00 00 00 00 00 09";
+        PhotoCamEntity.MainPhotoCamEntity = Mw.M.ScanForSig(cameraBaseSig).FirstOrDefault() + 264;
+        Sv.UiManager.AddProgress();
+        
         Sv.Dispatcher.Invoke(() =>
         {
             Sv.HandlingButton.IsEnabled = true;
+            Sv.PhotomodeButton.IsEnabled = true;
             Shp.WaterDragSwitch.IsEnabled = false;
             Shp.SuperCarSwitch.IsEnabled = false;
         });
