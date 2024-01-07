@@ -56,12 +56,12 @@ public abstract class HandlingTogglesMenu
         {
             case "Car No-Clip":
             {
-                Shp.CarNoclipSwitch.IsOn = toggleOption.IsOn;
+                Shp.CarNoClipSwitch.IsOn = toggleOption.IsOn;
                 break;
             }
             case "Wall No-Clip":
             {
-                Shp.WallNoclipSwitch.IsOn = toggleOption.IsOn;
+                Shp.WallNoClipSwitch.IsOn = toggleOption.IsOn;
                 break;
             }
         }    }

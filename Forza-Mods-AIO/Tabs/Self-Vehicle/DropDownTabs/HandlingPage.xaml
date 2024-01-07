@@ -454,9 +454,9 @@
             <Label Content="Stop All Wheels" HorizontalAlignment="Left" Margin="69,426,0,0" VerticalAlignment="Top" Height="26" Width="93" RenderTransformOrigin="0.694,0.558"/>
             <mah:ToggleSwitch x:Name="StopAllWheelsSwitch" Height="52" Header="" Margin="22,400,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Focusable="False" IsTabStop="False" Toggled="StopAllWheelsSwitch_OnToggled"/>
             <Label Content="Wall Noclip" HorizontalAlignment="Left" Margin="338,396,0,0" VerticalAlignment="Top" Height="26" Width="97"/>
-            <mah:ToggleSwitch x:Name="WallNoclipSwitch" Height="52" Header="" Margin="292,370,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Focusable="False" IsTabStop="False" Toggled="WallNoclipSwitch_OnToggled"/>
+            <mah:ToggleSwitch x:Name="WallNoClipSwitch" Height="52" Header="" Margin="292,370,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Focusable="False" IsTabStop="False" Toggled="WallNoClipSwitch_OnToggled"/>
             <Label Content="Car Noclip" HorizontalAlignment="Left" Margin="214,396,0,0" VerticalAlignment="Top" Height="26" Width="73"/>
-            <mah:ToggleSwitch x:Name="CarNoclipSwitch" Height="52" Header="" Margin="167,370,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Focusable="False" IsTabStop="False" Toggled="CarNoclipSwitch_OnToggled"/>
+            <mah:ToggleSwitch x:Name="CarNoClipSwitch" Height="52" Header="" Margin="167,370,0,0" VerticalAlignment="Top" Width="46" Content="" MinWidth="0" HorizontalContentAlignment="Left" UseLayoutRounding="False" Focusable="False" IsTabStop="False" Toggled="CarNoClipSwitch_OnToggled"/>
         </Grid>
     </Border>
 </Page>

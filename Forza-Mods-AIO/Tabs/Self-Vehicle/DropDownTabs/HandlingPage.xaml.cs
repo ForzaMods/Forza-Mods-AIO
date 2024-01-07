@@ -918,43 +918,134 @@ public partial class HandlingPage
         }
     }
     
-    private void CarNoclipSwitch_OnToggled(object sender, RoutedEventArgs e)
+    private void CarNoClipSwitch_OnToggled(object sender, RoutedEventArgs e)
     {           
-        if (!Mw.Attached)
+        if (!Mw.Attached || CarNoClipSwitch == null)
         {
-            return;
-        }
-        
-        Bypass.DisableAntiCheat();
-        if (!CarNoclipSwitch.IsOn)
-        {
-            Mw.M.WriteArrayMemory(Car1Addr, Mw.Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 });
-            if (Mw.Gvp.Name != "Forza Horizon 4") return;
-            Mw.M.WriteArrayMemory(Car2Addr, new byte[] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00});
             return;
         }
 
-        Mw.M.WriteArrayMemory(Car1Addr, Mw.Gvp.Name == "Forza Horizon 4" ? new byte[] { 0xE9, 0xB6, 0x01, 0x00, 0x00, 0x90 } : new byte[] { 0xE9, 0x66, 0x03, 0x00, 0x00, 0x90 });
-        if (Mw.Gvp.Name != "Forza Horizon 4") return;
-        Mw.M.WriteArrayMemory(Car2Addr, new byte[] { 0xE9, 0x3B, 0x03, 0x00, 0x00, 0x90 });
+        var isFm8 = Mw.Gvp.Name.Contains('8');
+        var isFh5 = Mw.Gvp.Name.Contains('5');
+
+        if ((isFm8 || isFh5) && !Bypass.DisableAntiCheat())
+        {
+            MessageBox.Show(@"Failed");
+            return;
+        }
+
+        if (isFm8)
+        {
+            Bypass.AddProtectAddress(Car1Addr);
+        }
+
+        switch (CarNoClipSwitch.IsOn)
+        {
+            case true when isFm8:
+            {
+                Mw.M.WriteArrayMemory(Car1Addr, new byte[] { 0xE9, 0x6F, 0x03, 0x00, 0x00, 0x90 });
+                break;
+            }
+            
+            case true when isFh5:
+            {
+                Mw.M.WriteArrayMemory(Car1Addr, new byte[] { 0xE9, 0x66, 0x03, 0x00, 0x00, 0x90 });
+                break;
+            }
+
+            case true:
+            {
+                Mw.M.WriteArrayMemory(Car1Addr, new byte[] { 0xE9, 0xB6, 0x01, 0x00, 0x00, 0x90 });
+                Mw.M.WriteArrayMemory(Car2Addr, new byte[] { 0xE9, 0x3B, 0x03, 0x00, 0x00, 0x90 });
+                break;
+            }
+
+            case false when isFm8:
+            {
+                Mw.M.WriteArrayMemory(Car1Addr, new byte[] { 0x0F, 0x84, 0x6E, 0x03, 0x00, 0x00 });
+                break;
+            }
+            
+            case false when isFh5:
+            {
+                Mw.M.WriteArrayMemory(Car1Addr, new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 });
+                break;
+            }
+            
+            case false:
+            {
+                Mw.M.WriteArrayMemory(Car1Addr, new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 });
+                Mw.M.WriteArrayMemory(Car2Addr, new byte[] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00 });
+                break;
+            }
+        }
     }
 
-    private void WallNoclipSwitch_OnToggled(object sender, RoutedEventArgs e)
+    private void WallNoClipSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || WallNoClipSwitch == null)
         {
             return;
         }
 
-        Bypass.DisableAntiCheat();
-        if (!WallNoclipSwitch.IsOn)
+        var isFm8 = Mw.Gvp.Name.Contains('8');
+        var isFh5 = Mw.Gvp.Name.Contains('5');
+
+        if ((isFm8 || isFh5) && !Bypass.DisableAntiCheat())
         {
-            Mw.M.WriteArrayMemory(Wall1Addr, Mw.Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 } );
-            Mw.M.WriteArrayMemory(Wall2Addr, Mw.Gvp.Name == "Forza Horizon 4" ? new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 } : new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 } );
+            MessageBox.Show(@"Failed");
             return;
         }
-        Mw.M.WriteArrayMemory(Wall1Addr, Mw.Gvp.Name == "Forza Horizon 4" ? new byte[] { 0xE9, 0x2A, 0x02, 0x00, 0x00, 0x90 } : new byte[] { 0xE9, 0x61, 0x02, 0x00, 0x00, 0x90 } );
-        Mw.M.WriteArrayMemory(Wall2Addr, Mw.Gvp.Name == "Forza Horizon 4" ? new byte[] { 0xE9, 0x2B, 0x02, 0x00, 0x00, 0x90 } : new byte[] { 0xE9, 0x7F, 0x02, 0x00, 0x00, 0x90 } );
+
+        if (isFm8)
+        {
+            Bypass.AddProtectAddress(Wall1Addr);
+        }
+
+        switch (WallNoClipSwitch.IsOn)
+        {
+            case true when isFm8:
+            {
+                Mw.M.WriteArrayMemory(Wall1Addr, new byte[] { 0xE9, 0x5F, 0x02, 0x00, 0x00, 0x90 });
+                Mw.M.WriteArrayMemory(Wall2Addr, new byte[] { 0xE9, 0x60, 0x02, 0x00, 0x00, 0x90 });
+                break;
+            }
+            
+            case true when isFh5:
+            {
+                Mw.M.WriteArrayMemory(Wall1Addr, new byte[] { 0xE9, 0x61, 0x02, 0x00, 0x00, 0x90 });
+                Mw.M.WriteArrayMemory(Wall2Addr, new byte[] { 0xE9, 0x7F, 0x02, 0x00, 0x00, 0x90 });
+                break;
+            }
+
+            case true:
+            {
+                Mw.M.WriteArrayMemory(Wall1Addr, new byte[] { 0xE9, 0x2A, 0x02, 0x00, 0x00, 0x90 });
+                Mw.M.WriteArrayMemory(Wall2Addr, new byte[] { 0xE9, 0x2B, 0x02, 0x00, 0x00, 0x90 });
+                break;
+            }
+
+            case false when isFm8:
+            {
+                Mw.M.WriteArrayMemory(Wall1Addr, new byte[] { 0x0F, 0x84, 0x5E, 0x02, 0x00, 0x00 });
+                Mw.M.WriteArrayMemory(Wall2Addr, new byte[] { 0x0F, 0x84, 0x5F, 0x02, 0x00, 0x00 });
+                break;
+            }
+            
+            case false when isFh5:
+            {
+                Mw.M.WriteArrayMemory(Wall1Addr, new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 });
+                Mw.M.WriteArrayMemory(Wall2Addr, new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 });
+                break;
+            }
+            
+            case false:
+            {
+                Mw.M.WriteArrayMemory(Wall1Addr, new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 });
+                Mw.M.WriteArrayMemory(Wall2Addr, new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 });
+                break;
+            }
+        }
     }
 
     private void JumpHackSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

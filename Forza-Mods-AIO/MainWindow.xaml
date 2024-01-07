@@ -89,7 +89,7 @@
                 <Frame x:Name="TuningFrame" Content="Frame" Source="/Tabs/Tuning/Tuning.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
                 <Frame x:Name="KeybindingsFrame" Content="Frame" Source="/Tabs/Keybindings/Keybindings.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
             </Grid>
-            <Label x:Name="AttachedLabel" Content="Launch FH4/5" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" FontFamily="Manrope" Foreground="White" FontSize="10" Height="20" Grid.Column="1"/>
+            <Label x:Name="AttachedLabel" Content="Launch FH4, FH5 or FM8" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" FontFamily="Manrope" Foreground="White" FontSize="10" Height="20" Grid.Column="1"/>
             <Path x:Name="ExitIcon"
                 Data="M259.7625 259.7625A9.375 9.375 0 0 0 259.7625 246.4875L53.5125 40.2375A9.375 9.375 0 0 0 40.2375 53.5125L246.4875 259.7625000000001A9.375 9.375 0 0 0 259.7625 259.7625000000001zM40.2375 259.7625A9.375 9.375 0 0 1 40.2375 246.4875L246.4875 40.2375A9.375 9.375 0 0 1 259.7625000000001 53.5125L53.5125 259.7625000000001A9.375 9.375 0 0 1 40.2375 259.7625000000001z"
                 Fill="White" Stretch="Fill"

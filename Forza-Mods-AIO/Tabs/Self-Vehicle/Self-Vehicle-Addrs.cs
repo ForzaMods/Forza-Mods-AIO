@@ -85,7 +85,7 @@ internal class SelfVehicleAddresses
         }
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 2;
+        Sv.UiManager.ScanAmount = 5;
 
         const string massProtectSig = "74 ? F3 0F ? ? 0F 29";
         var massProtectAddresses = Mw.M.ScanForSig(massProtectSig);
@@ -98,11 +98,21 @@ internal class SelfVehicleAddresses
         BaseAddrHook = Mw.M.ScanForSig(baseAddrSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
+        const string wall1Sig = "0F 84 ? ? ? ? 85 DB 0F 84 ? ? ? ? 4C 8B";
+        Wall1Addr = Mw.M.ScanForSig(wall1Sig).FirstOrDefault() + 8;
+        Sv.UiManager.AddProgress();
+
+        const string wall2Sig = "45 0F ? ? 44 8B ? 66 0F";
+        Wall2Addr = Mw.M.ScanForSig(wall2Sig).FirstOrDefault() - 40;
+        Sv.UiManager.AddProgress();
+
+        const string car1Sig = "0F 84 ? ? ? ? 4C 8B ? ? ? ? ? ? 45 0F ? ? 4C 8B";
+        Car1Addr = Mw.M.ScanForSig(car1Sig).FirstOrDefault();
+        Sv.UiManager.AddProgress();
+        
         Sv.Dispatcher.Invoke(() =>
         {
             Sv.HandlingButton.IsEnabled = true;
-            Shp.CarNoclipSwitch.IsEnabled = false;
-            Shp.WallNoclipSwitch.IsEnabled = false;
             Shp.WaterDragSwitch.IsEnabled = false;
             Shp.SuperCarSwitch.IsEnabled = false;
         });

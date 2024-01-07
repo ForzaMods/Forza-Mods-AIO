@@ -236,7 +236,7 @@ public partial class MainWindow
                 {
                     Self_Vehicle.IsEnabled = true;
                     Self_Vehicle.Foreground = Brushes.White;
-                    CarSports.Fill = Brushes.White;
+                    Speedtest.Fill = Brushes.White;
                 });
                 Attached = true;
             }
@@ -322,9 +322,9 @@ public partial class MainWindow
 
     private void ResetUi()
     {
-        Dispatcher.Invoke(delegate
+        Dispatcher.Invoke(() =>
         {
-            AttachedLabel.Content = "Launch FH4/5";
+            AttachedLabel.Content = "Launch FH4, FH5 or FM8";
             Tabs.Tuning.Tuning.T.AobProgressBar.Value = 0;
             Tabs.Self_Vehicle.SelfVehicle.Sv.AobProgressBar.Value = 0;
             Tabs.AutoShowTab.AutoShow.As.AobProgressBar.Value = 0;
@@ -336,12 +336,7 @@ public partial class MainWindow
             Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsEnabled = false;
             AIO_Info.IsChecked = true;
             CategoryButton_Click(new object(), new RoutedEventArgs());
-        });
 
-        ToggleButtons(false);
-
-        Dispatcher.Invoke(delegate
-        {
             foreach (var visual in Window.GetChildren())
             {
                 var element = (FrameworkElement)visual;
@@ -355,6 +350,8 @@ public partial class MainWindow
             }
         });
 
+        ToggleButtons(false);
+        
         Tabs.Tuning.Tuning.T.UiManager.ToggleUiElements(false);
         Tabs.Self_Vehicle.SelfVehicle.Sv.UiManager.ToggleUiElements(false);
         Tabs.AutoShowTab.AutoShow.As.UiManager.ToggleUiElements(false);
@@ -481,23 +478,32 @@ public partial class MainWindow
 
         if (Wall1Addr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
         {
-            M.WriteArrayMemory(Wall1Addr, Gvp.Name == "Forza Horizon 4"
-                    ? new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 }
-                    : new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 });
+            M.WriteArrayMemory(Wall1Addr, Gvp.Name switch
+            {
+                "Forza Horizon 4" => new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 },
+                "Forza Horizon 5" => new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 },
+                _ => new byte[] { 0x0F, 0x84, 0x5E, 0x02, 0x00, 0x00 }
+            });
         }
 
         if (Wall2Addr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
         {
-            M.WriteArrayMemory(Wall2Addr, Gvp.Name == "Forza Horizon 4"
-                    ? new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 }
-                    : new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 });
+            M.WriteArrayMemory(Wall2Addr, Gvp.Name switch
+            {
+                "Forza Horizon 4" => new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 },
+                "Forza Horizon 5" => new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 },
+                _ => new byte[] { 0x0F, 0x84, 0x5F, 0x02, 0x00, 0x00 }
+            });
         }
 
         if (Car1Addr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
         {
-            M.WriteArrayMemory(Car1Addr, Gvp.Name == "Forza Horizon 4"
-                    ? new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 }
-                    : new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 });
+            M.WriteArrayMemory(Car1Addr, Gvp.Name switch
+            {
+                "Forza Horizon 4" => new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 },
+                "Forza Horizon 5" => new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 },
+                _ => new byte[] { 0x0F, 0x84, 0x6E, 0x03, 0x00, 0x00}
+            });
         }
 
         if (Car2Addr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
