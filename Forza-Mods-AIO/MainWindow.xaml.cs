@@ -79,6 +79,7 @@ public partial class MainWindow
 
     public MainWindow()
     {
+        TranslateUtil.LoadTranslateDic();
         InitializeComponent();
         UpdateAio();
         Mw = this;
@@ -94,6 +95,7 @@ public partial class MainWindow
         CategoryButton_Click(AIO_Info, new RoutedEventArgs());
         Loaded += (_, _) =>
         {
+            TranslateUtil.Translate();
             Task.Run(IsAttached);
             ToggleButtons(false);
         };
@@ -109,7 +111,7 @@ public partial class MainWindow
         var updater = new Updater();
 
         if (!await updater.CheckForUpdates())
-        {  
+        {
             updater.Dispose();
             return;
         }
@@ -187,6 +189,8 @@ public partial class MainWindow
                 frame.Visibility = Visibility.Hidden;
             }
         }
+        TranslateUtil.Translate();
+        TranslateUtil.TranslateOutput();
     }
 
     #endregion
@@ -402,6 +406,7 @@ public partial class MainWindow
     private void Window_Closing(object sender, CancelEventArgs e)
     {
         Window.Hide();
+        File.WriteAllLines("F:\\items.txt", TranslateUtil.Strings);
         try
         {
             O.OverlayToggle(false);
