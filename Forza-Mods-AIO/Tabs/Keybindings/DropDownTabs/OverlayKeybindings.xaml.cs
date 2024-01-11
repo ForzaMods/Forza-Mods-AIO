@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -12,7 +11,6 @@ using static System.Enum;
 using static System.Environment;
 using static Forza_Mods_AIO.Overlay.OverlayHandling;
 using static Forza_Mods_AIO.MainWindow;
-using Gamepad = Forza_Mods_AIO.Resources.Gamepad;
 
 namespace Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs;
 
@@ -30,8 +28,12 @@ public partial class OverlayKeybindings
 
     private void KBButton_OnClick(object sender, RoutedEventArgs e)
     {
-        if (Mw.Grabbing) return;
-        Mw.IsClicked = Mw.Grabbing = true;
+        if (Mw.IsClicked)
+        {
+            return;
+        }
+        
+        Mw.IsClicked = true;
         Mw.ClickedButton = (Button)sender;
         Mw.ClickedButton.Content = "Change Key";   
     }
@@ -109,7 +111,7 @@ public partial class OverlayKeybindings
             TryParse(iniData["Keybinds"]["Right"], out Right);
             TryParse(iniData["Keybinds"]["Confirm"], out Confirm);
             TryParse(iniData["Keybinds"]["Leave"], out Leave);
-            TryParse(iniData["Keybinds"]["Visibility"], out OverlayVisibility);            
+            TryParse(iniData["Keybinds"]["Visibility"], out OverlayVisibility);
             TryParse(iniData["Keybinds"]["RapidAdjust"], out OverlayHandling.RapidAdjust);
 
             if (iniData["Controller Keybinds"]["Up"] == null)
@@ -126,7 +128,10 @@ public partial class OverlayKeybindings
             ControllerOverlayVisibility = iniData["Controller Keybinds"]["Visibility"];
             OverlayHandling.ControllerRapidAdjust = iniData["Controller Keybinds"]["RapidAdjust"];
         }
-        catch {}
+        catch
+        {
+            // ignored
+        }
     }
 
     private void UpdateKeybindButtons()

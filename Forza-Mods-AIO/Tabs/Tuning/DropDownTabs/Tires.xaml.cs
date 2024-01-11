@@ -12,7 +12,7 @@ public partial class Tires
 {
     public static Tires T { get; private set; } = null!;
     public static float TireFrontLeftDivider = 1f, TireFrontRightDivider = 1f, TireRearLeftDivider = 1f, TireRearRightDivider = 1f;
-    public bool ValueChangeFromCode;
+    public bool CodeChange;
     
     public Tires()
     {
@@ -22,7 +22,7 @@ public partial class Tires
 
     private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (ValueChangeFromCode)
+        if (CodeChange)
         {
             return;
         }

@@ -104,12 +104,14 @@ public partial class Springs
         return address;
     }
     
-    public static double ConvertGameValueToUnit(int comboBoxIndex, double value)
+    public static double ConvertGameValueToUnit(ComboBox comboBox, UIntPtr addy)
     {
-        return comboBoxIndex switch
+        var value = Mw.M.ReadMemory<float>(addy);
+        
+        return comboBox.SelectedIndex switch
         {
-            0 => RideHeightToCentimeters(value),
-            1 => RideHeightToInches(value),
+            0 => Math.Round(RideHeightToCentimeters(value), 3),
+            1 => Math.Round(RideHeightToInches(value), 3),
             _ => 0
         };
     }

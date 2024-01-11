@@ -37,8 +37,12 @@ public partial class HandlingKeybindings
 
     private void KBButton_OnClick(object sender, RoutedEventArgs e)
     {
-        if (Mw.Grabbing) return;
-        Mw.IsClicked = Mw.Grabbing = true;
+        if (Mw.IsClicked)
+        {
+            return;
+        }
+        
+        Mw.IsClicked = true;
         Mw.ClickedButton = (Button)sender;
         Mw.ClickedButton.Content = "Change Key"; 
     }

@@ -10,10 +10,7 @@ internal abstract partial class DllImports
 {
     [LibraryImport("user32.dll", EntryPoint = "GetAsyncKeyState")]
     public static partial short GetAsyncKeyState(Keys vKey);
-    
-    [LibraryImport("user32.dll", EntryPoint = "GetAsyncKeyState")]
-    public static partial short GetAsyncKeyState(int vKey);
-    
+
     [LibraryImport("User32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static partial bool PrintWindow(IntPtr hwnd, IntPtr hDc, uint nFlags);

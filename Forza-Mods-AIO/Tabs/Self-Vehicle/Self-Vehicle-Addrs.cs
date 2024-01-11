@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Forza_Mods_AIO.Overlay.Menus.SelfCarMenu.FovMenu;
+using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 using static Forza_Mods_AIO.MainWindow;
@@ -28,7 +29,7 @@ internal class SelfVehicleAddresses
     public static UIntPtr SkillTreeAddr, SkillCostAddr;
     public static UIntPtr ScaleAddr, SellFactorAddr;
     public static UIntPtr UnbSkillHook;
-    public static UIntPtr WorldCollisionThreshold, CarCollisionThreshold, SmashableCollisionTolerance;
+    public static UIntPtr WorldCollisionThreshold, CarCollisionThreshold, SmashAbleCollisionTolerance;
     public static UIntPtr BaseAddrHook;
     public static UIntPtr TimeNopAddr, TimeAddr;
     public static UIntPtr WayPointXAsmAddr;
@@ -53,23 +54,24 @@ internal class SelfVehicleAddresses
 
     public static void Scan()
     {
-        switch (Mw.Gvp.Name)
+        switch (Mw.Gvp.Type)
         {
-            case "Forza Horizon 5":
+            case GameVerPlat.GameType.Fh5:
             {
-                Task.Run(() => FH5_Scan());
+                Task.Run(FH5_Scan);
                 break;
             }
-            case "Forza Horizon 4":
+            case GameVerPlat.GameType.Fh4:
             {
-                Task.Run(() => FH4_Scan());
+                Task.Run(FH4_Scan);
                 break;
             }
-            case "Forza Motorsport 8":
+            case GameVerPlat.GameType.Fm8:
             {
-                Task.Run(() => FM8_Scan());
+                Task.Run(FM8_Scan);
                 break;
             }
+            case GameVerPlat.GameType.None:
             default:
             {
                 throw new ArgumentOutOfRangeException();
@@ -79,7 +81,7 @@ internal class SelfVehicleAddresses
 
     private static void FM8_Scan()
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || Mw.Gvp.Type != GameVerPlat.GameType.Fm8)
         {
             return;
         }
@@ -127,7 +129,7 @@ internal class SelfVehicleAddresses
 
     private static void FH5_Scan()
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || Mw.Gvp.Type != GameVerPlat.GameType.Fh5)
         {
             return;
         }
@@ -170,8 +172,8 @@ internal class SelfVehicleAddresses
         CreditsHookAddr = Mw.M.ScanForSig(creditsSig).FirstOrDefault() + 13;
         Sv.UiManager.AddProgress();
 
-        const string baseAddrSig = "48 63 ? 48 69 D0 ? ? ? ? 48 8B ? ? ? ? ? ? 48 85 ? 74 ? 48 8B ? ? ? ? ? C3 C3 40";
-        BaseAddrHook = Mw.M.ScanForSig(baseAddrSig).FirstOrDefault() - 279;
+        const string baseAddrSig = "0F 2F ? ? ? ? ? 72 ? 0F 2F ? ? ? ? ? 72 ? 0F 2F";
+        BaseAddrHook = Mw.M.ScanForSig(baseAddrSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
         const string unbSkillSig = "48 8B ? ? E8 ? ? ? ? 48 8B ? 48 8B ? FF 92 ? ? ? ? 84 C0 0F 85";
@@ -302,7 +304,7 @@ internal class SelfVehicleAddresses
 
     private static void FH4_Scan()
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || Mw.Gvp.Type != GameVerPlat.GameType.Fh4)
         {
             return;
         }

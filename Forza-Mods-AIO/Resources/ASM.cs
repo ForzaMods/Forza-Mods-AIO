@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Forza_Mods_AIO.Resources;
 
@@ -7,45 +9,35 @@ public abstract class Asm
 {
     protected static byte[] StringToBytes(string hex)
     {
-        if (hex.Contains(' '))
-        {
-            hex = hex.Replace(" ", "");
-        }
-        
         if (string.IsNullOrWhiteSpace(hex))
         {
-            throw new ArgumentException("Hex cannot be null, empty, or whitespace");
+            const string exception = "Hex cannot be null, empty, or whitespace";
+            throw new ArgumentException(exception);
         }
 
-        if (hex.Length % 2 != 0)
+        if (hex.Contains(' '))
         {
-            throw new FormatException("Hex must have an even number of characters");
-        }
-
-        if (hex.Length == 2 && hex.Equals("0x", StringComparison.OrdinalIgnoreCase))
-        {
-            throw new ArgumentException("There are no characters in the hex string");
+            var stringBuilder = new StringBuilder(hex.Length);
+            foreach (var c in hex.Where(c => c != ' '))
+            {
+                stringBuilder.Append(c);
+            }
+            
+            hex = stringBuilder.ToString();
         }
 
         var startIndex = hex.StartsWith("0x", StringComparison.OrdinalIgnoreCase) ? 2 : 0;
         var length = (hex.Length - startIndex) / 2;
         var bytesArr = new byte[length];
 
-        try
+        for (int i = startIndex, x = 0; i < hex.Length; i += 2, x++)
         {
-            for (int i = startIndex, x = 0; i < hex.Length; i += 2, x++)
-            {
-                var left = hex[i];
-                var right = hex[i + 1];
-                bytesArr[x] = (byte)((HexMap[left] << 4) | HexMap[right]);
-            }
+            var left = hex[i];
+            var right = hex[i + 1];
+            bytesArr[x] = (byte)((HexMap[left] << 4) | HexMap[right]);
+        }
 
-            return bytesArr;
-        }
-        catch (KeyNotFoundException)
-        {
-            throw new FormatException("Hex string has a non-hex character");
-        }
+        return bytesArr;
     }
 
     private static readonly Dictionary<char, byte> HexMap = new()

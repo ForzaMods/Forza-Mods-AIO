@@ -32,7 +32,7 @@ public abstract class WheelspeedMenu
 
     private static void WheelspeedModeChanged(object s, EventArgs e)
     {
-        Shp.WheelSpeedModeComboBox.SelectedIndex = WheelspeedMode.Index;
+        Shp.WheelSpeedModeBox.SelectedIndex = WheelspeedMode.Index;
     }
 
     private static void WheelspeedStrengthChanged(object s, EventArgs e)

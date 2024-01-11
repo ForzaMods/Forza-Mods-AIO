@@ -102,7 +102,7 @@ public partial class UnlocksPage
             return;
         }
         
-        var xpDetourBytes = Mw.Gvp.Name!.Contains('5') ? XpDetourFh5 : XpDetourFh4;
+        var xpDetourBytes = Mw.Gvp.Type == GameVerPlat.GameType.Fh5 ? XpDetourFh5 : XpDetourFh4;
         const string fh5 = "F3 0F 2C C6 89 45 B0";
         
         if (!XpDetour.Setup(sender, XpAddr, fh5, xpDetourBytes, 7, true, 19))
@@ -120,7 +120,7 @@ public partial class UnlocksPage
         }
         else
         {
-            Mw.M.WriteArrayMemory(XpAmountAddr, Mw.Gvp.Name.Contains('5')
+            Mw.M.WriteArrayMemory(XpAmountAddr, Mw.Gvp.Type == GameVerPlat.GameType.Fh5
                 ? new byte[] { 0x8B, 0x89, 0x88, 0x00, 0x00, 0x00 }
                 : new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
         }

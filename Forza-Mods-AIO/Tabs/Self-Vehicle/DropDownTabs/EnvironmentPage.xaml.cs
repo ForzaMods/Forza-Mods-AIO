@@ -296,7 +296,7 @@ public partial class EnvironmentPage
 
         TimeAddr = 0;
         
-        while ((TimeAddr = TimeDetour.ReadVariable<UIntPtr>()) == 0)
+        while ((TimeAddr = TimeDetour.ReadVariable<UIntPtr>()) == UIntPtr.Zero)
         {
             Task.Delay(1).Wait();
         }

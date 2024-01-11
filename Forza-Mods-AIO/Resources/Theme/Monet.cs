@@ -23,10 +23,10 @@ internal abstract class Monet
 {
     #region Variables
     
-    public static Brush? MainColour = new SolidColorBrush((MColor)ConvertFromString("#4C566A"));
-    public static Brush? DarkishColour = new SolidColorBrush((MColor)ConvertFromString("#434C5E"));
-    public static Brush? DarkColour = new SolidColorBrush((MColor)ConvertFromString("#3B4252"));
-    public static Brush? DarkerColour = new SolidColorBrush((MColor)ConvertFromString("#2E3440"));
+    public static Brush MainColour = new SolidColorBrush((MColor)ConvertFromString("#4C566A"));
+    public static Brush DarkishColour = new SolidColorBrush((MColor)ConvertFromString("#434C5E"));
+    public static Brush DarkColour = new SolidColorBrush((MColor)ConvertFromString("#3B4252"));
+    public static Brush DarkerColour = new SolidColorBrush((MColor)ConvertFromString("#2E3440"));
     private const uint PwClientOnly = 1, PwRenderFullContent = 2;
     
     #endregion
@@ -88,10 +88,15 @@ internal abstract class Monet
         EnumWindows((hwnd, _) =>
         {
             var parentHandle = hwnd;
-            EnumChildWindows(hwnd, (hWnd, _) =>
+            EnumChildWindows(parentHandle, (hWnd, _) =>
             {
                 var sb = new StringBuilder(GetWindowTextLength(hWnd) + 1);
-                GetWindowText(hWnd, sb, sb.Capacity);
+                var windowText = GetWindowText(hWnd, sb, sb.Capacity);
+                if (windowText == -1)
+                {
+                    return false;
+                }
+                
                 if (!sb.ToString().Contains("WPE"))
                 {
                     return true;
@@ -112,116 +117,102 @@ internal abstract class Monet
         var desktopWallpaper = CaptureWindow(window);
         var colour = colorThief.GetColor(desktopWallpaper).Color;
         desktopWallpaper.Dispose();
-
-        Mw.Dispatcher.Invoke(() =>
-        {
-            ColorToHsv(FromHtml(colour.ToHexString()), out var h, out var s, out var v1);
-
-            var value = Ai.LightnessSlider.Value;
-            var maximum = Ai.LightnessSlider.Maximum;
-            
-            v1 *= value / maximum;
-            if (v1 < 0)
-            {
-                v1 = 0;
-            }
-
-            var v2 = v1 * value / 1.25 / maximum;
-            if (v2 < 0)
-            {
-                v2 = 0;
-            }
-
-            var v3 = v1 * value / 1.5 / maximum;
-            if (v3 < 0)
-            {
-                v3 = 0;
-            }
-
-            var v4 = v1 * value / 2 / maximum;
-            if (v4 < 0)
-            {
-                v4 = 0;
-            }
-
-            var colourHex1 = ToHtml(ColorFromHsv(h, s, v1));
-            var colourHex2 = ToHtml(ColorFromHsv(h, s, v2));
-            var colourHex3 = ToHtml(ColorFromHsv(h, s, v3));
-            var colourHex4 = ToHtml(ColorFromHsv(h, s, v4));
-
-            var converter = new BrushConverter();
-            MainColour = (Brush)converter.ConvertFromString(colourHex1)!;
-
-            if (Mw.BackgroundBorder.Background.ToString() == MainColour.ToString())
-            {
-                return;
-            }
-
-            DarkishColour = (Brush)converter.ConvertFromString(colourHex2)!;
-            DarkColour = (Brush)converter.ConvertFromString(colourHex3)!;
-            DarkerColour = (Brush)converter.ConvertFromString(colourHex4)!;
-
-            Mw.BackgroundBorder.Background = MainColour;
-            Mw.FrameBorder.Background = MainColour;
-            Mw.SideBar.Background = DarkishColour;
-            Mw.TopBar1.Background = DarkColour;
-            Mw.TopBar2.Background = DarkColour;
-
-            var randName = Guid.NewGuid().ToString();
-            Current.ClearThemes();
-            Current.AddTheme(new(randName, randName, "Dark", "Red", (MColor)ConvertFromString(colourHex4), DarkerColour, true, false));
-            Current.ChangeTheme(Application.Current, randName);
-
-            Mw.CategoryButton_Click(new object(), new RoutedEventArgs());
-            foreach (var visual in Mw.Window.GetChildren())
-            {
-                var element = (FrameworkElement)visual;
-                var elementType = element.GetType();
-                if (elementType == typeof(Button))
-                {
-                    element.GetType().GetProperty("Background")?.SetValue(element, DarkerColour);
-                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
-                }
-                else if (elementType == typeof(Border))
-                {
-                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
-                }
-                else if (elementType == typeof(NumericUpDown))
-                {
-                    element.GetType().GetProperty("Background")?.SetValue(element, DarkerColour);
-                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
-                }
-                else if (elementType == typeof(ComboBox))
-                {
-                    element.GetType().GetProperty("Background")?.SetValue(element, DarkerColour);
-                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
-                }
-                else if (elementType == typeof(ListBox))
-                {
-                    element.GetType().GetProperty("Background")?.SetValue(element, DarkerColour);
-                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
-                }
-                else if (elementType == typeof(ListBoxItem))
-                {
-                    element.GetType().GetProperty("Background")?.SetValue(element, MainColour);
-                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, MainColour);
-                }
-                else if (elementType == typeof(ComboBoxItem))
-                {
-                    element.GetType().GetProperty("Background")?.SetValue(element, MainColour);
-                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, MainColour);
-                }
-                else if (element.GetType() == typeof(MetroProgressBar))
-                {
-                    element.GetType().GetProperty("Background")?.SetValue(element, DarkerColour);
-                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
-                }
-            }
-            
-            
-        });
+        Mw.Dispatcher.Invoke(() => SetColours(colour));
     }
-    
+
+    private static void SetColours(ColorThiefDotNet.Color colour)
+    {
+        ColorToHsv(FromHtml(colour.ToHexString()), out var h, out var s, out var v1);
+
+        var value = Ai.LightnessSlider.Value;
+        var maximum = Ai.LightnessSlider.Maximum;
+            
+        v1 *= value / maximum;
+        if (v1 < 0)
+        {
+            v1 = 0;
+        }
+
+        var v2 = v1 * value / 1.25 / maximum;
+        if (v2 < 0)
+        {
+            v2 = 0;
+        }
+
+        var v3 = v1 * value / 1.5 / maximum;
+        if (v3 < 0)
+        {
+            v3 = 0;
+        }
+
+        var v4 = v1 * value / 2 / maximum;
+        if (v4 < 0)
+        {
+            v4 = 0;
+        }
+
+        var colourHex1 = ToHtml(ColorFromHsv(h, s, v1));
+        var colourHex2 = ToHtml(ColorFromHsv(h, s, v2));
+        var colourHex3 = ToHtml(ColorFromHsv(h, s, v3));
+        var colourHex4 = ToHtml(ColorFromHsv(h, s, v4));
+
+        var converter = new BrushConverter();
+        MainColour = converter.ConvertFromString(colourHex1) as Brush ?? new DrawingBrush();
+
+        if (Mw.BackgroundBorder.Background.ToString() == MainColour.ToString())
+        {
+            return;
+        }
+
+        DarkishColour = (Brush)converter.ConvertFromString(colourHex2)!;
+        DarkColour = (Brush)converter.ConvertFromString(colourHex3)!;
+        DarkerColour = (Brush)converter.ConvertFromString(colourHex4)!;
+
+        Mw.BackgroundBorder.Background = MainColour;
+        Mw.FrameBorder.Background = MainColour;
+        Mw.SideBar.Background = DarkishColour;
+        Mw.TopBar1.Background = DarkColour;
+        Mw.TopBar2.Background = DarkColour;
+
+        var randName = Guid.NewGuid().ToString();
+        Current.ClearThemes();
+        Current.AddTheme(new(randName, randName, "Dark", "Red", (MColor)ConvertFromString(colourHex4), DarkerColour, true, false));
+        Current.ChangeTheme(Application.Current, randName);
+
+        Mw.CategoryButton_Click(new object(), new RoutedEventArgs());
+        foreach (var visual in Mw.Window.GetChildren())
+        {
+            var element = (FrameworkElement)visual;
+            var elementType = element.GetType();
+                
+            switch (elementType)
+            {
+                case not null when elementType == typeof(Border):
+                {
+                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
+                    break;
+                }
+                case not null when elementType == typeof(ComboBox) || 
+                                   elementType == typeof(ListBox) ||
+                                   elementType == typeof(MetroProgressBar) ||
+                                   elementType == typeof(NumericUpDown) ||
+                                   elementType == typeof(Button):
+                {
+                    element.GetType().GetProperty("Background")?.SetValue(element, DarkerColour);
+                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
+                    break;
+                }
+
+                case not null when elementType == typeof(ListBoxItem) || 
+                                   elementType == typeof(ComboBoxItem):
+                {
+                    element.GetType().GetProperty("Background")?.SetValue(element, MainColour);
+                    element.GetType().GetProperty("BorderBrush")?.SetValue(element, MainColour);
+                    break;
+                }
+            }
+        }
+    }
     
     #endregion
 }

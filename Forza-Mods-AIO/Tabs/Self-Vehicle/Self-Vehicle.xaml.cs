@@ -49,7 +49,7 @@ public partial class SelfVehicle
 
     private static readonly Dictionary<string, double> Sizes = new()
     {
-        { "HandlingButton", 465 }, // Button name for page, height of page
+        { "HandlingButton", 555 }, // Button name for page, height of page
         { "UnlocksButton", 235 },
         { "PhotomodeButton", 285 },
         { "StatsButton", 70 },
@@ -84,7 +84,7 @@ public partial class SelfVehicle
         
         switch (name)
         {
-            case "TeleportsButton" when Mw.Gvp.Name == "Forza Horizon 5":
+            case "TeleportsButton" when Mw.Gvp.Type == GameVerPlat.GameType.Fh5:
             {
                 if (Teleports.TeleportBox.Items.Contains("Guanajuato (Main City)"))
                 {
@@ -109,7 +109,7 @@ public partial class SelfVehicle
                 Teleports.TeleportBox.Items.Add("Top Of Volcano");
                 break;
             }
-            case "TeleportsButton" when MainWindow.Mw.Gvp.Name == "Forza Horizon 4":
+            case "TeleportsButton" when Mw.Gvp.Type == GameVerPlat.GameType.Fh4:
             {
                 if (Teleports.TeleportBox.Items.Contains("Edinburgh"))
                 {
@@ -119,7 +119,7 @@ public partial class SelfVehicle
                 Teleports.TeleportBox.Items.Clear();
                 Teleports.TeleportBox.Items.Add("Waypoint");
                 Teleports.TeleportBox.Items.Add("Adventure Park");
-                Teleports.TeleportBox.Items.Add("Ambleside");
+                Teleports.TeleportBox.Items.Add("Amble side");
                 Teleports.TeleportBox.Items.Add("Beach");
                 Teleports.TeleportBox.Items.Add("Broadway");
                 Teleports.TeleportBox.Items.Add("Dam");
@@ -129,7 +129,7 @@ public partial class SelfVehicle
                 Teleports.TeleportBox.Items.Add("Lake Island");
                 Teleports.TeleportBox.Items.Add("Mortimer Gardens");
                 Teleports.TeleportBox.Items.Add("Quarry");
-                Teleports.TeleportBox.Items.Add("Railyard");
+                Teleports.TeleportBox.Items.Add("Rail yard");
                 Teleports.TeleportBox.Items.Add("Start of Motorway");
                 Teleports.TeleportBox.Items.Add("Top of Mountain");
                 break;

@@ -33,7 +33,10 @@ public partial class MiscellaneousPage
     private const string SkillCost = "8B 05 05 00 00 00";
     private const string ScoreFh4 = "8B 78 04 0F AF 3D 08 00 00 00 48 85 DB";
     private const string ScoreFh5 = "0F AF 3D 05 00 00 00";
-    private const string Drift = "80 3D 4B 00 00 00 01 75 20 53 48 8B 1D 39 00 00 00 48 89 9F D8 00 00 00 48 8B 1D 2F 00 00 00 48 89 9F DC 00 00 00 5B EB 14 C7 87 D8 00 00 00 00 00 34 42 C7 87 DC 00 00 00 00 00 5C 42 F3 0F 10 9F D8 00 00 00";
+    private const string Drift = "80 3D 4B 00 00 00 01 75 20 53 48 8B 1D 39 00 00 00 48 89 9F D8 00 00 00 48 8B 1D " +
+                                 "2F 00 00 00 48 89 9F DC 00 00 00 5B EB 14 C7 87 D8 00 00 00 00 00 34 42 C7 87 DC " +
+                                 "00 00 00 00 00 5C 42 F3 0F 10 9F D8 00 00 00";
+    
     private const string TimeScale = "F3 0F 59 3D 11 00 00 00 F3 0F 5C C7 F3 0F 11 87 0C 04 00 00";
         
     public MiscellaneousPage()
@@ -88,7 +91,7 @@ public partial class MiscellaneousPage
 
         Mw.M.WriteMemory(WorldCollisionThreshold, SkillToggle.IsOn ? 9999999999f : 12f);
         Mw.M.WriteMemory(CarCollisionThreshold,SkillToggle.IsOn ? 9999999999f : 12f);
-        Mw.M.WriteMemory(SmashableCollisionTolerance,SkillToggle.IsOn ? 9999999999f : 22f);
+        Mw.M.WriteMemory(SmashAbleCollisionTolerance,SkillToggle.IsOn ? 9999999999f : 22f);
     }
 
     private async void GetSkillAddresses(object sender)
@@ -124,11 +127,11 @@ public partial class MiscellaneousPage
             WorldCollisionThreshold += 0x2C;
         
             CarCollisionThreshold = WorldCollisionThreshold + 4;
-            SmashableCollisionTolerance = WorldCollisionThreshold + 8;
+            SmashAbleCollisionTolerance = WorldCollisionThreshold + 8;
         
             Mw.M.WriteMemory(WorldCollisionThreshold, 9999999999f);
             Mw.M.WriteMemory(CarCollisionThreshold,9999999999f);
-            Mw.M.WriteMemory(SmashableCollisionTolerance,9999999999f);
+            Mw.M.WriteMemory(SmashAbleCollisionTolerance,9999999999f);
             
             UnbSkillDetour.Destroy();
             UnbSkillDetour.Clear();

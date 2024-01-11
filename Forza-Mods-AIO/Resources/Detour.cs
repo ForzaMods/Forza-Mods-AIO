@@ -4,7 +4,6 @@ using System.Text;
 using System.Windows;
 using System.Threading.Tasks;
 using MahApps.Metro.Controls;
-
 using static Memory.Imps;
 using static System.Buffer;
 using static Forza_Mods_AIO.MainWindow;
@@ -95,13 +94,15 @@ public class Detour : Asm
             finalDetourBytes = combinedBytes;
         }
 
-        if ((Mw.Gvp.Name.Contains('5') || Mw.Gvp.Name.Contains('8')) && !_bypassDetour && !Bypass.DisableAntiCheat())
+        var isFh4 = Mw.Gvp.Type == GameVerPlat.GameType.Fh4;
+        
+        if (!isFh4 && !_bypassDetour && !Bypass.DisableAntiCheat())
         {
             ToggleButton(button, true);
             return false;
         }
 
-        if (Mw.Gvp.Name.Contains('8'))
+        if (Mw.Gvp.Type == GameVerPlat.GameType.Fm8)
         {
             Bypass.AddProtectAddress(addr);
         }

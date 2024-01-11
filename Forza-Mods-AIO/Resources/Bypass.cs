@@ -20,23 +20,32 @@ public abstract class Bypass
     
     public static bool DisableAntiCheat()
     {
-        if (Mw.Gvp.Name.Contains('5'))
+        switch (Mw.Gvp.Type)
         {
-            return PointChecksToCopyFh5();
+            case GameVerPlat.GameType.Fh5:
+            {
+                return PointChecksToCopyFh5();
+            }
+            case GameVerPlat.GameType.Fm8:
+            {
+                return PointChecksToCopyFm8();
+            }
+            case GameVerPlat.GameType.Fh4:
+            {
+                DisableFh4();
+                return true;
+            }
+            case GameVerPlat.GameType.None:
+            default:
+            {
+                throw new Exception("You cant disable the anti cheat while not attached");
+            }
         }
-
-        if (Mw.Gvp.Name.Contains('8'))
-        {
-            return PointChecksToCopyFm8();
-        }
-        
-        DisableFh4();
-        return true;
     }
 
     public static void EnableAntiCheat()
     {
-        if (Mw.Gvp.Name.Contains('5') || Mw.Gvp.Name.Contains('8'))
+        if (Mw.Gvp.Type != GameVerPlat.GameType.Fh4)
         {
             Destroy();
             return;
@@ -160,12 +169,21 @@ public abstract class Bypass
         CheckDetour.Destroy();
         CheckDetour.Clear();
         const uint memRelease = 0x8000;
-        VirtualFreeEx(Mw.Gvp.Process.Handle, _memCopyAddress, 0, memRelease);
+    
+        if (_memCopyAddress != UIntPtr.Zero)
+        {
+            VirtualFreeEx(Mw.Gvp.Process.Handle, _memCopyAddress, 0, memRelease);
+        }
+    
+        if (_protectedAddresses != UIntPtr.Zero)
+        {
+            VirtualFreeEx(Mw.Gvp.Process.Handle, _protectedAddresses, 0, memRelease);
+        }
     }
 
     public static void Clear()
     {
-        _memCopyAddress = 0;
+        _memCopyAddress = _protectedAddresses = 0;
         CheckDetour.Clear();
     }
 }

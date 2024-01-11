@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Numerics;
 using System.Threading.Tasks;
 using Forza_Mods_AIO.Resources;
+
+using static System.Math;
 using static Forza_Mods_AIO.MainWindow;
+using static Forza_Mods_AIO.Resources.GameVerPlat.GameType;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
@@ -14,7 +18,7 @@ public abstract class CarEntity
     private const string BaseFh5 = "48 81 E9 70 05 00 00 48 89 0D 0C 00 00 00 48 81 C1 70 05 00 00";
     private const string BaseFh4 = "48 81 E9 60 05 00 00 48 89 0D 0C 00 00 00 48 81 C1 60 05 00 00";
     private const string BaseFm8 = "48 81 E9 D0 04 00 00 48 89 0D 0C 00 00 00 48 81 C1 D0 04 00 00";
-    private const string OrigFh5 = "F3 0F 10 81 18 15 00 00";
+    private const string OrigFh5 = "0F 2F B1 1C BE 00 00";
     private const string OrigFh4 = "F3 0F 10 81 90 01 00 00";
     private const string OrigFm8 = "0F 2F B1 A0 71 00 00";
     
@@ -22,24 +26,28 @@ public abstract class CarEntity
     {
         if (!BaseDetour.IsHooked)
         {
-            var baseDetourBytes = Mw.Gvp.Name switch
+            var baseDetourBytes = Mw.Gvp.Type switch
             {
-                { } name when name.Contains('8') => BaseFm8,
-                { } name when name.Contains('5') => BaseFh5,
-                _ => BaseFh4
+                Fm8 => BaseFm8,
+                Fh5 => BaseFh5,
+                Fh4 => BaseFh4,
+                _ => string.Empty
             };
             
-            var orig = Mw.Gvp.Name switch
+            var orig = Mw.Gvp.Type switch
             {
-                { } name when name.Contains('8') => OrigFm8,
-                { } name when name.Contains('5') => OrigFh5,
-                _ => OrigFh4
+                Fm8 => OrigFm8,
+                Fh5 => OrigFh5,
+                Fh4 => OrigFh4,
+                _ => string.Empty
             };
-            
-            var replace = Mw.Gvp.Name.Contains('8') ? 7 : 8;
+
+            var isFh4 = Mw.Gvp.Type == Fh4;
+            var replace = isFh4 ? 8 : 7;
             BaseDetour.Setup(BaseAddrHook, orig, baseDetourBytes, replace, true, 0, true);
 
-            if (!Mw.Gvp.Name.Contains('8'))
+            var isFm8 = Mw.Gvp.Type == Fm8;
+            if (!isFm8)
             {
                 return;
             }
@@ -55,7 +63,7 @@ public abstract class CarEntity
         {
             while ((PlayerCarEntity = BaseDetour.ReadVariable<UIntPtr>()) == 0)
             {
-                Task.Delay(1).Wait();
+                Task.Delay(5).Wait();
             }
             
             taskCompletionSource.SetResult(true);
@@ -96,6 +104,9 @@ public abstract class CarEntity
         }
     }
 
+    public static double CarSpeed => GetCarSpeed();
+    public static double AverageWheelSpeed => GetAverageWheelSpeed();
+    
     #endregion
     
     #region Vectors
@@ -107,19 +118,21 @@ public abstract class CarEntity
         get
         {
             Hook();
-            return Mw.Gvp.Name switch
+            return Mw.Gvp.Type switch
             {
-                { } name when name.Contains('8') => Mw.M.ReadMemory<Vector3>(PlayerCarEntity + LinVelOffsetFm8),
-                _ => Mw.M.ReadMemory<Vector3>(PlayerCarEntity + LinVelOffset)
+                Fm8 => Mw.M.ReadMemory<Vector3>(PlayerCarEntity + LinVelOffsetFm8),
+                Fh4 or Fh5 => Mw.M.ReadMemory<Vector3>(PlayerCarEntity + LinVelOffset),
+                _ => new Vector3()
             };
         }
         set
         {
             Hook();
-            _ = Mw.Gvp.Name switch
+            _ = Mw.Gvp.Type switch
             {
-                { } name when name.Contains('8') => Mw.M.WriteMemory(PlayerCarEntity + LinVelOffsetFm8, value),
-                _ => Mw.M.WriteMemory(PlayerCarEntity + LinVelOffset, value)
+                Fm8 => Mw.M.WriteMemory(PlayerCarEntity + LinVelOffsetFm8, value),
+                Fh4 or Fh5 => Mw.M.WriteMemory(PlayerCarEntity + LinVelOffset, value),
+                _ => false
             };
         }
     }
@@ -131,10 +144,11 @@ public abstract class CarEntity
         set
         {
             Hook();
-            _ = Mw.Gvp.Name switch
+            _ = Mw.Gvp.Type switch
             {
-                { } name when name.Contains('8') => Mw.M.WriteMemory(PlayerCarEntity + AngVelOffsetFm8, value),
-                _ => Mw.M.WriteMemory(PlayerCarEntity + AngVelOffset, value)
+                Fm8 => Mw.M.WriteMemory(PlayerCarEntity + AngVelOffsetFm8, value),
+                Fh4 or Fh5 => Mw.M.WriteMemory(PlayerCarEntity + AngVelOffset, value),
+                _ => false
             };
         }
     }
@@ -147,21 +161,23 @@ public abstract class CarEntity
         get
         {
             Hook();
-            return Mw.Gvp.Name switch
+            return Mw.Gvp.Type switch
             {
-                { } name when name.Contains('8') => Mw.M.ReadMemory<Vector3>(PlayerCarEntity + PosOffsetFm8),
-                { } name when name.Contains('5') => Mw.M.ReadMemory<Vector3>(PlayerCarEntity + PosOffsetFh5),
-                _ => Mw.M.ReadMemory<Vector3>(PlayerCarEntity + PosOffsetFh4)
+                Fm8 => Mw.M.ReadMemory<Vector3>(PlayerCarEntity + PosOffsetFm8),
+                Fh5 => Mw.M.ReadMemory<Vector3>(PlayerCarEntity + PosOffsetFh5),
+                Fh4 => Mw.M.ReadMemory<Vector3>(PlayerCarEntity + PosOffsetFh4),
+                _ => new Vector3()
             };
         }
         set
         {
             Hook();
-            _ = Mw.Gvp.Name switch
+            _ = Mw.Gvp.Type switch
             {
-                { } name when name.Contains('8') => Mw.M.WriteMemory(PlayerCarEntity + PosOffsetFm8, value),
-                { } name when name.Contains('5') => Mw.M.WriteMemory(PlayerCarEntity + PosOffsetFh5, value),
-                _ => Mw.M.WriteMemory(PlayerCarEntity + PosOffsetFh4, value)
+                Fm8 => Mw.M.WriteMemory(PlayerCarEntity + PosOffsetFm8, value),
+                Fh5 => Mw.M.WriteMemory(PlayerCarEntity + PosOffsetFh5, value),
+                Fh4 => Mw.M.WriteMemory(PlayerCarEntity + PosOffsetFh4, value),
+                _ => false
             };
         }
     }
@@ -174,21 +190,23 @@ public abstract class CarEntity
         get
         {
             Hook();
-            return Mw.Gvp.Name switch
+            return Mw.Gvp.Type switch
             {
-                { } name when name.Contains('8') => Mw.M.ReadMemory<Matrix4x4>(PlayerCarEntity + RotationOffsetFm8),
-                { } name when name.Contains('5') => Mw.M.ReadMemory<Matrix4x4>(PlayerCarEntity + RotationOffsetFh5),
-                _ => Mw.M.ReadMemory<Matrix4x4>(PlayerCarEntity + RotationOffsetFh4)
+                Fm8 => Mw.M.ReadMemory<Matrix4x4>(PlayerCarEntity + RotationOffsetFm8),
+                Fh5 => Mw.M.ReadMemory<Matrix4x4>(PlayerCarEntity + RotationOffsetFh5),
+                Fh4 => Mw.M.ReadMemory<Matrix4x4>(PlayerCarEntity + RotationOffsetFh4),
+                _ => new Matrix4x4()
             };
         }
         set
         {
             Hook();
-            _ = Mw.Gvp.Name switch
+            _ = Mw.Gvp.Type switch
             {
-                { } name when name.Contains('8') => Mw.M.WriteMemory(PlayerCarEntity + RotationOffsetFm8, value),
-                { } name when name.Contains('5') => Mw.M.WriteMemory(PlayerCarEntity + RotationOffsetFh5, value),
-                _ => Mw.M.WriteMemory(PlayerCarEntity + RotationOffsetFh4, value)
+                Fm8 => Mw.M.WriteMemory(PlayerCarEntity + RotationOffsetFm8, value),
+                Fh5 => Mw.M.WriteMemory(PlayerCarEntity + RotationOffsetFh5, value),
+                Fh4 => Mw.M.WriteMemory(PlayerCarEntity + RotationOffsetFh4, value),
+                _  => false
             };
         }
     }
@@ -213,37 +231,38 @@ public abstract class CarEntity
         get
         {
             Hook();
-            return Mw.Gvp.Name switch
+            return Mw.Gvp.Type switch
             {
-                { } name when name.Contains('8') => new Vector4
+                Fm8 => new Vector4
                 {
                     X = Mw.M.ReadMemory<float>(PlayerCarEntity + FrontLeftWheelSpeedOffsetFm8),
                     Y = Mw.M.ReadMemory<float>(PlayerCarEntity + FrontRightWheelSpeedOffsetFm8),
                     Z = Mw.M.ReadMemory<float>(PlayerCarEntity + RearLeftWheelSpeedOffsetFm8),
                     W = Mw.M.ReadMemory<float>(PlayerCarEntity + RearRightWheelSpeedOffsetFm8)
                 },
-                { } name when name.Contains('5') => new Vector4
+                Fh5 => new Vector4
                 {
                     X = Mw.M.ReadMemory<float>(PlayerCarEntity + FrontLeftWheelSpeedOffsetFh5),
                     Y = Mw.M.ReadMemory<float>(PlayerCarEntity + FrontRightWheelSpeedOffsetFh5),
                     Z = Mw.M.ReadMemory<float>(PlayerCarEntity + RearLeftWheelSpeedOffsetFh5),
                     W = Mw.M.ReadMemory<float>(PlayerCarEntity + RearRightWheelSpeedOffsetFh5)
                 },
-                _ => new Vector4
+                Fh4 => new Vector4
                 {
                     X = Mw.M.ReadMemory<float>(PlayerCarEntity + FrontLeftWheelSpeedOffsetFh4),
                     Y = Mw.M.ReadMemory<float>(PlayerCarEntity + FrontRightWheelSpeedOffsetFh4),
                     Z = Mw.M.ReadMemory<float>(PlayerCarEntity + RearLeftWheelSpeedOffsetFh4),
                     W = Mw.M.ReadMemory<float>(PlayerCarEntity + RearRightWheelSpeedOffsetFh4)
-                }
+                },
+                _ => new Vector4()
             };
         }
         set
         {
             Hook();
-            switch (Mw.Gvp.Name)
+            switch (Mw.Gvp.Type)
             {
-                case { } name when name.Contains('8'):
+                case Fm8:
                 {
                     Mw.M.WriteMemory(PlayerCarEntity + FrontLeftWheelSpeedOffsetFm8, value.X);
                     Mw.M.WriteMemory(PlayerCarEntity + FrontRightWheelSpeedOffsetFm8, value.Y);
@@ -251,7 +270,7 @@ public abstract class CarEntity
                     Mw.M.WriteMemory(PlayerCarEntity + RearRightWheelSpeedOffsetFm8, value.W);
                     break;
                 }
-                case { } name when name.Contains('5'):
+                case Fh5:
                 {
                     Mw.M.WriteMemory(PlayerCarEntity + FrontLeftWheelSpeedOffsetFh5, value.X);
                     Mw.M.WriteMemory(PlayerCarEntity + FrontRightWheelSpeedOffsetFh5, value.Y);
@@ -259,7 +278,7 @@ public abstract class CarEntity
                     Mw.M.WriteMemory(PlayerCarEntity + RearRightWheelSpeedOffsetFh5, value.W);
                     break;
                 }
-                default:
+                case Fh4:
                 {
                     Mw.M.WriteMemory(PlayerCarEntity + FrontLeftWheelSpeedOffsetFh4, value.X);
                     Mw.M.WriteMemory(PlayerCarEntity + FrontRightWheelSpeedOffsetFh4, value.Y);
@@ -267,9 +286,33 @@ public abstract class CarEntity
                     Mw.M.WriteMemory(PlayerCarEntity + RearRightWheelSpeedOffsetFh4, value.W);
                     break;
                 }
+                case None:
+                default:
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
         }
     }
     
     #endregion
+    
+    private static double GetCarSpeed()
+    {
+        var velocitySquaredSum = Pow(LinearVelocity.X, 2) + Pow(LinearVelocity.Y, 2) + Pow(LinearVelocity.Z, 2);
+        var speedMetersPerSecond = Sqrt(velocitySquaredSum);
+        var speedMilesPerHour = speedMetersPerSecond * 2.23694;
+        return speedMilesPerHour;
+    }
+
+    private static double GetAverageWheelSpeed()
+    {
+        var frontLeft = WheelSpeed.X;
+        var frontRight = WheelSpeed.Y;
+        var rearLeft = WheelSpeed.Z;
+        var rearRight = WheelSpeed.W;
+        var sum = frontLeft + frontRight + rearLeft + rearRight;
+        var average = Convert.ToDouble(sum) / 4;
+        return average;
+    }
 }

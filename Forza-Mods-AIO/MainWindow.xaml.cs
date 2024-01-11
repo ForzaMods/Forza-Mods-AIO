@@ -36,6 +36,7 @@ using Monet = Forza_Mods_AIO.Resources.Theme.Monet;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using KeyStates = Forza_Mods_AIO.Resources.KeyStates;
 using MessageBox = System.Windows.Forms.MessageBox;
 using RadioButton = System.Windows.Controls.RadioButton;
 
@@ -46,22 +47,6 @@ namespace Forza_Mods_AIO;
 /// </summary>
 public partial class MainWindow
 {
-    public class GameVerPlat
-    {
-        public string Name { get; }
-        public string Plat { get; }
-        public Process Process { get; }
-        public string Update { get; }
-
-        public GameVerPlat(string name, string plat, Process process, string update)
-        {
-            Name = name;
-            Plat = plat;
-            Process = process;
-            Update = update;
-        }
-    }
-
     #region Variables
 
     public static MainWindow Mw { get; private set; } = null!; 
@@ -69,7 +54,7 @@ public partial class MainWindow
     public readonly Mem M = new() { SigScanTasks = Environment.ProcessorCount };
     //public LibraryMapper Mapper = null!;
     public readonly Gamepad Gamepad = new(); 
-    public GameVerPlat Gvp = new(string.Empty, string.Empty, new Process(), string.Empty);
+    public GameVerPlat Gvp { get; private set; } = new();
     public bool Attached { get; private set; }
     private IEnumerable<Visual>? _visuals;
 
@@ -211,7 +196,8 @@ public partial class MainWindow
                     continue;
 
                 const string name = "Forza Horizon 5";
-                GvpMaker(name);
+                const GameVerPlat.GameType type = GameVerPlat.GameType.Fh5;
+                GvpMaker(name, type);
                 ToggleButtons(true);
                 Attached = true;
             }
@@ -221,7 +207,8 @@ public partial class MainWindow
                     continue;
                 
                 const string name = "Forza Horizon 4";
-                GvpMaker(name);
+                const GameVerPlat.GameType type = GameVerPlat.GameType.Fh4;
+                GvpMaker(name, type);
                 ToggleButtons(true);
                 Attached = true;
             }
@@ -231,7 +218,8 @@ public partial class MainWindow
                     continue;
                 
                 const string name = "Forza Motorsport 8";
-                GvpMaker(name);
+                const GameVerPlat.GameType type = GameVerPlat.GameType.Fm8;
+                GvpMaker(name, type);
                 Dispatcher.Invoke(() =>
                 {
                     Self_Vehicle.IsEnabled = true;
@@ -246,6 +234,8 @@ public partial class MainWindow
                     continue;
 
                 ResetAio();
+                Gvp = new GameVerPlat();
+                M.CloseProcess();
                 Attached = false;
             }
         }
@@ -270,12 +260,17 @@ public partial class MainWindow
         });
     }
 
-    private void GvpMaker(string name)
+    private void GvpMaker(string name, GameVerPlat.GameType type)
     {
+        var process = M.MProc.Process;
+        if (process.MainModule == null)
+        {
+            return;
+        }
+        
         string platform;
         string update;
-        var process = M.MProc.Process;
-        var gamePath = process.MainModule!.FileName;
+        var gamePath = process.MainModule.FileName;
 
         if (gamePath.Contains("Microsoft.624F8B84B80") || gamePath.Contains("Microsoft.SunriseBaseGame") ||
             gamePath.Contains("Microsoft.ForzaMotorsport"))
@@ -291,10 +286,10 @@ public partial class MainWindow
         {
             var filePath = Combine(GetDirectoryName(gamePath) ?? throw new Exception(), "OnlineFix64.dll");
             platform = File.Exists(filePath) ? "OnlineFix - Steam" : "Steam";
-            update = GetVersionInfo(process.MainModule!.FileName).FileVersion ?? "Unable to get update info";
+            update = GetVersionInfo(process.MainModule.FileName).FileVersion ?? "Unable to get update info";
         }
 
-        Gvp = new GameVerPlat(name, platform, process, update);
+        Gvp = new GameVerPlat(name, platform, update, process, type);
 
         Dispatcher.Invoke(delegate
         {
@@ -328,14 +323,10 @@ public partial class MainWindow
             Tabs.Tuning.Tuning.T.AobProgressBar.Value = 0;
             Tabs.Self_Vehicle.SelfVehicle.Sv.AobProgressBar.Value = 0;
             Tabs.AutoShowTab.AutoShow.As.AobProgressBar.Value = 0;
-            if (Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsOn)
-            {
-                Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsOn = false;
-            }
-
+            Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsOn = false;
             Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsEnabled = false;
             AIO_Info.IsChecked = true;
-            CategoryButton_Click(new object(), new RoutedEventArgs());
+            CategoryButton_Click(AIO_Info, new RoutedEventArgs());
 
             foreach (var visual in Window.GetChildren())
             {
@@ -348,6 +339,12 @@ public partial class MainWindow
 
                 ((ToggleSwitch)element).IsOn = false;
             }
+            
+            Tabs.Tuning.Tuning.T.ScanButton.IsEnabled = true;
+            Tabs.Self_Vehicle.SelfVehicle.Sv.ScanButton.IsEnabled = true;
+            Tabs.AutoShowTab.AutoShow.As.ScanButton.IsEnabled = true;
+            Tabs.Tuning.Tuning.T.UiManager.Reset();
+            Tabs.Self_Vehicle.SelfVehicle.Sv.UiManager.Reset();
         });
 
         ToggleButtons(false);
@@ -355,15 +352,6 @@ public partial class MainWindow
         Tabs.Tuning.Tuning.T.UiManager.ToggleUiElements(false);
         Tabs.Self_Vehicle.SelfVehicle.Sv.UiManager.ToggleUiElements(false);
         Tabs.AutoShowTab.AutoShow.As.UiManager.ToggleUiElements(false);
-
-        Dispatcher.BeginInvoke(delegate ()
-        {
-            Tabs.Tuning.Tuning.T.UiManager.Reset();
-            Tabs.Self_Vehicle.SelfVehicle.Sv.UiManager.Reset();
-            Tabs.Tuning.Tuning.T.ScanButton.IsEnabled = true;
-            Tabs.Self_Vehicle.SelfVehicle.Sv.ScanButton.IsEnabled = true;
-            Tabs.AutoShowTab.AutoShow.As.ScanButton.IsEnabled = true;
-        });
     }
 
 
@@ -380,7 +368,6 @@ public partial class MainWindow
         EnvironmentPage.FreezeAiDetour.Clear();
         LocatorEntity.WaypointDetour.Clear();
         CarEntity.BaseDetour.Clear();
-        LocatorEntity.WaypointDetour.Clear();
         MiscellaneousPage.ScaleDetour.Clear();
         MiscellaneousPage.SellDetour.Clear();
         MiscellaneousPage.Build1Detour.Clear();
@@ -398,6 +385,7 @@ public partial class MainWindow
         Clear();
     }
     #endregion
+    
     #region Exit Handling
     private void Window_Closing(object sender, CancelEventArgs e)
     {
@@ -408,7 +396,7 @@ public partial class MainWindow
         }
         catch { /* ignored */ }
 
-        if (!Attached || Gvp.Process?.MainModule == null || Gvp.Name == null)
+        if (!Attached || Gvp.Process?.MainModule == null)
         {
             Environment.Exit(0);
         }
@@ -458,7 +446,7 @@ public partial class MainWindow
             return;
         }
         
-        if (Gvp.Name != "Forza Horizon 5" && SuperCarAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
+        if (Gvp.Type == GameVerPlat.GameType.Fh4 && SuperCarAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
         {
             M.WriteArrayMemory(SuperCarAddr + 4, new byte[] { 0x0F, 0x11, 0x41, 0x10 });
             M.WriteArrayMemory(SuperCarAddr + 12, new byte[] { 0x0F, 0x11, 0x49, 0x20 });
@@ -515,7 +503,7 @@ public partial class MainWindow
         {
             Mw.M.WriteMemory(WorldCollisionThreshold, 12f);
             Mw.M.WriteMemory(CarCollisionThreshold,12f);
-            Mw.M.WriteMemory(SmashableCollisionTolerance,22f);
+            Mw.M.WriteMemory(SmashAbleCollisionTolerance,22f);
         }
 
         if (XpAmountAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
@@ -537,67 +525,68 @@ public partial class MainWindow
     }
     #endregion
 
+    #region Keybinds
+
     private void Window_OnKeyDown(object sender, KeyEventArgs e)
-    {   
-        if (!Grabbing || !IsClicked) return;
-        Grabbing = false;
+    {
+        if (!IsClicked || ClickedButton == null)
+        {
+            return;
+        }
+        
         IsClicked = false;
-        var oldKey = ClickedButton?.Content;
+        var oldKey = ClickedButton.Content;
 
-        var keyBuffer = string.Empty;
-        while (keyBuffer is { Length: 0 })
+        string keyBuffer;
+        do
         {
-            foreach (int i in Enum.GetValues(typeof(Keys)))
-            {
-                if (i is 0 or 1 or 2 or 3 or 4 or 12) continue;
-                
-                int x = DllImports.GetAsyncKeyState(i);
-                if (x is not (1 or short.MinValue)) continue;
-                
-                keyBuffer = Enum.GetName(typeof(Keys), i);
-            }
-
-            Task.Delay(5).Wait();
-        }
-        
-        if (keyBuffer == null)
-        {
-            ClickedButton!.Content = oldKey;
-            return;
-        }
-        
-        var key = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
-        
-        foreach (var field in typeof(OverlayHandling).GetFields())
-        {
-            if (field.Name != ClickedButton?.Name.Replace("Button", string.Empty))
-            {
-                continue;
-            }
+            keyBuffer = Enum.GetValues(typeof(Keys))
+                .Cast<Keys>()
+                .Where(i => i != Keys.None &&
+                            i != Keys.LButton &&
+                            i != Keys.RButton &&
+                            i != Keys.MButton &&
+                            i != Keys.XButton1 &&
+                            i != Keys.XButton2)
+                .FirstOrDefault(KeyStates.IsKeyPressed)
+                .ToString();
             
-            field.SetValue(Oh, key);
-            ClickedButton.Content = keyBuffer;
-            OverlayKeybindings.SaveKeybinds();
-            return;
-        }
+            Task.Delay(5).Wait();
+        } 
+        while (string.IsNullOrEmpty(keyBuffer));
+
+        var key = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
+        var fields = typeof(OverlayHandling).GetFields().Concat(typeof(HandlingKeybindings).GetFields());
         
-        foreach (var field in typeof(HandlingKeybindings).GetFields())
+        foreach (var field in fields)
         {
-            if (field.Name != ClickedButton?.Name.Replace("Button", string.Empty))
+            if (field.Name != ClickedButton.Name.Replace("Button", string.Empty))
             {
                 continue;
             }
 
-            field.SetValue(HandlingKeybindings.Hk, key);
+            if (field.DeclaringType == typeof(OverlayHandling))
+            {
+                field.SetValue(Oh, key);
+                OverlayKeybindings.SaveKeybinds();
+            }
+            else if (field.DeclaringType == typeof(HandlingKeybindings))
+            {
+                field.SetValue(HandlingKeybindings.Hk, key);
+                HandlingKeybindings.Hk.SaveKeybindings();
+            }
+
             ClickedButton.Content = keyBuffer;
-            HandlingKeybindings.Hk.SaveKeybindings();
-            return; 
+            return;
         }
-        ClickedButton!.Content = oldKey;
+        
+        ClickedButton.Content = oldKey;
     }
 
-    public bool Grabbing, IsClicked;
+    public bool IsClicked;
     public Button? ClickedButton;
+
+    #endregion
 }
 
 public static class GetChildrenExtension

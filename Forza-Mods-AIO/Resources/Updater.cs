@@ -19,7 +19,7 @@ public class Updater : IDisposable
     private const string UpdaterBatchFileName = $"{ProjectName}-Updater.bat";
     private static readonly Version ToolVersion = Assembly.GetExecutingAssembly().GetName().Version!;
     
-    private readonly GitHubClient _gitHubClient = new(new ProductHeaderValue("Forza-Mods-AIO"));
+    private readonly GitHubClient _gitHubClient = new(new ProductHeaderValue(ProjectName));
     private IReadOnlyList<Release>? _releases;
 
     private const string Owner = "ForzaMods";
@@ -27,22 +27,14 @@ public class Updater : IDisposable
 
     public static async Task<bool> CheckInternetConnection()
     {
-        try
-        {
-            const string url = "https://www.google.com/";
-            const int timeoutMs = 2500;
+        const string url = "https://www.google.com/";
+        const int timeoutMs = 2500;
 
-            using var cts = new CancellationTokenSource(timeoutMs);
-            using var httpClient = new HttpClient();
+        using var cts = new CancellationTokenSource(timeoutMs);
+        using var httpClient = new HttpClient();
 
-            var response = await httpClient.GetAsync(url, cts.Token);
-            response.EnsureSuccessStatusCode();
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
+        var response = await httpClient.GetAsync(url, cts.Token);
+        return response.IsSuccessStatusCode;
     }
     
     public async Task<bool> CheckForUpdates()
@@ -76,7 +68,7 @@ public class Updater : IDisposable
             response = await httpClient.GetAsync(assetUrl);
         }
         
-        if (response.StatusCode != HttpStatusCode.OK)
+        if (response.IsSuccessStatusCode)
         {
             MessageBox.Show(@"Status code was not ok. Failed to update the tool.");
             return false; 
