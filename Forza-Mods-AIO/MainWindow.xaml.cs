@@ -14,6 +14,7 @@ using ControlzEx.Theming;
 using Memory;
 using Forza_Mods_AIO.Overlay;
 using Forza_Mods_AIO.Resources;
+using Forza_Mods_AIO.Tabs.AIO_Info;
 using Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
@@ -295,6 +296,8 @@ public partial class MainWindow
         {
             AttachedLabel.Content = $"{Gvp.Name}, {Gvp.Plat}, {Gvp.Update}";
             Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsEnabled = true;
+            Tabs.AIO_Info.AioInfo.Ai.CustomTitle.IsEnabled = true;
+            Tabs.AIO_Info.AioInfo.Ai.CustomTitleText.IsEnabled = true;
         });
     }
 
@@ -325,6 +328,9 @@ public partial class MainWindow
             Tabs.AutoShowTab.AutoShow.As.AobProgressBar.Value = 0;
             Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsOn = false;
             Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsEnabled = false;
+            Tabs.AIO_Info.AioInfo.Ai.CustomTitle.IsOn = false;
+            Tabs.AIO_Info.AioInfo.Ai.CustomTitle.IsEnabled = false;
+            Tabs.AIO_Info.AioInfo.Ai.CustomTitleText.IsEnabled = false;
             AIO_Info.IsChecked = true;
             CategoryButton_Click(AIO_Info, new RoutedEventArgs());
 
@@ -400,6 +406,8 @@ public partial class MainWindow
         {
             Environment.Exit(0);
         }
+
+        Dispatcher.Invoke(() => AioInfo.Ai.CustomTitle.IsOn = false);
 
         DestroyDetours();
         RevertWrites();

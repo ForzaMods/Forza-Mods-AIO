@@ -13,19 +13,48 @@
     <Grid>
         <Button Content="Wall Colour"
                 Height="26"
-                Width="86" Margin="504,335,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="WallButton_Click"
-                Focusable="False" FontFamily="Manrope" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
+                Width="86" 
+                Margin="0 0 10 45" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Right" 
+                Click="WallButton_Click"
+                Focusable="False" 
+                FontFamily="Manrope" 
+                Background="#FF2E3440" 
+                BorderBrush="#FF2E3440"/>
+        
         <Slider x:Name="LightnessSlider"
-            HorizontalAlignment="Left"
-            Margin="504,366,0,0"
-            VerticalAlignment="Top"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Margin="0 0 10 15"
             Width="86"
             Maximum="100"
             SmallChange="1"
             LargeChange="10"
-            Value="100" Foreground="#FF2E3440" Minimum="40" BorderBrush="{x:Null}" Focusable="False"/>
-        <Label Content="Lightness" HorizontalAlignment="Left" Margin="444,366,0,0" VerticalAlignment="Top" Height="24" FontFamily="Manrope" Foreground="White"/>
-        <mah:ToggleSwitch x:Name="OverlaySwitch" Height="55" Header="Overlay" Margin="504,275,0,0" VerticalAlignment="Top" Width="114" IsEnabled="False" Toggled="OverlaySwitch_Toggled" Focusable="False"/>
+            Value="100" 
+            Foreground="#FF2E3440" 
+            Minimum="40" 
+            BorderBrush="{x:Null}"
+            Focusable="False"/>
+        
+        <Label Content="Lightness" 
+               HorizontalAlignment="Right" 
+               VerticalAlignment="Bottom" 
+               Margin="0 0 100 15" 
+               Height="24" 
+               FontFamily="Manrope" 
+               Foreground="White"/>
+        
+        <mah:ToggleSwitch x:Name="OverlaySwitch" 
+                          Height="55" 
+                          Header="Overlay" 
+                          Margin="0 0 -60 75" 
+                          VerticalAlignment="Bottom" 
+                          HorizontalAlignment="Right"
+                          Width="114" 
+                          IsEnabled="False" 
+                          Toggled="OverlaySwitch_Toggled" 
+                          Focusable="False"/>
         
         <Label VerticalAlignment="Top"
                HorizontalAlignment="Center"
@@ -100,7 +129,7 @@
         
         <Label VerticalAlignment="Top"
                HorizontalAlignment="Right"
-               Margin="27.5 125"
+               Margin="27.5 115"
                FontWeight="DemiBold"
                FontSize="15"
                Content="Useful links"/>
@@ -110,16 +139,16 @@
                FontWeight="SemiBold"
                VerticalAlignment="Top"
                HorizontalAlignment="Right"
-               Margin="45 157.5"/>
+               Margin="45 147.5"/>
         
         <Path Data="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"
               Fill="White"
               Height="25"
               Width="25"
               HorizontalAlignment="Right"
-              Margin="0 0 15 52.5"/>
+              Margin="0 0 15 72.5"/>
         
-        <Rectangle x:Name="ForzaModsDiscord" Cursor="Hand" HorizontalAlignment="Right" Height="25" Margin="0 0 15 52.5" Width="25" MouseDown="Button_OnMouseDown">
+        <Rectangle x:Name="ForzaModsDiscord" Cursor="Hand" HorizontalAlignment="Right" Height="25" Margin="0 0 15 72.5" Width="25" MouseDown="Button_OnMouseDown">
                <Rectangle.Fill>
                       <SolidColorBrush Color="Black" Opacity="0"/>
                </Rectangle.Fill>
@@ -160,12 +189,37 @@
                       Content="Ucxh/hailstalin - Freeze/modify scale of the mission timer."/>
         </StackPanel>
         
+        <StackPanel Orientation="Horizontal"
+                    Margin="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom">
+               
+               <Label x:Name="VersionLabel"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Left"
+                      FontSize="14"
+                      Content="Version: "/>
         
-        <Label x:Name="VersionLabel"
-               VerticalAlignment="Bottom"
-               HorizontalAlignment="Left"
-               Margin="15"
-               FontSize="14"
-               Content="Version: "/>
+               <mah:ToggleSwitch x:Name="CustomTitle" 
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 Margin="10 0 0 0"
+                                 Content="Custom Process Title"
+                                 FontSize="11.5"
+                                 IsEnabled="False"
+                                 Toggled="CustomTitle_OnToggled"/>
+        
+               <TextBox x:Name="CustomTitleText" 
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="10, 0"
+                        Width="120"
+                        BorderThickness="0"
+                        Background="#FF2E3440"
+                        IsEnabled="False"
+                        TextChanged="TextBoxBase_OnTextChanged"/>
+        </StackPanel>
+        
+        
     </Grid>
 </Page>

@@ -37,6 +37,11 @@ internal abstract partial class DllImports
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern void GetWindowRect(IntPtr handle, ref Rectangle rect);
 
+    
+    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool SetWindowText(IntPtr hWnd, string lpString);
+    
     public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
     
     [LibraryImport("user32.dll")]
