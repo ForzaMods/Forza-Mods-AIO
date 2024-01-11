@@ -6,7 +6,7 @@
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
       mc:Ignorable="d" d:DesignWidth="580"
       Title="HandlingPage" 
-      Height="555"
+      Height="570"
       Background="Transparent">
 
     <Grid>
@@ -563,18 +563,20 @@
                             ValueChanged="SuperBrakeSlider_OnValueChanged"/>
                 </Grid>
             </Border>
+            <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0">
+                
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+            
+                    <mah:ToggleSwitch x:Name="SuperCarSwitch" Content="Super Car" MinWidth="0" FontSize="11" Toggled="SuperCarSwitch_Toggled"/>
+                    <mah:ToggleSwitch x:Name="WaterDragSwitch" Margin="20 0 0 0" Content="Stop Water Drag" MinWidth="0" FontSize="11" Toggled="WaterDragSwitch_Toggled"/>
+                    <mah:ToggleSwitch x:Name="WallNoClipSwitch" Margin="20 0" Content="Wall Noclip" MinWidth="0" FontSize="11" Toggled="WallNoClipSwitch_OnToggled"/>
+                    <mah:ToggleSwitch x:Name="CarNoClipSwitch" Content="Car Noclip" MinWidth="0" FontSize="11" Toggled="CarNoClipSwitch_OnToggled"/>
+
+                </StackPanel>
+            </Border>
         </StackPanel>
         
-        <StackPanel Orientation="Horizontal"
-                    VerticalAlignment="Bottom"
-                    HorizontalAlignment="Center"
-                    Margin="0, 0, 0, 10">
-            
-            <mah:ToggleSwitch x:Name="SuperCarSwitch" Content="Super Car" MinWidth="0" FontSize="11" Toggled="SuperCarSwitch_Toggled"/>
-            <mah:ToggleSwitch x:Name="WaterDragSwitch" Margin="20 0 0 0" Content="Stop Water Drag" MinWidth="0" FontSize="11" Toggled="WaterDragSwitch_Toggled"/>
-            <mah:ToggleSwitch x:Name="WallNoClipSwitch" Margin="20 0" Content="Wall Noclip" MinWidth="0" FontSize="11" Toggled="WallNoClipSwitch_OnToggled"/>
-            <mah:ToggleSwitch x:Name="CarNoClipSwitch" Content="Car Noclip" MinWidth="0" FontSize="11" Toggled="CarNoClipSwitch_OnToggled"/>
-
-        </StackPanel>
     </Grid>
 </Page>
