@@ -14,29 +14,52 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.Features;
 
 public abstract class FlyHack : FeatureBase
 {
+    private static float _originalGrav;
+    private static float _rotSpeed = 1f;
+    private static float _moveSpeed = 1f;
+    
+    public static void SetRotSpeed(double? newValue) => _rotSpeed = ToSingle(newValue);
+    public static void SetMoveSpeed(double? newValue) => _moveSpeed = ToSingle(newValue);
+    
+
     public static void Run()
     {
-        if (!IsProcessValid())
+        Shp.Dispatcher.Invoke(() => Shp.GravitySetSwitch.IsEnabled = !Shp.GravitySetSwitch.IsEnabled);
+        if (!Shp.Dispatcher.Invoke(() => Shp.FlyHackSwitch.IsOn))
         {
+            Gravity = _originalGrav;
             return;
         }
+
+        Shp.Dispatcher.Invoke(() => Shp.GravitySetSwitch.IsOn = false);
+        
+        var count = 0;
+        while (_originalGrav == 0 && count < 50)
+        {
+            ++count;
+            _originalGrav = Gravity;
+            Task.Delay(5).Wait();
+        }
+        
+        Gravity = 0f;
         
         bool aDown = false, dDown = false;
         bool wDown = false, sDown = false, shiftDown = false, controlDown = false;
 
         while (true)
         {
-            if (!Shp.Dispatcher.Invoke(() => Shp.FlyHackSwitch.IsOn))
+            if (!IsProcessValid() || !Shp.Dispatcher.Invoke(() => Shp.FlyHackSwitch.IsOn))
             {
-                break;
+                return;
             }
 
-            LinearVelocity = new Vector3 { X = 0f, Z = 0f, Y = 0f };
-            AngularVelocity = new Vector3 { X = 0f, Z = 0f, Y = 0f };
+            var cleanVector = new Vector3(0);
+            LinearVelocity = cleanVector;
+            AngularVelocity = cleanVector;
                 
             if (Mw.Gvp.Process.MainWindowHandle != GetForegroundWindow())
             {
-                Task.Delay(25).Wait();
+                Task.Delay(10).Wait();
                 continue;
             }
 
@@ -49,27 +72,17 @@ public abstract class FlyHack : FeatureBase
 
             if (aDown || dDown)
             {
-                var flyHackRotSpeed = 1f;
-                Shp.Dispatcher.Invoke(() => flyHackRotSpeed = ToSingle(Shp.FlyHackRotSpeedNum.Value / 2));
-                HandleRotation(flyHackRotSpeed, aDown);
+                HandleRotation(aDown);
             }
 
-            var angle = (float)((float)Atan2(Rotation.M13, Rotation.M11) * (180 / PI));
-            if (angle < 0)
-            {
-                angle += 360;
-            }
-                    
-            var flyHackMoveSpeed = Shp.Dispatcher.Invoke(() => ToSingle(Shp.FlyHackMoveSpeedNum.Value / 2));
-            HandleMovement(angle, flyHackMoveSpeed, wDown, sDown, shiftDown, controlDown);
-                
+            HandleMovement(wDown, sDown, shiftDown, controlDown);
             Task.Delay(10).Wait();
         }
     }
     
-    private static void HandleRotation(float speed, bool aDown)
+    private static void HandleRotation(bool aDown)
     {
-        var angle = (aDown ? -1 : 1) * speed / 25;
+        var angle = (aDown ? -1 : 1) * _rotSpeed / 25;
         var rotationQuaternion = Quaternion.CreateFromAxisAngle(Vector3.UnitY, angle);
         var rotationMatrix = Matrix4x4.CreateFromQuaternion(rotationQuaternion);
         Rotation *= rotationMatrix;
@@ -79,72 +92,21 @@ public abstract class FlyHack : FeatureBase
     private const float FrictionFactor = 0.95f;
     private const float FlyHackSpeed = 1.25f;
     
-    private static void HandleMovement(float angle, float speed, bool wDown, bool sDown, bool shiftDown, bool controlDown)
+    private static void HandleMovement(bool wDown, bool sDown, bool shiftDown, bool controlDown)
     {
         float xComp = 0f, zComp = 0f;
 
         if (wDown)
         {
-            switch (angle)
-            {
-                case < 90:
-                {
-                    xComp = -(float)Sin(PI * angle / 180);
-                    zComp = (float)Cos(PI * angle / 180);
-                    break;
-                }
-                case > 90 and < 180:
-                {
-                    xComp = -(float)Sin(PI * (180 - angle) / 180);
-                    zComp = -(float)Cos(PI * (180 - angle) / 180);
-                    break;
-                }
-                case > 180 and < 270:
-                {
-                    xComp = (float)Cos(PI * (270 - angle) / 180);
-                    zComp = -(float)Sin(PI * (270 - angle) / 180);
-                    break;
-                }
-                case > 270:
-                {
-                    xComp = (float)Sin(PI * (360 - angle) / 180);
-                    zComp = (float)Cos(PI * (360 - angle) / 180);
-                    break;
-                }
-            }
+            HandleForwardMovement(ref xComp, ref zComp);
         }
         else if (sDown)
         {
-            switch (angle)
-            {
-                case < 90:
-                {
-                    xComp = (float)Sin(PI * angle / 180);
-                    zComp = -(float)Cos(PI * angle / 180);
-                    break;
-                }
-                case > 90 and < 180:
-                {
-                    xComp = (float)Sin(PI * (180 - angle) / 180);
-                    zComp = (float)Cos(PI * (180 - angle) / 180);
-                    break;
-                }
-                case > 180 and < 270:
-                {
-                    xComp = -(float)Cos(PI * (270 - angle) / 180);
-                    zComp = (float)Sin(PI * (270 - angle) / 180);
-                    break;
-                }
-                case > 270:
-                {
-                    xComp = -(float)Sin(PI * (360 - angle) / 180);
-                    zComp = -(float)Cos(PI * (360 - angle) / 180);
-                    break;
-                }
-            }
+            HandleBackwardMovement(ref xComp, ref zComp);
         }
-        
-        var newVelocity = new Vector3(speed * FlyHackSpeed * xComp, 0f, speed * FlyHackSpeed * zComp);
+
+        var speed = _moveSpeed * FlyHackSpeed;
+        var newVelocity = new Vector3(speed * xComp, 0f, speed * zComp);
 
         if (wDown || sDown)
         {
@@ -157,14 +119,14 @@ public abstract class FlyHack : FeatureBase
         
         if (shiftDown)
         {
-            _flyHackVelocity += new Vector3(0f, speed * FlyHackSpeed, 0f);
+            _flyHackVelocity += new Vector3(0f, speed, 0f);
         }
         else if (controlDown)
         {
-            _flyHackVelocity += new Vector3(0f, -speed * FlyHackSpeed, 0f);
+            _flyHackVelocity += new Vector3(0f, -speed, 0f);
         }
         
-        var maxSpeed = speed * 4;
+        var maxSpeed = _moveSpeed * 2;
         var currentSpeed = _flyHackVelocity.Length();
         if (currentSpeed > maxSpeed)
         {
@@ -172,5 +134,74 @@ public abstract class FlyHack : FeatureBase
         }
 
         Position += _flyHackVelocity;
+    }
+
+    private static void HandleForwardMovement(ref float xComp, ref float zComp)
+    {
+        var angle = GetAngle();
+        switch (angle)
+        {
+            case < 90:
+            {
+                xComp = -ToSingle(Sin(PI * angle / 180));
+                zComp = ToSingle(Cos(PI * angle / 180));
+                break;
+            }
+            case > 90 and < 180:
+            {
+                xComp = -ToSingle(Sin(PI * (180 - angle) / 180));
+                zComp = -ToSingle(Cos(PI * (180 - angle) / 180));
+                break;
+            }
+            case > 180 and < 270:
+            {
+                xComp = ToSingle(Cos(PI * (270 - angle) / 180));
+                zComp = -ToSingle(Sin(PI * (270 - angle) / 180));
+                break;
+            }
+            case > 270:
+            {
+                xComp = ToSingle(Sin(PI * (360 - angle) / 180));
+                zComp = ToSingle(Cos(PI * (360 - angle) / 180));
+                break;
+            }
+        }
+    }
+
+    private static void HandleBackwardMovement(ref float xComp, ref float zComp)
+    {
+        var angle = GetAngle();
+        switch (angle)
+        {
+            case < 90:
+            {
+                xComp = ToSingle(Sin(PI * angle / 180));
+                zComp = -ToSingle(Cos(PI * angle / 180));
+                break;
+            }
+            case > 90 and < 180:
+            {
+                xComp = ToSingle(Sin(PI * (180 - angle) / 180));
+                zComp = ToSingle(Cos(PI * (180 - angle) / 180));
+                break;
+            }
+            case > 180 and < 270:
+            {
+                xComp = -ToSingle(Cos(PI * (270 - angle) / 180));
+                zComp = ToSingle(Sin(PI * (270 - angle) / 180));
+                break;
+            }
+            case > 270:
+            {
+                xComp = -ToSingle(Sin(PI * (360 - angle) / 180));
+                zComp = -ToSingle(Cos(PI * (360 - angle) / 180));
+                break;
+            }
+        }
+    }
+
+    private static float GetAngle()
+    {
+        return ToSingle(Atan2(Rotation.M13, Rotation.M11) * (180 / PI));
     }
 }

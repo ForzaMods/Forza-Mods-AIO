@@ -279,11 +279,14 @@ public class Detour : Asm
         {
             return;
         }
-        
-        toggleSwitch.Toggled -= action;
-        toggleSwitch.IsOn = false;
-        toggleSwitch.Toggled += action;
-        
+
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            toggleSwitch.Toggled -= action;
+            toggleSwitch.IsOn = false;
+            toggleSwitch.Toggled += action;
+        });
+
         const string fh4String = "This feature was never ported to FH4";
         const string failedString = "Failed";
         MessageBox.Show(fh4 ? fh4String : failedString);

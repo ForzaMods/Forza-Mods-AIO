@@ -4,6 +4,7 @@ using MahApps.Metro.Controls;
 using static System.Convert;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
 using static Forza_Mods_AIO.MainWindow;
+using static Forza_Mods_AIO.Resources.GameVerPlat.GameType;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
@@ -14,10 +15,10 @@ public partial class UnlocksPage
 {
     public static UnlocksPage Unlocks { get; private set; } = null!;
     public static readonly Detour CrDetour = new(), XpDetour = new(), SeasonalDetour = new(), SeriesDetour = new();
-    public static readonly Detour CrCompareDetour = new(), SpinsDetour = new(), SkillPointsDetour = new();
+    public static readonly Detour CrCmpDetour = new(), SpinsDetour = new(), SkillPointsDetour = new();
     private const string CrDetourBytesFh4 = "48 8B 05 2E 00 00 00 89 84 24 80 00 00 00";
     private const string CrDetourBytesFh5 = "56 51 48 8B 35 29 00 00 00 48 8B 0E 48 83 F9 00 74 12 48 8D 49 70 39 01 75 0A 48 8B 0D 19 00 00 00 48 8B C1 5E 59 89 84 24 80 00 00 00";
-    private const string CrCompareBytes = "48 89 1D 05 00 00 00";
+    private const string CrCmpBytes = "48 89 1D 05 00 00 00";
     private const string XpDetourFh4 = "41 54 F3 0F 2C C6 4C 8B 25 1E 00 00 00 4C 89 65 B8 41 5C";
     private const string XpDetourFh5 = "41 54 F3 0F 2C C6 4C 8B 25 1E 00 00 00 4C 89 65 B0 41 5C";
     private const string Seasonal = "F3 0F 10 35 0A 00 00 00 F3 0F 11 71 28";
@@ -40,7 +41,7 @@ public partial class UnlocksPage
 
         const string main = "89 84 24 80 00 00 00";
         
-        if (Mw.Gvp.Name.Contains('4') && !CrDetour.Setup(sender, CreditsHookAddr, main, CrDetourBytesFh4, 7, true))
+        if (Mw.Gvp.Type == Fh4 && !CrDetour.Setup(sender, CreditsHookAddr, main, CrDetourBytesFh4, 7, true))
         {
             Detour.FailedHandler(sender, CreditsSwitch_OnToggled);
             CrDetour.Clear();
@@ -48,24 +49,23 @@ public partial class UnlocksPage
         }
 
         const string compare = "FF 43 08 48 8D 44 24 20";
-        if (Mw.Gvp.Name.Contains('5') && 
-            !CrCompareDetour.Setup(sender,CreditsCompareAddr, compare, CrCompareBytes, 8, true, 0, true))
+        if (Mw.Gvp.Type == Fh5 && !CrCmpDetour.Setup(sender,CreditsCompareAddr, compare, CrCmpBytes, 8, true, 0, true))
         {
             Detour.FailedHandler(sender, CreditsSwitch_OnToggled);
-            CrCompareDetour.Clear();
+            CrCmpDetour.Clear();
             return;
         }
 
-        if (Mw.Gvp.Name.Contains('5') && !CrDetour.Setup(sender, CreditsHookAddr,main, CrDetourBytesFh5, 7, true))
+        if (Mw.Gvp.Type == Fh5 && !CrDetour.Setup(sender, CreditsHookAddr,main, CrDetourBytesFh5, 7, true))
         {
             Detour.FailedHandler(sender, CreditsSwitch_OnToggled);
             CrDetour.Clear();
             return;
         }
 
-        if (Mw.Gvp.Name.Contains('5'))
+        if (Mw.Gvp.Type == Fh5)
         {
-            CrDetour.UpdateVariable(CrCompareDetour.VariableAddress);
+            CrDetour.UpdateVariable(CrCmpDetour.VariableAddress);
             CrDetour.UpdateVariable(ToInt32(CreditsNum.Value), 8);
         }
         else
@@ -74,7 +74,7 @@ public partial class UnlocksPage
         }
         
         CrDetour.Toggle();
-        CrCompareDetour.Toggle();
+        CrCmpDetour.Toggle();
     }
     
     
@@ -85,7 +85,7 @@ public partial class UnlocksPage
             return;
         }
 
-        if (Mw.Gvp.Name.Contains('5'))
+        if (Mw.Gvp.Type == Fh5)
         {
             CrDetour.UpdateVariable(ToInt32(CreditsNum.Value), 8);
         }
@@ -102,7 +102,7 @@ public partial class UnlocksPage
             return;
         }
         
-        var xpDetourBytes = Mw.Gvp.Type == GameVerPlat.GameType.Fh5 ? XpDetourFh5 : XpDetourFh4;
+        var xpDetourBytes = Mw.Gvp.Type == Fh5 ? XpDetourFh5 : XpDetourFh4;
         const string fh5 = "F3 0F 2C C6 89 45 B0";
         
         if (!XpDetour.Setup(sender, XpAddr, fh5, xpDetourBytes, 7, true, 19))
@@ -120,7 +120,7 @@ public partial class UnlocksPage
         }
         else
         {
-            Mw.M.WriteArrayMemory(XpAmountAddr, Mw.Gvp.Type == GameVerPlat.GameType.Fh5
+            Mw.M.WriteArrayMemory(XpAmountAddr, Mw.Gvp.Type == Fh5
                 ? new byte[] { 0x8B, 0x89, 0x88, 0x00, 0x00, 0x00 }
                 : new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
         }

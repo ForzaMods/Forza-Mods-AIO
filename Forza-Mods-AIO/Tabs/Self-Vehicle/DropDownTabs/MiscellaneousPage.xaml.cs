@@ -23,8 +23,7 @@ public partial class MiscellaneousPage
     private const string Build1Fh5 = "F3 0F 11 83 4C 04 00 00 C7 83 4C 04 00 00 00 00 00 00";
     private const string Build2Fh4 = "F3 0F 11 43 30 C7 43 30 00 00 00 00";
     private const string Build2Fh5 = "F3 0F 11 43 44 C7 43 44 00 00 00 00";
-    private const string SkillDetourFh4 = "48 89 1D 05 00 00 00";
-    private const string SkillDetourFh5 = "48 89 0D 05 00 00 00";
+    private const string SkillDetour = "48 89 1D 05 00 00 00";
     private const string ScaleFh5 = "F3 0F 10 35 05 00 00 00";
     private const string ScaleFh4 = "F3 0F 59 05 05 00 00 00";
     private const string SellFh5 = "44 8B 35 05 00 00 00";
@@ -52,15 +51,16 @@ public partial class MiscellaneousPage
             return;
         }
 
-        var build1 = Mw.Gvp.Name!.Contains('5') ? Build1Fh5 : Build1Fh4;
-        var build2 = Mw.Gvp.Name!.Contains('5') ? Build2Fh5 : Build2Fh4;
+        var isFh5 = Mw.Gvp.Type == GameVerPlat.GameType.Fh5;
+        var build1 = isFh5 ? Build1Fh5 : Build1Fh4;
+        var build2 = isFh5 ? Build2Fh5 : Build2Fh4;
         const string build1OrigFh5 = "F3 0F11 83 4C040000";
         const string build1OrigFh4 = "F3 0F11 B3 DC030000";
         const string build2OrigFh5 = "F3 0F 11 43 44";
         const string build2OrigFh4 = "F3 0F 11 43 30";
 
-        var orig1 = Mw.Gvp.Name!.Contains('5') ? build1OrigFh5 : build1OrigFh4;
-        var orig2 = Mw.Gvp.Name!.Contains('5') ? build2OrigFh5 : build2OrigFh4;
+        var orig1 = isFh5 ? build1OrigFh5 : build1OrigFh4;
+        var orig2 = isFh5 ? build2OrigFh5 : build2OrigFh4;
         
         if (!Build1Detour.Setup(sender, BuildAddr1, orig1, build1, 8) || 
             !Build2Detour.Setup(sender, BuildAddr2, orig2, build2, 5))
@@ -75,7 +75,7 @@ public partial class MiscellaneousPage
         Build2Detour.Toggle();
     }
 
-    private void Skill_OnToggled(object sender, RoutedEventArgs e)
+    private async void Skill_OnToggled(object sender, RoutedEventArgs e)
     {
         if (!Mw.Attached)
         {
@@ -84,7 +84,7 @@ public partial class MiscellaneousPage
 
         if (!WasSkillDetoured)
         {
-            GetSkillAddresses(sender);
+            await GetSkillAddresses(sender);
             WasSkillDetoured = true;
             return;
         }
@@ -94,30 +94,20 @@ public partial class MiscellaneousPage
         Mw.M.WriteMemory(SmashAbleCollisionTolerance,SkillToggle.IsOn ? 9999999999f : 22f);
     }
 
-    private async void GetSkillAddresses(object sender)
+    private async Task GetSkillAddresses(object sender)
     {
-        if (!Mw.Attached)
-        {
-            return;
-        }
-
-        var bytes = Mw.Gvp.Name.Contains('4') ? SkillDetourFh4 : SkillDetourFh5;
-        var replace = Mw.Gvp.Name.Contains('4') ? 6 : 5;
-        const string fh5 = "F3 0F 10 41 2C";
-        const string fh4 = "48 8B 10 48 8B C8";
-
-        var orig = Mw.Gvp.Name.Contains('4') ? fh4 : fh5;
+        Dispatcher.Invoke(() => SkillToggle.IsEnabled = false);
         
-        if (!UnbSkillDetour.Setup(SkillToggle, UnbSkillHook, orig, bytes, replace, true, 0, true))
+        const string orig = "48 8B 10 48 8B C8";
+        if (!UnbSkillDetour.Setup(null, UnbSkillHook, orig, SkillDetour, 6, true, 0, true))
         {
             Detour.FailedHandler(sender, Skill_OnToggled);
             UnbSkillDetour.Clear();
             return;
         }
 
-        SkillToggle.IsEnabled = false;
-
-        await Task.Run(() =>
+        var taskCompletionSource = new TaskCompletionSource<bool>();
+        Task.Run(() =>
         {
             while ((WorldCollisionThreshold = UnbSkillDetour.ReadVariable<UIntPtr>()) == 0)
             {
@@ -135,9 +125,11 @@ public partial class MiscellaneousPage
             
             UnbSkillDetour.Destroy();
             UnbSkillDetour.Clear();
+            taskCompletionSource.SetResult(true);
         });
-        
-        SkillToggle.IsEnabled = true;
+
+        await taskCompletionSource.Task;
+        Dispatcher.Invoke(() => SkillToggle.IsEnabled = true);
     }
 
     private void SellFactorSwitch_OnToggled(object sender, RoutedEventArgs e)

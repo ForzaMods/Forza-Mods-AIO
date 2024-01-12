@@ -177,7 +177,7 @@ internal class SelfVehicleAddresses
         Sv.UiManager.AddProgress();
 
         const string unbSkillSig = "48 8B ? ? E8 ? ? ? ? 48 8B ? 48 8B ? FF 92 ? ? ? ? 84 C0 0F 85";
-        UnbSkillHook = Mw.M.ScanForSig(unbSkillSig).FirstOrDefault() + 13;
+        UnbSkillHook = Mw.M.ScanForSig(unbSkillSig).FirstOrDefault() + 9;
         Sv.UiManager.AddProgress();
 
         const string glowingPaintSig = "0F 11 0A C6 42 F0 01";

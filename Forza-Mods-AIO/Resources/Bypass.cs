@@ -93,6 +93,12 @@ public abstract class Bypass
         }
         
         checkAddr += Mw.Gvp.Plat == "MS" ? (UIntPtr)325 : 333;
+
+        if (Mw.M.ReadMemory<byte>(checkAddr) == 0xE9)
+        {
+            return true;
+        }
+        
         var procHandle = Mw.Gvp.Process.Handle;
         var memSize = (uint)Mw.Gvp.Process.MainModule.ModuleMemorySize;
         
@@ -130,7 +136,13 @@ public abstract class Bypass
             return false;
         }
 
-        checkAddr += Mw.Gvp.Plat == "MS" ? (UIntPtr)329 : 337;
+        checkAddr += 329;
+        
+        if (Mw.M.ReadMemory<byte>(checkAddr) == 0xE9)
+        {
+            return true;
+        }
+
         var procHandle = Mw.Gvp.Process.Handle;
         var memSize = (uint)Mw.Gvp.Process.MainModule.ModuleMemorySize;
 

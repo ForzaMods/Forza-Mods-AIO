@@ -28,7 +28,8 @@
                                   Margin="7.5 0 0 0"
                                   SelectedIndex="0"
                                   Background="#FF2E3440" 
-                                  BorderBrush="#FF2E3440">
+                                  BorderBrush="#FF2E3440"
+                                  SelectionChanged="VelModeBox_OnSelectionChanged">
                                 
                             <ComboBoxItem Content="Dynamic"/>
                             <ComboBoxItem Content="Direct"/>
@@ -80,7 +81,8 @@
                                            TrackMouseWheelWhenMouseOver="True" 
                                            Culture="en-GB" 
                                            Background="#FF2E3440" 
-                                           BorderBrush="#FF2E3440"/>
+                                           BorderBrush="#FF2E3440"
+                                           ValueChanged="VelLimitBox_OnValueChanged"/>
                             
         
                     </StackPanel>
@@ -132,7 +134,8 @@
                                            TrackMouseWheelWhenMouseOver="True" 
                                            Culture="en-GB" 
                                            Background="#FF2E3440" 
-                                           BorderBrush="#FF2E3440"/>
+                                           BorderBrush="#FF2E3440"
+                                           ValueChanged="StrengthBox_OnValueChanged"/>
                         
                         
                         <Label Content="Interval" 
@@ -155,7 +158,8 @@
                                            TrackMouseWheelWhenMouseOver="True" 
                                            Culture="en-GB" 
                                            Background="#FF2E3440" 
-                                           BorderBrush="#FF2E3440"/>
+                                           BorderBrush="#FF2E3440"
+                                           ValueChanged="IntervalBox_OnValueChanged"/>
                         
                         
                     
@@ -169,7 +173,8 @@
                                   Width="78.5"
                                   VerticalAlignment="Center" 
                                   Background="#FF2E3440" 
-                                  BorderBrush="#FF2E3440">
+                                  BorderBrush="#FF2E3440"
+                                  SelectionChanged="WheelSpeedModeBox_OnSelectionChanged">
                             <ComboBoxItem Content="Static"/>
                             <ComboBoxItem Content="Linear"/>
                             <ComboBoxItem Content="Power"/>
@@ -292,7 +297,8 @@
                                        TrackMouseWheelWhenMouseOver="True" 
                                        Culture="en-GB" 
                                        Background="#FF2E3440" 
-                                       BorderBrush="#FF2E3440"/>
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="TurnAssistStrengthBox_OnValueChanged"/>
                     
                     
                     <Label Content="Interval" 
@@ -314,7 +320,8 @@
                                        UpDownButtonsFocusable="False" 
                                        TrackMouseWheelWhenMouseOver="True"
                                        Background="#FF2E3440" 
-                                       BorderBrush="#FF2E3440"/>
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="TurnAssistIntervalBox_OnValueChanged"/>
                     
                     
                     <Label Content="Ratio" 
@@ -337,7 +344,8 @@
                                        TrackMouseWheelWhenMouseOver="True" 
                                        Culture="en-GB" 
                                        Background="#FF2E3440" 
-                                       BorderBrush="#FF2E3440"/>
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="TurnAssistRatioBox_OnValueChanged"/>
                     
                 </Grid>
             </Border>
@@ -415,7 +423,8 @@
                                        TrackMouseWheelWhenMouseOver="True" 
                                        Background="#FF2E3440" 
                                        BorderBrush="#FF2E3440"
-                                       Width="90"/>
+                                       Width="90"
+                                       ValueChanged="FlyHackMoveSpeedNum_OnValueChanged"/>
                     
                     <Label Content="Rotation Speed" 
                            HorizontalAlignment="Center" 
@@ -436,7 +445,8 @@
                                        UpDownButtonsFocusable="False" 
                                        TrackMouseWheelWhenMouseOver="True" 
                                        Background="#FF2E3440" 
-                                       BorderBrush="#FF2E3440"/>
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="FlyHackRotSpeedNum_OnValueChanged"/>
                     
                     
                 </Grid>

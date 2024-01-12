@@ -12,18 +12,18 @@ public abstract class Modifiers : FeatureBase
 {
     public static void Run(ToggleSwitch setSwitch)
     {
-        if (!IsProcessValid())
-        {
-            return;
-        }
-        
-        var isGravity = setSwitch.Name.Contains("Gravity");
+        var isGravity = Shp.Dispatcher.Invoke(() => setSwitch.Name.Contains("Gravity"));
         var valueNum = isGravity ? Shp.GravityValueNum : Shp.AccelValueNum;
         var original = isGravity ? Gravity : Acceleration;
         var lastPlayerEnt = PlayerCarEntity;
         
         while (true)
         {
+            if (!IsProcessValid())
+            {
+                return;
+            }
+
             Task.Delay(100).Wait();
             if (!Shp.Dispatcher.Invoke(() => setSwitch.IsOn))
             {

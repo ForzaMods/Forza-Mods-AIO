@@ -73,6 +73,7 @@
                                        Width="100"
                                        TextAlignment="Left"
                                        Minimum="1"
+                                       Maximum="2147483647"
                                        Value="10"
                                        TrackMouseWheelWhenMouseOver="True"
                                        Background="#FF2E3440"
@@ -98,6 +99,7 @@
                                        TextAlignment="Left"
                                        Minimum="1"
                                        Value="100"
+                                       Maximum="2147483647"
                                        ParsingNumberStyle="Integer"
                                        NumericInputMode="Numbers"
                                        TrackMouseWheelWhenMouseOver="True"
@@ -260,6 +262,8 @@
                                    ParsingNumberStyle="Integer"
                                    TextAlignment="Left"
                                    Value="10000"
+                                   Minimum="-2147483647"
+                                   Maximum="2147483647"
                                    ValueChanged="SkillTreeNum_OnValueChanged"/>
                 
                 <mah:ToggleSwitch x:Name="SkillCostToggle"
@@ -282,6 +286,8 @@
                                    ParsingNumberStyle="Integer"
                                    TextAlignment="Left"
                                    Value="0"
+                                   Minimum="-2147483647"
+                                   Maximum="2147483647"
                                    ValueChanged="SkillCostNum_OnValueChanged"/>
                 
             </Grid>

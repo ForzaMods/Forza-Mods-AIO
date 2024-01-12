@@ -18,22 +18,37 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.Features;
 
 public abstract class WheelSpeed : FeatureBase
 {
-    private static float _boostFactor;
-
-    public static void SetBoostFactor(double? newValue)
+    private enum Mode
     {
-        _boostFactor = ToSingle(newValue);
+        Static,
+        Linear,
+        Power,
+        Random,
+        Jitter,
+        Pulse,
+        Sway,
+        Surge,
+        Mixed,
+        Accel
     }
+    
+    private static int _interval = 1;
+    private static float _boostFactor = 10f;
+    private static Mode _mode = Mode.Static;
+    
+    public static void SetInterval(double? newValue) => _interval = ToInt32(newValue);
+    public static void SetBoostFactor(double? newValue) => _boostFactor = ToSingle(newValue);
+    public static void SetMode(int index) => _mode = (Mode)index;
     
     public static void Run()
     {
-        if (!IsProcessValid())
-        {
-            return;
-        }
-
         while (true)
         {
+            if (!IsProcessValid())
+            {
+                return;
+            }
+
             if (!Shp.Dispatcher.Invoke(() => Shp.WheelSpeedSwitch.IsOn))
             {
                 return;
@@ -41,91 +56,78 @@ public abstract class WheelSpeed : FeatureBase
 
             if (!IsKeyPressed(Hk.WheelspeedHack) && !Mw.Gamepad.IsButtonPressed(WheelspeedHackController))
             {
-                Task.Delay(25).Wait();
+                Task.Delay(_interval).Wait();
                 continue;
             }
 
             if (Mw.Gvp.Process.MainWindowHandle != GetForegroundWindow())
             {
-                Task.Delay(25).Wait();
+                Task.Delay(_interval).Wait();
                 continue;
             }
-            
-            var mode = Shp.Dispatcher.Invoke(() => ((ComboBoxItem)Shp.WheelSpeedModeBox.SelectedItem).Content.ToString());
-            var interval = Shp.Dispatcher.Invoke(() => ToInt32(Shp.IntervalBox.Value));
 
-            CallWheelSpeed(mode);
-            Task.Delay(interval).Wait();
+            CallWheelSpeed();
+            Task.Delay(_interval).Wait();
         }
     }
 
-    private static void CallWheelSpeed(string? mode)
+    private static void CallWheelSpeed()
     {
-        if (mode == null)
+        switch (_mode)
         {
-            throw new ArgumentException(@"Mode cant be null", nameof(mode));
-        }
-        
-        switch (mode)
-        {
-            case "Static":
+            case Mode.Static:
             {
                 StaticWheelSpeed();
                 break;
             }
-                        
-            case "Linear":
+            case Mode.Linear:
             {
                 LinearWheelSpeed();
                 break;
             }
-                    
-            case "Power":
+            case Mode.Power:
             {
                 PowerWheelSpeed();
                 break;
             }
-                    
-            case "Random":
+            case Mode.Random:
             {
                 RandomWheelSpeed();
                 break;
             }
-                    
-            case "Jitter":
+            case Mode.Jitter:
             {
                 JitterWheelSpeed();
                 break;
             }
-                    
-            case "Pulse":
+            case Mode.Pulse:
             {
                 PulseWheelSpeed();
                 break;
             }
-                    
-            case "Sway":
+            case Mode.Sway:
             {
                 SwayWheelSpeed();
                 break;
             }
-                    
-            case "Surge":
+            case Mode.Surge:
             {
                 SurgeWheelSpeed();
                 break;
             }
-                    
-            case "Mixed":
+            case Mode.Mixed:
             {
                 MixedWheelSpeed();
                 break;
             }
-                    
-            case "Accel":
+            case Mode.Accel:
             {
                 AccelWheelSpeed();
                 break;
+            }
+            default:
+            {
+                throw new ArgumentOutOfRangeException();
             }
         }
         
@@ -134,7 +136,6 @@ public abstract class WheelSpeed : FeatureBase
     private static void StaticWheelSpeed()
     {
         var currentWheelSpeed = AverageWheelSpeed;
-        
         var boostStrength = _boostFactor / 10;
         
         if (boostStrength < 0)
@@ -149,7 +150,6 @@ public abstract class WheelSpeed : FeatureBase
     private static void LinearWheelSpeed()
     {
         var currentWheelSpeed = AverageWheelSpeed;
-        
         var boostStrength = _boostFactor / 10 - 1 + (currentWheelSpeed - 100) / 100 * -5;
         
         if (boostStrength <= 0)

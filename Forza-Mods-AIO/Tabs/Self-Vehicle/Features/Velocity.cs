@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System;
+using System.Threading.Tasks;
 using Forza_Mods_AIO.Resources;
 
 using static System.Convert;
@@ -12,15 +12,31 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.Features;
 
 public abstract class Velocity : FeatureBase
 {
+    private enum Mode
+    {
+        Dynamic,
+        Direct
+    }
+    
+    private const int Interval = 50;
+
+    private static float _limit = 300f;
+    private static float _boost = 5f;
+    private static Mode _mode;
+
+    public static void SetLimit(double? newValue) => _limit = ToSingle(newValue);
+    public static void SetBoost(double? newValue) => _boost = ToSingle(newValue);
+    public static void SetMode(int newValue) => _mode = (Mode)newValue;
+    
     public static void Run()
     {
-        if (!IsProcessValid())
-        {
-            return;
-        }
-
         while (true)
         {
+            if (!IsProcessValid())
+            {
+                return;
+            }
+
             if (!Shp.Dispatcher.Invoke(() => Shp.VelocitySwitch.IsOn))
             {
                 return;
@@ -28,50 +44,36 @@ public abstract class Velocity : FeatureBase
         
             if (MainWindow.Mw.Gvp.Process.MainWindowHandle != DllImports.GetForegroundWindow())
             {
-                Task.Delay(25).Wait();
+                Task.Delay(Interval).Wait();
                 continue;
             }
         
             if (!IsKeyPressed(Hk.VelHack) && !MainWindow.Mw.Gamepad.IsButtonPressed(VelHackController))
             {
-                Task.Delay(25).Wait();
+                Task.Delay(Interval).Wait();
                 continue;
             }
         
-            var limit = Shp.Dispatcher.Invoke(() => Shp.VelLimitBox.Value);
-            if (CarSpeed > limit)
+            if (CarSpeed > _limit)
             {
-                Task.Delay(25).Wait();
+                Task.Delay(Interval).Wait();
                 continue;   
             }
                         
-            var multiply = 1f;
-            var mode = Shp.Dispatcher.Invoke(() => ((ComboBoxItem)Shp.VelModeBox.SelectedItem).Content.ToString());
-        
-            switch (mode)
+            var multiply = _mode switch
             {
-                case "Dynamic":
-                {
-                    multiply += Shp.Dispatcher.Invoke(() =>
-                        ToSingle(Shp.VelValueNum.Value) / ToSingle(Shp.VelLimitBox.Value / 3));
-                    break;
-                }
-                case "Direct":
-                {
-                    multiply += Shp.Dispatcher.Invoke(() => ToSingle(Shp.VelValueNum.Value) / 10);
-                    break;
-                }
-            }  
-                        
+                Mode.Dynamic => 1f + _boost / (_limit / 3),
+                Mode.Direct => 1f + _boost / 10,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
             LinearVelocity = LinearVelocity with
             {
                 X = LinearVelocity.X * multiply,
-                Y = LinearVelocity.Y - 0.05f,
                 Z = LinearVelocity.Z * multiply
             };
         
-            const int interval = 100;
-            Task.Delay(interval).Wait();
+            Task.Delay(Interval).Wait();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Numerics;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Threading;
+using System.Threading.Tasks;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 
 using static System.Math;
@@ -14,56 +13,55 @@ namespace Forza_Mods_AIO.Tabs.Self_Vehicle.Features;
 
 public abstract class TurnAssist : FeatureBase
 {
+    private static int _interval;
+    private static float _ratio;
+    private static float _strength;
+
+    public static void SetInterval(double? newValue) => _interval = ToInt32(newValue);
+    public static void SetRatio(double? newValue) => _ratio = ToSingle(newValue);
+    public static void SetStrength(double? newValue) => _strength = ToSingle(newValue);
+    
     public static void Run()
     {
-        if (!IsProcessValid())
-        {
-            return;
-        }
-        
         while (true)
         {
-            if (!Shp.Dispatcher.Invoke(() => Shp.TurnAssistSwitch.IsOn))
+            if (!IsProcessValid() || !Shp.Dispatcher.Invoke(() => Shp.TurnAssistSwitch.IsOn))
             {
-                break;
+                return;
             }
 
             if (Mw.Gvp.Process.MainWindowHandle != GetForegroundWindow())
             {
-                Task.Delay(25).Wait();
+                Task.Delay(_interval).Wait();
                 continue;
             }
 
             float frontLeft = CarEntity.WheelSpeed.X, frontRight = CarEntity.WheelSpeed.Y; // Front
             float backLeft = CarEntity.WheelSpeed.Z, backRight = CarEntity.WheelSpeed.W; // Rear
                     
-            var interval = Shp.Dispatcher.Invoke(() => ToInt32(Shp.TurnAssistIntervalBox.Value));
-            var ratio = Shp.Dispatcher.Invoke(() => ToSingle(Shp.TurnAssistRatioBox.Value)); 
-            var strength = Shp.Dispatcher.Invoke(() => ToSingle(Shp.TurnAssistStrengthBox.Value));
-                    
             if (GetAsyncKeyState(Keys.A) is 1 or short.MinValue)
             {
-                if (Abs(frontRight - frontLeft) < frontRight / ratio && Abs(backRight - frontLeft) < backRight / ratio)
+                if (Abs(frontRight - frontLeft) < frontRight / _ratio && Abs(backRight - frontLeft) < backRight / _ratio)
                 {
-                    frontLeft -= strength;
-                    backLeft -= strength;
-                    frontRight += strength;
-                    backRight += strength;
+                    frontLeft -= _strength;
+                    backLeft -= _strength;
+                    frontRight += _strength;
+                    backRight += _strength;
                 }
             }
             else if (GetAsyncKeyState(Keys.D) is 1 or short.MinValue)
             {
-                if (Abs(frontLeft - frontRight) < frontLeft / ratio && Abs(backLeft - frontRight) < backLeft / ratio)
+                if (Abs(frontLeft - frontRight) < frontLeft / _ratio && Abs(backLeft - frontRight) < backLeft / _ratio)
                 {
-                    frontRight -= strength;
-                    backRight -= strength;
-                    frontLeft += strength;
-                    backLeft += strength;
+                    frontRight -= _strength;
+                    backRight -= _strength;
+                    frontLeft += _strength;
+                    backLeft += _strength;
                 }
             }
 
             CarEntity.WheelSpeed = new Vector4(frontLeft, frontRight, backLeft, backRight);
-            Task.Delay(interval).Wait();
+            Task.Delay(_interval).Wait();
         }
     }
 }

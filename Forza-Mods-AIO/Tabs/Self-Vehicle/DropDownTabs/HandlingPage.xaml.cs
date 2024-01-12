@@ -9,10 +9,8 @@ using Forza_Mods_AIO.Tabs.Self_Vehicle.Features;
 using static System.Math;
 using static System.Convert;
 using static Forza_Mods_AIO.MainWindow;
-using static Forza_Mods_AIO.Resources.KeyStates;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.Entities.CarEntity;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
-using static Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs.HandlingKeybindings;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
@@ -80,7 +78,7 @@ public partial class HandlingPage
 
     private void SetSwitch_Toggled(object sender, RoutedEventArgs e)
     {
-        if (!Mw.Attached || sender is not ToggleSwitch { IsOn: true } toggleSwitch)
+        if (sender is not ToggleSwitch { IsOn: true } toggleSwitch)
         {
             return;
         }
@@ -152,33 +150,14 @@ public partial class HandlingPage
         Task.Run(Braking.StopAllWheels.Run);
     }
         
-    private float _originalGrav;
         
     private void FlyHackSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (!Mw.Attached || FlyHackSwitch == null)
+        if (!Mw.Attached)
         {
             return;
         }
         
-        GravitySetSwitch.IsEnabled = !GravitySetSwitch.IsEnabled;
-        if (!FlyHackSwitch.IsOn)
-        {
-            Gravity = _originalGrav;
-            return;
-        }
-
-        GravitySetSwitch.IsOn = false;
-        
-        var count = 0;
-        while (_originalGrav == 0 && count < 50)
-        {
-            ++count;
-            _originalGrav = Gravity;
-            Task.Delay(5).Wait();
-        }
-        
-        Gravity = 0f;
         Task.Run(FlyHack.Run);
     }
     
@@ -220,44 +199,17 @@ public partial class HandlingPage
         }
         
         JumpHackSlider.Value = ToDouble(JumpHackVelocityNum.Value);
+        JumpHack.SetBoost(JumpHackVelocityNum.Value);
     }
 
     private void JumpHackSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (!JumpHackSwitch.IsOn || !Mw.Attached)
+        if (!JumpHackSwitch.IsOn)
         {
             return;
         }
 
-        Task.Run(() =>
-        {
-            while (true)
-            {
-                var toggled = true;
-                Dispatcher.Invoke(() => toggled = JumpHackSwitch.IsOn);
-                    
-                if (!toggled)
-                {
-                    break;
-                }
-                
-                if (!IsKeyPressed(Hk.JmpHack) && !Mw.Gamepad.IsButtonPressed(JmpHackController))
-                {
-                    Task.Delay(25).Wait();
-                    continue;
-                }
-                
-
-                var jmpVal = 1f;
-                Dispatcher.Invoke(() => jmpVal = ToSingle(JumpHackVelocityNum.Value));
-                LinearVelocity = LinearVelocity with { Y = LinearVelocity.Y + jmpVal };
-
-                while (IsKeyPressed(Hk.JmpHack) || Mw.Gamepad.IsButtonPressed(JmpHackController))
-                {
-                    Task.Delay(50).Wait();
-                }
-            }
-        });
+        Task.Run(JumpHack.Run);
     }
 
     private void VelValueNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -268,6 +220,7 @@ public partial class HandlingPage
         }
         
         VelValueNum.Value = Round(ToDouble(e.NewValue), 2);
+        Velocity.SetBoost(VelValueNum.Value);
     }
 
     private void StopAllWheelsModeBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -323,5 +276,105 @@ public partial class HandlingPage
         
         SuperBrakeVelocity.Value = Round(slider.Value, 4);
         Braking.SuperBrake.SetStrength(slider.Value);
+    }
+
+    private void FlyHackMoveSpeedNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (sender is not NumericUpDown numericUpDown)
+        {
+            return;
+        }
+
+        FlyHack.SetMoveSpeed(numericUpDown.Value);
+    }
+
+    private void FlyHackRotSpeedNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (sender is not NumericUpDown numericUpDown)
+        {
+            return;
+        }
+
+        FlyHack.SetRotSpeed(numericUpDown.Value);
+    }
+
+    private void StrengthBox_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (sender is not NumericUpDown numericUpDown)
+        {
+            return;
+        }
+
+        Features.WheelSpeed.SetBoostFactor(numericUpDown.Value);
+    }
+
+    private void IntervalBox_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (sender is not NumericUpDown numericUpDown)
+        {
+            return;
+        }
+
+        Features.WheelSpeed.SetInterval(numericUpDown.Value);
+    }
+
+    private void WheelSpeedModeBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is not ComboBox comboBox)
+        {
+            return;
+        }
+
+        Features.WheelSpeed.SetMode(comboBox.SelectedIndex);
+    }
+
+    private void VelModeBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is not ComboBox comboBox)
+        {
+            return;
+        }
+
+        Velocity.SetMode(comboBox.SelectedIndex);
+    }
+
+    private void VelLimitBox_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (sender is not NumericUpDown numericUpDown)
+        {
+            return;
+        }
+
+        Velocity.SetLimit(numericUpDown.Value);
+    }
+
+    private void TurnAssistStrengthBox_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (sender is not NumericUpDown numericUpDown)
+        {
+            return;
+        }
+
+        TurnAssist.SetStrength(numericUpDown.Value);
+    }
+
+    private void TurnAssistIntervalBox_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (sender is not NumericUpDown numericUpDown)
+        {
+            return;
+        }
+
+        TurnAssist.SetInterval(numericUpDown.Value);
+    }
+
+    private void TurnAssistRatioBox_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (sender is not NumericUpDown numericUpDown)
+        {
+            return;
+        }
+
+        TurnAssist.SetRatio(numericUpDown.Value);
     }
 }

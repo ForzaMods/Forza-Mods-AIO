@@ -19,7 +19,7 @@ public abstract class LocatorEntity
         const string originalFh4 = "0F10 97 A0030000";
         const string detoured = "0F 11 15 05 00 00 00";
 
-        var original = Mw.Gvp.Name.Contains('4') ? originalFh4 : originalFh5;
+        var original = Mw.Gvp.Type == GameVerPlat.GameType.Fh4 ? originalFh4 : originalFh5;
         
         if (!WaypointDetour.Setup(sender, WayPointXAsmAddr,original, detoured, 7, true, 0, true))
         {

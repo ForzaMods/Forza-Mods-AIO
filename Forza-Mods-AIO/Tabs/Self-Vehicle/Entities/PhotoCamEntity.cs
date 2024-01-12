@@ -1,5 +1,6 @@
 ﻿using System;
 using static Forza_Mods_AIO.MainWindow;
+using static Forza_Mods_AIO.Resources.GameVerPlat.GameType;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 
@@ -47,12 +48,12 @@ public abstract class PhotoCamEntity
     
     public static float TurnAndZoomSpeed
     {
-        set => Mw.M.WriteMemory(Mw.Gvp.Name.Contains('5') ? SpeedBase + 0x2E0 : SpeedBase, value);
+        set => Mw.M.WriteMemory(Mw.Gvp.Type == Fh5 ? SpeedBase + 0x2E0 : SpeedBase, value);
     }
     
     public static float MovementSpeed
     {
-        set => Mw.M.WriteMemory(Mw.Gvp.Name.Contains('5') ? SpeedBase + 0x2DC : SpeedBase + 0x4, value);
+        set => Mw.M.WriteMemory(Mw.Gvp.Type == Fh5 ? SpeedBase + 0x2DC : SpeedBase + 0x4, value);
     }
 
     public static bool NoClip
@@ -62,11 +63,11 @@ public abstract class PhotoCamEntity
     
     public static bool RemoveMaxHeight
     {
-        set => Mw.M.WriteMemory(Mw.Gvp.Name == "Forza Horizon 5" ? NoClipBase - 400 : NoClipBase - 468, value ? 9999 : 4);
+        set => Mw.M.WriteMemory(Mw.Gvp.Type == Fh5 ? NoClipBase - 400 : NoClipBase - 468, value ? 9999 : 4);
     }
     
     public static bool IncreasedZoom
     {
-        set => Mw.M.WriteMemory(Mw.Gvp.Name == "Forza Horizon 5" ? NoClipBase - 392 : NoClipBase - 376, value ? 0f : 2.25f );
+        set => Mw.M.WriteMemory(Mw.Gvp.Type == Fh5 ? NoClipBase - 392 : NoClipBase - 376, value ? 0f : 2.25f );
     }
 }

@@ -365,7 +365,7 @@ public partial class MainWindow
     {
         UnlocksPage.XpDetour.Clear();
         UnlocksPage.CrDetour.Clear();
-        UnlocksPage.CrCompareDetour.Clear();
+        UnlocksPage.CrCmpDetour.Clear();
         CustomizationPage.GlowingPaintDetour.Clear();
         CustomizationPage.HeadlightDetour.Clear();
         CustomizationPage.CleanlinessDetour.Clear();
@@ -422,7 +422,7 @@ public partial class MainWindow
         UnlocksPage.CrDetour.Destroy();
         UnlocksPage.SeasonalDetour.Destroy();   
         UnlocksPage.SeriesDetour.Destroy();   
-        UnlocksPage.CrCompareDetour.Destroy();
+        UnlocksPage.CrCmpDetour.Destroy();
         UnlocksPage.SpinsDetour.Destroy();
         UnlocksPage.SkillPointsDetour.Destroy();
         CustomizationPage.GlowingPaintDetour.Destroy();

@@ -19,9 +19,6 @@ public abstract class Braking
 {
     public abstract class StopAllWheels : FeatureBase
     {
-        private const int MinStrength = 1;
-        private const int MaxStrength = 10;
-        
         [Flags]
         private enum Mode
         {
@@ -30,35 +27,25 @@ public abstract class Braking
             Pulse,
             Linear,
             Random
-        };
-
-        private static Mode _stopMode = Mode.Instant;
-        public static void SetMode(int index)
-        {
-            _stopMode = (Mode)index;
         }
 
-        private static float _strength;
-        public static void SetStrength(double? newValue)
-        {
-            _strength = ToSingle(newValue);
-        }
-        
+        private static int _strength;
         private static int _interval;
-        public static void SetInterval(double? newValue)
-        {
-            _interval = ToInt32(newValue);
-        }
+        private static Mode _stopMode = Mode.Instant;
+        
+        public static void SetMode(int index) =>  _stopMode = (Mode)index;
+        public static void SetStrength(double? newValue) => _strength = ToInt32(newValue);
+        public static void SetInterval(double? newValue) => _interval = ToInt32(newValue);
 
         public static void Run()
         {
-            if (!IsProcessValid())
-            {
-                return;
-            }
-            
             while (true)
             {
+                if (!IsProcessValid())
+                {
+                    return;
+                }
+
                 if (!Shp.Dispatcher.Invoke(() => Shp.StopAllWheelsSwitch.IsOn))
                 {
                     return;
@@ -85,22 +72,22 @@ public abstract class Braking
                     }
                     case Mode.Gradual:
                     {
-                        ApplyGradualWheelStop(_strength);
+                        ApplyGradualWheelStop();
                         break;
                     }
                     case Mode.Random:
                     {
-                        ApplyRandomWheelStop(_strength);
+                        ApplyRandomWheelStop();
                         break;
                     }
                     case Mode.Pulse:
                     {
-                        ApplyPulseWheelStop(_strength);
+                        ApplyPulseWheelStop();
                         break;
                     }
                     case Mode.Linear:
                     {
-                        ApplyLinearWheelStop(_strength);
+                        ApplyLinearWheelStop();
                         break;
                     }
                     default:
@@ -118,34 +105,31 @@ public abstract class Braking
             CarEntity.WheelSpeed = new Vector4(0);
         }
         
-        private static void ApplyGradualWheelStop(float strength)
+        private static void ApplyGradualWheelStop()
         {
-            strength = Max(MinStrength, Min(strength, MaxStrength));
-            var adjustmentFactor = 1.0f - strength * 0.1f;
+            var adjustmentFactor = 1.0f - _strength * 0.1f;
             CarEntity.WheelSpeed *= adjustmentFactor;
         }
         
-        private static void ApplyRandomWheelStop(float strength)
+        private static void ApplyRandomWheelStop()
         {
-            strength = Max(MinStrength, Min(strength, MaxStrength));
             var random = new Random();
-            var randomFactor = random.Next(1, ToInt32(strength + 1)) * 0.1f;
+            var randomFactor = random.Next(1, _strength + 1) * 0.1f;
             CarEntity.WheelSpeed *= 1.0f - randomFactor;
         }
         
-        private static void ApplyPulseWheelStop(float strength)
+        private static void ApplyPulseWheelStop()
         {
-            strength = Max(MinStrength, Min(strength, MaxStrength));
             const double frequency = 0.002;
             const double amplitude = 0.5;
-            var pulsatingFactor = ToSingle(Sin(Now.Millisecond * frequency * strength) * amplitude + amplitude);
+            var pulsatingFactor = ToSingle(Sin(Now.Millisecond * frequency * _strength) * amplitude + amplitude);
             CarEntity.WheelSpeed *= pulsatingFactor;
         }
         
-        private static void ApplyLinearWheelStop(float strength)
+        private static void ApplyLinearWheelStop()
         {
-            strength = Max(1, Min(strength, 10));
-            var linearFactor = 1.0f - strength * 0.05f;
+            _strength = Max(1, Min(_strength, 10));
+            var linearFactor = 1.0f - _strength * 0.05f;
             linearFactor = Max(0.0f, linearFactor);
             CarEntity.WheelSpeed *= linearFactor;
         }
@@ -154,10 +138,7 @@ public abstract class Braking
     public abstract class SuperBrake : FeatureBase
     {
         private static float _strength = 0.95f;
-        public static void SetStrength(double? newValue)
-        {
-            _strength = ToSingle(newValue);
-        }
+        public static void SetStrength(double? newValue) => _strength = ToSingle(newValue);
         
         public static void Run()
         {
@@ -188,7 +169,6 @@ public abstract class Braking
                 LinearVelocity = LinearVelocity with
                 {
                     X = LinearVelocity.X * _strength,
-                    Y = LinearVelocity.Y - 0.05f,
                     Z = LinearVelocity.Z * _strength
                 };
                 Task.Delay(10).Wait();
