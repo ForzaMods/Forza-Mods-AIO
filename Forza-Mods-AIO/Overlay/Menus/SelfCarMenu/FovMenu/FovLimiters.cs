@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Forza_Mods_AIO.Overlay.Options;
-using static Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.FovPage;
+using static Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.CameraPage;
 
 namespace Forza_Mods_AIO.Overlay.Menus.SelfCarMenu.FovMenu;
 
@@ -42,14 +42,14 @@ public abstract class FovLimiters
     
     private static readonly ButtonOption ChasePull = new("Pull values", () =>
     {
-        ChaseMinValue.Value = Convert.ToSingle(Fov.ChaseMinNum.Value);
-        ChaseMaxValue.Value = Convert.ToSingle(Fov.ChaseMaxNum.Value);
+        ChaseMinValue.Value = Convert.ToSingle(Camera.ChaseMinNum.Value);
+        ChaseMaxValue.Value = Convert.ToSingle(Camera.ChaseMaxNum.Value);
     });
     
     private static readonly ButtonOption FarChasePull = new("Pull values", () =>
     {
-        FarChaseMinValue.Value = Convert.ToSingle(Fov.FarChaseMinNum.Value);
-        FarChaseMaxValue.Value = Convert.ToSingle(Fov.FarChaseMaxNum.Value);
+        FarChaseMinValue.Value = Convert.ToSingle(Camera.FarChaseMinNum.Value);
+        FarChaseMaxValue.Value = Convert.ToSingle(Camera.FarChaseMaxNum.Value);
     });
     
     public static readonly List<MenuOption> ChaseLimitersOptions = new()
@@ -73,8 +73,8 @@ public abstract class FovLimiters
     
     private static readonly ButtonOption DriverPull = new("Pull values", () =>
     {
-        DriverMinValue.Value = Convert.ToSingle(Fov.DriverMinNum.Value);
-        DriverMaxValue.Value = Convert.ToSingle(Fov.DriverMaxNum.Value);
+        DriverMinValue.Value = Convert.ToSingle(Camera.DriverMinNum.Value);
+        DriverMaxValue.Value = Convert.ToSingle(Camera.DriverMaxNum.Value);
     });
     
     public static readonly List<MenuOption> DriverLimitersOptions = new()
@@ -93,8 +93,8 @@ public abstract class FovLimiters
     
     private static readonly ButtonOption HoodPull = new("Pull values", () =>
     {
-        HoodMinValue.Value = Convert.ToSingle(Fov.HoodMinNum.Value);
-        HoodMaxValue.Value = Convert.ToSingle(Fov.HoodMaxNum.Value);
+        HoodMinValue.Value = Convert.ToSingle(Camera.HoodMinNum.Value);
+        HoodMaxValue.Value = Convert.ToSingle(Camera.HoodMaxNum.Value);
     });
         
     public static readonly List<MenuOption> HoodLimitersOptions = new()
@@ -114,8 +114,8 @@ public abstract class FovLimiters
     
     private static readonly ButtonOption BumperPull = new("Pull values", () =>
     {
-        BumperMinValue.Value = Convert.ToSingle(Fov.BumperMinNum.Value);
-        BumperMaxValue.Value = Convert.ToSingle(Fov.BumperMaxNum.Value);
+        BumperMinValue.Value = Convert.ToSingle(Camera.BumperMinNum.Value);
+        BumperMaxValue.Value = Convert.ToSingle(Camera.BumperMaxNum.Value);
     });
 
     public static readonly List<MenuOption> BumperLimitersOptions = new()
@@ -141,12 +141,12 @@ public abstract class FovLimiters
         {
             case "Min Value":
             {
-                Fov.ChaseMinNum.Value = floatOption.Value;
+                Camera.ChaseMinNum.Value = floatOption.Value;
                 break;
             }
             case "Max Value":
             {
-                Fov.ChaseMaxNum.Value = floatOption.Value;
+                Camera.ChaseMaxNum.Value = floatOption.Value;
                 break;
             }
         }
@@ -159,18 +159,18 @@ public abstract class FovLimiters
             return;
         }
 
-        Fov!.Dispatcher.Invoke(() =>
+        Camera!.Dispatcher.Invoke(() =>
         {
             switch (floatOption.Name)
             {
                 case "Min Value":
                 {
-                    Fov.FarChaseMinNum.Value = floatOption.Value;
+                    Camera.FarChaseMinNum.Value = floatOption.Value;
                     break;
                 }
                 case "Max Value":
                 {
-                    Fov.FarChaseMaxNum.Value = floatOption.Value;
+                    Camera.FarChaseMaxNum.Value = floatOption.Value;
                     break;
                 }
             }
@@ -184,18 +184,18 @@ public abstract class FovLimiters
             return;
         }
 
-        Fov!.Dispatcher.Invoke(() =>
+        Camera!.Dispatcher.Invoke(() =>
         {
             switch (floatOption.Name)
             {
                 case "Min Value":
                 {
-                    Fov.DriverMinNum.Value = floatOption.Value;
+                    Camera.DriverMinNum.Value = floatOption.Value;
                     break;
                 }
                 case "Max Value":
                 {
-                    Fov.DriverMaxNum.Value = floatOption.Value;
+                    Camera.DriverMaxNum.Value = floatOption.Value;
                     break;
                 }
             }
@@ -209,18 +209,18 @@ public abstract class FovLimiters
             return;
         }
 
-        Fov.Dispatcher.Invoke(() =>
+        Camera.Dispatcher.Invoke(() =>
         {
             switch (floatOption.Name)
             {
                 case "Min Value":
                 {
-                    Fov.HoodMinNum.Value = floatOption.Value;
+                    Camera.HoodMinNum.Value = floatOption.Value;
                     break;
                 }
                 case "Max Value":
                 {
-                    Fov.HoodMaxNum.Value = floatOption.Value;
+                    Camera.HoodMaxNum.Value = floatOption.Value;
                     break;
                 }
             }
@@ -234,18 +234,18 @@ public abstract class FovLimiters
             return;
         }
 
-        Fov.Dispatcher.Invoke(() =>
+        Camera.Dispatcher.Invoke(() =>
         {
             switch (floatOption.Name)
             {
                 case "Min Value":
                 {
-                    Fov.BumperMinNum.Value = floatOption.Value;
+                    Camera.BumperMinNum.Value = floatOption.Value;
                     break;
                 }
                 case "Max Value":
                 {
-                    Fov.BumperMaxNum.Value = floatOption.Value;
+                    Camera.BumperMaxNum.Value = floatOption.Value;
                     break;
                 }
             }

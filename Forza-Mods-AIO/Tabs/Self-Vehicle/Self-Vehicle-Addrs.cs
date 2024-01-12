@@ -42,7 +42,7 @@ internal class SelfVehicleAddresses
     public static UIntPtr GlowingPaintAddr;
     public static UIntPtr BuildAddr1, BuildAddr2;
     public static UIntPtr SeasonalAddr, SeriesAddr;
-    public static UIntPtr FovHookAddr;
+    public static UIntPtr CameraHookAddr;
     public static UIntPtr SunRedAddr, SunBlueAddr, SunGreenAddr;
     public static UIntPtr ChaseMin, ChaseMax;
     public static UIntPtr FarChaseMin, FarChaseMax;
@@ -184,8 +184,8 @@ internal class SelfVehicleAddresses
         GlowingPaintAddr = Mw.M.ScanForSig(glowingPaintSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
-        const string fovHookSig = "0F 10 ? B0 ? 0F 28 ? ? ? F3 0F";
-        FovHookAddr = Mw.M.ScanForSig(fovHookSig).FirstOrDefault();
+        const string cameraHookSig = "0F 10 ? B0 ? 0F 28 ? ? ? F3 0F";
+        CameraHookAddr = Mw.M.ScanForSig(cameraHookSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
         const string timeSig = "20 F2 0F 11 43 08 48 83";
@@ -463,6 +463,6 @@ internal class SelfVehicleAddresses
         BumperMax = bases2.FirstOrDefault() - 0x20;
         HoodMin = bases2.LastOrDefault() - 0x20 - 4;
         HoodMax = bases2.LastOrDefault() - 0x20;
-        FovPage.Fov.Dispatcher.Invoke(() => FovPage.Fov.UpdateValues());
+        CameraPage.Camera.Dispatcher.Invoke(() => CameraPage.Camera.UpdateValues());
     }
 }

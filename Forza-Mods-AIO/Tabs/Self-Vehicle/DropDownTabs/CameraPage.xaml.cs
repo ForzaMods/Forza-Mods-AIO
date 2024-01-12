@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Linq;
+using System.Numerics;
 using System.Reflection;
 using System.Windows;
 using Forza_Mods_AIO.Resources;
+using MahApps.Metro.Controls;
+using static System.Convert;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
 using static Forza_Mods_AIO.MainWindow;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 
-public partial class FovPage
+public partial class CameraPage
 {
-    public static FovPage Fov { get; private set; } = null!;
+    public static CameraPage Camera { get; private set; } = null!;
 
-    public static readonly Detour FovLockDetour = new();
-    private const string FovLockBytes = "0F 10 01 80 79 26 EC 75 0E 80 79 27 41 75 08 80 79 2A 80 75 02 EB 12 80 79 26 16 75 13 80 79 27 43 75 0D 80 79 2A C0 75 07 0F 10 05 07 00 00 00 B0 01";
+    public static readonly Detour CameraDetour = new();
+    private const string CameraBytes = "0F 10 01 81 79 26 EC 41 00 00 75 02 EB 21 81 79 26 16 43 00 00 75 02 EB 16 81 79 26 96 42 67 7B 75 02 EB 14 81 79 26 54 44 4D A1 75 12 EB 09 0F 10 05 10 00 00 00 EB 07 0F 10 05 0B 00 00 00 B0 01";
     
-    public FovPage()
+    public CameraPage()
     {
         InitializeComponent();
-        Fov = this;
+        Camera = this;
     }
 
     private void FovLimiters_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -44,7 +47,7 @@ public partial class FovPage
         }
 
         if (address == 0) return;
-        Mw.M.WriteMemory(address, Convert.ToSingle(type.GetProperty("Value")?.GetValue(sender)));
+        Mw.M.WriteMemory(address, ToSingle(type.GetProperty("Value")?.GetValue(sender)));
     }
 
     public void UpdateValues()
@@ -66,29 +69,32 @@ public partial class FovPage
         BumperMaxNum.Value = Mw.M.ReadMemory<float>(BumperMax);
     }
 
-    private void FovSwitch_OnToggled(object sender, RoutedEventArgs e)
+    private void CameraSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || sender is not ToggleSwitch toggleSwitch)
         {
             return;
         }
 
-        if (Mw.Gvp.Name == "Forza Horizon 4" && FovSwitch.IsOn)
+        if (Mw.Gvp.Type != GameVerPlat.GameType.Fh5 && toggleSwitch.IsOn)
         {
-            Detour.FailedHandler(sender, FovSwitch_OnToggled, true);
+            Detour.FailedHandler(toggleSwitch, CameraSwitch_OnToggled, true);
             return;
         }
 
         const string original = "0F10 01 B0 01";
-        if (!FovLockDetour.Setup(sender, FovHookAddr, original, FovLockBytes, 5, true))
+        if (!CameraDetour.Setup(toggleSwitch, CameraHookAddr, original, CameraBytes, 5, true))
         {
-            Detour.FailedHandler(sender, FovSwitch_OnToggled);
-            FovLockDetour.Clear();
+            Detour.FailedHandler(toggleSwitch, CameraSwitch_OnToggled);
+            CameraDetour.Clear();
             return;
         }
 
-        FovLockDetour.UpdateVariable(Convert.ToSingle(FovNum.Value));
-        FovLockDetour.Toggle();
+        var value = new Vector3(ToSingle(OffsetXNum.Value), ToSingle(OffsetYNum.Value), ToSingle(OffsetZNum.Value));
+        var clean = new Vector3(0);
+
+        CameraDetour.UpdateVariable(FovSwitch.IsOn ? ToSingle(FovNum.Value) : 0f);
+        CameraDetour.UpdateVariable(OffsetSwitch.IsOn ? value : clean, 4);
     }
 
     private void FovSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -110,6 +116,19 @@ public partial class FovPage
             return;
         }
         
-        FovLockDetour.UpdateVariable(Convert.ToSingle(sender.GetType().GetProperty("Value")?.GetValue(sender)) / 10f);
+        CameraDetour.UpdateVariable(ToSingle(sender.GetType().GetProperty("Value")?.GetValue(sender)) / 10f);
+    }
+
+    private void OffsetNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (OffsetZNum == null || sender is not NumericUpDown numericUpDown)
+        {
+            return;
+        }
+
+        numericUpDown.Value = Math.Round(ToDouble(numericUpDown.Value), 3);
+        
+        var value = new Vector3(ToSingle(OffsetXNum.Value), ToSingle(OffsetYNum.Value), ToSingle(OffsetZNum.Value));
+        CameraDetour.UpdateVariable(value, 4);
     }
 }

@@ -57,7 +57,7 @@ public partial class SelfVehicle
         { "EnvironmentButton", 235 },
         { "CustomizationButton", 180 },
         { "MiscellaneousButton", 340 },
-        { "FovButton", 347.5 },
+        { "CameraButton", 405 },
         { "BackFireButton", 125 }
     };
 
@@ -71,7 +71,7 @@ public partial class SelfVehicle
         { "EnvironmentButton", false },
         { "CustomizationButton", false },
         { "MiscellaneousButton", false },
-        { "FovButton", false },
+        { "CameraButton", false },
         { "BackFireButton", false }
     };
 

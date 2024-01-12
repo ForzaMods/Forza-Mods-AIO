@@ -24,7 +24,7 @@ public static class ExitHandling
         CustomizationPage.GlowingPaintDetour.Destroy();
         CustomizationPage.HeadlightDetour.Destroy();
         CustomizationPage.CleanlinessDetour.Destroy();
-        FovPage.FovLockDetour.Destroy();
+        CameraPage.CameraDetour.Destroy();
         CarEntity.BaseDetour.Destroy();
         LocatorEntity.WaypointDetour.Destroy();
         EnvironmentPage.TimeDetour.Destroy();

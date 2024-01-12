@@ -40,7 +40,7 @@
             <Frame x:Name="EnvironmentPage" Content="Frame" Width="580" Source="DropDownTabs/EnvironmentPage.xaml" HorizontalAlignment="Center" Margin="0,185,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False" />
             <Frame x:Name="CustomizationPage" Content="Frame" Width="580" Source="DropDownTabs/CustomizationPage.xaml" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="MiscellaneousPage" Content="Frame" Width="580" Source="DropDownTabs/MiscellaneousPage.xaml" HorizontalAlignment="Center" Margin="0,255,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="FovPage" Content="Frame" Width="580" Source="DropDownTabs/FovPage.xaml" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="CameraPage" Content="Frame" Width="580" Source="DropDownTabs/CameraPage.xaml" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             <Frame x:Name="BackFirePage" Content="Frame" Width="580" Source="DropDownTabs/BackFirePage.xaml" HorizontalAlignment="Center" Margin="0,325,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             
             <Button x:Name="HandlingButton" Content="Handling" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
@@ -51,7 +51,7 @@
             <Button x:Name="EnvironmentButton" Content="Environment" HorizontalAlignment="Center" Margin="0,185,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click" />
             <Button x:Name="CustomizationButton" Content="Customization" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
             <Button x:Name="MiscellaneousButton" Content="Miscellaneous" HorizontalAlignment="Center" Margin="0,255,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
-            <Button x:Name="FovButton" Content="Fov" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
+            <Button x:Name="CameraButton" Content="Camera" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
             <Button x:Name="BackFireButton" Content="Backfire" HorizontalAlignment="Center" Margin="0,325,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
         </Grid>
     </ScrollViewer>
