@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,14 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using ControlzEx.Theming;
 using Memory;
-using Forza_Mods_AIO.Overlay;
 using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.AIO_Info;
-using Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs;
-using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
-using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
-using Forza_Mods_AIO.Tabs.Tuning;
-using MahApps.Metro.Controls;
 using static System.Diagnostics.FileVersionInfo;
 using static System.IO.Path;
 using static System.Windows.Forms.Control;
@@ -30,14 +22,10 @@ using static System.Windows.Media.VisualTreeHelper;
 using static System.Xml.Linq.XElement;
 using static ControlzEx.Theming.ThemeManager;
 using static Forza_Mods_AIO.Overlay.Overlay;
-using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
 using static Forza_Mods_AIO.Resources.Bypass;
-using Keys = System.Windows.Forms.Keys;
 using Monet = Forza_Mods_AIO.Resources.Theme.Monet;
 using Application = System.Windows.Application;
-using Button = System.Windows.Controls.Button;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
-using KeyStates = Forza_Mods_AIO.Resources.KeyStates;
 using MessageBox = System.Windows.Forms.MessageBox;
 using RadioButton = System.Windows.Controls.RadioButton;
 
@@ -56,6 +44,7 @@ public partial class MainWindow
     //public LibraryMapper Mapper = null!;
     public readonly Gamepad Gamepad = new(); 
     public GameVerPlat Gvp { get; private set; } = new();
+    public Keybinds Keybinds { get; } = new(); 
     public bool Attached { get; private set; }
     private IEnumerable<Visual>? _visuals;
 
@@ -68,9 +57,10 @@ public partial class MainWindow
         InitializeComponent();
         UpdateAio();
         Mw = this;
-        Current.AddTheme(new Theme("AccentCol", "AccentCol", "Dark", "Red", (Color)ConvertFromString("#FF2E3440")!,
-            new SolidColorBrush((Color)ConvertFromString("#FF2E3440")!), true, false));
-        Current.ChangeTheme(Application.Current, "AccentCol");
+        var converted = (Color)ConvertFromString("#FF2E3440");
+        const string name = "AccentCol";
+        Current.AddTheme(new Theme(name, name, "Dark", "Red", converted, new SolidColorBrush(converted), false, false));
+        Current.ChangeTheme(Application.Current, name);
         AIO_Info.IsChecked = true;
         BackgroundBorder.Background = Monet.MainColour;
         FrameBorder.Background = Monet.MainColour;
@@ -138,7 +128,7 @@ public partial class MainWindow
 
     public void CategoryButton_Click(object sender, RoutedEventArgs e)
     {
-        var rbName = "";
+        var rbName = string.Empty;
 
         foreach (var element in ButtonStack.Children)
         {
@@ -234,7 +224,7 @@ public partial class MainWindow
                 if (!Attached)
                     continue;
 
-                ResetAio();
+                ResetHandling.ResetAio();
                 Gvp = new GameVerPlat();
                 M.CloseProcess();
                 Attached = false;
@@ -243,7 +233,7 @@ public partial class MainWindow
         // ReSharper disable once FunctionNeverReturns
     }
 
-    private void ToggleButtons(bool on)
+    public void ToggleButtons(bool on)
     {
         Dispatcher.Invoke(() =>
         {
@@ -295,101 +285,13 @@ public partial class MainWindow
         Dispatcher.Invoke(delegate
         {
             AttachedLabel.Content = $"{Gvp.Name}, {Gvp.Plat}, {Gvp.Update}";
-            Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsEnabled = true;
-            Tabs.AIO_Info.AioInfo.Ai.CustomTitle.IsEnabled = true;
-            Tabs.AIO_Info.AioInfo.Ai.CustomTitleText.IsEnabled = true;
+            AioInfo.Ai.OverlaySwitch.IsEnabled = true;
+            AioInfo.Ai.CustomTitle.IsEnabled = true;
+            AioInfo.Ai.CustomTitleText.IsEnabled = true;
         });
     }
 
-    private void ResetAio()
-    {
-        ClearDetours();
-        ResetUi();
-        ResetMisc();
-    }
-
-    private static void ResetMisc()
-    {
-        AutoshowGarageOption.IsEnabled = false;
-        SelfVehicleOption.IsEnabled = false;
-        TuningOption.IsEnabled = false;
-        
-        Mw.M._memoryCache.Clear();
-        Mw.M._signatureResultCache.Clear();
-    }
-
-    private void ResetUi()
-    {
-        Dispatcher.Invoke(() =>
-        {
-            AttachedLabel.Content = "Launch FH4, FH5 or FM8";
-            Tabs.Tuning.Tuning.T.AobProgressBar.Value = 0;
-            Tabs.Self_Vehicle.SelfVehicle.Sv.AobProgressBar.Value = 0;
-            Tabs.AutoShowTab.AutoShow.As.AobProgressBar.Value = 0;
-            Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsOn = false;
-            Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsEnabled = false;
-            Tabs.AIO_Info.AioInfo.Ai.CustomTitle.IsOn = false;
-            Tabs.AIO_Info.AioInfo.Ai.CustomTitle.IsEnabled = false;
-            Tabs.AIO_Info.AioInfo.Ai.CustomTitleText.IsEnabled = false;
-            AIO_Info.IsChecked = true;
-            CategoryButton_Click(AIO_Info, new RoutedEventArgs());
-
-            foreach (var visual in Window.GetChildren())
-            {
-                var element = (FrameworkElement)visual;
-
-                if (element.GetType() != typeof(ToggleSwitch))
-                {
-                    continue;
-                }
-
-                ((ToggleSwitch)element).IsOn = false;
-            }
-            
-            Tabs.Tuning.Tuning.T.ScanButton.IsEnabled = true;
-            Tabs.Self_Vehicle.SelfVehicle.Sv.ScanButton.IsEnabled = true;
-            Tabs.AutoShowTab.AutoShow.As.ScanButton.IsEnabled = true;
-            Tabs.Tuning.Tuning.T.UiManager.Reset();
-            Tabs.Self_Vehicle.SelfVehicle.Sv.UiManager.Reset();
-        });
-
-        ToggleButtons(false);
-        
-        Tabs.Tuning.Tuning.T.UiManager.ToggleUiElements(false);
-        Tabs.Self_Vehicle.SelfVehicle.Sv.UiManager.ToggleUiElements(false);
-        Tabs.AutoShowTab.AutoShow.As.UiManager.ToggleUiElements(false);
-    }
-
-
-    private static void ClearDetours()
-    {
-        UnlocksPage.XpDetour.Clear();
-        UnlocksPage.CrDetour.Clear();
-        UnlocksPage.CrCmpDetour.Clear();
-        CustomizationPage.GlowingPaintDetour.Clear();
-        CustomizationPage.HeadlightDetour.Clear();
-        CustomizationPage.CleanlinessDetour.Clear();
-        FovPage.FovLockDetour.Clear();
-        EnvironmentPage.TimeDetour.Clear();
-        EnvironmentPage.FreezeAiDetour.Clear();
-        LocatorEntity.WaypointDetour.Clear();
-        CarEntity.BaseDetour.Clear();
-        MiscellaneousPage.ScaleDetour.Clear();
-        MiscellaneousPage.SellDetour.Clear();
-        MiscellaneousPage.Build1Detour.Clear();
-        MiscellaneousPage.Build2Detour.Clear();
-        MiscellaneousPage.SkillTreeDetour.Clear();
-        MiscellaneousPage.ScoreDetour.Clear();
-        MiscellaneousPage.SkillCostDetour.Clear();
-        MiscellaneousPage.DriftDetour.Clear();
-        MiscellaneousPage.TimeScaleDetour.Clear();
-        BackFirePage.BackFire.BackfireTimeDetour.Clear();
-        BackFirePage.BackFire.BackfireTypeDetour.Clear();
-        MiscellaneousPage.MiscPage.WasSkillDetoured = false;
-        EnvironmentPage.WasTimeDetoured = false;
-        TeleportsPage.WaypointDetoured = false;
-        Clear();
-    }
+    
     #endregion
     
     #region Exit Handling
@@ -402,197 +304,27 @@ public partial class MainWindow
         }
         catch { /* ignored */ }
 
-        if (!Attached || Gvp.Process?.MainModule == null)
+        if (!Attached || Gvp.Process.MainModule == null)
         {
             Environment.Exit(0);
         }
 
         Dispatcher.Invoke(() => AioInfo.Ai.CustomTitle.IsOn = false);
 
-        DestroyDetours();
-        RevertWrites();
+        ExitHandling.DestroyDetours();
+        ExitHandling.RevertWrites();
         EnableAntiCheat();
         Environment.Exit(0);
     }
-
-    private static void DestroyDetours()
-    {
-        TuningAsm.Cleanup();
-        UnlocksPage.XpDetour.Destroy();
-        UnlocksPage.CrDetour.Destroy();
-        UnlocksPage.SeasonalDetour.Destroy();   
-        UnlocksPage.SeriesDetour.Destroy();   
-        UnlocksPage.CrCmpDetour.Destroy();
-        UnlocksPage.SpinsDetour.Destroy();
-        UnlocksPage.SkillPointsDetour.Destroy();
-        CustomizationPage.GlowingPaintDetour.Destroy();
-        CustomizationPage.HeadlightDetour.Destroy();
-        CustomizationPage.CleanlinessDetour.Destroy();
-        FovPage.FovLockDetour.Destroy();
-        CarEntity.BaseDetour.Destroy();
-        LocatorEntity.WaypointDetour.Destroy();
-        EnvironmentPage.TimeDetour.Destroy();
-        EnvironmentPage.FreezeAiDetour.Destroy();
-        MiscellaneousPage.Build1Detour.Destroy();
-        MiscellaneousPage.Build2Detour.Destroy();
-        MiscellaneousPage.ScaleDetour.Destroy();
-        MiscellaneousPage.SellDetour.Destroy();
-        MiscellaneousPage.SkillTreeDetour.Destroy();
-        MiscellaneousPage.ScoreDetour.Destroy();
-        MiscellaneousPage.SkillCostDetour.Destroy();
-        MiscellaneousPage.DriftDetour.Destroy();
-        MiscellaneousPage.TimeScaleDetour.Destroy();
-        MiscellaneousPage.UnbSkillDetour.Destroy();
-        BackFirePage.BackFire.BackfireTimeDetour.Destroy();
-        BackFirePage.BackFire.BackfireTypeDetour.Destroy();
-    }
-
-    private void RevertWrites()
-    {
-        if (Gvp.Process.MainModule == null)
-        {
-            return;
-        }
-        
-        if (Gvp.Type == GameVerPlat.GameType.Fh4 && SuperCarAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
-        {
-            M.WriteArrayMemory(SuperCarAddr + 4, new byte[] { 0x0F, 0x11, 0x41, 0x10 });
-            M.WriteArrayMemory(SuperCarAddr + 12, new byte[] { 0x0F, 0x11, 0x49, 0x20 });
-            M.WriteArrayMemory(SuperCarAddr + 20, new byte[] { 0x0F, 0x11, 0x41, 0x30 });
-            M.WriteArrayMemory(SuperCarAddr + 32, new byte[] { 0x0F, 0x11, 0x49, 0x40 });
-        }
-
-        if (SunRedAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
-        {
-            Mw.M.WriteArrayMemory(SunRedAddr, new byte[] { 0x81, 0x80, 0x80, 0x3B, 0x81, 0x80, 0x80, 0x3B, 0x81, 0x80, 0x80, 0x3B, 0x81, 0x80, 0x80, 0x3B });
-        }
-
-        if (WaterAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
-        {
-            M.WriteMemory(WaterAddr, new Vector3(0f, 3700f, 13500f));
-        }
-
-        if (Wall1Addr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
-        {
-            M.WriteArrayMemory(Wall1Addr, Gvp.Name switch
-            {
-                "Forza Horizon 4" => new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 },
-                "Forza Horizon 5" => new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 },
-                _ => new byte[] { 0x0F, 0x84, 0x5E, 0x02, 0x00, 0x00 }
-            });
-        }
-
-        if (Wall2Addr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
-        {
-            M.WriteArrayMemory(Wall2Addr, Gvp.Name switch
-            {
-                "Forza Horizon 4" => new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 },
-                "Forza Horizon 5" => new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 },
-                _ => new byte[] { 0x0F, 0x84, 0x5F, 0x02, 0x00, 0x00 }
-            });
-        }
-
-        if (Car1Addr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
-        {
-            M.WriteArrayMemory(Car1Addr, Gvp.Name switch
-            {
-                "Forza Horizon 4" => new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 },
-                "Forza Horizon 5" => new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 },
-                _ => new byte[] { 0x0F, 0x84, 0x6E, 0x03, 0x00, 0x00}
-            });
-        }
-
-        if (Car2Addr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
-        {
-            M.WriteArrayMemory(Car2Addr, new byte[] { 0x0F, 0x84, 0x3A, 0x03, 0x00, 0x00 });
-        }
-
-        if (WorldCollisionThreshold != 0)
-        {
-            Mw.M.WriteMemory(WorldCollisionThreshold, 12f);
-            Mw.M.WriteMemory(CarCollisionThreshold,12f);
-            Mw.M.WriteMemory(SmashAbleCollisionTolerance,22f);
-        }
-
-        if (XpAmountAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
-        {
-            Mw.M.WriteArrayMemory(XpAmountAddr, Gvp.Name.Contains('5')
-                ? new byte[] { 0x8B, 0x89, 0x88, 0x00, 0x00, 0x00 }
-                : new byte[] { 0x8B, 0x89, 0xC0, 0x00, 0x00, 0x00 });
-        }
-
-        if (GravityProtectAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
-        {
-            Mw.M.WriteArrayMemory(GravityProtectAddr,new byte[] { 0xF3, 0x0F, 0x11, 0x49, 0x08 });
-        }
-        
-        if (AccelProtectAddr > (UIntPtr)Gvp.Process.MainModule.BaseAddress)
-        {
-            Mw.M.WriteArrayMemory(AccelProtectAddr,new byte[] { 0xF3, 0x0F, 0x11, 0x41, 0x0C });
-        }
-    }
+    
     #endregion
 
     #region Keybinds
 
     private void Window_OnKeyDown(object sender, KeyEventArgs e)
     {
-        if (!IsClicked || ClickedButton == null)
-        {
-            return;
-        }
-        
-        IsClicked = false;
-        var oldKey = ClickedButton.Content;
-
-        string keyBuffer;
-        do
-        {
-            keyBuffer = Enum.GetValues(typeof(Keys))
-                .Cast<Keys>()
-                .Where(i => i != Keys.None &&
-                            i != Keys.LButton &&
-                            i != Keys.RButton &&
-                            i != Keys.MButton &&
-                            i != Keys.XButton1 &&
-                            i != Keys.XButton2)
-                .FirstOrDefault(KeyStates.IsKeyPressed)
-                .ToString();
-            
-            Task.Delay(5).Wait();
-        } 
-        while (string.IsNullOrEmpty(keyBuffer));
-
-        var key = (Keys)Enum.Parse(typeof(Keys), keyBuffer);
-        var fields = typeof(OverlayHandling).GetFields().Concat(typeof(HandlingKeybindings).GetFields());
-        
-        foreach (var field in fields)
-        {
-            if (field.Name != ClickedButton.Name.Replace("Button", string.Empty))
-            {
-                continue;
-            }
-
-            if (field.DeclaringType == typeof(OverlayHandling))
-            {
-                field.SetValue(Oh, key);
-                OverlayKeybindings.SaveKeybinds();
-            }
-            else if (field.DeclaringType == typeof(HandlingKeybindings))
-            {
-                field.SetValue(HandlingKeybindings.Hk, key);
-                HandlingKeybindings.Hk.SaveKeybindings();
-            }
-
-            ClickedButton.Content = keyBuffer;
-            return;
-        }
-        
-        ClickedButton.Content = oldKey;
+        Keybinds.Grab();
     }
-
-    public bool IsClicked;
-    public Button? ClickedButton;
 
     #endregion
 }

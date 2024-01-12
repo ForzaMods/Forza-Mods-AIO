@@ -37,14 +37,14 @@ public partial class HandlingKeybindings
 
     private void KBButton_OnClick(object sender, RoutedEventArgs e)
     {
-        if (Mw.IsClicked)
+        if (Mw.Keybinds.IsClicked)
         {
             return;
         }
         
-        Mw.IsClicked = true;
-        Mw.ClickedButton = (Button)sender;
-        Mw.ClickedButton.Content = "Change Key"; 
+        Mw.Keybinds.IsClicked = true;
+        Mw.Keybinds.ClickedButton = (Button)sender;
+        Mw.Keybinds.ClickedButton.Content = "Change Key"; 
     }
     
     private void CTButton_OnClick(object sender, RoutedEventArgs e)

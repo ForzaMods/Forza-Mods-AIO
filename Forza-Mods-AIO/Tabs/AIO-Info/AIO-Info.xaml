@@ -189,21 +189,22 @@
                       Content="Ucxh/hailstalin - Freeze/modify scale of the mission timer."/>
         </StackPanel>
         
+        <Label x:Name="VersionLabel"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Left"
+               FontSize="14"
+               Margin="10"
+               Content="Version: "/>
+        
         <StackPanel Orientation="Horizontal"
-                    Margin="10"
-                    HorizontalAlignment="Left"
+                    Margin="-45 0 0 10"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Bottom">
                
-               <Label x:Name="VersionLabel"
-                      VerticalAlignment="Center"
-                      HorizontalAlignment="Left"
-                      FontSize="14"
-                      Content="Version: "/>
         
                <mah:ToggleSwitch x:Name="CustomTitle" 
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
-                                 Margin="10 0 0 0"
                                  Content="Custom Process Title"
                                  FontSize="11.5"
                                  IsEnabled="False"

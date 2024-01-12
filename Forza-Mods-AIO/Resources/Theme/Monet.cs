@@ -27,6 +27,7 @@ internal abstract class Monet
     public static Brush DarkishColour = new SolidColorBrush((MColor)ConvertFromString("#434C5E"));
     public static Brush DarkColour = new SolidColorBrush((MColor)ConvertFromString("#3B4252"));
     public static Brush DarkerColour = new SolidColorBrush((MColor)ConvertFromString("#2E3440"));
+    private static readonly ColorThief ColorThief = new();
     private const uint PwClientOnly = 1, PwRenderFullContent = 2;
     
     #endregion
@@ -108,14 +109,14 @@ internal abstract class Monet
             return true;
         }, 0);
 
-        var colorThief = new ColorThief();
+        
         if (window == IntPtr.Zero)
         {
             window = GetShellWindow();
         }
 
         var desktopWallpaper = CaptureWindow(window);
-        var colour = colorThief.GetColor(desktopWallpaper).Color;
+        var colour = ColorThief.GetColor(desktopWallpaper).Color;
         desktopWallpaper.Dispose();
         Mw.Dispatcher.Invoke(() => SetColours(colour));
     }
@@ -196,7 +197,8 @@ internal abstract class Monet
                                    elementType == typeof(ListBox) ||
                                    elementType == typeof(MetroProgressBar) ||
                                    elementType == typeof(NumericUpDown) ||
-                                   elementType == typeof(Button):
+                                   elementType == typeof(Button) ||
+                                   elementType == typeof(TextBox):
                 {
                     element.GetType().GetProperty("Background")?.SetValue(element, DarkerColour);
                     element.GetType().GetProperty("BorderBrush")?.SetValue(element, DarkerColour);
