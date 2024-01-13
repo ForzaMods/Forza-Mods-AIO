@@ -8,21 +8,11 @@ namespace Forza_Mods_AIO.Resources;
 
 public class TranslateUtil
 {
-    private readonly Dictionary<string, string> _translation;
-    
-    public TranslateUtil(Dictionary<string, string> translation)
+    private Dictionary<string, string> _translation = new();
+
+    public void SetLanguage(Dictionary<string, string> translation)
     {
-        if (_translation != null && _translation == translation)
-        {
-            return;
-        }
-        
         _translation = translation;
-    }
-    
-    public TranslateUtil()
-    {
-        _translation = null!;
     }
     
     private class OriginalValues

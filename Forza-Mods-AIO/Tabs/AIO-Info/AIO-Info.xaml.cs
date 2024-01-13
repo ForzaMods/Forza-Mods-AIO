@@ -68,7 +68,7 @@ public partial class AioInfo
         }
     }
 
-    private TranslateUtil _translateUtil = new();
+    private readonly TranslateUtil _translateUtil = new();
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -86,7 +86,7 @@ public partial class AioInfo
             }
             case 1: // chinese
             {
-                _translateUtil = new TranslateUtil(Translations.ChineseTranslate);
+                _translateUtil.SetLanguage(Translations.ChineseTranslate);
                 _translateUtil.Translate();
                 break;
             }
