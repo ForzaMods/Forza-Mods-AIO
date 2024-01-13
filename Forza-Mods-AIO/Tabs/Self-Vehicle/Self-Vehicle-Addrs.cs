@@ -16,6 +16,7 @@ internal class SelfVehicleAddresses
 {
     #region Addresses
 
+    public static UIntPtr LodCmp, ForceLod; 
     public static UIntPtr GravityProtectAddr;
     public static UIntPtr AccelProtectAddr;
     public static UIntPtr SkillPointsAddr;
@@ -135,7 +136,7 @@ internal class SelfVehicleAddresses
         }
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 39;
+        Sv.UiManager.ScanAmount = 41;
 
         const string xpAob = "41 83 BF 88 00 00 00";
         XpAddr = Mw.M.ScanForSig(xpAob).FirstOrDefault() - 14;
@@ -286,6 +287,14 @@ internal class SelfVehicleAddresses
 
         const string skillPointSig = "0F 4F ? 48 8B ? ? E8 ? ? ? ? 48 8B";
         SkillPointsAddr = Mw.M.ScanForSig(skillPointSig).FirstOrDefault() - 6;
+        Sv.UiManager.AddProgress();
+        
+        const string forceLodSig = "40 88 ? ? ? ? ? 40 84 ? 0F 85";
+        ForceLod = Mw.M.ScanForSig(forceLodSig).FirstOrDefault();
+        Sv.UiManager.AddProgress();
+
+        const string lodCmpSig = "41 8B ? ? ? ? ? 3B 48 ? 75";
+        LodCmp = Mw.M.ScanForSig(lodCmpSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
         SelfVehicleOption.IsEnabled = true;

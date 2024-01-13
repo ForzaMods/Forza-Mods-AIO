@@ -202,15 +202,13 @@ public class UiManager
             
         Task.Run(() =>
         {
-            var progress = Math.Round(100d / ScanAmount) * Index;
+            var progress = Math.Round(100d / ScanAmount, 4) * Index;
             if (progress > 100)
             {
                 progress = 100;
             }
 
-            var currentProgress = 0d;
-            _page.Dispatcher.Invoke(() => currentProgress = _progressBar.Value);
-                
+            var currentProgress = _page.Dispatcher.Invoke(() => _progressBar.Value);
             for (var i = currentProgress; i <= progress; ++i)
             {
                 var i1 = i;

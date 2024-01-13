@@ -55,7 +55,7 @@ public partial class SelfVehicle
         { "StatsButton", 70 },
         { "TeleportsButton", 70 },
         { "EnvironmentButton", 235 },
-        { "CustomizationButton", 180 },
+        { "CustomizationButton", 240 },
         { "MiscellaneousButton", 340 },
         { "CameraButton", 405 },
         { "BackFireButton", 125 }

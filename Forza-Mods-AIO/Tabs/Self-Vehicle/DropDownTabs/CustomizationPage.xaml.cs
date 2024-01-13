@@ -17,6 +17,7 @@ public partial class CustomizationPage
 {
     internal static CustomizationPage Customization { get; private set; } = null!;
     public static readonly Detour GlowingPaintDetour = new(), HeadlightDetour = new(), CleanlinessDetour = new();
+    public static readonly Detour ForceLodDetour = new(), LodCmpDetour = new();
 
     private const string HeadlightBytes = "0F 10 3D 05 00 00 00";
     private const string CleanlinessFh4 = "53 80 3D 3E 00 00 00 01 75 0E 48 8B 1D 2C 00 00 00 48 89 98 7C 8C 00 00 80 3D 26 00 00 00 01 75 0E 48 8B 1D 19 00 00 00 48 89 98 80 8C 00 00 5B F3 0F 10 88 80 8C 00 00";
@@ -242,5 +243,65 @@ public partial class CustomizationPage
                 break;
             }
         }
+    }
+
+    private void ForceLodBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (ForceLodSlider == null)
+        {
+            return;
+        }
+        
+        ForceLodSlider.Value = ForceLodBox.SelectedIndex;
+        SetLod();
+    }
+
+    private void SetLod()
+    {
+        switch (ForceLodBox.SelectedIndex)
+        {
+            case 0:
+                ForceLodDetour.UpdateVariable((byte)0xFF, 8);
+                break;
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                ForceLodDetour.UpdateVariable(ToByte(ForceLodSlider.Value), 8);
+                break;
+        }
+    }
+
+    private void ForceLodSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (ForceLodSwitch == null)
+        {
+            return;
+        }
+        
+        const string cmpOrig = "41 8B 8F 98070000";
+        const string cmpDetoured = "51 48 8B 48 30 48 89 0D 06 00 00 00 59";
+        if (!LodCmpDetour.Setup(ForceLodSwitch, LodCmp, cmpOrig, cmpDetoured, 7, true, 0, true))
+        {
+            Detour.FailedHandler(sender, ForceLodSwitch_OnToggled);
+            return;
+        }
+
+        const string forceOrig = "40 88 B7 06010000";
+        const string forceDetoured = "50 48 8B 05 25 00 00 00 80 38 00 74 0C 80 38 01 74 07 80 38 11 74 02 EB 07 40 8A 35 15 00 00 00 58 40 88 B7 06 01 00 00";
+        if (!ForceLodDetour.Setup(ForceLodSwitch, ForceLod, forceOrig, forceDetoured, 7, true))
+        {
+            Detour.FailedHandler(sender, ForceLodSwitch_OnToggled);
+            return;
+        }
+
+        ForceLodDetour.UpdateVariable(LodCmpDetour.VariableAddress);
+        SetLod();
+        ForceLodDetour.Toggle();
+    }
+
+    private void ForceLodSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        ForceLodBox.SelectedIndex = ToInt32(e.NewValue);
     }
 }

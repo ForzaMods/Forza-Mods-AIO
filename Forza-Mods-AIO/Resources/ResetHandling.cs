@@ -76,6 +76,8 @@ public abstract class ResetHandling
         CustomizationPage.GlowingPaintDetour.Clear();
         CustomizationPage.HeadlightDetour.Clear();
         CustomizationPage.CleanlinessDetour.Clear();
+        CustomizationPage.ForceLodDetour.Clear();
+        CustomizationPage.LodCmpDetour.Clear();
         CameraPage.CameraDetour.Clear();
         EnvironmentPage.TimeDetour.Clear();
         EnvironmentPage.FreezeAiDetour.Clear();

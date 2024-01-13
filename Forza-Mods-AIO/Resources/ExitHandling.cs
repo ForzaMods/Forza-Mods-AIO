@@ -24,6 +24,8 @@ public static class ExitHandling
         CustomizationPage.GlowingPaintDetour.Destroy();
         CustomizationPage.HeadlightDetour.Destroy();
         CustomizationPage.CleanlinessDetour.Destroy();
+        CustomizationPage.ForceLodDetour.Destroy();
+        CustomizationPage.LodCmpDetour.Destroy();
         CameraPage.CameraDetour.Destroy();
         CarEntity.BaseDetour.Destroy();
         LocatorEntity.WaypointDetour.Destroy();

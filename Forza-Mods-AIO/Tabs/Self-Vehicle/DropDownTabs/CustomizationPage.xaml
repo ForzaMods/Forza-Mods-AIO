@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d"
-      d:DesignHeight="180" 
+      d:DesignHeight="240" 
       d:DesignWidth="580"
       Title="CustomisationPage"
       Background="Transparent">
@@ -15,7 +15,8 @@
                 BorderThickness="2,0,2,2" 
                 CornerRadius="0,0,10,10" />
 
-        <Border BorderThickness="2,2,2,2" 
+        <StackPanel>
+            <Border BorderThickness="2,2,2,2" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Top"
                 Width="556" 
@@ -59,9 +60,15 @@
             </StackPanel>
         
         </Border>
-        
-                
-        <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,66,0,0">
+            
+        <Border BorderThickness="2,2,2,2" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Top"
+                    Width="556" 
+                    Height="46"
+                    Margin="0,10,0,0" 
+                    BorderBrush="#FF2E3440">
+            
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <mah:NumericUpDown x:Name="HeadlightRed" 
                                    HorizontalAlignment="Left"
@@ -134,14 +141,14 @@
                     
         </Border>
         
-              <Border BorderThickness="2,2,2,2"
-                HorizontalAlignment="Center"
+        <Border BorderThickness="2,2,2,2" 
+                HorizontalAlignment="Center" 
                 VerticalAlignment="Top"
-                Width="556"
+                Width="556" 
                 Height="46"
-                Margin="0,120,0,0"
+                Margin="0,10,0,0" 
                 BorderBrush="#FF2E3440">
-                
+            
             <Grid>
                     
                     <ComboBox x:Name="CleanlinessComboBox"
@@ -192,6 +199,66 @@
                                       Toggled="CleanlinessSwitch_OnToggled"/>
             </Grid>
                 
-        </Border>
+        </Border><Border BorderThickness="2,2,2,2" 
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Top"
+                         Width="556" 
+                         Height="46"
+                         Margin="0,10,0,0" 
+                         BorderBrush="#FF2E3440">
+
+                <StackPanel Orientation="Horizontal">
+                
+                    <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Margin="6.5 0 0 0"
+                           Content="Lod Level:"/>
+                    
+                    <ComboBox x:Name="ForceLodBox"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="6.5 0 0 0"
+                                       Width="100"
+                                       Background="#FF2E3440"
+                                       BorderBrush="#FF2E3440"
+                                       SelectedIndex="0"
+                                       SelectionChanged="ForceLodBox_OnSelectionChanged">
+                    
+                        <ComboBoxItem Content="0"/>
+                        <ComboBoxItem Content="1"/>
+                        <ComboBoxItem Content="2"/>
+                        <ComboBoxItem Content="3"/>
+                        <ComboBoxItem Content="4"/>
+                        
+                    </ComboBox>
+                
+                    <Slider x:Name="ForceLodSlider"
+                            Minimum="0"
+                            Maximum="4"
+                            Value="0"
+                            Width="240"
+                            Margin="8 0 0 0"
+                            TickPlacement="BottomRight"
+                            IsSnapToTickEnabled="True"
+                            VerticalAlignment="Center"
+                            ValueChanged="ForceLodSlider_OnValueChanged"/>
+                
+                
+                    <mah:ToggleSwitch x:Name="ForceLodSwitch"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Margin="8 0 0 0"
+                                      Content="Force LOD"
+                                      ToolTip="Glowing paint toggle, you must change the color in the in-game paint car section for it to take effect"
+                                      FontSize="12"
+                                      Toggled="ForceLodSwitch_OnToggled" />
+                
+                </StackPanel>
+        
+            </Border>
+            
+        </StackPanel>
+        
+        
     </Grid>
 </Page>
