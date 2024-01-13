@@ -342,7 +342,6 @@ public partial class UnlocksPage
             AutoshowVars.ExecSql(button, Unlock_OnClick, makeIdList);
             _wasIdListCreated = true;
         }
-        AutoshowVars.ExecSql(button, Unlock_OnClick,"UPDATE ContentOffers SET IsFree = 1;");
 
         var insert = $"INSERT INTO ContentOffersMapping (OfferId,ContentId,ContentType,IsPromo,IsAutoRedeem,Quantity) SELECT 3, id, {button.Tag}, 0, 1, 1 FROM id_list;";
         AutoshowVars.ExecSql(button, Unlock_OnClick,insert);
