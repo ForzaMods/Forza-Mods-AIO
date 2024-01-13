@@ -206,7 +206,6 @@
                                    <Button x:Name="ClearTag" 
                                            VerticalAlignment="Top"
                                            HorizontalAlignment="Center"
-                                           Width="45" MinWidth="0" 
                                            Margin="0 5 0 0"
                                            Content="Run" 
                                            Background="#FF2E3440"
@@ -223,7 +222,6 @@
                                     
                                     <StackPanel Margin="0 5 0 0" Orientation="Horizontal">
                                            <ComboBox x:Name="ClearGarageBox"
-                                                     Width="110"
                                                      BorderThickness="0"
                                                      VerticalAlignment="Top"
                                                      IsEditable="False"
@@ -248,8 +246,6 @@
                                            <Button x:Name="ClearGarage" 
                                                    VerticalAlignment="Top" 
                                                    HorizontalAlignment="Right"
-                                                   Width="45" 
-                                                   MinWidth="0" 
                                                    Content="Run" 
                                                    ToolTip="This option will delete every car in ur garage based on the selection in the combo box"
                                                    Margin="15 0 0 0"
@@ -269,13 +265,9 @@
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Top"/>
 
-                                    
-                                    
                                     <Button x:Name="FixThumbnails" 
                                             VerticalAlignment="Top" 
                                             HorizontalAlignment="Center"
-                                            Width="45" 
-                                            MinWidth="0" 
                                             Margin="0 5 0 0"
                                             Content="Run" 
                                             ToolTip="This option will revert every thumbnail of every car in ur garage to its default"
@@ -312,7 +304,6 @@
                             <Button x:Name="FreePerfUpgrades" 
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center" 
-                                    Width="45" MinWidth="0" 
                                     Margin="0 5 0 0"
                                     Content="Run" 
                                     ToolTip="This option will make every performance upgrade free. Its not revert able, unless you restart the game"
@@ -330,7 +321,6 @@
                             <Button x:Name="FreeVisualUpgrades"
                                     HorizontalAlignment="Center" 
                                     VerticalAlignment="Bottom"
-                                    Width="45" MinWidth="0"
                                     Margin="0 5 0 0"
                                     Content="Run" 
                                     ToolTip="This option will make every performance upgrade free. Its not revert able, unless you restart the game"
@@ -348,7 +338,6 @@
                             <Button x:Name="QuickAddAllCars" 
                                     HorizontalAlignment="Center" 
                                     VerticalAlignment="Bottom" 
-                                    Width="45" MinWidth="0" 
                                     Margin="0 5 0 0"
                                     Content="Run"
                                     ToolTip="This option will add every car from the autoshow into ur garage, hidden, rare - it doesnt matter."
@@ -369,7 +358,6 @@
                             <Button x:Name="QuickAddRareCars" 
                                     HorizontalAlignment="Center" 
                                     VerticalAlignment="Bottom" 
-                                    Width="45" MinWidth="0" 
                                     Margin="0 5 0 0"
                                     Background="#FF2E3440"
                                     BorderBrush="#FF2E3440"

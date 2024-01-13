@@ -86,7 +86,22 @@ public partial class AioInfo
             }
             case 1: // chinese
             {
+                _translateUtil.RevertToEnglish();
                 _translateUtil.SetLanguage(Translations.ChineseTranslate);
+                _translateUtil.Translate();
+                break;
+            }
+            case 2: // polish
+            {
+                _translateUtil.RevertToEnglish();
+                _translateUtil.SetLanguage(Translations.PolishTranslation);
+                _translateUtil.Translate();
+                break;
+            }
+            case 3: // german
+            {
+                _translateUtil.RevertToEnglish();
+                _translateUtil.SetLanguage(Translations.GermanTranslation);
                 _translateUtil.Translate();
                 break;
             }

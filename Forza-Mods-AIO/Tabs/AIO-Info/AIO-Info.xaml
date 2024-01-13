@@ -55,6 +55,8 @@
                   SelectionChanged="Selector_OnSelectionChanged">
                <ComboBoxItem Content="English"/>
                <ComboBoxItem Content="Chinese"/>
+               <ComboBoxItem Content="Polish"/>
+               <ComboBoxItem Content="German"/>
         </ComboBox>
         
         <Label Content="Language" 

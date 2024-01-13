@@ -42,8 +42,13 @@ public class TranslateUtil
         OriginalSnapshot = snapshot;
     }
 
-    private static Dictionary<FrameworkElement, OriginalValues> CreateSnapshot()
+    private Dictionary<FrameworkElement, OriginalValues> CreateSnapshot()
     {
+        if (OriginalSnapshot != null)
+        {
+            return OriginalSnapshot;
+        }
+        
         var snapshot = new Dictionary<FrameworkElement, OriginalValues>();
 
         foreach (var element in MainWindow.Mw.GetChildren().Cast<FrameworkElement>())
