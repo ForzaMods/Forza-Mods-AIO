@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using Forza_Mods_AIO.Resources;
+using Forza_Mods_AIO.Tabs.AutoShowTab;
 using MahApps.Metro.Controls;
 using static System.Convert;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.SelfVehicleAddresses;
@@ -317,4 +319,33 @@ public partial class UnlocksPage
         
         SkillPointsDetour.Toggle();
     }
+
+    private bool _wasIdListCreated;
+
+    private void Unlock_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button)
+        {
+            return;
+        }
+
+        if (MessageBox.Show(
+                "This feature wasnt tested at all, it should work in theory though. Do you want to continue?",
+                "Warning", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+        {
+            return;
+        }
+        
+        if (!_wasIdListCreated)
+        {
+            const string makeIdList = "CREATE TABLE IF NOT EXISTS id_list (id INTEGER PRIMARY KEY); WITH RECURSIVE Counter(id) AS (SELECT 1 UNION SELECT id + 1 FROM Counter WHERE id < 5000) INSERT INTO id_list (id) SELECT id FROM Counter;";
+            AutoshowVars.ExecSql(button, Unlock_OnClick, makeIdList);
+            _wasIdListCreated = true;
+        }
+        AutoshowVars.ExecSql(button, Unlock_OnClick,"UPDATE ContentOffers SET IsFree = 1;");
+
+        var insert = $"INSERT INTO ContentOffersMapping (OfferId,ContentId,ContentType,IsPromo,IsAutoRedeem,Quantity) SELECT 3, id, {button.Tag}, 0, 1, 1 FROM id_list;";
+        AutoshowVars.ExecSql(button, Unlock_OnClick,insert);
+    }
+
 }

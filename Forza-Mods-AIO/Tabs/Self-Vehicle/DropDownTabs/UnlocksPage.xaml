@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d"
-      d:DesignHeight="235"
+      d:DesignHeight="290"
       d:DesignWidth="580"
       Title="UnlocksPage"
       Background="{DynamicResource ApplicationBackgroundBrush}">
@@ -17,14 +17,7 @@
 
         <StackPanel>
             
-            <Border BorderThickness="2,2,2,2" 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Top" 
-                    Width="556" 
-                    Height="46"
-                    Margin="0,10,0,0" 
-                    BorderBrush="#FF2E3440">
-            
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -99,13 +92,7 @@
                 </Grid>
                 
             </Border>
-            <Border BorderThickness="2,2,2,2" 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Top" 
-                    Width="556" 
-                    Height="46"
-                    Margin="0,10,0,0" 
-                    BorderBrush="#FF2E3440">
+            <Border Style="{StaticResource CommonBorderStyle}">
             
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -257,13 +244,7 @@
             </StackPanel>
             
                 
-            <Border BorderThickness="2,2,2,2" 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Top" 
-                    Width="556" 
-                    Height="46" 
-                    BorderBrush="#FF2E3440" 
-                    Margin="0,10,0,0">
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     <mah:NumericUpDown x:Name="SeriesNum"
                                        HideUpDownButtons="True"
@@ -308,6 +289,52 @@
                                       Content="Seasonal Points"
                                       Toggled="SeasonalToggle_OnToggled"/>
                 </Grid>
+            </Border>
+                
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <StackPanel Orientation="Horizontal">
+                    
+                    <Label VerticalAlignment="Center"
+                           Content="Unlock all:"
+                           Margin="6.5 0 0 0"/>
+                    
+                    <Button VerticalAlignment="Center"
+                            Background="#FF2E3440"
+                            BorderThickness="0"
+                            Content="Horns"
+                            Margin="6.5 0 0 0"
+                            Width="111.5"
+                            Tag="5"
+                            Click="Unlock_OnClick"/>
+                    
+                    <Button VerticalAlignment="Center"
+                            Background="#FF2E3440"
+                            BorderThickness="0"
+                            Content="Quick Chats"
+                            Margin="6.5 0 0 0"
+                            Width="111.5"
+                            Tag="7"
+                            Click="Unlock_OnClick"/>
+                    
+                    <Button VerticalAlignment="Center"
+                            Background="#FF2E3440"
+                            BorderThickness="0"
+                            Content="Clothing"
+                            Margin="6.5 0 0 0"
+                            Width="111.5"
+                            Tag="4"
+                            Click="Unlock_OnClick"/>
+                    
+                    <Button VerticalAlignment="Center"
+                            Background="#FF2E3440"
+                            BorderThickness="0"
+                            Content="Emotes"
+                            Tag="6"
+                            Margin="6.5 0 0 0"
+                            Width="111.5"
+                            Click="Unlock_OnClick"/>
+                    
+                </StackPanel>
             </Border>
         </StackPanel>
         

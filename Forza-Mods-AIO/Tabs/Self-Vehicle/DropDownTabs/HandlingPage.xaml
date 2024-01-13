@@ -13,7 +13,7 @@
         <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10"/>
         
         <StackPanel>
-            <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" Margin="0,10,0,0" BorderBrush="#FF2E3440" >
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Mode"
@@ -98,7 +98,7 @@
  
             </Border>
             
-            <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0">
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     <mah:ToggleSwitch x:Name="WheelSpeedSwitch" 
                                       HorizontalAlignment="Right" 
@@ -190,7 +190,7 @@
                 </Grid>    
             </Border>
             
-            <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0">
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     <mah:NumericUpDown x:Name="GravityValueNum" 
                                        Margin="6.5 0 0 0" 
@@ -350,7 +350,7 @@
                 </Grid>
             </Border>
 
-            <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0">
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     <mah:NumericUpDown x:Name="JumpHackVelocityNum" 
                                        HorizontalAlignment="Left" 
@@ -529,7 +529,7 @@
                     </StackPanel>
                 </Grid>
             </Border>
-            <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0">
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     <mah:NumericUpDown x:Name="SuperBrakeVelocity" 
                                        HorizontalAlignment="Left" 
@@ -573,7 +573,7 @@
                             ValueChanged="SuperBrakeSlider_OnValueChanged"/>
                 </Grid>
             </Border>
-            <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0">
+            <Border Style="{StaticResource CommonBorderStyle}">
                 
                 <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Center"

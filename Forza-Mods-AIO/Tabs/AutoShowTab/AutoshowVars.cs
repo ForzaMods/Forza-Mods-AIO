@@ -19,6 +19,7 @@ internal class AutoshowVars
     #region Variables
    
     private static nuint _ptr = nuint.Zero;
+    private static nuint _callFunction = nuint.Zero;
     private const int VirtualFunctionIndex = 9;
 
     #endregion
@@ -166,10 +167,13 @@ internal class AutoshowVars
 
         BlockCopy(GetBytes(rdx.ToUInt64()), 0, shellCode, 0x02, 8);
         BlockCopy(GetBytes(r8.ToUInt64()), 0, shellCode, 0x0C, 8);
-        
-        var callFunction = GetVirtualFunctionPtr(_ptr, VirtualFunctionIndex);
 
-        BlockCopy(GetBytes(callFunction.ToUInt64()), 0, shellCode, shellCode.Length - 8, 8);
+        if (_callFunction == nuint.Zero)
+        {
+            _callFunction = GetVirtualFunctionPtr(_ptr, VirtualFunctionIndex);
+        }
+
+        BlockCopy(GetBytes(_callFunction.ToUInt64()), 0, shellCode, shellCode.Length - 8, 8);
 
         Mw.M.WriteStringMemory(r8, command + "\0");
 

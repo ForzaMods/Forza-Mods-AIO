@@ -16,13 +16,7 @@
                 CornerRadius="0,0,10,10" />
 
         <StackPanel>
-            <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                Width="556" 
-                Height="46"
-                Margin="0,10,0,0" 
-                BorderBrush="#FF2E3440">
+            <Border Style="{StaticResource CommonBorderStyle}">
 
             <StackPanel Orientation="Horizontal">
                 
@@ -61,13 +55,7 @@
         
         </Border>
             
-        <Border BorderThickness="2,2,2,2" 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Top"
-                    Width="556" 
-                    Height="46"
-                    Margin="0,10,0,0" 
-                    BorderBrush="#FF2E3440">
+        <Border Style="{StaticResource CommonBorderStyle}">
             
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <mah:NumericUpDown x:Name="HeadlightRed" 
@@ -141,13 +129,7 @@
                     
         </Border>
         
-        <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                Width="556" 
-                Height="46"
-                Margin="0,10,0,0" 
-                BorderBrush="#FF2E3440">
+        <Border Style="{StaticResource CommonBorderStyle}">
             
             <Grid>
                     
@@ -198,14 +180,10 @@
                                       Margin="10 0"
                                       Toggled="CleanlinessSwitch_OnToggled"/>
             </Grid>
-                
-        </Border><Border BorderThickness="2,2,2,2" 
-                         HorizontalAlignment="Center" 
-                         VerticalAlignment="Top"
-                         Width="556" 
-                         Height="46"
-                         Margin="0,10,0,0" 
-                         BorderBrush="#FF2E3440">
+            
+        </Border>
+            
+            <Border Style="{StaticResource CommonBorderStyle}">
 
                 <StackPanel Orientation="Horizontal">
                 
