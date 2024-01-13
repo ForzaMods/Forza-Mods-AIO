@@ -21,5 +21,5 @@ using System.Runtime.InteropServices;
 // Minor Version - Default number
 // Revision - Last release revision + 1
 // Build Number - Number of commits since last release
-[assembly: AssemblyVersion("2.0.5.8")]
-[assembly: AssemblyFileVersion("2.0.5.8")]
+[assembly: AssemblyVersion("2.0.6.18")]
+[assembly: AssemblyFileVersion("2.0.6.18")]
