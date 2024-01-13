@@ -293,8 +293,8 @@ internal class SelfVehicleAddresses
         ForceLod = Mw.M.ScanForSig(forceLodSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
-        const string lodCmpSig = "41 8B ? ? ? ? ? 3B 48 ? 75";
-        LodCmp = Mw.M.ScanForSig(lodCmpSig).FirstOrDefault();
+        const string lodCmpSig = "45 32 ? 89 48";
+        LodCmp = Mw.M.ScanForSig(lodCmpSig).FirstOrDefault() + 6;
         Sv.UiManager.AddProgress();
 
         SelfVehicleOption.IsEnabled = true;

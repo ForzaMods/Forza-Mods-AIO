@@ -279,9 +279,9 @@ public partial class CustomizationPage
             return;
         }
         
-        const string cmpOrig = "41 8B 8F 98070000";
+        const string cmpOrig = "41 0F10 B7 D0070000";
         const string cmpDetoured = "51 48 8B 48 30 48 89 0D 06 00 00 00 59";
-        if (!LodCmpDetour.Setup(ForceLodSwitch, LodCmp, cmpOrig, cmpDetoured, 7, true, 0, true))
+        if (!LodCmpDetour.Setup(ForceLodSwitch, LodCmp, cmpOrig, cmpDetoured, 8, true, 0, true))
         {
             Detour.FailedHandler(sender, ForceLodSwitch_OnToggled);
             return;
