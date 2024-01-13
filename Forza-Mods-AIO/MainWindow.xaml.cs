@@ -54,7 +54,6 @@ public partial class MainWindow
 
     public MainWindow()
     {
-        TranslateUtil.LoadTranslateDic();
         InitializeComponent();
         UpdateAio();
         Mw = this;
@@ -71,7 +70,6 @@ public partial class MainWindow
         CategoryButton_Click(AIO_Info, new RoutedEventArgs());
         Loaded += (_, _) =>
         {
-            TranslateUtil.Translate();
             Task.Run(IsAttached);
             ToggleButtons(false);
         };
@@ -165,8 +163,6 @@ public partial class MainWindow
                 frame.Visibility = Visibility.Hidden;
             }
         }
-        TranslateUtil.Translate();
-        TranslateUtil.TranslateOutput();
     }
 
     #endregion
@@ -290,8 +286,6 @@ public partial class MainWindow
         {
             AttachedLabel.Content = $"{Gvp.Name}, {Gvp.Plat}, {Gvp.Update}";
             AioInfo.Ai.OverlaySwitch.IsEnabled = true;
-            AioInfo.Ai.CustomTitle.IsEnabled = true;
-            AioInfo.Ai.CustomTitleText.IsEnabled = true;
         });
     }
 
@@ -302,7 +296,6 @@ public partial class MainWindow
     private void Window_Closing(object sender, CancelEventArgs e)
     {
         Window.Hide();
-        File.WriteAllLines("F:\\items.txt", TranslateUtil.Strings);
         try
         {
             O.OverlayToggle(false);
@@ -313,8 +306,6 @@ public partial class MainWindow
         {
             Environment.Exit(0);
         }
-
-        Dispatcher.Invoke(() => AioInfo.Ai.CustomTitle.IsOn = false);
 
         ExitHandling.DestroyDetours();
         ExitHandling.RevertWrites();

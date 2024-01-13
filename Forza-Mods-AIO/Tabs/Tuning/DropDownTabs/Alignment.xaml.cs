@@ -6,6 +6,7 @@ namespace Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
 
 public partial class Alignment
 {
+    public bool CodeChange;
     public static Alignment Al { get; private set; } = null!;
     public Alignment()
     {
@@ -15,7 +16,7 @@ public partial class Alignment
 
     private void CamberNegBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached || CamberNegBox == null)
+        if (!Mw.Attached || CamberNegBox == null || CodeChange)
         {
             return;
         }   
@@ -26,7 +27,7 @@ public partial class Alignment
 
     private void CamberPosBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached || CamberPosBox == null)
+        if (!Mw.Attached || CamberPosBox == null || CodeChange)
         {
             return;
         }
@@ -37,7 +38,7 @@ public partial class Alignment
 
     private void ToeNegBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached || ToeNegBox == null)
+        if (!Mw.Attached || ToeNegBox == null || CodeChange)
         {
             return;
         }
@@ -47,7 +48,7 @@ public partial class Alignment
 
     private void ToePosBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached || ToePosBox == null)
+        if (!Mw.Attached || ToePosBox == null || CodeChange)
         {
             return;
         }

@@ -14,7 +14,7 @@
         <Button Content="Wall Colour"
                 Height="26"
                 Width="86" 
-                Margin="0 0 10 45" 
+                Margin="0 0 10 85" 
                 VerticalAlignment="Bottom" 
                 HorizontalAlignment="Right" 
                 Click="WallButton_Click"
@@ -26,7 +26,7 @@
         <Slider x:Name="LightnessSlider"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Margin="0 0 10 15"
+            Margin="0 0 10 50"
             Width="86"
             Maximum="100"
             SmallChange="1"
@@ -40,6 +40,26 @@
         <Label Content="Lightness" 
                HorizontalAlignment="Right" 
                VerticalAlignment="Bottom" 
+               Margin="0 0 100 50" 
+               Height="24" 
+               FontFamily="Manrope" 
+               Foreground="White"/>
+        
+        <ComboBox HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom"
+                  Width="86"
+                  Margin="0 0 10 15"
+                  BorderThickness="0"
+                  Background="#FF2E3440"
+                  SelectedIndex="0"
+                  SelectionChanged="Selector_OnSelectionChanged">
+               <ComboBoxItem Content="English"/>
+               <ComboBoxItem Content="Chinese"/>
+        </ComboBox>
+        
+        <Label Content="Language" 
+               HorizontalAlignment="Right" 
+               VerticalAlignment="Bottom" 
                Margin="0 0 100 15" 
                Height="24" 
                FontFamily="Manrope" 
@@ -48,7 +68,7 @@
         <mah:ToggleSwitch x:Name="OverlaySwitch" 
                           Height="55" 
                           Header="Overlay" 
-                          Margin="0 0 -60 75" 
+                          Margin="0 0 -60 115" 
                           VerticalAlignment="Bottom" 
                           HorizontalAlignment="Right"
                           Width="114" 
@@ -193,34 +213,7 @@
                VerticalAlignment="Bottom"
                HorizontalAlignment="Left"
                FontSize="14"
-               Margin="10"
+               Margin="15"
                Content="Version: "/>
-        
-        <StackPanel Orientation="Horizontal"
-                    Margin="-45 0 0 10"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom">
-               
-        
-               <mah:ToggleSwitch x:Name="CustomTitle" 
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Content="Custom Process Title"
-                                 FontSize="11.5"
-                                 IsEnabled="False"
-                                 Toggled="CustomTitle_OnToggled"/>
-        
-               <TextBox x:Name="CustomTitleText" 
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Margin="10, 0"
-                        Width="120"
-                        BorderThickness="0"
-                        Background="#FF2E3440"
-                        IsEnabled="False"
-                        TextChanged="TextBoxBase_OnTextChanged"/>
-        </StackPanel>
-        
-        
     </Grid>
 </Page>

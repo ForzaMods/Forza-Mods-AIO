@@ -166,8 +166,8 @@ internal class TuningAddresses
         }
         else
         {
-            const string sig = "48 63 ? 48 69 D0 ? ? ? ? 48 8B ? ? ? ? ? ? 48 85 ? 74 ? 48 8B ? ? ? ? ? C3 C3 40";
-            SelfVehicleAddresses.BaseAddrHook = Mw.M.ScanForSig(sig).FirstOrDefault() - 279;
+            const string sig = "0F 2F ? ? ? ? ? 72 ? 0F 2F ? ? ? ? ? 72 ? 0F 2F";
+            SelfVehicleAddresses.BaseAddrHook = Mw.M.ScanForSig(sig).FirstOrDefault();
         }
         
         Tuning.T.UiManager.AddProgress();
@@ -332,10 +332,12 @@ internal class TuningAddresses
     
     private static void ReadAlignmentValues()
     {
+        Alignment.Al.CodeChange = true;
         Alignment.Al.CamberNegBox.Value = Mw.M.ReadMemory<float>(CamberNegStatic);
         Alignment.Al.CamberPosBox.Value = Mw.M.ReadMemory<float>(CamberPosStatic);
         Alignment.Al.ToeNegBox.Value = Mw.M.ReadMemory<float>(ToeNegStatic);
         Alignment.Al.ToePosBox.Value = Mw.M.ReadMemory<float>(ToePosStatic);
+        Alignment.Al.CodeChange = false;
     }
 
     private static void ReadAeroValues()

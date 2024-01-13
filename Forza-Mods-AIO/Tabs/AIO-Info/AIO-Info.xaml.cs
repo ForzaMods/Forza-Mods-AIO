@@ -1,14 +1,10 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static Forza_Mods_AIO.MainWindow;
-using static Forza_Mods_AIO.Resources.DllImports;
+using Forza_Mods_AIO.Resources;
 using Monet = Forza_Mods_AIO.Resources.Theme.Monet;
 
 namespace Forza_Mods_AIO.Tabs.AIO_Info;
@@ -71,34 +67,29 @@ public partial class AioInfo
             }
         }
     }
-    
-    private string _originalTitle = string.Empty;
-    
-    private void CustomTitle_OnToggled(object sender, RoutedEventArgs e)
-    {
-        if (_originalTitle == string.Empty)
-        {
-            _originalTitle = GetWindowTitle(Mw.Gvp.Process.MainWindowHandle);
-        }
 
-        SetWindowText(Mw.Gvp.Process.MainWindowHandle, CustomTitle.IsOn ? CustomTitleText.Text : _originalTitle);
-    }
-    
-    private static string GetWindowTitle(IntPtr hWnd)
-    {
-        var length = GetWindowTextLength(hWnd) + 1;
-        var title = new StringBuilder(length);
-        var windowText = GetWindowText(hWnd, title, length);
-        return windowText == -1 ? string.Empty : title.ToString();
-    }
+    private TranslateUtil _translateUtil = new();
 
-    private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (!CustomTitle.IsOn)
+        if (sender is not ComboBox comboBox)
         {
             return;
         }
-        
-        SetWindowText(Mw.Gvp.Process.MainWindowHandle, CustomTitleText.Text);
+
+        switch (comboBox.SelectedIndex)
+        {
+            case 0: // english
+            {
+                _translateUtil.RevertToEnglish();
+                break;
+            }
+            case 1: // chinese
+            {
+                _translateUtil = new TranslateUtil(Translations.ChineseTranslate);
+                _translateUtil.Translate();
+                break;
+            }
+        }
     }
 }

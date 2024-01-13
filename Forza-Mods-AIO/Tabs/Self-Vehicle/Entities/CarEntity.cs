@@ -57,19 +57,10 @@ public abstract class CarEntity
             Mw.M.WriteArrayMemory(AccelProtectAddr, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 });
         }
 
-        var taskCompletionSource = new TaskCompletionSource<bool>();
-        
-        await Task.Run(() =>
+        while ((PlayerCarEntity = BaseDetour.ReadVariable<UIntPtr>()) == 0)
         {
-            while ((PlayerCarEntity = BaseDetour.ReadVariable<UIntPtr>()) == 0)
-            {
-                Task.Delay(5).Wait();
-            }
-            
-            taskCompletionSource.SetResult(true);
-        });
-
-        await taskCompletionSource.Task;
+            await Task.Delay(5);
+        }
     }
     
     #region Floats
