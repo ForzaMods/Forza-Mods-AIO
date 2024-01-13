@@ -202,7 +202,7 @@ public class UiManager
             
         Task.Run(() =>
         {
-            var progress = Math.Round(100d / ScanAmount, 4) * Index;
+            var progress = 100d / ScanAmount * Index;
             if (progress > 100)
             {
                 progress = 100;
