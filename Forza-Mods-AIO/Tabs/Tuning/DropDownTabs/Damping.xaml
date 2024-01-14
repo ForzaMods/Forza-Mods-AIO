@@ -269,7 +269,7 @@
                                        Margin="152.5, 7.5" 
                                        ValueChanged="ValueChanged"/>
                     
-                    <Label Content="Rear Bump Stiffness Min" 
+                    <Label Content="Rear Bump Stiffness Max" 
                            HorizontalAlignment="Right" 
                            VerticalAlignment="Top" 
                            Margin="0,7.5,135,0"/>

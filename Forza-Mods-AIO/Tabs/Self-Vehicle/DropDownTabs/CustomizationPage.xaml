@@ -227,7 +227,7 @@
                                       HorizontalAlignment="Left"
                                       Margin="8 0 0 0"
                                       Content="Force LOD"
-                                      ToolTip="Glowing paint toggle, you must change the color in the in-game paint car section for it to take effect"
+                                      ToolTip="Force any Level Of Detail you want. 0 Is best 4 is worst. Very unstable."
                                       FontSize="12"
                                       Toggled="ForceLodSwitch_OnToggled" />
                 
