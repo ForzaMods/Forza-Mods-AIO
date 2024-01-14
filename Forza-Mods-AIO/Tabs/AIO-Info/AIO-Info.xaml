@@ -57,6 +57,7 @@
                <ComboBoxItem Content="Chinese"/>
                <ComboBoxItem Content="Polish"/>
                <ComboBoxItem Content="German"/>
+               <ComboBoxItem Content="French"/>
         </ComboBox>
         
         <Label Content="Language" 
