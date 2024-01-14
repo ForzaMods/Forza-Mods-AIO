@@ -9,58 +9,63 @@
       d:DesignWidth="580"
       Title="Teleports"
       Background="Transparent">
+    <Grid>
 
-    <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10">
-        <Grid>
-            <Border BorderThickness="2,2,2,2" 
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" 
-                    Focusable="False"
-                    Width="360" 
-                    Height="46" 
-                    Margin="10,10,0,0" BorderBrush="#FF2E3440" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <Border BorderBrush="#FF2E3440" 
+                BorderThickness="2,0,2,2" 
+                CornerRadius="0,0,10,10"
+                Grid.ColumnSpan="2"/>
+        
+        <Border Style="{StaticResource CommonBorderStyle}"
+                Grid.Column="0">
+        
+            <Grid>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                
+                <Label Content="Teleport Locations:" 
+                       VerticalAlignment="Center"
+                       Focusable="False"
+                       Margin="6.5 0 0 0" 
+                       Grid.Column="0"/>
             
-            <Border BorderThickness="2,2,2,2" 
-                    HorizontalAlignment="Right" 
-                    Focusable="False"
-                    VerticalAlignment="Top" 
-                    Width="190" 
-                    Height="46" 
-                    Margin="0,10,10,0" BorderBrush="#FF2E3440" />
+                <ComboBox Background="#FF2E3440" 
+                          BorderBrush="#FF2E3440" 
+                          x:Name="TeleportBox" 
+                          Focusable="False"
+                          Height="25" 
+                          VerticalAlignment="Center" 
+                          Margin="6.5, 0"
+                          BorderThickness="0"
+                          SelectionChanged="TeleportBox_SelectionChanged" 
+                          Grid.Column="1"/>
+                
+            </Grid>
             
-            <Label Content="Teleport Locations:" 
-                   HorizontalAlignment="Left" 
-                   VerticalAlignment="Top"
-                   Focusable="False"
-                   Margin="16.5,20,0,0" />
-            
-            <ComboBox Background="#FF2E3440" 
-                      BorderBrush="#FF2E3440" 
-                      x:Name="TeleportBox" 
-                      Focusable="False"
-                      Height="25" 
-                      Width="230" 
-                      VerticalAlignment="Top" 
-                      HorizontalAlignment="Left" 
-                      Margin="130, 20"
-                      BorderThickness="0"
-                      SelectionChanged="TeleportBox_SelectionChanged" />
-            
-            <Label Content="Auto TP To Waypoint" 
-                   HorizontalAlignment="Right" 
-                   VerticalAlignment="Top"
-                   Focusable="False"
-                   Margin="0,20,20,0" />
-            
+        </Border>
+        
+        <Border Style="{StaticResource CommonBorderStyle}"
+                Grid.Column="1">
+        
             <mah:ToggleSwitch x:Name="AutoTpToWaypoint" 
-                              Content=""
+                              Content="Auto TP To Waypoint"
                               Focusable="False"
-                              VerticalAlignment="Top" 
-                              HorizontalAlignment="Right"
-                              HorizontalContentAlignment="Left"
+                              VerticalAlignment="Center" 
                               MinWidth="0"
-                              Margin="0,17.5,135,0" 
+                              Margin="6.5 0" 
+                              FontSize="11.5"
                               Toggled="AutoTpToWaypoint_Toggled" />
-        </Grid>
-    </Border>
+            
+        </Border>
+            
+    </Grid>
 </Page>

@@ -13,9 +13,8 @@ public partial class Springs
 {
     private float _frontPreviousRestrictionValue;
     private float _rearPreviousRestrictionValue;
-    public bool RideHeightCodeChange = false;
-    public bool CodeChange;
-    
+    public bool RideHeightCodeChange;
+
     public static Springs Sp { get; private set; } = null!;
 
     public Springs()
@@ -26,29 +25,7 @@ public partial class Springs
 
     private void ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (CodeChange)
-        {
-            return;
-        }
-            
-        ((NumericUpDown)sender).Value = Math.Round(Convert.ToDouble(((NumericUpDown)sender).Value), 3);
-
-        if (!Mw.Attached)
-        {
-            return;
-        }
-        
-        var senderName = sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!;
-        var address = GetAddress(senderName);
-        
-        var value = ((NumericUpDown)sender).Value;
-        
-        if (address == 0 || value == null)
-        {
-            return;
-        }
-
-        Mw.M.WriteMemory(address, Convert.ToSingle(value));
+        TuningAddresses.ChangeValue(sender);
     }
     
     private void RideHeightChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)

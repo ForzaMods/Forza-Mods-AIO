@@ -13,13 +13,7 @@
       <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10"/>
       <StackPanel>
          
-         <Border BorderThickness="2,2,2,2" 
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Top" 
-                 Width="556" 
-                 BorderBrush="#FF2E3440"
-                 Margin="0,10,0,0">
-            
+         <Border Style="{StaticResource CommonBorderStyle}">
             <Grid>
                
                <Grid.ColumnDefinitions>
@@ -33,7 +27,7 @@
                   <Label Content="Steering Angle Max"
                          VerticalAlignment="Center" 
                          HorizontalAlignment="Left"
-                         Margin="5,10,0,10"/>
+                         Margin="5,0,0,0"/>
                   
                   <mah:NumericUpDown x:Name="AngleMaxBox" 
                                      Background="#FF2E3440" 
@@ -41,8 +35,9 @@
                                      TrackMouseWheelWhenMouseOver="True"
                                      ParsingNumberStyle="Float" 
                                      TextAlignment="Left" 
+                                     VerticalAlignment="Center"
                                      NumericInputMode="Decimal" 
-                                     Margin="5,10,0,10" 
+                                     Margin="5,0,0,0" 
                                      Width="120"
                                      ValueChanged="ValueChanged"/>
 
@@ -55,7 +50,7 @@
                   <Label Content="Steering Angle Max 2"
                          VerticalAlignment="Center" 
                          HorizontalAlignment="Left"
-                         Margin="5,10,0,10"/>
+                         Margin="5,0,0,0"/>
                   
                   <mah:NumericUpDown x:Name="AngleMax2Box" 
                                      Background="#FF2E3440" 
@@ -63,8 +58,9 @@
                                      TrackMouseWheelWhenMouseOver="True"
                                      ParsingNumberStyle="Float" 
                                      TextAlignment="Left" 
+                                     VerticalAlignment="Center"
                                      NumericInputMode="Decimal" 
-                                     Margin="5,10,7.5,10" 
+                                     Margin="5,0,7.5,0" 
                                      Width="120"
                                      ValueChanged="ValueChanged"/>
 
@@ -75,9 +71,7 @@
          </Border>   
             
          <Border BorderThickness="2,2,2,2"
-                 HorizontalAlignment="Center" 
-                 VerticalAlignment="Top" Width="556" 
-                 Margin="0,10,0,0" 
+                 Margin="10,10,10,0" 
                  BorderBrush="#FF2E3440">
             
             <Grid>

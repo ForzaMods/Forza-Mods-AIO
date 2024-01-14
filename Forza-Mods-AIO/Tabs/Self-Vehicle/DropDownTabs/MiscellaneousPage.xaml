@@ -14,330 +14,333 @@
                 BorderThickness="2,0,2,2"
                 CornerRadius="0,0,10,10" />
         
-        <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                Width="275.5" 
-                Height="46" 
-                Margin="10,10,0,0" 
-                BorderBrush="#FF2E3440" />
-        
-        <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Right" 
-                VerticalAlignment="Top" 
-                Width="275.5" 
-                Height="46" 
-                Margin="0,10,10,0" 
-                BorderBrush="#FF2E3440" />
-
-        <mah:ToggleSwitch x:Name="RemoveBuildCapSwitch"
-                          MinWidth="1"
-                          Content=""
-                          VerticalAlignment="Top"
-                          Margin="20 17 0 0"
-                          Toggled="RemoveBuildCapSwitch_OnToggled"/> 
-        
-        <Label Content="Event Builder Unlimited Build Budget"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Left"
-               Margin="70 20 0 0"
-               ToolTip="This feature removes the event builder restriction by setting the current percentage to 0."/>
-        
-        <mah:ToggleSwitch x:Name="SkillToggle"
-                          MinWidth="1"
-                          Content=""
-                          HorizontalAlignment="Right"
-                          VerticalAlignment="Top"
-                          Margin="0 17 218.5 0"
-                          Toggled="Skill_OnToggled"/> 
-        
-        <Label Content="Unbreakable Skill Score/Skill Combo"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Left"
-               Margin="360 20 0 0"
-               ToolTip="This option makes it so score never breaks when crashed"/>
-        
-        <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top" 
-                Width="560"
-                Height="46" 
-                Margin="0,66,0,0" 
-                BorderBrush="#FF2E3440" >
+        <StackPanel>
             <Grid>
-                    
-                    <mah:NumericUpDown x:Name="ScaleNum"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       Margin="7.5"
-                                       Width="100"
-                                       TextAlignment="Left"
-                                       Minimum="1"
-                                       Maximum="2147483647"
-                                       Value="10"
-                                       TrackMouseWheelWhenMouseOver="True"
-                                       Background="#FF2E3440"
-                                       BorderBrush="#FF2E3440"
-                                       ValueChanged="ScaleNum_OnValueChanged"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
                 
-                    <mah:ToggleSwitch x:Name="ScaleSwitch"
-                                      HorizontalAlignment="Left"
-                                      VerticalAlignment="Center"
-                                      Margin="115 0"
-                                      Content="Spin Prize Scale"
-                                      ToolTip="This feature increases money reward prizes in the wheelspin"
-                                      FontSize="11.5"
+                <Border Style="{StaticResource CommonBorderStyle}">
+                
+                    <mah:ToggleSwitch x:Name="RemoveBuildCapSwitch"
                                       MinWidth="0"
-                                      Toggled="ScaleSwitch_OnToggled"/>
-                    
-                    
-                    <mah:NumericUpDown x:Name="SellFactorNum"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center"
-                                       Margin="180 0"
-                                       Width="100"
-                                       TextAlignment="Left"
-                                       Minimum="1"
-                                       Value="100"
-                                       Maximum="2147483647"
-                                       ParsingNumberStyle="Integer"
-                                       NumericInputMode="Numbers"
-                                       TrackMouseWheelWhenMouseOver="True"
-                                       Background="#FF2E3440"
-                                       BorderBrush="#FF2E3440"
-                                       ValueChanged="SellFactorNum_OnValueChanged"/>
-                
-                    <mah:ToggleSwitch x:Name="SellFactorSwitch"
-                                      HorizontalAlignment="Right"
-                                      VerticalAlignment="Center"
-                                      Margin="7.5 0"
-                                      Content="Wheelspin Sell Factor"
-                                      ToolTip="This feature increases sell prices when you get a duplicate car in the wheelspin"
+                                      Content="Event Builder Unlimited Build Budget"
+                                      ToolTip="This feature removes the event builder restriction by setting the current percentage to 0."
                                       FontSize="11.5"
-                                      Toggled="SellFactorSwitch_OnToggled"/>
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Margin="5 0 5 0"
+                                      Toggled="RemoveBuildCapSwitch_OnToggled"/> 
+                </Border>
+                
+                <Border Style="{StaticResource CommonBorderStyle}" 
+                        Grid.Column="1">
                     
-                    
-            </Grid>
-        </Border>
-        
-        <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top" 
-                Width="560"
-                Height="46" 
-                Margin="0,230,0,0" 
-                BorderBrush="#FF2E3440" >
-            <Grid>
-                
-                <mah:NumericUpDown x:Name="ScoreNum" 
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   Value="50"
-                                   Width="100"
-                                   Margin="7.5 0"
-                                   TextAlignment="Left"
-                                   Minimum="1"
-                                   Maximum="2500"
-                                   ParsingNumberStyle="Integer"
-                                   Background="#FF2E3440"
-                                   BorderBrush="#FF2E3440"
-                                   ValueChanged="ScoreNum_OnValueChanged"/>
-                
-                <Slider x:Name="ScoreSlider"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        Width="260"
-                        Value="50"
-                        Margin="-60 0 0 0"
-                        TickFrequency="1"
-                        IsSnapToTickEnabled="True"
-                        Minimum="1"
-                        Maximum="2500"
-                        ValueChanged="ScoreSlider_OnValueChanged"/>
-                
-                <mah:ToggleSwitch x:Name="ScoreToggle"
-                                  HorizontalAlignment="Right"
-                                  VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  Content="Skill Score Multiplier"
-                                  FontSize="11.5"
-                                  Margin="7.5 0"
-                                  Toggled="ScoreToggle_OnToggled"/>
-                    
-            </Grid>
-        </Border>
-        
-        <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top" 
-                Width="560"
-                Height="46" 
-                Margin="0,286,0,0" 
-                BorderBrush="#FF2E3440" >
-            <Grid>
-                
-                <mah:NumericUpDown x:Name="DriftMinNum" 
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   Value="5"
-                                   Width="100"
-                                   Margin="7.5 0"
-                                   TextAlignment="Left"
-                                   Minimum="1"
-                                   Maximum="10"
-                                   TrackMouseWheelWhenMouseOver="True"
-                                   ParsingNumberStyle="Integer"
-                                   Background="#FF2E3440"
-                                   BorderBrush="#FF2E3440"
-                                   ValueChanged="DriftNum_OnValueChanged"/>
-                
-                <Label VerticalAlignment="Center"
-                       HorizontalAlignment="Left"
-                       FontSize="11.5"
-                       Content="Min Multi"
-                       Margin="115 0"/>
-                
-                <mah:NumericUpDown x:Name="DriftMaxNum" 
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   Value="5"
-                                   Width="100"
-                                   Margin="197.5 0"
-                                   TrackMouseWheelWhenMouseOver="True"
-                                   TextAlignment="Left"
-                                   Minimum="1"
-                                   Maximum="10"
-                                   ParsingNumberStyle="Integer"
-                                   Background="#FF2E3440"
-                                   BorderBrush="#FF2E3440"
-                                   ValueChanged="DriftNum_OnValueChanged"/>
-                
-                <Label VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="11.5"
-                       Content="Max Multi"
-                       Margin="115 0 0 0"/>
-                
-                
-                <mah:ToggleSwitch x:Name="DriftToggle"
-                                  HorizontalAlignment="Right"
-                                  VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  Content="Drift Score Multiplier"
-                                  FontSize="11.5"
-                                  Margin="7.5 0"
-                                  Toggled="DriftToggle_OnToggled"/>
-                    
-            </Grid>
-        </Border>
-        
-        <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top" 
-                Width="560" 
-                Height="46"
-                Margin="0,120,0,0" 
-                BorderBrush="#FF2E3440">
-        
-            <Grid>
-                
-                <mah:ToggleSwitch x:Name="SkillTreeEditToggle" 
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Left"
-                                  Margin="115 0"
-                                  MinWidth="0"
-                                  FontSize="11.5"
-                                  ToolTip="This feature adjusts the modifiers for all perks within a skill tree to a target number in the numeric box"
-                                  Content="Skill Tree Wide-Editing"
-                                  Toggled="SkillTreeEditToggle_OnToggled"/>
-                
-                <mah:NumericUpDown x:Name="SkillTreeNum" 
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   BorderBrush="#FF2E3440"
-                                   Background="#FF2E3440"
-                                   TrackMouseWheelWhenMouseOver="True"
-                                   Margin="6.5 0"
-                                   Width="100"
-                                   ParsingNumberStyle="Integer"
-                                   TextAlignment="Left"
-                                   Value="10000"
-                                   Minimum="-2147483647"
-                                   Maximum="2147483647"
-                                   ValueChanged="SkillTreeNum_OnValueChanged"/>
-                
-                <mah:ToggleSwitch x:Name="SkillCostToggle"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Right"
-                                  Content="Skill Tree Perks Cost"
-                                  FontSize="11.5"
-                                  Margin="6.5 0"
-                                  MinWidth="0"
-                                  Toggled="SkillCostToggle_OnToggled"/>
-                
-                <mah:NumericUpDown x:Name="SkillCostNum" 
-                                   HorizontalAlignment="Right"
-                                   VerticalAlignment="Center"
-                                   BorderBrush="#FF2E3440"
-                                   TrackMouseWheelWhenMouseOver="True"
-                                   Background="#FF2E3440"
-                                   Margin="170 0"
-                                   Width="95"
-                                   ParsingNumberStyle="Integer"
-                                   TextAlignment="Left"
-                                   Value="0"
-                                   Minimum="-2147483647"
-                                   Maximum="2147483647"
-                                   ValueChanged="SkillCostNum_OnValueChanged"/>
+                    <mah:ToggleSwitch x:Name="SkillToggle"
+                                      MinWidth="1"
+                                      Content="Unbreakable Skill Score/Skill Combo"
+                                      ToolTip="This option makes it so score never breaks when crashed"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      Margin="5 0 5 0"
+                                      FontSize="11.5"
+                                      Toggled="Skill_OnToggled"/> 
+                </Border>
                 
             </Grid>
             
-        </Border>
-        
-        <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top" 
-                Width="560"
-                Height="46" 
-                Margin="0,176,0,0" 
-                BorderBrush="#FF2E3440" >
-            <Grid>
                 
-                <mah:ToggleSwitch x:Name="TimeScaleSwitch" 
-                                  Content="Mission Time Scale" 
-                                  ToolTip="This feature multiplies the time subtract value by the value set in the numeric box. Set to 0 for freeze."
-                                  FontSize="12"
-                                  Margin="0 0 6.5 0"
-                                  HorizontalAlignment="Right"
-                                  VerticalAlignment="Center"
-                                  Toggled="TimeScaleSwitch_OnToggled"/>
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                        
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     
-                <mah:NumericUpDown x:Name="TimeScaleNum"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   Value="0.5"
-                                   Width="100"
-                                   Margin="7.5 0"
-                                   TextAlignment="Left"
-                                   Minimum="0"
-                                   Maximum="1"
-                                   TrackMouseWheelWhenMouseOver="True"
-                                   ParsingNumberStyle="Integer"
-                                   Background="#FF2E3440"
-                                   BorderBrush="#FF2E3440"
-                                   ValueChanged="TimeScaleNum_OnValueChanged"/>
+                    <Grid Column="0">
+                      
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <mah:NumericUpDown x:Name="ScaleNum"
+                                           VerticalAlignment="Center"
+                                           Margin="7.5"
+                                           TextAlignment="Left"
+                                           Minimum="1"
+                                           Maximum="2147483647"
+                                           Value="10"
+                                           TrackMouseWheelWhenMouseOver="True"
+                                           Background="#FF2E3440"
+                                           BorderBrush="#FF2E3440"
+                                           ValueChanged="ScaleNum_OnValueChanged"/>
+                    
+                        <mah:ToggleSwitch x:Name="ScaleSwitch"
+                                          VerticalAlignment="Center"
+                                          Margin="5 0"
+                                          Content="Spin Prize Scale"
+                                          ToolTip="This feature increases money reward prizes in the wheelspin"
+                                          FontSize="11.5"
+                                          MinWidth="0"
+                                          Toggled="ScaleSwitch_OnToggled"
+                                          Grid.Column="1"/>
+                        
+                    </Grid>
+
+                    <Grid Column="1">
+                      
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <mah:NumericUpDown x:Name="SellFactorNum"
+                                           VerticalAlignment="Center"
+                                           Margin="5 0"
+                                           TextAlignment="Left"
+                                           Minimum="1"
+                                           Value="100"
+                                           Maximum="2147483647"
+                                           ParsingNumberStyle="Integer"
+                                           NumericInputMode="Numbers"
+                                           TrackMouseWheelWhenMouseOver="True"
+                                           Background="#FF2E3440"
+                                           BorderBrush="#FF2E3440"
+                                           ValueChanged="SellFactorNum_OnValueChanged"/>
+                    
+                        <mah:ToggleSwitch x:Name="SellFactorSwitch"
+                                          HorizontalAlignment="Right"
+                                          VerticalAlignment="Center"
+                                          Margin="7.5 0"
+                                          Content="Wheelspin Sell Factor"
+                                          ToolTip="This feature increases sell prices when you get a duplicate car in the wheelspin"
+                                          FontSize="11.5"
+                                          Toggled="SellFactorSwitch_OnToggled"
+                                          Grid.Column="1"/>                        
+                    </Grid>
+
+                </Grid>
+            </Border>
+            
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <mah:NumericUpDown x:Name="ScoreNum" 
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       Value="50"
+                                       Width="100"
+                                       Margin="7.5 0"
+                                       TextAlignment="Left"
+                                       Minimum="1"
+                                       Maximum="2500"
+                                       ParsingNumberStyle="Integer"
+                                       Background="#FF2E3440"
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="ScoreNum_OnValueChanged"/>
+                    
+                    <Slider x:Name="ScoreSlider"
+                            VerticalAlignment="Center"
+                            Value="50"
+                            Margin="5 0 0 0"
+                            TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            Minimum="1"
+                            Maximum="2500"
+                            ValueChanged="ScoreSlider_OnValueChanged"
+                            Grid.Column="1"/>
+                    
+                    <mah:ToggleSwitch x:Name="ScoreToggle"
+                                      VerticalAlignment="Center"
+                                      MinWidth="0"
+                                      Content="Skill Score Multiplier"
+                                      FontSize="11.5"
+                                      Margin="7.5 0"
+                                      Toggled="ScoreToggle_OnToggled"
+                                      Grid.Column="2"/>
+                        
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <mah:NumericUpDown x:Name="DriftMinNum" 
+                                       VerticalAlignment="Center"
+                                       Value="5"
+                                       Margin="7.5 0"
+                                       TextAlignment="Left"
+                                       Minimum="1"
+                                       Maximum="10"
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       ParsingNumberStyle="Integer"
+                                       Background="#FF2E3440"
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="DriftNum_OnValueChanged"
+                                       Grid.Column="0"/>
+                    
+                    <Label VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           FontSize="11.5"
+                           Content="Min Multi"
+                           Margin="5 0"
+                           Grid.Column="1"/>
+                    
+                    <mah:NumericUpDown x:Name="DriftMaxNum" 
+                                       VerticalAlignment="Center"
+                                       Value="5"
+                                       Margin="5 0"
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       TextAlignment="Left"
+                                       Minimum="1"
+                                       Maximum="10"
+                                       ParsingNumberStyle="Integer"
+                                       Background="#FF2E3440"
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="DriftNum_OnValueChanged"
+                                       Grid.Column="2"/>
+                    
+                    <Label VerticalAlignment="Center"
+                           FontSize="11.5"
+                           Content="Max Multi"
+                           Margin="5 0 0 0"
+                           Grid.Column="3"/>
+                    
+                    
+                    <mah:ToggleSwitch x:Name="DriftToggle"
+                                      VerticalAlignment="Center"
+                                      MinWidth="0"
+                                      Content="Drift Score Multiplier"
+                                      FontSize="11.5"
+                                      Margin="7.5 0"
+                                      Toggled="DriftToggle_OnToggled"
+                                      Grid.Column="4"/>
+                        
+                </Grid>
+            </Border>
+            
+            <Border Style="{StaticResource CommonBorderStyle}">
+            
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <mah:NumericUpDown x:Name="SkillTreeNum" 
+                                       VerticalAlignment="Center"
+                                       BorderBrush="#FF2E3440"
+                                       Background="#FF2E3440"
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       Margin="6.5 0"
+                                       ParsingNumberStyle="Integer"
+                                       TextAlignment="Left"
+                                       Value="10000"
+                                       Minimum="-2147483647"
+                                       Maximum="2147483647"
+                                       ValueChanged="SkillTreeNum_OnValueChanged"
+                                       Grid.Column="0"/>
+                    
+                    <mah:ToggleSwitch x:Name="SkillTreeEditToggle" 
+                                      VerticalAlignment="Center"
+                                      Margin="5 0"
+                                      MinWidth="0"
+                                      FontSize="11.5"
+                                      ToolTip="This feature adjusts the modifiers for all perks within a skill tree to a target number in the numeric box"
+                                      Content="Skill Tree Wide-Editing"
+                                      Toggled="SkillTreeEditToggle_OnToggled"
+                                      Grid.Column="1"/>
+                    
+                    <mah:NumericUpDown x:Name="SkillCostNum" 
+                                       VerticalAlignment="Center"
+                                       BorderBrush="#FF2E3440"
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       Background="#FF2E3440"
+                                       Margin="5 0"
+                                       ParsingNumberStyle="Integer"
+                                       TextAlignment="Left"
+                                       Value="0"
+                                       Minimum="-2147483647"
+                                       Maximum="2147483647"
+                                       ValueChanged="SkillCostNum_OnValueChanged"
+                                       Grid.Column="2"/>
+                    
+                    
+                    <mah:ToggleSwitch x:Name="SkillCostToggle"
+                                      VerticalAlignment="Center"
+                                      Content="Skill Tree Perks Cost"
+                                      FontSize="11.5"
+                                      Margin="6.5 0"
+                                      MinWidth="0"
+                                      Toggled="SkillCostToggle_OnToggled"
+                                      Grid.Column="3"/>
+                    
+                </Grid>
                 
-                <Slider x:Name="TimeScaleSlider" 
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Minimum="0"
-                        Maximum="1"
-                        Value="0.5"
-                        Width="265"
-                        Margin="-60 0 0 0"
-                        ValueChanged="TimeScaleSlider_OnValueChanged"/>
-                
-            </Grid>
-        </Border>
+            </Border>
+            
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <mah:NumericUpDown x:Name="TimeScaleNum"
+                                       VerticalAlignment="Center"
+                                       Value="0.5"
+                                       Width="100"
+                                       Margin="7.5 0"
+                                       TextAlignment="Left"
+                                       Minimum="0"
+                                       Maximum="1"
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       ParsingNumberStyle="Integer"
+                                       Background="#FF2E3440"
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="TimeScaleNum_OnValueChanged"/>
+                    
+                    <Slider x:Name="TimeScaleSlider" 
+                            VerticalAlignment="Center"
+                            Minimum="0"
+                            Maximum="1"
+                            Value="0.5"
+                            Margin="5 0 0 0"
+                            ValueChanged="TimeScaleSlider_OnValueChanged"
+                            Grid.Column="1"/>
+                    
+                    <mah:ToggleSwitch x:Name="TimeScaleSwitch" 
+                                      Content="Mission Time Scale" 
+                                      ToolTip="This feature multiplies the time subtract value by the value set in the numeric box. Set to 0 for freeze."
+                                      FontSize="12"
+                                      Margin="10 0 6.5 0"
+                                      VerticalAlignment="Center"
+                                      Toggled="TimeScaleSwitch_OnToggled"
+                                      Grid.Column="2"/>
+                        
+                </Grid>
+            </Border>
+        </StackPanel>
+        
     </Grid>
 </Page>

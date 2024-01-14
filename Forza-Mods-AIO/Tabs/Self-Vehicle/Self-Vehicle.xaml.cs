@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using Forza_Mods_AIO.Resources;
-using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.PhotomodePage;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.TeleportsPage;
@@ -49,15 +47,15 @@ public partial class SelfVehicle
 
     private static readonly Dictionary<string, double> Sizes = new()
     {
-        { "HandlingButton", 570 }, // Button name for page, height of page
+        { "HandlingButton", 560 }, // Button name for page, height of page
         { "UnlocksButton", 290 },
-        { "PhotomodeButton", 285 },
+        { "PhotomodeButton", 180 },
         { "StatsButton", 70 },
         { "TeleportsButton", 70 },
-        { "EnvironmentButton", 235 },
-        { "CustomizationButton", 240 },
+        { "EnvironmentButton", 230 },
+        { "CustomizationButton", 230 },
         { "MiscellaneousButton", 340 },
-        { "CameraButton", 405 },
+        { "CameraButton", 395 },
         { "BackFireButton", 125 }
     };
 
@@ -136,11 +134,7 @@ public partial class SelfVehicle
             }
             case "PhotomodeButton":
             {
-                PhotoPage.CarInFocusBox.Value = PhotoCamEntity.CarInFocus;
-                PhotoPage.SamplesBox.Value = PhotoCamEntity.Samples;
-                PhotoPage.TimeSliceBox.Value = Math.Round(PhotoCamEntity.TimeSlice, 5);
-                PhotoPage.ShutterSpeedBox.Value = PhotoCamEntity.ShutterSpeed;
-                PhotoPage.ApertureScaleBox.Value = PhotoCamEntity.ApertureScale;
+                PhotoPage.UpdateVariable();
                 break;
             }
         }

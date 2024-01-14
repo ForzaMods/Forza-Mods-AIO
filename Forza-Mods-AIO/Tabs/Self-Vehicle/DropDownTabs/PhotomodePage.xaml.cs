@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
+using MahApps.Metro.Controls;
 using static System.Convert;
 using static Forza_Mods_AIO.MainWindow;
 
@@ -14,135 +17,138 @@ public partial class PhotomodePage
         InitializeComponent();
         PhotoPage = this;
     }
-
-    #region Toggles
-    
-    /// <summary>
-    ///     No clip toggle.
-    ///     How does it work? Replace the collison 2 flag with 0.
-    /// </summary>
+ 
     private void NoClip_Toggled(object sender, RoutedEventArgs e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || sender is not ToggleSwitch toggleSwitch)
         {
             return;
         }
 
-        PhotoCamEntity.NoClip = NoClip.IsOn;
+        PhotoCamEntity.NoClip = toggleSwitch.IsOn;
     }
-
-    /// <summary>
-    ///     Increases zoom to 90x
-    ///     How does it work? Replaces the MinFov 2.25 flag with 0 
-    /// </summary>
 
     private void IncreasedZoom_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || sender is not ToggleSwitch toggleSwitch)
         {
             return;
         }
 
-        PhotoCamEntity.IncreasedZoom = IncreasedZoom.IsOn;
+        PhotoCamEntity.IncreasedZoom = toggleSwitch.IsOn;
     }
 
-    /// <summary>
-    ///     No max height
-    ///     How does it work? Replaces the MaxHeight 4 flag with 9999
-    /// </summary> 
     private void NoHeightRestriction_Toggled(object sender, RoutedEventArgs e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || sender is not ToggleSwitch toggleSwitch)
         {
             return;
         }
 
-        PhotoCamEntity.RemoveMaxHeight = NoheightRestriction.IsOn;
+        PhotoCamEntity.RemoveMaxHeight = toggleSwitch.IsOn;
     }
-    
-    #endregion
 
-    #region Mem writes
-    
-    private void SpeedSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    public void UpdateVariable(bool numPartOnly = false)
     {
-        if (!Mw.Attached)
+        if (NumPartBox != null)
+        {
+            NumPartBox.Value = NumParameterBox.SelectedIndex switch
+            {
+                0 => PhotoCamEntity.Samples,
+                1 => PhotoCamEntity.ShutterSpeed,
+                2 => PhotoCamEntity.ApertureScale,
+                3 => PhotoCamEntity.CarInFocus,
+                4 => PhotoCamEntity.TimeSlice,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
+        if (SliderPartNum == null || numPartOnly)
         {
             return;
         }
 
-        PhotoCamEntity.MovementSpeed = (float)SpeedSlider.Value;
+        SliderPartNum.Value = SliderParameterBox.SelectedIndex switch
+        {
+            0 => PhotoCamEntity.TurnAndZoomSpeed,
+            1 => PhotoCamEntity.SamplesMultiplier,
+            2 => PhotoCamEntity.MovementSpeed,
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 
-    private void SamplesMultiplierSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    private void NumPartBox_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached)
+        if (!Mw.Attached || sender is not NumericUpDown numericUpDown)
         {
             return;
         }
-           
-        PhotoCamEntity.SamplesMultiplier = (float)SamplesMultiplierSlider.Value;
+
+        switch (NumParameterBox.SelectedIndex)
+        {
+            case 0:
+                PhotoCamEntity.Samples = ToInt32(numericUpDown.Value);
+                break;
+            case 1:
+                PhotoCamEntity.ShutterSpeed = ToSingle(numericUpDown.Value);
+                break;
+            case 2:
+                PhotoCamEntity.ApertureScale = ToSingle(numericUpDown.Value);
+                break;
+            case 3:
+                PhotoCamEntity.CarInFocus = ToSingle(numericUpDown.Value);
+                break;
+            case 4:
+                PhotoCamEntity.TimeSlice = ToSingle(numericUpDown.Value);
+                break;
+        }
     }
 
-    private void TurnSpeed_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    private void NumParameterBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (!Mw.Attached)
-        {
-            return;
-        }
-
-        PhotoCamEntity.TurnAndZoomSpeed = (float)TurnSpeed.Value;
+        UpdateVariable(true);
     }
 
-    private void SamplesBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    private void SliderPartNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached)
+        if (Slider == null)
         {
             return;
         }
-
-        PhotoCamEntity.Samples = ToInt32(SamplesBox.Value); 
+        
+        Slider.Value = ToDouble(e.NewValue);
     }
 
-    private void ShutterSpeedBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    private void Slider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
+        if (SliderPartNum == null)
+        {
+            return;
+        }
+
+        SliderPartNum.Value = e.NewValue;
+
         if (!Mw.Attached)
         {
             return;
         }
 
-        PhotoCamEntity.ShutterSpeed = ToSingle(ShutterSpeedBox.Value); 
+        switch (SliderParameterBox.SelectedIndex)
+        {
+            case 0:
+                PhotoCamEntity.TurnAndZoomSpeed = ToSingle(e.NewValue);
+                break;
+            case 1:
+                PhotoCamEntity.SamplesMultiplier = ToSingle(e.NewValue);
+                break;
+            case 2:
+                PhotoCamEntity.MovementSpeed = ToSingle(e.NewValue);
+                break;
+        }
     }
 
-    private void ApertureScaleBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    private void SliderParameterBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (!Mw.Attached)
-        {
-            return;
-        }
-
-        PhotoCamEntity.ApertureScale = ToSingle(ApertureScaleBox.Value); 
+        UpdateVariable(true);
     }
-
-    private void CarInFocusBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-    {
-        if (!Mw.Attached)
-        {
-            return;
-        }
-
-        PhotoCamEntity.CarInFocus = ToSingle(CarInFocusBox.Value); 
-    }
-
-    private void TimeSliceBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
-    {
-        if (!Mw.Attached)
-        {
-            return;
-        }
-
-        PhotoCamEntity.TimeSlice = ToSingle(TimeSliceBox.Value);
-    }
-    
-    #endregion
 }

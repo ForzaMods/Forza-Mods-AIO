@@ -6,76 +6,163 @@
       xmlns:mah='http://metro.mahapps.com/winfx/xaml/controls'
       mc:Ignorable="d"
       Title="EnvironmentPage" 
-      Height="235" 
-      Width="580"
+      Height="230" 
+      d:DesignWidth="580"
       Background="Transparent">
     <Grid>
         <Border BorderBrush="#FF2E3440" 
                 BorderThickness="2,0,2,2" 
                 CornerRadius="0,0,10,10" />
 
-        <Border Style="{StaticResource CommonBorderStyle}"/>
+        <StackPanel>
+                
+                <Border Style="{StaticResource CommonBorderStyle}">
         
-        <Border BorderThickness="2,2,2,2" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                Width="556" 
-                Height="46"
-                Margin="0,66,0,0" 
-                BorderBrush="#FF2E3440" />
-
-        <Border BorderThickness="2,2,2,2"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Width="556"
-                Height="46"
-                Margin="0,120,0,0"
-                BorderBrush="#FF2E3440" />
-        
-        <Grid Height="46"
-              Width="556"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Bottom"
-              Margin="0 0 0 10">
-                
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-                
-                
-                <Border BorderThickness="2,2,2,2"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Grid.Column="0"
-                        Margin="0 0 5 0"
-                        Height="46"
-                        BorderBrush="#FF2E3440">
-                        
                         <Grid>
+                                <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <Label Content="Sun Red" 
+                                       HorizontalAlignment="Right"
+                                       Margin="6.5 0 10 0"
+                                       VerticalAlignment="Center"
+                                       Grid.Column="2"
+                                       Width="{Binding ActualWidth, ElementName=SunGreenLabel}"/>
+        
+                                <Button x:Name="RedResetButton"
+                                        BorderBrush="#FF2E3440"
+                                        Background="#FF2E3440"
+                                        Content="Reset"
+                                        Focusable="False"
+                                        IsTabStop="False"
+                                        VerticalAlignment="Center"
+                                        Margin="6.5 0 0 0"
+                                        Click="ResetButton_OnClick"
+                                        Grid.Column="1"/>
                         
-                                <mah:ToggleSwitch x:Name="FreezeAi" 
-                                                  FontSize="11"
-                                                  Content="Freeze Drivatars"
-                                                  ToolTip="Freezes the drivatars in your game"
-                                                  VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"
-                                                  MinWidth="0"
-                                                  Margin="15 0 15 0"
-                                                  Toggled="FreezeAi_OnToggled"/>
-                        
+                                <Slider x:Name="SunRedSlider"
+                                        VerticalAlignment="Center"
+                                        Minimum="0"
+                                        Maximum="1E+10"        
+                                        Value = "3.92157E+09"
+                                        Foreground="#FF2E3440" 
+                                        BorderBrush="{x:Null}"
+                                        Focusable="False"
+                                        Margin="6.5 0 0 0"
+                                        TickPlacement="None"
+                                        Grid.Column="0"
+                                        ValueChanged="SunRGBSlider_OnValueChanged"/>
                         </Grid>
                 
                 </Border>
                 
-                <Border BorderThickness="2,2,2,2"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Margin="5 0 5 0"
-                        Grid.Column="1"
-                        Height="46"
-                        BorderBrush="#FF2E3440">
+                
+                <Border Style="{StaticResource CommonBorderStyle}">
+        
+                        <Grid>
+                                <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                        
+        
+                                <Label x:Name="SunGreenLabel" 
+                                       Content="Sun Green" 
+                                       HorizontalAlignment="Right"
+                                       Margin="6.5 0 10 0"
+                                       VerticalAlignment="Center"
+                                       Grid.Column="2"/>
+        
+                                <Button x:Name="GreenResetButton"
+                                        BorderBrush="#FF2E3440"
+                                        Background="#FF2E3440"
+                                        Content="Reset"
+                                        Focusable="False"
+                                        IsTabStop="False"
+                                        VerticalAlignment="Center"
+                                        Margin="6.5 0 0 0"
+                                        Click="ResetButton_OnClick"
+                                        Grid.Column="1"/>
+                        
+                                <Slider x:Name="SunGreenSlider"
+                                        VerticalAlignment="Center"
+                                        Minimum="0"
+                                        Maximum="1E+10"        
+                                        Value = "3.92157E+09"
+                                        Foreground="#FF2E3440" 
+                                        BorderBrush="{x:Null}"
+                                        Focusable="False"
+                                        Margin="6.5 0 0 0"
+                                        TickPlacement="None"
+                                        Grid.Column="0"
+                                        ValueChanged="SunRGBSlider_OnValueChanged"/>
+                        </Grid>
+                
+                </Border>
+                
+                
+                <Border Style="{StaticResource CommonBorderStyle}">
+        
+                        <Grid>
+                                <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                        
+        
+                                <Label Content="Sun Blue" 
+                                       HorizontalAlignment="Right"
+                                       Margin="6.5 0 10 0"
+                                       VerticalAlignment="Center"
+                                       Grid.Column="2"
+                                       Width="{Binding ActualWidth, ElementName=SunGreenLabel}"/>
+        
+                                <Button x:Name="BlueResetButton"
+                                        BorderBrush="#FF2E3440"
+                                        Background="#FF2E3440"
+                                        Content="Reset"
+                                        Focusable="False"
+                                        IsTabStop="False"
+                                        VerticalAlignment="Center"
+                                        Margin="6.5 0 0 0"
+                                        Click="ResetButton_OnClick"
+                                        Grid.Column="1"/>
+                        
+                                <Slider x:Name="SunBlueSlider"
+                                        VerticalAlignment="Center"
+                                        Minimum="0"
+                                        Maximum="1E+10"        
+                                        Value = "3.92157E+09"
+                                        Foreground="#FF2E3440" 
+                                        BorderBrush="{x:Null}"
+                                        Focusable="False"
+                                        Margin="6.5 0 0 0"
+                                        TickPlacement="None"
+                                        Grid.Column="0"
+                                        ValueChanged="SunRGBSlider_OnValueChanged"/>
+                        </Grid>
+                
+                </Border>
+                
+                <Border Style="{StaticResource CommonBorderStyle}">
+                        
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                        
+                        <mah:ToggleSwitch x:Name="FreezeAi" 
+                                          FontSize="11"
+                                          Content="Freeze Drivatars"
+                                          ToolTip="Freezes the drivatars in your game"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          MinWidth="0"
+                                          Margin="15 0 15 0"
+                                          Toggled="FreezeAi_OnToggled"/>
                         
                         <mah:ToggleSwitch Content="Aids Mode"
                                           x:Name="AidsSwitch"
@@ -86,19 +173,6 @@
                                           HorizontalAlignment="Center"
                                           ToolTip="This feature will make the sun's RGB rainbow."
                                           Toggled="SwitchToggled" />
-                        
-                </Border>
-                
-                
-                <Border BorderThickness="2,2,2,2"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Margin="5 0 0 0"
-                        Height="46"
-                        Width="225"
-                        Grid.Column="2"
-                        BorderBrush="#FF2E3440">
-                          
                         <mah:ToggleSwitch Content="Manual Time Management"
                                           FontSize="11"
                                           x:Name="TimeSwitch"
@@ -108,110 +182,11 @@
                                           HorizontalAlignment="Center"
                                           Toggled="SwitchToggled" 
                                           ToolTip="Numpad 4 OR left shift + comma to go backward&#xa;Numpad 6 OR left shift + comma to go forward&#xa;Holding CTRL makes it go faster"/>
-                        
+
+                </StackPanel>
                 </Border>
                 
-        </Grid>
-        
-        
-        <Label Content="Sun Red" 
-               HorizontalAlignment="Right"
-               Margin="0,20,20,0"
-               VerticalAlignment="Top" 
-               Height="26" 
-               Width="70"/>
-        
-        <Slider x:Name="SunRedSlider"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Width="390"
-                Minimum="0"
-                Maximum="1E+10"        
-                Value = "3.92157E+09"
-                Foreground="#FF2E3440" 
-                BorderBrush="{x:Null}"
-                Focusable="False"
-                Margin="25,20,0,0"
-                Height="26" 
-                TickPlacement="None"
-                ValueChanged="SunRGBSlider_OnValueChanged"/>
-        
-        <Label Content="Sun Green" 
-               HorizontalAlignment="Right"
-               Margin="0,76,20,0"
-               VerticalAlignment="Top" 
-               Height="26" 
-               Width="70"/>
-        
-        <Slider x:Name="SunGreenSlider"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Width="390"
-                Minimum="0"
-                Maximum="1E+10"                
-                Value = "3.92157E+09"
-                Foreground="#FF2E3440" 
-                BorderBrush="{x:Null}"
-                Focusable="False"
-                Margin="25,76,0,0"
-                Height="26" 
-                TickPlacement="None"
-                ValueChanged="SunRGBSlider_OnValueChanged"/>
-        
-        <Label Content="Sun Blue" 
-               HorizontalAlignment="Right"
-               Margin="0,130,20,0"
-               VerticalAlignment="Top" 
-               Height="26" 
-               Width="70"/>
-        
-        <Slider x:Name="SunBlueSlider"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Width="390"
-                Minimum="0"
-                Maximum="1E+10"
-                Value = "3.92157E+09"
-                Foreground="#FF2E3440" 
-                BorderBrush="{x:Null}"
-                Focusable="False"
-                Margin="25,130,0,0"
-                Height="26" 
-                TickPlacement="None"
-                ValueChanged="SunRGBSlider_OnValueChanged"/>
-        
-        <Button x:Name="RedResetButton"
-                BorderBrush="#FF2E3440"
-                Background="#FF2E3440"
-                Content="Reset"
-                Focusable="False"
-                IsTabStop="False"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Right"
-                Margin="0 20 105 0"
-                Click="ResetButton_OnClick"/>
-
-        <Button x:Name="GreenResetButton"
-                BorderBrush="#FF2E3440"
-                Background="#FF2E3440"
-                Content="Reset"
-                Focusable="False"
-                IsTabStop="False"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Right"
-                Margin="0 76 105 0"
-                Click="ResetButton_OnClick" />
-
-        <Button x:Name="BlueResetButton"
-                BorderBrush="#FF2E3440"
-                Background="#FF2E3440"
-                Content="Reset"
-                Focusable="False"
-                IsTabStop="False"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Right"
-                Margin="0 130 105 0"
-                Click="ResetButton_OnClick" />
-      
+                
+        </StackPanel>
     </Grid>
 </Page>

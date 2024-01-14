@@ -35,8 +35,8 @@ public abstract class ResetHandling
             Tabs.AutoShowTab.AutoShow.As.AobProgressBar.Value = 0;
             Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsOn = false;
             Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsEnabled = false;
-            Mw.AIO_Info.IsChecked = true;
-            Mw.CategoryButton_Click(Mw.AIO_Info, new RoutedEventArgs());
+            Mw.AioInfo.IsChecked = true;
+            Mw.CategoryButton_Click(Mw.AioInfo, new RoutedEventArgs());
 
             foreach (var visual in Mw.Window.GetChildren())
             {

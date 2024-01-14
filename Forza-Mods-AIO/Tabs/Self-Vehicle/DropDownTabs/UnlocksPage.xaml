@@ -21,17 +21,19 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <StackPanel Orientation="Horizontal"
-                                Grid.Column="0">
+                    <Grid Column="0">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
                         
                         <mah:NumericUpDown x:Name="XpNum"
                                            VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
                                            TextAlignment="Left"
-                                           Width="135"
                                            BorderThickness="0"
                                            Background="#FF2E3440"
                                            Margin="5 0 0 0" 
@@ -42,7 +44,8 @@
                                            Value="0"
                                            NumericInputMode="Numbers"
                                            ParsingNumberStyle="Integer"
-                                           ValueChanged="XpNum_OnValueChanged"/>
+                                           ValueChanged="XpNum_OnValueChanged"
+                                           Grid.Column="0"/>
 
                        
                         <mah:ToggleSwitch x:Name="XpSwitch"
@@ -54,20 +57,23 @@
                                           ToolTip="This feature will add XP based on how many you set in the numeric box."
                                           MinWidth="1"
                                           Margin="7.5 0 0 0"
-                                          Toggled="XpSwitch_OnToggled"/>
+                                          Toggled="XpSwitch_OnToggled"
+                                          Grid.Column="1"/>
                         
-                    </StackPanel>
+                    </Grid>
                     
-                    <StackPanel Orientation="Horizontal"
-                                Grid.Column="1">
+                    <Grid Column="1">
                         
-                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
                         <mah:NumericUpDown x:Name="CreditsNum"
                                            VerticalAlignment="Center"
-                                           HorizontalAlignment="Right"
                                            TextAlignment="Left"
-                                           Width="135"
                                            BorderThickness="0"
+                                           Margin="10 0 0 0"
                                            Background="#FF2E3440"
                                            HideUpDownButtons="True"
                                            TrackMouseWheelWhenMouseOver="True"
@@ -85,10 +91,10 @@
                                           FontSize="11.5"
                                           ToolTip="This feature will set your credits based on how the value you set in the numeric box. You must either spend/get some money, or do a wheelspin for it to take effect."
                                           MinWidth="1"
-                                          Margin="5 0 7.5 0"
-                                          Toggled="CreditsSwitch_OnToggled"/>
-                    </StackPanel>
-                                
+                                          Margin="5 0 10 0"
+                                          Toggled="CreditsSwitch_OnToggled"
+                                          Grid.Column="1"/>
+                    </Grid>
                 </Grid>
                 
             </Border>
@@ -97,17 +103,20 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <StackPanel Orientation="Horizontal"
-                                Grid.Column="0">
+                    <Grid Column="0">
+                    
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
                         
                         <mah:NumericUpDown x:Name="NormalSpinsNum"
                                            VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
                                            TextAlignment="Left"
-                                           Width="135"
                                            BorderThickness="0"
                                            Background="#FF2E3440"
                                            Margin="5 0 0 0" 
@@ -118,32 +127,34 @@
                                            Value="125"
                                            NumericInputMode="Numbers"
                                            ParsingNumberStyle="Integer"
-                                           ValueChanged="SpinsNum_OnValueChanged"/>
+                                           ValueChanged="SpinsNum_OnValueChanged"
+                                           Grid.Column="0"/>
 
                        
                         <mah:ToggleSwitch x:Name="NormalSpinsSwitch"
                                           VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"
-                                          HorizontalContentAlignment="Left"
                                           Content="Normal Spins"
                                           ToolTip="This feature will set your normal wheelspins value based on how how many you set in the numeric box. You must do a wheelspin for it to take effect."
                                           FontSize="11.5"
-                                          MinWidth="1"
+                                          MinWidth="0"
                                           Margin="7.5 0 0 0"
-                                          Toggled="SpinsToggle_OnToggled"/>
-                        
-                    </StackPanel>
+                                          Toggled="SpinsToggle_OnToggled"
+                                          Grid.Column="1"/>
+                    </Grid>
+
+                    <Grid Column="1">
                     
-                    <StackPanel Orientation="Horizontal"
-                                Grid.Column="1">
-                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
                         
                         <mah:NumericUpDown x:Name="SuperSpinsNum"
                                            VerticalAlignment="Center"
-                                           HorizontalAlignment="Right"
                                            TextAlignment="Left"
-                                           Width="135"
                                            BorderThickness="0"
+                                           Margin="10 0 0 0"
                                            Background="#FF2E3440"
                                            HideUpDownButtons="True"
                                            TrackMouseWheelWhenMouseOver="True"
@@ -152,7 +163,8 @@
                                            Value="125"
                                            NumericInputMode="Numbers"
                                            ParsingNumberStyle="Integer"
-                                           ValueChanged="SpinsNum_OnValueChanged"/>
+                                           ValueChanged="SpinsNum_OnValueChanged"
+                                           Grid.Column="0"/>
                     
                         <mah:ToggleSwitch x:Name="SuperSpinsSwitch"
                                           VerticalAlignment="Center"
@@ -161,150 +173,142 @@
                                           ToolTip="This feature will set your super wheelspins value based on how how many you set in the numeric box. You must do a wheelspin for it to take effect."
                                           FontSize="11.5"
                                           MinWidth="1"
-                                          Margin="5 0 7.5 0"
-                                          Toggled="SpinsToggle_OnToggled"/>
-                    </StackPanel>
-                                
+                                          Margin="5 0 10 0"
+                                          Toggled="SpinsToggle_OnToggled"
+                                          Grid.Column="1"/>
+                    </Grid>
                 </Grid>
                 
             </Border>
-            <StackPanel Orientation="Horizontal">
-                
-                
-                <Border BorderThickness="2,2,2,2" 
-                        HorizontalAlignment="Left" 
-                        VerticalAlignment="Top" 
-                        Height="46"
-                        Margin="12,10,0,0" 
-                        BorderBrush="#FF2E3440">
             
-                    <Grid>
-                        <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Center">
+           <Border Style="{StaticResource CommonBorderStyle}">
+               <Grid>
+                   <Grid.ColumnDefinitions>
+                       <ColumnDefinition Width="*"/>
+                       <ColumnDefinition Width="Auto"/>
+                   </Grid.ColumnDefinitions>
+                   
+                   <mah:NumericUpDown x:Name="SkillPointsNum"
+                                      HideUpDownButtons="True"
+                                      BorderThickness="0"
+                                      Minimum="0"
+                                      Maximum="2147483647"
+                                      VerticalAlignment="Center"
+                                      Margin="7.5"
+                                      TextAlignment="Left"
+                                      Value="999"
+                                      Background="#FF2E3440"
+                                      ValueChanged="SkillPointsNum_OnValueChanged"
+                                      Grid.Column="0"/>
                     
-                        
-                            <mah:ToggleSwitch x:Name="DiscoverRoadsSwitch"
-                                              VerticalAlignment="Center"
-                                              HorizontalAlignment="Left"
-                                              Content="Discover All Roads"
-                                              FontSize="11"
-                                              IsEnabled="False"
-                                              MinWidth="1"
-                                              Margin="10 0 10 0"
-                                              Toggled="DiscoverRoadsSwitch_OnToggled"/>
-                        
-                        </StackPanel>
+                   <mah:ToggleSwitch x:Name="SkillPointsToggle"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Left"
+                                     Margin="5 0 10 0"
+                                     MinWidth="0"
+                                     FontSize="12"
+                                     ToolTip="This feature will set your skill points value based on how how many you set in the numeric box. You must buy a perk in the skilltree for it to take effect."
+                                     Content="Skill Points"
+                                     Toggled="SkillPointsToggle_OnToggled"
+                                     Grid.Column="1"/>
                                 
-                    </Grid>
-                
-                </Border>
-                
-                <Border BorderThickness="2,2,2,2" 
-                        HorizontalAlignment="Left" 
-                        VerticalAlignment="Top" 
-                        Height="46"
-                        Margin="12,10,0,0" 
-                        BorderBrush="#FF2E3440">
+               </Grid>
+           </Border>
             
-                    <Grid>
-                        <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Center">
-                    
-                        
-                            <mah:NumericUpDown x:Name="SkillPointsNum"
-                                               HideUpDownButtons="True"
-                                               BorderThickness="0"
-                                               Minimum="0"
-                                               Maximum="2147483647"
-                                               HorizontalAlignment="Left"
-                                               VerticalAlignment="Center"
-                                               Margin="7.5"
-                                               TextAlignment="Left"
-                                               Value="999"
-                                               Width="227.5"
-                                               Background="#FF2E3440"
-                                               ValueChanged="SkillPointsNum_OnValueChanged"/>
-                    
-                            <mah:ToggleSwitch x:Name="SkillPointsToggle"
-                                              VerticalAlignment="Center"
-                                              HorizontalAlignment="Left"
-                                              Margin="5 0 10 0"
-                                              MinWidth="0"
-                                              FontSize="12"
-                                              ToolTip="This feature will set your skill points value based on how how many you set in the numeric box. You must buy a perk in the skilltree for it to take effect."
-                                              Content="Skill Points"
-                                              Toggled="SkillPointsToggle_OnToggled"/>
-                        
-                        </StackPanel>
-                                
-                    </Grid>
-                
-                </Border>
-                
-            </StackPanel>
-            
-                
             <Border Style="{StaticResource CommonBorderStyle}">
+               
+                
                 <Grid>
-                    <mah:NumericUpDown x:Name="SeriesNum"
-                                       HideUpDownButtons="True"
-                                       BorderThickness="0"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       Margin="7.5"
-                                       Minimum="0"
-                                       Maximum="2147483647"
-                                       TextAlignment="Left"
-                                       Value="999"
-                                       Width="100"
-                                       Background="#FF2E3440"
-                                       ValueChanged="SeriesNum_OnValueChanged"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     
-                    <mah:ToggleSwitch x:Name="SeriesToggle"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Left"
-                                      Margin="120 0"
-                                      FontSize="12"
-                                      Content="Series Points"
-                                      Toggled="SeriesToggle_OnToggled"/>
+                    <Grid Column="0">
                     
-                    <mah:NumericUpDown x:Name="SeasonalNum"
-                                       HideUpDownButtons="True"
-                                       BorderThickness="0"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Left"
-                                       Margin="170, 7.5"
-                                       Minimum="0"
-                                       Maximum="2147483647"
-                                       Value="100"
-                                       Width="100"
-                                       Background="#FF2E3440"
-                                       ValueChanged="SeasonalNum_OnValueChanged"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        
+                        <mah:NumericUpDown x:Name="SeriesNum"
+                                           HideUpDownButtons="True"
+                                           BorderThickness="0"
+                                           VerticalAlignment="Center"
+                                           Margin="7.5"
+                                           Minimum="0"
+                                           Maximum="2147483647"
+                                           TextAlignment="Left"
+                                           Value="999"
+                                           Background="#FF2E3440"
+                                           ValueChanged="SeriesNum_OnValueChanged"/>
                     
-                    <mah:ToggleSwitch x:Name="SeasonalToggle"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Right"
-                                      FontSize="12"
-                                      Content="Seasonal Points"
-                                      Toggled="SeasonalToggle_OnToggled"/>
+                        <mah:ToggleSwitch x:Name="SeriesToggle"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          FontSize="12"
+                                          MinWidth="0"
+                                          Content="Series Points"
+                                          Toggled="SeriesToggle_OnToggled"
+                                          Grid.Column="1"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                    
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <mah:NumericUpDown x:Name="SeasonalNum"
+                                           HideUpDownButtons="True"
+                                           BorderThickness="0"
+                                           VerticalAlignment="Center"
+                                           TextAlignment="Left"
+                                           Minimum="0"
+                                           Margin="10 0 0 0"
+                                           Maximum="2147483647"
+                                           Value="100"
+                                           Background="#FF2E3440"
+                                           ValueChanged="SeasonalNum_OnValueChanged"/>
+                    
+                        <mah:ToggleSwitch x:Name="SeasonalToggle"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Right"
+                                          FontSize="12"
+                                          Margin="6.5 0 10 0"
+                                          MinWidth="0"
+                                          Content="Seasonal Points"
+                                          Toggled="SeasonalToggle_OnToggled"
+                                          Grid.Column="1"/>
+                    </Grid>
                 </Grid>
             </Border>
                 
             <Border Style="{StaticResource CommonBorderStyle}">
-                <StackPanel Orientation="Horizontal">
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     
                     <Label VerticalAlignment="Center"
                            Content="Unlock all:"
-                           Margin="6.5 0 0 0"/>
+                           Margin="6.5 0 0 0"
+                           Grid.Column="0"/>
                     
                     <Button VerticalAlignment="Center"
                             Background="#FF2E3440"
                             BorderThickness="0"
                             Content="Horns"
                             Margin="6.5 0 0 0"
-                            Width="111.5"
                             Tag="5"
+                            Grid.Column="1"
                             Click="Unlock_OnClick"/>
                     
                     <Button VerticalAlignment="Center"
@@ -312,8 +316,8 @@
                             BorderThickness="0"
                             Content="Quick Chats"
                             Margin="6.5 0 0 0"
-                            Width="111.5"
                             Tag="7"
+                            Grid.Column="2"
                             Click="Unlock_OnClick"/>
                     
                     <Button VerticalAlignment="Center"
@@ -321,8 +325,8 @@
                             BorderThickness="0"
                             Content="Clothing"
                             Margin="6.5 0 0 0"
-                            Width="111.5"
                             Tag="4"
+                            Grid.Column="3"
                             Click="Unlock_OnClick"/>
                     
                     <Button VerticalAlignment="Center"
@@ -330,11 +334,10 @@
                             BorderThickness="0"
                             Content="Emotes"
                             Tag="6"
-                            Margin="6.5 0 0 0"
-                            Width="111.5"
+                            Margin="6.5 0 6.5 0"
+                            Grid.Column="4"
                             Click="Unlock_OnClick"/>
-                    
-                </StackPanel>
+                </Grid>
             </Border>
         </StackPanel>
         

@@ -20,6 +20,11 @@
             </Setter>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/> 
+            <Setter Property="FontSize" Value="14"/> 
+            <Setter Property="Foreground" Value="White"/> 
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Focusable" Value="False"/>
+
         </Style.Setters>
     </Style>
 </ResourceDictionary>

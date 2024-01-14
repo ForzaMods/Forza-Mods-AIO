@@ -31,6 +31,7 @@ public partial class HandlingPage
     {
         InitializeComponent();
         Shp = this;
+        DataContext = this;
     }
     
     private void VelocitySwitch_Toggled(object sender, RoutedEventArgs e)

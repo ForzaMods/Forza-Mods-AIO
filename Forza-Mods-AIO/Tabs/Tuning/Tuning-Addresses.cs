@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography.Pkcs;
 using System.Threading.Tasks;
 using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.Self_Vehicle;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 using Forza_Mods_AIO.Tabs.Tuning.DropDownTabs;
+using MahApps.Metro.Controls;
+using static System.Reflection.BindingFlags;
 using static System.Windows.Application;
 using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Overlay.Overlay;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Aero;
+using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Alignment;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Damping;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Gearing;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Springs;
@@ -318,6 +322,7 @@ internal class TuningAddresses
 
             Current.Dispatcher.Invoke(() =>
             {
+                _codeChange = true;
                 ReadAlignmentValues();
                 ReadAeroValues();
                 ReadGearingValues();
@@ -326,33 +331,31 @@ internal class TuningAddresses
                 ReadSpringsValues();
                 ReadSteeringValues();
                 ReadTiresValues();
+                _codeChange = false;
             });
         }
     }
     
     private static void ReadAlignmentValues()
     {
-        Alignment.Al.CodeChange = true;
-        Alignment.Al.CamberNegBox.Value = Mw.M.ReadMemory<float>(CamberNegStatic);
-        Alignment.Al.CamberPosBox.Value = Mw.M.ReadMemory<float>(CamberPosStatic);
-        Alignment.Al.ToeNegBox.Value = Mw.M.ReadMemory<float>(ToeNegStatic);
-        Alignment.Al.ToePosBox.Value = Mw.M.ReadMemory<float>(ToePosStatic);
-        Alignment.Al.CodeChange = false;
+        Al.CodeChange = true;
+        Al.CamberNegBox.Value = Mw.M.ReadMemory<float>(CamberNegStatic);
+        Al.CamberPosBox.Value = Mw.M.ReadMemory<float>(CamberPosStatic);
+        Al.ToeNegBox.Value = Mw.M.ReadMemory<float>(ToeNegStatic);
+        Al.ToePosBox.Value = Mw.M.ReadMemory<float>(ToePosStatic);
+        Al.CodeChange = false;
     }
 
     private static void ReadAeroValues()
     {
-        Ae.CodeChange = true;
         Ae.FrontAeroMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontAeroMin), 3);
         Ae.FrontAeroMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontAeroMax), 3);
         Ae.RearAeroMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearAeroMin), 3);
         Ae.RearAeroMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearAeroMax), 3);
-        Ae.CodeChange = false;
     }
     
     private static void ReadGearingValues()
     {
-        G.CodeChange = true;
         G.FinalDriveBox.Value = Math.Round(Mw.M.ReadMemory<float>(FinalDrive), 3);
         G.ReverseGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(ReverseGear), 3);
         G.FirstGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(FirstGear), 3);
@@ -365,13 +368,10 @@ internal class TuningAddresses
         G.EighthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(EighthGear), 3);
         G.NinthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(NinthGear), 3);
         G.TenthGearBox.Value = Math.Round(Mw.M.ReadMemory<float>(TenthGear), 3);
-        G.CodeChange = false;
     }
 
     private static void ReadDampingValues()
     {
-        
-        D.CodeChange = true;
         D.FrontAntirollMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontAntirollMin), 3);
         D.FrontAntirollMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontAntirollMax), 3);
         D.RearAntirollMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearAntirollMin), 3);
@@ -386,14 +386,10 @@ internal class TuningAddresses
         D.FrontReboundStiffnessMaxBox.Value = Mw.M.ReadMemory<float>(FrontReboundStiffnessMax);
         D.RearReboundStiffnessMinBox.Value = Mw.M.ReadMemory<float>(RearReboundStiffnessMin);
         D.RearReboundStiffnessMaxBox.Value = Mw.M.ReadMemory<float>(RearReboundStiffnessMax);
-
-        D.CodeChange = false;
-
     }
 
     private static void ReadOthersValues()
     {
-        Others.O.CodeChange = true;
         Others.O.WheelbaseBox.Value = Math.Round(Mw.M.ReadMemory<float>(Wheelbase), 3);
         Others.O.RimSizeFrontBox.Value = Math.Round(Mw.M.ReadMemory<float>(RimSizeFront),3);
         Others.O.RimSizeRearBox.Value = Math.Round(Mw.M.ReadMemory<float>(RimSizeRear),3);
@@ -403,17 +399,14 @@ internal class TuningAddresses
         Others.O.RearWidthBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearWidth),3);
         Others.O.FrontSpacerBox.Value = Math.Round(Mw.M.ReadMemory<float>(FrontSpacer),3);
         Others.O.RearSpacerBox.Value = Math.Round(Mw.M.ReadMemory<float>(RearSpacer),3);
-        Others.O.CodeChange = false;
     }
     
     private static void ReadSpringsValues()
     {
-        Sp.CodeChange = true;
         Sp.SpringFrontMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(SpringFrontMin), 3);
         Sp.SpringFrontMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(SpringFrontMax), 3);
         Sp.SpringRearMinBox.Value = Math.Round(Mw.M.ReadMemory<float>(SpringRearMin), 3);
         Sp.SpringRearMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(SpringRearMax), 3);
-        Sp.CodeChange = false;
 
         Sp.RideHeightCodeChange = true;
         Sp.FrontRideHeightMinBox.Value = ConvertGameValueToUnit(Sp.FrontRideHeightMinUnitBox,FrontRideHeightMin);
@@ -425,7 +418,6 @@ internal class TuningAddresses
 
     private static void ReadSteeringValues()
     {
-        St.CodeChange = true;
         St.AngleMaxBox.Value = Math.Round(Mw.M.ReadMemory<float>(AngleMax), 3);
         St.AngleMax2Box.Value = Math.Round(Mw.M.ReadMemory<float>(AngleMax2), 3);
         St.VelocityCountersteerBox.Value = Math.Round(Mw.M.ReadMemory<float>(VelocityCountersteer), 3);
@@ -433,7 +425,6 @@ internal class TuningAddresses
         St.VelocityStraightBox.Value = Math.Round(Mw.M.ReadMemory<float>(VelocityStraight), 3);
         St.VelocityTurningBox.Value = Math.Round(Mw.M.ReadMemory<float>(VelocityTurning), 3);
         St.TimeToMaxSteeringBox.Value = Math.Round(Mw.M.ReadMemory<float>(TimeToMaxSteering), 3);
-        St.CodeChange = false;
     }
     
     private static void ReadTiresValues()
@@ -444,5 +435,47 @@ internal class TuningAddresses
         T.TireRearLeftBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearLeft) / TireRearLeftDivider, 3);
         T.TireRearRightBox.Value = Math.Round(Mw.M.ReadMemory<float>(TireRearRight) / TireRearRightDivider, 3);
         T.CodeChange = false;
+    }
+
+    private static bool _codeChange;
+    
+    public static void ChangeValue(object sender)
+    {
+        if (_codeChange)
+        {
+            return;
+        }
+        
+        ((NumericUpDown)sender).Value = Math.Round(Convert.ToDouble(((NumericUpDown)sender).Value), 3);
+
+        if (!Mw.Attached)
+        {
+            return;
+        }
+    
+        UIntPtr address = 0;
+
+        var senderName = sender.GetType().GetProperty("Name")!.GetValue(sender)!.ToString()!;
+        var cleanName = senderName.Replace("Box", "");
+        
+        var fields = typeof(TuningAddresses).GetFields(Public | Static).Where(f => f.FieldType == typeof(UIntPtr));
+        foreach (var field in fields)
+        {
+            if (field.Name != cleanName)
+            {
+                continue;
+            }
+
+            address = (UIntPtr)(field.GetValue(field) ?? 0);
+        }
+
+        var value = ((NumericUpDown)sender).Value;
+        
+        if (address == 0 || value == null)
+        {
+            return;
+        }
+    
+        Mw.M.WriteMemory(address, Convert.ToSingle(value));
     }
 }

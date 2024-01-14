@@ -6,7 +6,7 @@
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignWidth="580"
-      d:DesignHeight="405"
+      d:DesignHeight="395"
       Title="CameraPage"
       Background="Transparent">
     <Grid>
@@ -14,25 +14,68 @@
         
         <StackPanel>
                 
-            <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,10,0,0" BorderBrush="#FF2E3440" >
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     
-                    <mah:NumericUpDown x:Name="FovNum" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8" Width="120" BorderBrush="#FF2E3440" Background="#FF2E3440"  Minimum="0" Maximum="15" Value="0" NumericInputMode="Decimal" TextAlignment="Left" ValueChanged="FovNum_OnValueChanged"/>
-                    <Slider x:Name="FovSlider" TickPlacement="None" TickFrequency="100" HorizontalAlignment="Left" Minimum="0" Maximum="15" VerticalAlignment="Top" Width="260" Margin="150 8 0 0" MinWidth="0" ValueChanged="FovSlider_OnValueChanged"/>
-                    <mah:ToggleSwitch x:Name="FovSwitch" HorizontalAlignment="Right" VerticalAlignment="Top" MinWidth="0" Content="Fov Lock" FontSize="12" Margin="15 5" Toggled="CameraSwitch_OnToggled"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <mah:NumericUpDown x:Name="FovNum" 
+                                       VerticalAlignment="Center" 
+                                       Margin="8"
+                                       BorderBrush="#FF2E3440" 
+                                       Background="#FF2E3440"  
+                                       Minimum="0" 
+                                       Width="100"
+                                       Maximum="15"
+                                       Value="0" 
+                                       NumericInputMode="Decimal"
+                                       TextAlignment="Left" 
+                                       ValueChanged="FovNum_OnValueChanged"
+                                       Grid.Column="0"/>
+                    
+                    <Slider x:Name="FovSlider" 
+                            TickPlacement="None" 
+                            TickFrequency="100" 
+                            Minimum="0" 
+                            Maximum="15"
+                            VerticalAlignment="Center"
+                            Margin="8" 
+                            MinWidth="0" 
+                            ValueChanged="FovSlider_OnValueChanged"
+                            Grid.Column="1"/>
+                    
+                    <mah:ToggleSwitch x:Name="FovSwitch" 
+                                      VerticalAlignment="Center" 
+                                      MinWidth="0"
+                                      Content="Fov Lock" 
+                                      FontSize="12" 
+                                      Margin="15 5" 
+                                      Toggled="CameraSwitch_OnToggled"
+                                      Grid.Column="2"/>
                     
                 </Grid>    
             </Border>
   
-            <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,10,0,0" BorderBrush="#FF2E3440" >
+            <Border  Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     
-                    <StackPanel Orientation="Horizontal">
-                        <mah:NumericUpDown x:Name="OffsetXNum" 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <mah:NumericUpDown x:Name="OffsetXNum" 
                                            VerticalAlignment="Center" 
-                                           HorizontalAlignment="Left" 
                                            Margin="8 0 0 0"
-                                           Width="97.5" 
                                            BorderBrush="#FF2E3440" 
                                            Background="#FF2E3440"  
                                            Minimum="-10"
@@ -42,18 +85,18 @@
                                            Interval="0.01"
                                            NumericInputMode="Decimal" 
                                            TextAlignment="Left" 
-                                           ValueChanged="OffsetNum_OnValueChanged"/>
+                                           ValueChanged="OffsetNum_OnValueChanged"
+                                           Grid.Column="0"/>
                         
                         <Label Content="X"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
-                               Margin="8 0 0 0"/>
+                               Margin="8 0 0 0"
+                               Grid.Column="1"/>
                         
                         <mah:NumericUpDown x:Name="OffsetYNum" 
                                            VerticalAlignment="Center" 
-                                           HorizontalAlignment="Left" 
                                            Margin="8 0 0 0"
-                                           Width="97.5" 
                                            BorderBrush="#FF2E3440" 
                                            Background="#FF2E3440"  
                                            Minimum="-10"
@@ -63,18 +106,18 @@
                                            Interval="0.01"
                                            NumericInputMode="Decimal" 
                                            TextAlignment="Left" 
-                                           ValueChanged="OffsetNum_OnValueChanged"/>
+                                           ValueChanged="OffsetNum_OnValueChanged"
+                                           Grid.Column="2"/>
                         
                         <Label Content="Y"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
-                               Margin="8 0 0 0"/>
+                               Margin="8 0 0 0"
+                               Grid.Column="3"/>
                         
                         <mah:NumericUpDown x:Name="OffsetZNum" 
                                            VerticalAlignment="Center" 
-                                           HorizontalAlignment="Left" 
                                            Margin="8 0 0 0"
-                                           Width="97.5" 
                                            BorderBrush="#FF2E3440" 
                                            Background="#FF2E3440"  
                                            Minimum="-10"
@@ -84,77 +127,361 @@
                                            Interval="0.01"
                                            NumericInputMode="Decimal" 
                                            TextAlignment="Left" 
-                                           ValueChanged="OffsetNum_OnValueChanged"/>
+                                           ValueChanged="OffsetNum_OnValueChanged"
+                                           Grid.Column="4"/>
                         
                         <Label Content="Z"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
-                               Margin="8 0 0 0"/>
-                    </StackPanel>
+                               Margin="8 0 0 0"
+                               Grid.Column="5"/>
                     
-                    <mah:ToggleSwitch x:Name="OffsetSwitch" HorizontalAlignment="Right" VerticalAlignment="Top" MinWidth="0" Content="Camera Offset" FontSize="12" Margin="15 5" Toggled="CameraSwitch_OnToggled"/>
+                    <mah:ToggleSwitch x:Name="OffsetSwitch" 
+                                      HorizontalAlignment="Right" 
+                                      VerticalAlignment="Top"
+                                      MinWidth="0" 
+                                      Content="Camera Offset"
+                                      FontSize="12" 
+                                      Margin="15 5" 
+                                      Toggled="CameraSwitch_OnToggled"
+                                      Grid.Column="6"/>
                     
                 </Grid>    
             </Border>
 
-            <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,10,0,0" BorderBrush="#FF2E3440" >
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     
-                    <mah:NumericUpDown TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="ChaseMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
-                    <mah:NumericUpDown TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="ChaseMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid Column="0">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Chase Min Limiter" 
+                               VerticalAlignment="Center" 
+                               Margin="8"
+                               Width="{Binding ActualWidth, ElementName=FarChaseMinLabel}"/>
 
-                    <Label Content="Chase Min Limiter" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
-                    <Label Content="Chase Max Limiter" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="135 8 "/>
+                        <mah:NumericUpDown x:Name="ChaseMinNum" 
+                                           TrackMouseWheelWhenMouseOver="True"
+                                           ParsingNumberStyle="Float" 
+                                           ValueChanged="FovLimiters_OnValueChanged" 
+                                           Value="0" 
+                                           TextAlignment="Left" 
+                                           Height="25"
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center"
+                                           BorderBrush="#FF2E3440"
+                                           Background="#FF2E3440" 
+                                           Margin="5 0 0 0"
+                                           Grid.Column="1"/>
+
+                    </Grid>
+                    
+                    <Grid Column="1">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Chase Max Limiter"
+                               VerticalAlignment="Center"
+                               Margin="5 0"
+                               Width="{Binding ActualWidth, ElementName=FarChaseMaxLabel}"/>
+                        
+                        <mah:NumericUpDown x:Name="ChaseMaxNum" 
+                                           TrackMouseWheelWhenMouseOver="True" 
+                                           ParsingNumberStyle="Float" 
+                                           ValueChanged="FovLimiters_OnValueChanged" 
+                                           Value="0" 
+                                           TextAlignment="Left"
+                                           Height="25" 
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center"
+                                           BorderBrush="#FF2E3440"
+                                           Background="#FF2E3440"
+                                           Margin="5 0"
+                                           Grid.Column="1"/>
+
+                    </Grid>
                     
                 </Grid>    
             </Border>
             
-            <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,10,0,0" BorderBrush="#FF2E3440" >
-                <Grid>
+            <Border Style="{StaticResource CommonBorderStyle}">
+                 <Grid>
                     
-                    <mah:NumericUpDown TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="FarChaseMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
-                    <mah:NumericUpDown TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="FarChaseMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid Column="0">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label x:Name="FarChaseMinLabel" 
+                               Content="Far Chase Min Limiter" 
+                               VerticalAlignment="Center" 
+                               Margin="8"/>
 
-                    <Label Content="Far Chase Min Limiter" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
-                    <Label Content="Far Chase Max Limiter" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="135 8 "/>
+                        <mah:NumericUpDown x:Name="FarChaseMinNum" 
+                                           TrackMouseWheelWhenMouseOver="True"
+                                           ParsingNumberStyle="Float" 
+                                           ValueChanged="FovLimiters_OnValueChanged" 
+                                           Value="0" 
+                                           TextAlignment="Left" 
+                                           Height="25"
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center"
+                                           BorderBrush="#FF2E3440"
+                                           Background="#FF2E3440" 
+                                           Margin="5 0 0 0"
+                                           Grid.Column="1"/>
+
+                    </Grid>
+                    
+                    <Grid Column="1">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label x:Name="FarChaseMaxLabel" 
+                               Content="Far Chase Max Limiter"
+                               VerticalAlignment="Center"
+                               Margin="5 0"/>
+                        
+                        <mah:NumericUpDown x:Name="FarChaseMaxNum" 
+                                           TrackMouseWheelWhenMouseOver="True" 
+                                           ParsingNumberStyle="Float" 
+                                           ValueChanged="FovLimiters_OnValueChanged" 
+                                           Value="0" 
+                                           TextAlignment="Left"
+                                           Height="25" 
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center"
+                                           BorderBrush="#FF2E3440"
+                                           Background="#FF2E3440"
+                                           Margin="5 0"
+                                           Grid.Column="1"/>
+
+                    </Grid>
                     
                 </Grid>    
             </Border>
             
-            <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,10,0,0" BorderBrush="#FF2E3440" >
-                <Grid>
+            <Border  Style="{StaticResource CommonBorderStyle}">
+                 <Grid>
                     
-                    <mah:NumericUpDown TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="DriverMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
-                    <mah:NumericUpDown TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="DriverMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid Column="0">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Driver Min Limiter" 
+                               VerticalAlignment="Center" 
+                               Margin="8"
+                               Width="{Binding ActualWidth, ElementName=FarChaseMinLabel}"/>
 
-                    <Label Content="Driver Min Limiter" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
-                    <Label Content="Driver Max Limiter" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="135 8 "/>
+                        <mah:NumericUpDown x:Name="DriverMinNum" 
+                                           TrackMouseWheelWhenMouseOver="True"
+                                           ParsingNumberStyle="Float" 
+                                           ValueChanged="FovLimiters_OnValueChanged" 
+                                           Value="0" 
+                                           TextAlignment="Left" 
+                                           Height="25"
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center"
+                                           BorderBrush="#FF2E3440"
+                                           Background="#FF2E3440" 
+                                           Margin="5 0 0 0"
+                                           Grid.Column="1"/>
+
+                    </Grid>
                     
-                </Grid>    
+                    <Grid Column="1">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Driver Max Limiter"
+                               VerticalAlignment="Center"
+                               Margin="5 0"
+                               Width="{Binding ActualWidth, ElementName=FarChaseMaxLabel}"/>
+                        
+                        <mah:NumericUpDown x:Name="DriverMaxNum" 
+                                           TrackMouseWheelWhenMouseOver="True" 
+                                           ParsingNumberStyle="Float" 
+                                           ValueChanged="FovLimiters_OnValueChanged" 
+                                           Value="0" 
+                                           TextAlignment="Left"
+                                           Height="25" 
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center"
+                                           BorderBrush="#FF2E3440"
+                                           Background="#FF2E3440"
+                                           Margin="5 0"
+                                           Grid.Column="1"/>
+
+                    </Grid>
+                    
+                </Grid>   
             </Border>
             
-            <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,10,0,0" BorderBrush="#FF2E3440" >
-                <Grid>
+            <Border  Style="{StaticResource CommonBorderStyle}">
+                 <Grid>
                     
-                    <mah:NumericUpDown TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="HoodMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
-                    <mah:NumericUpDown TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="HoodMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid Column="0">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Hood Min Limiter" 
+                               VerticalAlignment="Center" 
+                               Margin="8"
+                               Width="{Binding ActualWidth, ElementName=FarChaseMinLabel}"/>
 
-                    <Label Content="Hood Min Limiter" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
-                    <Label Content="Hood Max Limiter" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="135 8 "/>
+                        <mah:NumericUpDown x:Name="HoodMinNum" 
+                                           TrackMouseWheelWhenMouseOver="True"
+                                           ParsingNumberStyle="Float" 
+                                           ValueChanged="FovLimiters_OnValueChanged" 
+                                           Value="0" 
+                                           TextAlignment="Left" 
+                                           Height="25"
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center"
+                                           BorderBrush="#FF2E3440"
+                                           Background="#FF2E3440" 
+                                           Margin="5 0 0 0"
+                                           Grid.Column="1"/>
+
+                    </Grid>
                     
-                </Grid>    
+                    <Grid Column="1">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Hood Max Limiter"
+                               VerticalAlignment="Center"
+                               Margin="5 0"
+                               Width="{Binding ActualWidth, ElementName=FarChaseMaxLabel}"/>
+                        
+                        <mah:NumericUpDown x:Name="HoodMaxNum" 
+                                           TrackMouseWheelWhenMouseOver="True" 
+                                           ParsingNumberStyle="Float" 
+                                           ValueChanged="FovLimiters_OnValueChanged" 
+                                           Value="0" 
+                                           TextAlignment="Left"
+                                           Height="25" 
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center"
+                                           BorderBrush="#FF2E3440"
+                                           Background="#FF2E3440"
+                                           Margin="5 0"
+                                           Grid.Column="1"/>
+
+                    </Grid>
+                    
+                </Grid>  
             </Border>
             
-            <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="552" Height="46" Margin="0,10,0,0" BorderBrush="#FF2E3440" >
-                <Grid>
+            <Border  Style="{StaticResource CommonBorderStyle}">
+                 <Grid>
                     
-                    <mah:NumericUpDown TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="BumperMinNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Left" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="135 5"/>
-                    <mah:NumericUpDown TrackMouseWheelWhenMouseOver="True" ParsingNumberStyle="Float" ValueChanged="FovLimiters_OnValueChanged" x:Name="BumperMaxNum" Value="0" TextAlignment="Left" Height="25" HorizontalAlignment="Right" Width="120" NumericInputMode="Decimal" BorderBrush="#FF2E3440" Background="#FF2E3440" Margin="8 5"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid Column="0">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Bumper Min Limiter" 
+                               VerticalAlignment="Center" 
+                               Margin="8"
+                               Width="{Binding ActualWidth, ElementName=FarChaseMinLabel}"/>
 
-                    <Label Content="Bumper Min Limiter" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
-                    <Label Content="Bumper Max Limiter" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="135 8 "/>
+                        <mah:NumericUpDown x:Name="BumperMinNum" 
+                                           TrackMouseWheelWhenMouseOver="True"
+                                           ParsingNumberStyle="Float" 
+                                           ValueChanged="FovLimiters_OnValueChanged" 
+                                           Value="0" 
+                                           TextAlignment="Left" 
+                                           Height="25"
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center"
+                                           BorderBrush="#FF2E3440"
+                                           Background="#FF2E3440" 
+                                           Margin="5 0 0 0"
+                                           Grid.Column="1"/>
+
+                    </Grid>
                     
-                </Grid>    
+                    <Grid Column="1">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Bumper Max Limiter"
+                               VerticalAlignment="Center"
+                               Margin="5 0"
+                               Width="{Binding ActualWidth, ElementName=FarChaseMaxLabel}"/>
+                        
+                        <mah:NumericUpDown x:Name="BumperMaxNum" 
+                                           TrackMouseWheelWhenMouseOver="True" 
+                                           ParsingNumberStyle="Float" 
+                                           ValueChanged="FovLimiters_OnValueChanged" 
+                                           Value="0" 
+                                           TextAlignment="Left"
+                                           Height="25" 
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center"
+                                           BorderBrush="#FF2E3440"
+                                           Background="#FF2E3440"
+                                           Margin="5 0"
+                                           Grid.Column="1"/>
+
+                    </Grid>
+                    
+                </Grid>  
             </Border>
         </StackPanel>
         

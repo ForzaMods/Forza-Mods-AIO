@@ -61,13 +61,13 @@ public partial class MainWindow
         const string name = "AccentCol";
         Current.AddTheme(new Theme(name, name, "Dark", "Red", converted, new SolidColorBrush(converted), false, false));
         Current.ChangeTheme(Application.Current, name);
-        AIO_Info.IsChecked = true;
+        AioInfo.IsChecked = true;
         BackgroundBorder.Background = Monet.MainColour;
         FrameBorder.Background = Monet.MainColour;
         SideBar.Background = Monet.DarkishColour;
         TopBar1.Background = Monet.DarkColour;
         TopBar2.Background = Monet.DarkColour;
-        CategoryButton_Click(AIO_Info, new RoutedEventArgs());
+        CategoryButton_Click(AioInfo, new RoutedEventArgs());
         Loaded += (_, _) =>
         {
             Task.Run(IsAttached);
@@ -75,8 +75,15 @@ public partial class MainWindow
         };
     }
 
+    private const bool DisableUpdateChecking = false;
+    
     private async void UpdateAio()
     {
+        if (DisableUpdateChecking)
+        {
+            return;
+        }
+        
         if (!await Updater.CheckInternetConnection())
         {
             return;
@@ -213,8 +220,8 @@ public partial class MainWindow
                 GvpMaker(name, type);
                 Dispatcher.Invoke(() =>
                 {
-                    Self_Vehicle.IsEnabled = true;
-                    Self_Vehicle.Foreground = Brushes.White;
+                    SelfVehicle.IsEnabled = true;
+                    SelfVehicle.Foreground = Brushes.White;
                     Speedtest.Fill = Brushes.White;
                 });
                 Attached = true;
@@ -233,15 +240,22 @@ public partial class MainWindow
         // ReSharper disable once FunctionNeverReturns
     }
 
+    private const bool DisableButtonToggling = false;
+    
     public void ToggleButtons(bool on)
     {
+        if (DisableButtonToggling)
+        {
+            return;
+        }
+        
         Dispatcher.Invoke(() =>
         {
-            Self_Vehicle.IsEnabled = on;
+            SelfVehicle.IsEnabled = on;
             AutoShow.IsEnabled = on;
             Tuning.IsEnabled = on;
 
-            Self_Vehicle.Foreground = on ? Brushes.White : Brushes.DarkGray;
+            SelfVehicle.Foreground = on ? Brushes.White : Brushes.DarkGray;
             AutoShow.Foreground = on ? Brushes.White : Brushes.DarkGray;
             Tuning.Foreground = on ? Brushes.White : Brushes.DarkGray;
 
@@ -285,7 +299,7 @@ public partial class MainWindow
         Dispatcher.Invoke(delegate
         {
             AttachedLabel.Content = $"{Gvp.Name}, {Gvp.Plat}, {Gvp.Update}";
-            AioInfo.Ai.OverlaySwitch.IsEnabled = true;
+            Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsEnabled = true;
         });
     }
 

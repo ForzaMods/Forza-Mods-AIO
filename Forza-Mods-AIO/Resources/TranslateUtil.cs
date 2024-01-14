@@ -3,12 +3,13 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using MahApps.Metro.Controls;
 
 namespace Forza_Mods_AIO.Resources;
 
 public class TranslateUtil
 {
-    private Dictionary<string, string> _translation = new();
+    private Dictionary<string, string> _translation = Translations.FrenchTranslation;
 
     public void SetLanguage(Dictionary<string, string> translation)
     {
@@ -21,7 +22,7 @@ public class TranslateUtil
         public string ToolTip { get; set; } = string.Empty;
     }
 
-    private Dictionary<FrameworkElement, OriginalValues>? OriginalSnapshot { get; set; }
+    private Dictionary<FrameworkElement, OriginalValues> OriginalSnapshot { get; set; } = new();
     
     public void Translate()
     {
@@ -44,17 +45,15 @@ public class TranslateUtil
 
     private Dictionary<FrameworkElement, OriginalValues> CreateSnapshot()
     {
-        if (OriginalSnapshot != null)
+        if (OriginalSnapshot.Count != 0)
         {
             return OriginalSnapshot;
         }
         
         var snapshot = new Dictionary<FrameworkElement, OriginalValues>();
-
         foreach (var element in MainWindow.Mw.GetChildren().Cast<FrameworkElement>())
         {
             var originalValues = new OriginalValues();
-
             var contentProperty = element.GetType().GetProperty("Content");
             var contentValue = contentProperty?.GetValue(element)?.ToString();
             if (contentValue != null)
@@ -77,13 +76,18 @@ public class TranslateUtil
 
     public void RevertToEnglish()
     {
-        if (OriginalSnapshot == null)
+        if (OriginalSnapshot.Count == 0)
         {
             return;
         }
 
         foreach (var (element, originalValues) in OriginalSnapshot)
         {
+            if (element is ContentPresenter or ContentControlEx)
+            {
+                continue;
+            }
+            
             var contentProperty = element.GetType().GetProperty("Content");
             if (contentProperty != null && _translation.TryGetValue(originalValues.Content, out _))
             {

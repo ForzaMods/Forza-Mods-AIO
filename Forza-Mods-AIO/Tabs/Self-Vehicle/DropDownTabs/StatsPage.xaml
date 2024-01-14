@@ -15,49 +15,74 @@
                 BorderThickness="2,0,2,2"
                 CornerRadius="0,0,10,10" />
 
-        <Border Style="{StaticResource CommonBorderStyle}"/>
+        <Border Style="{StaticResource CommonBorderStyle}">
         
-        <ComboBox x:Name="StatsBox"
-                  BorderThickness="0"
-                  Background="#FF2E3440"
-                  Margin="55 20 0 0"
-                  Width="215"
-                  VerticalAlignment="Top"
-                  HorizontalAlignment="Left"
-                  FontSize="11"
-                  SelectionChanged="StatsBox_OnSelectionChanged"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-        <Label Content="Stat:"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Left"
-               Margin="18 20 0 0"/>
+                <Grid Column="0">
 
-        <Label Content="Stat value:"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Left"
-               Margin="275.5 20 0 0"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-        <mah:NumericUpDown x:Name="StatsValue"
-                           BorderThickness="0"
-                           Background="#FF2E3440"
-                           Margin="0 20 80 0"
-                           TextAlignment="Left"
-                           HideUpDownButtons="True"
-                           Width="155"
-                           Value="0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Right"/>
+                    <Label Content="Stat:"
+                           VerticalAlignment="Center"
+                           Margin="5 0 0 0"
+                           Grid.Column="0"/>
 
-        <Button x:Name="SendButton"
-                BorderThickness="0"
-                Focusable="False"
-                IsTabStop="False"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Right"
-                Margin="0 20 22 0"
-                Content="Send"
-                Width="50"
-                Background="#FF2E3440"
-                Click="SendButton_OnClick"/>
+                    <ComboBox x:Name="StatsBox"
+                              BorderThickness="0"
+                              Background="#FF2E3440"
+                              Margin="5 0 0 0"
+                              VerticalAlignment="Center"
+                              FontSize="11"
+                              SelectionChanged="StatsBox_OnSelectionChanged"
+                              Grid.Column="1"/>
+                    
+                </Grid>
+
+                <Grid Column="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Stat value:"
+                           VerticalAlignment="Center"
+                           Margin="5 00 0 0"/>
+
+                    <mah:NumericUpDown x:Name="StatsValue"
+                                       BorderThickness="0"
+                                       Background="#FF2E3440"
+                                       Margin="5 0 0 0"
+                                       TextAlignment="Left"
+                                       HideUpDownButtons="True"
+                                       Value="0"
+                                       VerticalAlignment="Center"
+                                       Grid.Column="1"/>
+
+                    <Button x:Name="SendButton"
+                            BorderThickness="0"
+                            Focusable="False"
+                            IsTabStop="False"
+                            VerticalAlignment="Center"
+                            Margin="5 0 10 0"
+                            Content="Send"
+                            Width="50"
+                            Background="#FF2E3440"
+                            Click="SendButton_OnClick"
+                            Grid.Column="2"/>
+                </Grid>
+                
+            </Grid>
+            
+        </Border>
     </Grid>
 </Page>

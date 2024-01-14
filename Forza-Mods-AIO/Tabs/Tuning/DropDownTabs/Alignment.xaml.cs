@@ -12,6 +12,7 @@ public partial class Alignment
     {
         InitializeComponent();
         Al = this;
+        DataContext = this;
     }
 
     private void CamberNegBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)

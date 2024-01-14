@@ -12,14 +12,11 @@
 
     <Grid>
         <Button Content="Wall Colour"
-                Height="26"
-                Width="86" 
                 Margin="0 0 10 85" 
                 VerticalAlignment="Bottom" 
                 HorizontalAlignment="Right" 
                 Click="WallButton_Click"
                 Focusable="False" 
-                FontFamily="Manrope" 
                 Background="#FF2E3440" 
                 BorderBrush="#FF2E3440"/>
         
@@ -71,10 +68,10 @@
         <mah:ToggleSwitch x:Name="OverlaySwitch" 
                           Height="55" 
                           Header="Overlay" 
-                          Margin="0 0 -60 115" 
+                          Margin="0 0 15 115" 
                           VerticalAlignment="Bottom" 
                           HorizontalAlignment="Right"
-                          Width="114" 
+                          MinWidth="0"
                           IsEnabled="False" 
                           Toggled="OverlaySwitch_Toggled" 
                           Focusable="False"/>
@@ -168,10 +165,11 @@
               Fill="White"
               Height="25"
               Width="25"
+              VerticalAlignment="Top"
               HorizontalAlignment="Right"
-              Margin="0 0 15 72.5"/>
+              Margin="15 147.5"/>
         
-        <Rectangle x:Name="ForzaModsDiscord" Cursor="Hand" HorizontalAlignment="Right" Height="25" Margin="0 0 15 72.5" Width="25" MouseDown="Button_OnMouseDown">
+        <Rectangle x:Name="ForzaModsDiscord" Cursor="Hand" VerticalAlignment="Top" HorizontalAlignment="Right" Height="25" Margin="15 147.5" Width="25" MouseDown="Button_OnMouseDown">
                <Rectangle.Fill>
                       <SolidColorBrush Color="Black" Opacity="0"/>
                </Rectangle.Fill>

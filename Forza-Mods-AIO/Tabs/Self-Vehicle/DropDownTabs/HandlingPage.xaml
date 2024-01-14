@@ -4,9 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
-      mc:Ignorable="d" d:DesignWidth="580"
+      mc:Ignorable="d" 
+      d:DesignWidth="580"
       Title="HandlingPage" 
-      Height="570"
+      Height="560"
       Background="Transparent">
 
     <Grid>
@@ -15,108 +16,127 @@
         <StackPanel>
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Mode"
-                               Margin="8 0 0 0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Content="Mode"
+                           Margin="8 0 0 0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Grid.Column="0"/>
                             
-                        <ComboBox x:Name="VelModeBox"
-                                  Width="80"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  Margin="7.5 0 0 0"
-                                  SelectedIndex="0"
-                                  Background="#FF2E3440" 
-                                  BorderBrush="#FF2E3440"
-                                  SelectionChanged="VelModeBox_OnSelectionChanged">
+                    <ComboBox x:Name="VelModeBox"
+                              VerticalAlignment="Center"
+                              Margin="7.5 0 0 0"
+                              SelectedIndex="0"
+                              Background="#FF2E3440" 
+                              BorderBrush="#FF2E3440"
+                              SelectionChanged="VelModeBox_OnSelectionChanged"
+                              Grid.Column="1">
                                 
-                            <ComboBoxItem Content="Dynamic"/>
-                            <ComboBoxItem Content="Direct"/>
+                        <ComboBoxItem Content="Dynamic"/>
+                        <ComboBoxItem Content="Direct"/>
                                 
-                        </ComboBox>
+                    </ComboBox>
                             
-                        <Label Margin="8 0 0 0"
-                               Content="Value"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"/>        
+                    <Label Margin="8 0 0 0"
+                           Content="Value"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Grid.Column="2"/>        
                             
-                        <mah:NumericUpDown x:Name="VelValueNum" 
-                                           HorizontalAlignment="Left" 
-                                           Margin="7.5 0 0 0" 
-                                           Width="80" 
-                                           ParsingNumberStyle="AllowDecimalPoint" 
-                                           TextAlignment="Left" 
-                                           Minimum="1" 
-                                           Maximum="10" 
-                                           Value="5" 
-                                           Interval="0.1"
-                                           VerticalAlignment="Center" 
-                                           NumericInputMode="Decimal"
-                                           UpDownButtonsFocusable="False" 
-                                           TrackMouseWheelWhenMouseOver="True" 
-                                           Culture="en-GB"
-                                           IsTabStop="False" 
-                                           ValueChanged="VelValueNum_OnValueChanged"
-                                           Background="#FF2E3440" 
-                                           BorderBrush="#FF2E3440"/>  
+                    <mah:NumericUpDown x:Name="VelValueNum" 
+                                       Margin="7.5 0 0 0" 
+                                       ParsingNumberStyle="AllowDecimalPoint" 
+                                       TextAlignment="Left" 
+                                       Minimum="1" 
+                                       Maximum="10" 
+                                       Value="5" 
+                                       Interval="0.1"
+                                       VerticalAlignment="Center" 
+                                       NumericInputMode="Decimal"
+                                       UpDownButtonsFocusable="False" 
+                                       TrackMouseWheelWhenMouseOver="True" 
+                                       Culture="en-GB"
+                                       IsTabStop="False" 
+                                       ValueChanged="VelValueNum_OnValueChanged"
+                                       Background="#FF2E3440" 
+                                       BorderBrush="#FF2E3440"
+                                       Grid.Column="3"/>  
                             
-                        <Label Content="Limit" 
-                               Margin="7.5 0 0 0"
-                               HorizontalAlignment="Center" 
-                               VerticalAlignment="Center" />
+                    <Label Content="Limit" 
+                           Margin="7.5 0 0 0"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" 
+                           Grid.Column="4"/>
                             
-                        <mah:NumericUpDown x:Name="VelLimitBox" 
-                                           Margin="7.5 0 0 0"
-                                           ParsingNumberStyle="Integer" 
-                                           TextAlignment="Left" 
-                                           Minimum="0" 
-                                           Maximum="450"
-                                           Value="300" 
-                                           HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center" 
-                                           Width="85" 
-                                           NumericInputMode="Numbers" 
-                                           UpDownButtonsFocusable="False" 
-                                           TrackMouseWheelWhenMouseOver="True" 
-                                           Culture="en-GB" 
-                                           Background="#FF2E3440" 
-                                           BorderBrush="#FF2E3440"
-                                           ValueChanged="VelLimitBox_OnValueChanged"/>
-                            
-        
-                    </StackPanel>
+                    <mah:NumericUpDown x:Name="VelLimitBox" 
+                                       Margin="7.5 0 0 0"
+                                       ParsingNumberStyle="Integer" 
+                                       TextAlignment="Left" 
+                                       Minimum="0" 
+                                       Maximum="450"
+                                       Value="300" 
+                                       VerticalAlignment="Center" 
+                                       NumericInputMode="Numbers" 
+                                       UpDownButtonsFocusable="False" 
+                                       TrackMouseWheelWhenMouseOver="True" 
+                                       Culture="en-GB" 
+                                       Background="#FF2E3440" 
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="VelLimitBox_OnValueChanged"
+                                       Grid.Column="5"/>
                     
                     <mah:ToggleSwitch x:Name="VelocitySwitch" 
-                                      Margin="0 0 -15 0" 
+                                      Margin="6.5 0 5 0" 
+                                      Width="{Binding ActualWidth, ElementName=StopAllWheelsSwitch}"
                                       HorizontalAlignment="Right" 
                                       FontSize="11.5" 
                                       VerticalAlignment="Center" 
                                       Content="Velocity" 
-                                      Toggled="VelocitySwitch_Toggled"/>
+                                      Toggled="VelocitySwitch_Toggled"
+                                      Grid.Column="6"/>
                 </Grid>
  
             </Border>
             
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+
                     <mah:ToggleSwitch x:Name="WheelSpeedSwitch" 
                                       HorizontalAlignment="Right" 
                                       VerticalAlignment="Center" 
-                                      Margin="0 0 -15 0" 
+                                      Margin="6.5 0 5 0" 
+                                      Width="{Binding ActualWidth, ElementName=StopAllWheelsSwitch}"
                                       Content="Wheel Speed" 
                                       FontSize="11.5" 
                                       Toggled="WheelSpeedSwitch_Toggled" 
-                                      Focusable="False"/>
+                                      Focusable="False"
+                                      Grid.Column="6"/>
                     
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center">
-                        
+                    
                         <Label Content="Strength" 
                                HorizontalAlignment="Left" 
                                VerticalAlignment="Center"
-                               Margin="6.5,0,0,0" />
+                               Margin="6.5,0,0,0"
+                               Grid.Column="0"/>
                         
                     
                         <mah:NumericUpDown x:Name="StrengthBox" 
@@ -127,20 +147,20 @@
                                            Minimum="0" 
                                            Maximum="100" 
                                            Value="10" 
-                                           HorizontalAlignment="Left"
-                                           Width="75" 
                                            NumericInputMode="Numbers" 
                                            UpDownButtonsFocusable="False" 
                                            TrackMouseWheelWhenMouseOver="True" 
                                            Culture="en-GB" 
                                            Background="#FF2E3440" 
                                            BorderBrush="#FF2E3440"
-                                           ValueChanged="StrengthBox_OnValueChanged"/>
+                                           ValueChanged="StrengthBox_OnValueChanged"
+                                           Grid.Column="1"/>
                         
                         
                         <Label Content="Interval" 
                                Margin="5 0 0 0" 
-                               VerticalAlignment="Center" />
+                               VerticalAlignment="Center" 
+                               Grid.Column="2"/>
                         
                         
                     
@@ -152,29 +172,30 @@
                                            Maximum="100" 
                                            Value="1" 
                                            VerticalAlignment="Center" 
-                                           Width="75" 
                                            NumericInputMode="Numbers" 
                                            UpDownButtonsFocusable="False" 
                                            TrackMouseWheelWhenMouseOver="True" 
                                            Culture="en-GB" 
                                            Background="#FF2E3440" 
                                            BorderBrush="#FF2E3440"
-                                           ValueChanged="IntervalBox_OnValueChanged"/>
+                                           ValueChanged="IntervalBox_OnValueChanged"
+                                           Grid.Column="3"/>
                         
                         
                     
                         <Label Content="Mode" 
                                VerticalAlignment="Center"
-                               Margin="5,0,0,0" />
+                               Margin="5,0,0,0" 
+                               Grid.Column="4"/>
                     
                         <ComboBox x:Name="WheelSpeedModeBox" 
                                   Margin="5,0,0,0" 
                                   SelectedIndex="0"
-                                  Width="78.5"
                                   VerticalAlignment="Center" 
                                   Background="#FF2E3440" 
                                   BorderBrush="#FF2E3440"
-                                  SelectionChanged="WheelSpeedModeBox_OnSelectionChanged">
+                                  SelectionChanged="WheelSpeedModeBox_OnSelectionChanged"
+                                  Grid.Column="5">
                             <ComboBoxItem Content="Static"/>
                             <ComboBoxItem Content="Linear"/>
                             <ComboBoxItem Content="Power"/>
@@ -186,180 +207,210 @@
                             <ComboBoxItem Content="Mixed"/>
                             <ComboBoxItem Content="Accel"/>
                         </ComboBox>
-                    </StackPanel>
                 </Grid>    
             </Border>
             
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
-                    <mah:NumericUpDown x:Name="GravityValueNum" 
-                                       Margin="6.5 0 0 0" 
-                                       NumericInputMode="Decimal" 
-                                       ParsingNumberStyle="Float" 
-                                       TextAlignment="Left" 
-                                       Minimum="-100" 
-                                       Maximum="100" 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <mah:NumericUpDown x:Name="GravityValueNum"
+                                       Margin="6.5 0 0 0"
+                                       NumericInputMode="Decimal"
+                                       ParsingNumberStyle="Float"
+                                       TextAlignment="Left"
+                                       Minimum="-100"
+                                       Maximum="100"
                                        Value="0"
-                                       Width="355"
-                                       HorizontalAlignment="Left" 
-                                       VerticalAlignment="Center" 
-                                       UpDownButtonsFocusable="False" 
-                                       TrackMouseWheelWhenMouseOver="True" 
-                                       Culture="en-GB" 
-                                       Background="#FF2E3440" 
+                                       Width="Auto"
+                                       VerticalAlignment="Center"
+                                       UpDownButtonsFocusable="False"
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       Culture="en-GB"
+                                       Background="#FF2E3440"
                                        BorderBrush="#FF2E3440"/>
-                    
+
                     <Button x:Name="GravityPullButton"
-                            Content="Pull" 
-                            Margin="0,0,146,0" 
-                            VerticalAlignment="Center" 
+                            Content="Pull"
+                            Margin="6.5,0,0,0"
+                            VerticalAlignment="Center"
                             HorizontalAlignment="Right"
-                            Focusable="False" 
+                            Focusable="False"
                             Click="PullButton_Click"
-                            Background="#FF2E3440" BorderBrush="#FF2E3440"/>
-                    
-                    <mah:ToggleSwitch x:Name="GravitySetSwitch"  
-                                      Margin="0 0 -15 0" 
+                            Background="#FF2E3440" BorderBrush="#FF2E3440"
+                            Grid.Column="1"/>
+
+                    <mah:ToggleSwitch x:Name="GravitySetSwitch"
+                                      Margin="6.5 0 5 0"
+                                      Width="{Binding ActualWidth, ElementName=StopAllWheelsSwitch}"
                                       FontSize="11.5"
                                       Content="Gravity"
-                                      VerticalAlignment="Center"  
+                                      VerticalAlignment="Center"
                                       HorizontalAlignment="Right"
-                                      Toggled="SetSwitch_Toggled"/>
-                </Grid>
-            </Border>
-            <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0" >
-                <Grid>
-                    <mah:NumericUpDown x:Name="AccelValueNum" 
-                                       Margin="6.5 0 0 0" 
-                                       NumericInputMode="Decimal" 
-                                       ParsingNumberStyle="Float" 
-                                       TextAlignment="Left" 
-                                       Minimum="0" 
-                                       Maximum="1" 
-                                       Interval="0.01"
-                                       Value="0"
-                                       Width="355"
-                                       HorizontalAlignment="Left" 
-                                       VerticalAlignment="Center" 
-                                       UpDownButtonsFocusable="False" 
-                                       TrackMouseWheelWhenMouseOver="True" 
-                                       Culture="en-GB" 
-                                       Background="#FF2E3440" 
-                                       BorderBrush="#FF2E3440"/>
-                    
-                    <Button x:Name="AccelPullButton"
-                            Content="Pull" 
-                            Margin="0,0,146,0" 
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Right"
-                            Focusable="False" 
-                            Click="PullButton_Click"
-                            Background="#FF2E3440" BorderBrush="#FF2E3440"/>
-                    
-                    <mah:ToggleSwitch x:Name="AccelSetSwitch"  
-                                      Margin="0 0 -15 0" 
-                                      FontSize="11.5"
-                                      Content="Acceleration"
-                                      VerticalAlignment="Center"  
-                                      HorizontalAlignment="Right"
-                                      Toggled="SetSwitch_Toggled"/>
+                                      Toggled="SetSwitch_Toggled"
+                                      Grid.Column="2"/>
                 </Grid>
             </Border>
             
-            <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0" >
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
-                    <mah:ToggleSwitch x:Name="TurnAssistSwitch" 
-                                      HorizontalAlignment="Right" 
-                                      VerticalAlignment="Center" 
-                                      Margin="0 0 -15 0" 
-                                      Content="Turn Assist" 
-                                      FontSize="11.5" 
-                                      Toggled="TurnAssistSwitch_Toggled" 
-                                      Focusable="False"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
                     
-                    <Label Content="Strength" 
-                           HorizontalAlignment="Left" 
-                           VerticalAlignment="Center"
-                           Margin="6.5,0,0,0" />
-                    
-                    <mah:NumericUpDown x:Name="TurnAssistStrengthBox" 
-                                       Margin="65 0 0 0" 
-                                       ParsingNumberStyle="Integer" 
-                                       TextAlignment="Left" 
-                                       Minimum="1" 
-                                       Maximum="100" 
-                                       Value="10" 
-                                       HorizontalAlignment="Left" 
-                                       VerticalAlignment="Center" 
-                                       Width="75" 
-                                       NumericInputMode="Numbers" 
-                                       UpDownButtonsFocusable="False" 
-                                       TrackMouseWheelWhenMouseOver="True" 
-                                       Culture="en-GB" 
-                                       Background="#FF2E3440" 
-                                       BorderBrush="#FF2E3440"
-                                       ValueChanged="TurnAssistStrengthBox_OnValueChanged"/>
-                    
-                    
-                    <Label Content="Interval" 
-                           HorizontalAlignment="Center" 
-                           Margin="-210 0 0 0" 
-                           VerticalAlignment="Center" />
-                    
-                    <mah:NumericUpDown x:Name="TurnAssistIntervalBox" 
-                                       Margin="-70 0 0 0" 
-                                       ParsingNumberStyle="Integer" 
-                                       TextAlignment="Left" 
-                                       Minimum="1" 
+                    <mah:NumericUpDown x:Name="AccelValueNum"
+                                       Margin="6.5 0 0 0"
+                                       NumericInputMode="Decimal"
+                                       ParsingNumberStyle="Float"
+                                       TextAlignment="Left"
+                                       Minimum="-100"
                                        Maximum="100"
-                                       Value="1" 
-                                       HorizontalAlignment="Center"
+                                       Value="0"
+                                       Width="Auto"
                                        VerticalAlignment="Center"
-                                       Width="75" 
-                                       NumericInputMode="Numbers" 
-                                       UpDownButtonsFocusable="False" 
+                                       UpDownButtonsFocusable="False"
                                        TrackMouseWheelWhenMouseOver="True"
-                                       Background="#FF2E3440" 
-                                       BorderBrush="#FF2E3440"
-                                       ValueChanged="TurnAssistIntervalBox_OnValueChanged"/>
+                                       Culture="en-GB"
+                                       Background="#FF2E3440"
+                                       BorderBrush="#FF2E3440"/>
                     
+                    <Button x:Name="AccelPullButton"
+                            Content="Pull"
+                            Margin="6.5,0,0,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Focusable="False"
+                            Click="PullButton_Click"
+                            Background="#FF2E3440" BorderBrush="#FF2E3440"
+                            Grid.Column="1"/>
                     
-                    <Label Content="Ratio" 
-                           HorizontalAlignment="Center" 
+                    <mah:ToggleSwitch x:Name="AccelSetSwitch"
+                                      Margin="6.5 0 5 0"
+                                      Width="{Binding ActualWidth, ElementName=StopAllWheelsSwitch}"
+                                      FontSize="11.5"
+                                      Content="Acceleration"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Right"
+                                      Toggled="SetSwitch_Toggled"
+                                      Grid.Column="2"/>
+                </Grid>
+            </Border>
+            
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Strength"
+                           HorizontalAlignment="Left"
                            VerticalAlignment="Center"
-                           Margin="60,0,0,0" />
-                    
-                    <mah:NumericUpDown x:Name="TurnAssistRatioBox" 
-                                       Margin="185 0 0 0" 
-                                       ParsingNumberStyle="Float" 
-                                       VerticalAlignment="Center" 
-                                       TextAlignment="Left" 
-                                       Minimum="0" 
-                                       Maximum="100" 
-                                       Value="10" 
-                                       HorizontalAlignment="Center"
-                                       Width="75" 
-                                       NumericInputMode="Numbers" 
-                                       UpDownButtonsFocusable="False" 
-                                       TrackMouseWheelWhenMouseOver="True" 
-                                       Culture="en-GB" 
-                                       Background="#FF2E3440" 
+                           Margin="6.5,0,0,0"
+                           Grid.Column="0"/>
+
+                    <mah:NumericUpDown x:Name="TurnAssistStrengthBox"
+                                       ParsingNumberStyle="Integer"
+                                       TextAlignment="Left"
+                                       Minimum="1"
+                                       Maximum="100"
+                                       Margin="6.5 0 0 0"
+                                       Value="10"
+                                       VerticalAlignment="Center"
+                                       NumericInputMode="Numbers"
+                                       UpDownButtonsFocusable="False"
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       Culture="en-GB"
+                                       Background="#FF2E3440"
                                        BorderBrush="#FF2E3440"
-                                       ValueChanged="TurnAssistRatioBox_OnValueChanged"/>
+                                       ValueChanged="TurnAssistStrengthBox_OnValueChanged"
+                                       Grid.Column="1"/>
+
+                    <Label Content="Interval"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="6.5 0 0 0"
+                           Grid.Column="2"/>
+
+                    <mah:NumericUpDown x:Name="TurnAssistIntervalBox"
+                                       ParsingNumberStyle="Integer"
+                                       TextAlignment="Left"
+                                       Margin="6.5 0 0 0"
+                                       Minimum="1"
+                                       Maximum="100"
+                                       Value="1"
+                                       VerticalAlignment="Center"
+                                       NumericInputMode="Numbers"
+                                       UpDownButtonsFocusable="False"
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       Background="#FF2E3440"
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="TurnAssistIntervalBox_OnValueChanged"
+                                       Grid.Column="3"/>
+
+                    <Label Content="Ratio"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="6.5 0 0 0"
+                           Grid.Column="4"/>
+
+                    <mah:NumericUpDown x:Name="TurnAssistRatioBox"
+                                       Margin="6.5 0 0 0"
+                                       ParsingNumberStyle="Float"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Left"
+                                       Minimum="0"
+                                       Maximum="100"
+                                       Value="10"
+                                       NumericInputMode="Numbers"
+                                       UpDownButtonsFocusable="False"
+                                       TrackMouseWheelWhenMouseOver="True"
+                                       Culture="en-GB"
+                                       Background="#FF2E3440"
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="TurnAssistRatioBox_OnValueChanged"
+                                       Grid.Column="5"/>
                     
+                    <mah:ToggleSwitch x:Name="TurnAssistSwitch"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Center"
+                                      Margin="6.5 0 5 0"
+                                      Width="{Binding ActualWidth, ElementName=StopAllWheelsSwitch}"
+                                      Content="Turn Assist"
+                                      FontSize="11.5"
+                                      Toggled="TurnAssistSwitch_Toggled"
+                                      Focusable="False"
+                                      Grid.Column="6"/>
                 </Grid>
             </Border>
 
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
                     <mah:NumericUpDown x:Name="JumpHackVelocityNum" 
-                                       HorizontalAlignment="Left" 
-                                       Margin="7.5 0 0 0" 
-                                       Width="110" 
+                                       Margin="6.5 0 0 0" 
+                                       HorizontalAlignment="Left"
                                        ParsingNumberStyle="Float" 
                                        TextAlignment="Left" 
                                        Minimum="1" 
                                        Maximum="10" 
+                                       Width="100"
                                        Value="10" 
                                        VerticalAlignment="Center" 
                                        NumericInputMode="Decimal" 
@@ -370,177 +421,201 @@
                                        IsTabStop="False" 
                                        Background="#FF2E3440" 
                                        BorderBrush="#FF2E3440"/>
-                    
-                    <mah:ToggleSwitch x:Name="JumpHackSwitch" 
-                                      Margin="0 0 -15 0" 
-                                      HorizontalAlignment="Right" 
-                                      FontSize="11.5" 
-                                      VerticalAlignment="Center" 
-                                      Content="Jump Hack" 
-                                      Toggled="JumpHackSwitch_OnToggled"/>
-                        
                     <Slider x:Name="JumpHackSlider"
-                            HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Width="275"
                             Maximum="10"
-                            Margin="-20 0 0 0"
+                            Margin="6.5 0 0 0"
                             Value="10" 
                             Minimum="1" 
                             Focusable="False" 
                             TickPlacement="None" 
                             TickFrequency="100" 
-                            ValueChanged="JumpHackSlider_OnValueChanged"/>
+                            ValueChanged="JumpHackSlider_OnValueChanged"
+                            Grid.Column="1"/>
+                    
+                    <mah:ToggleSwitch x:Name="JumpHackSwitch" 
+                                      Margin="6.5 0 5 0" 
+                                      Width="{Binding ActualWidth, ElementName=StopAllWheelsSwitch}"
+                                      HorizontalAlignment="Right" 
+                                      FontSize="11.5" 
+                                      VerticalAlignment="Center" 
+                                      Content="Jump Hack" 
+                                      Toggled="JumpHackSwitch_OnToggled"
+                                      Grid.Column="2"/>
+                        
                 </Grid>
             </Border>
             
-            <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0" >
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
                     <mah:ToggleSwitch x:Name="FlyHackSwitch" 
-                                      Margin="0 0 -15 0" 
+                                      Margin="6.5 0 5 0" 
+                                      Width="{Binding ActualWidth, ElementName=StopAllWheelsSwitch}"
                                       HorizontalAlignment="Right" 
                                       FontSize="11.5" 
                                       VerticalAlignment="Center" 
                                       Content="Fly Hack" 
-                                      Toggled="FlyHackSwitch_OnToggled"/>
+                                      Toggled="FlyHackSwitch_OnToggled"
+                                      Grid.Column="4"/>
                     
                     <Label Content="Movement Speed" 
                            HorizontalAlignment="Left" 
                            Margin="6.5,0,0,0" 
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center"
+                           Grid.Column="0"/>
                     
                     <mah:NumericUpDown x:Name="FlyHackMoveSpeedNum" 
-                                       Margin="120,0,0,0"
+                                       Margin="6.5,0,0,0"
                                        ParsingNumberStyle="Float" 
                                        TextAlignment="Left" 
                                        Minimum="1" 
                                        Maximum="5" 
                                        Value="1" 
-                                       HorizontalAlignment="Left"
                                        VerticalAlignment="Center" 
                                        NumericInputMode='Decimal' 
                                        UpDownButtonsFocusable="False" 
                                        TrackMouseWheelWhenMouseOver="True" 
                                        Background="#FF2E3440" 
                                        BorderBrush="#FF2E3440"
-                                       Width="90"
-                                       ValueChanged="FlyHackMoveSpeedNum_OnValueChanged"/>
+                                       ValueChanged="FlyHackMoveSpeedNum_OnValueChanged"
+                                       Grid.Column="1"/>
                     
                     <Label Content="Rotation Speed" 
-                           HorizontalAlignment="Center" 
-                           Margin="-25,0,0,0" 
-                           VerticalAlignment="Center" />
+                           Margin="6.5,0,0,0" 
+                           VerticalAlignment="Center" 
+                           Grid.Column="2"/>
                     
                     <mah:NumericUpDown x:Name="FlyHackRotSpeedNum" 
-                                       Margin="165,0,0,0" 
+                                       Margin="6.5,0,0,0" 
                                        ParsingNumberStyle="Float" 
                                        TextAlignment="Left" 
                                        Minimum="1" 
                                        Maximum="5" 
                                        Value="1" 
-                                       Width="90"
-                                       HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        NumericInputMode="Decimal" 
                                        UpDownButtonsFocusable="False" 
                                        TrackMouseWheelWhenMouseOver="True" 
                                        Background="#FF2E3440" 
                                        BorderBrush="#FF2E3440"
-                                       ValueChanged="FlyHackRotSpeedNum_OnValueChanged"/>
+                                       ValueChanged="FlyHackRotSpeedNum_OnValueChanged"
+                                       Grid.Column="3"/>
                     
                     
                 </Grid>
             </Border>
             
-            <Border BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" Height="46" BorderBrush="#FF2E3440" Margin="0,10,0,0" >
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
-                    <mah:ToggleSwitch x:Name="StopAllWheelsSwitch" 
-                                      Margin="0 0 -15 0" 
-                                      HorizontalAlignment="Right" 
-                                      FontSize="11" 
-                                      VerticalAlignment="Center" 
-                                      Content="Stop All Wheels" 
-                                      Toggled="StopAllWheelsSwitch_OnToggled"/>
-                        
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center">
-                        
-                        <Label Content="Strength" 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Strength" 
                                HorizontalAlignment="Left" 
                                VerticalAlignment="Center"
-                               Margin="6.5,0,0,0" />
+                               Margin="6.5,0,0,0" 
+                               Grid.Column="0"/>
                     
-                        <mah:NumericUpDown Margin="6.5 0 0 0" 
-                                           ParsingNumberStyle="Float" 
-                                           VerticalAlignment="Center" 
-                                           TextAlignment="Left" 
-                                           Minimum="1" 
-                                           Maximum="10" 
-                                           Value="5" 
-                                           HorizontalAlignment="Left"
-                                           Width="75" 
-                                           NumericInputMode="Numbers" 
-                                           UpDownButtonsFocusable="False" 
-                                           TrackMouseWheelWhenMouseOver="True" 
-                                           Culture="en-GB" 
-                                           Background="#FF2E3440" 
-                                           BorderBrush="#FF2E3440"
-                                           ValueChanged="StopAllWheelsStrengthBox_OnValueChanged"/>
+                    <mah:NumericUpDown Margin="6.5 0 0 0" 
+                                       ParsingNumberStyle="Float" 
+                                       VerticalAlignment="Center" 
+                                       TextAlignment="Left" 
+                                       Minimum="1" 
+                                       Maximum="10" 
+                                       Value="5" 
+                                       NumericInputMode="Numbers" 
+                                       UpDownButtonsFocusable="False" 
+                                       TrackMouseWheelWhenMouseOver="True" 
+                                       Culture="en-GB" 
+                                       Background="#FF2E3440" 
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="StopAllWheelsStrengthBox_OnValueChanged"
+                                       Grid.Column="1"/>
                         
                         
-                        <Label Content="Interval" 
-                               Margin="5 0 0 0" 
-                               VerticalAlignment="Center" />
+                    <Label Content="Interval" 
+                           Margin="5 0 0 0" 
+                           VerticalAlignment="Center" 
+                           Grid.Column="2"/>
                     
-                        <mah:NumericUpDown Margin="5 0 0 0" 
-                                           ParsingNumberStyle="Integer" 
-                                           TextAlignment="Left" 
-                                           Minimum="1" 
-                                           Maximum="100" 
-                                           Value="10" 
-                                           VerticalAlignment="Center" 
-                                           Width="75" 
-                                           NumericInputMode="Numbers" 
-                                           UpDownButtonsFocusable="False" 
-                                           TrackMouseWheelWhenMouseOver="True" 
-                                           Culture="en-GB" 
-                                           Background="#FF2E3440" 
-                                           BorderBrush="#FF2E3440"
-                                           ValueChanged="StopAllWheelsIntervalBox_OnValueChanged"/>
+                    <mah:NumericUpDown Margin="5 0 0 0" 
+                                       ParsingNumberStyle="Integer" 
+                                       TextAlignment="Left" 
+                                       Minimum="1" 
+                                       Maximum="100" 
+                                       Value="10" 
+                                       VerticalAlignment="Center" 
+                                       NumericInputMode="Numbers" 
+                                       UpDownButtonsFocusable="False" 
+                                       TrackMouseWheelWhenMouseOver="True" 
+                                       Culture="en-GB" 
+                                       Background="#FF2E3440" 
+                                       BorderBrush="#FF2E3440"
+                                       ValueChanged="StopAllWheelsIntervalBox_OnValueChanged"
+                                       Grid.Column="3"/>
                         
-                        <Label Content="Mode" 
-                               VerticalAlignment="Center"
-                               Margin="5,0,0,0" />
+                    <Label Content="Mode" 
+                           VerticalAlignment="Center"
+                           Margin="5,0,0,0" 
+                           Grid.Column="4"/>
                     
-                        <ComboBox Margin="5,0,0,0" 
-                                  SelectedIndex="0"
-                                  Width="78.5"
-                                  VerticalAlignment="Center" 
-                                  Background="#FF2E3440" 
-                                  BorderBrush="#FF2E3440"
-                                  SelectionChanged="StopAllWheelsModeBox_OnSelectionChanged">
+                    <ComboBox Margin="5,0,0,0" 
+                              SelectedIndex="0"
+                              VerticalAlignment="Center" 
+                              Background="#FF2E3440" 
+                              BorderBrush="#FF2E3440"
+                              SelectionChanged="StopAllWheelsModeBox_OnSelectionChanged"
+                              Grid.Column="5">
                             <ComboBoxItem Content="Instant"/>
                             <ComboBoxItem Content="Gradual"/>
                             <ComboBoxItem Content="Pulse"/>
                             <ComboBoxItem Content="Linear"/>
                             <ComboBoxItem Content="Random"/>
-                        </ComboBox>
-                    </StackPanel>
+                    </ComboBox>
+                    
+                    <mah:ToggleSwitch x:Name="StopAllWheelsSwitch" 
+                                      Margin="6.5 0 5 0" 
+                                      HorizontalAlignment="Right" 
+                                      FontSize="11" 
+                                      VerticalAlignment="Center" 
+                                      Content="Stop All Wheels" 
+                                      Toggled="StopAllWheelsSwitch_OnToggled"
+                                      Grid.Column="6"/>
+
                 </Grid>
             </Border>
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
                     <mah:NumericUpDown x:Name="SuperBrakeVelocity" 
-                                       HorizontalAlignment="Left" 
                                        Margin="7.5 0 0 0" 
-                                       Width="110" 
                                        ParsingNumberStyle="Float" 
                                        TextAlignment="Left" 
                                        Minimum="0" 
                                        Maximum="1" 
                                        Value="0.95" 
                                        Interval="0.01"
+                                       Width="100"
                                        VerticalAlignment="Center" 
                                        NumericInputMode="Decimal" 
                                        ValueChanged="SuperBrakeVelocity_OnValueChanged" 
@@ -549,28 +624,31 @@
                                        Culture="en-GB"
                                        IsTabStop="False" 
                                        Background="#FF2E3440" 
-                                       BorderBrush="#FF2E3440"/>
+                                       BorderBrush="#FF2E3440"
+                                       Grid.Column="0"/>
                     
-                    <mah:ToggleSwitch x:Name="SuperBrakeSwitch" 
-                                      Margin="0 0 -15 0" 
-                                      HorizontalAlignment="Right" 
-                                      FontSize="11.5" 
-                                      VerticalAlignment="Center" 
-                                      Content="Super Brake" 
-                                      Toggled="SuperBrakeSwitch_Toggled"/>
-                        
                     <Slider x:Name="SuperBrakeSlider" 
-                            HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Width="275"
                             Maximum="1"
-                            Margin="-20 0 0 0"
+                            Margin="6.5 0 0 0"
                             Value="0.95" 
                             Minimum="0" 
                             Focusable="False" 
                             TickPlacement="None" 
                             TickFrequency="100" 
-                            ValueChanged="SuperBrakeSlider_OnValueChanged"/>
+                            ValueChanged="SuperBrakeSlider_OnValueChanged"
+                            Grid.Column="1"/>
+                    
+                    <mah:ToggleSwitch x:Name="SuperBrakeSwitch" 
+                                      Margin="6.5 0 5 0" 
+                                      Width="{Binding ActualWidth, ElementName=StopAllWheelsSwitch}"
+                                      HorizontalAlignment="Right" 
+                                      FontSize="11.5" 
+                                      VerticalAlignment="Center" 
+                                      Content="Super Brake" 
+                                      Toggled="SuperBrakeSwitch_Toggled"
+                                      Grid.Column="2"/>
+                        
                 </Grid>
             </Border>
             <Border Style="{StaticResource CommonBorderStyle}">

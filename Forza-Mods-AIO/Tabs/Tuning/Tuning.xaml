@@ -31,23 +31,23 @@
             </StackPanel>
             
 
-            <Frame x:Name="TiresPage" Content="Frame" Width="580" Source="DropDownTabs/Tires.xaml" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="GearingPage" Content="Frame" Width="580" Source="DropDownTabs/Gearing.xaml" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="AlignmentPage" Content="Frame" Width="580" Source="DropDownTabs/Alignment.xaml" HorizontalAlignment="Center" Margin="0,81,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="SpringsPage" Content="Frame" Width="580" Source="DropDownTabs/Springs.xaml" HorizontalAlignment="Center" Margin="0,115,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="DampingPage" Content="Frame" Width="580" Source="DropDownTabs/Damping.xaml" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="AeroPage" Content="Frame" Width="580" Source="DropDownTabs/Aero.xaml" HorizontalAlignment="Center" Margin="0,185,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="SteeringPage" Content="Frame" Width="580" Source="DropDownTabs/Steering.xaml" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="OthersPage" Content="Frame" Width="580" Source="DropDownTabs/Others.xaml" HorizontalAlignment="Center" Margin="0,255,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="TiresPage" Content="Frame" Source="DropDownTabs/Tires.xaml" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="GearingPage" Content="Frame" Source="DropDownTabs/Gearing.xaml" Margin="10,45,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="AlignmentPage" Content="Frame" Source="DropDownTabs/Alignment.xaml" Margin="10,80,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="SpringsPage" Content="Frame" Source="DropDownTabs/Springs.xaml" Margin="10,115,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="DampingPage" Content="Frame" Source="DropDownTabs/Damping.xaml" Margin="10,150,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="AeroPage" Content="Frame" Source="DropDownTabs/Aero.xaml" Margin="10,185,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="SteeringPage" Content="Frame" Source="DropDownTabs/Steering.xaml" Margin="10,220,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="OthersPage" Content="Frame" Source="DropDownTabs/Others.xaml" Margin="10,255,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
 
-            <Button x:Name="TiresButton" Content="Tires" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click"/>
-            <Button x:Name="GearingButton" Content="Gearing" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click"/>
-            <Button x:Name="AlignmentButton" Content="Alignment" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click"/>
-            <Button x:Name="SpringsButton" Content="Springs" HorizontalAlignment="Center" Margin="0,115,0,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click"/>
-            <Button x:Name="DampingButton" Content="Damping/Antiroll Bars" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click"/>
-            <Button x:Name="AeroButton" Content="Aero" HorizontalAlignment="Center" Margin="0,185,0,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click"/>
-            <Button x:Name="SteeringButton" Content="Steering" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click"/>
-            <Button x:Name="OthersButton" Content="Others" HorizontalAlignment="Center" Margin="0,255,0,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click"/>
+            <Button x:Name="TiresButton" Content="Tires" Margin="10,10,10,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Grid.Row="1" Click="Button_Click"/>
+            <Button x:Name="GearingButton" Content="Gearing" Margin="10,45,10,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Grid.Row="1" Click="Button_Click"/>
+            <Button x:Name="AlignmentButton" Content="Alignment" Margin="10,80,10,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Grid.Row="1" Click="Button_Click"/>
+            <Button x:Name="SpringsButton" Content="Springs" Margin="10,115,10,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Grid.Row="1" Click="Button_Click"/>
+            <Button x:Name="DampingButton" Content="Damping/Antiroll Bars" Margin="10,150,10,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Grid.Row="1" Click="Button_Click"/>
+            <Button x:Name="AeroButton" Content="Aero" Margin="10,185,10,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Grid.Row="1" Click="Button_Click"/>
+            <Button x:Name="SteeringButton" Content="Steering" Margin="10,220,10,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Grid.Row="1" Click="Button_Click"/>
+            <Button x:Name="OthersButton" Content="Others" Margin="10,255,10,0" VerticalAlignment="Top" Background="#FF2E3440" BorderBrush="#FF2E3440" Focusable="False" Grid.Row="1" Click="Button_Click"/>
         </Grid>
     </ScrollViewer>
 </Page>

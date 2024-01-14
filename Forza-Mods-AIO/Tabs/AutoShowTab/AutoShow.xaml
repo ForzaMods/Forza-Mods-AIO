@@ -12,9 +12,9 @@
     <Grid>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="180"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.80*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         
         <Grid Row="0">

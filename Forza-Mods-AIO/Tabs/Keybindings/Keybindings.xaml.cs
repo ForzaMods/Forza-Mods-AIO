@@ -24,8 +24,8 @@ public partial class Keybindings
 
     private static readonly Dictionary<string, double> Sizes = new()
     {
-        { "OverlayButton", 460 }, // Button name for page, height of page
-        { "HandlingButton", 240 }
+        { "OverlayButton", 450 }, // Button name for page, height of page
+        { "HandlingButton", 230 }
     };
 
     private static readonly Dictionary<string, bool> IsClicked = new()

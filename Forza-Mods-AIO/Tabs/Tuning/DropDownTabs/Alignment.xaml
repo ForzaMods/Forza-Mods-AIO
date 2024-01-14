@@ -13,14 +13,7 @@
         <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10"/>
 
         <StackPanel>
-            <Border BorderThickness="2,2,2,2" 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Top" 
-                    Width="556" 
-                    Height="46" 
-                    BorderBrush="#FF2E3440"
-                    Margin="0,10,0,0">
-            
+            <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     
                     <Grid.ColumnDefinitions>
@@ -34,7 +27,8 @@
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal">
                         
-                        <Label Content="Negative Camber"
+                        <Label x:Name="NegativeCamberLabel" 
+                               Content="Negative Camber"
                                Margin="6.5 0 0 0"/>
                         
                         <mah:NumericUpDown x:Name="CamberNegBox" 
@@ -81,13 +75,7 @@
                 </Grid>
                 
             </Border>
-            <Border BorderThickness="2,2,2,2" 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Top" 
-                    Width="556" 
-                    Height="46" 
-                    BorderBrush="#FF2E3440"
-                    Margin="0,10,0,0">
+            <Border Style="{StaticResource CommonBorderStyle}">
             
                 <Grid>
                     
@@ -103,7 +91,8 @@
                                 Orientation="Horizontal">
                         
                         <Label Content="Negative Toe"
-                               Margin="6.5 0 0 0"/>
+                               Margin="6.5 0 0 0"
+                               Width="{Binding ActualWidth, ElementName=NegativeCamberLabel}"/>
                         
                         <mah:NumericUpDown x:Name="ToeNegBox" 
                                            Background="#FF2E3440" 
@@ -116,7 +105,7 @@
                                            Width="120" 
                                            HorizontalAlignment="Left" 
                                            VerticalAlignment="Top" 
-                                           Margin="32.5 0 0 0" 
+                                           Margin="10 0 0 0" 
                                            ValueChanged="ToeNegBox_ValueChanged"/>
  
                     </StackPanel>
@@ -144,13 +133,8 @@
                                            ValueChanged="ToePosBox_ValueChanged"/>
  
                     </StackPanel>
-
-                    
                 </Grid>
-                
             </Border>
-            
-            
         </StackPanel>
     </Grid>
 </Page>

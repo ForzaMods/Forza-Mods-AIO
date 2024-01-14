@@ -32,27 +32,27 @@
                     
             </StackPanel>
             
-            <Frame x:Name="HandlingPage" Content="Frame" Width="580" Source="DropDownTabs/HandlingPage.xaml" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="UnlocksPage" Content="Frame" Width="580" Source="DropDownTabs/UnlocksPage.xaml" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="PhotomodePage" Content="Frame" Width="580" Source="DropDownTabs/PhotomodePage.xaml" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="StatsPage" Content="Frame" Width="580" Source="DropDownTabs/StatsPage.xaml" HorizontalAlignment="Center" Margin="0,115,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="TeleportsPage" Content="Frame" Width="580" Source="DropDownTabs/TeleportsPage.xaml" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="EnvironmentPage" Content="Frame" Width="580" Source="DropDownTabs/EnvironmentPage.xaml" HorizontalAlignment="Center" Margin="0,185,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False" />
-            <Frame x:Name="CustomizationPage" Content="Frame" Width="580" Source="DropDownTabs/CustomizationPage.xaml" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="MiscellaneousPage" Content="Frame" Width="580" Source="DropDownTabs/MiscellaneousPage.xaml" HorizontalAlignment="Center" Margin="0,255,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="CameraPage" Content="Frame" Width="580" Source="DropDownTabs/CameraPage.xaml" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
-            <Frame x:Name="BackFirePage" Content="Frame" Width="580" Source="DropDownTabs/BackFirePage.xaml" HorizontalAlignment="Center" Margin="0,325,0,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="HandlingPage" Content="Frame" Source="DropDownTabs/HandlingPage.xaml" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="UnlocksPage" Content="Frame" Source="DropDownTabs/UnlocksPage.xaml" Margin="10,45,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="PhotomodePage" Content="Frame" Source="DropDownTabs/PhotomodePage.xaml" Margin="10,80,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="StatsPage" Content="Frame" Source="DropDownTabs/StatsPage.xaml" Margin="10,115,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="TeleportsPage" Content="Frame" Source="DropDownTabs/TeleportsPage.xaml" Margin="10,150,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="EnvironmentPage" Content="Frame" Source="DropDownTabs/EnvironmentPage.xaml" Margin="10,185,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False" />
+            <Frame x:Name="CustomizationPage" Content="Frame" Source="DropDownTabs/CustomizationPage.xaml" Margin="10,220,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="MiscellaneousPage" Content="Frame" Source="DropDownTabs/MiscellaneousPage.xaml" Margin="10,255,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="CameraPage" Content="Frame" Source="DropDownTabs/CameraPage.xaml" Margin="10,290,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
+            <Frame x:Name="BackFirePage" Content="Frame" Source="DropDownTabs/BackFirePage.xaml" Margin="10,325,10,0" VerticalAlignment="Top" Grid.Row="1" Height="25" Visibility="Hidden" IsTabStop="False"/>
             
-            <Button x:Name="HandlingButton" Content="Handling" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
-            <Button x:Name="UnlocksButton" Content="Unlocks" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
-            <Button x:Name="PhotomodeButton" Content="Photo-mode" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
-            <Button x:Name="StatsButton" Content="Stats" HorizontalAlignment="Center" Margin="0,115,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
-            <Button x:Name="TeleportsButton" Content="Teleports" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
-            <Button x:Name="EnvironmentButton" Content="Environment" HorizontalAlignment="Center" Margin="0,185,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click" />
-            <Button x:Name="CustomizationButton" Content="Customization" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
-            <Button x:Name="MiscellaneousButton" Content="Miscellaneous" HorizontalAlignment="Center" Margin="0,255,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
-            <Button x:Name="CameraButton" Content="Camera" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
-            <Button x:Name="BackFireButton" Content="Backfire" HorizontalAlignment="Center" Margin="0,325,0,0" VerticalAlignment="Top" Focusable="False" Width="580" Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
+            <Button x:Name="HandlingButton" Content="Handling" Margin="10,10,10,0" VerticalAlignment="Top" Focusable="False" Grid.Row="1" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
+            <Button x:Name="UnlocksButton" Content="Unlocks" Margin="10,45,10,0" VerticalAlignment="Top" Focusable="False"  Grid.Row="1" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
+            <Button x:Name="PhotomodeButton" Content="Photo-mode" Margin="10,80,10,0" VerticalAlignment="Top" Focusable="False"  Grid.Row="1" Click="Button_Click" Background="#FF2E3440" BorderBrush="#FF2E3440"/>
+            <Button x:Name="StatsButton" Content="Stats" Margin="10,115,10,0" VerticalAlignment="Top" Focusable="False"  Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
+            <Button x:Name="TeleportsButton" Content="Teleports" Margin="10,150,10,0" VerticalAlignment="Top" Focusable="False"  Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
+            <Button x:Name="EnvironmentButton" Content="Environment" Margin="10,185,10,0" VerticalAlignment="Top" Focusable="False"  Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click" />
+            <Button x:Name="CustomizationButton" Content="Customization" Margin="10,220,10,0" VerticalAlignment="Top" Focusable="False"  Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
+            <Button x:Name="MiscellaneousButton" Content="Miscellaneous" Margin="10,255,10,0" VerticalAlignment="Top" Focusable="False"  Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
+            <Button x:Name="CameraButton" Content="Camera" Margin="10,290,10,0" VerticalAlignment="Top" Focusable="False"  Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
+            <Button x:Name="BackFireButton" Content="Backfire" Margin="10,325,10,0" VerticalAlignment="Top" Focusable="False"  Grid.Row="1" Background="#FF2E3440" BorderBrush="#FF2E3440" Click="Button_Click"/>
         </Grid>
     </ScrollViewer>
 </Page>

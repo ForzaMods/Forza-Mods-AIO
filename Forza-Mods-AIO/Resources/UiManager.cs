@@ -54,10 +54,12 @@ public class UiManager
         _isClicked = isClicked;
         _elements = null!;
     }
+
+    private const bool Disable = false;
     
     public void ToggleUiElements(bool enable)
     {
-        if (_elements == null! || _page == null)
+        if (_elements == null! || _page == null || Disable)
         {
             return;
         }

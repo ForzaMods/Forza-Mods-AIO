@@ -44,16 +44,19 @@ public abstract class PhotoCamEntity
     public static float SamplesMultiplier
     {
         set => Mw.M.WriteMemory(MainPhotoCamEntity + 0xC, value);
+        get => Mw.M.ReadMemory<float>(MainPhotoCamEntity + 0xC);
     }
     
     public static float TurnAndZoomSpeed
     {
         set => Mw.M.WriteMemory(Mw.Gvp.Type == Fh5 ? SpeedBase + 0x2E0 : SpeedBase, value);
+        get => Mw.M.ReadMemory<float>(Mw.Gvp.Type == Fh5 ? SpeedBase + 0x2E0 : SpeedBase);
     }
     
     public static float MovementSpeed
     {
         set => Mw.M.WriteMemory(Mw.Gvp.Type == Fh5 ? SpeedBase + 0x2DC : SpeedBase + 0x4, value);
+        get => Mw.M.ReadMemory<float>(Mw.Gvp.Type == Fh5 ? SpeedBase + 0x2DC : SpeedBase + 0x4);
     }
 
     public static bool NoClip

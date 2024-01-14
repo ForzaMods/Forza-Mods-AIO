@@ -303,7 +303,6 @@ internal class SelfVehicleAddresses
         {
             Sv.StatsButton.IsEnabled = false;
             Shp.SuperCarSwitch.IsEnabled = false;
-            UnlocksPage.Unlocks.DiscoverRoadsSwitch.IsEnabled = false;
         });
     }
 

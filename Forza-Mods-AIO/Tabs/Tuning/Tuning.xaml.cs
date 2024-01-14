@@ -41,7 +41,7 @@ public partial class Tuning
         { "GearingButton" , 250 },
         { "AlignmentButton" , 125 },
         { "SpringsButton" , 295 },
-        { "DampingButton" , 460 },
+        { "DampingButton" , 450 },
         { "AeroButton", 125 },
         { "SteeringButton", 275 },
         { "OthersButton", 315 },
