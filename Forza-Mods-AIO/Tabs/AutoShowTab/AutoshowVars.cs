@@ -11,6 +11,7 @@ using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Overlay.Overlay;
 using static Forza_Mods_AIO.Tabs.AutoShowTab.AutoShow;
 using static Memory.Imps;
+using Utils = Forza_Mods_AIO.Resources.Utils;
 
 namespace Forza_Mods_AIO.Tabs.AutoShowTab;
 
@@ -119,14 +120,10 @@ internal class AutoshowVars
         {
             return false;
         }
-        
-        var parmAddress = sigResult + 0x6 + 0x3;
-        var parm = Mw.M.ReadMemory<int>(parmAddress);
-        var pCDataBaseAddress = sigResult + (nuint)parm + 0x6 + 0x7;
-        _ptr = Mw.M.ReadMemory<nuint>(pCDataBaseAddress);
+
+        _ptr = Utils.GetPtrFromFunc(sigResult, 9, 13);
         return true;
     }
-    
     
     private static nuint GetVirtualFunctionPtr(nuint ptr, int index)
     {

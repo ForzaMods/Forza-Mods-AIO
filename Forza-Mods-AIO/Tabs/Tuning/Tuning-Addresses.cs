@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Cryptography.Pkcs;
 using System.Threading.Tasks;
 using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.Self_Vehicle;
@@ -18,6 +17,7 @@ using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Gearing;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Springs;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Steering;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Tires;
+using Utils = Forza_Mods_AIO.Resources.Utils;
 
 namespace Forza_Mods_AIO.Tabs.Tuning;
 
@@ -183,8 +183,9 @@ internal class TuningAddresses
         }
         else
         {
-            const string sig = "00 00 00 00 00 00 00 00 E8 ? ? ? ? 6D 9D";
-            Base1 = Mw.M.ScanForSig(sig).FirstOrDefault() + 256;
+            const string sig = "4C 8B ? ? ? ? ? 49 8B ? ? 4C 8D ? ? 8B 11";
+            var sigResult = Mw.M.ScanForSig(sig).FirstOrDefault();
+            Base1 = Utils.GetBasePtrFromFunc(sigResult, 3, 7);
         }
         
         Tuning.T.UiManager.AddProgress();
@@ -196,8 +197,9 @@ internal class TuningAddresses
         }
         else
         {
-            const string sig = "00 00 00 00 FF FF FF FF 10 ? ? ? ? 0? 00 00 00 ? ? ? ? 0? 00 00 ? ? ? ? ? 0? 00 00 00";
-            Base2 = Mw.M.ScanForSig(sig).FirstOrDefault() + 8;
+            const string sig = "48 8D ? ? ? ? ? 48 8B ? ? 48 85 ? 74 ? E8 ? ? ? ? 90";
+            var sigResult = Mw.M.ScanForSig(sig).FirstOrDefault();
+            Base2 = Utils.GetBasePtrFromFunc(sigResult, 3, 7);
         }
         
         Tuning.T.UiManager.AddProgress();
@@ -209,7 +211,9 @@ internal class TuningAddresses
         }
         else
         {
-            Base3 = Mw.M.ScanForSig("D0 84 ? ? ? ? ? 00 00 00 80").FirstOrDefault();
+            const string sig = "FF 50 ? 48 8B ? ? ? ? ? 48 85 ? 0F 84 ? ? ? ? 48 85";
+            var sigResult = Mw.M.ScanForSig(sig).FirstOrDefault();
+            Base3 = Utils.GetBasePtrFromFunc(sigResult, 6, 10);
         }
         
         Tuning.T.UiManager.AddProgress();
@@ -228,7 +232,8 @@ internal class TuningAddresses
 
     private const int GearOffset = 0x10B8;
     private const int TireOffset = 0x2D58;
-        
+    private const string Fh5Base3BaseOffset = ",0x330,0x8,0x1E0,";    
+    
     private static void Addresses()
     {
         var isFh4 = Mw.Gvp.Type == GameVerPlat.GameType.Fh4;
@@ -265,59 +270,59 @@ internal class TuningAddresses
         ToeNeg = isFh4 ? Base2 + 0x3EC : Mw.M.GetCode(fh5Base2 + ",0x8B0,0x498");
         ToePos = isFh4 ? Base2 + 0x3F0 : Mw.M.GetCode(fh5Base2 + ",0x8B0,0x49C");
 
-        FrontAntirollMin = isFh4 ? Base3 + 0x3F8 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x5F0");
-        FrontAntirollMax = isFh4 ? Base3 + 0x3FC : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x5F4");
-        RearAntirollMin = isFh4 ? Base3 + 0x4A4 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x744");
-        RearAntirollMax = isFh4 ? Base3 + 0x4A8 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x748");
+        FrontAntirollMin = isFh4 ? Base3 + 0x3F8 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x5F0");
+        FrontAntirollMax = isFh4 ? Base3 + 0x3FC : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x5F4");
+        RearAntirollMin = isFh4 ? Base3 + 0x4A4 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x744");
+        RearAntirollMax = isFh4 ? Base3 + 0x4A8 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x748");
 
-        SpringFrontMin = isFh4 ? Base3 + 0x3AC : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x550");
-        SpringFrontMax = isFh4 ? Base3 + 0x3B0 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x554");
-        SpringRearMin = isFh4 ? Base3 + 0x458 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x6A4");
-        SpringRearMax = isFh4 ? Base3 + 0x45C : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x6A8");
+        SpringFrontMin = isFh4 ? Base3 + 0x3AC : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x550");
+        SpringFrontMax = isFh4 ? Base3 + 0x3B0 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x554");
+        SpringRearMin = isFh4 ? Base3 + 0x458 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x6A4");
+        SpringRearMax = isFh4 ? Base3 + 0x45C : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x6A8");
 
-        FrontRideHeightMin = isFh4 ? Base3 + 0x394 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x534");
-        FrontRideHeightMax = isFh4 ? Base3 + 0x398 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x538");
-        RearRideHeightMin = isFh4 ? Base3 + 0x440 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x688");
-        RearRideHeightMax = isFh4 ? Base3 + 0x444 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x68C");
+        FrontRideHeightMin = isFh4 ? Base3 + 0x394 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x534");
+        FrontRideHeightMax = isFh4 ? Base3 + 0x398 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x538");
+        RearRideHeightMin = isFh4 ? Base3 + 0x440 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x688");
+        RearRideHeightMax = isFh4 ? Base3 + 0x444 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x68C");
 
-        FrontRestriction = isFh4 ? Base3 + 0x39C : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x53C");
-        RearRestriction = isFh4 ? Base3 + 0x448 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x690");
+        FrontRestriction = isFh4 ? Base3 + 0x39C : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x53C");
+        RearRestriction = isFh4 ? Base3 + 0x448 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x690");
 
-        FrontAeroMin = isFh4 ? Base3 + 0x234 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x3A4");
-        FrontAeroMax = isFh4 ? Base3 + 0x23C : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x3AC");
-        RearAeroMin = isFh4 ? Base3 + 0x294 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x404");
-        RearAeroMax = isFh4 ? Base3 + 0x29C : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x40C");
+        FrontAeroMin = isFh4 ? Base3 + 0x234 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x3A4");
+        FrontAeroMax = isFh4 ? Base3 + 0x23C : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x3AC");
+        RearAeroMin = isFh4 ? Base3 + 0x294 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x404");
+        RearAeroMax = isFh4 ? Base3 + 0x29C : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x40C");
 
-        FrontReboundStiffnessMin = isFh4 ? Base3 + 0x3D4 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x580");
-        FrontReboundStiffnessMax = isFh4 ? Base3 + 0x3D8 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x584");
-        RearReboundStiffnessMin = isFh4 ? Base3 + 0x484 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x6D8");
-        RearReboundStiffnessMax = isFh4 ? Base3 + 0x480 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x6DC");
+        FrontReboundStiffnessMin = isFh4 ? Base3 + 0x3D4 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x580");
+        FrontReboundStiffnessMax = isFh4 ? Base3 + 0x3D8 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x584");
+        RearReboundStiffnessMin = isFh4 ? Base3 + 0x484 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x6D8");
+        RearReboundStiffnessMax = isFh4 ? Base3 + 0x480 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x6DC");
 
-        FrontBumpStiffnessMin = isFh4 ? Base3 + 0x3B8 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x560");
-        FrontBumpStiffnessMax = isFh4 ? Base3 + 0x3BC : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x564");
-        RearBumpStiffnessMin = isFh4 ? Base3 + 0x464 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x6B4");
-        RearBumpStiffnessMax = isFh4 ? Base3 + 0x468 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x6B8");
+        FrontBumpStiffnessMin = isFh4 ? Base3 + 0x3B8 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x560");
+        FrontBumpStiffnessMax = isFh4 ? Base3 + 0x3BC : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x564");
+        RearBumpStiffnessMin = isFh4 ? Base3 + 0x464 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x6B4");
+        RearBumpStiffnessMax = isFh4 ? Base3 + 0x468 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x6B8");
 
-        Wheelbase = isFh4 ? Base3 + 0xC0 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0xD0");
-        FrontWidth = isFh4 ? Base3 + 0xC4 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0xD4");
-        RearWidth = isFh4 ? Base3 + 0xC8 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0xD8");
-        FrontSpacer = isFh4 ? Base3 + 0x610 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x9FC");
-        RearSpacer = isFh4 ? Base3 + 0x614 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0xA00");
+        Wheelbase = isFh4 ? Base3 + 0xC0 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0xD0");
+        FrontWidth = isFh4 ? Base3 + 0xC4 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0xD4");
+        RearWidth = isFh4 ? Base3 + 0xC8 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0xD8");
+        FrontSpacer = isFh4 ? Base3 + 0x610 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x9FC");
+        RearSpacer = isFh4 ? Base3 + 0x614 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0xA00");
 
-        AngleMax = isFh4 ? Base3 + 0x534 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x828");
-        AngleMax2 = isFh4 ? Base3 + 0x538 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x82C");
-        VelocityStraight = isFh4 ? Base3 + 0x53C : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x830");
-        VelocityTurning = isFh4 ? Base3 + 0x540 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x834");
-        VelocityCountersteer = isFh4 ? Base3 + 0x544 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x838");
-        VelocityDynamicPeek = isFh4 ? Base3 + 0x548 : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x83C");
-        TimeToMaxSteering = isFh4 ? Base3 + 0x54C : Mw.M.GetCode(fh5Base3 + ",0x330,0x8,0x1E0,0x840");
+        AngleMax = isFh4 ? Base3 + 0x534 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x828");
+        AngleMax2 = isFh4 ? Base3 + 0x538 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x82C");
+        VelocityStraight = isFh4 ? Base3 + 0x53C : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x830");
+        VelocityTurning = isFh4 ? Base3 + 0x540 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x834");
+        VelocityCountersteer = isFh4 ? Base3 + 0x544 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x838");
+        VelocityDynamicPeek = isFh4 ? Base3 + 0x548 : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x83C");
+        TimeToMaxSteering = isFh4 ? Base3 + 0x54C : Mw.M.GetCode(fh5Base3 + Fh5Base3BaseOffset + "0x840");
     }
         
-    private static async Task ReadValues()
+    private static Task ReadValues()
     {
         while (Mw.Attached)
         {
-            await Task.Delay(250);
+            Task.Delay(250).Wait();
             Addresses();
 
             Current.Dispatcher.Invoke(() =>
@@ -334,6 +339,8 @@ internal class TuningAddresses
                 _codeChange = false;
             });
         }
+
+        return Task.CompletedTask;
     }
     
     private static void ReadAlignmentValues()

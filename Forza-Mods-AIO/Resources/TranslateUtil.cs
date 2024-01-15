@@ -56,14 +56,14 @@ public class TranslateUtil
             var originalValues = new OriginalValues();
             var contentProperty = element.GetType().GetProperty("Content");
             var contentValue = contentProperty?.GetValue(element)?.ToString();
-            if (contentValue != null)
+            if (contentValue != null && Translations.FrenchTranslation.ContainsKey(contentValue))
             {
                 originalValues.Content = contentValue;
             }
 
             var toolTipProperty = element.GetType().GetProperty("ToolTip");
             var toolTipValue = toolTipProperty?.GetValue(element)?.ToString();
-            if (toolTipValue != null)
+            if (toolTipValue != null && Translations.FrenchTranslation.ContainsKey(toolTipValue))
             {
                 originalValues.ToolTip = toolTipValue;
             }
@@ -82,20 +82,15 @@ public class TranslateUtil
         }
 
         foreach (var (element, originalValues) in OriginalSnapshot)
-        {
-            if (element is ContentPresenter or ContentControlEx)
-            {
-                continue;
-            }
-            
+        { 
             var contentProperty = element.GetType().GetProperty("Content");
-            if (contentProperty != null && _translation.TryGetValue(originalValues.Content, out _))
+            if (contentProperty != null && Translations.FrenchTranslation.ContainsKey(originalValues.Content))
             {
                 contentProperty.SetValue(element, originalValues.Content);
             }
 
             var toolTipProperty = element.GetType().GetProperty("ToolTip");
-            if (toolTipProperty != null && _translation.TryGetValue(originalValues.ToolTip, out _))
+            if (toolTipProperty != null && Translations.FrenchTranslation.ContainsKey(originalValues.ToolTip))
             {
                 toolTipProperty.SetValue(element, originalValues.ToolTip);
             }

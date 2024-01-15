@@ -22,7 +22,7 @@ public abstract class CarEntity
     private const string OrigFh4 = "F3 0F 10 81 90 01 00 00";
     private const string OrigFm8 = "0F 2F B1 A0 71 00 00";
     
-    public static async void Hook()
+    public static void Hook()
     {
         if (!BaseDetour.IsHooked)
         {
@@ -59,7 +59,7 @@ public abstract class CarEntity
 
         while ((PlayerCarEntity = BaseDetour.ReadVariable<UIntPtr>()) == 0)
         {
-            await Task.Delay(5);
+            Task.Delay(5).Wait();
         }
     }
     
