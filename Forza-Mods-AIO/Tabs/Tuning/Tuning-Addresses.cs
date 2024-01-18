@@ -230,7 +230,6 @@ internal class TuningAddresses
 
     private const int GearOffset = 0x10B8;
     private const int TireOffset = 0x2D58;
-    private static readonly int[] MainOffsets = { 0x330, 0x8, 0x1E0, 0x0 };    
     
     private static void Addresses()
     {
@@ -267,7 +266,7 @@ internal class TuningAddresses
         ToeNeg = isFh4 ? Base2 + 0x3EC : fh5Base1 + 0x498;
         ToePos = isFh4 ? Base2 + 0x3F0 : fh5Base1 + 0x49C;
 
-        var fh5Base2 = isFh4 ? 0 : FollowMultiLevelPointer(Base2, MainOffsets);
+        var fh5Base2 = isFh4 ? 0 : FollowMultiLevelPointer(Base2, new[] { 0x330, 0x8, 0x1E0, 0x0 });
         FrontAntirollMin = isFh4 ? Base3 + 0x3F8 : fh5Base2 + 0x5F0;
         FrontAntirollMax = isFh4 ? Base3 + 0x3FC : fh5Base2 + 0x5F4;
         RearAntirollMin = isFh4 ? Base3 + 0x4A4 : fh5Base2 + 0x744;
@@ -291,8 +290,8 @@ internal class TuningAddresses
         RearAeroMin = isFh4 ? Base3 + 0x294 : fh5Base2 + 0x404;
         RearAeroMax = isFh4 ? Base3 + 0x29C : fh5Base2 + 0x40C;
 
-        FrontReboundStiffnessMin = isFh4 ? Base3 + 0x3D4 : fh5Base2 + 0x580;
-        FrontReboundStiffnessMax = isFh4 ? Base3 + 0x3D8 : fh5Base2 + 0x584;
+        FrontReboundStiffnessMin = isFh4 ? Base3 + 0x3D4 : fh5Base2 + 0x584;
+        FrontReboundStiffnessMax = isFh4 ? Base3 + 0x3D8 : fh5Base2 + 0x588;
         RearReboundStiffnessMin = isFh4 ? Base3 + 0x484 : fh5Base2 + 0x6D8;
         RearReboundStiffnessMax = isFh4 ? Base3 + 0x480 : fh5Base2 + 0x6DC;
 
