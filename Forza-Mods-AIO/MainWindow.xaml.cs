@@ -11,7 +11,6 @@ using System.Windows.Media;
 using ControlzEx.Theming;
 using Memory;
 using Forza_Mods_AIO.Resources;
-using Forza_Mods_AIO.Tabs.AIO_Info;
 using static System.Diagnostics.FileVersionInfo;
 using static System.IO.Path;
 using static System.Windows.Forms.Control;
@@ -24,10 +23,7 @@ using static ControlzEx.Theming.ThemeManager;
 using static Forza_Mods_AIO.Overlay.Overlay;
 using static Forza_Mods_AIO.Resources.Bypass;
 using Monet = Forza_Mods_AIO.Resources.Theme.Monet;
-using Application = System.Windows.Application;
-using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.Forms.MessageBox;
-using RadioButton = System.Windows.Controls.RadioButton;
 
 namespace Forza_Mods_AIO;
 
@@ -75,7 +71,7 @@ public partial class MainWindow
         };
     }
 
-    private const bool DisableUpdateChecking = false;
+    private const bool DisableUpdateChecking = true;
     
     private async void UpdateAio()
     {

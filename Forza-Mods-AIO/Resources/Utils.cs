@@ -20,7 +20,7 @@ public static class Utils
         return MainWindow.Mw.M.ReadMemory<nuint>(ptrAddress);
     }
 
-    public static nuint FollowPointer(nuint address, IEnumerable<int> offsets)
+    public static nuint FollowMultiLevelPointer(nuint address, IEnumerable<int> offsets)
     {
         var enumerable = offsets as int[] ?? offsets.ToArray();
         if (!enumerable.Any())

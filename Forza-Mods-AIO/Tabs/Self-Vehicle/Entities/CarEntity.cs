@@ -49,7 +49,7 @@ public abstract class CarEntity
             var isFm8 = Mw.Gvp.Type == Fm8;
             if (!isFm8)
             {
-                return;
+                goto ReadAddress;
             }
             
             Bypass.AddProtectAddress(GravityProtectAddr);
@@ -57,6 +57,7 @@ public abstract class CarEntity
             Mw.M.WriteArrayMemory(AccelProtectAddr, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 });
         }
 
+        ReadAddress:
         while ((PlayerCarEntity = BaseDetour.ReadVariable<UIntPtr>()) == 0)
         {
             Task.Delay(5).Wait();

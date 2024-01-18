@@ -140,7 +140,8 @@ internal class TuningAddresses
     
     public static void Scan()
     {
-        if (Mw.Gvp.Name.Contains('5'))
+        var isFh4 = Mw.Gvp.Type == GameVerPlat.GameType.Fh4;
+        if (!isFh4)
         {
             const string sig = "3d ? ? ? ? 00 00 ? ? 00 00 5c 42";
             CamberNegStatic = Mw.M.ScanForSig(sig).LastOrDefault() + 0xD;
@@ -159,8 +160,6 @@ internal class TuningAddresses
         Tuning.T.UiManager.ScanAmount = 6;
             
         Tuning.T.UiManager.AddProgress();
-
-        var isFh4 = Mw.Gvp.Type == GameVerPlat.GameType.Fh4;
         
         if (isFh4)
         {
@@ -231,7 +230,7 @@ internal class TuningAddresses
 
     private const int GearOffset = 0x10B8;
     private const int TireOffset = 0x2D58;
-    private static readonly int[] MainOffsets = { 0x330,0x8,0x1E0 };    
+    private static readonly int[] MainOffsets = { 0x330, 0x8, 0x1E0, 0x0 };    
     
     private static void Addresses()
     {
@@ -255,63 +254,66 @@ internal class TuningAddresses
         EighthGear = CarEntity.PlayerCarEntity + (UIntPtr)(isFh4 ? 0xB6C : GearOffset + 160);
         NinthGear = CarEntity.PlayerCarEntity + (UIntPtr)(isFh4 ? 0xB80 : GearOffset + 180);
         TenthGear = CarEntity.PlayerCarEntity + (UIntPtr)(isFh4 ? 0xB94 : GearOffset + 200);
-        
-        RimSizeFront = isFh4 ? Base1 + 0x758 : FollowPointer(Base3, new[] { 0x150,0x300,0x7D8 });
-        RimRadiusFront = isFh4 ? Base1 + 0x760 : FollowPointer(Base3, new[] { 0x150,0x300,0x7E0 });
-        RimSizeRear = isFh4 ? Base1 + 0x75C : FollowPointer(Base3, new[] { 0x150,0x300,0x7DC });
-        RimRadiusRear = isFh4 ? Base1 + 0x764 : FollowPointer(Base3, new[] { 0x150,0x300,0x7E4 });
 
-        CamberNeg = isFh4 ? Base2 + 0x3E4 : FollowPointer(Base1, new[] { 0x8B0,0x490 });
-        CamberPos = isFh4 ? Base2 + 0x3E8 : FollowPointer(Base1, new[] { 0x8B0,0x494 });
-        ToeNeg = isFh4 ? Base2 + 0x3EC : FollowPointer(Base1, new[] { 0x8B0,0x498 });
-        ToePos = isFh4 ? Base2 + 0x3F0 : FollowPointer(Base1, new[] { 0x8B0,0x49C });
+        var fh5Base3 = isFh4 ? 0 : FollowMultiLevelPointer(Base3, new[] { 0x150, 0x300, 0x0 });
+        RimSizeFront = isFh4 ? Base1 + 0x758 : fh5Base3 + 0x7D8;
+        RimRadiusFront = isFh4 ? Base1 + 0x760 : fh5Base3 + 0x7E0;
+        RimSizeRear = isFh4 ? Base1 + 0x75C : fh5Base3 + 0x7DC; 
+        RimRadiusRear = isFh4 ? Base1 + 0x764 : fh5Base3 + 0x7E4;
 
-        FrontAntirollMin = isFh4 ? Base3 + 0x3F8 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x5F0 }));
-        FrontAntirollMax = isFh4 ? Base3 + 0x3FC : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x5F4 }));
-        RearAntirollMin = isFh4 ? Base3 + 0x4A4 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x744 }));
-        RearAntirollMax = isFh4 ? Base3 + 0x4A8 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x748 }));
+        var fh5Base1 = isFh4 ? 0 : FollowMultiLevelPointer(Base1, new[] { 0x8B0, 0x0 });
+        CamberNeg = isFh4 ? Base2 + 0x3E4 : fh5Base1 + 0x490;
+        CamberPos = isFh4 ? Base2 + 0x3E8 : fh5Base1 + 0x494;
+        ToeNeg = isFh4 ? Base2 + 0x3EC : fh5Base1 + 0x498;
+        ToePos = isFh4 ? Base2 + 0x3F0 : fh5Base1 + 0x49C;
 
-        SpringFrontMin = isFh4 ? Base3 + 0x3AC : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x550 }));
-        SpringFrontMax = isFh4 ? Base3 + 0x3B0 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x554 }));
-        SpringRearMin = isFh4 ? Base3 + 0x458 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x6A4 }));
-        SpringRearMax = isFh4 ? Base3 + 0x45C : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x6A8 }));
+        var fh5Base2 = isFh4 ? 0 : FollowMultiLevelPointer(Base2, MainOffsets);
+        FrontAntirollMin = isFh4 ? Base3 + 0x3F8 : fh5Base2 + 0x5F0;
+        FrontAntirollMax = isFh4 ? Base3 + 0x3FC : fh5Base2 + 0x5F4;
+        RearAntirollMin = isFh4 ? Base3 + 0x4A4 : fh5Base2 + 0x744;
+        RearAntirollMax = isFh4 ? Base3 + 0x4A8 : fh5Base2 + 0x748;
 
-        FrontRideHeightMin = isFh4 ? Base3 + 0x394 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x534 }));
-        FrontRideHeightMax = isFh4 ? Base3 + 0x398 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x538 }));
-        RearRideHeightMin = isFh4 ? Base3 + 0x440 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x688 }));
-        RearRideHeightMax = isFh4 ? Base3 + 0x444 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x68C }));
+        SpringFrontMin = isFh4 ? Base3 + 0x3AC : fh5Base2 + 0x554;
+        SpringFrontMax = isFh4 ? Base3 + 0x3B0 : fh5Base2 + 0x558;
+        SpringRearMin = isFh4 ? Base3 + 0x458 : fh5Base2 + 0x6A8;
+        SpringRearMax = isFh4 ? Base3 + 0x45C : fh5Base2 + 0x6AC;
 
-        FrontRestriction = isFh4 ? Base3 + 0x39C  : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x53C }));
-        RearRestriction = isFh4 ? Base3 + 0x448 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x690 }));
+        FrontRideHeightMin = isFh4 ? Base3 + 0x394 : fh5Base2 + 0x534;
+        FrontRideHeightMax = isFh4 ? Base3 + 0x398 : fh5Base2 + 0x538;
+        RearRideHeightMin = isFh4 ? Base3 + 0x440 : fh5Base2 + 0x688;
+        RearRideHeightMax = isFh4 ? Base3 + 0x444 : fh5Base2 + 0x68C;
 
-        FrontAeroMin = isFh4 ? Base3 + 0x234 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x3A4 }));
-        FrontAeroMax = isFh4 ? Base3 + 0x23C : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x3AC }));
-        RearAeroMin = isFh4 ? Base3 + 0x294 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x404 }));
-        RearAeroMax = isFh4 ? Base3 + 0x29C : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x40C }));
+        FrontRestriction = isFh4 ? Base3 + 0x39C : fh5Base2 + 0x53C;
+        RearRestriction = isFh4 ? Base3 + 0x448 : fh5Base2 + 0x690;
 
-        FrontReboundStiffnessMin = isFh4 ? Base3 + 0x3D4 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x580 }));
-        FrontReboundStiffnessMax = isFh4 ? Base3 + 0x3D8 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x584 }));
-        RearReboundStiffnessMin = isFh4 ? Base3 + 0x484 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x6D8 }));
-        RearReboundStiffnessMax = isFh4 ? Base3 + 0x480 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x6DC }));
+        FrontAeroMin = isFh4 ? Base3 + 0x234 : fh5Base2 + 0x3A4;
+        FrontAeroMax = isFh4 ? Base3 + 0x23C : fh5Base2 + 0x3AC;
+        RearAeroMin = isFh4 ? Base3 + 0x294 : fh5Base2 + 0x404;
+        RearAeroMax = isFh4 ? Base3 + 0x29C : fh5Base2 + 0x40C;
 
-        FrontBumpStiffnessMin = isFh4 ? Base3 + 0x3B8 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x560 }));
-        FrontBumpStiffnessMax = isFh4 ? Base3 + 0x3BC : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x564 }));
-        RearBumpStiffnessMin = isFh4 ? Base3 + 0x464 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x6B4 }));
-        RearBumpStiffnessMax = isFh4 ? Base3 + 0x468 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x6B8 }));
+        FrontReboundStiffnessMin = isFh4 ? Base3 + 0x3D4 : fh5Base2 + 0x580;
+        FrontReboundStiffnessMax = isFh4 ? Base3 + 0x3D8 : fh5Base2 + 0x584;
+        RearReboundStiffnessMin = isFh4 ? Base3 + 0x484 : fh5Base2 + 0x6D8;
+        RearReboundStiffnessMax = isFh4 ? Base3 + 0x480 : fh5Base2 + 0x6DC;
 
-        Wheelbase = isFh4 ? Base3 + 0xC0 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0xD0 }));
-        FrontWidth = isFh4 ? Base3 + 0xC4 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0xD4 }));
-        RearWidth = isFh4 ? Base3 + 0xC8 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0xD8 }));
-        FrontSpacer = isFh4 ? Base3 + 0x610 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x9FC }));
-        RearSpacer = isFh4 ? Base3 + 0x614 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0xA00 }));
+        FrontBumpStiffnessMin = isFh4 ? Base3 + 0x3B8 : fh5Base2 + 0x560;
+        FrontBumpStiffnessMax = isFh4 ? Base3 + 0x3BC : fh5Base2 + 0x564;
+        RearBumpStiffnessMin = isFh4 ? Base3 + 0x464 : fh5Base2 + 0x6B4;
+        RearBumpStiffnessMax = isFh4 ? Base3 + 0x468 : fh5Base2 + 0x6B8;
 
-        AngleMax = isFh4 ? Base3 + 0x534 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x828 }));
-        AngleMax2 = isFh4 ? Base3 + 0x538 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x82C }));
-        VelocityStraight = isFh4 ? Base3 + 0x53C : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x830 }));
-        VelocityTurning = isFh4 ? Base3 + 0x540 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x834 }));
-        VelocityCountersteer = isFh4 ? Base3 + 0x544 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x838 }));
-        VelocityDynamicPeek = isFh4 ? Base3 + 0x548 : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x83C }));
-        TimeToMaxSteering = isFh4 ? Base3 + 0x54C : FollowPointer(Base2, MainOffsets.Concat(new [] { 0x840 }));
+        Wheelbase = isFh4 ? Base3 + 0xC0 : fh5Base2 + 0xD0;
+        FrontWidth = isFh4 ? Base3 + 0xC4 : fh5Base2 + 0xD4;
+        RearWidth = isFh4 ? Base3 + 0xC8 : fh5Base2 + 0xD8;
+        FrontSpacer = isFh4 ? Base3 + 0x610 : fh5Base2 + 0x9FC;
+        RearSpacer = isFh4 ? Base3 + 0x614 : fh5Base2 + 0xA00;
+
+        AngleMax = isFh4 ? Base3 + 0x534 : fh5Base2 + 0x828;
+        AngleMax2 = isFh4 ? Base3 + 0x538 : fh5Base2 + 0x82C;
+        VelocityStraight = isFh4 ? Base3 + 0x53C : fh5Base2 + 0x830;
+        VelocityTurning = isFh4 ? Base3 + 0x540 : fh5Base2 + 0x834;
+        VelocityCountersteer = isFh4 ? Base3 + 0x544 : fh5Base2 + 0x838;
+        VelocityDynamicPeek = isFh4 ? Base3 + 0x548 : fh5Base2 + 0x83C;
+        TimeToMaxSteering = isFh4 ? Base3 + 0x54C : fh5Base2 + 0x840;
     }
         
     private static Task ReadValues()
