@@ -39,7 +39,7 @@ internal class SelfVehicleAddresses
     public static UIntPtr DiscoverRoadsAddr;
     public static UIntPtr WaterAddr;
     public static UIntPtr AiXAddr;
-    public static UIntPtr XpAddr, XpAmountAddr, CreditsHookAddr, CreditsCompareAddr;
+    public static UIntPtr XpAddr, XpAmountAddr, EncValuesHookAddr;
     public static UIntPtr GlowingPaintAddr;
     public static UIntPtr BuildAddr1, BuildAddr2;
     public static UIntPtr SeasonalAddr, SeriesAddr;
@@ -136,7 +136,7 @@ internal class SelfVehicleAddresses
         }
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 41;
+        Sv.UiManager.ScanAmount = 40;
 
         const string xpAob = "41 83 BF 88 00 00 00";
         XpAddr = Mw.M.ScanForSig(xpAob).FirstOrDefault() - 14;
@@ -169,8 +169,8 @@ internal class SelfVehicleAddresses
         WaterAddr = Mw.M.ScanForSig(waterAob).FirstOrDefault() + 553;
         Sv.UiManager.AddProgress();
 
-        const string creditsSig = "5F 48 FF ? 48 8B ? ? E8";
-        CreditsHookAddr = Mw.M.ScanForSig(creditsSig).FirstOrDefault() + 13;
+        const string encValuesHookSig = "5F 48 FF ? 48 8B ? ? E8";
+        EncValuesHookAddr = Mw.M.ScanForSig(encValuesHookSig).FirstOrDefault() + 13;
         Sv.UiManager.AddProgress();
 
         const string baseAddrSig = "0F 2F ? ? ? ? ? 72 ? 0F 2F ? ? ? ? ? 72 ? 0F 2F";
@@ -272,10 +272,6 @@ internal class SelfVehicleAddresses
         HeadlightAddr = Mw.M.ScanForSig(headlightSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
-        const string creditsCompareSig = "48 89 ? ? ? 57 48 83 EC ? 48 8D ? ? E8 ? ? ? ? 48 8B";
-        CreditsCompareAddr = Mw.M.ScanForSig(creditsCompareSig).FirstOrDefault() - 140;
-        Sv.UiManager.AddProgress();
-
         const string backfireSig = "48 8B ? ? F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? E8 ? ? ? ? 0F 28";
         BackfireTimeAddr = Mw.M.ScanForSig(backfireSig).FirstOrDefault() + 4;
         BackfireTypeAddr = BackfireTimeAddr + 125;
@@ -327,8 +323,8 @@ internal class SelfVehicleAddresses
         SunGreenAddr = sunRgbAddr + 8;
         Sv.UiManager.AddProgress();
 
-        const string creditsHookSig = "89 84 24 80 00 00 00 4C 8D ? ? ? ? ? 48 8B";
-        CreditsHookAddr = Mw.M.ScanForSig(creditsHookSig).FirstOrDefault();
+        const string encValuesHookSig = "89 84 24 80 00 00 00 4C 8D ? ? ? ? ? 48 8B";
+        EncValuesHookAddr = Mw.M.ScanForSig(encValuesHookSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
         const string xpSig = "F3 0F ? ? 89 45 ? 48 8D ? ? ? ? ? 41 83 BD C0 00 00 00";

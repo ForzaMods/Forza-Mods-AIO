@@ -55,9 +55,12 @@ public class Detour : Asm
             throw new Exception("Detour bytes argument cant be null nor whitespace");
         }
 
-        var process = Mw.Gvp.Process; 
-        process.Refresh();
-        if (5 > replaceCount || process.MainModule == null || addr <= (UIntPtr)process.MainModule.BaseAddress)
+        if (!Mw.Attached || Mw.Gvp.Process.MainModule == null)
+        {
+            return false;
+        }
+        
+        if (replaceCount < 5 || addr <= (UIntPtr)Mw.Gvp.Process.MainModule.BaseAddress)
         {
             return false;
         }

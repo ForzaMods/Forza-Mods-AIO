@@ -22,46 +22,53 @@ public abstract class CarEntity
     private const string OrigFh4 = "F3 0F 10 81 90 01 00 00";
     private const string OrigFm8 = "0F 2F B1 A0 71 00 00";
     
-    public static void Hook()
+    public static async void Hook()
     {
         if (!BaseDetour.IsHooked)
         {
-            var baseDetourBytes = Mw.Gvp.Type switch
-            {
-                Fm8 => BaseFm8,
-                Fh5 => BaseFh5,
-                Fh4 => BaseFh4,
-                _ => string.Empty
-            };
-            
-            var orig = Mw.Gvp.Type switch
-            {
-                Fm8 => OrigFm8,
-                Fh5 => OrigFh5,
-                Fh4 => OrigFh4,
-                _ => string.Empty
-            };
-
-            var isFh4 = Mw.Gvp.Type == Fh4;
-            var replace = isFh4 ? 8 : 7;
-            BaseDetour.Setup(BaseAddrHook, orig, baseDetourBytes, replace, true, 0, true);
-
-            var isFm8 = Mw.Gvp.Type == Fm8;
-            if (!isFm8)
-            {
-                goto ReadAddress;
-            }
-            
-            Bypass.AddProtectAddress(GravityProtectAddr);
-            Mw.M.WriteArrayMemory(GravityProtectAddr, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 });
-            Mw.M.WriteArrayMemory(AccelProtectAddr, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 });
+            SetupHook();    
         }
 
-        ReadAddress:
         while ((PlayerCarEntity = BaseDetour.ReadVariable<UIntPtr>()) == 0)
         {
-            Task.Delay(5).Wait();
+            await Task.Delay(5);
         }
+    }
+
+    private static void SetupHook()
+    {
+        var baseDetourBytes = Mw.Gvp.Type switch
+        {
+            Fm8 => BaseFm8,
+            Fh5 => BaseFh5,
+            Fh4 => BaseFh4,
+            _ => string.Empty
+        };
+            
+        var orig = Mw.Gvp.Type switch
+        {
+            Fm8 => OrigFm8,
+            Fh5 => OrigFh5,
+            Fh4 => OrigFh4,
+            _ => string.Empty
+        };
+
+        var isFh4 = Mw.Gvp.Type == Fh4;
+        var replace = isFh4 ? 8 : 7;
+        if (!BaseDetour.Setup(BaseAddrHook, orig, baseDetourBytes, replace, true, 0, true))
+        {
+            return;
+        }
+
+        var isFm8 = Mw.Gvp.Type == Fm8;
+        if (!isFm8)
+        {
+            return;
+        }
+            
+        Bypass.AddProtectAddress(GravityProtectAddr);
+        Mw.M.WriteArrayMemory(GravityProtectAddr, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 });
+        Mw.M.WriteArrayMemory(AccelProtectAddr, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 });
     }
     
     #region Floats
@@ -281,7 +288,7 @@ public abstract class CarEntity
                 case None:
                 default:
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new IndexOutOfRangeException();
                 }
             }
         }

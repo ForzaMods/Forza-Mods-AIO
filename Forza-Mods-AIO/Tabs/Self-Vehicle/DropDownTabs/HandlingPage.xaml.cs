@@ -63,17 +63,11 @@ public partial class HandlingPage
         
         if (button.Name.Contains("Gravity"))
         {
-            while ((GravityValueNum.Value = Gravity) == 0)
-            {
-                await Task.Delay(1);
-            }
+            GravityValueNum.Value = Gravity;
         }
         else
         {
-            while ((AccelValueNum.Value = Acceleration) == 0)
-            {
-                await Task.Delay(1);
-            }
+            AccelValueNum.Value = Acceleration;
         }
     }
 

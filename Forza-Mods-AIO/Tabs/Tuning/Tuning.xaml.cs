@@ -25,7 +25,7 @@ public partial class Tuning
             return;
         }
 
-        Task.Run(() => TuningAddresses.Scan());
+        Task.Run(TuningAddresses.Scan);
         ScanButton.IsEnabled = false;
     }
 

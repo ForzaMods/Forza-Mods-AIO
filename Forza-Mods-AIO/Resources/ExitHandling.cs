@@ -2,6 +2,7 @@
 using System.Numerics;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
+using Forza_Mods_AIO.Tabs.Self_Vehicle.Features;
 using Forza_Mods_AIO.Tabs.Tuning;
 
 using static Forza_Mods_AIO.MainWindow;
@@ -14,11 +15,9 @@ public static class ExitHandling
     public static void DestroyDetours()
     {
         TuningAsm.Cleanup();
-        UnlocksPage.XpDetour.Destroy();
-        UnlocksPage.CrDetour.Destroy();
+        EncryptedValues.EncryptedValuesDetour.Destroy();
         UnlocksPage.SeasonalDetour.Destroy();   
         UnlocksPage.SeriesDetour.Destroy();   
-        UnlocksPage.CrCmpDetour.Destroy();
         UnlocksPage.SpinsDetour.Destroy();
         UnlocksPage.SkillPointsDetour.Destroy();
         CustomizationPage.GlowingPaintDetour.Destroy();

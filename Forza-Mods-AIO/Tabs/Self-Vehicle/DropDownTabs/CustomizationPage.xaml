@@ -25,7 +25,6 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-
                     
                     <mah:NumericUpDown x:Name="GlowingPaintNum"
                                        HorizontalAlignment="Left"

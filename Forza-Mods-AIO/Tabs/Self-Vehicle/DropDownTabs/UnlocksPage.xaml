@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d"
-      d:DesignHeight="290"
+      d:DesignHeight="235"
       d:DesignWidth="580"
       Title="UnlocksPage"
       Background="{DynamicResource ApplicationBackgroundBrush}">
@@ -20,6 +20,7 @@
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
@@ -41,7 +42,7 @@
                                            TrackMouseWheelWhenMouseOver="True"
                                            Minimum="0"
                                            Maximum="2147483647"
-                                           Value="0"
+                                           Value="500000"
                                            NumericInputMode="Numbers"
                                            ParsingNumberStyle="Integer"
                                            ValueChanged="XpNum_OnValueChanged"
@@ -52,9 +53,9 @@
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Left"
                                           HorizontalContentAlignment="Left"
-                                          Content="Xp On Unpause"
+                                          Content="XP"
                                           FontSize="11.5"
-                                          ToolTip="This feature will add XP based on how many you set in the numeric box."
+                                          ToolTip="This feature set your XP to how many you set in the numeric box."
                                           MinWidth="1"
                                           Margin="7.5 0 0 0"
                                           Toggled="XpSwitch_OnToggled"
@@ -88,6 +89,40 @@
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Right"
                                           Content="Credits"
+                                          FontSize="11.5"
+                                          ToolTip="This feature will set your credits based on how the value you set in the numeric box. You must either spend/get some money, or do a wheelspin for it to take effect."
+                                          MinWidth="1"
+                                          Margin="5 0 0 0"
+                                          Toggled="CreditsSwitch_OnToggled"
+                                          Grid.Column="1"/>
+                    </Grid>
+                        
+                    <Grid Column="2">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <mah:NumericUpDown x:Name="SkillPointsNum"
+                                           VerticalAlignment="Center"
+                                           TextAlignment="Left"
+                                           BorderThickness="0"
+                                           Margin="10 0 0 0"
+                                           Background="#FF2E3440"
+                                           HideUpDownButtons="True"
+                                           TrackMouseWheelWhenMouseOver="True"
+                                           Minimum="0"
+                                           Maximum="999999999"
+                                           Value="999"
+                                           NumericInputMode="Numbers"
+                                           ParsingNumberStyle="Integer"
+                                           ValueChanged="CreditsNum_OnValueChanged"/>
+                    
+                        <mah:ToggleSwitch x:Name="SkillPointsToggle"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Right"
+                                          Content="Skill Points"
                                           FontSize="11.5"
                                           ToolTip="This feature will set your credits based on how the value you set in the numeric box. You must either spend/get some money, or do a wheelspin for it to take effect."
                                           MinWidth="1"
@@ -180,40 +215,6 @@
                 </Grid>
                 
             </Border>
-            
-           <Border Style="{StaticResource CommonBorderStyle}">
-               <Grid>
-                   <Grid.ColumnDefinitions>
-                       <ColumnDefinition Width="*"/>
-                       <ColumnDefinition Width="Auto"/>
-                   </Grid.ColumnDefinitions>
-                   
-                   <mah:NumericUpDown x:Name="SkillPointsNum"
-                                      HideUpDownButtons="True"
-                                      BorderThickness="0"
-                                      Minimum="0"
-                                      Maximum="2147483647"
-                                      VerticalAlignment="Center"
-                                      Margin="7.5"
-                                      TextAlignment="Left"
-                                      Value="999"
-                                      Background="#FF2E3440"
-                                      ValueChanged="SkillPointsNum_OnValueChanged"
-                                      Grid.Column="0"/>
-                    
-                   <mah:ToggleSwitch x:Name="SkillPointsToggle"
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Left"
-                                     Margin="5 0 10 0"
-                                     MinWidth="0"
-                                     FontSize="12"
-                                     ToolTip="This feature will set your skill points value based on how how many you set in the numeric box. You must buy a perk in the skilltree for it to take effect."
-                                     Content="Skill Points"
-                                     Toggled="SkillPointsToggle_OnToggled"
-                                     Grid.Column="1"/>
-                                
-               </Grid>
-           </Border>
             
             <Border Style="{StaticResource CommonBorderStyle}">
                

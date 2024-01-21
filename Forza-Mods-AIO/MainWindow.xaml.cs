@@ -51,8 +51,21 @@ public partial class MainWindow
     public MainWindow()
     {
         InitializeComponent();
-        UpdateAio();
         Mw = this;
+        
+        UpdateAio();
+        InitializeTheme();
+        
+        CategoryButton_Click(AioInfo, new RoutedEventArgs());
+        Loaded += (_, _) =>
+        {
+            Task.Run(IsAttached);
+            ToggleButtons(false);
+        };
+    }
+
+    private void InitializeTheme()
+    {
         var converted = (Color)ConvertFromString("#FF2E3440");
         const string name = "AccentCol";
         Current.AddTheme(new Theme(name, name, "Dark", "Red", converted, new SolidColorBrush(converted), false, false));
@@ -63,14 +76,8 @@ public partial class MainWindow
         SideBar.Background = Monet.DarkishColour;
         TopBar1.Background = Monet.DarkColour;
         TopBar2.Background = Monet.DarkColour;
-        CategoryButton_Click(AioInfo, new RoutedEventArgs());
-        Loaded += (_, _) =>
-        {
-            Task.Run(IsAttached);
-            ToggleButtons(false);
-        };
     }
-
+    
     private const bool DisableUpdateChecking = true;
     
     private async void UpdateAio()
@@ -218,7 +225,7 @@ public partial class MainWindow
                 {
                     SelfVehicle.IsEnabled = true;
                     SelfVehicle.Foreground = Brushes.White;
-                    Speedtest.Fill = Brushes.White;
+                    SpeedTest.Fill = Brushes.White;
                 });
                 Attached = true;
             }
@@ -236,7 +243,7 @@ public partial class MainWindow
         // ReSharper disable once FunctionNeverReturns
     }
 
-    private const bool DisableButtonToggling = false;
+    private const bool DisableButtonToggling = true;
     
     public void ToggleButtons(bool on)
     {
@@ -256,7 +263,7 @@ public partial class MainWindow
             Tuning.Foreground = on ? Brushes.White : Brushes.DarkGray;
 
             CarSports.Fill = on ? Brushes.White : Brushes.DarkGray;
-            Speedtest.Fill = on ? Brushes.White : Brushes.DarkGray;
+            SpeedTest.Fill = on ? Brushes.White : Brushes.DarkGray;
             Tools.Fill = on ? Brushes.White : Brushes.DarkGray;
         });
     }

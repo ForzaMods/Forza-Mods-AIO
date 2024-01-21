@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
+using Forza_Mods_AIO.Tabs.Self_Vehicle.Features;
 using MahApps.Metro.Controls;
 using static Forza_Mods_AIO.MainWindow;
 
@@ -67,9 +68,10 @@ public abstract class ResetHandling
 
     private static void ClearDetours()
     {
-        UnlocksPage.XpDetour.Clear();
-        UnlocksPage.CrDetour.Clear();
-        UnlocksPage.CrCmpDetour.Clear();
+        EncryptedValues.EncryptedValuesDetour.Clear();
+        EncryptedValues.EncryptedEntries.Clear();
+        UnlocksPage.CrEntry = null!;
+        UnlocksPage.XpEntry = null!;
         CustomizationPage.GlowingPaintDetour.Clear();
         CustomizationPage.HeadlightDetour.Clear();
         CustomizationPage.CleanlinessDetour.Clear();

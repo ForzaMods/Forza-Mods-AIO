@@ -33,13 +33,29 @@ public class Updater : IDisposable
         using var cts = new CancellationTokenSource(timeoutMs);
         using var httpClient = new HttpClient();
 
-        var response = await httpClient.GetAsync(url, cts.Token);
-        return response.IsSuccessStatusCode;
+        try
+        {
+            var response = await httpClient.GetAsync(url, cts.Token);
+            return response.IsSuccessStatusCode;
+        }
+        catch
+        {
+            return false;            
+        }
     }
     
     public async Task<bool> CheckForUpdates()
     {
-        _releases = await _gitHubClient.Repository.Release.GetAll(Owner, Repository);
+        try
+        {
+            _releases = await _gitHubClient.Repository.Release.GetAll(Owner, Repository);
+        }
+        catch
+        {
+            MessageBox.Show(@"Github API Rate limit exceeded. Failed to check for updates.");
+            return false;
+        }
+
         if (_releases.Count <= 0)
         {
             return false;

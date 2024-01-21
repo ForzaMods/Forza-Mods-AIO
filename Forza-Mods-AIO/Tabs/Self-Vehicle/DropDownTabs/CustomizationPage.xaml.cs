@@ -37,7 +37,7 @@ public partial class CustomizationPage
     /// </summary>
     private void GlowingPaintSwitch_Toggled(object sender, RoutedEventArgs e)
     {
-        if (!Mw.Attached || Mw.Gvp.Name == null)
+        if (!Mw.Attached)
         {
             return;
         }
@@ -48,7 +48,7 @@ public partial class CustomizationPage
         const string fh4 = "0F 59 0D 49 00 00 00 41 0F 11 4A 10";
         const string fh4Orig = "41 0F 11 4A 10";
 
-        var isFh5 = Mw.Gvp.Name.Contains('5');
+        var isFh5 = Mw.Gvp.Type == GameVerPlat.GameType.Fh5;
         var orig = isFh5 ? fh5Orig : fh4Orig;
         var detoured = isFh5 ? fh5 : fh4;
         var replace = isFh5 ? 7 : 5;

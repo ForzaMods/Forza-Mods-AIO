@@ -75,7 +75,6 @@
                             VerticalAlignment="Center"
                             Margin="5 0 10 0"
                             Content="Send"
-                            Width="50"
                             Background="#FF2E3440"
                             Click="SendButton_OnClick"
                             Grid.Column="2"/>
