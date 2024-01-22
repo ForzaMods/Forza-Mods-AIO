@@ -39,7 +39,7 @@ internal class SelfVehicleAddresses
     public static UIntPtr DiscoverRoadsAddr;
     public static UIntPtr WaterAddr;
     public static UIntPtr AiXAddr;
-    public static UIntPtr XpAddr, XpAmountAddr, EncValuesHookAddr;
+    public static UIntPtr EncValuesHookAddr;
     public static UIntPtr GlowingPaintAddr;
     public static UIntPtr BuildAddr1, BuildAddr2;
     public static UIntPtr SeasonalAddr, SeriesAddr;
@@ -136,15 +136,7 @@ internal class SelfVehicleAddresses
         }
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 40;
-
-        const string xpAob = "41 83 BF 88 00 00 00";
-        XpAddr = Mw.M.ScanForSig(xpAob).FirstOrDefault() - 14;
-        Sv.UiManager.AddProgress();
-
-        const string xpAmountAob = "8B 89 ? ? ? ? 85 C9 0F 8E";
-        XpAmountAddr = Mw.M.ScanForSig(xpAmountAob).FirstOrDefault();
-        Sv.UiManager.AddProgress();
+        Sv.UiManager.ScanAmount = 38;
 
         const string sunRgbAob = "81 80 80 3B 81 80 80 3B 81 80 80 3B 81 80 80 3B";
         var sunRgbAddr = Mw.M.ScanForSig(sunRgbAob).LastOrDefault();
@@ -314,7 +306,7 @@ internal class SelfVehicleAddresses
         }
 
         Sv.UiManager.Index = 0;
-        Sv.UiManager.ScanAmount = 29;
+        Sv.UiManager.ScanAmount = 27;
 
         const string sunRgbSig = "81 80 80 3B 81 80 80 3B 81 80 80 3B 81 80 80 3B";
         var sunRgbAddr = Mw.M.ScanForSig(sunRgbSig).LastOrDefault();
@@ -325,14 +317,6 @@ internal class SelfVehicleAddresses
 
         const string encValuesHookSig = "89 84 24 80 00 00 00 4C 8D ? ? ? ? ? 48 8B";
         EncValuesHookAddr = Mw.M.ScanForSig(encValuesHookSig).FirstOrDefault();
-        Sv.UiManager.AddProgress();
-
-        const string xpSig = "F3 0F ? ? 89 45 ? 48 8D ? ? ? ? ? 41 83 BD C0 00 00 00";
-        XpAddr = Mw.M.ScanForSig(xpSig).FirstOrDefault();
-        Sv.UiManager.AddProgress();
-
-        const string xpAmountSig = "8B 89 ? ? ? ? 85 C9 0F 8E";
-        XpAmountAddr = Mw.M.ScanForSig(xpAmountSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
         const string car1Sig = "48 89 ? ? ? 44 8B ? 48 89 ? ? ? BA";

@@ -52,16 +52,23 @@ public class Detour : Asm
 
         if (string.IsNullOrWhiteSpace(detourBytes))
         {
-            throw new Exception("Detour bytes argument cant be null nor whitespace");
+            throw new Exception(@"Detour bytes argument cant be null nor whitespace");
+        }
+        
+        if (replaceCount < 5)
+        {
+            throw new ArgumentOutOfRangeException(nameof(replaceCount));
         }
 
         if (!Mw.Attached || Mw.Gvp.Process.MainModule == null)
         {
+            MessageBox.Show(@"You arent attached to the game");
             return false;
         }
-        
-        if (replaceCount < 5 || addr <= (UIntPtr)Mw.Gvp.Process.MainModule.BaseAddress)
+
+        if (addr <= (UIntPtr)Mw.Gvp.Process.MainModule.BaseAddress)
         {
+            MessageBox.Show(@"The address for this feature wasn't found.");
             return false;
         }
 
@@ -78,11 +85,13 @@ public class Detour : Asm
             
         if (bytes.Length != replaceCount)
         {
-            throw new Exception("Original bytes length should be equal to the replace count");
+            throw new ArgumentException(@"Original bytes length should be equal to the replace count");
         }
 
         if (_realOriginalBytes.Where((t, i) => t != bytes[i]).Any())
         {
+            MessageBox.Show(@"Original bytes didnt match");
+            ToggleButton(button, true);
             return false;
         }
        
@@ -101,6 +110,7 @@ public class Detour : Asm
         
         if (!isFh4 && !_bypassDetour && !Bypass.DisableAntiCheat())
         {
+            MessageBox.Show(@"Failed to disable anti-cheat");
             ToggleButton(button, true);
             return false;
         }
@@ -112,6 +122,7 @@ public class Detour : Asm
             
         if (!CreateDetour(finalDetourBytes, replaceCount))
         {
+            MessageBox.Show(@"Failed to create the detour");
             ToggleButton(button, true);
             return false;
         }

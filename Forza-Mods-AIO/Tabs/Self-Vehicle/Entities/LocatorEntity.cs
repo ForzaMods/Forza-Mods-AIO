@@ -25,7 +25,6 @@ public abstract class LocatorEntity
         {
             sender?.GetType().GetProperty("IsOn")?.SetValue(sender, false);
             WaypointDetour.Clear();
-            MessageBox.Show("Failed");
             return;
         }
 

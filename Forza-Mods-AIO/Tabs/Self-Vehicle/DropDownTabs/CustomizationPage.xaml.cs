@@ -56,7 +56,7 @@ public partial class CustomizationPage
         
         if (!GlowingPaintDetour.Setup(sender, GlowingPaintAddr, orig, detoured, replace, true, offset))
         {
-            Detour.FailedHandler(sender, GlowingPaintSwitch_Toggled);
+            GlowingPaintDetour.Clear();
             return;
         }
 
@@ -121,7 +121,7 @@ public partial class CustomizationPage
         const string orig = "0F10 7B 50 F3 44 0F10 83 84000000";
         if (!HeadlightDetour.Setup(HeadlightToggle, HeadlightAddr, orig, HeadlightBytes, 13, true, 0, true))
         {
-            Detour.FailedHandler(sender, HeadlightColor_OnToggled);
+            HeadlightDetour.Clear();
             return;
         }
         
@@ -181,7 +181,7 @@ public partial class CustomizationPage
         
         if (!CleanlinessDetour.Setup(sender, CleanlinessAddr, original, cleanlinessBytes, 8, true))
         {
-            Detour.FailedHandler(sender, HeadlightColor_OnToggled);
+            CleanlinessDetour.Clear();
             return;
         }
         
@@ -283,7 +283,7 @@ public partial class CustomizationPage
         const string cmpDetoured = "51 48 8B 48 30 48 89 0D 06 00 00 00 59";
         if (!LodCmpDetour.Setup(ForceLodSwitch, LodCmp, cmpOrig, cmpDetoured, 8, true, 0, true))
         {
-            Detour.FailedHandler(sender, ForceLodSwitch_OnToggled);
+            LodCmpDetour.Clear();
             return;
         }
 
@@ -291,7 +291,7 @@ public partial class CustomizationPage
         const string forceDetoured = "50 48 8B 05 25 00 00 00 80 38 00 74 0C 80 38 01 74 07 80 38 11 74 02 EB 07 40 8A 35 15 00 00 00 58 40 88 B7 06 01 00 00";
         if (!ForceLodDetour.Setup(ForceLodSwitch, ForceLod, forceOrig, forceDetoured, 7, true))
         {
-            Detour.FailedHandler(sender, ForceLodSwitch_OnToggled);
+            ForceLodDetour.Clear();
             return;
         }
 

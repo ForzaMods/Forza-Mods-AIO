@@ -49,7 +49,7 @@ public partial class BackFirePage
         const string orig = "F3 0F10 89 803A0000";
         if (!BackfireTimeDetour.Setup(sender, BackfireTimeAddr, orig, BackfireTimeBytes, 8, useVarAddress: true))
         {
-            Detour.FailedHandler(sender,BackfireToggle_OnToggled);
+            BackfireTimeDetour.Clear();
             return;
         }
 
@@ -67,7 +67,7 @@ public partial class BackFirePage
         const string orig = "40 84 F6 48 0F45 D0";
         if (!BackfireTypeDetour.Setup(sender, BackfireTypeAddr, orig, BackfireTypeBytes, 7, useVarAddress: true))
         {
-            Detour.FailedHandler(sender,BackfireToggle_OnToggled);
+            BackfireTypeDetour.Clear();
             return;
         }
         

@@ -21,11 +21,6 @@ public abstract class EncryptedValues
     
     public static void Setup(object sender, RoutedEventHandler action)
     {
-        if (EncryptedValuesDetour.IsSetup)
-        {
-            return;
-        }
-
         if (EncryptedValuesDetour.Setup(sender, EncValuesHookAddr, Original, EncValuesBytes, 7, true))
         {
             return;

@@ -291,6 +291,7 @@ public partial class EnvironmentPage
         const string originalBytes = "F2 0F 11 43 08";
         if (!TimeDetour.Setup(TimeSwitch, TimeNopAddr, originalBytes, TimeDetourBytes, 5, true, 0, true))
         {
+            TimeDetour.Clear();
             return false;
         }
 
@@ -322,7 +323,7 @@ public partial class EnvironmentPage
         
         if (!FreezeAiDetour.Setup(sender, AiXAddr, orig, bytes, 7, true))
         {
-            Detour.FailedHandler(sender, FreezeAi_OnToggled);
+            FreezeAiDetour.Clear();
             return;
         }
         

@@ -85,7 +85,6 @@ public partial class CameraPage
         const string original = "0F10 01 B0 01";
         if (!CameraDetour.Setup(toggleSwitch, CameraHookAddr, original, CameraBytes, 5, true))
         {
-            Detour.FailedHandler(toggleSwitch, CameraSwitch_OnToggled);
             CameraDetour.Clear();
             return;
         }

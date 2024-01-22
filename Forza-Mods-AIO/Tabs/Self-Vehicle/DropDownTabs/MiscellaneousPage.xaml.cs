@@ -65,7 +65,6 @@ public partial class MiscellaneousPage
         if (!Build1Detour.Setup(sender, BuildAddr1, orig1, build1, 8) || 
             !Build2Detour.Setup(sender, BuildAddr2, orig2, build2, 5))
         {
-            Detour.FailedHandler(sender, RemoveBuildCapSwitch_OnToggled);
             Build1Detour.Clear();
             Build2Detour.Clear();
             return;
@@ -101,7 +100,6 @@ public partial class MiscellaneousPage
         const string orig = "48 8B 10 48 8B C8";
         if (!UnbSkillDetour.Setup(null, UnbSkillHook, orig, SkillDetour, 6, true, 0, true))
         {
-            Detour.FailedHandler(sender, Skill_OnToggled);
             UnbSkillDetour.Clear();
             return;
         }
@@ -148,7 +146,6 @@ public partial class MiscellaneousPage
         
         if (!SellDetour.Setup(SellFactorSwitch, SellFactorAddr, orig, sell, count, true, 0, true))
         {
-            Detour.FailedHandler(sender, SellFactorSwitch_OnToggled);
             SellDetour.Clear();
             return;
         }
@@ -196,7 +193,6 @@ public partial class MiscellaneousPage
         
         if (!ScaleDetour.Setup(ScaleSwitch, ScaleAddr, orig, scale, 5, true, 0, true))
         {
-            Detour.FailedHandler(sender, ScaleSwitch_OnToggled);
             ScaleDetour.Clear();
             return;
         }
@@ -231,7 +227,6 @@ public partial class MiscellaneousPage
         const string orig = "F3 0F10 73 48";
         if (!SkillTreeDetour.Setup(sender, SkillTreeAddr, orig, SkillTree, 5, true))
         {
-            Detour.FailedHandler(sender, SkillTreeEditToggle_OnToggled);
             SkillTreeDetour.Clear();
             return;
         }
@@ -276,7 +271,6 @@ public partial class MiscellaneousPage
         
         if (!ScoreDetour.Setup(sender, SkillScoreAddr, orig,bytes, replace, true, 0, save))
         {
-            Detour.FailedHandler(sender, ScoreToggle_OnToggled);
             ScoreDetour.Clear();
             return;
         }
@@ -318,7 +312,6 @@ public partial class MiscellaneousPage
         const string orig = "8B C3 48 8B 5C 24 30";
         if (!SkillCostDetour.Setup(sender, SkillCostAddr, orig, SkillCost, 7, true, 0, true))
         {
-            Detour.FailedHandler(sender, SkillCostToggle_OnToggled);
             SkillCostDetour.Clear();
             return;
         }
@@ -379,7 +372,6 @@ public partial class MiscellaneousPage
         const string originalBytes = "F3 0F 10 9F D8 00 00 00";
         if (!DriftDetour.Setup(DriftToggle, DriftScoreAddr, originalBytes, Drift, 8, true))
         {
-            Detour.FailedHandler(sender, DriftToggle_OnToggled);
             DriftDetour.Clear();
             return;
         }
@@ -399,14 +391,12 @@ public partial class MiscellaneousPage
         
         if (Mw.Gvp.Name == "Forza Horizon 4" && TimeScaleSwitch.IsOn)
         {
-            Detour.FailedHandler(sender, TimeScaleSwitch_OnToggled, true);
             return;
         }
 
         const string orig = "F3 0F5C C7 F3 0F11 87 0C040000";
         if (!TimeScaleDetour.Setup(TimeScaleSwitch, TimeScaleAddr, orig, TimeScale, 12, true))
         {
-            Detour.FailedHandler(sender, TimeScaleSwitch_OnToggled);
             TimeScaleDetour.Clear();
             return;
         }

@@ -121,7 +121,6 @@ public partial class UnlocksPage
         const string orig = "F3 0F11 71 28";
         if (!SeasonalDetour.Setup(sender, SeasonalAddr, orig, Seasonal, 5, true))
         {
-            Detour.FailedHandler(SeasonalToggle, SeasonalToggle_OnToggled);
             SeasonalDetour.Clear();
             return;
         }
@@ -146,7 +145,6 @@ public partial class UnlocksPage
         const string orig = "49 3B C0 74 04";
         if (!SeriesDetour.Setup(sender, SeriesAddr,orig, Series, 5, true))
         {
-            Detour.FailedHandler(SeriesToggle, SeriesToggle_OnToggled);
             SeriesDetour.Clear();
             return;
         }
@@ -210,7 +208,6 @@ public partial class UnlocksPage
         const string orig = "33 D2 8B 5F 08";
         if (!SpinsDetour.Setup(toggleSwitch, SpinsAddr, orig, Spins, 5, useVarAddress: true))
         {
-            Detour.FailedHandler(toggleSwitch, SpinsToggle_OnToggled);
             SpinsDetour.Clear();
             return;
         }
@@ -256,7 +253,6 @@ public partial class UnlocksPage
         const string orig = "2B DD 33 D2 85 DB";
         if (!SkillPointsDetour.Setup(toggleSwitch, SkillPointsAddr, orig, SkillPoints, 6, useVarAddress: true))
         {
-            Detour.FailedHandler(toggleSwitch, SpinsToggle_OnToggled);
             SkillPointsDetour.Clear();
             return;
         }
