@@ -119,6 +119,13 @@ public partial class AioInfo
                 _translateUtil.Translate();
                 break;
             }
+            case 6: // spanish
+            {
+                _translateUtil.RevertToEnglish();
+                _translateUtil.SetLanguage(Translations.SpanishTranslation);
+                _translateUtil.Translate();
+                break;
+            }
         }
     }
 }
