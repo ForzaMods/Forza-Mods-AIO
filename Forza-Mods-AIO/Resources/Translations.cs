@@ -1141,7 +1141,7 @@ public abstract class Translations
         {"Tool Credits","Créditos" },
         {"Donations","Donaciones" },
         {"Wall Colour","Color del fondo" },
-        {"Lightness","Lightness" },
+        {"Lightness","Ligereza" },
         {"Overlay","Superposición" },
         {"On","Activado" },
         {"Off","Desactivado" },
