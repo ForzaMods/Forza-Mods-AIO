@@ -140,6 +140,16 @@ public abstract class CarEntity
     private const int AngVelOffsetFm8 = 0x20;
     public static Vector3 AngularVelocity
     {
+        get
+        {
+            Hook();
+            return Mw.Gvp.Type switch
+            {
+                Fh4 or Fh5 => Mw.M.ReadMemory<Vector3>(PlayerCarEntity + AngVelOffset),
+                Fm8 => Mw.M.ReadMemory<Vector3>(PlayerCarEntity + AngVelOffsetFm8),
+                _ => throw new IndexOutOfRangeException()
+            };
+        }
         set
         {
             Hook();

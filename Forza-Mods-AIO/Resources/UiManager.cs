@@ -55,7 +55,7 @@ public class UiManager
         _elements = null!;
     }
 
-    private const bool Disable = true;
+    private const bool Disable = false;
     
     public void ToggleUiElements(bool enable)
     {

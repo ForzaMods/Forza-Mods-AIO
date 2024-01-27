@@ -170,10 +170,8 @@ internal abstract class Monet
         DarkerColour = (Brush)converter.ConvertFromString(colourHex4)!;
 
         Mw.BackgroundBorder.Background = MainColour;
-        Mw.FrameBorder.Background = MainColour;
         Mw.SideBar.Background = DarkishColour;
-        Mw.TopBar1.Background = DarkColour;
-        Mw.TopBar2.Background = DarkColour;
+        Mw.TopBar.Background = DarkColour;
 
         var randName = Guid.NewGuid().ToString();
         Current.ClearThemes();

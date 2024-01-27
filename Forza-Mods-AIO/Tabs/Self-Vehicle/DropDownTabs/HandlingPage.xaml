@@ -312,6 +312,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Strength"
@@ -382,6 +384,24 @@
                                        ValueChanged="TurnAssistRatioBox_OnValueChanged"
                                        Grid.Column="5"/>
                     
+                    <Label Content="Mode"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="6.5 0 0 0"
+                           Grid.Column="6"/>
+
+                    <ComboBox x:Name="TurnAssistModeBox"
+                              Margin="6.5 0 0 0"
+                              VerticalAlignment="Center"
+                              Background="#FF2E3440"
+                              BorderBrush="#FF2E3440"
+                              SelectedIndex="0"
+                              Grid.Column="7"
+                              SelectionChanged="TurnAssistModeBox_OnSelectionChanged">
+                        <ComboBoxItem Content="Basic"/>
+                        <ComboBoxItem Content="Advanced"/>
+                    </ComboBox>
+                    
                     <mah:ToggleSwitch x:Name="TurnAssistSwitch"
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Center"
@@ -391,7 +411,7 @@
                                       FontSize="11.5"
                                       Toggled="TurnAssistSwitch_Toggled"
                                       Focusable="False"
-                                      Grid.Column="6"/>
+                                      Grid.Column="8"/>
                 </Grid>
             </Border>
 
@@ -579,6 +599,7 @@
                               VerticalAlignment="Center" 
                               Background="#FF2E3440" 
                               BorderBrush="#FF2E3440"
+                              IsEnabled="False"
                               SelectionChanged="StopAllWheelsModeBox_OnSelectionChanged"
                               Grid.Column="5">
                             <ComboBoxItem Content="Instant"/>

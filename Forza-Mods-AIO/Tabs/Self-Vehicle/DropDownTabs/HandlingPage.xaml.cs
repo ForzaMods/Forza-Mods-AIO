@@ -372,4 +372,14 @@ public partial class HandlingPage
 
         TurnAssist.SetRatio(numericUpDown.Value);
     }
+
+    private void TurnAssistModeBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is not ComboBox comboBox)
+        {
+            return;
+        }
+
+        TurnAssist.SetMode(comboBox.SelectedIndex);
+    }
 }

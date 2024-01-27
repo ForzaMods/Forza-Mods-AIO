@@ -22,6 +22,7 @@ using static System.Xml.Linq.XElement;
 using static ControlzEx.Theming.ThemeManager;
 using static Forza_Mods_AIO.Overlay.Overlay;
 using static Forza_Mods_AIO.Resources.Bypass;
+using Application = System.Windows.Application;
 using Monet = Forza_Mods_AIO.Resources.Theme.Monet;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -72,10 +73,8 @@ public partial class MainWindow
         Current.ChangeTheme(Application.Current, name);
         AioInfo.IsChecked = true;
         BackgroundBorder.Background = Monet.MainColour;
-        FrameBorder.Background = Monet.MainColour;
         SideBar.Background = Monet.DarkishColour;
-        TopBar1.Background = Monet.DarkColour;
-        TopBar2.Background = Monet.DarkColour;
+        TopBar.Background = Monet.DarkColour;
     }
     
     private const bool DisableUpdateChecking = true;
@@ -138,20 +137,27 @@ public partial class MainWindow
 
     public void CategoryButton_Click(object sender, RoutedEventArgs e)
     {
+        if (sender is not RadioButton senderRb)
+        {
+            return;
+        }
+        
         var rbName = string.Empty;
 
         foreach (var element in ButtonStack.Children)
         {
-            if (element.GetType() != typeof(RadioButton))
+            if (element.GetType() != typeof(Grid))
             {
                 continue;
             }
 
-            var rb = (RadioButton)element;
-            
-            if (rb.IsChecked != true)
+            var grid = (Grid)element;
+            var rb = GetRadioButtonFromGrid(grid);
+
+            if (rb != senderRb)
             {
                 rb.Background = Monet.DarkishColour;
+                rb.IsChecked = false;
                 continue;
             }
 
@@ -175,6 +181,22 @@ public partial class MainWindow
         }
     }
 
+    private static RadioButton GetRadioButtonFromGrid(Panel grid)
+    {
+        foreach (var element in grid.Children)
+        {
+            if (element.GetType() != typeof(RadioButton))
+            {
+                continue;
+            }
+
+            var rb = (RadioButton)element;
+            return rb;
+        }
+
+        throw new Exception(@"Grid doesnt contain any radiobutton");
+    }
+    
     #endregion
 
     #region Attaching/Behaviour
@@ -243,7 +265,7 @@ public partial class MainWindow
         // ReSharper disable once FunctionNeverReturns
     }
 
-    private const bool DisableButtonToggling = true;
+    private const bool DisableButtonToggling = false;
     
     public void ToggleButtons(bool on)
     {
@@ -398,10 +420,9 @@ public static class GetChildrenExtension
             {
                 return true;
             }
-
+            
             visual = GetParent(visual);
         }
-
         return false;
     }
 }
