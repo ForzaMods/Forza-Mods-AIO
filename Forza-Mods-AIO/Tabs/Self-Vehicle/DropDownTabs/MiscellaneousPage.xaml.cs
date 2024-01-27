@@ -1,8 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
+using System.Windows.Controls;
 using Forza_Mods_AIO.Resources;
+using MahApps.Metro.Controls;
 using static System.Convert;
 using static System.Math;
 using static Forza_Mods_AIO.MainWindow;
@@ -32,9 +33,7 @@ public partial class MiscellaneousPage
     private const string SkillCost = "8B 05 05 00 00 00";
     private const string ScoreFh4 = "8B 78 04 0F AF 3D 08 00 00 00 48 85 DB";
     private const string ScoreFh5 = "0F AF 3D 05 00 00 00";
-    private const string Drift = "80 3D 4B 00 00 00 01 75 20 53 48 8B 1D 39 00 00 00 48 89 9F D8 00 00 00 48 8B 1D " +
-                                 "2F 00 00 00 48 89 9F DC 00 00 00 5B EB 14 C7 87 D8 00 00 00 00 00 34 42 C7 87 DC " +
-                                 "00 00 00 00 00 5C 42 F3 0F 10 9F D8 00 00 00";
+    private const string Drift = "F3 0F 59 3D 0E 00 00 00 F3 0F 58 F7 0F 28 7C 24 20";
     
     private const string TimeScale = "F3 0F 59 3D 11 00 00 00 F3 0F 5C C7 F3 0F 11 87 0C 04 00 00";
         
@@ -332,28 +331,13 @@ public partial class MiscellaneousPage
 
     private void DriftNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
     {
-        if (!Mw.Attached || sender is not NumericUpDown numericUpDown)
+        if (!Mw.Attached || sender is not NumericUpDown numericUpDown || DriftSlider == null)
         {
             return;
         }
-
-        switch (numericUpDown.Name)
-        {
-            case "DriftMinNum":
-            {
-                DriftDetour.UpdateVariable(ToSingle(45 * DriftMinNum.Value));
-                break;
-            }
-            case "DriftMaxNum":
-            {
-                DriftDetour.UpdateVariable(ToSingle(55 * DriftMaxNum.Value), 4);
-                break;
-            }
-            default:
-            {
-                throw new ArgumentOutOfRangeException(nameof(sender));
-            }
-        }
+        
+        DriftSlider.Value = ToDouble(numericUpDown.Value);
+        DriftDetour.UpdateVariable(ToSingle(numericUpDown.Value));
     }
 
     private void DriftToggle_OnToggled(object sender, RoutedEventArgs e)
@@ -369,17 +353,14 @@ public partial class MiscellaneousPage
             return;
         }
 
-        const string originalBytes = "F3 0F 10 9F D8 00 00 00";
-        if (!DriftDetour.Setup(DriftToggle, DriftScoreAddr, originalBytes, Drift, 8, true))
+        const string originalBytes = "F3 0F58 F7 0F28 7C 24 20";
+        if (!DriftDetour.Setup(DriftToggle, DriftScoreAddr, originalBytes, Drift, 9, true))
         {
             DriftDetour.Clear();
             return;
         }
         
-        DriftDetour.UpdateVariable(ToSingle(45 * DriftMinNum.Value));
-        DriftDetour.UpdateVariable(ToSingle(55 * DriftMaxNum.Value), 4);
-        DriftDetour.UpdateVariable(DriftToggle.IsOn ? (byte)1 : (byte)0, 8);
-        
+        DriftDetour.UpdateVariable(ToSingle(DriftNum.Value));
     }
 
     private void TimeScaleSwitch_OnToggled(object sender, RoutedEventArgs e)
@@ -430,5 +411,16 @@ public partial class MiscellaneousPage
         }
 
         TimeScaleNum.Value = ToDouble(Round(e.NewValue, 4));
+    }
+
+    private void DriftSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (!Mw.Attached || sender is not Slider slider || DriftNum == null)
+        {
+            return;
+        }
+
+        DriftNum.Value = Round(slider.Value, 3);
+        DriftDetour.UpdateVariable(ToSingle(slider.Value));
     }
 }

@@ -175,20 +175,19 @@
                 <Grid>
                     
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <mah:NumericUpDown x:Name="DriftMinNum" 
+                    <mah:NumericUpDown x:Name="DriftNum" 
                                        VerticalAlignment="Center"
                                        Value="5"
                                        Margin="7.5 0"
                                        TextAlignment="Left"
                                        Minimum="1"
                                        Maximum="10"
+                                       Width="100"
                                        TrackMouseWheelWhenMouseOver="True"
                                        ParsingNumberStyle="Integer"
                                        Background="#FF2E3440"
@@ -196,33 +195,13 @@
                                        ValueChanged="DriftNum_OnValueChanged"
                                        Grid.Column="0"/>
                     
-                    <Label VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           FontSize="11.5"
-                           Content="Min Multi"
-                           Margin="5 0"
-                           Grid.Column="1"/>
-                    
-                    <mah:NumericUpDown x:Name="DriftMaxNum" 
-                                       VerticalAlignment="Center"
-                                       Value="5"
-                                       Margin="5 0"
-                                       TrackMouseWheelWhenMouseOver="True"
-                                       TextAlignment="Left"
-                                       Minimum="1"
-                                       Maximum="10"
-                                       ParsingNumberStyle="Integer"
-                                       Background="#FF2E3440"
-                                       BorderBrush="#FF2E3440"
-                                       ValueChanged="DriftNum_OnValueChanged"
-                                       Grid.Column="2"/>
-                    
-                    <Label VerticalAlignment="Center"
-                           FontSize="11.5"
-                           Content="Max Multi"
-                           Margin="5 0 0 0"
-                           Grid.Column="3"/>
-                    
+                    <Slider x:Name="DriftSlider"
+                            VerticalAlignment="Center"
+                            Grid.Column="1"
+                            Minimum="1"
+                            Maximum="10"
+                            Value="5"
+                            ValueChanged="DriftSlider_OnValueChanged"/> 
                     
                     <mah:ToggleSwitch x:Name="DriftToggle"
                                       VerticalAlignment="Center"
@@ -231,7 +210,7 @@
                                       FontSize="11.5"
                                       Margin="7.5 0"
                                       Toggled="DriftToggle_OnToggled"
-                                      Grid.Column="4"/>
+                                      Grid.Column="2"/>
                         
                 </Grid>
             </Border>

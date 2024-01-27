@@ -252,8 +252,8 @@ internal class SelfVehicleAddresses
         SkillCostAddr = Mw.M.ScanForSig(skillCostSig).FirstOrDefault() + 39;
         Sv.UiManager.AddProgress();
 
-        const string driftScoreSig = "48 8D ? ? ? ? ? E8 ? ? ? ? F3 0F ? ? ? ? 45 33";
-        DriftScoreAddr = Mw.M.ScanForSig(driftScoreSig).FirstOrDefault() - 62;
+        const string driftScoreSig = "E8 ? ? ? ? F3 0F ? ? 0F 28 ? ? ? 0F 28";
+        DriftScoreAddr = Mw.M.ScanForSig(driftScoreSig).FirstOrDefault() + 5;
         Sv.UiManager.AddProgress();
 
         const string timeScaleSig = "74 ? 48 8B ? 48 8B ? FF 90 ? ? ? ? F3 0F ? ? ? ? ? ? F3 0F";
