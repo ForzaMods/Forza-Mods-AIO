@@ -75,6 +75,9 @@ public partial class MainWindow
         BackgroundBorder.Background = Monet.MainColour;
         SideBar.Background = Monet.DarkishColour;
         TopBar.Background = Monet.DarkColour;
+#if RELEASE
+        AttachedLabel.Content = "Launch FH4, FH5 or FM8";
+#endif
     }
     
     private const bool DisableUpdateChecking = true;
@@ -323,7 +326,9 @@ public partial class MainWindow
 
         Dispatcher.Invoke(delegate
         {
+#if RELEASE
             AttachedLabel.Content = $"{Gvp.Name}, {Gvp.Plat}, {Gvp.Update}";
+#endif
             Tabs.AIO_Info.AioInfo.Ai.OverlaySwitch.IsEnabled = true;
         });
     }

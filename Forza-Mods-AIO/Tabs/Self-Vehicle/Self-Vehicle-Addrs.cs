@@ -89,6 +89,11 @@ internal class SelfVehicleAddresses
 
         Sv.UiManager.Index = 0;
         Sv.UiManager.ScanAmount = 6;
+        
+#if !RELEASE
+        var start = DateTime.Now;
+        Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Starting self/vehicle scan at: {start}");
+#endif
 
         const string massProtectSig = "74 ? F3 0F ? ? 0F 29";
         var massProtectAddresses = Mw.M.ScanForSig(massProtectSig);
@@ -124,6 +129,10 @@ internal class SelfVehicleAddresses
             Shp.WaterDragSwitch.IsEnabled = false;
             Shp.SuperCarSwitch.IsEnabled = false;
         });
+                                  
+#if !RELEASE
+        Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Finished self/vehicle scan at: {DateTime.Now}. Scan took: {(DateTime.Now - start).Seconds + "," + (DateTime.Now - start).Milliseconds}s");
+#endif
     }
 
     #region FH5 Scan
@@ -134,7 +143,12 @@ internal class SelfVehicleAddresses
         {
             return;
         }
-
+        
+#if !RELEASE
+        var start = DateTime.Now;
+        Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Starting self/vehicle scan at: {start}");
+#endif
+        
         Sv.UiManager.Index = 0;
         Sv.UiManager.ScanAmount = 38;
 
@@ -292,6 +306,10 @@ internal class SelfVehicleAddresses
             Sv.StatsButton.IsEnabled = false;
             Shp.SuperCarSwitch.IsEnabled = false;
         });
+                                   
+#if !RELEASE
+        Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Finished self/vehicle scan at: {DateTime.Now}. Scan took: {(DateTime.Now - start).Seconds + "," + (DateTime.Now - start).Milliseconds}s");
+#endif
     }
 
     #endregion
@@ -307,6 +325,11 @@ internal class SelfVehicleAddresses
 
         Sv.UiManager.Index = 0;
         Sv.UiManager.ScanAmount = 27;
+        
+#if !RELEASE
+        var start = DateTime.Now;
+        Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Starting self/vehicle scan at: {start}");
+#endif
 
         const string sunRgbSig = "81 80 80 3B 81 80 80 3B 81 80 80 3B 81 80 80 3B";
         var sunRgbAddr = Mw.M.ScanForSig(sunRgbSig).LastOrDefault();
@@ -428,6 +451,10 @@ internal class SelfVehicleAddresses
             Sv.BackFireButton.IsEnabled = false;
             Sv.StatsButton.IsEnabled = false;
         });
+                     
+#if !RELEASE
+        Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Finished self/vehicle scan at: {DateTime.Now}. Scan took: {(DateTime.Now - start).Seconds + "," + (DateTime.Now - start).Milliseconds}s");
+#endif
     }
 
     #endregion

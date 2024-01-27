@@ -30,7 +30,9 @@ public abstract class ResetHandling
     {
         Mw.Dispatcher.Invoke(() =>
         {
+#if RELEASE
             Mw.AttachedLabel.Content = "Launch FH4, FH5 or FM8";
+#endif
             Tabs.Tuning.Tuning.T.AobProgressBar.Value = 0;
             Tabs.Self_Vehicle.SelfVehicle.Sv.AobProgressBar.Value = 0;
             Tabs.AutoShowTab.AutoShow.As.AobProgressBar.Value = 0;

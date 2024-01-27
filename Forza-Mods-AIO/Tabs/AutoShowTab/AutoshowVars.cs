@@ -33,6 +33,12 @@ internal class AutoshowVars
         /*Mw.Mapper = new LibraryMapper(Mw.M.MProc.Process, Properties.Resources.SQL_DLL);
         Mw.Mapper.MapLibrary();*/
 
+        
+#if !RELEASE
+        var start = DateTime.Now;
+        Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Starting autoshow scan at: {start}");
+#endif
+        
         var sqlExecAobScan = SqlExecAobScan();
         
         //AutoshowGarageOption.IsEnabled = Mw.Mapper.DllBaseAddress != IntPtr.Zero;
@@ -41,6 +47,10 @@ internal class AutoshowVars
         As.UiManager.AddProgress();
         //As.UiManager.ToggleUiElements(Mw.Mapper.DllBaseAddress != IntPtr.Zero);
         As.UiManager.ToggleUiElements(sqlExecAobScan);
+                                
+#if !RELEASE
+        Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Finished autoshow scan at: {DateTime.Now}. Scan took: {(DateTime.Now - start).Seconds + "," + (DateTime.Now - start).Milliseconds}s\nSQL Ptr: {_ptr:X}");
+#endif
     }
     
     public static async void ExecSql(object button, RoutedEventHandler action, string sql)
@@ -51,9 +61,17 @@ internal class AutoshowVars
         }
 
         button.GetType().GetProperty("IsEnabled")?.SetValue(button, false);
-            
+
+        var start = DateTime.Now;
+        
+#if !RELEASE
+        Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Executing SQL at: {start}");
+#endif
         var retValue = await Task.Run(() => Query(sql));
-            
+      
+#if !RELEASE
+        Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Finished Executing SQL at: {DateTime.Now}.\nExecuting took: {(DateTime.Now - start).Milliseconds} MS");
+#endif      
         /*await Task.Run(() =>
         {
             using var pipeClient = new NamedPipeClientStream("PogPipe");

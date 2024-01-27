@@ -33,6 +33,10 @@ public abstract class CarEntity
         {
             await Task.Delay(5);
         }
+        
+#if !RELEASE
+        Mw.Dispatcher.Invoke(() => Mw.EntityDebugLabel.Text = $"Local Player Entity: {PlayerCarEntity:X}\nBase Address Hook: {BaseDetour.AllocatedAddress:X}");
+#endif
     }
 
     private static void SetupHook()
@@ -60,7 +64,7 @@ public abstract class CarEntity
             Fm8 => 7,
             _ => throw new IndexOutOfRangeException()
         };
-
+        
         if (!BaseDetour.Setup(BaseAddrHook, orig, baseDetourBytes, replace, true, 0, true))
         {
             return;

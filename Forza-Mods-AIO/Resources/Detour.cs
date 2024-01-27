@@ -49,7 +49,7 @@ public class Detour : Asm
         {
             return true;
         }
-
+        
         if (string.IsNullOrWhiteSpace(detourBytes))
         {
             throw new Exception(@"Detour bytes argument cant be null nor whitespace");
@@ -71,6 +71,9 @@ public class Detour : Asm
             MessageBox.Show(@"The address for this feature wasn't found.");
             return false;
         }
+#if !RELEASE
+        Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Starting to hook. Addr: {addr:X}");
+#endif
 
         _detourAddr = addr;
         ToggleButton(button, false);
@@ -129,8 +132,12 @@ public class Detour : Asm
 
         if (useVarAddress)
         {
-            VariableAddress = _allocatedAddress + (UIntPtr)finalDetourBytes.Length + varAddressOffset + 5;
+            VariableAddress = AllocatedAddress + (UIntPtr)finalDetourBytes.Length + varAddressOffset + 5;
         }
+        
+#if !RELEASE
+        Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Finished hooking. Addr: {addr:X}\nVar Addr: {VariableAddress:X}, Allocated Addr: {AllocatedAddress:X}");
+#endif
 
         _newBytes = Mw.M.ReadArrayMemory<byte>(_detourAddr, replaceCount);
         ToggleButton(button, true);
@@ -173,7 +180,7 @@ public class Detour : Asm
     /// </summary>
     public void Destroy()
     {
-        if (_allocatedAddress == UIntPtr.Zero || _realOriginalBytes == null)
+        if (AllocatedAddress == UIntPtr.Zero || _realOriginalBytes == null)
         {
             return;
         }
@@ -185,7 +192,7 @@ public class Detour : Asm
             Task.Delay(25).Wait();
         }
         
-        VirtualFreeEx(Mw.Gvp.Process!.Handle, _allocatedAddress, 0, MemRelease);
+        VirtualFreeEx(Mw.Gvp.Process!.Handle, AllocatedAddress, 0, MemRelease);
     }
 
     /// <summary>
@@ -193,7 +200,7 @@ public class Detour : Asm
     /// </summary>
     public void Clear()
     {
-        _detourAddr = _allocatedAddress = VariableAddress = UIntPtr.Zero;
+        _detourAddr = AllocatedAddress = VariableAddress = UIntPtr.Zero;
         _realOriginalBytes = _newBytes = null;
         IsSetup = false;
         _firstTime = true;
@@ -233,8 +240,8 @@ public class Detour : Asm
     
     private bool CreateDetour(byte[] caveBytes, int replaceCount)
     {
-        _allocatedAddress = Mw.M.CreateDetour(_detourAddr.ToString("X"), caveBytes, replaceCount);
-        return _allocatedAddress != UIntPtr.Zero;
+        AllocatedAddress = Mw.M.CreateDetour(_detourAddr.ToString("X"), caveBytes, replaceCount);
+        return AllocatedAddress != UIntPtr.Zero;
     }
 
     public void UpdateVariable<T>(T value, uint varOffset = 0) where T : unmanaged
@@ -271,7 +278,7 @@ public class Detour : Asm
         sb.Append("IsSetup: ").AppendLine(IsSetup.ToString());
         sb.Append("First Time Toggle: ").AppendLine(_firstTime.ToString());
         sb.Append("Detour Addr: ").AppendLine(_detourAddr.ToString("X"));
-        sb.Append("Allocated Addr: ").AppendLine(_allocatedAddress.ToString("X"));
+        sb.Append("Allocated Addr: ").AppendLine(AllocatedAddress.ToString("X"));
         sb.Append("Variable Addr: ").AppendLine(VariableAddress.ToString("X"));
 
         if (_realOriginalBytes != null)
@@ -309,7 +316,8 @@ public class Detour : Asm
     public bool IsHooked { get; private set; }
     public bool IsSetup { get; private set; }
     public UIntPtr VariableAddress { get; private set; }
-    private UIntPtr _detourAddr, _allocatedAddress;
+    public UIntPtr AllocatedAddress { get; private set; }
+    private UIntPtr _detourAddr;
     private byte[]? _realOriginalBytes, _newBytes;
     private bool _firstTime = true;
 }
