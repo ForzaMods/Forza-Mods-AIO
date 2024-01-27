@@ -269,8 +269,8 @@
                                        NumericInputMode="Decimal"
                                        ParsingNumberStyle="Float"
                                        TextAlignment="Left"
-                                       Minimum="-100"
-                                       Maximum="100"
+                                       Minimum="0"
+                                       Maximum="1"
                                        Value="0"
                                        Width="Auto"
                                        VerticalAlignment="Center"
@@ -599,7 +599,6 @@
                               VerticalAlignment="Center" 
                               Background="#FF2E3440" 
                               BorderBrush="#FF2E3440"
-                              IsEnabled="False"
                               SelectionChanged="StopAllWheelsModeBox_OnSelectionChanged"
                               Grid.Column="5">
                             <ComboBoxItem Content="Instant"/>

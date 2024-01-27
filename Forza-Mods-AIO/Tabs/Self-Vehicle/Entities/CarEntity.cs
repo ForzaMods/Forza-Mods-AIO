@@ -15,10 +15,10 @@ public abstract class CarEntity
 {
     public static UIntPtr PlayerCarEntity { get; private set; }
     public static readonly Detour BaseDetour = new();
-    private const string BaseFh5 = "48 81 E9 70 05 00 00 48 89 0D 0C 00 00 00 48 81 C1 70 05 00 00";
+    private const string BaseFh5 = "48 81 EF 70 05 00 00 48 89 3D 0C 00 00 00 48 81 C7 70 05 00 00";
     private const string BaseFh4 = "48 81 E9 60 05 00 00 48 89 0D 0C 00 00 00 48 81 C1 60 05 00 00";
     private const string BaseFm8 = "48 81 E9 D0 04 00 00 48 89 0D 0C 00 00 00 48 81 C1 D0 04 00 00";
-    private const string OrigFh5 = "0F 2F B1 1C BE 00 00";
+    private const string OrigFh5 = "48 8B 07 8B D3";
     private const string OrigFh4 = "F3 0F 10 81 90 01 00 00";
     private const string OrigFm8 = "0F 2F B1 A0 71 00 00";
     
@@ -53,8 +53,14 @@ public abstract class CarEntity
             _ => string.Empty
         };
 
-        var isFh4 = Mw.Gvp.Type == Fh4;
-        var replace = isFh4 ? 8 : 7;
+        var replace = Mw.Gvp.Type switch
+        {
+            Fh4 => 8,
+            Fh5 => 5,
+            Fm8 => 7,
+            _ => throw new IndexOutOfRangeException()
+        };
+
         if (!BaseDetour.Setup(BaseAddrHook, orig, baseDetourBytes, replace, true, 0, true))
         {
             return;

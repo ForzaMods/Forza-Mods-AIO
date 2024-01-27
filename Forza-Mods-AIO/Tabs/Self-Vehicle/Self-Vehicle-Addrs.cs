@@ -165,7 +165,7 @@ internal class SelfVehicleAddresses
         EncValuesHookAddr = Mw.M.ScanForSig(encValuesHookSig).FirstOrDefault() + 13;
         Sv.UiManager.AddProgress();
 
-        const string baseAddrSig = "0F 2F ? ? ? ? ? 72 ? 0F 2F ? ? ? ? ? 72 ? 0F 2F";
+        const string baseAddrSig = "48 8B ? 8B D3 48 8B ? FF 90 ? ? ? ? 48 63";
         BaseAddrHook = Mw.M.ScanForSig(baseAddrSig).FirstOrDefault();
         Sv.UiManager.AddProgress();
 
