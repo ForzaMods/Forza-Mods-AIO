@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
-using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 
 using static System.Math;
@@ -221,6 +221,6 @@ public abstract class TurnAssist : FeatureBase
 
     private static float GetSteeringInput()
     {
-        return KeyStates.IsKeyPressed(Keys.A) ? -1 : KeyStates.IsKeyPressed(Keys.D) ? 1 : 0;
+        return KeyStates.IsKeyPressed(Key.A) ? -1 : KeyStates.IsKeyPressed(Key.D) ? 1 : 0;
     }
 }

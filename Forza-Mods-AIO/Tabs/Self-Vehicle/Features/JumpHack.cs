@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-
+using Forza_Mods_AIO.Resources;
 using static System.Convert;
 using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Resources.KeyStates;
@@ -20,10 +20,10 @@ public abstract class JumpHack : FeatureBase
         {
             if (!Shp.Dispatcher.Invoke(() => Shp.JumpHackSwitch.IsOn) || !IsProcessValid())
             {
-                break;
+                return;
             }
                 
-            if (!IsKeyPressed(Hk.JmpHack) && !Mw.Gamepad.IsButtonPressed(JmpHackController))
+            if (!IsKeyPressed(Mw.Keybindings.JumpHack) && !Mw.Gamepad.IsButtonPressed(Mw.Keybindings.JumpHackController))
             {
                 Task.Delay(25).Wait();
                 continue;
@@ -31,7 +31,7 @@ public abstract class JumpHack : FeatureBase
             
             LinearVelocity = LinearVelocity with { Y = LinearVelocity.Y + _boost };
 
-            while (IsKeyPressed(Hk.JmpHack) || Mw.Gamepad.IsButtonPressed(JmpHackController))
+            while (IsKeyPressed(Mw.Keybindings.JumpHack) || Mw.Gamepad.IsButtonPressed(Mw.Keybindings.JumpHackController))
             {
                 Task.Delay(50).Wait();
             }

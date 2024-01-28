@@ -1,11 +1,12 @@
-﻿using System;
+﻿#define TopLeft
+
+using System;
 using IniParser;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Threading;
 using System.Reflection;
-using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Interop;
 using System.Threading.Tasks;
@@ -15,22 +16,24 @@ using Forza_Mods_AIO.Resources;
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using System.Runtime.InteropServices;
-using System.Windows.Media.Animation;
 using Forza_Mods_AIO.Overlay.Menus.SettingsMenu;
 using Forza_Mods_AIO.Overlay.Options;
+
 using static System.Convert;
 using static System.Environment;
 using static System.Math;
 using static System.Windows.Visibility;
 using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Overlay.Overlay;
-using static System.Windows.HorizontalAlignment;
 using static Forza_Mods_AIO.Resources.DllImports;
+using static Forza_Mods_AIO.Resources.KeyStates;
+
 using Application = System.Windows.Application;
 using Brush = System.Windows.Media.Brush;
 using Timer = System.Windows.Forms.Timer;
 using Brushes = System.Windows.Media.Brushes;
 using TextAlignment = System.Windows.TextAlignment;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
 
 namespace Forza_Mods_AIO.Overlay;
 
@@ -69,23 +72,6 @@ public partial class OverlayHandling
     private static partial void SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
     #endregion
     #region Variables
-    public static Keys Up = Keys.NumPad8;
-    public static Keys Down = Keys.NumPad2;
-    public static Keys Left = Keys.NumPad4;
-    public static Keys Right = Keys.NumPad6;
-    public static Keys Confirm = Keys.NumPad5;
-    public static Keys Leave = Keys.NumPad0;
-    public static Keys RapidAdjust = Keys.Alt;
-    public static Keys OverlayVisibility = Keys.Subtract;
-
-    public static string ControllerUp = "DPadUp";
-    public static string ControllerDown = "DPadDown";
-    public static string ControllerLeft = "DPadLeft";
-    public static string ControllerRight = "DPadRight";
-    public static string ControllerConfirm = "LeftThumb";
-    public static string ControllerLeave = "RightThumb";
-    public static string ControllerRapidAdjust = "LeftShoulder";
-    public static string ControllerOverlayVisibility = "RightShoulder";
     
     // Menu operational vars
     private string[] _menuHeaders = null!;
@@ -267,14 +253,18 @@ public partial class OverlayHandling
 
             GetWindowRect(Mw.Gvp.Process.MainWindowHandle, ref gameWindow);
             GetClientRect(Mw.Gvp.Process.MainWindowHandle, out var gameClientWindow);
-
+            
+// change this at the top of the file
+#if TopLeft
             var offset = gameClientWindow.Bottom / 20d;
             var posLeft = gameWindow.Left + (gameWindow.Right - gameWindow.Left - gameClientWindow.Right) / 2d + offset;
-            var posTop = gameWindow.Top + (gameWindow.Bottom - gameWindow.Top - gameClientWindow.Bottom) / 1.5d + offset;
-            
-            // top right
-            //var xOffset = ForzaClientWindow.Bottom / 2.5d;
-            //var PosLeft = ForzaWindow.Right - (ForzaWindow.Right - ForzaWindow.Left - ForzaClientWindow.Right) - xOffset;
+            var posTop = gameWindow.Top + (gameWindow.Bottom - gameWindow.Top - gameClientWindow.Bottom) / 1.5d + offset;   
+#else
+            var xOffset = gameClientWindow.Bottom / 2.5d;
+            var yOffset = gameClientWindow.Bottom / 20d;
+            var posLeft = gameWindow.Right - (gameWindow.Right - gameWindow.Left - gameClientWindow.Right) - xOffset;  
+            var posTop = gameWindow.Top + (gameWindow.Bottom - gameWindow.Top - gameClientWindow.Bottom) / 1.5d + yOffset;   
+#endif
             
             var yRes = gameClientWindow.Bottom - (gameWindow.Bottom - gameWindow.Top - gameClientWindow.Bottom) / 1.3;
             double headerY = yRes / 10.8d, headerX = headerY * 4;
@@ -458,11 +448,6 @@ public partial class OverlayHandling
     
     private void AddAllMenuOptions()
     {
-        if (Mw.Gvp.Process == null)
-        {
-            return;
-        }
-        
         var gameWindow = new DllImports.Rect();
         GetWindowRect(Mw.Gvp.Process.MainWindowHandle, ref gameWindow);
         GetClientRect(Mw.Gvp.Process.MainWindowHandle, out var gameClientWindow);
@@ -519,7 +504,7 @@ public partial class OverlayHandling
                     Foreground = fColour,
                     FontSize = yRes / (5d / FontSize * 45d),
                     Width = O.Width - 10,
-                    HorizontalAlignment = Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
                     TextAlignment = TextAlignment.Center
                 };
                     
@@ -563,11 +548,6 @@ public partial class OverlayHandling
 
     private static bool IsGameFocused()
     {
-        if (Mw.Gvp.Process == null)
-        {
-            return false;
-        }
-        
         return Mw.Gvp.Process.MainWindowHandle == GetForegroundWindow();
     }
     
@@ -614,26 +594,26 @@ public partial class OverlayHandling
     private void HandleKeyEvents()
     {
         var currentOption = O.AllMenus[_currentMenu][_selectedOptionIndex];
-        if (IsKeyPressed(Confirm) && currentOption.IsEnabled)
+        if (IsKeyPressed(Mw.Keybindings.Confirm) && currentOption.IsEnabled)
         {
             HandleConfirmPress(currentOption);
-            while (IsKeyPressed(Confirm))
+            while (IsKeyPressed(Mw.Keybindings.Confirm))
             {
                 Task.Delay(10).Wait();
             }
         }
-        else if (IsKeyPressed(Leave))
+        else if (IsKeyPressed(Mw.Keybindings.Leave))
         {
             HandleLeavePress();
-            while (IsKeyPressed(Leave))
+            while (IsKeyPressed(Mw.Keybindings.Leave))
             {
                 Task.Delay(10).Wait();
             }
         }
-        else if (IsKeyPressed(OverlayVisibility))
+        else if (IsKeyPressed(Mw.Keybindings.OverlayVisibility))
         {
             HandleVisibilityPress();
-            while (IsKeyPressed(OverlayVisibility))
+            while (IsKeyPressed(Mw.Keybindings.OverlayVisibility))
             {
                 Task.Delay(10).Wait();
             }
@@ -732,28 +712,14 @@ public partial class OverlayHandling
 
         _hidden = !_hidden;
     }
-    private static void UpdateKeyState(Keys key, ref bool keyDownBool)
-    {
-        keyDownBool = IsKeyPressed(key) switch
-        {
-            true when !keyDownBool => true,
-            false when keyDownBool => false,
-            _ => keyDownBool
-        };
-    }
-
-    private static bool IsKeyPressed(Keys key)
-    {
-        return (GetAsyncKeyState(key) & (1 | short.MinValue)) != 0;
-    }
     
     private void UpdateKeyStates()
     {
-        UpdateKeyState(Down, ref _downKeyDown);
-        UpdateKeyState(Up, ref _upKeyDown);
-        UpdateKeyState(Left, ref _leftKeyDown);
-        UpdateKeyState(Right, ref _rightKeyDown);
-        UpdateKeyState(RapidAdjust, ref _rapidKeyDown);
+        UpdateKeyState(Mw.Keybindings.Down, ref _downKeyDown);
+        UpdateKeyState(Mw.Keybindings.Up, ref _upKeyDown);
+        UpdateKeyState(Mw.Keybindings.Left, ref _leftKeyDown);
+        UpdateKeyState(Mw.Keybindings.Right, ref _rightKeyDown);
+        UpdateKeyState(Mw.Keybindings.RapidAdjust, ref _rapidKeyDown);
     }
     
     private void UpdateControllerStates()
@@ -765,14 +731,14 @@ public partial class OverlayHandling
             return;
         }
 
-        _controllerDownKeyDown = Mw.Gamepad.IsButtonPressed(ControllerDown);
-        _controllerUpKeyDown = Mw.Gamepad.IsButtonPressed(ControllerUp);
-        _controllerLeftKeyDown = Mw.Gamepad.IsButtonPressed(ControllerLeft);
-        _controllerRightKeyDown = Mw.Gamepad.IsButtonPressed(ControllerRight);
-        _controllerRapidKeyDown = Mw.Gamepad.IsButtonPressed(ControllerRapidAdjust);
-        _controllerConfirmKeyDown = Mw.Gamepad.IsButtonPressed(ControllerConfirm);
-        _controllerLeaveKeyDown = Mw.Gamepad.IsButtonPressed(ControllerLeave);
-        _controllerVisibilityKeyDown = Mw.Gamepad.IsButtonPressed(ControllerOverlayVisibility);
+        _controllerDownKeyDown = Mw.Gamepad.IsButtonPressed(Mw.Keybindings.ControllerDown);
+        _controllerUpKeyDown = Mw.Gamepad.IsButtonPressed(Mw.Keybindings.ControllerUp);
+        _controllerLeftKeyDown = Mw.Gamepad.IsButtonPressed(Mw.Keybindings.ControllerLeft);
+        _controllerRightKeyDown = Mw.Gamepad.IsButtonPressed(Mw.Keybindings.ControllerRight);
+        _controllerRapidKeyDown = Mw.Gamepad.IsButtonPressed(Mw.Keybindings.ControllerRapidAdjust);
+        _controllerConfirmKeyDown = Mw.Gamepad.IsButtonPressed(Mw.Keybindings.ControllerConfirm);
+        _controllerLeaveKeyDown = Mw.Gamepad.IsButtonPressed(Mw.Keybindings.ControllerLeave);
+        _controllerVisibilityKeyDown = Mw.Gamepad.IsButtonPressed(Mw.Keybindings.ControllerOverlayVisibility);
     }
     
     public void ChangeSelection(CancellationToken ct)
@@ -938,8 +904,8 @@ public partial class OverlayHandling
     {
         switch (currentOption)
         {
-            case FloatOption floatOption when floatOption.Minimum != float.MinValue &&
-                                              floatOption.Maximum != float.MaxValue &&
+            case FloatOption floatOption when Abs(floatOption.Minimum - float.MinValue) > 0.001 &&
+                                              Abs(floatOption.Maximum - float.MaxValue) > 0.001 &&
                                               floatOption.Value >= floatOption.Maximum:
             {
                 floatOption.Value = floatOption.Minimum;
@@ -952,7 +918,7 @@ public partial class OverlayHandling
                 intOption.Value = intOption.Minimum;
                 break;
             }
-            case FloatOption floatOption when floatOption.Minimum != float.MinValue &&
+            case FloatOption floatOption when Abs(floatOption.Minimum - float.MinValue) > 0.001 &&
                                               floatOption.Value >= floatOption.Maximum:
             {
                 floatOption.Value = floatOption.Maximum;
@@ -996,8 +962,8 @@ public partial class OverlayHandling
     {
         switch (currentOption)
         {
-            case FloatOption floatOption when floatOption.Minimum != float.MinValue &&
-                                              floatOption.Maximum != float.MaxValue &&
+            case FloatOption floatOption when Abs(floatOption.Minimum - float.MinValue) > 0.001 &&
+                                              Abs(floatOption.Maximum - float.MaxValue) > 0.001 &&
                                               floatOption.Value <= floatOption.Minimum:
             {
                 floatOption.Value = floatOption.Maximum;
@@ -1010,7 +976,7 @@ public partial class OverlayHandling
                 intOption.Value = intOption.Maximum;
                 break;
             }
-            case FloatOption floatOption when floatOption.Minimum != float.MinValue &&
+            case FloatOption floatOption when Abs(floatOption.Minimum - float.MinValue) > 0.001 &&
                                               floatOption.Value <= floatOption.Minimum:
             {
                 floatOption.Value = floatOption.Maximum;

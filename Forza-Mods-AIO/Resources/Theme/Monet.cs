@@ -33,7 +33,6 @@ internal abstract class Monet
     #endregion
     #region Functions
     
-    
     private static Bitmap CaptureWindow(IntPtr handle)
     {
         //https://stackoverflow.com/questions/69605967/c-printwindow-api-returns-black-or-partial-images-alternative-methods#comment129026870_69605967
@@ -178,7 +177,7 @@ internal abstract class Monet
         Current.AddTheme(new(randName, randName, "Dark", "Red", (MColor)ConvertFromString(colourHex4), DarkerColour, true, false));
         Current.ChangeTheme(Application.Current, randName);
 
-        Mw.CategoryButton_Click(new object(), new RoutedEventArgs());
+        Mw.CategoryButton_Click(Mw.AioInfo, new RoutedEventArgs());
         foreach (var visual in Mw.Window.GetChildren())
         {
             var element = (FrameworkElement)visual;

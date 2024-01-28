@@ -17,7 +17,6 @@
                  Background="Transparent"
                  MouseDown="Window_MouseDown"
                  Closing="Window_Closing"
-                 KeyDown="Window_OnKeyDown"
                  ShowTitleBar="False" 
                  ShowCloseButton="False" 
                  ShowMinButton="False"
@@ -71,7 +70,6 @@
                           Width="16" 
                           Height="16"
                           Margin="0 0 15 0" 
-                          Focusable="False"
                           HorizontalAlignment="Right" 
                           VerticalAlignment="Center">
                         <Path.LayoutTransform>
@@ -93,7 +91,6 @@
                           Width="16" 
                           Height="8"
                           Margin="0 0 15 0"
-                          Focusable="False"
                           HorizontalAlignment="Right"
                           VerticalAlignment="Center"/>
                 </Grid>
@@ -111,7 +108,7 @@
                           Width="16" 
                           Height="16"
                           Margin="0 0 15 0" 
-                          Focusable="False" 
+                          
                           HorizontalAlignment="Right" 
                           VerticalAlignment="Center"/>
                 </Grid>
@@ -128,14 +125,13 @@
                           Width="16" 
                           Height="16"
                           Margin="0 0 15 0" 
-                          Focusable="False" 
                           HorizontalAlignment="Right" 
                           VerticalAlignment="Center"/>
                     
                 </Grid>
 
                 <Grid>
-                    <RadioButton x:Name="Keybindings"
+                    <RadioButton x:Name="KeybindingsButton"
                                  Content="Keybindings"
                                  Style="{StaticResource MenuButtonTheme}"
                                  Click="CategoryButton_Click" />
@@ -153,12 +149,12 @@
                 
             </StackPanel>
             
-            <Grid Grid.Row="2" Grid.Column="1">
-                <Frame x:Name="AioInfoFrame" Content="Frame" Source="/Tabs/AIO-Info/AIO-Info.xaml" Visibility="Visible" Focusable="False" IsTabStop="False"/>
-                <Frame x:Name="AutoShowFrame" Content="Frame" Source="/Tabs/AutoShowTab/AutoShow.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
-                <Frame x:Name="SelfVehicleFrame" Content="Frame" Source="/Tabs/Self-Vehicle/Self-Vehicle.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
-                <Frame x:Name="TuningFrame" Content="Frame" Source="/Tabs/Tuning/Tuning.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
-                <Frame x:Name="KeybindingsFrame" Content="Frame" Source="/Tabs/Keybindings/Keybindings.xaml" Visibility="Hidden" Focusable="False" IsTabStop="False"/>
+            <Grid x:Name="FramesGrid" Grid.Row="2" Grid.Column="1">
+                <Frame x:Name="AioInfoFrame" Source="/Tabs/AIO-Info/AIO-Info.xaml"/>
+                <Frame x:Name="AutoShowFrame" Source="/Tabs/AutoShowTab/AutoShow.xaml" Visibility="Hidden"/>
+                <Frame x:Name="SelfVehicleFrame" Source="/Tabs/Self-Vehicle/Self-Vehicle.xaml" Visibility="Hidden"/>
+                <Frame x:Name="TuningFrame" Source="/Tabs/Tuning/Tuning.xaml" Visibility="Hidden"/>
+                <Frame x:Name="KeybindingsFrame" Source="/Tabs/Keybindings/Keybindings.xaml" Visibility="Hidden"/>
             </Grid>
             
             <Label x:Name="AttachedLabel" 
@@ -202,7 +198,6 @@
                   Grid.Row="0" 
                   Grid.RowSpan="2"
                   Grid.Column="1" 
-                  Focusable="False"
                   HorizontalAlignment="Right" 
                   VerticalAlignment="Center" />
                   

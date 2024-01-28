@@ -27,7 +27,7 @@
                             HorizontalAlignment="Left"
                             Margin="180 7.5"
                             Width="85"
-                            Click="KBButton_OnClick"
+                            KeyDown="KeybindingButton_OnKeyDown"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>
@@ -65,7 +65,7 @@
                             Width="85"
                             Focusable="False"
                             Height="25"
-                            Click="KBButton_OnClick"
+                            KeyDown="KeybindingButton_OnKeyDown"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>
                 
@@ -101,7 +101,7 @@
                             HorizontalAlignment="Left"
                             Margin="180 7.5"
                             Width="85"
-                            Click="KBButton_OnClick"
+                            KeyDown="KeybindingButton_OnKeyDown"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>
@@ -138,7 +138,7 @@
                             HorizontalAlignment="Left"
                             Margin="180 7.5"
                             Width="85"
-                            Click="KBButton_OnClick"
+                            KeyDown="KeybindingButton_OnKeyDown"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>

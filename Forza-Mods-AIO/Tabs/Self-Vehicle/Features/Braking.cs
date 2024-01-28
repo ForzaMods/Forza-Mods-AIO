@@ -11,7 +11,6 @@ using static Forza_Mods_AIO.Resources.KeyStates;
 using static Forza_Mods_AIO.Resources.DllImports;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.Entities.CarEntity;
 using static Forza_Mods_AIO.Tabs.Self_Vehicle.DropDownTabs.HandlingPage;
-using static Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs.HandlingKeybindings;
 
 namespace Forza_Mods_AIO.Tabs.Self_Vehicle.Features;
 
@@ -57,7 +56,7 @@ public abstract class Braking
                     continue;
                 }
 
-                if (!IsKeyPressed(Hk.BrakeHack) && !Mw.Gamepad.IsButtonPressed(BrakeHackController))
+                if (!IsKeyPressed(Mw.Keybindings.BrakeHack) && !Mw.Gamepad.IsButtonPressed(Mw.Keybindings.BrakeHackController))
                 {
                     Task.Delay(_interval).Wait();
                     continue;
@@ -160,7 +159,7 @@ public abstract class Braking
                     continue;
                 }
 
-                if (!IsKeyPressed(Hk.BrakeHack) && !Mw.Gamepad.IsButtonPressed(BrakeHackController))
+                if (!IsKeyPressed(Mw.Keybindings.BrakeHack) && !Mw.Gamepad.IsButtonPressed(Mw.Keybindings.BrakeHackController))
                 {
                     Task.Delay(25).Wait();
                     continue;

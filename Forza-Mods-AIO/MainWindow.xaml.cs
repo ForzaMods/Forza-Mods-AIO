@@ -11,20 +11,19 @@ using System.Windows.Media;
 using ControlzEx.Theming;
 using Memory;
 using Forza_Mods_AIO.Resources;
+
 using static System.Diagnostics.FileVersionInfo;
 using static System.IO.Path;
 using static System.Windows.Forms.Control;
-using static System.Windows.Forms.DialogResult;
-using static System.Windows.Forms.MessageBoxButtons;
 using static System.Windows.Media.ColorConverter;
 using static System.Windows.Media.VisualTreeHelper;
 using static System.Xml.Linq.XElement;
 using static ControlzEx.Theming.ThemeManager;
 using static Forza_Mods_AIO.Overlay.Overlay;
 using static Forza_Mods_AIO.Resources.Bypass;
+
 using Application = System.Windows.Application;
 using Monet = Forza_Mods_AIO.Resources.Theme.Monet;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Forza_Mods_AIO;
 
@@ -41,9 +40,8 @@ public partial class MainWindow
     //public LibraryMapper Mapper = null!;
     public readonly Gamepad Gamepad = new(); 
     public GameVerPlat Gvp { get; private set; } = new();
-    public Keybinds Keybinds { get; } = new(); 
+    public Keybindings Keybindings { get; } = new(); 
     public bool Attached { get; private set; }
-    private IEnumerable<Visual>? _visuals;
 
     #endregion
 
@@ -53,8 +51,10 @@ public partial class MainWindow
     {
         InitializeComponent();
         Mw = this;
-        
+     
+#if RELEASE
         UpdateAio();
+#endif
         InitializeTheme();
         
         CategoryButton_Click(AioInfo, new RoutedEventArgs());
@@ -79,16 +79,11 @@ public partial class MainWindow
         AttachedLabel.Content = "Launch FH4, FH5 or FM8";
 #endif
     }
-    
-    private const bool DisableUpdateChecking = true;
+
+#if RELEASE
     
     private async void UpdateAio()
     {
-        if (DisableUpdateChecking)
-        {
-            return;
-        }
-        
         if (!await Updater.CheckInternetConnection())
         {
             return;
@@ -119,6 +114,9 @@ public partial class MainWindow
         Show();
         updater.Dispose();
     }
+    
+#endif
+
     #endregion
 
     #region Dragging
@@ -165,22 +163,18 @@ public partial class MainWindow
             }
 
             rb.Background = Monet.DarkerColour;
-            rbName = rb.Name;
+            rbName = rb.Name.Replace("Button", string.Empty);
         }
-
-        _visuals ??= Window.GetChildren(this);
-
-        foreach (var element in _visuals.Cast<FrameworkElement>())
+        
+        foreach (var element in FramesGrid.Children.Cast<FrameworkElement>())
         {
             if (element.Name == rbName + "Frame")
             {
                 element.Visibility = Visibility.Visible;
+                continue;
             }
 
-            else if (element is Frame frame && frame.Name.Contains("Frame"))
-            {
-                frame.Visibility = Visibility.Hidden;
-            }
+            element.Visibility = Visibility.Hidden;
         }
     }
 
@@ -188,16 +182,15 @@ public partial class MainWindow
     {
         foreach (var element in grid.Children)
         {
-            if (element.GetType() != typeof(RadioButton))
+            if (element is not RadioButton radioButton)
             {
                 continue;
             }
 
-            var rb = (RadioButton)element;
-            return rb;
+            return radioButton;
         }
 
-        throw new Exception(@"Grid doesnt contain any radiobutton");
+        throw new ArgumentException(@"Grid doesnt contain any radiobutton");
     }
     
     #endregion
@@ -357,15 +350,6 @@ public partial class MainWindow
         Environment.Exit(0);
     }
     
-    #endregion
-
-    #region Keybinds
-
-    private void Window_OnKeyDown(object sender, KeyEventArgs e)
-    {
-        Keybinds.Grab();
-    }
-
     #endregion
 }
 

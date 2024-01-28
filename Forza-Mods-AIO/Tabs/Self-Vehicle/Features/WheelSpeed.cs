@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Numerics;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 
 using static System.Math;
@@ -44,17 +43,12 @@ public abstract class WheelSpeed : FeatureBase
     {
         while (true)
         {
-            if (!IsProcessValid())
+            if (!IsProcessValid() || !Shp.Dispatcher.Invoke(() => Shp.WheelSpeedSwitch.IsOn))
             {
                 return;
             }
 
-            if (!Shp.Dispatcher.Invoke(() => Shp.WheelSpeedSwitch.IsOn))
-            {
-                return;
-            }
-
-            if (!IsKeyPressed(Hk.WheelspeedHack) && !Mw.Gamepad.IsButtonPressed(WheelspeedHackController))
+            if (!IsKeyPressed(Mw.Keybindings.WheelSpeed) && !Mw.Gamepad.IsButtonPressed(Mw.Keybindings.WheelSpeedHackController))
             {
                 Task.Delay(_interval).Wait();
                 continue;

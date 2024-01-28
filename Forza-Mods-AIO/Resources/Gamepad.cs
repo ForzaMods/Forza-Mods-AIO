@@ -1,19 +1,17 @@
 ﻿using System;
 using SharpDX.XInput;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using Forza_Mods_AIO.Overlay;
+using static System.Reflection.BindingFlags;
 
 namespace Forza_Mods_AIO.Resources;
 
 public class Gamepad
 {
-    public Controller GetXInputController()
-    {
-        InitializeControllersAndInput();
-        return _controller;
-    }
-
     public bool IsControllerConnected { get; private set; }
-    
     private Controller _controller = null!;
     
     public void InitializeControllersAndInput()
@@ -59,15 +57,69 @@ public class Gamepad
         }
     }
     
-    public bool IsButtonPressed(string key)
+    public bool IsButtonPressed(GamepadButtonFlags key)
     {
         return _controller != null! && IsXInputButtonPressed(key);
     }
 
-    private bool IsXInputButtonPressed(string key)
+    private bool IsXInputButtonPressed(GamepadButtonFlags key)
     {
-        var button = (GamepadButtonFlags)Enum.Parse(typeof(GamepadButtonFlags), key);
         var state = _controller.GetState();
-        return (state.Gamepad.Buttons & button) != 0;
+        return (state.Gamepad.Buttons & key) != 0;
+    }
+
+    private bool _controllerReading;
+    public async void GetAndSetXInputKey(ContentControl button)
+    {
+        if (_controllerReading)
+        {
+            return;
+        }
+        
+        var keyBuffer = GamepadButtonFlags.None;
+        while (keyBuffer == GamepadButtonFlags.None)
+        {
+            InitializeControllersAndInput();
+
+            if (!IsControllerConnected)
+            {
+                return;
+            }
+
+            foreach (GamepadButtonFlags buttonFlag in Enum.GetValues(typeof(GamepadButtonFlags)))
+            {
+                if (buttonFlag == GamepadButtonFlags.None)
+                {
+                    continue;
+                }
+
+                var isPressed = IsButtonPressed(buttonFlag);
+                if (!isPressed)
+                {
+                    continue;
+                }
+                
+                keyBuffer = buttonFlag;
+                break;
+            }
+
+            await Task.Delay(5);
+        }
+
+        var cleanButtonName = button.Name.Replace("Button", string.Empty);
+        var fields = typeof(Keybindings).GetFields(Public | Static).Where(f => f.FieldType == typeof(GamepadButtonFlags));
+        foreach (var field in fields)
+        {
+            if (field.Name != cleanButtonName)
+            {
+                continue;
+            }
+            
+            field.SetValue(MainWindow.Mw.Keybindings, keyBuffer);
+            button.Content = keyBuffer;
+            return;
+        }
+
+        _controllerReading = false;
     }
 }

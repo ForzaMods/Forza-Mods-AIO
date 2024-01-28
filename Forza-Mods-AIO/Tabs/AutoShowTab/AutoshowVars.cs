@@ -30,6 +30,9 @@ internal class AutoshowVars
         As.UiManager.Index = 0;
         As.UiManager.ScanAmount = 1;
             
+        _ptr = nuint.Zero;
+        _callFunction = nuint.Zero;
+        
         /*Mw.Mapper = new LibraryMapper(Mw.M.MProc.Process, Properties.Resources.SQL_DLL);
         Mw.Mapper.MapLibrary();*/
 
@@ -118,8 +121,6 @@ internal class AutoshowVars
             
         button.GetType().GetProperty("IsEnabled")?.SetValue(button, true);
     }
-    
-    
     
     private static bool SqlExecAobScan()
     {

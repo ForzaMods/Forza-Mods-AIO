@@ -92,84 +92,44 @@ public class UiManager
         
         var alreadyOpen = _isClicked[senderName];
         
-        foreach (var visual in _page.GetChildren(_page))
+        foreach (var element in _page.GetChildren(_page).Cast<FrameworkElement>())
         {
-            var element = (FrameworkElement)visual;
-            var elementName = element.GetType().GetProperty("Name")?.GetValue(element)!.ToString();
             var type = element.GetType();
-
-            if (string.IsNullOrWhiteSpace(elementName))
+            if (type != typeof(Button) && type != typeof(Frame))
             {
                 continue;
             }
             
-            if (elementName == "PART_ClearText" || (type != typeof(Button) && type != typeof(Frame)))
+            var elementName = type.GetProperty("Name")?.GetValue(element)!.ToString();
+            if (string.IsNullOrWhiteSpace(elementName) || elementName == "PART_ClearText")
+            {
+                continue;
+            }
+
+            if (!elementName.Contains("Page") || !elementName.Contains(senderName.Replace("Button", string.Empty)))
             {
                 continue;
             }
 
             var storyboard = new Storyboard();
+            storyboard.Completed += (_, _) =>
+            {
+                _dropDownCompleted = true;
+                if (!alreadyOpen) return;
+                element.Visibility = Visibility.Hidden;
+            };
+            element.Visibility = Visibility.Visible;
+
             const double animationDuration = 0.1;
             var duration = new Duration(TimeSpan.FromSeconds(animationDuration));
-                
-            if (elementName.Contains("Page") && elementName.Contains(senderName.Replace("Button", string.Empty)))
-            {
-                storyboard.Completed += (_, _) =>
-                {
-                    _dropDownCompleted = true;
-                    if (!alreadyOpen) return;
-                    element.Visibility = Visibility.Hidden;
-                };
-                element.Visibility = Visibility.Visible;
+            var doubleAnimation = alreadyOpen
+                ? new DoubleAnimation(0, duration)
+                : new DoubleAnimation(_sizes[senderName], duration);
 
-                //Page move height of button
-                var start = (Thickness)(type.GetProperty("Margin")?.GetValue(element) ?? throw new InvalidOperationException());
-                var end = new Thickness(start.Left, start.Top + 25, start.Right, start.Bottom);
-                    
-                if (alreadyOpen)
-                {
-                    end = new Thickness(start.Left, start.Top - 25, start.Right, start.Bottom);
-                }
-                    
-                var thicknessAnimation = new ThicknessAnimation(end, duration);
-
-                //Page change height
-                var doubleAnimation = new DoubleAnimation(_sizes[senderName], duration);
-                if (alreadyOpen)
-                {
-                    doubleAnimation = new DoubleAnimation(25, duration);
-                }
-
-                SetTargetName(thicknessAnimation, elementName);
-                SetTargetProperty(thicknessAnimation, new PropertyPath(FrameworkElement.MarginProperty));
-                storyboard.Children.Add(thicknessAnimation);
-
-                SetTargetName(doubleAnimation, elementName);
-                SetTargetProperty(doubleAnimation, new PropertyPath(FrameworkElement.HeightProperty));
-                storyboard.Children.Add(doubleAnimation);
-                storyboard.Begin(element);
-            }
-            else if ((type == typeof(Button)
-                      && _isClicked.Keys.ToList().IndexOf(elementName) > _isClicked.Keys.ToList().IndexOf(senderName))                                 // Button is below the button that was clicked
-                     || (type == typeof(Frame) 
-                         && !elementName.Contains(senderName.Replace("Button", String.Empty))                                                          // Page isnt the one being shown
-                         && _isClicked.Keys.ToList().IndexOf(elementName.Replace("Page", "Button")) > _isClicked.Keys.ToList().IndexOf(senderName)))   // Page is below the button that was clicked
-            {
-                //Move all buttons down by size of page opened
-                var start = (Thickness)(type.GetProperty("Margin")?.GetValue(element) ?? throw new InvalidOperationException());
-                var end = new Thickness(start.Left, start.Top + _sizes[senderName], start.Right, start.Bottom);
-                if (alreadyOpen)
-                {
-                    end = new Thickness(start.Left, start.Top - _sizes[senderName], start.Right, start.Bottom);
-                }
-
-                var thicknessAnimation = new ThicknessAnimation(end, duration);
-
-                SetTargetName(thicknessAnimation, elementName);
-                SetTargetProperty(thicknessAnimation, new PropertyPath(FrameworkElement.MarginProperty));
-                storyboard.Children.Add(thicknessAnimation);
-                storyboard.Begin(element);
-            }
+            SetTargetName(doubleAnimation, elementName);
+            SetTargetProperty(doubleAnimation, new PropertyPath(FrameworkElement.HeightProperty));
+            storyboard.Children.Add(doubleAnimation);
+            storyboard.Begin(element);
         }
         
         _isClicked[senderName] = !_isClicked[senderName];

@@ -168,7 +168,7 @@ internal class TuningAddresses
         }
         else
         {
-            const string sig = "0F 2F ? ? ? ? ? 72 ? 0F 2F ? ? ? ? ? 72 ? 0F 2F";
+            const string sig = "48 8B ? 8B D3 48 8B ? FF 90 ? ? ? ? 48 63";
             SelfVehicleAddresses.BaseAddrHook = Mw.M.ScanForSig(sig).FirstOrDefault();
         }
         

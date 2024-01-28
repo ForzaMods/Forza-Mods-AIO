@@ -1,10 +1,10 @@
-﻿using System.Windows.Forms;
+﻿using System.Windows.Input;
 
 namespace Forza_Mods_AIO.Resources;
 
 public abstract class KeyStates
 {
-    public static void UpdateKeyState(Keys key, ref bool keyDownBool)
+    public static void UpdateKeyState(Key key, ref bool keyDownBool)
     {
         keyDownBool = IsKeyPressed(key) switch
         {
@@ -14,8 +14,8 @@ public abstract class KeyStates
         };
     }
 
-    public static bool IsKeyPressed(Keys key)
+    public static bool IsKeyPressed(Key key)
     {
-        return (DllImports.GetAsyncKeyState(key) & (1 | short.MinValue)) != 0;
+        return MainWindow.Mw.Dispatcher.Invoke(() => Keyboard.IsKeyDown(key));
     }
 }

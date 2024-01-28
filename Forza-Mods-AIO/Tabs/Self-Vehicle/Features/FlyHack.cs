@@ -1,7 +1,6 @@
 ﻿using System.Numerics;
-using System.Windows.Forms;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using static System.Math;
 using static System.Convert;
 using static Forza_Mods_AIO.MainWindow;
@@ -63,12 +62,12 @@ public abstract class FlyHack : FeatureBase
                 continue;
             }
 
-            UpdateKeyState(Keys.W, ref wDown);
-            UpdateKeyState(Keys.S, ref sDown);
-            UpdateKeyState(Keys.A, ref aDown);
-            UpdateKeyState(Keys.D, ref dDown);
-            UpdateKeyState(Keys.LShiftKey, ref shiftDown);
-            UpdateKeyState(Keys.LControlKey, ref controlDown);
+            UpdateKeyState(Key.W, ref wDown);
+            UpdateKeyState(Key.S, ref sDown);
+            UpdateKeyState(Key.A, ref aDown);
+            UpdateKeyState(Key.D, ref dDown);
+            UpdateKeyState(Key.LeftShift, ref shiftDown);
+            UpdateKeyState(Key.LeftCtrl, ref controlDown);
 
             if (aDown || dDown)
             {
