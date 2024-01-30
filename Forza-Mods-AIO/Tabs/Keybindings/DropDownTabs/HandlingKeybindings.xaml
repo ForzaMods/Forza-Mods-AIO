@@ -22,8 +22,7 @@
                            VerticalAlignment="Top"
                            HorizontalAlignment="Left"/>
                 
-                    <Button x:Name="JmpHackButton"
-                            Content="LControlKey"
+                    <Button x:Name="JumpHackButton"
                             HorizontalAlignment="Left"
                             Margin="180 7.5"
                             Width="85"
@@ -37,12 +36,11 @@
                            VerticalAlignment="Top"
                            HorizontalAlignment="Left"/>
                 
-                    <Button x:Name="JmpHackControllerButton"
-                            Content=""
+                    <Button x:Name="JumpHackControllerButton"
                             HorizontalAlignment="Right"
                             Margin="7.5 7.5"
                             Width="85"
-                            Click="CTButton_OnClick"
+                            Click="ControllerButton_OnClick"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>
@@ -59,7 +57,6 @@
                            HorizontalAlignment="Left"/>
                 
                     <Button x:Name="BrakeHackButton"
-                            Content="Space"
                             HorizontalAlignment="Left"
                             Margin="180 7.5"
                             Width="85"
@@ -75,12 +72,10 @@
                            HorizontalAlignment="Left"/>
                 
                     <Button x:Name="BrakeHackControllerButton"
-                            Content=""
                             HorizontalAlignment="Right"
                             Margin="7.5 7.5"
-                        
                             Width="85"
-                            Click="CTButton_OnClick"
+                            Click="ControllerButton_OnClick"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>
@@ -96,8 +91,7 @@
                            VerticalAlignment="Top"
                            HorizontalAlignment="Left"/>
                 
-                    <Button x:Name="VelHackButton"
-                            Content="LeftShift"
+                    <Button x:Name="VelocityButton"
                             HorizontalAlignment="Left"
                             Margin="180 7.5"
                             Width="85"
@@ -111,13 +105,11 @@
                            VerticalAlignment="Top"
                            HorizontalAlignment="Left"/>
                 
-                    <Button x:Name="VelHackControllerButton"
-                            Content=""
+                    <Button x:Name="VelocityControllerButton"
                             HorizontalAlignment="Right"
-                        
                             Margin="7.5 7.5"
                             Width="85"
-                            Click="CTButton_OnClick"
+                            Click="ControllerButton_OnClick"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>
@@ -133,8 +125,7 @@
                            VerticalAlignment="Top"
                            HorizontalAlignment="Left"/>
                 
-                    <Button x:Name="WheelspeedHackButton"
-                            Content="W"
+                    <Button x:Name="WheelSpeedButton"
                             HorizontalAlignment="Left"
                             Margin="180 7.5"
                             Width="85"
@@ -148,13 +139,11 @@
                            VerticalAlignment="Top"
                            HorizontalAlignment="Left"/>
                 
-                    <Button x:Name="WheelspeedHackControllerButton"
-                            Content=""
+                    <Button x:Name="WheelSpeedHackControllerButton"
                             HorizontalAlignment="Right"
-                        
                             Margin="7.5 7.5"
                             Width="85"
-                            Click="CTButton_OnClick"
+                            Click="ControllerButton_OnClick"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>

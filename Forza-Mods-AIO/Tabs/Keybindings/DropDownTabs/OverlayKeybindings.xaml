@@ -39,7 +39,7 @@
                             HorizontalAlignment="Right"
                             Margin="7.5 7.5"
                             Width="85"
-                            Click="CTButton_OnClick"
+                            Click="ControllerButton_OnClick"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>
@@ -73,7 +73,7 @@
                             Margin="7.5 7.5"
                             Width="85"
                         
-                            Click="CTButton_OnClick"
+                            Click="ControllerButton_OnClick"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>
@@ -109,7 +109,7 @@
                             Margin="7.5 7.5"
                             Width="85"
                             
-                            Click="CTButton_OnClick"
+                            Click="ControllerButton_OnClick"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>
@@ -145,7 +145,7 @@
                             
                             
                             Width="85"
-                            Click="CTButton_OnClick"
+                            Click="ControllerButton_OnClick"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>
@@ -179,7 +179,7 @@
                             HorizontalAlignment="Right"
                             Margin="7.5 7.5"
                             Width="85"
-                            Click="CTButton_OnClick"
+                            Click="ControllerButton_OnClick"
                             
                             
                             Height="25"
@@ -215,7 +215,7 @@
                             HorizontalAlignment="Right"
                             Margin="7.5 7.5"
                             Width="85"
-                            Click="CTButton_OnClick"
+                            Click="ControllerButton_OnClick"
                             
                             
                             Height="25"
@@ -253,7 +253,7 @@
                             Width="85"
                             
                             
-                            Click="CTButton_OnClick"
+                            Click="ControllerButton_OnClick"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>
@@ -287,7 +287,7 @@
                             HorizontalAlignment="Right"
                             Margin="7.5 7.5"
                             Width="85"
-                            Click="CTButton_OnClick"
+                            Click="ControllerButton_OnClick"
                             Height="25"
                             Background="#FF2E3440"
                             BorderBrush="#FF2E3440"/>

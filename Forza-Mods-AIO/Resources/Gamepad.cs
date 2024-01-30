@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using Forza_Mods_AIO.Overlay;
 using static System.Reflection.BindingFlags;
 
 namespace Forza_Mods_AIO.Resources;
@@ -75,7 +74,8 @@ public class Gamepad
         {
             return;
         }
-        
+
+        button.Content = "Change Key";
         var keyBuffer = GamepadButtonFlags.None;
         while (keyBuffer == GamepadButtonFlags.None)
         {
@@ -107,7 +107,8 @@ public class Gamepad
         }
 
         var cleanButtonName = button.Name.Replace("Button", string.Empty);
-        var fields = typeof(Keybindings).GetFields(Public | Static).Where(f => f.FieldType == typeof(GamepadButtonFlags));
+        var targetType = typeof(GamepadButtonFlags);
+        var fields = typeof(Keybindings).GetFields(Public | Instance).Where(f => f.FieldType == targetType);
         foreach (var field in fields)
         {
             if (field.Name != cleanButtonName)

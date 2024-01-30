@@ -1,8 +1,9 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using SharpDX.XInput;
+using static System.Reflection.BindingFlags;
 
 namespace Forza_Mods_AIO.Resources;
 
@@ -10,6 +11,8 @@ public class Keybindings
 {
     #region Overlay
     
+    // ReSharper disable FieldCanBeMadeReadOnly.Global
+    // ReSharper disable ConvertToConstant.Global
     public Key Up = Key.I;
     public Key Down = Key.K;
     public Key Left = Key.J;
@@ -46,7 +49,8 @@ public class Keybindings
 
     public static void ChangeKeybinding(ref Button button, Key key)
     {
-        var fields = typeof(Keybindings).GetFields(BindingFlags.Public).Where(f => f.FieldType == typeof(Key));
+        button.Content = key;
+        var fields = typeof(Keybindings).GetFields(Public | Instance).Where(f => f.FieldType == typeof(Key));
         var cleanButtonName = button.Name.Replace("Button", string.Empty);
         foreach (var field in fields)
         {
@@ -56,6 +60,25 @@ public class Keybindings
             }
             
             field.SetValue(MainWindow.Mw.Keybindings, key);
+        }
+    }
+
+    public static void UpdateButtons(IEnumerable<Button> buttons)
+    {
+        var fields = typeof(Keybindings).GetFields(Public | Instance);
+        var enumerable = buttons as Button[] ?? buttons.ToArray();
+        
+        foreach (var field in fields)
+        {
+            foreach (var button in enumerable)
+            {
+                if (field.Name != button.Name.Replace("Button", ""))
+                {
+                    continue;
+                }
+                
+                button.Content = field.GetValue(MainWindow.Mw.Keybindings)?.ToString();
+            }
         }
     }
 }

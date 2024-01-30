@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +12,7 @@ using System.Windows.Media;
 using ControlzEx.Theming;
 using Memory;
 using Forza_Mods_AIO.Resources;
-
+using SharpDX.XInput;
 using static System.Diagnostics.FileVersionInfo;
 using static System.IO.Path;
 using static System.Windows.Forms.Control;
@@ -23,6 +24,7 @@ using static Forza_Mods_AIO.Overlay.Overlay;
 using static Forza_Mods_AIO.Resources.Bypass;
 
 using Application = System.Windows.Application;
+using Gamepad = Forza_Mods_AIO.Resources.Gamepad;
 using Monet = Forza_Mods_AIO.Resources.Theme.Monet;
 
 namespace Forza_Mods_AIO;
@@ -37,7 +39,6 @@ public partial class MainWindow
     public static MainWindow Mw { get; private set; } = null!; 
 
     public readonly Mem M = new() { SigScanTasks = Environment.ProcessorCount };
-    //public LibraryMapper Mapper = null!;
     public readonly Gamepad Gamepad = new(); 
     public GameVerPlat Gvp { get; private set; } = new();
     public Keybindings Keybindings { get; } = new(); 
@@ -51,7 +52,7 @@ public partial class MainWindow
     {
         InitializeComponent();
         Mw = this;
-     
+        LoadHotkeys();
 #if RELEASE
         UpdateAio();
 #endif
@@ -65,6 +66,52 @@ public partial class MainWindow
         };
     }
 
+    private void LoadHotkeys()
+    {
+        var fields = typeof(Keybindings).GetFields(BindingFlags.Public | BindingFlags.Instance);
+        if (!fields.Any()) return;
+        
+        Properties.Settings.Default.Upgrade();
+        foreach (var field in fields)
+        {
+            var hotkey = Properties.Settings.Default[field.Name].ToString();
+            if (hotkey == null) continue;
+            if (field.FieldType == typeof(Key))
+            {
+                HandleKeyboardLoading(field, hotkey);
+                continue;
+            }
+
+            if (!Enum.TryParse(typeof(GamepadButtonFlags), hotkey, out var gamepadResult))
+            {
+                continue;
+            }
+
+            field.SetValue(Keybindings, gamepadResult);
+        }
+    }
+
+    private void SaveHotkeys()
+    {
+        var fields = typeof(Keybindings).GetFields(BindingFlags.Public | BindingFlags.Instance);
+        foreach (var field in fields)
+        {   
+            Properties.Settings.Default[field.Name] = field.GetValue(Keybindings)?.ToString();
+        }
+        
+        Properties.Settings.Default.Save();
+    }
+
+    private void HandleKeyboardLoading(FieldInfo field, string? hotkeyName)
+    {
+        if (!Enum.TryParse(typeof(Key), hotkeyName, out var keyboardResult))
+        {
+            return;
+        }
+        
+        field.SetValue(Keybindings, keyboardResult);
+    }
+    
     private void InitializeTheme()
     {
         var converted = (Color)ConvertFromString("#FF2E3440");
@@ -99,7 +146,7 @@ public partial class MainWindow
 
         Hide();
         
-        if (MessageBox.Show(@"New tool version found, would you like to update?", @"Updater", YesNo) != Yes)
+        if (MessageBox.Show(@"New tool version found, would you like to update?", @"Updater", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
         {
             Show();
             updater.Dispose();
@@ -123,7 +170,14 @@ public partial class MainWindow
 
     private void Window_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (e.ChangedButton != MouseButton.Left || !(MousePosition.Y < Window.Top + 50)) return;
+        var isLeftButton = e.ChangedButton == MouseButton.Left;
+        var isWithinTopArea = MousePosition.Y < Window.Top + 50;
+
+        if (!(isLeftButton && isWithinTopArea))
+        {
+            return;
+        }
+
         DragMove();
     }
 
@@ -199,15 +253,9 @@ public partial class MainWindow
 
     private void IsAttached()
     {
-        var firstTime = true;
         while (true)
         {
-            if (!firstTime)
-            {
-                Task.Delay(Attached ? 1000 : 500).Wait();
-            }
-
-            firstTime = false;
+            Task.Delay(Attached ? 1000 : 500).Wait();
             
             if (M.OpenProcess("ForzaHorizon5"))
             {
@@ -295,28 +343,36 @@ public partial class MainWindow
         }
         
         string platform;
+#if RELEASE
         string update;
+#endif        
         var gamePath = process.MainModule.FileName;
 
         if (gamePath.Contains("Microsoft.624F8B84B80") || gamePath.Contains("Microsoft.SunriseBaseGame") ||
             gamePath.Contains("Microsoft.ForzaMotorsport"))
         {
             platform = "MS";
+#if RELEASE
             var filePath = Combine(GetDirectoryName(gamePath) ?? throw new Exception(), "appxmanifest.xml");
             var xml = Load(filePath);
             var descendants = xml.Descendants().Where(e => e.Name.LocalName == "Identity");
             var version = descendants.Select(e => e.Attribute("Version")).FirstOrDefault();
             update = version == null ? "Unable to get update info" : version.Value;
+#endif
         }
         else
         {
             var filePath = Combine(GetDirectoryName(gamePath) ?? throw new Exception(), "OnlineFix64.dll");
             platform = File.Exists(filePath) ? "OnlineFix - Steam" : "Steam";
+#if RELEASE
             update = GetVersionInfo(process.MainModule.FileName).FileVersion ?? "Unable to get update info";
+#endif 
         }
-
+#if RELEASE
         Gvp = new GameVerPlat(name, platform, update, process, type);
-
+#else
+        Gvp = new GameVerPlat(name, platform, process, type);
+#endif
         Dispatcher.Invoke(delegate
         {
 #if RELEASE
@@ -333,6 +389,7 @@ public partial class MainWindow
     private void Window_Closing(object sender, CancelEventArgs e)
     {
         Window.Hide();
+        SaveHotkeys();
         try
         {
             O.OverlayToggle(false);

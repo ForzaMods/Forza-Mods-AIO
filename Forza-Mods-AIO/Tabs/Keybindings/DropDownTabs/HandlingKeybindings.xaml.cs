@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using static Forza_Mods_AIO.MainWindow;
@@ -10,23 +11,23 @@ public partial class HandlingKeybindings
     public HandlingKeybindings()
     {
         InitializeComponent();
-        LoadKeybindings();
+        Loaded += (_, _) => UpdateButtons();
     }
     
-    private void CTButton_OnClick(object sender, RoutedEventArgs e)
+    private void ControllerButton_OnClick(object sender, RoutedEventArgs e)
     {
         if (sender is not Button button)
         {
             return;
         }
         
-        button.Content = "Change Key";
         Mw.Gamepad.GetAndSetXInputKey(button);
     }
 
-    private void LoadKeybindings()
+    private void UpdateButtons()
     {
-
+        var buttons = this.GetChildren().Where(f => f.GetType() == typeof(Button)).Cast<Button>();
+        Forza_Mods_AIO.Resources.Keybindings.UpdateButtons(buttons);
     }
 
     private void KeybindingButton_OnKeyDown(object sender, KeyEventArgs e)

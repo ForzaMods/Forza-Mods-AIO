@@ -1,10 +1,8 @@
-﻿using System.IO;
+﻿using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using IniParser;
+using System.Windows.Controls;
 
-using static System.Environment;
 using static Forza_Mods_AIO.MainWindow;
 
 namespace Forza_Mods_AIO.Tabs.Keybindings.DropDownTabs;
@@ -14,39 +12,23 @@ public partial class OverlayKeybindings
     public OverlayKeybindings()
     {
         InitializeComponent();
-        UpdateKeybindButtons();
+        Loaded += (_,_ ) => UpdateButtons();
     }
 
-    private void CTButton_OnClick(object sender, RoutedEventArgs e)
+    private void ControllerButton_OnClick(object sender, RoutedEventArgs e)
     {
         if (sender is not Button button)
         {
             return;
         }
         
-        button.Content = "Change Key";
         Mw.Gamepad.GetAndSetXInputKey(button);
     }
     
-    private void UpdateKeybindButtons()
+    private void UpdateButtons()
     {
-        /*UpButton.Content = Up;
-        DownButton.Content = Down;
-        LeftButton.Content = Left;
-        RightButton.Content = Right;
-        LeaveButton.Content = Leave;
-        ConfirmButton.Content = Confirm;
-        OverlayVisibilityButton.Content = OverlayVisibility;
-        RapidAdjust.Content = OverlayHandling.RapidAdjust;
-
-        ControllerUpButton.Content = ControllerUp;
-        ControllerDownButton.Content = ControllerDown;
-        ControllerLeftButton.Content = ControllerLeft;
-        ControllerRightButton.Content = ControllerRight;
-        ControllerLeaveButton.Content = ControllerLeave;
-        ControllerConfirmButton.Content = ControllerConfirm;
-        ControllerOverlayVisibilityButton.Content = ControllerOverlayVisibility;
-        ControllerRapidAdjust.Content = OverlayHandling.ControllerRapidAdjust;*/
+        var buttons = this.GetChildren().Where(f => f.GetType() == typeof(Button)).Cast<Button>();
+        Forza_Mods_AIO.Resources.Keybindings.UpdateButtons(buttons);
     }
     
     private void KeybindingButton_OnKeyDown(object sender, KeyEventArgs e)
