@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("WPF-Mockup")]
-[assembly: AssemblyCopyright("Copyright ©  2023")]
+[assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: SuppressMessage("Usage", "CA1416:This call site is reachable on all platforms")]
@@ -21,5 +21,5 @@ using System.Runtime.InteropServices;
 // Minor Version - Default number
 // Revision - Last release revision + 1
 // Build Number - Number of commits since last release
-[assembly: AssemblyVersion("2.0.6.18")]
-[assembly: AssemblyFileVersion("2.0.6.18")]
+[assembly: AssemblyVersion("2.0.7.19")]
+[assembly: AssemblyFileVersion("2.0.7.19")]
