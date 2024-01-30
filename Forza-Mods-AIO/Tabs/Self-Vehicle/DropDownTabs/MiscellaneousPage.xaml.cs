@@ -360,7 +360,7 @@ public partial class MiscellaneousPage
             return;
         }
         
-        DriftDetour.UpdateVariable(ToSingle(DriftNum.Value));
+        DriftDetour.Toggle();
     }
 
     private void TimeScaleSwitch_OnToggled(object sender, RoutedEventArgs e)

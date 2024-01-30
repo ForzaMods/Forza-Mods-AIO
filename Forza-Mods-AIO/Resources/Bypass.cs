@@ -84,8 +84,8 @@ public abstract class Bypass
             return true;
         }
         
-        const string sig = "40 8A ? E9 ? ? ? ? CC";
-        var checkAddr = Mw.M.ScanForSig(sig).FirstOrDefault();
+        const string sig = "E8 ? ? ? ? 40 8A ? E9 ? ? ? ? CC";
+        var checkAddr = Mw.M.ScanForSig(sig).FirstOrDefault() + 5;
 
         if (checkAddr < (UIntPtr)Mw.Gvp.Process.MainModule!.BaseAddress)
         {

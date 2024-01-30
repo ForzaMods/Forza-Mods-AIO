@@ -21,7 +21,7 @@ public partial class UnlocksPage
     public static EncryptedEntry XpEntry { get; set; } = null!; 
     public static EncryptedEntry CrEntry { get; set; } = null!;
     private const string Seasonal = "F3 0F 10 35 0A 00 00 00 F3 0F 11 71 28";
-    private const string Series = "4C 39 C0 74 13 80 78 10 1D 75 02 EB 04 8B 40 14 C3 8B 05 09 00 00 00 C3 31 C0 C3";
+    private const string Series = "4C 39 C0 74 13 80 78 10 1D 72 02 EB 04 8B 40 14 C3 8B 05 09 00 00 00 C3 31 C0 C3";
     private const string Spins = "31 D2 50 80 BC 24 10 01 00 00 01 75 12 80 3D 35 00 00 00 01 75 09 48 8B 05 2D 00 00 00 EB 1A 80 BC 24 10 01 00 00 02 75 17 80 3D 1E 00 00 00 01 75 0E 48 8B 05 16 00 00 00 48 FF C0 48 89 47 08 58 8B 5F 08";
     private const string SkillPoints = "31 ED 8B 1D 0B 00 00 00 29 EB 31 D2 85 DB";
     

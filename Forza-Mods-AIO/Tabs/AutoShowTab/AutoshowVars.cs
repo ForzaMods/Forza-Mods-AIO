@@ -65,9 +65,9 @@ internal class AutoshowVars
 
         button.GetType().GetProperty("IsEnabled")?.SetValue(button, false);
 
-        var start = DateTime.Now;
         
 #if !RELEASE
+        var start = DateTime.Now;
         Mw.Dispatcher.Invoke(() => Mw.DebugLabel.Text = $"Executing SQL at: {start}");
 #endif
         var retValue = await Task.Run(() => Query(sql));
@@ -165,7 +165,7 @@ internal class AutoshowVars
     {
         if (!SqlExecAobScan())
         {
-            return false;
+            Scan();
         }
 
         var procHandle = Mw.Gvp.Process.Handle;

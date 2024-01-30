@@ -127,7 +127,7 @@
                                           ToolTip="This feature will set your credits based on how the value you set in the numeric box. You must either spend/get some money, or do a wheelspin for it to take effect."
                                           MinWidth="1"
                                           Margin="5 0 10 0"
-                                          Toggled="CreditsSwitch_OnToggled"
+                                          Toggled="SkillPointsToggle_OnToggled"
                                           Grid.Column="1"/>
                     </Grid>
                 </Grid>
