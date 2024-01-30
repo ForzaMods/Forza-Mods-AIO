@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
-      d:DesignHeight="275" d:DesignWidth="580"
+      d:DesignHeight="340" 
+      d:DesignWidth="580"
       Title="Steering"
       Background="Transparent">
 
@@ -15,177 +16,189 @@
          
          <Border Style="{StaticResource CommonBorderStyle}">
             <Grid>
-               
                <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
                </Grid.ColumnDefinitions>
                
-               <StackPanel Orientation="Horizontal"
-                           Grid.Column="0">
+               <Grid Column="0">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="Auto"/>
+                     <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
                   
                   <Label Content="Steering Angle Max"
-                         VerticalAlignment="Center" 
-                         HorizontalAlignment="Left"
-                         Margin="5,0,0,0"/>
+                         VerticalAlignment="Center"
+                         Margin="7.5 0"/>
                   
                   <mah:NumericUpDown x:Name="AngleMaxBox" 
                                      Background="#FF2E3440" 
-                                     BorderThickness="0" 
+                                     BorderBrush="#FF2E3440" 
+                                     Grid.Column="1"
                                      TrackMouseWheelWhenMouseOver="True"
                                      ParsingNumberStyle="Float" 
                                      TextAlignment="Left" 
                                      VerticalAlignment="Center"
                                      NumericInputMode="Decimal" 
-                                     Margin="5,0,0,0" 
-                                     Width="120"
+                                     Margin="7.5 0"
                                      ValueChanged="ValueChanged"/>
+               </Grid>
 
-               </StackPanel>
-               
-               
-               <StackPanel Orientation="Horizontal"
-                           Grid.Column="1">
+               <Grid Column="1">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="Auto"/>
+                     <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
                   
                   <Label Content="Steering Angle Max 2"
-                         VerticalAlignment="Center" 
-                         HorizontalAlignment="Left"
-                         Margin="5,0,0,0"/>
+                         VerticalAlignment="Center"
+                         Margin="7.5 0"/>
                   
                   <mah:NumericUpDown x:Name="AngleMax2Box" 
                                      Background="#FF2E3440" 
-                                     BorderThickness="0" 
+                                     BorderBrush="#FF2E3440" 
+                                     Grid.Column="1"
                                      TrackMouseWheelWhenMouseOver="True"
                                      ParsingNumberStyle="Float" 
                                      TextAlignment="Left" 
                                      VerticalAlignment="Center"
                                      NumericInputMode="Decimal" 
-                                     Margin="5,0,7.5,0" 
-                                     Width="120"
+                                     Margin="7.5 0"
                                      ValueChanged="ValueChanged"/>
-
-               </StackPanel>
-               
+                  
+               </Grid>
             </Grid>
-            
          </Border>   
-            
-         <Border BorderThickness="2,2,2,2"
-                 Margin="10,10,10,0" 
-                 BorderBrush="#FF2E3440">
-            
-            <Grid>
-               
-               <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="Auto"/>
-               </Grid.ColumnDefinitions>
-               
-               <StackPanel Grid.Column="0">
-                  
-                  <Label Content="Velocity Straight"
-                     VerticalAlignment="Top" 
-                     HorizontalAlignment="Left"
-                     Margin="7.5 10 0 0"/>
-                  
-                  <Label Content="Velocity Turning"
-                     VerticalAlignment="Top" 
-                     HorizontalAlignment="Left"
-                     Margin="7.5 10 0 0"/>
-                  
-                  <Label Content="Velocity Countersteer"
-                     VerticalAlignment="Top" 
-                     HorizontalAlignment="Left"
-                     Margin="7.5 10 0 0"/>
-                  
-                  <Label Content="Velocity Dynamic Peak"
-                     VerticalAlignment="Top" 
-                     HorizontalAlignment="Left"
-                     Margin="7.5 10 0 0"/>
-                  
-                  <Label Content="Time to Max Steering"
-                         VerticalAlignment="Top" 
-                         HorizontalAlignment="Left" 
-                         Margin="7.5 10 0 10"/>
-                  
-               </StackPanel>
-               
-               <StackPanel Grid.Column="1">
-                  
-                  <mah:NumericUpDown x:Name="VelocityStraightBox" 
-                                     Margin="0 10 7.5 0" 
-                                     Background="#FF2E3440" 
-                                     BorderThickness="0" 
-                                     TrackMouseWheelWhenMouseOver="True" 
-                                     ParsingNumberStyle="Float" 
-                                     TextAlignment="Left" 
-                                     NumericInputMode="Decimal" 
-                                     VerticalAlignment="Top" 
-                                     HorizontalAlignment="Right" 
-                                     Width="400" 
-                                     ValueChanged="ValueChanged"/>
-                  
-                  <mah:NumericUpDown x:Name="VelocityTurningBox" 
-                                     Margin="0 10 7.5 0" 
-                                     Background="#FF2E3440" 
-                                     BorderThickness="0" 
-                                     TrackMouseWheelWhenMouseOver="True" 
-                                     ParsingNumberStyle="Float" 
-                                     TextAlignment="Left" 
-                                     NumericInputMode="Decimal" 
-                                     VerticalAlignment="Bottom" 
-                                     HorizontalAlignment="Right" 
-                                     Width="400" 
-                                     ValueChanged="ValueChanged"/>
-                  
-                  <mah:NumericUpDown x:Name="VelocityCountersteerBox" 
-                                     Margin="0 10 7.5 0" 
-                                     Background="#FF2E3440" 
-                                     BorderThickness="0" 
-                                     TrackMouseWheelWhenMouseOver="True" 
-                                     ParsingNumberStyle="Float" 
-                                     TextAlignment="Left" 
-                                     NumericInputMode="Decimal" 
-                                     VerticalAlignment="Bottom" 
-                                     HorizontalAlignment="Right" 
-                                     Width="400" 
-                                     ValueChanged="ValueChanged"/>
-                  
-                  <mah:NumericUpDown x:Name="VelocityDynamicPeekBox" 
-                                     Margin="0 10 7.5 0" 
-                                     Background="#FF2E3440" 
-                                     BorderThickness="0" 
-                                     TrackMouseWheelWhenMouseOver="True" 
-                                     ParsingNumberStyle="Float" 
-                                     TextAlignment="Left" 
-                                     NumericInputMode="Decimal" 
-                                     VerticalAlignment="Bottom" 
-                                     HorizontalAlignment="Right" 
-                                     Width="400" 
-                                     ValueChanged="ValueChanged"/>
-                  
-                  <mah:NumericUpDown x:Name="TimeToMaxSteeringBox" 
-                                     Margin="0 10 7.5 10" 
-                                     Interval="0.01" 
-                                     Background="#FF2E3440" 
-                                     BorderThickness="0" 
-                                     TrackMouseWheelWhenMouseOver="True" 
-                                     ParsingNumberStyle="Float" 
-                                     TextAlignment="Left" 
-                                     NumericInputMode="Decimal" 
-                                     VerticalAlignment="Bottom" 
-                                     HorizontalAlignment="Right" 
-                                     Width="400" 
-                                     ValueChanged="ValueChanged"/>
 
+         <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+               </Grid.ColumnDefinitions>
                   
-               </StackPanel>
-               
+               <Label Content="Velocity Straight"
+                      VerticalAlignment="Center"
+                      Margin="7.5 0"
+                      Width="{Binding ActualWidth, ElementName=VelocityDynamicPeekLabel}"/>
+                  
+               <mah:NumericUpDown x:Name="VelocityStraightBox" 
+                                  Background="#FF2E3440" 
+                                  BorderBrush="#FF2E3440" 
+                                  Grid.Column="1"
+                                  TrackMouseWheelWhenMouseOver="True"
+                                  ParsingNumberStyle="Float" 
+                                  TextAlignment="Left" 
+                                  VerticalAlignment="Center"
+                                  NumericInputMode="Decimal" 
+                                  Margin="7.5 0"
+                                  ValueChanged="ValueChanged"/>
             </Grid>
-            
          </Border>
          
+         <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+               </Grid.ColumnDefinitions>
+                  
+               <Label Content="Velocity Turning"
+                      VerticalAlignment="Center"
+                      Margin="7.5 0"
+                      Width="{Binding ActualWidth, ElementName=VelocityDynamicPeekLabel}"/>
+                  
+               <mah:NumericUpDown x:Name="VelocityTurningBox" 
+                                  Background="#FF2E3440" 
+                                  BorderBrush="#FF2E3440" 
+                                  Grid.Column="1"
+                                  TrackMouseWheelWhenMouseOver="True"
+                                  ParsingNumberStyle="Float" 
+                                  TextAlignment="Left" 
+                                  VerticalAlignment="Center"
+                                  NumericInputMode="Decimal" 
+                                  Margin="7.5 0"
+                                  ValueChanged="ValueChanged"/>
+            </Grid>
+         </Border>
          
+         <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+               </Grid.ColumnDefinitions>
+                  
+               <Label Content="Velocity Countersteer"
+                      VerticalAlignment="Center"
+                      Margin="7.5 0"
+                      Width="{Binding ActualWidth, ElementName=VelocityDynamicPeekLabel}"/>
+                  
+               <mah:NumericUpDown x:Name="VelocityCountersteerBox" 
+                                  Background="#FF2E3440" 
+                                  BorderBrush="#FF2E3440" 
+                                  Grid.Column="1"
+                                  TrackMouseWheelWhenMouseOver="True"
+                                  ParsingNumberStyle="Float" 
+                                  TextAlignment="Left" 
+                                  VerticalAlignment="Center"
+                                  NumericInputMode="Decimal" 
+                                  Margin="7.5 0"
+                                  ValueChanged="ValueChanged"/>
+            </Grid>
+         </Border>
+         
+         <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+               </Grid.ColumnDefinitions>
+                  
+               <Label x:Name="VelocityDynamicPeekLabel" 
+                      Content="Velocity Dynamic Peek"
+                      VerticalAlignment="Center"
+                      Margin="7.5 0"/>
+                  
+               <mah:NumericUpDown x:Name="VelocityDynamicPeekBox" 
+                                  Background="#FF2E3440" 
+                                  BorderBrush="#FF2E3440" 
+                                  Grid.Column="1"
+                                  TrackMouseWheelWhenMouseOver="True"
+                                  ParsingNumberStyle="Float" 
+                                  TextAlignment="Left" 
+                                  VerticalAlignment="Center"
+                                  NumericInputMode="Decimal" 
+                                  Margin="7.5 0"
+                                  ValueChanged="ValueChanged"/>
+            </Grid>
+         </Border>
+         
+         <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+               </Grid.ColumnDefinitions>
+                  
+               <Label Content="Time To Max Steering"
+                      VerticalAlignment="Center"
+                      Margin="7.5 0"
+                      Width="{Binding ActualWidth, ElementName=VelocityDynamicPeekLabel}"/>
+                  
+               <mah:NumericUpDown x:Name="TimeToMaxSteeringBox" 
+                                  Background="#FF2E3440" 
+                                  BorderBrush="#FF2E3440" 
+                                  Grid.Column="1"
+                                  TrackMouseWheelWhenMouseOver="True"
+                                  ParsingNumberStyle="Float" 
+                                  TextAlignment="Left" 
+                                  VerticalAlignment="Center"
+                                  NumericInputMode="Decimal" 
+                                  Margin="7.5 0"
+                                  ValueChanged="ValueChanged"/>
+            </Grid>
+         </Border>
       </StackPanel>
-</Grid>
+   </Grid>
 </Page>

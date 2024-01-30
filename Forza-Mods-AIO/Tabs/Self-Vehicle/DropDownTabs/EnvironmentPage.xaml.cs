@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Tabs.Self_Vehicle.Entities;
 using static System.Convert;
@@ -31,29 +32,27 @@ public partial class EnvironmentPage
 
     private void SunRGBSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        if (TimeSwitch == null || !Mw.Attached)
+        if (!Mw.Attached || sender is not Slider slider)
         {
             return;
         }
-        
-        switch (sender.GetType().GetProperty("Name")!.GetValue(sender))
+
+        var newValue = ToSingle(slider.Value) / 1000000000000;
+        switch (slider.Name)
         {
             case "SunRedSlider":
             {
-                var value = ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!);
-                Mw.M.WriteMemory(SunRedAddr, value / 1000000000000);
+                Mw.M.WriteMemory(SunRedAddr, newValue);
                 break;
             }
             case "SunGreenSlider":
             {
-                var value = ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!);
-                Mw.M.WriteMemory(SunGreenAddr,  value / 1000000000000);
+                Mw.M.WriteMemory(SunGreenAddr, newValue);
                 break;
             }
             case "SunBlueSlider":
             {
-                var value = ToSingle(sender.GetType().GetProperty("Value")!.GetValue(sender)!);
-                Mw.M.WriteMemory(SunBlueAddr,  value / 1000000000000);
+                Mw.M.WriteMemory(SunBlueAddr, newValue);
                 break;
             }
         }

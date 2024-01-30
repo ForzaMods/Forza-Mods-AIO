@@ -12,142 +12,206 @@
         <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10" />
 
         <StackPanel>
-            
-            
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                 
-                    <Label Content="Keyboard Jump Hack Keybind"
-                           Margin="5 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Keyboard Jump Hack Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=KeyboardWheelspeedKeybindLabel}"/>
                 
-                    <Button x:Name="JumpHackButton"
-                            HorizontalAlignment="Left"
-                            Margin="180 7.5"
-                            Width="85"
-                            KeyDown="KeybindingButton_OnKeyDown"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
+                        <Button x:Name="JumpHackButton"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="7.5 0"
+                                KeyDown="KeybindingButton_OnKeyDown"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Controller Jump Hack Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=ControllerWheelspeedKeybindLabel}"/>
                 
-                    <Label Content="Controller Jump Hack Keybind"
-                           Margin="280 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                
-                    <Button x:Name="JumpHackControllerButton"
-                            HorizontalAlignment="Right"
-                            Margin="7.5 7.5"
-                            Width="85"
-                            Click="ControllerButton_OnClick"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                
+                        <Button x:Name="JumpHackControllerButton"
+                                VerticalAlignment="Center"
+                                Margin="7.5 0"
+                                Grid.Column="1"
+                                Click="ControllerButton_OnClick"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                        
+                    </Grid>
                 </Grid>    
             </Border>
             
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                 
-                    <Label Content="Keyboard Brake Hack Keybind"
-                           Margin="5 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Keyboard Brake Hack Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=KeyboardWheelspeedKeybindLabel}"/>
                 
-                    <Button x:Name="BrakeHackButton"
-                            HorizontalAlignment="Left"
-                            Margin="180 7.5"
-                            Width="85"
-                            Focusable="False"
-                            Height="25"
-                            KeyDown="KeybindingButton_OnKeyDown"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
+                        <Button x:Name="BrakeHackButton"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="7.5 0"
+                                KeyDown="KeybindingButton_OnKeyDown"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Controller Brake Hack Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=ControllerWheelspeedKeybindLabel}"/>
                 
-                    <Label Content="Controller Brake Hack Keybind"
-                           Margin="280 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
+                        <Button x:Name="BrakeHackControllerButton"
+                                VerticalAlignment="Center"
+                                Margin="7.5 0"
+                                Grid.Column="1"
+                                Click="ControllerButton_OnClick"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                        
+                    </Grid>
+                </Grid>    
+            </Border>     
+            
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Keyboard Velocity Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=KeyboardWheelspeedKeybindLabel}"/>
                 
-                    <Button x:Name="BrakeHackControllerButton"
-                            HorizontalAlignment="Right"
-                            Margin="7.5 7.5"
-                            Width="85"
-                            Click="ControllerButton_OnClick"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
+                        <Button x:Name="VelocityButton"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="7.5 0"
+                                KeyDown="KeybindingButton_OnKeyDown"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Controller Velocity Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=ControllerWheelspeedKeybindLabel}"/>
                 
+                        <Button x:Name="VelocityControllerButton"
+                                VerticalAlignment="Center"
+                                Margin="7.5 0"
+                                Grid.Column="1"
+                                Click="ControllerButton_OnClick"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                        
+                    </Grid>
                 </Grid>    
             </Border>
             
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                 
-                    <Label Content="Keyboard Velocity Keybind"
-                           Margin="5 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label x:Name="KeyboardWheelspeedKeybindLabel" 
+                               Content="Keyboard Wheelspeed Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"/>
                 
-                    <Button x:Name="VelocityButton"
-                            HorizontalAlignment="Left"
-                            Margin="180 7.5"
-                            Width="85"
-                            KeyDown="KeybindingButton_OnKeyDown"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
+                        <Button x:Name="WheelSpeedButton"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="7.5 0"
+                                KeyDown="KeybindingButton_OnKeyDown"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label x:Name="ControllerWheelspeedKeybindLabel" 
+                               Content="Controller Wheelspeed Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"/>
                 
-                    <Label Content="Controller Velocity Keybind"
-                           Margin="280 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                
-                    <Button x:Name="VelocityControllerButton"
-                            HorizontalAlignment="Right"
-                            Margin="7.5 7.5"
-                            Width="85"
-                            Click="ControllerButton_OnClick"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                
-                </Grid>    
-            </Border>
-        
-            <Border Style="{StaticResource CommonBorderStyle}">
-                <Grid>
-                
-                    <Label Content="Keyboard Wheelspeed Keybind"
-                           Margin="5 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                
-                    <Button x:Name="WheelSpeedButton"
-                            HorizontalAlignment="Left"
-                            Margin="180 7.5"
-                            Width="85"
-                            KeyDown="KeybindingButton_OnKeyDown"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                
-                    <Label Content="Controller Wheelspeed Keybind"
-                           Margin="280 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                
-                    <Button x:Name="WheelSpeedHackControllerButton"
-                            HorizontalAlignment="Right"
-                            Margin="7.5 7.5"
-                            Width="85"
-                            Click="ControllerButton_OnClick"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                
+                        <Button x:Name="WheelSpeedHackControllerButton"
+                                VerticalAlignment="Center"
+                                Margin="7.5 0"
+                                Grid.Column="1"
+                                Click="ControllerButton_OnClick"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                        
+                    </Grid>
                 </Grid>    
             </Border>
         </StackPanel>

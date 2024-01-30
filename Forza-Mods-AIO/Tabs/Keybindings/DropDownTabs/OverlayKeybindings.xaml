@@ -15,283 +15,400 @@
             
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
-                
-                    <Label Content="Keyboard Up Keybind"
-                           Margin="7.5 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                
-                    <Button x:Name="UpButton"
-                            HorizontalAlignment="Left"
-                            Margin="170 7.5"
-                            Width="85"
-                            KeyDown="KeybindingButton_OnKeyDown"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                
-                    <Label Content="Controller Up Keybind"
-                           Margin="285 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                
-                    <Button x:Name="ControllerUpButton"
-                            HorizontalAlignment="Right"
-                            Margin="7.5 7.5"
-                            Width="85"
-                            Click="ControllerButton_OnClick"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                
-                </Grid>    
-            </Border>
-            <Border Style="{StaticResource CommonBorderStyle}">
-                <Grid>
-                
-                    <Label Content="Keyboard Down Keybind"
-                           Margin="7.5 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                
-                    <Button x:Name="DownButton"
-                            HorizontalAlignment="Left"
-                            Margin="170 7.5"
-                            Width="85"
-                            KeyDown="KeybindingButton_OnKeyDown"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                
-                    <Label Content="Controller Down Keybind"
-                           Margin="285 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                
-                    <Button x:Name="ControllerDownButton"
-                            HorizontalAlignment="Right"
-                            Margin="7.5 7.5"
-                            Width="85"
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
                         
-                            Click="ControllerButton_OnClick"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
+                        <Label Content="Keyboard Up Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=RapidAdjustLabel}"/>
                 
+                        <Button x:Name="UpButton"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="7.5 0"
+                                KeyDown="KeybindingButton_OnKeyDown"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Controller Up Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=ControllerRapidAdjustLabel}"/>
+                
+                        <Button x:Name="ControllerUpButton"
+                                VerticalAlignment="Center"
+                                Margin="7.5 0"
+                                Grid.Column="1"
+                                Click="ControllerButton_OnClick"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                        
+                    </Grid>
+                </Grid>    
+            </Border>
+            
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Keyboard Down Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=RapidAdjustLabel}"/>
+                
+                        <Button x:Name="DownButton"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="7.5 0"
+                                KeyDown="KeybindingButton_OnKeyDown"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Controller Down Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=ControllerRapidAdjustLabel}"/>
+                
+                        <Button x:Name="ControllerDownButton"
+                                VerticalAlignment="Center"
+                                Margin="7.5 0"
+                                Grid.Column="1"
+                                Click="ControllerButton_OnClick"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                        
+                    </Grid>
+                </Grid>    
+            </Border>            
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Keyboard Left Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=RapidAdjustLabel}"/>
+                
+                        <Button x:Name="LeftButton"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="7.5 0"
+                                KeyDown="KeybindingButton_OnKeyDown"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Controller Left Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=ControllerRapidAdjustLabel}"/>
+                
+                        <Button x:Name="ControllerLeftButton"
+                                VerticalAlignment="Center"
+                                Margin="7.5 0"
+                                Grid.Column="1"
+                                Click="ControllerButton_OnClick"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                        
+                    </Grid>
+                </Grid>    
+            </Border>            
+            
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Keyboard Right Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=RapidAdjustLabel}"/>
+                
+                        <Button x:Name="RightButton"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="7.5 0"
+                                KeyDown="KeybindingButton_OnKeyDown"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Controller Right Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=ControllerRapidAdjustLabel}"/>
+                
+                        <Button x:Name="ControllerRightButton"
+                                VerticalAlignment="Center"
+                                Margin="7.5 0"
+                                Grid.Column="1"
+                                Click="ControllerButton_OnClick"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                        
+                    </Grid>
+                </Grid>    
+            </Border>     
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Keyboard Leave Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=RapidAdjustLabel}"/>
+                
+                        <Button x:Name="LeaveButton"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="7.5 0"
+                                KeyDown="KeybindingButton_OnKeyDown"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Controller Leave Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=ControllerRapidAdjustLabel}"/>
+                
+                        <Button x:Name="ControllerLeaveButton"
+                                VerticalAlignment="Center"
+                                Margin="7.5 0"
+                                Grid.Column="1"
+                                Click="ControllerButton_OnClick"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                        
+                    </Grid>
+                </Grid>    
+            </Border>
+            
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Keyboard Confirm Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=RapidAdjustLabel}"/>
+                
+                        <Button x:Name="ConfirmButton"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="7.5 0"
+                                KeyDown="KeybindingButton_OnKeyDown"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Controller Confirm Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=ControllerRapidAdjustLabel}"/>
+                
+                        <Button x:Name="ControllerConfirmButton"
+                                VerticalAlignment="Center"
+                                Margin="7.5 0"
+                                Grid.Column="1"
+                                Click="ControllerButton_OnClick"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                        
+                    </Grid>
+                </Grid>    
+            </Border>
+            
+            <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Keyboard Visibility Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=RapidAdjustLabel}"/>
+                
+                        <Button x:Name="OverlayVisibilityButton"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="7.5 0"
+                                KeyDown="KeybindingButton_OnKeyDown"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Content="Controller Visibility Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"
+                               Width="{Binding ActualWidth, ElementName=ControllerRapidAdjustLabel}"/>
+                
+                        <Button x:Name="ControllerOverlayVisibilityButton"
+                                VerticalAlignment="Center"
+                                Margin="7.5 0"
+                                Grid.Column="1"
+                                Click="ControllerButton_OnClick"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                        
+                    </Grid>
                 </Grid>    
             </Border>
             
             
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
-                    
-                    <Label Content="Keyboard Left Keybind"
-                           Margin="7.5 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                    
-                    <Button x:Name="LeftButton"
-                            HorizontalAlignment="Left"
-                            Margin="170 7.5"
-                            Width="85"
-                            KeyDown="KeybindingButton_OnKeyDown"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                    
-                    <Label Content="Controller Left Keybind"
-                           Margin="285 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                    
-                    <Button x:Name="ControllerLeftButton"
-                            HorizontalAlignment="Right"
-                            Margin="7.5 7.5"
-                            Width="85"
-                            
-                            Click="ControllerButton_OnClick"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                    
-                </Grid>    
-            </Border>
-            
-            <Border Style="{StaticResource CommonBorderStyle}">
-                <Grid>
-                    
-                    <Label Content="Keyboard Right Keybind"
-                           Margin="7.5 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                    
-                    <Button x:Name="RightButton"
-                            HorizontalAlignment="Left"
-                            Margin="170 7.5"
-                            Width="85"
-                            KeyDown="KeybindingButton_OnKeyDown"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                    
-                    <Label Content="Controller Right Keybind"
-                           Margin="285 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                    
-                    <Button x:Name="ControllerRightButton"
-                            HorizontalAlignment="Right"
-                            Margin="7.5 7.5"
-                            
-                            
-                            Width="85"
-                            Click="ControllerButton_OnClick"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                    
-                </Grid>    
-            </Border>
-            
-            <Border Style="{StaticResource CommonBorderStyle}">
-                <Grid>
-                    
-                    <Label Content="Keyboard Leave Keybind"
-                           Margin="7.5 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                    
-                    <Button x:Name="LeaveButton"
-                            HorizontalAlignment="Left"
-                            Margin="170 7.5"
-                            Width="85"
-                            KeyDown="KeybindingButton_OnKeyDown"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                    
-                    <Label Content="Controller Leave Keybind"
-                           Margin="285 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                    
-                    <Button x:Name="ControllerConfirmButton"
-                            HorizontalAlignment="Right"
-                            Margin="7.5 7.5"
-                            Width="85"
-                            Click="ControllerButton_OnClick"
-                            
-                            
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                    
-                </Grid>    
-            </Border>
-            
-            <Border Style="{StaticResource CommonBorderStyle}" >
-                <Grid>
-                    
-                    <Label Content="Keyboard Confirm Keybind"
-                           Margin="7.5 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                    
-                    <Button x:Name="ConfirmButton"
-                            HorizontalAlignment="Left"
-                            Margin="170 7.5"
-                            Width="85"
-                            KeyDown="KeybindingButton_OnKeyDown"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                    
-                    <Label Content="Controller Confirm Keybind"
-                           Margin="285 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                    
-                    <Button x:Name="ControllerLeaveButton"
-                            HorizontalAlignment="Right"
-                            Margin="7.5 7.5"
-                            Width="85"
-                            Click="ControllerButton_OnClick"
-                            
-                            
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                    
-                </Grid>    
-            </Border>
-            
-            <Border Style="{StaticResource CommonBorderStyle}">
-                <Grid>
-                    
-                    <Label Content="Keyboard Visibility Keybind"
-                           Margin="7.5 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                    
-                    <Button x:Name="OverlayVisibilityButton"
-                            HorizontalAlignment="Left"
-                            Margin="170 7.5"
-                            Width="85"
-                            KeyDown="KeybindingButton_OnKeyDown"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                    
-                    <Label Content="Controller Visibility Keybind"
-                           Margin="285 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                    
-                    <Button x:Name="ControllerOverlayVisibilityButton"
-                            HorizontalAlignment="Right"
-                            Margin="7.5 7.5"
-                            Width="85"
-                            
-                            
-                            Click="ControllerButton_OnClick"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                    
-                </Grid>    
-            </Border>
-            
-            <Border Style="{StaticResource CommonBorderStyle}">
-                <Grid>
-                    
-                    <Label Content="Keyboard Rapid Value Adjust"
-                           Margin="5 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                    
-                    <Button x:Name="RapidAdjust"
-                            HorizontalAlignment="Left"
-                            Margin="170 7.5"
-                            Width="85"
-                            KeyDown="KeybindingButton_OnKeyDown"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                    
-                    <Label Content="Controller Rapid Value Adjust"
-                           Margin="285 7.5 0 0"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
-                    
-                    <Button x:Name="ControllerRapidAdjust"
-                            HorizontalAlignment="Right"
-                            Margin="7.5 7.5"
-                            Width="85"
-                            Click="ControllerButton_OnClick"
-                            Height="25"
-                            Background="#FF2E3440"
-                            BorderBrush="#FF2E3440"/>
-                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label x:Name="RapidAdjustLabel" 
+                               Content="Keyboard Rapid Value Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"/>
+                
+                        <Button x:Name="RapidAdjust"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="7.5 0"
+                                KeyDown="KeybindingButton_OnKeyDown"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                    </Grid>
+
+                    <Grid Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label x:Name="ControllerRapidAdjustLabel" 
+                               Content="Controller Rapid Value Keybind"
+                               Margin="7.5 0"
+                               VerticalAlignment="Center"/>
+                
+                        <Button x:Name="ControllerRapidAdjust"
+                                VerticalAlignment="Center"
+                                Margin="7.5 0"
+                                Grid.Column="1"
+                                Click="ControllerButton_OnClick"
+                                Background="#FF2E3440"
+                                BorderBrush="#FF2E3440"/>
+                        
+                    </Grid>
                 </Grid>    
             </Border>
         </StackPanel>

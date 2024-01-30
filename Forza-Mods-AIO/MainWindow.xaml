@@ -189,32 +189,46 @@
 
             </StackPanel>
             
-            <Path Data="M259.7625 259.7625A9.375 9.375 0 0 0 259.7625 246.4875L53.5125 40.2375A9.375 9.375 0 0 0 40.2375 53.5125L246.4875 259.7625000000001A9.375 9.375 0 0 0 259.7625 259.7625000000001zM40.2375 259.7625A9.375 9.375 0 0 1 40.2375 246.4875L246.4875 40.2375A9.375 9.375 0 0 1 259.7625000000001 53.5125L53.5125 259.7625000000001A9.375 9.375 0 0 1 40.2375 259.7625000000001z"
-                  Fill="White" 
-                  Stretch="Fill"
-                  Width="16" 
-                  Height="16"
-                  Margin="0 0 16 0"
-                  Grid.Row="0" 
-                  Grid.RowSpan="2"
-                  Grid.Column="1" 
-                  HorizontalAlignment="Right" 
-                  VerticalAlignment="Center" />
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Grid.RowSpan="2"
+                        Margin="0 0 16 0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                
+                <TextBlock Text="___"
+                           Margin="0 0 16 0"
+                           Height="16" 
+                           Width="16" 
+                           FontSize="12"
+                           Foreground="White"
+                           Cursor="Hand"
+                           MouseDown="Minimize_OnMouseDown"/>
+                
+                <Grid>
+                    <Path Data="M259.7625 259.7625A9.375 9.375 0 0 0 259.7625 246.4875L53.5125 40.2375A9.375 9.375 0 0 0 40.2375 53.5125L246.4875 259.7625000000001A9.375 9.375 0 0 0 259.7625 259.7625000000001zM40.2375 259.7625A9.375 9.375 0 0 1 40.2375 246.4875L246.4875 40.2375A9.375 9.375 0 0 1 259.7625000000001 53.5125L53.5125 259.7625000000001A9.375 9.375 0 0 1 40.2375 259.7625000000001z"
+                          Fill="White" 
+                          Stretch="Fill"
+                          Width="16" 
+                          Height="16"
+                          HorizontalAlignment="Right" 
+                          VerticalAlignment="Center" />
                   
-            <Rectangle Cursor="Hand" 
-                       Margin="0 0 16 0"
-                       Grid.Row="0" 
-                       Grid.RowSpan="2"
-                       Grid.Column="1" 
-                       Height="16" 
-                       Width="16" 
-                       VerticalAlignment="Center" 
-                       HorizontalAlignment="Right" 
-                       MouseDown="ExitButton_MouseDown">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="Black" Opacity="0"/>
-                </Rectangle.Fill>
-            </Rectangle>
+                    <Rectangle Cursor="Hand" 
+                               Height="16" 
+                               Width="16" 
+                               VerticalAlignment="Center" 
+                               HorizontalAlignment="Right" 
+                               MouseDown="ExitButton_MouseDown">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="Black" Opacity="0"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+            </StackPanel>
+            
+
         </Grid>
     </Border>
 </mah:MetroWindow>

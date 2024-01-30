@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
-      d:DesignHeight="450" 
+      d:DesignHeight="340" 
       d:DesignWidth="580"
       Title="Damping"
       Background="Transparent">
@@ -17,42 +17,48 @@
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     
-                    <Label Content="Front Antiroll Bars Min" 
-                           HorizontalAlignment="Left" 
-                           VerticalAlignment="Top" 
-                           Margin="7.5"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label x:Name="FrontAntirollMinLabel" 
+                           Content="Front Antiroll Min" 
+                           VerticalAlignment="Center" 
+                           Margin="7.5 0 0 0"
+                           Grid.Column="0"/>
                     
                     <mah:NumericUpDown x:Name="FrontAntirollMinBox" 
                                        Background="#FF2E3440" 
-                                       BorderThickness="0" 
+                                       BorderBrush="#FF2E3440" 
                                        TrackMouseWheelWhenMouseOver="True" 
                                        TextAlignment="Left" 
                                        ParsingNumberStyle="Float" 
                                        NumericInputMode="Decimal" 
-                                       Height="25" 
-                                       Width="120" 
-                                       HorizontalAlignment="Left" 
-                                       VerticalAlignment="Top" 
-                                       Margin="140, 7.5" 
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center" 
+                                       Margin="7.5 0 0 0" 
+                                       DefaultValue="0"
                                        ValueChanged="ValueChanged"/>
                     
-                    <Label Content="Front Antiroll Bars Max" 
-                           HorizontalAlignment="Right" 
-                           VerticalAlignment="Top" 
-                           Margin="0,7.5,140,0"/>
+                    <Label x:Name="FrontAntirollMaxLabel" 
+                           Content="Front Antiroll Max" 
+                           VerticalAlignment="Center"
+                           Margin="7.5 0 0 0"
+                           Grid.Column="2"/>
 
-                    <mah:NumericUpDown Background="#FF2E3440" 
-                                       BorderThickness="0" 
+                    <mah:NumericUpDown x:Name="FrontAntirollMaxBox" 
+                                       Background="#FF2E3440" 
+                                       BorderBrush="#FF2E3440" 
                                        TrackMouseWheelWhenMouseOver="True" 
-                                       x:Name="FrontAntirollMaxBox" 
                                        TextAlignment="Left" 
-                                       ParsingNumberStyle="Float" 
                                        NumericInputMode="Decimal" 
-                                       Height="25" 
-                                       Width="120" 
-                                       HorizontalAlignment="Right" 
-                                       VerticalAlignment="Top" 
-                                       Margin="7.5" 
+                                       VerticalAlignment="Center"
+                                       Grid.Column="3"
+                                       DefaultValue="0"
+                                       Margin="7.5 0 7.5 0" 
                                        ValueChanged="ValueChanged"/>
 
                     
@@ -62,42 +68,48 @@
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     
-                    <Label Content="Rear Antiroll Bars Min" 
-                           HorizontalAlignment="Left" 
-                           VerticalAlignment="Top" 
-                           Margin="7.5"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Content="Rear Antiroll Min" 
+                           VerticalAlignment="Center" 
+                           Margin="7.5 0 0 0"
+                           Width="{Binding ActualWidth, ElementName=FrontAntirollMinLabel}"/>
                     
                     <mah:NumericUpDown x:Name="RearAntirollMinBox" 
                                        Background="#FF2E3440" 
-                                       BorderThickness="0" 
+                                       BorderBrush="#FF2E3440" 
                                        TrackMouseWheelWhenMouseOver="True" 
                                        TextAlignment="Left" 
                                        ParsingNumberStyle="Float" 
-                                       NumericInputMode="Decimal" 
-                                       Height="25" 
-                                       Width="120" 
-                                       HorizontalAlignment="Left" 
-                                       VerticalAlignment="Top" 
-                                       Margin="140, 7.5" 
+                                       NumericInputMode="Decimal"
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       Margin="7.5 0 0 0" 
+                                       DefaultValue="0"
                                        ValueChanged="ValueChanged"/>
                     
-                    <Label Content="Rear Antiroll Bars Max" 
-                           HorizontalAlignment="Right" 
-                           VerticalAlignment="Top" 
-                           Margin="0,7.5,140,0"/>
+                    <Label Content="Rear Antiroll Max" 
+                           VerticalAlignment="Center" 
+                           Margin="7.5 0 0 0"
+                           Grid.Column="2"
+                           Width="{Binding ActualWidth, ElementName=FrontAntirollMaxLabel}"/>
 
-                    <mah:NumericUpDown Background="#FF2E3440" 
-                                       BorderThickness="0" 
+                    <mah:NumericUpDown x:Name="RearAntirollMaxBox" 
+                                       Background="#FF2E3440" 
+                                       BorderBrush="#FF2E3440" 
                                        TrackMouseWheelWhenMouseOver="True" 
-                                       x:Name="RearAntirollMaxBox" 
                                        TextAlignment="Left" 
                                        ParsingNumberStyle="Float" 
                                        NumericInputMode="Decimal" 
-                                       Height="25" 
-                                       Width="120" 
-                                       HorizontalAlignment="Right" 
-                                       VerticalAlignment="Top" 
-                                       Margin="7.5" 
+                                       Grid.Column="3"
+                                       VerticalAlignment="Center" 
+                                       Margin="7.5 0 7.5 0" 
+                                       DefaultValue="0"
                                        ValueChanged="ValueChanged"/>
 
                     
@@ -107,24 +119,135 @@
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     
-                    <Label Content="Front Rebound Stiffness Min" 
-                           HorizontalAlignment="Left" 
-                           VerticalAlignment="Top" 
-                           Margin="7.5"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     
-                    <mah:NumericUpDown x:Name="FrontReboundStiffnessMinBox" 
-                                       Background="#FF2E3440" 
-                                       BorderThickness="0" 
-                                       TrackMouseWheelWhenMouseOver="True" 
-                                       TextAlignment="Left" 
-                                       ParsingNumberStyle="Float" 
-                                       NumericInputMode="Decimal" 
-                                       Height="25" 
-                                       Width="370" 
-                                       HorizontalAlignment="Right" 
-                                       VerticalAlignment="Top" 
-                                       Margin="7.5" 
-                                       ValueChanged="ValueChanged"/>
+                    <Label x:Name="FrontReboundStiffnessMainLabel" 
+                           Content="Front Rebound Stiffness:" 
+                           HorizontalAlignment="Left" 
+                           VerticalAlignment="Center" 
+                           Margin="7.5 0 0 0"/>
+
+                    <Grid Column="1">
+                    
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+    
+                        <Label Content="Min:"
+                               VerticalAlignment="Center"/>
+                        
+                        <mah:NumericUpDown x:Name="FrontReboundStiffnessMinBox" 
+                                           Grid.Column="1"
+                                           Background="#FF2E3440" 
+                                           BorderThickness="0" 
+                                           TrackMouseWheelWhenMouseOver="True" 
+                                           TextAlignment="Left" 
+                                           ParsingNumberStyle="Float" 
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center" 
+                                           Margin="5 0 0 0"
+                                           Value="0"
+                                           ValueChanged="ValueChanged"/>
+                    </Grid>
+                    
+                    <Grid Column="2">
+                    
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Max:"
+                               VerticalAlignment="Center"
+                               Margin="5 0 0 0"/>
+                        
+                        <mah:NumericUpDown x:Name="FrontReboundStiffnessMaxBox" 
+                                           Grid.Column="1"
+                                           Background="#FF2E3440" 
+                                           BorderThickness="0" 
+                                           TrackMouseWheelWhenMouseOver="True" 
+                                           TextAlignment="Left" 
+                                           ParsingNumberStyle="Float" 
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center" 
+                                           Margin="5 0 7.5 0"
+                                           Value="0"
+                                           ValueChanged="ValueChanged"/>
+                    </Grid>
+                    
+                    
+                </Grid>    
+            </Border>
+            
+                        <Border Style="{StaticResource CommonBorderStyle}">
+                <Grid>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Content="Rear Rebound Stiffness:" 
+                           HorizontalAlignment="Left" 
+                           VerticalAlignment="Center" 
+                           Margin="7.5 0 0 0"
+                           Width="{Binding ActualWidth, ElementName=FrontReboundStiffnessMainLabel}"/>
+
+                    <Grid Column="1">
+                    
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+    
+                        <Label Content="Min:"
+                               VerticalAlignment="Center"/>
+                        
+                        <mah:NumericUpDown x:Name="RearReboundStiffnessMinBox" 
+                                           Grid.Column="1"
+                                           Background="#FF2E3440" 
+                                           BorderThickness="0" 
+                                           TrackMouseWheelWhenMouseOver="True" 
+                                           TextAlignment="Left" 
+                                           ParsingNumberStyle="Float" 
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center" 
+                                           Margin="5 0 0 0"
+                                           DefaultValue="0"
+                                           ValueChanged="ValueChanged"/>
+                    </Grid>
+                    
+                    <Grid Column="2">
+                    
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Max:"
+                               VerticalAlignment="Center"
+                               Margin="5 0 0 0"/>
+                        
+                        <mah:NumericUpDown x:Name="RearReboundStiffnessMaxBox" 
+                                           Grid.Column="1"
+                                           Background="#FF2E3440" 
+                                           BorderThickness="0" 
+                                           TrackMouseWheelWhenMouseOver="True" 
+                                           TextAlignment="Left" 
+                                           ParsingNumberStyle="Float" 
+                                           NumericInputMode="Decimal" 
+                                           VerticalAlignment="Center" 
+                                           Margin="5 0 7.5 0"
+                                           Value="0"
+                                           ValueChanged="ValueChanged"/>
+                    </Grid>
+                    
                     
                 </Grid>    
             </Border>
@@ -132,117 +255,48 @@
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     
-                    <Label Content="Front Rebound Stiffness Max" 
-                           HorizontalAlignment="Left" 
-                           VerticalAlignment="Top" 
-                           Margin="7.5"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     
-                    <mah:NumericUpDown x:Name="FrontReboundStiffnessMaxBox" 
-                                       Background="#FF2E3440" 
-                                       BorderThickness="0" 
-                                       TrackMouseWheelWhenMouseOver="True" 
-                                       TextAlignment="Left" 
-                                       ParsingNumberStyle="Float" 
-                                       NumericInputMode="Decimal" 
-                                       Height="25" 
-                                       Width="370" 
-                                       HorizontalAlignment="Right" 
-                                       VerticalAlignment="Top" 
-                                       Margin="7.5" 
-                                       ValueChanged="ValueChanged"/>
-                    
-                </Grid>    
-            </Border>
-            
-            <Border Style="{StaticResource CommonBorderStyle}">
-                <Grid>
-                    
-                    <Label Content="Rear Rebound Stiffness Min" 
-                           HorizontalAlignment="Left" 
-                           VerticalAlignment="Top" 
-                           Margin="7.5"/>
-                    
-                    <mah:NumericUpDown x:Name="RearReboundStiffnessMinBox" 
-                                       Background="#FF2E3440" 
-                                       BorderThickness="0" 
-                                       TrackMouseWheelWhenMouseOver="True" 
-                                       TextAlignment="Left" 
-                                       ParsingNumberStyle="Float" 
-                                       NumericInputMode="Decimal" 
-                                       Height="25" 
-                                       Width="370" 
-                                       HorizontalAlignment="Right" 
-                                       VerticalAlignment="Top" 
-                                       Margin="7.5" 
-                                       ValueChanged="ValueChanged"/>
-                    
-                </Grid>    
-            </Border>
-            
-            <Border Style="{StaticResource CommonBorderStyle}">
-                <Grid>
-                    
-                    <Label Content="Rear Rebound Stiffness Max" 
-                           HorizontalAlignment="Left" 
-                           VerticalAlignment="Top" 
-                           Margin="7.5"/>
-                    
-                    <mah:NumericUpDown x:Name="RearReboundStiffnessMaxBox" 
-                                       Background="#FF2E3440" 
-                                       BorderThickness="0" 
-                                       TrackMouseWheelWhenMouseOver="True" 
-                                       TextAlignment="Left" 
-                                       ParsingNumberStyle="Float" 
-                                       NumericInputMode="Decimal" 
-                                       Height="25" 
-                                       Width="370" 
-                                       HorizontalAlignment="Right" 
-                                       VerticalAlignment="Top" 
-                                       Margin="7.5" 
-                                       ValueChanged="ValueChanged"/>
-                    
-                </Grid>    
-            </Border>
-            
-            <Border Style="{StaticResource CommonBorderStyle}">
-                <Grid>
-                    
-                    <Label Content="Front Bump Stiffness Min" 
-                           HorizontalAlignment="Left" 
-                           VerticalAlignment="Top" 
-                           Margin="7.5"/>
+                    <Label x:Name="FrontBumpStiffMinLabel" 
+                           Content="Front Bump Stiffness Min" 
+                           VerticalAlignment="Center" 
+                           Margin="7.5 0 0 0"
+                           Grid.Column="0"/>
                     
                     <mah:NumericUpDown x:Name="FrontBumpStiffnessMinBox" 
                                        Background="#FF2E3440" 
-                                       BorderThickness="0" 
+                                       BorderBrush="#FF2E3440" 
                                        TrackMouseWheelWhenMouseOver="True" 
                                        TextAlignment="Left" 
                                        ParsingNumberStyle="Float" 
                                        NumericInputMode="Decimal" 
-                                       Height="25" 
-                                       Width="120" 
-                                       HorizontalAlignment="Left" 
-                                       VerticalAlignment="Top" 
-                                       Margin="152.5, 7.5" 
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center" 
+                                       Margin="7.5 0 0 0" 
+                                       DefaultValue="0"
                                        ValueChanged="ValueChanged"/>
                     
-                    <Label Content="Front Bump Stiffness Max" 
-                           HorizontalAlignment="Right" 
-                           VerticalAlignment="Top" 
-                           Margin="0,7.5,130,0"/>
+                    <Label  x:Name="FrontBumpStiffMaxLabel" 
+                            Content="Front Bump Stiffness Max" 
+                            VerticalAlignment="Center"
+                            Margin="7.5 0 0 0"
+                            Grid.Column="2"/>
 
-                    <mah:NumericUpDown Background="#FF2E3440" 
-                                       BorderThickness="0" 
+                    <mah:NumericUpDown x:Name="FrontBumpStiffnessMaxBox" 
+                                       Background="#FF2E3440" 
+                                       BorderBrush="#FF2E3440" 
                                        TrackMouseWheelWhenMouseOver="True" 
-                                       x:Name="FrontBumpStiffnessMaxBox" 
                                        TextAlignment="Left" 
-                                       ParsingNumberStyle="Float" 
                                        NumericInputMode="Decimal" 
-                                       Height="25" 
-                                       Width="120" 
-                                       HorizontalAlignment="Right" 
-                                       VerticalAlignment="Top" 
-                                       Margin="7.5" 
+                                       VerticalAlignment="Center"
+                                       Grid.Column="3"
+                                       DefaultValue="0"
+                                       Margin="7.5 0 7.5 0" 
                                        ValueChanged="ValueChanged"/>
 
                     
@@ -252,42 +306,48 @@
             <Border Style="{StaticResource CommonBorderStyle}">
                 <Grid>
                     
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
                     <Label Content="Rear Bump Stiffness Min" 
-                           HorizontalAlignment="Left" 
-                           VerticalAlignment="Top" 
-                           Margin="7.5"/>
+                           VerticalAlignment="Center" 
+                           Margin="7.5 0 0 0"
+                           Width="{Binding ActualWidth, ElementName=FrontBumpStiffMinLabel}"/>
                     
                     <mah:NumericUpDown x:Name="RearBumpStiffnessMinBox" 
                                        Background="#FF2E3440" 
-                                       BorderThickness="0" 
+                                       BorderBrush="#FF2E3440" 
                                        TrackMouseWheelWhenMouseOver="True" 
                                        TextAlignment="Left" 
                                        ParsingNumberStyle="Float" 
-                                       NumericInputMode="Decimal" 
-                                       Height="25" 
-                                       Width="120" 
-                                       HorizontalAlignment="Left" 
-                                       VerticalAlignment="Top" 
-                                       Margin="152.5, 7.5" 
+                                       NumericInputMode="Decimal"
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       Margin="7.5 0 0 0" 
+                                       DefaultValue="0"
                                        ValueChanged="ValueChanged"/>
                     
                     <Label Content="Rear Bump Stiffness Max" 
-                           HorizontalAlignment="Right" 
-                           VerticalAlignment="Top" 
-                           Margin="0,7.5,135,0"/>
+                           VerticalAlignment="Center" 
+                           Margin="7.5 0 0 0"
+                           Grid.Column="2"
+                           Width="{Binding ActualWidth, ElementName=FrontBumpStiffMaxLabel}"/>
 
-                    <mah:NumericUpDown Background="#FF2E3440" 
-                                       BorderThickness="0" 
+                    <mah:NumericUpDown x:Name="RearBumpStiffnessMaxBox" 
+                                       Background="#FF2E3440" 
+                                       BorderBrush="#FF2E3440" 
                                        TrackMouseWheelWhenMouseOver="True" 
-                                       x:Name="RearBumpStiffnessMaxBox" 
                                        TextAlignment="Left" 
                                        ParsingNumberStyle="Float" 
                                        NumericInputMode="Decimal" 
-                                       Height="25" 
-                                       Width="120" 
-                                       HorizontalAlignment="Right" 
-                                       VerticalAlignment="Top" 
-                                       Margin="7.5" 
+                                       Grid.Column="3"
+                                       VerticalAlignment="Center" 
+                                       Margin="7.5 0 7.5 0" 
+                                       DefaultValue="0"
                                        ValueChanged="ValueChanged"/>
 
                     

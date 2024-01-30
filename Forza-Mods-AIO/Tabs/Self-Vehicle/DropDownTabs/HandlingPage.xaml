@@ -226,7 +226,6 @@
                                        Minimum="-100"
                                        Maximum="100"
                                        Value="0"
-                                       Width="Auto"
                                        VerticalAlignment="Center"
                                        UpDownButtonsFocusable="False"
                                        TrackMouseWheelWhenMouseOver="True"
@@ -272,7 +271,6 @@
                                        Minimum="0"
                                        Maximum="1"
                                        Value="0"
-                                       Width="Auto"
                                        VerticalAlignment="Center"
                                        UpDownButtonsFocusable="False"
                                        TrackMouseWheelWhenMouseOver="True"
@@ -390,8 +388,7 @@
                            Margin="6.5 0 0 0"
                            Grid.Column="6"/>
 
-                    <ComboBox x:Name="TurnAssistModeBox"
-                              Margin="6.5 0 0 0"
+                    <ComboBox Margin="6.5 0 0 0"
                               VerticalAlignment="Center"
                               Background="#FF2E3440"
                               BorderBrush="#FF2E3440"

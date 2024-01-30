@@ -5,24 +5,25 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
-      d:DesignHeight="315" d:DesignWidth="580"
+      d:DesignHeight="285" 
+      d:DesignWidth="580"
       Title="Others"
       Background="Transparent">
 
     <Border BorderBrush="#FF2E3440" BorderThickness="2,0,2,2" CornerRadius="0,0,10,10">
         <Grid>
-            
-           
            <StackPanel>
-              
-              <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" BorderBrush="#FF2E3440" Margin="0,10,0,0">
-              
+              <Border Style="{StaticResource CommonBorderStyle}">
                  <Grid>
+                    <Grid.ColumnDefinitions>
+                       <ColumnDefinition Width="Auto"/>
+                       <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     
                     <Label Content="Wheelbase"
                            VerticalAlignment="Center" 
-                           HorizontalAlignment="Left"
-                           Margin="5,10,0,10"/>
+                           Margin="7.5 0 0 0"
+                           Width="{Binding ActualWidth, ElementName=RimSizeFrontLabel}"/>
                     
                     <mah:NumericUpDown x:Name="WheelbaseBox"
                                        Interval="0.1"
@@ -32,37 +33,31 @@
                                        ParsingNumberStyle="Float" 
                                        TextAlignment="Left" 
                                        NumericInputMode="Decimal" 
-                                       Margin="0,0,5,0"
-                                       Width="440"
+                                       Margin="7.5 0 7.5 0"
+                                       Grid.Column="1"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Right"
                                        ValueChanged="ValueChanged"/>
-
-                    
                  </Grid>
-                 
               </Border>
               
-              <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" BorderBrush="#FF2E3440" Margin="0,10,0,0">
-              
+              <Border Style="{StaticResource CommonBorderStyle}">
                  <Grid>
-                    
                     <Grid.ColumnDefinitions>
                        <ColumnDefinition Width="*"/>
-                       <ColumnDefinition Width="Auto"/>
+                       <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    
-                    <StackPanel Grid.Column="0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
+                    <Grid Column="0">
                        
+                       <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="*"/>
+                       </Grid.ColumnDefinitions>
                        
                        <Label Content="Front Width"
-                              VerticalAlignment="Top" 
-                              HorizontalAlignment="Left"
-                              Margin="5,10,0,10"/>
+                              VerticalAlignment="Center" 
+                              Margin="7.5 0 0 0"
+                              Width="{Binding ActualWidth, ElementName=RimSizeFrontLabel}"/>
                           
                        <mah:NumericUpDown x:Name="FrontWidthBox" 
                                           Interval="0.1"
@@ -72,24 +67,22 @@
                                           ParsingNumberStyle="Float" 
                                           TextAlignment="Left"
                                           NumericInputMode="Decimal"
-                                          Margin="27.5,0,0,0"
-                                          Width="150"
+                                          Grid.Column="1"
+                                          Margin="7.5 0 7.5 0"
                                           VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"
                                           ValueChanged="ValueChanged"/>
-
-                    </StackPanel>
+                       
+                    </Grid>
                     
-                    <StackPanel Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                       
-                       
+                    <Grid Column="1">
+                       <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="*"/>
+                       </Grid.ColumnDefinitions>
+
                        <Label Content="Front Spacer"
-                              VerticalAlignment="Top" 
-                              HorizontalAlignment="Left"
-                              Margin="5,10,0,10"/>
+                              VerticalAlignment="Center" 
+                              Width="{Binding ActualWidth, ElementName=RimRadiusFrontLabel}"/>
                           
                        <mah:NumericUpDown x:Name="FrontSpacerBox" 
                                           Interval="0.1"
@@ -99,38 +92,32 @@
                                           ParsingNumberStyle="Float" 
                                           TextAlignment="Left"
                                           NumericInputMode="Decimal"
-                                          Margin="10,0,5,0"
-                                          Width="150"
                                           VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"
+                                          Grid.Column="1"
+                                          Margin="7.5 0 7.5 0"
                                           ValueChanged="ValueChanged"/>
-
-                    </StackPanel>
-                    
+                    </Grid>
                  </Grid>
-                 
               </Border>
-
-              <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" BorderBrush="#FF2E3440" Margin="0,10,0,0">
-               
+              
+              <Border Style="{StaticResource CommonBorderStyle}">
                  <Grid>
-                    
                     <Grid.ColumnDefinitions>
                        <ColumnDefinition Width="*"/>
-                       <ColumnDefinition Width="Auto"/>
+                       <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    
-                    <StackPanel Grid.Column="0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
+                    <Grid Column="0">
                        
+                       <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="*"/>
+                       </Grid.ColumnDefinitions>
                        
                        <Label Content="Rear Width"
-                              VerticalAlignment="Top" 
-                              HorizontalAlignment="Left"
-                              Margin="5,10,0,10"/>
+                              VerticalAlignment="Center" 
+                              Margin="7.5 0 0 0"
+                              Width="{Binding ActualWidth, ElementName=RimSizeFrontLabel}"/>
                           
                        <mah:NumericUpDown x:Name="RearWidthBox" 
                                           Interval="0.1"
@@ -140,24 +127,22 @@
                                           ParsingNumberStyle="Float" 
                                           TextAlignment="Left"
                                           NumericInputMode="Decimal"
-                                          Margin="32.5,0,0,0"
-                                          Width="150"
+                                          Grid.Column="1"
+                                          Margin="7.5 0 7.5 0"
                                           VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"
                                           ValueChanged="ValueChanged"/>
-
-                    </StackPanel>
+                       
+                    </Grid>
                     
-                    <StackPanel Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                       
-                       
+                    <Grid Column="1">
+                       <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="*"/>
+                       </Grid.ColumnDefinitions>
+
                        <Label Content="Rear Spacer"
-                              VerticalAlignment="Top" 
-                              HorizontalAlignment="Left"
-                              Margin="5,10,0,10"/>
+                              VerticalAlignment="Center" 
+                              Width="{Binding ActualWidth, ElementName=RimRadiusFrontLabel}"/>
                           
                        <mah:NumericUpDown x:Name="RearSpacerBox" 
                                           Interval="0.1"
@@ -167,38 +152,31 @@
                                           ParsingNumberStyle="Float" 
                                           TextAlignment="Left"
                                           NumericInputMode="Decimal"
-                                          Margin="10,0,5,0"
-                                          Width="150"
                                           VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"
+                                          Grid.Column="1"
+                                          Margin="7.5 0 7.5 0"
                                           ValueChanged="ValueChanged"/>
-
-                    </StackPanel>
-                    
+                    </Grid>
                  </Grid>
-                 
               </Border>
-
-              <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" BorderBrush="#FF2E3440" Margin="0,10,0,0">
-               
+              <Border Style="{StaticResource CommonBorderStyle}">
                  <Grid>
-                    
                     <Grid.ColumnDefinitions>
                        <ColumnDefinition Width="*"/>
-                       <ColumnDefinition Width="Auto"/>
+                       <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    
-                    <StackPanel Grid.Column="0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
+                    <Grid Column="0">
                        
+                       <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="*"/>
+                       </Grid.ColumnDefinitions>
                        
-                       <Label Content="Rim Size Front"
-                              VerticalAlignment="Top" 
-                              HorizontalAlignment="Left"
-                              Margin="5,10,0,10"/>
+                       <Label x:Name="RimSizeFrontLabel" 
+                              Content="Rim Size Front"
+                              VerticalAlignment="Center" 
+                              Margin="7.5 0 0 0"/>
                           
                        <mah:NumericUpDown x:Name="RimSizeFrontBox" 
                                           Interval="0.1"
@@ -208,24 +186,22 @@
                                           ParsingNumberStyle="Float" 
                                           TextAlignment="Left"
                                           NumericInputMode="Decimal"
-                                          Margin="15,0,0,0"
-                                          Width="150"
+                                          Grid.Column="1"
+                                          Margin="7.5 0 7.5 0"
                                           VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"
                                           ValueChanged="ValueChanged"/>
-
-                    </StackPanel>
+                       
+                    </Grid>
                     
-                    <StackPanel Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                       
-                       
-                       <Label Content="Rim Radius Front"
-                              VerticalAlignment="Top" 
-                              HorizontalAlignment="Left"
-                              Margin="5,10,0,10"/>
+                    <Grid Column="1">
+                       <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="*"/>
+                       </Grid.ColumnDefinitions>
+
+                       <Label x:Name="RimRadiusFrontLabel"
+                              Content="Rim Radius Front"
+                              VerticalAlignment="Center" />
                           
                        <mah:NumericUpDown x:Name="RimRadiusFrontBox" 
                                           Interval="0.1"
@@ -235,38 +211,34 @@
                                           ParsingNumberStyle="Float" 
                                           TextAlignment="Left"
                                           NumericInputMode="Decimal"
-                                          Margin="10,0,5,0"
-                                          Width="150"
                                           VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"
+                                          Grid.Column="1"
+                                          Margin="7.5 0 7.5 0"
                                           ValueChanged="ValueChanged"/>
-
-                    </StackPanel>
-                    
+                    </Grid>
                  </Grid>
-                 
               </Border>
               
-              <Border BorderThickness="2,2,2,2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="556" BorderBrush="#FF2E3440" Margin="0,10,0,0">
-               
+              
+              
+              <Border Style="{StaticResource CommonBorderStyle}">
                  <Grid>
-                    
                     <Grid.ColumnDefinitions>
                        <ColumnDefinition Width="*"/>
-                       <ColumnDefinition Width="Auto"/>
+                       <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    
-                    <StackPanel Grid.Column="0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
+                    <Grid Column="0">
                        
+                       <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="*"/>
+                       </Grid.ColumnDefinitions>
                        
                        <Label Content="Rim Size Rear"
-                              VerticalAlignment="Top" 
-                              HorizontalAlignment="Left"
-                              Margin="5,10,0,10"/>
+                              VerticalAlignment="Center" 
+                              Margin="7.5 0 0 0"
+                              Width="{Binding ActualWidth, ElementName=RimSizeFrontLabel}"/>
                           
                        <mah:NumericUpDown x:Name="RimSizeRearBox" 
                                           Interval="0.1"
@@ -276,24 +248,22 @@
                                           ParsingNumberStyle="Float" 
                                           TextAlignment="Left"
                                           NumericInputMode="Decimal"
-                                          Margin="20,0,0,0"
-                                          Width="150"
+                                          Grid.Column="1"
+                                          Margin="7.5 0 7.5 0"
                                           VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"
                                           ValueChanged="ValueChanged"/>
-
-                    </StackPanel>
+                       
+                    </Grid>
                     
-                    <StackPanel Grid.Column="1"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                       
-                       
+                    <Grid Column="1">
+                       <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="Auto"/>
+                          <ColumnDefinition Width="*"/>
+                       </Grid.ColumnDefinitions>
+
                        <Label Content="Rim Radius Rear"
-                              VerticalAlignment="Top" 
-                              HorizontalAlignment="Left"
-                              Margin="5,10,0,10"/>
+                              VerticalAlignment="Center" 
+                              Width="{Binding ActualWidth, ElementName=RimRadiusFrontLabel}"/>
                           
                        <mah:NumericUpDown x:Name="RimRadiusRearBox" 
                                           Interval="0.1"
@@ -303,18 +273,13 @@
                                           ParsingNumberStyle="Float" 
                                           TextAlignment="Left"
                                           NumericInputMode="Decimal"
-                                          Margin="10,0,5,0"
-                                          Width="150"
                                           VerticalAlignment="Center"
-                                          HorizontalAlignment="Left"
+                                          Grid.Column="1"
+                                          Margin="7.5 0 7.5 0"
                                           ValueChanged="ValueChanged"/>
-
-                    </StackPanel>
-                    
+                    </Grid>
                  </Grid>
-                 
               </Border>
-              
            </StackPanel>
         </Grid>
     </Border>

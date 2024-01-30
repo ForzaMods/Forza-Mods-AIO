@@ -168,6 +168,7 @@ public partial class MainWindow
 
     #region Dragging
 
+    private DateTime _lastMouseDownTime = DateTime.MinValue;
     private void Window_MouseDown(object sender, MouseButtonEventArgs e)
     {
         var isLeftButton = e.ChangedButton == MouseButton.Left;
@@ -178,9 +179,47 @@ public partial class MainWindow
             return;
         }
 
+        if ((DateTime.Now - _lastMouseDownTime).TotalMilliseconds < 200)
+        {
+            HandleTopBarDoubleClick();
+        }
+
+        _lastMouseDownTime = DateTime.Now;
         DragMove();
     }
 
+    private void HandleTopBarDoubleClick()
+    {
+        switch (Window.WindowState)
+        {
+            case WindowState.Normal:
+            {
+                Window.WindowState = WindowState.Maximized;
+                break;
+            }
+            case WindowState.Maximized:
+            {
+                Window.WindowState = WindowState.Normal;
+                break;
+            }
+            case WindowState.Minimized:
+            default:
+            {
+                return;
+            }
+        }
+    }
+
+    private void Minimize_OnMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton != MouseButton.Left)
+        {
+            return;
+        }
+        
+        WindowState = WindowState.Minimized;
+    }
+    
     #endregion
 
     #region Buttons
@@ -309,15 +348,9 @@ public partial class MainWindow
         // ReSharper disable once FunctionNeverReturns
     }
 
-    private const bool DisableButtonToggling = false;
-    
     public void ToggleButtons(bool on)
     {
-        if (DisableButtonToggling)
-        {
-            return;
-        }
-        
+#if RELEASE
         Dispatcher.Invoke(() =>
         {
             SelfVehicle.IsEnabled = on;
@@ -332,6 +365,7 @@ public partial class MainWindow
             SpeedTest.Fill = on ? Brushes.White : Brushes.DarkGray;
             Tools.Fill = on ? Brushes.White : Brushes.DarkGray;
         });
+#endif
     }
 
     private void GvpMaker(string name, GameVerPlat.GameType type)
