@@ -41,7 +41,7 @@ public partial class MainWindow
     public readonly Mem M = new() { SigScanTasks = Environment.ProcessorCount };
     public readonly Gamepad Gamepad = new(); 
     public GameVerPlat Gvp { get; private set; } = new();
-    public Keybindings Keybindings { get; } = new(); 
+    public Keybindings Keybindings { get; } 
     public bool Attached { get; private set; }
 
     #endregion
@@ -51,6 +51,7 @@ public partial class MainWindow
     public MainWindow()
     {
         InitializeComponent();
+        Keybindings = new Keybindings();
         Mw = this;
         LoadHotkeys();
 #if RELEASE
@@ -72,44 +73,54 @@ public partial class MainWindow
         if (!fields.Any()) return;
         
         Properties.Settings.Default.Upgrade();
+        Properties.Settings.Default.Reload();
         foreach (var field in fields)
         {
             var hotkey = Properties.Settings.Default[field.Name].ToString();
             if (hotkey == null) continue;
+            DebugLabel.Text = $"Field: {field.Name}, Hotkey: {hotkey}";
+            
             if (field.FieldType == typeof(Key))
             {
                 HandleKeyboardLoading(field, hotkey);
                 continue;
             }
 
-            if (!Enum.TryParse(typeof(GamepadButtonFlags), hotkey, out var gamepadResult))
+            if (!Enum.TryParse(typeof(GamepadButtonFlags), hotkey, true, out var gamepadResult))
             {
+                DebugLabel.Text = $"Failed to parse gamepad hotkey: {hotkey}";
                 continue;
             }
 
-            field.SetValue(Keybindings, gamepadResult);
+            field.SetValue(Mw.Keybindings, gamepadResult);
         }
     }
 
-    private void SaveHotkeys()
+    private static void SaveHotkeys()
     {
         var fields = typeof(Keybindings).GetFields(BindingFlags.Public | BindingFlags.Instance);
         foreach (var field in fields)
-        {   
-            Properties.Settings.Default[field.Name] = field.GetValue(Keybindings)?.ToString();
+        {
+            var value = field.GetValue(Mw.Keybindings)?.ToString();
+            if (value == null)
+            {
+                continue;
+            }
+            
+            Properties.Settings.Default[field.Name] = value;
         }
         
         Properties.Settings.Default.Save();
     }
 
-    private void HandleKeyboardLoading(FieldInfo field, string? hotkeyName)
+    private static void HandleKeyboardLoading(FieldInfo field, string? hotkeyName)
     {
-        if (!Enum.TryParse(typeof(Key), hotkeyName, out var keyboardResult))
+        if (!Enum.TryParse(typeof(Key), hotkeyName, true, out var keyboardResult))
         {
             return;
         }
         
-        field.SetValue(Keybindings, keyboardResult);
+        field.SetValue(Mw.Keybindings, keyboardResult);
     }
     
     private void InitializeTheme()
@@ -341,7 +352,6 @@ public partial class MainWindow
 
                 ResetHandling.ResetAio();
                 Gvp = new GameVerPlat();
-                M.CloseProcess();
                 Attached = false;
             }
         }

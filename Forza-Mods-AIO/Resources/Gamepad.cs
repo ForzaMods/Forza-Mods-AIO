@@ -58,7 +58,7 @@ public class Gamepad
     
     public bool IsButtonPressed(GamepadButtonFlags key)
     {
-        return _controller != null! && IsXInputButtonPressed(key);
+        return key != GamepadButtonFlags.None && _controller != null! && IsXInputButtonPressed(key);
     }
 
     private bool IsXInputButtonPressed(GamepadButtonFlags key)

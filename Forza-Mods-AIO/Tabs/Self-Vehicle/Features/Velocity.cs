@@ -32,12 +32,7 @@ public abstract class Velocity : FeatureBase
     {
         while (true)
         {
-            if (!IsProcessValid())
-            {
-                return;
-            }
-
-            if (!Shp.Dispatcher.Invoke(() => Shp.VelocitySwitch.IsOn))
+            if (!IsProcessValid() || !Shp.Dispatcher.Invoke(() => Shp.VelocitySwitch.IsOn))
             {
                 return;
             }
@@ -47,8 +42,10 @@ public abstract class Velocity : FeatureBase
                 Task.Delay(Interval).Wait();
                 continue;
             }
-        
-            if (!IsKeyPressed(Mw.Keybindings.Velocity) && !Mw.Gamepad.IsButtonPressed(Mw.Keybindings.VelocityController))
+
+            var keyboard = Mw.Keybindings.Velocity;
+            var controller = Mw.Keybindings.VelocityController;
+            if (!IsKeyPressed(keyboard) && !Mw.Gamepad.IsButtonPressed(controller))
             {
                 Task.Delay(Interval).Wait();
                 continue;

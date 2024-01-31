@@ -496,39 +496,45 @@ public partial class OverlayHandling
     {
         O.Dispatcher.BeginInvoke((Action<int>)delegate (int idx)
         {
+            var newFontSize = yRes / (5d / FontSize * 45d);
+            if (newFontSize <= 0)
+            {
+                newFontSize = 1;
+            }
+            
             if (item is SubHeaderOption)
             {
                 var child = new TextBlock
                 {
                     Text = text,
                     Foreground = fColour,
-                    FontSize = yRes / (5d / FontSize * 45d),
+                    FontSize = newFontSize,
                     Width = O.Width - 10,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     TextAlignment = TextAlignment.Center
                 };
                     
                 O.OptionsBlock.Inlines.Add(new InlineUIContainer(child));
-                O.ValueBlock.Inlines.Add(new Run("") { FontSize = yRes / (5d / FontSize * 45d) });
+                O.ValueBlock.Inlines.Add(new Run("") { FontSize = newFontSize });
                 return;
             }
 
             O.OptionsBlock.Inlines.Add(new Run(text)
             {
                 Foreground = fColour,
-                FontSize = yRes / (5d / FontSize * 45d)
+                FontSize = newFontSize
             });
 
             O.ValueBlock.Inlines.Add(new Run(value)
             {
                 Foreground = fColour,
-                FontSize = yRes / (5d / FontSize * 45d)
+                FontSize = newFontSize
             });
 
             if (description != string.Empty && idx == _selectedOptionIndex)
             {
                 O.DescriptionBlock.Text = description;
-                O.DescriptionBlock.FontSize = yRes / (5d / FontSize * 45d);
+                O.DescriptionBlock.FontSize = newFontSize;
                 O.DescriptionBlock.Foreground = Brushes.White;
                 return;
             }
