@@ -136,12 +136,13 @@ public partial class MiscellaneousPage
             return;
         }
 
-        var sell = Mw.Gvp.Name == "Forza Horizon 5" ? SellFh5 : SellFh4;
-        var count = Mw.Gvp.Name == "Forza Horizon 5" ? 7 : 6;
+        var isFh5 = Mw.Gvp.Type == GameVerPlat.GameType.Fh5;
+        var sell = isFh5 ? SellFh5 : SellFh4;
+        var count = isFh5 ? 7 : 6;
+        
         const string origFh5 = "44 8B B3 80000000";
         const string origFh4 = "8B B8 D04B0000";
-
-        var orig = Mw.Gvp.Name.Contains('5') ? origFh5 : origFh4;
+        var orig = isFh5 ? origFh5 : origFh4;
         
         if (!SellDetour.Setup(SellFactorSwitch, SellFactorAddr, orig, sell, count, true, 0, true))
         {
@@ -149,7 +150,7 @@ public partial class MiscellaneousPage
             return;
         }
 
-        if (Mw.Gvp.Name.Contains('5'))
+        if (isFh5)
         {
             SellDetour.UpdateVariable(ToInt32(SellFactorNum.Value) * 50);
         }
@@ -168,7 +169,7 @@ public partial class MiscellaneousPage
             return;
         }
 
-        if (Mw.Gvp.Name.Contains('5'))
+        if (Mw.Gvp.Type == GameVerPlat.GameType.Fh5)
         {
             SellDetour.UpdateVariable(ToInt32(SellFactorNum.Value) * 50);
             return;
@@ -184,11 +185,12 @@ public partial class MiscellaneousPage
             return;
         }
 
-        var scale = Mw.Gvp.Name == "Forza Horizon 5" ? ScaleFh5 : ScaleFh4;
+        var isFh5 = Mw.Gvp.Type == GameVerPlat.GameType.Fh5;
+        var scale = isFh5 ? ScaleFh5 : ScaleFh4;
         const string origFh5 = "F3 0F10 73 10";
         const string origFh4 = "F3 0F59 40 10";
 
-        var orig = Mw.Gvp.Name.Contains('4') ? origFh4 : origFh5;
+        var orig = !isFh5 ? origFh4 : origFh5;
         
         if (!ScaleDetour.Setup(ScaleSwitch, ScaleAddr, orig, scale, 5, true, 0, true))
         {
@@ -217,7 +219,7 @@ public partial class MiscellaneousPage
             return;
         }
 
-        if (Mw.Gvp.Name == "Forza Horizon 4" && SkillTreeEditToggle.IsOn)
+        if (Mw.Gvp.Type == GameVerPlat.GameType.Fh4 && SkillTreeEditToggle.IsOn)
         {
             Detour.FailedHandler(sender, SkillTreeEditToggle_OnToggled, true);
             return;
@@ -258,7 +260,7 @@ public partial class MiscellaneousPage
             return;
         }
 
-        var fh4 = Mw.Gvp.Name == "Forza Horizon 4";
+        var fh4 = Mw.Gvp.Type == GameVerPlat.GameType.Fh4;
         var bytes = fh4 ? ScoreFh4 : ScoreFh5;
         var replace = fh4 ? 6 : 7;
         var save = !fh4;
@@ -302,7 +304,7 @@ public partial class MiscellaneousPage
             return;
         }
 
-        if (Mw.Gvp.Name == "Forza Horizon 4" && SkillCostToggle.IsOn)
+        if (Mw.Gvp.Type == GameVerPlat.GameType.Fh4 && SkillCostToggle.IsOn)
         {
             Detour.FailedHandler(sender, SkillCostToggle_OnToggled, true);
             return;
@@ -347,7 +349,7 @@ public partial class MiscellaneousPage
             return;
         }
         
-        if (Mw.Gvp.Name == "Forza Horizon 4" && DriftToggle.IsOn)
+        if (Mw.Gvp.Type == GameVerPlat.GameType.Fh4 && DriftToggle.IsOn)
         {
             Detour.FailedHandler(sender, DriftToggle_OnToggled, true);
             return;
@@ -370,7 +372,7 @@ public partial class MiscellaneousPage
             return;
         }
         
-        if (Mw.Gvp.Name == "Forza Horizon 4" && TimeScaleSwitch.IsOn)
+        if (Mw.Gvp.Type == GameVerPlat.GameType.Fh4 && TimeScaleSwitch.IsOn)
         {
             return;
         }

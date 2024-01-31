@@ -29,7 +29,7 @@
                         <Label Content="Keyboard Jump Hack Keybind"
                                Margin="7.5 0"
                                VerticalAlignment="Center"
-                               Width="{Binding ActualWidth, ElementName=KeyboardWheelspeedKeybindLabel}"/>
+                               Width="{Binding ActualWidth, ElementName=KeyboardWheelSpeedKeybindLabel}"/>
                 
                         <Button x:Name="JumpHackButton"
                                 VerticalAlignment="Center"
@@ -49,7 +49,7 @@
                         <Label Content="Controller Jump Hack Keybind"
                                Margin="7.5 0"
                                VerticalAlignment="Center"
-                               Width="{Binding ActualWidth, ElementName=ControllerWheelspeedKeybindLabel}"/>
+                               Width="{Binding ActualWidth, ElementName=ControllerWheelSpeedKeybindLabel}"/>
                 
                         <Button x:Name="JumpHackControllerButton"
                                 VerticalAlignment="Center"
@@ -80,7 +80,7 @@
                         <Label Content="Keyboard Brake Hack Keybind"
                                Margin="7.5 0"
                                VerticalAlignment="Center"
-                               Width="{Binding ActualWidth, ElementName=KeyboardWheelspeedKeybindLabel}"/>
+                               Width="{Binding ActualWidth, ElementName=KeyboardWheelSpeedKeybindLabel}"/>
                 
                         <Button x:Name="BrakeHackButton"
                                 VerticalAlignment="Center"
@@ -100,7 +100,7 @@
                         <Label Content="Controller Brake Hack Keybind"
                                Margin="7.5 0"
                                VerticalAlignment="Center"
-                               Width="{Binding ActualWidth, ElementName=ControllerWheelspeedKeybindLabel}"/>
+                               Width="{Binding ActualWidth, ElementName=ControllerWheelSpeedKeybindLabel}"/>
                 
                         <Button x:Name="BrakeHackControllerButton"
                                 VerticalAlignment="Center"
@@ -130,7 +130,7 @@
                         <Label Content="Keyboard Velocity Keybind"
                                Margin="7.5 0"
                                VerticalAlignment="Center"
-                               Width="{Binding ActualWidth, ElementName=KeyboardWheelspeedKeybindLabel}"/>
+                               Width="{Binding ActualWidth, ElementName=KeyboardWheelSpeedKeybindLabel}"/>
                 
                         <Button x:Name="VelocityButton"
                                 VerticalAlignment="Center"
@@ -150,7 +150,7 @@
                         <Label Content="Controller Velocity Keybind"
                                Margin="7.5 0"
                                VerticalAlignment="Center"
-                               Width="{Binding ActualWidth, ElementName=ControllerWheelspeedKeybindLabel}"/>
+                               Width="{Binding ActualWidth, ElementName=ControllerWheelSpeedKeybindLabel}"/>
                 
                         <Button x:Name="VelocityControllerButton"
                                 VerticalAlignment="Center"
@@ -178,7 +178,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         
-                        <Label x:Name="KeyboardWheelspeedKeybindLabel" 
+                        <Label x:Name="KeyboardWheelSpeedKeybindLabel" 
                                Content="Keyboard Wheelspeed Keybind"
                                Margin="7.5 0"
                                VerticalAlignment="Center"/>
@@ -198,7 +198,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         
-                        <Label x:Name="ControllerWheelspeedKeybindLabel" 
+                        <Label x:Name="ControllerWheelSpeedKeybindLabel" 
                                Content="Controller Wheelspeed Keybind"
                                Margin="7.5 0"
                                VerticalAlignment="Center"/>

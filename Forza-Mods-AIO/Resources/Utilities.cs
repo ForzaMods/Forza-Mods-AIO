@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Forza_Mods_AIO.Resources;
 
-public static class Utils
+public static class Utilities
 {
     public static nuint GetBasePtrFromFunc(nuint sigResult, nuint sigResultOffset, nuint ptrOffset)
     {

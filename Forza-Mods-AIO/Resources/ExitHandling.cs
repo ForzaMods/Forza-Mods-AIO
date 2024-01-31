@@ -71,31 +71,34 @@ public static class ExitHandling
 
         if (Wall1Addr > (UIntPtr)Mw.Gvp.Process.MainModule.BaseAddress)
         {
-            Mw.M.WriteArrayMemory(Wall1Addr, Mw.Gvp.Name switch
+            Mw.M.WriteArrayMemory(Wall1Addr, Mw.Gvp.Type switch
             {
-                "Forza Horizon 4" => new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 },
-                "Forza Horizon 5" => new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 },
-                _ => new byte[] { 0x0F, 0x84, 0x5E, 0x02, 0x00, 0x00 }
+                GameVerPlat.GameType.Fh4 => new byte[] { 0x0F, 0x84, 0x29, 0x02, 0x00, 0x00 },
+                GameVerPlat.GameType.Fh5 => new byte[] { 0x0F, 0x84, 0x60, 0x02, 0x00, 0x00 },
+                GameVerPlat.GameType.Fm8 => new byte[] { 0x0F, 0x84, 0x5E, 0x02, 0x00, 0x00 },
+                _ => throw new ArgumentOutOfRangeException()
             });
         }
 
         if (Wall2Addr > (UIntPtr)Mw.Gvp.Process.MainModule.BaseAddress)
         {
-            Mw.M.WriteArrayMemory(Wall2Addr, Mw.Gvp.Name switch
+            Mw.M.WriteArrayMemory(Wall2Addr, Mw.Gvp.Type switch
             {
-                "Forza Horizon 4" => new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 },
-                "Forza Horizon 5" => new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 },
-                _ => new byte[] { 0x0F, 0x84, 0x5F, 0x02, 0x00, 0x00 }
+                GameVerPlat.GameType.Fh4 => new byte[] { 0x0F, 0x84, 0x2A, 0x02, 0x00, 0x00 },
+                GameVerPlat.GameType.Fh5 => new byte[] { 0x0F, 0x84, 0x7E, 0x02, 0x00, 0x00 },
+                GameVerPlat.GameType.Fm8 => new byte[] { 0x0F, 0x84, 0x5F, 0x02, 0x00, 0x00 },
+                _ => throw new ArgumentOutOfRangeException()
             });
         }
 
         if (Car1Addr > (UIntPtr)Mw.Gvp.Process.MainModule.BaseAddress)
         {
-            Mw.M.WriteArrayMemory(Car1Addr, Mw.Gvp.Name switch
+            Mw.M.WriteArrayMemory(Car1Addr, Mw.Gvp.Type switch
             {
-                "Forza Horizon 4" => new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 },
-                "Forza Horizon 5" => new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 },
-                _ => new byte[] { 0x0F, 0x84, 0x6E, 0x03, 0x00, 0x00}
+                GameVerPlat.GameType.Fh4 => new byte[] { 0x0F, 0x84, 0xB5, 0x01, 0x00, 0x00 },
+                GameVerPlat.GameType.Fh5 => new byte[] { 0x0F, 0x84, 0x65, 0x03, 0x00, 0x00 },
+                GameVerPlat.GameType.Fm8 => new byte[] { 0x0F, 0x84, 0x6E, 0x03, 0x00, 0x00 },
+                _ => throw new ArgumentOutOfRangeException()
             });
         }
 

@@ -316,7 +316,7 @@ public partial class EnvironmentPage
         const string origFh5 = "0F 11 41 50 48 8B D9";
         const string origFh4 = "0F 11 41 40 48 8B FA";
 
-        var isFh4 = Mw.Gvp.Name.Contains('4');
+        var isFh4 = Mw.Gvp.Type == GameVerPlat.GameType.Fh4;
         var orig = isFh4 ? origFh4 : origFh5;
         var bytes = isFh4 ? FreezeAiBytesFh4 : FreezeAiBytesFh5;
         

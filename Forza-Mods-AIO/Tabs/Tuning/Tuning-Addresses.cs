@@ -10,7 +10,7 @@ using static System.Reflection.BindingFlags;
 using static System.Windows.Application;
 using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Overlay.Overlay;
-using static Forza_Mods_AIO.Resources.Utils;
+using static Forza_Mods_AIO.Resources.Utilities;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Aero;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Alignment;
 using static Forza_Mods_AIO.Tabs.Tuning.DropDownTabs.Damping;

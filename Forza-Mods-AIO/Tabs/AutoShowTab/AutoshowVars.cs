@@ -11,7 +11,6 @@ using static Forza_Mods_AIO.MainWindow;
 using static Forza_Mods_AIO.Overlay.Overlay;
 using static Forza_Mods_AIO.Tabs.AutoShowTab.AutoShow;
 using static Memory.Imps;
-using Utils = Forza_Mods_AIO.Resources.Utils;
 
 namespace Forza_Mods_AIO.Tabs.AutoShowTab;
 
@@ -129,7 +128,7 @@ internal class AutoshowVars
             return true;
         }
 
-        var signature = Mw.Gvp.Name.Contains('5')
+        var signature = Mw.Gvp.Type == GameVerPlat.GameType.Fh5
             ? "0F 84 ? ? ? ? 48 8B 35 ? ? ? ? 48 85 F6 74"
             : "0F 84 ? ? ? ? 48 8B ? ? ? ? ? 48 8D ? ? ? ? ? 66 0F";
         
@@ -140,7 +139,7 @@ internal class AutoshowVars
             return false;
         }
 
-        _ptr = Utils.GetPtrFromFunc(sigResult, 9, 13);
+        _ptr = Utilities.GetPtrFromFunc(sigResult, 9, 13);
         return true;
     }
     
@@ -195,7 +194,7 @@ internal class AutoshowVars
 
         WriteProcessMemory(procHandle, allocShellCodeAddress, shellCode, (nuint)shellCode.Length, nint.Zero);
 
-        if (Mw.Gvp.Name.Contains('4'))
+        if (Mw.Gvp.Type == GameVerPlat.GameType.Fh4)
         {
             Bypass.DisableAntiCheat();
         }

@@ -40,7 +40,7 @@ public partial class BackFirePage
             return;
         }
 
-        if (Mw.Gvp.Name.Contains('4'))
+        if (Mw.Gvp.Type == GameVerPlat.GameType.Fh4)
         {
             Detour.FailedHandler(sender,BackfireToggle_OnToggled, true);
             return;
@@ -59,7 +59,7 @@ public partial class BackFirePage
 
     private void ForceBackfireType_OnToggled(object sender, RoutedEventArgs e)
     {
-        if (Mw.Gvp.Name.Contains('4'))
+        if (Mw.Gvp.Type == GameVerPlat.GameType.Fh4)
         {
             Detour.FailedHandler(sender,BackfireToggle_OnToggled, true);
         }

@@ -106,7 +106,7 @@ public partial class UnlocksPage
         
         switch (SeasonalToggle.IsOn)
         {
-            case true when Mw.Gvp.Name == "Forza Horizon 4":
+            case true when Mw.Gvp.Type == GameVerPlat.GameType.Fh4:
             {
                 Detour.FailedHandler(SeasonalToggle, SeasonalToggle_OnToggled, true);
                 return;
@@ -136,7 +136,7 @@ public partial class UnlocksPage
             return;
         }
         
-        if (SeriesToggle.IsOn && Mw.Gvp.Name == "Forza Horizon 4")
+        if (SeriesToggle.IsOn && Mw.Gvp.Type == GameVerPlat.GameType.Fh4)
         {            
             Detour.FailedHandler(SeriesToggle, SeriesToggle_OnToggled, true);
             return;
@@ -199,7 +199,7 @@ public partial class UnlocksPage
             return;
         }
         
-        if (toggleSwitch.IsOn && Mw.Gvp.Name == "Forza Horizon 4")
+        if (toggleSwitch.IsOn && Mw.Gvp.Type == GameVerPlat.GameType.Fh4)
         {            
             Detour.FailedHandler(toggleSwitch, SpinsToggle_OnToggled, true);
             return;
@@ -244,7 +244,7 @@ public partial class UnlocksPage
             return;
         }
 
-        if (toggleSwitch.IsOn && Mw.Gvp.Name == "Forza Horizon 4")
+        if (toggleSwitch.IsOn && Mw.Gvp.Type == GameVerPlat.GameType.Fh4)
         {            
             Detour.FailedHandler(toggleSwitch, SpinsToggle_OnToggled, true);
             return;

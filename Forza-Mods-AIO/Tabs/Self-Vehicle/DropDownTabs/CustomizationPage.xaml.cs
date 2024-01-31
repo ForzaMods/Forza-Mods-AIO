@@ -112,7 +112,7 @@ public partial class CustomizationPage
             return;
         }
 
-        if (Mw.Gvp.Name.Contains('4') && HeadlightToggle.IsOn)
+        if (Mw.Gvp.Type == GameVerPlat.GameType.Fh4 && HeadlightToggle.IsOn)
         {
             Detour.FailedHandler(sender, HeadlightColor_OnToggled, true);
             return;
@@ -176,8 +176,9 @@ public partial class CustomizationPage
 
         const string originalBytesFh5 = "F3 0F 10 88 0C 8A 00 00";
         const string originalBytesFh4 = "F3 0F 10 88 80 8C 00 00";
-        var cleanlinessBytes = Mw.Gvp.Name!.Contains('5') ? CleanlinessFh5 : CleanlinessFh4;
-        var original = Mw.Gvp.Name!.Contains('5') ? originalBytesFh5 : originalBytesFh4;
+        var isFh5 = Mw.Gvp.Type == GameVerPlat.GameType.Fh5;
+        var cleanlinessBytes = isFh5 ? CleanlinessFh5 : CleanlinessFh4;
+        var original = isFh5 ? originalBytesFh5 : originalBytesFh4;
         
         if (!CleanlinessDetour.Setup(sender, CleanlinessAddr, original, cleanlinessBytes, 8, true))
         {

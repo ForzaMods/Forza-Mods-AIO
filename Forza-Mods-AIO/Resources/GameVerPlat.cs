@@ -4,7 +4,9 @@ namespace Forza_Mods_AIO.Resources;
 
 public class GameVerPlat
 {
+#if RELEASE
     public string Name { get; }
+#endif
     public string Plat { get; }
 #if RELEASE
     public string Update { get; }
@@ -13,7 +15,9 @@ public class GameVerPlat
     public GameType Type { get; }
         
     public GameVerPlat(
+#if RELEASE
         string name, 
+#endif
         string plat, 
 #if RELEASE
         string update, 
@@ -21,7 +25,9 @@ public class GameVerPlat
         Process process, 
         GameType type)
     {
+#if RELEASE
         Name = name;
+#endif
         Plat = plat;
         Process = process;
 #if RELEASE
@@ -32,7 +38,9 @@ public class GameVerPlat
     
     public GameVerPlat()
     {
+#if RELEASE
         Name = string.Empty;
+#endif        
         Plat = string.Empty;
         Process = new Process();
 #if RELEASE
@@ -41,7 +49,7 @@ public class GameVerPlat
         Type = GameType.None;
     }
         
-    public enum GameType
+    public enum GameType : ushort
     {
         None = 0,
         Fh4,

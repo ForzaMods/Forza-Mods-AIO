@@ -312,9 +312,15 @@ public partial class MainWindow
                 if (Attached)
                     continue;
 
+#if RELEASE
                 const string name = "Forza Horizon 5";
+#endif
                 const GameVerPlat.GameType type = GameVerPlat.GameType.Fh5;
+#if RELEASE
                 GvpMaker(name, type);
+#else
+                GvpMaker(type);
+#endif
                 ToggleButtons(true);
                 Attached = true;
             }
@@ -323,9 +329,15 @@ public partial class MainWindow
                 if (Attached)
                     continue;
                 
+#if RELEASE
                 const string name = "Forza Horizon 4";
+#endif
                 const GameVerPlat.GameType type = GameVerPlat.GameType.Fh4;
+#if RELEASE
                 GvpMaker(name, type);
+#else
+                GvpMaker(type);
+#endif
                 ToggleButtons(true);
                 Attached = true;
             }
@@ -333,10 +345,15 @@ public partial class MainWindow
             {
                 if (Attached)
                     continue;
-                
+#if RELEASE
                 const string name = "Forza Motorsport 8";
+#endif                
                 const GameVerPlat.GameType type = GameVerPlat.GameType.Fm8;
+#if RELEASE
                 GvpMaker(name, type);
+#else
+                GvpMaker(type);
+#endif
                 Dispatcher.Invoke(() =>
                 {
                     SelfVehicle.IsEnabled = true;
@@ -378,7 +395,11 @@ public partial class MainWindow
 #endif
     }
 
-    private void GvpMaker(string name, GameVerPlat.GameType type)
+    private void GvpMaker(
+#if RELEASE
+        string name, 
+#endif
+        GameVerPlat.GameType type)
     {
         var process = M.MProc.Process;
         if (process.MainModule == null)
@@ -415,7 +436,7 @@ public partial class MainWindow
 #if RELEASE
         Gvp = new GameVerPlat(name, platform, update, process, type);
 #else
-        Gvp = new GameVerPlat(name, platform, process, type);
+        Gvp = new GameVerPlat(platform, process, type);
 #endif
         Dispatcher.Invoke(delegate
         {
