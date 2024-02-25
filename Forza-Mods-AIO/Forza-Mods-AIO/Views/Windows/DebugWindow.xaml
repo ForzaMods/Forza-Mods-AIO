@@ -6,15 +6,24 @@
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:models="clr-namespace:Forza_Mods_AIO.Models"
                  xmlns:local="clr-namespace:Forza_Mods_AIO.Views.Windows"
-                 xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
                  mc:Ignorable="d"
                  d:DataContext="{d:DesignInstance local:DebugWindow,IsDesignTimeCreatable=True}"
                  Title="{Binding ViewModel.WindowTitle}" 
                  Height="450" 
                  Width="800" 
                  MinHeight="450" 
-                 MinWidth="800"
-                 Topmost="False">
+                 MinWidth="800">
+    
+    <mah:MetroWindow.Style>
+        <Style TargetType="mah:MetroWindow">
+            <Setter Property="IsCloseButtonEnabled" Value="True" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ViewModel.CurrentDebugSession.IsAnyBreakpointHit}" Value="True">
+                    <Setter Property="IsCloseButtonEnabled" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </mah:MetroWindow.Style>
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -63,18 +72,36 @@
                         
                     <Button HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource BreakpointRun}"/>
-                        
+                            Content="{DynamicResource BreakpointUnpause}"
+                            IsEnabled="{Binding ViewModel.CurrentDebugSession.IsAnyBreakpointHit}"
+                            Command="{Binding ViewModel.UnpauseBreakpointCommand}"
+                            BorderBrush="{Binding Theming.DarkishColour}"
+                            Background="{Binding Theming.DarkishColour}"/>
+                    
                 </Grid>
                     
             </GroupBox.Header>
                 
-            <ListBox>
+            <ListBox ItemsSource="{Binding ViewModel.CurrentDebugSession.DebugBreakpoints}">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:DebugBreakpoint}">
-                        <CheckBox IsChecked="{Binding IsEnabled}" 
+                        <CheckBox IsChecked="{Binding IsEnabled, Mode=TwoWay}" 
+                                  Content="{Binding Name}"
                                   HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"/>
+                                  VerticalAlignment="Center">
+                        
+                            <CheckBox.Style>
+                                <Style TargetType="CheckBox"
+                                       BasedOn="{StaticResource MahApps.Styles.CheckBox}">
+                                    <Setter Property="IsEnabled" Value="True" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=ViewModel.CurrentDebugSession.IsAnyBreakpointHit, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DebugWindow}}}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </CheckBox.Style>
+                        </CheckBox>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

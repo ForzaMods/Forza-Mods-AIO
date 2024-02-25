@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Forza_Mods_AIO.Models;
-using Forza_Mods_AIO.Resources;
 using MahApps.Metro.Controls;
 
 namespace Forza_Mods_AIO.ViewModels.Windows;
@@ -10,7 +10,7 @@ public partial class DebugWindowViewModel : ObservableObject
 {
     private bool _isInitialized;
 
-    public ObservableCollection<DebugSession> DebugSessions => Forza_Mods_AIO.Resources.DebugSessions.GetInstance().EveryDebugSession;
+    public ObservableCollection<DebugSession> DebugSessions => Resources.DebugSessions.GetInstance().EveryDebugSession;
     
     [ObservableProperty]
     private DebugSession _currentDebugSession = null!;
@@ -20,6 +20,9 @@ public partial class DebugWindowViewModel : ObservableObject
 
     [ObservableProperty]
     private string _windowTitle = string.Empty;
+
+    [RelayCommand]
+    private void UnpauseBreakpoint() => CurrentDebugSession.DebugBreakpoints.First(s => s.IsHit).Unpause();
     
     public DebugWindowViewModel()
     {

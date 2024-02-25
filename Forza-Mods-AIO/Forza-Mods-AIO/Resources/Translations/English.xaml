@@ -23,7 +23,7 @@
     <system:String x:Key="HookFeaturesDebugList">Hook/Features Debug List</system:String>
     <system:String x:Key="BreakpointList">Breakpoint List</system:String>
     <system:String x:Key="BreakpointActions">Breakpoint Actions</system:String>
-    <system:String x:Key="BreakpointRun">Run</system:String>
+    <system:String x:Key="BreakpointUnpause">Unpause</system:String>
     <system:String x:Key="ReportedInfo">Reported Info</system:String>
     <system:String x:Key="ExportSessionInfo">Export Session Info</system:String>
     <system:String x:Key="ExportToJson">Export to Json</system:String>
