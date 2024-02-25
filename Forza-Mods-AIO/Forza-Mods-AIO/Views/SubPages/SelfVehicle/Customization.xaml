@@ -1,0 +1,195 @@
+﻿<Page x:Class="Forza_Mods_AIO.Views.SubPages.SelfVehicle.Customization"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.SelfVehicle"
+      mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance local:Customization, IsDesignTimeCreatable=true}"
+      Title="Customization" 
+      d:DesignHeight="Auto"
+      d:DesignWidth="Auto">
+    <StackPanel>
+        
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid Margin="5 0">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <Slider Grid.Column="0"
+                        VerticalAlignment="Center"
+                        mah:SliderHelper.EnableMouseWheel="MouseHover"
+                        AutoToolTipPlacement="BottomRight" />
+                
+                <mah:ToggleSwitch Grid.Column="1" 
+                                  VerticalAlignment="Center"
+                                  Margin="5 0 0 0"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource GlowingPaint}"/>
+                
+            </Grid>
+        </Border>
+        
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid Margin="5 0">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <mah:ColorPicker x:Name="ColorPicker" 
+                                 Grid.Column="0"
+                                 Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                 BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                 VerticalAlignment="Center"
+                                 SelectedColor="Red"
+                                 IsAvailableColorPaletteVisible="True"
+                                 SelectedColorChanged="ColorPickerBase_OnSelectedColorChanged"
+                                 mah:ControlsHelper.CornerRadius="3"
+                                 mah:ControlsHelper.DisabledVisualElementVisibility="Collapsed"/>
+                
+                <mah:ToggleSwitch Grid.Column="1" 
+                                  VerticalAlignment="Center"
+                                  Margin="5 0 0 0"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource HeadlightColour}"/>
+                
+            </Grid>
+        </Border>
+        
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid Margin="5 0">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <ComboBox Grid.Column="0"
+                          VerticalAlignment="Center"
+                          SelectedIndex="0"
+                          mah:ControlsHelper.CornerRadius="3"
+                          Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
+
+                    <ComboBoxItem Content="{DynamicResource Dirt}"/>
+                    <ComboBoxItem Content="{DynamicResource Mud}"/>
+                    
+                </ComboBox>
+                    
+                <Slider Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Margin="5 0"
+                        Minimum="0"
+                        Maximum="1"
+                        mah:SliderHelper.EnableMouseWheel="MouseHover"
+                        AutoToolTipPlacement="BottomRight" 
+                        AutoToolTipPrecision="3"/>                
+                
+                <mah:ToggleSwitch Grid.Column="2"
+                                  VerticalAlignment="Center"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource Cleanliness}"/>
+                
+            </Grid>
+        </Border>
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid Margin="5 0">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <Slider Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Margin="5 0"
+                        mah:SliderHelper.EnableMouseWheel="MouseHover"
+                        AutoToolTipPlacement="BottomRight" 
+                        IsSnapToTickEnabled="True"
+                        TickPlacement="BottomRight"
+                        Minimum="0"
+                        Maximum="4"/>                
+                
+                <mah:ToggleSwitch Grid.Column="1"
+                                  VerticalAlignment="Center"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource ForceLod}"/>
+                
+            </Grid>
+        </Border>
+        
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid Margin="5 0">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <mah:NumericUpDown Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Left"
+                                   mah:ControlsHelper.CornerRadius="3"
+                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                
+                <Label Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Margin="5 0"
+                       Content="{DynamicResource MinTime}"/>
+                
+                <mah:NumericUpDown Grid.Column="2"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Left"
+                                   mah:ControlsHelper.CornerRadius="3"
+                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                
+                <Label Grid.Column="3"
+                       VerticalAlignment="Center"
+                       Margin="5 0"
+                       Content="{DynamicResource MaxTime}"/>
+                
+                <mah:ToggleSwitch Grid.Column="4"
+                                  VerticalAlignment="Center"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource BackfireTime}"/>
+                
+            </Grid>
+        </Border>
+        
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <StackPanel Margin="5 0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                
+                <mah:ToggleSwitch VerticalAlignment="Center"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource ForceAntiLag}"/>
+                
+                <mah:ToggleSwitch VerticalAlignment="Center"
+                                  Margin="10 0 0 0"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource ForceNormal}"/>
+                
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</Page>

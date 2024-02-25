@@ -1,0 +1,233 @@
+﻿<Page x:Class="Forza_Mods_AIO.Views.Pages.SelfVehicle"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Views.Pages"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:subPages="clr-namespace:Forza_Mods_AIO.Views.SubPages.SelfVehicle"
+      mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance local:SelfVehicle,IsDesignTimeCreatable=True}"
+      d:DesignHeight="Auto"
+      d:DesignWidth="800"
+      Title="SelfVehicle"
+      Background="Transparent">
+    
+    <ScrollViewer Margin="0 0 0 10">
+        <ScrollViewer.Resources>
+            <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Thumb}">
+                            <Border x:Name="ScrollBorder"
+                                    Background="{Binding Theming.DarkColour}"
+                                    CornerRadius="3"/>
+                            
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter TargetName="ScrollBorder"
+                                            Property="Background"
+                                            Value="{Binding Theming.DarkishColour}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="ScrollBar">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ScrollBar">
+                            <Grid>
+                                <Border x:Name="PART_Backing"
+                                        Background="{Binding Theming.DarkerColour}"
+                                        Width="10"
+                                        Margin="0 10 5 0"
+                                        CornerRadius="3">
+
+                                    <Track x:Name="PART_Track"
+                                           IsDirectionReversed="True">
+                                        <Track.Thumb>
+                                            <Thumb Style="{StaticResource ScrollBarThumb}" />
+                                        </Track.Thumb>
+                                    </Track>
+                                        
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ScrollViewer.Resources>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        Margin="10">
+
+                <Button Content="{DynamicResource Scan}"
+                        BorderThickness="0"
+                        Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
+
+                <mah:MetroProgressBar VerticalAlignment="Center"
+                                      Margin="10 0"
+                                      Value="0"
+                                      Width="100"
+                                      Height="10"
+                                      Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
+
+            </StackPanel>
+
+            <StackPanel Grid.Row="1">
+                
+                <Expander x:Name="HandlingExpander" 
+                          Header="{DynamicResource Handling}"
+                          BorderBrush="{Binding Theming.DarkerColour}"
+                          BorderThickness="2"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                    <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Handling}, Mode=OneWay}"/>
+                </Expander>
+
+                <Expander x:Name="UnlocksExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
+                          BorderThickness="2"
+                          Header="{DynamicResource Unlocks}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                    <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Unlocks}, Mode=OneWay}"/>
+                </Expander>
+                
+                <Expander x:Name="PhotoModeExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
+                          BorderThickness="2"
+                          Header="{DynamicResource PhotoMode}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                    <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Unlocks}, Mode=OneWay}"/>
+                </Expander>
+
+                <Expander x:Name="TeleportsExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
+                          BorderThickness="2"
+                          Header="{DynamicResource Teleports}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                    <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Teleports}, Mode=OneWay}"/>
+                </Expander>
+
+                <Expander x:Name="EnvironmentExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
+                          BorderThickness="2"
+                          Header="{DynamicResource Environment}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                    <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Unlocks}, Mode=OneWay}"/>
+                </Expander>
+
+                <Expander x:Name="CustomizationExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
+                          BorderThickness="2"
+                          Header="{DynamicResource Customization}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                    
+                    <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Customization}, Mode=OneWay}"/>
+                </Expander>
+
+
+                <Expander x:Name="MiscExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
+                          BorderThickness="2"
+                          Header="{DynamicResource Miscellaneous}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                    <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Unlocks}, Mode=OneWay}"/>
+                </Expander>
+
+
+                <Expander x:Name="CameraExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
+                          BorderThickness="2"
+                          Header="{DynamicResource Camera}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 0">
+                    
+                    <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Unlocks}, Mode=OneWay}"/>
+                </Expander>
+
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>

@@ -1,0 +1,308 @@
+﻿<Page x:Class="Forza_Mods_AIO.Views.Pages.Autoshow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Views.Pages"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance local:Autoshow,IsDesignTimeCreatable=True}"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      Title="Autoshow">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    Margin="10">
+
+            <Button x:Name="ScanButton" 
+                    Content="{DynamicResource Scan}"
+                    BorderThickness="0"
+                    mah:ControlsHelper.FocusBorderThickness="0"
+                    Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
+
+            <mah:MetroProgressBar VerticalAlignment="Center"
+                                  Margin="10 0"
+                                  Value="0"
+                                  Width="100"
+                                  Height="10"
+                                  Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center">
+
+            <StackPanel>
+
+                <Label VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Content="{DynamicResource AutoshowFilters}"
+                       FontSize="14.5"
+                       FontWeight="SemiBold" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+
+                        <Label Content="{DynamicResource AutoshowFiltersAllCars}" HorizontalAlignment="Center" />
+                        <mah:ToggleSwitch x:Name="AllCars" 
+                                          MinWidth="0"
+                                          HorizontalAlignment="Center"
+                                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}" />
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="20 0">
+
+                        <Label Content="{DynamicResource AutoshowFiltersRareCars}" 
+                               HorizontalAlignment="Center" />
+                        <mah:ToggleSwitch x:Name="RareCars" 
+                                          MinWidth="0"
+                                          HorizontalAlignment="Center"
+                                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}" />
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+
+                        <Label Content="{DynamicResource AutoshowFiltersFreeCars}" 
+                               HorizontalAlignment="Center" />
+                        <mah:ToggleSwitch x:Name="FreeCars" 
+                                          MinWidth="0"
+                                          HorizontalAlignment="Center"
+                                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}" />
+
+                    </StackPanel>
+
+                </Grid>
+
+            </StackPanel>
+
+            <StackPanel Margin="0 10 0 0">
+
+                <Label VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Content="{DynamicResource GarageModifications}"
+                       FontSize="14.5"
+                       FontWeight="SemiBold" />
+
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+
+                            <Label Content="{DynamicResource GarageModificationsUnlockHiddenPresets}" 
+                                   HorizontalAlignment="Center" />
+                            
+                            <mah:ToggleSwitch x:Name="UnlockPresets" 
+                                              MinWidth="0"
+                                              HorizontalAlignment="Center"
+                                              IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}" />
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="20 0">
+
+                            <Label Content="{DynamicResource GarageModificationsRemoveAnyCar}" 
+                                   HorizontalAlignment="Center" />
+                            
+                            <mah:ToggleSwitch x:Name="RemoveCars" 
+                                              MinWidth="0"
+                                              HorizontalAlignment="Center"
+                                              IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}" />
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+
+                            <Label Content="{DynamicResource GarageModificationsCarPassDateBypass}" 
+                                   HorizontalAlignment="Center" />
+                            
+                            <mah:ToggleSwitch x:Name="DateBypass" 
+                                              MinWidth="0"
+                                              HorizontalAlignment="Center"
+                                              IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}" />
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid Margin="0 5 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+
+                            <Label Content="{DynamicResource GarageModificationsClearNewTagOnCars}" 
+                                   HorizontalAlignment="Center" />
+                            
+                            <Button x:Name="ClearTag" 
+                                    HorizontalAlignment="Center"
+                                    Content="{DynamicResource Run}"
+                                    IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                                    BorderThickness="0"
+                                    mah:ControlsHelper.FocusBorderThickness="0"
+                                    Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="20 0">
+
+                            <Label Content="{DynamicResource GarageModificationsClearGarage}" HorizontalAlignment="Center" />
+
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center">
+
+                                <ComboBox x:Name="ClearGarageMode" 
+                                          SelectedIndex="0"
+                                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                                          BorderThickness="0"
+                                          Background="{Binding Theming.DarkerColour, Mode=OneWay}">
+
+                                    <ComboBoxItem Content="{DynamicResource RemoveAll}" />
+                                    <ComboBoxItem Content="{DynamicResource RemoveDupes}" />
+                                    <ComboBoxItem Content="{DynamicResource RemoveNonFavorites}" />
+                                    <ComboBoxItem Content="{DynamicResource RemoveRareCars}" />
+                                    <ComboBoxItem Content="{DynamicResource Miscenalleous}" />
+                                    <ComboBoxItem Content="{DynamicResource RemoveUnTuned}" />
+                                    <ComboBoxItem Content="{DynamicResource RemoveNonLivery}" />
+                                </ComboBox>
+
+                                <Button x:Name="ClearGarageButton" 
+                                        HorizontalAlignment="Center"
+                                        Margin="5 0 0 0"
+                                        Content="{DynamicResource Run}"
+                                        IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                                        BorderThickness="0"
+                                        mah:ControlsHelper.FocusBorderThickness="0"
+                                        Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
+
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+
+                            <Label Content="{DynamicResource GarageModificationsFixCarThumbnails}"
+                                   HorizontalAlignment="Center" />
+
+                            <Button x:Name="FixThumbnails"  
+                                    HorizontalAlignment="Center"
+                                    Content="{DynamicResource Run}"
+                                    IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                                    BorderThickness="0"
+                                    mah:ControlsHelper.FocusBorderThickness="0"
+                                    Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
+
+                        </StackPanel>
+
+                    </Grid>
+                </StackPanel>
+
+            </StackPanel>
+
+            <StackPanel Margin="0 10 0 0">
+
+                <Label VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Content="{DynamicResource OtherModifications}"
+                       FontSize="14.5"
+                       FontWeight="SemiBold" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+
+                        <Label Content="{DynamicResource OtherModificationsFreePerfUpgrades}" 
+                               HorizontalAlignment="Center" />
+
+                        <Button x:Name="FreePerf" 
+                                HorizontalAlignment="Center"
+                                Content="{DynamicResource Run}"
+                                IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                                BorderThickness="0"
+                                mah:ControlsHelper.FocusBorderThickness="0"
+                                Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="20 0 10 0">
+
+                        <Label Content="{DynamicResource OtherModificationsFreeVisualUpgrades}" 
+                               HorizontalAlignment="Center" />
+
+                        <Button x:Name="FreeVisual" 
+                                HorizontalAlignment="Center"
+                                Content="{DynamicResource Run}"
+                                IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                                BorderThickness="0"
+                                mah:ControlsHelper.FocusBorderThickness="0"
+                                Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" Margin="10 0 20 0">
+
+                        <Label Content="{DynamicResource OtherModificationsQuickAddAllCars}" 
+                               HorizontalAlignment="Center" />
+
+                        <Button x:Name="AddAll" 
+                                HorizontalAlignment="Center"
+                                Content="{DynamicResource Run}"
+                                IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                                BorderThickness="0"
+                                mah:ControlsHelper.FocusBorderThickness="0"
+                                Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="3">
+
+                        <Label Content="{DynamicResource OtherModificationsQuickAddRareCars}" 
+                               HorizontalAlignment="Center" />
+
+                        <Button x:Name="AddRare" 
+                                HorizontalAlignment="Center"
+                                Content="{DynamicResource Run}"
+                                IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                                BorderThickness="0"
+                                mah:ControlsHelper.FocusBorderThickness="0"
+                                Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
+
+                    </StackPanel>
+
+                </Grid>
+
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</Page>

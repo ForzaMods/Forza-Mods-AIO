@@ -1,0 +1,130 @@
+﻿<mah:MetroWindow x:Class="Forza_Mods_AIO.Views.Windows.DebugWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:models="clr-namespace:Forza_Mods_AIO.Models"
+                 xmlns:local="clr-namespace:Forza_Mods_AIO.Views.Windows"
+                 xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
+                 mc:Ignorable="d"
+                 d:DataContext="{d:DesignInstance local:DebugWindow,IsDesignTimeCreatable=True}"
+                 Title="{Binding ViewModel.WindowTitle}" 
+                 Height="450" 
+                 Width="800" 
+                 MinHeight="450" 
+                 MinWidth="800"
+                 Topmost="False">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Border Grid.Column="0"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Margin="15 15 0 15">
+             
+            <GroupBox Header="{DynamicResource HookFeaturesDebugList}">
+                <ListBox x:Name="DebugList" 
+                         Padding="10"
+                         ItemsSource="{Binding ViewModel.DebugSessions}"
+                         SelectionChanged="DebugList_OnSelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:DebugSession}">
+                            <Border HorizontalAlignment="Left"
+                                    VerticalAlignment="Center">
+                                <Label Content="{Binding Name}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>    
+                </ListBox>
+            </GroupBox>
+        </Border>
+
+        <GroupBox Grid.Column="1"
+                  Grid.Row="0"
+                  Margin="10 15 15 0"
+                  Visibility="{Binding ViewModel.AreAnyBreakpointsAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <GroupBox.Header>
+                <Grid>
+                    <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           MinHeight="0"
+                           mah:ControlsHelper.ContentCharacterCasing="Upper"
+                           Content="{DynamicResource BreakpointList}"/>
+                        
+                    <Button HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource BreakpointRun}"/>
+                        
+                </Grid>
+                    
+            </GroupBox.Header>
+                
+            <ListBox>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:DebugBreakpoint}">
+                        <CheckBox IsChecked="{Binding IsEnabled}" 
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        
+        <Grid Grid.Column="1"
+              Grid.Row="1"
+              Margin="10 15 15 15">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <GroupBox Grid.Column="0" 
+                      Header="{DynamicResource ReportedInfo}">
+                <ListBox ItemsSource="{Binding ViewModel.CurrentDebugSession.DebugInfoReports}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:DebugInfoReport}">
+                            <Grid>
+                                <Label Content="{Binding Info}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"/>
+
+                                <Label Content="{Binding ReportedAt}"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </GroupBox>
+            
+            <GroupBox Grid.Column="1" 
+                      Header="{DynamicResource ExportSessionInfo}"
+                      Margin="15 0 0 0">
+                <StackPanel>
+                    <Button Content="{DynamicResource ExportToJson}"
+                            Focusable="False"
+                            BorderBrush="{Binding Theming.DarkerColour}"
+                            Background="{Binding Theming.DarkerColour}"/>
+                    
+                    <Button Content="{DynamicResource ExportToTxt}" 
+                            Focusable="False"
+                            Margin="0 5" 
+                            BorderBrush="{Binding Theming.DarkerColour}"
+                            Background="{Binding Theming.DarkerColour}"/>
+
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</mah:MetroWindow>

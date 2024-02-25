@@ -1,0 +1,145 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
+    <!-- Common, widely used -->
+    <system:String x:Key="Scan">Scan</system:String>
+    <system:String x:Key="Mode">Mode</system:String>
+    <system:String x:Key="Value">Value</system:String>
+    <system:String x:Key="Strength">Strength</system:String>
+    <system:String x:Key="Interval">Interval</system:String>
+    
+    <!-- MainWindow.xaml - Main controls -->
+    <system:String x:Key="AioInfo">Aio Info</system:String>
+    <system:String x:Key="Autoshow">Autoshow/Garage</system:String>
+    <system:String x:Key="SelfVehicle">Self/Vehicle</system:String>
+    <system:String x:Key="Tuning">Tuning</system:String>
+    <system:String x:Key="Keybindings">Keybindings</system:String>
+    
+    <!-- MainWindow.xaml - Search feature -->
+    <system:String x:Key="SearchWatermark">Search...</system:String>
+    
+    <!-- DebugWindow.xaml -->
+    <system:String x:Key="HookFeaturesDebugList">Hook/Features Debug List</system:String>
+    <system:String x:Key="BreakpointList">Breakpoint List</system:String>
+    <system:String x:Key="BreakpointActions">Breakpoint Actions</system:String>
+    <system:String x:Key="BreakpointRun">Run</system:String>
+    <system:String x:Key="ReportedInfo">Reported Info</system:String>
+    <system:String x:Key="ExportSessionInfo">Export Session Info</system:String>
+    <system:String x:Key="ExportToJson">Export to Json</system:String>
+    <system:String x:Key="ExportToTxt">Export to Txt</system:String>
+    
+    <!-- AioInfo.xaml - Main controls -->
+    <system:String x:Key="ToolCredits">Tool Credits</system:String>
+    <system:String x:Key="Donations">Donations</system:String>
+    <system:String x:Key="UsefulLinks">Useful Links</system:String>
+    <system:String x:Key="ForzaModsDiscord">Forza Mods Discord</system:String>
+    <system:String x:Key="SrcRepo">Source Code Repository</system:String>
+    <system:String x:Key="Overlay">Overlay</system:String>
+    <system:String x:Key="MonetTheme">Monet Theme</system:String>
+    <system:String x:Key="DebugWindow">Debug Window</system:String>
+    <system:String x:Key="Lightness">Lightness</system:String>
+    
+    <!-- AioInfo.xaml - Language Box -->
+    <system:String x:Key="Language">Language</system:String>
+    <system:String x:Key="English">English</system:String>
+    <system:String x:Key="Chinese">Chinese</system:String>
+    <system:String x:Key="Polish">Polish</system:String>
+    <system:String x:Key="German">German</system:String>
+    <system:String x:Key="French">French</system:String>
+    <system:String x:Key="Serbian">Serbian</system:String>
+    <system:String x:Key="Spanish">Spanish</system:String>
+    
+    <!-- Autoshow.xaml -->
+    <system:String x:Key="Run">Run</system:String>
+    
+    <system:String x:Key="RemoveAll">All</system:String>
+    <system:String x:Key="RemoveDupes">Dupes</system:String>
+    <system:String x:Key="RemoveNonFavorites">Non favorites</system:String>
+    <system:String x:Key="RemoveRareCars">Rare cars</system:String>
+    <system:String x:Key="RemoveAutoshowCars">Auto-show cars</system:String>
+    <system:String x:Key="RemoveUnTuned">Only un-tuned</system:String>
+    <system:String x:Key="RemoveNonLivery">Non livery</system:String>
+    
+    <system:String x:Key="AutoshowFilters">Autoshow Filters</system:String>
+    <system:String x:Key="AutoshowFiltersAllCars">All Cars</system:String>
+    <system:String x:Key="AutoshowFiltersRareCars">Rare Cars</system:String>
+    <system:String x:Key="AutoshowFiltersFreeCars">Free Cars</system:String>
+
+    <system:String x:Key="GarageModifications">Garage Modifications</system:String>
+    <system:String x:Key="GarageModificationsUnlockHiddenPresets">Unlock Hidden Presets</system:String>
+    <system:String x:Key="GarageModificationsRemoveAnyCar">Remove Any Car</system:String>
+    <system:String x:Key="GarageModificationsCarPassDateBypass">Car Pass Date Bypass</system:String>
+    <system:String x:Key="GarageModificationsClearNewTagOnCars">Clear New Tag On Cars</system:String>
+    <system:String x:Key="GarageModificationsClearGarage">Clear Garage</system:String>
+    <system:String x:Key="GarageModificationsFixCarThumbnails">Fix Car Thumbnails</system:String>
+    
+    <system:String x:Key="OtherModifications">Other Modifications</system:String>
+    <system:String x:Key="OtherModificationsFreePerfUpgrades">Free Perf Upgrades</system:String>
+    <system:String x:Key="OtherModificationsFreeVisualUpgrades">Free Visual Upgrades</system:String>
+    <system:String x:Key="OtherModificationsQuickAddAllCars">Quick Add All Cars</system:String>
+    <system:String x:Key="OtherModificationsQuickAddRareCars">Quick Add Rare Cars</system:String>
+    
+    <!-- SelfVehicle.xaml -->
+    <system:String x:Key="Handling">Handling</system:String>
+    <system:String x:Key="Unlocks">Unlocks</system:String>
+    <system:String x:Key="PhotoMode">Photo Mode</system:String>
+    <system:String x:Key="Teleports">Teleports</system:String>
+    <system:String x:Key="Environment">Environment</system:String>
+    <system:String x:Key="Customization">Customization</system:String>
+    <system:String x:Key="Miscellaneous">Miscellaneous</system:String>
+    <system:String x:Key="Camera">Camera</system:String>
+
+    <!-- Handling.xaml -->
+    <system:String x:Key="Velocity">Velocity</system:String>
+    <system:String x:Key="Wheelspeed">Wheelspeed</system:String>
+    <system:String x:Key="Acceleration">Acceleration</system:String>
+    <system:String x:Key="Gravity">Gravity</system:String>
+    <system:String x:Key="JumpHack">Jump Hack</system:String>
+    <system:String x:Key="FlyHack">Fly Hack</system:String>
+    <system:String x:Key="FlyHackRotSpeed">Rotation Speed</system:String>
+    <system:String x:Key="FlyHackMovSpeed">Movement Speed</system:String>
+    <system:String x:Key="StopAllWheels">Stop All Wheels</system:String>
+    <system:String x:Key="SuperBrake">Super Brake</system:String>
+    <system:String x:Key="SuperCar">Super Car</system:String>
+    <system:String x:Key="NoWaterDrag">No Water Drag</system:String>
+    <system:String x:Key="WallNoClip">Wall No Clip</system:String>
+    <system:String x:Key="CarNoClip">Car No Clip</system:String>
+    
+    <system:String x:Key="Pull">Pull</system:String>
+    <system:String x:Key="Dynamic">Dynamic</system:String>
+    <system:String x:Key="Direct">Direct</system:String>
+    <system:String x:Key="Static">Static</system:String>
+    <system:String x:Key="Linear">Linear</system:String>
+    <system:String x:Key="Power">Power</system:String>
+    <system:String x:Key="Random">Random</system:String>
+    <system:String x:Key="Jitter">Jitter</system:String>
+    <system:String x:Key="Pulse">Pulse</system:String>
+    <system:String x:Key="Sway">Sway</system:String>
+    <system:String x:Key="Surge">Surge</system:String>
+    <system:String x:Key="Mixed">Mixed</system:String>
+    <system:String x:Key="Accel">Accel</system:String>
+    <system:String x:Key="Instant">Instant</system:String>
+    <system:String x:Key="Gradual">Gradual</system:String>
+
+    <!-- Unlocks.xaml -->
+
+    
+    <!-- Teleports.xaml -->
+    <system:String x:Key="TeleportLocations">Teleport Locations: </system:String>
+    <system:String x:Key="AutoTpToWaypoint">Auto TP To Waypoint</system:String>
+    
+    <!-- Customization.xaml -->
+    <system:String x:Key="GlowingPaint">Glowing Paint</system:String>
+    <system:String x:Key="HeadlightColour">Headlight Colour</system:String>
+    <system:String x:Key="ForceLod">Force Lod</system:String>
+    <system:String x:Key="Cleanliness">Cleanliness</system:String>
+    <system:String x:Key="BackfireTime">Backfire Time</system:String>
+    <system:String x:Key="MinTime">Min Time</system:String>
+    <system:String x:Key="MaxTime">Max Time</system:String>
+    <system:String x:Key="Dirt">Dirt</system:String>
+    <system:String x:Key="Mud">Mud</system:String>
+    <system:String x:Key="ForceNormal">Force Normal Backfire</system:String>
+    <system:String x:Key="ForceAntiLag">Force AntiLag Backfire</system:String>
+    
+</ResourceDictionary>

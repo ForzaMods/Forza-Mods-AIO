@@ -1,0 +1,249 @@
+﻿<Page x:Class="Forza_Mods_AIO.Views.Pages.AioInfo"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Views.Pages"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:debug="debug-mode"
+      mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance local:AioInfo,IsDesignTimeCreatable=True}"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      Title="AioInfo"
+      Background="Transparent">
+
+    <Page.Resources>
+        <Style x:Key="NavigateButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="ToolTip" Value="{Binding Path=CommandParameter, RelativeSource={RelativeSource Self}}" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Path
+                                Data="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                Stroke="{x:Null}"
+                                Fill="White"
+                                Stretch="Uniform"
+                                Width="25"
+                                Height="25"
+                                SnapsToDevicePixels="False"
+                                UseLayoutRounding="False"
+                                StrokeThickness="0"
+                                StrokeStartLineCap="flat"
+                                StrokeEndLineCap="flat"
+                                StrokeLineJoin="miter"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+
+                            <Rectangle VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Height="25"
+                                       Width="25">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Color="Black" Opacity="0" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Label VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               Margin="10"
+               FontWeight="SemiBold"
+               FontSize="14"
+               Content="{DynamicResource ToolCredits}" />
+
+        <StackPanel VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Margin="10">
+
+            <Label VerticalAlignment="Top"
+                   HorizontalAlignment="Right"
+                   FontWeight="SemiBold"
+                   FontSize="14"
+                   Content="{DynamicResource Donations}" />
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0 5 0 0">
+
+                <Label Content="Merik: " />
+
+                <Button Style="{DynamicResource NavigateButtonStyle}"
+                        Tag="M20.216 6.415l-.132-.666c-.119-.598-.388-1.163-1.001-1.379-.197-.069-.42-.098-.57-.241-.152-.143-.196-.366-.231-.572-.065-.378-.125-.756-.192-1.133-.057-.325-.102-.69-.25-.987-.195-.4-.597-.634-.996-.788a5.723 5.723 0 00-.626-.194c-1-.263-2.05-.36-3.077-.416a25.834 25.834 0 00-3.7.062c-.915.083-1.88.184-2.75.5-.318.116-.646.256-.888.501-.297.302-.393.77-.177 1.146.154.267.415.456.692.58.36.162.737.284 1.123.366 1.075.238 2.189.331 3.287.37 1.218.05 2.437.01 3.65-.118.299-.033.598-.073.896-.119.352-.054.578-.513.474-.834-.124-.383-.457-.531-.834-.473-.466.074-.96.108-1.382.146-1.177.08-2.358.082-3.536.006a22.228 22.228 0 01-1.157-.107c-.086-.01-.18-.025-.258-.036-.243-.036-.484-.08-.724-.13-.111-.027-.111-.185 0-.212h.005c.277-.06.557-.108.838-.147h.002c.131-.009.263-.032.394-.048a25.076 25.076 0 013.426-.12c.674.019 1.347.067 2.017.144l.228.031c.267.04.533.088.798.145.392.085.895.113 1.07.542.055.137.08.288.111.431l.319 1.484a.237.237 0 01-.199.284h-.003c-.037.006-.075.01-.112.015a36.704 36.704 0 01-4.743.295 37.059 37.059 0 01-4.699-.304c-.14-.017-.293-.042-.417-.06-.326-.048-.649-.108-.973-.161-.393-.065-.768-.032-1.123.161-.29.16-.527.404-.675.701-.154.316-.199.66-.267 1-.069.34-.176.707-.135 1.056.087.753.613 1.365 1.37 1.502a39.69 39.69 0 0011.343.376.483.483 0 01.535.53l-.071.697-1.018 9.907c-.041.41-.047.832-.125 1.237-.122.637-.553 1.028-1.182 1.171-.577.131-1.165.2-1.756.205-.656.004-1.31-.025-1.966-.022-.699.004-1.556-.06-2.095-.58-.475-.458-.54-1.174-.605-1.793l-.731-7.013-.322-3.094c-.037-.351-.286-.695-.678-.678-.336.015-.718.3-.678.679l.228 2.185.949 9.112c.147 1.344 1.174 2.068 2.446 2.272.742.12 1.503.144 2.257.156.966.016 1.942.053 2.892-.122 1.408-.258 2.465-1.198 2.616-2.657.34-3.332.683-6.663 1.024-9.995l.215-2.087a.484.484 0 01.39-.426c.402-.078.787-.212 1.074-.518.455-.488.546-1.124.385-1.766zm-1.478.772c-.145.137-.363.201-.578.233-2.416.359-4.866.54-7.308.46-1.748-.06-3.477-.254-5.207-.498-.17-.024-.353-.055-.47-.18-.22-.236-.111-.71-.054-.995.052-.26.152-.609.463-.646.484-.057 1.046.148 1.526.22.577.088 1.156.159 1.737.212 2.48.226 5.002.19 7.472-.14.45-.06.899-.13 1.345-.21.399-.072.84-.206 1.08.206.166.281.188.657.162.974a.544.544 0 01-.169.364zm-6.159 3.9c-.862.37-1.84.788-3.109.788a5.884 5.884 0 01-1.569-.217l.877 9.004c.065.78.717 1.38 1.5 1.38 0 0 1.243.065 1.658.065.447 0 1.786-.065 1.786-.065.783 0 1.434-.6 1.499-1.38l.94-9.95a3.996 3.996 0 00-1.322-.238c-.826 0-1.491.284-2.26.613z"
+                        Command="{Binding ViewModel.LaunchUrlCommand, Mode=OneWay}"
+                        CommandParameter="https://buymeacoffee.com/merika" />
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0 5 0 0">
+
+                <Label Content="Yeethan: " />
+
+                <Button Style="{DynamicResource NavigateButtonStyle}"
+                        Tag="M20.216 6.415l-.132-.666c-.119-.598-.388-1.163-1.001-1.379-.197-.069-.42-.098-.57-.241-.152-.143-.196-.366-.231-.572-.065-.378-.125-.756-.192-1.133-.057-.325-.102-.69-.25-.987-.195-.4-.597-.634-.996-.788a5.723 5.723 0 00-.626-.194c-1-.263-2.05-.36-3.077-.416a25.834 25.834 0 00-3.7.062c-.915.083-1.88.184-2.75.5-.318.116-.646.256-.888.501-.297.302-.393.77-.177 1.146.154.267.415.456.692.58.36.162.737.284 1.123.366 1.075.238 2.189.331 3.287.37 1.218.05 2.437.01 3.65-.118.299-.033.598-.073.896-.119.352-.054.578-.513.474-.834-.124-.383-.457-.531-.834-.473-.466.074-.96.108-1.382.146-1.177.08-2.358.082-3.536.006a22.228 22.228 0 01-1.157-.107c-.086-.01-.18-.025-.258-.036-.243-.036-.484-.08-.724-.13-.111-.027-.111-.185 0-.212h.005c.277-.06.557-.108.838-.147h.002c.131-.009.263-.032.394-.048a25.076 25.076 0 013.426-.12c.674.019 1.347.067 2.017.144l.228.031c.267.04.533.088.798.145.392.085.895.113 1.07.542.055.137.08.288.111.431l.319 1.484a.237.237 0 01-.199.284h-.003c-.037.006-.075.01-.112.015a36.704 36.704 0 01-4.743.295 37.059 37.059 0 01-4.699-.304c-.14-.017-.293-.042-.417-.06-.326-.048-.649-.108-.973-.161-.393-.065-.768-.032-1.123.161-.29.16-.527.404-.675.701-.154.316-.199.66-.267 1-.069.34-.176.707-.135 1.056.087.753.613 1.365 1.37 1.502a39.69 39.69 0 0011.343.376.483.483 0 01.535.53l-.071.697-1.018 9.907c-.041.41-.047.832-.125 1.237-.122.637-.553 1.028-1.182 1.171-.577.131-1.165.2-1.756.205-.656.004-1.31-.025-1.966-.022-.699.004-1.556-.06-2.095-.58-.475-.458-.54-1.174-.605-1.793l-.731-7.013-.322-3.094c-.037-.351-.286-.695-.678-.678-.336.015-.718.3-.678.679l.228 2.185.949 9.112c.147 1.344 1.174 2.068 2.446 2.272.742.12 1.503.144 2.257.156.966.016 1.942.053 2.892-.122 1.408-.258 2.465-1.198 2.616-2.657.34-3.332.683-6.663 1.024-9.995l.215-2.087a.484.484 0 01.39-.426c.402-.078.787-.212 1.074-.518.455-.488.546-1.124.385-1.766zm-1.478.772c-.145.137-.363.201-.578.233-2.416.359-4.866.54-7.308.46-1.748-.06-3.477-.254-5.207-.498-.17-.024-.353-.055-.47-.18-.22-.236-.111-.71-.054-.995.052-.26.152-.609.463-.646.484-.057 1.046.148 1.526.22.577.088 1.156.159 1.737.212 2.48.226 5.002.19 7.472-.14.45-.06.899-.13 1.345-.21.399-.072.84-.206 1.08.206.166.281.188.657.162.974a.544.544 0 01-.169.364zm-6.159 3.9c-.862.37-1.84.788-3.109.788a5.884 5.884 0 01-1.569-.217l.877 9.004c.065.78.717 1.38 1.5 1.38 0 0 1.243.065 1.658.065.447 0 1.786-.065 1.786-.065.783 0 1.434-.6 1.499-1.38l.94-9.95a3.996 3.996 0 00-1.322-.238c-.826 0-1.491.284-2.26.613z"
+                        Command="{Binding ViewModel.LaunchUrlCommand, Mode=OneWay}"
+                        CommandParameter="https://buymeacoffee.com/Yeethan69" />
+
+                <Button Style="{DynamicResource NavigateButtonStyle}"
+                        Tag="M20.43705,7.10449a3.82273,3.82273,0,0,0-.57281-.5238,4.72529,4.72529,0,0,0-1.15766-3.73987C17.6226,1.61914,15.77494,1,13.2144,1H7.00053A1.89234,1.89234,0,0,0,5.13725,2.5918L2.5474,18.99805A1.53317,1.53317,0,0,0,4.063,20.7832H6.72709l-.082.52051A1.46684,1.46684,0,0,0,8.0933,23h3.23438a1.76121,1.76121,0,0,0,1.751-1.46973l.64063-4.03125.01074-.05468h.29883c4.03223,0,6.55078-1.99317,7.28516-5.7627A5.149,5.149,0,0,0,20.43705,7.10449ZM7.84233,13.7041l-.71448,4.53528-.08631.54382H4.606L7.09721,3H13.2144c1.93554,0,3.31738.4043,3.99218,1.16406a2.96675,2.96675,0,0,1,.60791,2.73334l-.01861.11224c-.01215.07648-.0232.15119-.0434.24622a5.84606,5.84606,0,0,1-2.00512,3.67053,6.67728,6.67728,0,0,1-4.21753,1.183H9.70658A1.87969,1.87969,0,0,0,7.84233,13.7041Zm11.50878-2.40527c-.55078,2.82812-2.24218,4.14551-5.32226,4.14551h-.4834a1.76109,1.76109,0,0,0-1.751,1.47265l-.64941,4.07422L8.71733,21l.47815-3.03387.61114-3.85285h1.7193c.1568,0,.29541-.02356.44812-.02893.35883-.01239.71661-.02618,1.05267-.06787.20526-.02557.39362-.07221.59034-.1087.27252-.05036.54522-.10016.80108-.17127.19037-.053.368-.12121.54907-.18561.23926-.0849.4748-.174.69757-.27868.168-.0791.32807-.16706.48658-.25727a6.77125,6.77125,0,0,0,.61236-.39172c.14228-.1026.28192-.20789.415-.321a6.56392,6.56392,0,0,0,.53693-.51892c.113-.12055.2287-.23755.33331-.36725a7.09,7.09,0,0,0,.48-.69263c.07648-.12219.16126-.23523.23163-.36383a8.33175,8.33175,0,0,0,.52075-1.15326c.00867-.02386.02106-.044.02954-.068.004-.01123.00989-.02057.01386-.03186A4.29855,4.29855,0,0,1,19.35111,11.29883Z"
+                        Command="{Binding ViewModel.LaunchUrlCommand, Mode=OneWay}"
+                        CommandParameter="https://www.paypal.com/donate?hosted_button_id=DACQKRJ4HTZRN" />
+
+            </StackPanel>
+
+            <Label VerticalAlignment="Top"
+                   HorizontalAlignment="Right"
+                   FontWeight="DemiBold"
+                   FontSize="14"
+                   Content="{DynamicResource UsefulLinks}" />
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+
+                <Label Content="{DynamicResource ForzaModsDiscord}" />
+
+                <Button Style="{DynamicResource NavigateButtonStyle}"
+                        Tag="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"
+                        Command="{Binding ViewModel.LaunchUrlCommand, Mode=OneWay}"
+                        CommandParameter="https://discord.gg/forzamods" />
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0 5 0 0">
+
+                <Label Content="{DynamicResource SrcRepo}" />
+
+                <Button Style="{DynamicResource NavigateButtonStyle}"
+                        Tag="M12,2.2467A10.00042,10.00042,0,0,0,8.83752,21.73419c.5.08752.6875-.21247.6875-.475,0-.23749-.01251-1.025-.01251-1.86249C7,19.85919,6.35,18.78423,6.15,18.22173A3.636,3.636,0,0,0,5.125,16.8092c-.35-.1875-.85-.65-.01251-.66248A2.00117,2.00117,0,0,1,6.65,17.17169a2.13742,2.13742,0,0,0,2.91248.825A2.10376,2.10376,0,0,1,10.2,16.65923c-2.225-.25-4.55-1.11254-4.55-4.9375a3.89187,3.89187,0,0,1,1.025-2.6875,3.59373,3.59373,0,0,1,.1-2.65s.83747-.26251,2.75,1.025a9.42747,9.42747,0,0,1,5,0c1.91248-1.3,2.75-1.025,2.75-1.025a3.59323,3.59323,0,0,1,.1,2.65,3.869,3.869,0,0,1,1.025,2.6875c0,3.83747-2.33752,4.6875-4.5625,4.9375a2.36814,2.36814,0,0,1,.675,1.85c0,1.33752-.01251,2.41248-.01251,2.75,0,.26251.1875.575.6875.475A10.0053,10.0053,0,0,0,12,2.2467Z"
+                        Command="{Binding ViewModel.LaunchUrlCommand, Mode=OneWay}"
+                        CommandParameter="https://github.com/forzamods/forza-mods-aio" />
+
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="10 40">
+
+            <Label Content="Merik (Main maintainer) - Self/Vehicle, Overlay, Tuning, Backend, AC Bypass" />
+            <Label Content="Yeethan - Self/Vehicle, GVP, Overlay, Backend" />
+            <Label Content="Das - Base For Tuning" />
+            <Label Content="Mark - Backend Help" />
+            <Label Content="Anonymous - SQL" />
+            <Label Content="Ucxh - Mission time scale, FM8 Car points and Car XP" />
+
+        </StackPanel>
+
+        <Label VerticalAlignment="Bottom"
+               HorizontalAlignment="Left"
+               Margin="10"
+               Content="{Binding ViewModel.Version}" />
+
+        <StackPanel HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="10">
+
+            <mah:ToggleSwitch x:Name="OverlaySwitch" 
+                              Height="55"
+                              Header="{DynamicResource Overlay}"
+                              MinWidth="0"
+                              IsEnabled="False"
+                              Focusable="False"
+                              HorizontalAlignment="Right" />
+
+            <Button x:Name="MonetThemeButton" 
+                    Content="{DynamicResource MonetTheme}"
+                    Margin="0 10 0 0"
+                    Background="{Binding Theming.DarkerColour, Mode=OneWay}"
+                    BorderThickness="0"
+                    HorizontalAlignment="Right"
+                    mah:ControlsHelper.FocusBorderThickness="0"
+                    Command="{Binding ViewModel.ChangeMonetCommand, Mode=OneWay}" />
+
+            <mc:AlternateContent>
+                <mc:Choice Requires="debug">
+                    <Button Content="{DynamicResource DebugWindow}"
+                            Margin="0 10 0 0"
+                            Focusable="False"
+                            Background="{Binding Theming.DarkerColour, Mode=OneWay}"
+                            BorderThickness="0"
+                            HorizontalAlignment="Right"
+                            mah:ControlsHelper.FocusBorderThickness="0"
+                            Command="{Binding ViewModel.ShowDebugWindowCommand, Mode=OneWay}" />
+                </mc:Choice>
+            </mc:AlternateContent>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="0 10 0 0"
+                        HorizontalAlignment="Right">
+
+                <Label Content="{DynamicResource Lightness}"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       Foreground="White"
+                       Margin="0 0 10 0" />
+
+                <Slider HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Width="85"
+                        Maximum="100"
+                        SmallChange="1"
+                        LargeChange="10"
+                        Value="100"
+                        Minimum="40"
+                        mah:SliderHelper.EnableMouseWheel="MouseHover"
+                        AutoToolTipPlacement="BottomRight" />
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0 10 0 0">
+
+                <Label Content="{DynamicResource Language}"
+                       HorizontalAlignment="Right"
+                       Foreground="White"
+                       Margin="0 0 10 0" />
+
+                <ComboBox x:Name="LanguageBox" 
+                          HorizontalAlignment="Right"
+                          BorderThickness="0"
+                          Background="{Binding Theming.DarkerColour, Mode=OneWay}"
+                          SelectedIndex="0"
+                          SelectionChanged="Selector_OnSelectionChanged">
+                    
+                    <ComboBoxItem Content="{DynamicResource English}" />
+                    <ComboBoxItem Content="{DynamicResource Chinese}" />
+                    <ComboBoxItem Content="{DynamicResource Polish}" />
+                    <ComboBoxItem Content="{DynamicResource German}" />
+                    <ComboBoxItem Content="{DynamicResource French}" />
+                    <ComboBoxItem Content="{DynamicResource Serbian}" />
+                    <ComboBoxItem Content="{DynamicResource Spanish}" />
+                    
+                </ComboBox>
+
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+</Page>
