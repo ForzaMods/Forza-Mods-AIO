@@ -29,7 +29,7 @@
 
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-      <PackageReference Include="MahApps.Metro" Version="3.0.0-alpha0457" />
+      <PackageReference Include="MahApps.Metro" Version="2.4.10" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0-preview.1.24080.9" />
     </ItemGroup>
 
@@ -37,10 +37,6 @@
       <Reference Include="Memory">
         <HintPath>Resources\External\Memory.dll</HintPath>
       </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="ViewModels\SubPages\" />
     </ItemGroup>
 
 </Project>

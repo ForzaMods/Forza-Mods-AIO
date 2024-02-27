@@ -1,0 +1,66 @@
+﻿<Page x:Class="Forza_Mods_AIO.Views.SubPages.SelfVehicle.Environment"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d"
+      Title="Environment" 
+      d:DesignHeight="auto" 
+      d:DesignWidth="800">
+    <StackPanel>
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid Margin="5 0">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <mah:ColorPicker x:Name="ColorPicker" 
+                                 Grid.Column="0"
+                                 Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                 BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                 VerticalAlignment="Center"
+                                 SelectedColor="Red"
+                                 IsAvailableColorPaletteVisible="True"
+                                 mah:ControlsHelper.CornerRadius="3"
+                                 mah:ControlsHelper.DisabledVisualElementVisibility="Collapsed"/>
+                
+                <mah:ToggleSwitch Grid.Column="1" 
+                                  Margin="5 0 10 0"
+                                  VerticalAlignment="Center"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource SunRgb}"/>
+                
+                <mah:ToggleSwitch Grid.Column="2" 
+                                  VerticalAlignment="Center"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource AidsMode}"/>
+                
+            </Grid>
+        </Border>
+        
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                
+                <mah:ToggleSwitch VerticalAlignment="Center"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource ManualTime}"/>
+                
+                <mah:ToggleSwitch VerticalAlignment="Center"
+                                  Margin="10 0 0 0"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource FreezeAi}"/>
+                
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</Page>

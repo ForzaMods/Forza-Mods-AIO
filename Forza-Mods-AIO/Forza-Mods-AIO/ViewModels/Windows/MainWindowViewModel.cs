@@ -88,11 +88,7 @@ public partial class MainWindowViewModel : ObservableObject
 
         CurrentView = Resources.Pages.GetPage(typeof(AioInfo));
 
-#if DEBUG
         Attached = true;        
-#else
-        Task.Run(Attach);
-#endif
         
         _isInitialized = true;
     }

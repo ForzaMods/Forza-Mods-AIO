@@ -174,8 +174,7 @@
         </Border>
         
         <Border Style="{StaticResource CommonBorderStyle}">
-            <StackPanel Margin="5 0"
-                        Orientation="Horizontal"
+            <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 
                 <mah:ToggleSwitch VerticalAlignment="Center"

@@ -178,7 +178,8 @@
                                           SelectedIndex="0"
                                           IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
                                           BorderThickness="0"
-                                          Background="{Binding Theming.DarkerColour, Mode=OneWay}">
+                                          Background="{Binding Theming.DarkerColour, Mode=OneWay}"
+                                          mah:ControlsHelper.CornerRadius="3">
 
                                     <ComboBoxItem Content="{DynamicResource RemoveAll}" />
                                     <ComboBoxItem Content="{DynamicResource RemoveDupes}" />

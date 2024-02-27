@@ -1,0 +1,96 @@
+﻿<Page x:Class="Forza_Mods_AIO.Views.SubPages.SelfVehicle.Camera"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d"
+      Title="Camera" 
+      d:DesignHeight="Auto" 
+      d:DesignWidth="800">
+    <StackPanel>
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid Margin="5 0">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>    
+                    <ColumnDefinition Width="Auto"/>    
+                </Grid.ColumnDefinitions>
+                
+                <Slider Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Minimum="0"
+                        Maximum="10"
+                        mah:SliderHelper.EnableMouseWheel="MouseHover"
+                        AutoToolTipPlacement="BottomRight"
+                        AutoToolTipPrecision="2"/>
+
+                <mah:ToggleSwitch Grid.Column="1"
+                                  VerticalAlignment="Center"
+                                  Margin="5 0 0 0"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource FovLock}"/>
+                
+            </Grid>            
+        </Border>
+        
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid Margin="5 0">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <mah:NumericUpDown Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Left"
+                                   mah:ControlsHelper.CornerRadius="3"
+                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+
+                <Label Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Margin="5 0"
+                       Content="{DynamicResource X}"/>
+                
+                <mah:NumericUpDown Grid.Column="2"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Left"
+                                   mah:ControlsHelper.CornerRadius="3"
+                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+
+                <Label Grid.Column="3"
+                       VerticalAlignment="Center"
+                       Margin="5 0"
+                       Content="{DynamicResource Y}"/>
+                
+                <mah:NumericUpDown Grid.Column="4"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Left"
+                                   mah:ControlsHelper.CornerRadius="3"
+                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+
+                <Label Grid.Column="5"
+                       VerticalAlignment="Center"
+                       Margin="5 0"
+                       Content="{DynamicResource Z}"/>
+                
+                <mah:ToggleSwitch Grid.Column="6"
+                                  VerticalAlignment="Center"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource CameraOffset}"/> 
+                
+            </Grid>
+        </Border>
+    </StackPanel>
+</Page>

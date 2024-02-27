@@ -136,7 +136,7 @@
                           Margin="10 0 10 10">
                     
                     <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
-                           ConverterParameter={x:Type subPages:Unlocks}, Mode=OneWay}"/>
+                           ConverterParameter={x:Type subPages:PhotoMode}, Mode=OneWay}"/>
                 </Expander>
 
                 <Expander x:Name="TeleportsExpander" 
@@ -170,7 +170,7 @@
                           Margin="10 0 10 10">
                     
                     <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
-                           ConverterParameter={x:Type subPages:Unlocks}, Mode=OneWay}"/>
+                           ConverterParameter={x:Type subPages:Environment}, Mode=OneWay}"/>
                 </Expander>
 
                 <Expander x:Name="CustomizationExpander" 
@@ -206,7 +206,7 @@
                           Margin="10 0 10 10">
                     
                     <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
-                           ConverterParameter={x:Type subPages:Unlocks}, Mode=OneWay}"/>
+                           ConverterParameter={x:Type subPages:Misc}, Mode=OneWay}"/>
                 </Expander>
 
 
@@ -224,7 +224,7 @@
                           Margin="10 0 10 0">
                     
                     <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
-                           ConverterParameter={x:Type subPages:Unlocks}, Mode=OneWay}"/>
+                           ConverterParameter={x:Type subPages:Camera}, Mode=OneWay}"/>
                 </Expander>
 
             </StackPanel>

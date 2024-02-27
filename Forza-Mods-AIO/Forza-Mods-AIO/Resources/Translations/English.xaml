@@ -8,6 +8,9 @@
     <system:String x:Key="Value">Value</system:String>
     <system:String x:Key="Strength">Strength</system:String>
     <system:String x:Key="Interval">Interval</system:String>
+    <system:String x:Key="X">X`</system:String>
+    <system:String x:Key="Y">Y</system:String>
+    <system:String x:Key="Z">Z</system:String>
     
     <!-- MainWindow.xaml - Main controls -->
     <system:String x:Key="AioInfo">Aio Info</system:String>
@@ -141,5 +144,39 @@
     <system:String x:Key="Mud">Mud</system:String>
     <system:String x:Key="ForceNormal">Force Normal Backfire</system:String>
     <system:String x:Key="ForceAntiLag">Force AntiLag Backfire</system:String>
+    
+    <!-- Environment.xaml -->
+    <system:String x:Key="SunRgb">Sun RGB</system:String>
+    <system:String x:Key="AidsMode">Aids Mode</system:String>
+    <system:String x:Key="FreezeAi">Freeze Ai</system:String>
+    <system:String x:Key="ManualTime">Manual Time</system:String>
+    
+    <!-- Misc.xaml -->
+    <system:String x:Key="SpinPrizeScale">Spin Prize Scale</system:String>
+    <system:String x:Key="SpinSellFactor">Spin Sell Factor</system:String>
+    <system:String x:Key="SkillScoreMultiplier">Skill Score Multiplier</system:String>
+    <system:String x:Key="DriftScoreMultiplier">Drift Score Multiplier</system:String>
+    <system:String x:Key="SkillTreeCost">Skill Tree Perks Cost</system:String>
+    <system:String x:Key="SkillTreeWideEdit">Skill Tree Wide Editing</system:String>
+    <system:String x:Key="MissionTimeScale">Mission Time Scale</system:String>
+    <system:String x:Key="RemoveBuildCap">Remove Build Cap</system:String>
+    <system:String x:Key="UnbreakableSkillCombo">Unbreakable Skill Combo</system:String>
+    
+    <!-- PhotoMode.xaml -->
+    <system:String x:Key="Samples">Samples</system:String>
+    <system:String x:Key="ShutterSpeed">Shutter Speed</system:String>
+    <system:String x:Key="ApertureScale">Aperture Scale</system:String>
+    <system:String x:Key="CarInFocus">Car In Focus</system:String>
+    <system:String x:Key="TimeSlice">Time Slice</system:String>
+    <system:String x:Key="TurnSpeed">Turn Speed</system:String>
+    <system:String x:Key="MoveSpeed">Movement Speed</system:String>
+    <system:String x:Key="SamplesMultiplier">Samples Multiplier</system:String>
+    <system:String x:Key="NoClip">No Clip</system:String>
+    <system:String x:Key="NoHeightLimits">No Height Limits</system:String>
+    <system:String x:Key="IncreasedZoom">Increased Zoom</system:String>
+    
+    <!-- Camera.xaml -->
+    <system:String x:Key="FovLock">Fov Lock</system:String>
+    <system:String x:Key="CameraOffset">Camera Offset</system:String>
     
 </ResourceDictionary>

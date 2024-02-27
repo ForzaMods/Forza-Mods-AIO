@@ -166,6 +166,7 @@
             <mah:ToggleSwitch x:Name="OverlaySwitch" 
                               Height="55"
                               Header="{DynamicResource Overlay}"
+                              mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Right"
                               MinWidth="0"
                               IsEnabled="False"
                               Focusable="False"
