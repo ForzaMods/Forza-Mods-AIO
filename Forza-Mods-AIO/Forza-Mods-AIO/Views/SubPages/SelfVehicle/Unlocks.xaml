@@ -46,62 +46,69 @@
                         </Style>
                     </ComboBox.Resources>
                     
-                    <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Text="{DynamicResource Credits}"/>
-                        <TextBlock Tag="{Binding ViewModel.IsCreditsEnabled, Mode=OneWay}" 
-                                   Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
+                    <ComboBoxItem Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource Credits}" />
+                            <TextBlock Tag="{Binding ViewModel.IsCreditsEnabled, Mode=OneWay}" Style="{StaticResource TextBlockStyle}" />
+                        </StackPanel>
+                    </ComboBoxItem>
                     
-                    <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Text="{DynamicResource Xp}"/>
-                        <TextBlock Tag="{Binding ViewModel.IsXpEnabled, Mode=OneWay}" 
-                                   Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
+                    <ComboBoxItem Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource Xp}"/>
+                            <TextBlock Tag="{Binding ViewModel.IsXpEnabled, Mode=OneWay}" 
+                                       Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
+
+                    </ComboBoxItem>
+
+                    <ComboBoxItem Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource Wheelspins}"/>
+                            <TextBlock Tag="{Binding ViewModel.IsWheelspinsEnabled, Mode=OneWay}" 
+                                       Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
+                    </ComboBoxItem>
                     
-                    <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Text="{DynamicResource Wheelspins}"/>
-                        <TextBlock Tag="{Binding ViewModel.IsWheelspinsEnabled, Mode=OneWay}" 
-                                   Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Text="{DynamicResource SkillPoints}"/>
-                        <TextBlock Tag="{Binding ViewModel.IsSkillPointsEnabled, Mode=OneWay}" 
-                                   Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding ViewModel.IsFh5, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Text="{DynamicResource SeriesPoints}"/>
-                        <TextBlock Tag="{Binding ViewModel.IsSeriesEnabled, Mode=OneWay}" 
-                                   Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding ViewModel.IsFh5, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Text="{DynamicResource SeasonalPoints}"/>
-                        <TextBlock Tag="{Binding ViewModel.IsSeasonalEnabled, Mode=OneWay}" 
-                                   Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding ViewModel.IsFm8, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Text="{DynamicResource CarXp}"/>
-                        <TextBlock Tag="{Binding ViewModel.IsCarPointsEnabled, Mode=OneWay}" 
-                                   Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding ViewModel.IsFm8, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Text="{DynamicResource CarPoints}"/>
-                        <TextBlock Tag="{Binding ViewModel.IsCarPointsEnabled, Mode=OneWay}" 
-                                   Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                    
+                    <ComboBoxItem Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource SkillPoints}"/>
+                            <TextBlock Tag="{Binding ViewModel.IsSkillPointsEnabled, Mode=OneWay}" 
+                                       Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
+                    </ComboBoxItem>
+
+                    <ComboBoxItem Visibility="{Binding ViewModel.IsFh5, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource SeriesPoints}"/>
+                            <TextBlock Tag="{Binding ViewModel.IsSeriesEnabled, Mode=OneWay}" 
+                                       Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
+                    </ComboBoxItem>
+                
+                    <ComboBoxItem Visibility="{Binding ViewModel.IsFh5, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource SeasonalPoints}"/>
+                            <TextBlock Tag="{Binding ViewModel.IsSeasonalEnabled, Mode=OneWay}" 
+                                       Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
+                    </ComboBoxItem>
+
+                    <ComboBoxItem Visibility="{Binding ViewModel.IsFm8, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource CarXp}"/>
+                            <TextBlock Tag="{Binding ViewModel.IsCarPointsEnabled, Mode=OneWay}" 
+                                       Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
+                    </ComboBoxItem>
+
+                    <ComboBoxItem Visibility="{Binding ViewModel.IsFm8, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource CarPoints}"/>
+                            <TextBlock Tag="{Binding ViewModel.IsCarPointsEnabled, Mode=OneWay}" 
+                                       Style="{StaticResource TextBlockStyle}"/>
+                        </StackPanel>
+                    </ComboBoxItem>
                 </ComboBox>
                 
                 <mah:NumericUpDown x:Name="ValueBox" 
