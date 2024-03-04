@@ -299,7 +299,8 @@
                                      TextChanged="SearchBox_OnTextChanged" />
                         </Border>
 
-                        <ScrollViewer Grid.Row="1">
+                        <ScrollViewer Grid.Row="1"
+                                      VerticalScrollBarVisibility="Auto">
                             <ScrollViewer.Style>
                                 <Style TargetType="Control">
                                     <Style.Triggers>

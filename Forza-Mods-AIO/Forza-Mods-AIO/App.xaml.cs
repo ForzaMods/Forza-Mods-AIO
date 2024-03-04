@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using Forza_Mods_AIO.Cheats;
+using Forza_Mods_AIO.Resources;
 using Forza_Mods_AIO.Services;
 using Forza_Mods_AIO.ViewModels.Windows;
 using Forza_Mods_AIO.Views.Windows;
@@ -6,6 +8,7 @@ using MahApps.Metro.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using static Forza_Mods_AIO.Resources.Cheats;
 
 namespace Forza_Mods_AIO;
 
@@ -39,7 +42,17 @@ public partial class App
 
     private async void App_OnExit(object sender, ExitEventArgs e)
     {
+        DisconnectFromGame();
         await Host.StopAsync();
         Host.Dispose();
+    }
+
+    private static void DisconnectFromGame()
+    {
+        foreach (var cheatInstance in CachedInstances.Where(kv => typeof(ICheatsBase).IsAssignableFrom(kv.Key)))
+        {
+            ((ICheatsBase)cheatInstance.Value).Cleanup();
+        }
+        Imports.CloseHandle(Forza_Mods_AIO.Resources.Memory.GetInstance().MProc.Handle);
     }
 }

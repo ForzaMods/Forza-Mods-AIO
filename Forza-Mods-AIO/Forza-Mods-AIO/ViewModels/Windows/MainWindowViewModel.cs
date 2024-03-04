@@ -5,12 +5,15 @@ using System.Windows.Controls;
 using System.Xml.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Forza_Mods_AIO.Cheats;
 using Forza_Mods_AIO.Models;
 using Forza_Mods_AIO.Views.Pages;
 using MahApps.Metro.Controls;
 using Memory;
 using static System.Diagnostics.FileVersionInfo;
 using static System.IO.Path;
+using static Forza_Mods_AIO.Resources.Cheats;
+using static Forza_Mods_AIO.Resources.Memory;
 
 namespace Forza_Mods_AIO.ViewModels.Windows;
 
@@ -54,12 +57,6 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private Thickness _bottomButtonsMargin = new(0, 0, 0, BottomButtonsMarginExpression);
     
-    [ObservableProperty]
-    private Mem _mem = new();
-    
-    [ObservableProperty]
-    private GameVerPlat _gameVerPlat = new();
-
     #endregion
 
     #region Search
@@ -88,7 +85,7 @@ public partial class MainWindowViewModel : ObservableObject
 
         CurrentView = Resources.Pages.GetPage(typeof(AioInfo));
 
-        Attached = true;        
+        Task.Run(Attach);      
         
         _isInitialized = true;
     }
@@ -142,33 +139,57 @@ public partial class MainWindowViewModel : ObservableObject
         while (true)
         {
             Task.Delay(Attached ? 1000 : 500).Wait();
+            var result = GetInstance().OpenProcess(currentOpen);
             
-            // ReSharper disable once ConvertIfStatementToSwitchStatement
-            if (Attached && Mem.OpenProcess(currentOpen) != Mem.OpenProcessResults.Success)
+            switch (Attached)
             {
-                Attached = false;
-                AttachedText = NotAttachedText;
-                CurrentView = Resources.Pages.GetPage(typeof(AioInfo));
-                Resources.Pages.Clear();
+                case true when result != Mem.OpenProcessResults.Success && result != Mem.OpenProcessResults.NotResponding:
+                {
+                    Attached = false;
+                    AttachedText = NotAttachedText;
+                    CurrentView = Resources.Pages.GetPage(typeof(AioInfo));
+                    RemovePages();
+                    CleanClasses();
+                    break;
+                }
+                case true:
+                {
+                    continue;
+                }
             }
-            else if (Attached)
+
+            var element = gamesDictionary.FirstOrDefault(element =>
+                GetInstance().OpenProcess(element.Value) == Mem.OpenProcessResults.Success);
+            
+            if (EqualityComparer<KeyValuePair<string, string>>.Default.Equals(element, default))
             {
                 continue;
             }
             
-            foreach (var element in gamesDictionary.Where(element => Mem.OpenProcess(element.Value) == Mem.OpenProcessResults.Success))
-            {
-                currentOpen = element.Value;
-                Task.Run(() => GvpMaker(element.Key));
-                Attached = true;
-                break;
-            }
+            currentOpen = element.Value;
+            Task.Run(() => GvpMaker(element.Key));
+            Attached = true;
+        }
+    }
+    
+    private static void RemovePages()
+    {                    
+        Resources.Pages.RemovePage(typeof(Autoshow));
+        Resources.Pages.RemovePage(typeof(SelfVehicle));
+        Resources.Pages.RemovePage(typeof(Tuning));
+    }
+
+    private static void CleanClasses()
+    {
+        foreach (var cheatInstance in CachedInstances.Where(kv => typeof(ICheatsBase).IsAssignableFrom(kv.Key)))
+        {
+            ((ICheatsBase)cheatInstance.Value).Reset();
         }
     }
     
     private void GvpMaker(string name)
     {
-        var process = Mem.MProc.Process;
+        var process = GetInstance().MProc.Process;
         if (process.MainModule == null)
         {
             return;
@@ -196,8 +217,11 @@ public partial class MainWindowViewModel : ObservableObject
         }
 
         var type = GetTypeFromName(name);
-        GameVerPlat = new GameVerPlat(name, platform, update, process, type);
-        AttachedText = $"{GameVerPlat.Name}, {GameVerPlat.Plat}, {GameVerPlat.Update}";
+        GameVerPlat.GetInstance().Name = name;
+        GameVerPlat.GetInstance().Plat = platform;
+        GameVerPlat.GetInstance().Update = update;
+        GameVerPlat.GetInstance().Type = type;
+        AttachedText = $"{GameVerPlat.GetInstance().Name}, {GameVerPlat.GetInstance().Plat}, {GameVerPlat.GetInstance().Update}";
     }
 
     private static GameVerPlat.GameType GetTypeFromName(string name)

@@ -5,12 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Forza_Mods_AIO.Views.Pages"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:subPages="clr-namespace:Forza_Mods_AIO.Views.SubPages.Tuning"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance local:Tuning, IsDesignTimeCreatable=True}"
       d:DesignHeight="450" 
       d:DesignWidth="800"
       Title="Tuning">
-
     <ScrollViewer Margin="0 0 0 10">
         <ScrollViewer.Resources>
             <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
@@ -20,7 +20,7 @@
                         <ControlTemplate TargetType="{x:Type Thumb}">
                             <Border x:Name="ScrollBorder"
                                     Background="{Binding Theming.DarkColour}"
-                                    CornerRadius="5"/>
+                                    CornerRadius="3"/>
                             
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
@@ -43,7 +43,7 @@
                                         Background="{Binding Theming.DarkerColour}"
                                         Width="10"
                                         Margin="0 10 5 0"
-                                        CornerRadius="5">
+                                        CornerRadius="3">
 
                                     <Track x:Name="PART_Track"
                                            IsDirectionReversed="True">
@@ -85,49 +85,130 @@
             </StackPanel>
 
             <StackPanel Grid.Row="1">
-
-                <Expander Header="Tires"
+                
+                <Expander x:Name="TiresExpander" 
+                          Header="{DynamicResource Tires}"
+                          BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
-                          mah:ControlsHelper.CornerRadius="5"
-                          Margin="10 0 10 0" />
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                    <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Tires}, Mode=OneWay}"/>
+                </Expander>
 
-                <Expander Header="Gearing"
+                <Expander x:Name="GearingExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
-                          mah:ControlsHelper.CornerRadius="5"
-                          Margin="10 10 10 0" />
-
-                <Expander Header="Alignment"
+                          Header="{DynamicResource Gearing}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                </Expander>
+                
+                <Expander x:Name="AlignmentExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
-                          mah:ControlsHelper.CornerRadius="5"
-                          Margin="10 10 10 0" />
+                          Header="{DynamicResource Alignment}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                </Expander>
 
-                <Expander Header="Springs"
+                <Expander x:Name="SpringsExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
-                          mah:ControlsHelper.CornerRadius="5"
-                          Margin="10 10 10 0" />
+                          Header="{DynamicResource Springs}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                </Expander>
 
-                <Expander Header="Damping"
+                <Expander x:Name="DampingExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
-                          mah:ControlsHelper.CornerRadius="5"
-                          Margin="10 10 10 0" />
+                          Header="{DynamicResource Damping}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                </Expander>
 
-                <Expander Header="Aero"
+                <Expander x:Name="AeroExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
-                          mah:ControlsHelper.CornerRadius="5"
-                          Margin="10 10 10 0" />
+                          Header="{DynamicResource Aero}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                    
+                </Expander>
 
-                <Expander Header="Steering"
+                <Expander x:Name="SteeringExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
-                          mah:ControlsHelper.CornerRadius="5"
-                          Margin="10 10 10 0" />
+                          Header="{DynamicResource Steering}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 10">
+                    
+                </Expander>
 
-                <Expander Header="Other"
+                <Expander x:Name="OtherExpander" 
+                          BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
-                          mah:ControlsHelper.CornerRadius="5"
-                          Margin="10 10 10 0" />
-
+                          Header="{DynamicResource Other}"
+                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderVerticalContentAlignment="Center"
+                          mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                          mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
+                          mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
+                          Margin="10 0 10 0">
+                    
+                </Expander>
             </StackPanel>
-
         </Grid>
     </ScrollViewer>
 </Page>

@@ -8,9 +8,13 @@
     <system:String x:Key="Value">Value</system:String>
     <system:String x:Key="Strength">Strength</system:String>
     <system:String x:Key="Interval">Interval</system:String>
-    <system:String x:Key="X">X`</system:String>
+    <system:String x:Key="X">X</system:String>
     <system:String x:Key="Y">Y</system:String>
     <system:String x:Key="Z">Z</system:String>
+    <system:String x:Key="On">On</system:String>
+    <system:String x:Key="OnWithBrackets">(On)</system:String>
+    <system:String x:Key="Off">Off</system:String>
+    <system:String x:Key="OffWithBrackets">(Off)</system:String>
     
     <!-- MainWindow.xaml - Main controls -->
     <system:String x:Key="AioInfo">Aio Info</system:String>
@@ -37,7 +41,7 @@
     <system:String x:Key="Donations">Donations</system:String>
     <system:String x:Key="UsefulLinks">Useful Links</system:String>
     <system:String x:Key="ForzaModsDiscord">Forza Mods Discord</system:String>
-    <system:String x:Key="SrcRepo">Source Code Repository</system:String>
+    <system:String x:Key="GitRepository">Github Repository</system:String>
     <system:String x:Key="Overlay">Overlay</system:String>
     <system:String x:Key="MonetTheme">Monet Theme</system:String>
     <system:String x:Key="DebugWindow">Debug Window</system:String>
@@ -126,7 +130,14 @@
     <system:String x:Key="Gradual">Gradual</system:String>
 
     <!-- Unlocks.xaml -->
-
+    <system:String x:Key="Xp">XP</system:String>
+    <system:String x:Key="Credits">Credits</system:String>
+    <system:String x:Key="SkillPoints">Skill Points</system:String>
+    <system:String x:Key="Wheelspins">Wheelspins</system:String>
+    <system:String x:Key="SeriesPoints">Series Points</system:String>
+    <system:String x:Key="SeasonalPoints">Seasonal Points</system:String>
+    <system:String x:Key="CarXp">Car Xp</system:String>
+    <system:String x:Key="CarPoints">Car Points</system:String>
     
     <!-- Teleports.xaml -->
     <system:String x:Key="TeleportLocations">Teleport Locations: </system:String>
@@ -178,5 +189,23 @@
     <!-- Camera.xaml -->
     <system:String x:Key="FovLock">Fov Lock</system:String>
     <system:String x:Key="CameraOffset">Camera Offset</system:String>
+    
+    <!-- Tuning.xaml -->
+    <system:String x:Key="Tires">Tires</system:String>
+    <system:String x:Key="Gearing">Gearing</system:String>
+    <system:String x:Key="Alignment">Alignment</system:String>
+    <system:String x:Key="Springs">Springs</system:String>
+    <system:String x:Key="Damping">Damping</system:String>
+    <system:String x:Key="Aero">Aero</system:String>
+    <system:String x:Key="Steering">Steering</system:String>
+    <system:String x:Key="Other">Other</system:String>
+    
+    <!-- Tires.xaml -->
+    <system:String x:Key="FrontLeftTirePressure">Front Left Tire Pressure</system:String>
+    <system:String x:Key="FrontRightTirePressure">Front Right Tire Pressure</system:String>
+    <system:String x:Key="RearLeftTirePressure">Rear Left Tire Pressure</system:String>
+    <system:String x:Key="RearRightTirePressure">Rear Right Tire Pressure</system:String>
+    <system:String x:Key="Psi">PSI</system:String>
+    <system:String x:Key="Bar">Bar</system:String>
     
 </ResourceDictionary>

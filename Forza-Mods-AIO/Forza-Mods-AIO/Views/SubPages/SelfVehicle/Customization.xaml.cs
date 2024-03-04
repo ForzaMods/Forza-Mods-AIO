@@ -8,33 +8,27 @@ namespace Forza_Mods_AIO.Views.SubPages.SelfVehicle;
 
 public partial class Customization
 {
-    #if DEBUG
     private static readonly DebugBreakpoint HeadlightColorDebugBreakpoint = new("Test");
     private readonly DebugSession _headlightColorDebug = new("Headlight Color", [], [HeadlightColorDebugBreakpoint]);
-    #endif
     
     public Customization()
     {
         DataContext = this;
         
         InitializeComponent();
-        #if DEBUG
         DebugSessions.GetInstance().EveryDebugSession.Add(_headlightColorDebug);
-        #endif
     }
 
-    private void ColorPickerBase_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+    private async void ColorPickerBase_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
     {
         if (ColorPicker == null)
         {
             return;
         }
 
-        #if DEBUG
         var a = ConvertUiColorToGameValues(e.NewValue.GetValueOrDefault());
-        HeadlightColorDebugBreakpoint.MarkAsHit();
+        await HeadlightColorDebugBreakpoint.MarkAsHit();
         _headlightColorDebug.DebugInfoReports.Add(new DebugInfoReport($"Value: {a.ToString()}"));
-        #endif
     }
 
     private static Vector3 ConvertUiColorToGameValues(Color uiColor)

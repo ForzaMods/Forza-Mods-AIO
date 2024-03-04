@@ -122,11 +122,19 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type models:DebugInfoReport}">
                             <Grid>
-                                <Label Content="{Binding Info}"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Grid.Column="0" 
+                                           Text="{Binding Info}"
+                                           TextWrapping="Wrap"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"/>
 
-                                <Label Content="{Binding ReportedAt}"
+                                <Label Grid.Column="1" 
+                                       Content="{Binding ReportedAt}"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Center"/>
                             </Grid>

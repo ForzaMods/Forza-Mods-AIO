@@ -10,149 +10,122 @@
       Title="Unlocks" 
       d:DesignHeight="Auto" 
       d:DesignWidth="800">
+    
     <StackPanel>
         <Border Style="{StaticResource CommonBorderStyle}">
             <Grid Margin="5 0">
                 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <mah:NumericUpDown Grid.Column="0"
-                                   TextAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   HideUpDownButtons="True"
-                                   mah:ControlsHelper.CornerRadius="3"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-
-                <mah:ToggleSwitch Grid.Column="1"
-                                  Margin="5 0"
-                                  VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="XP"/>
-                
-                <mah:NumericUpDown Grid.Column="2"
-                                   TextAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   HideUpDownButtons="True"
-                                   mah:ControlsHelper.CornerRadius="3"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-
-                <mah:ToggleSwitch Grid.Column="3"
-                                  Margin="5 0"
-                                  VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="Credits"/>
-                
-                <mah:NumericUpDown Grid.Column="4"
-                                   TextAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   HideUpDownButtons="True"
-                                   mah:ControlsHelper.CornerRadius="3"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-
-                <mah:ToggleSwitch Grid.Column="5"
-                                  Margin="5 0 0 0"
-                                  VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="Skill points"/>
-                
-            </Grid>
-        </Border>
-        
-        <Border Style="{StaticResource CommonBorderStyle}">
-            <Grid Margin="5 0">
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
+
+                <ComboBox x:Name="UnlockBox" 
+                          Grid.Column="0"
+                          VerticalAlignment="Center"
+                          SelectedIndex="0"
+                          SelectionChanged="UnlockBox_OnSelectionChanged"
+                          IsEnabled="{Binding ViewModel.AreUiElementsEnabled}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
+                    
+                    <ComboBox.Resources>
+                        <Style x:Key="TextBlockStyle" 
+                               TargetType="TextBlock">
+                            <Setter Property="Margin" Value="2.5 0 0 0"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
+                                    <Setter Property="Text" Value="{DynamicResource OnWithBrackets}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="False">
+                                    <Setter Property="Text" Value="{DynamicResource OffWithBrackets}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.Resources>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Text="{DynamicResource Credits}"/>
+                        <TextBlock Tag="{Binding ViewModel.IsCreditsEnabled, Mode=OneWay}" 
+                                   Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Text="{DynamicResource Xp}"/>
+                        <TextBlock Tag="{Binding ViewModel.IsXpEnabled, Mode=OneWay}" 
+                                   Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Text="{DynamicResource Wheelspins}"/>
+                        <TextBlock Tag="{Binding ViewModel.IsWheelspinsEnabled, Mode=OneWay}" 
+                                   Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Text="{DynamicResource SkillPoints}"/>
+                        <TextBlock Tag="{Binding ViewModel.IsSkillPointsEnabled, Mode=OneWay}" 
+                                   Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding ViewModel.IsFh5, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Text="{DynamicResource SeriesPoints}"/>
+                        <TextBlock Tag="{Binding ViewModel.IsSeriesEnabled, Mode=OneWay}" 
+                                   Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding ViewModel.IsFh5, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Text="{DynamicResource SeasonalPoints}"/>
+                        <TextBlock Tag="{Binding ViewModel.IsSeasonalEnabled, Mode=OneWay}" 
+                                   Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding ViewModel.IsFm8, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Text="{DynamicResource CarXp}"/>
+                        <TextBlock Tag="{Binding ViewModel.IsCarPointsEnabled, Mode=OneWay}" 
+                                   Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding ViewModel.IsFm8, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Text="{DynamicResource CarPoints}"/>
+                        <TextBlock Tag="{Binding ViewModel.IsCarPointsEnabled, Mode=OneWay}" 
+                                   Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                    
+                </ComboBox>
                 
-                
-                <mah:NumericUpDown Grid.Column="0"
+                <mah:NumericUpDown x:Name="ValueBox" 
+                                   Grid.Column="1"
+                                   IsEnabled="{Binding ViewModel.AreUiElementsEnabled}"
                                    TextAlignment="Left"
                                    VerticalAlignment="Center"
+                                   Margin="5 0"
+                                   Value="0"
+                                   ParsingNumberStyle="Integer"
+                                   Minimum="0"
+                                   Maximum="2147483647"
                                    HideUpDownButtons="True"
                                    mah:ControlsHelper.CornerRadius="3"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
 
-                <mah:ToggleSwitch Grid.Column="1"
-                                  Margin="5 0"
+                <mah:ToggleSwitch x:Name="UnlockSwitch" 
+                                  Grid.Column="2"
+                                  IsEnabled="{Binding ViewModel.AreUiElementsEnabled}"
                                   VerticalAlignment="Center"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="Normal Spins"/>
-                
-                <mah:NumericUpDown Grid.Column="2"
-                                   TextAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   HideUpDownButtons="True"
-                                   mah:ControlsHelper.CornerRadius="3"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-
-                <mah:ToggleSwitch Grid.Column="3"
-                                  Margin="5 0 0 0"
-                                  VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="Super Spins"/>
-                
-            </Grid>
-        </Border>
-        
-        <Border Style="{StaticResource CommonBorderStyle}"
-                Margin="5 10 5 5">
-            <Grid Margin="5 0">
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <mah:NumericUpDown Grid.Column="0"
-                                   VerticalAlignment="Center"
-                                   HideUpDownButtons="True"
-                                   mah:ControlsHelper.CornerRadius="3"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-                
-                <mah:ToggleSwitch Grid.Column="1"
-                                  Margin="5 0"
-                                  VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="Series Points"/>
-                
-                <mah:NumericUpDown Grid.Column="2"
-                                   VerticalAlignment="Center"
-                                   HideUpDownButtons="True"
-                                   mah:ControlsHelper.CornerRadius="3"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-                
-                <mah:ToggleSwitch Grid.Column="3"
-                                  Margin="5 0 0 0"
-                                  VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="Seasonal Points"/>
+                                  Toggled="ToggleSwitch_OnToggled"/>
                 
             </Grid>
         </Border>

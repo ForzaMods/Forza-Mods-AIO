@@ -9,7 +9,7 @@ public partial class Autoshow
     {
         ViewModel = new AutoshowViewModel();
         DataContext = this;
-        
+
         InitializeComponent();
     }
 

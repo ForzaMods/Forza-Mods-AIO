@@ -150,63 +150,83 @@
             <Grid Margin="5 0">
                 
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <mah:NumericUpDown Grid.Column="0"
+                <ComboBox x:Name="ModifierModeBox" 
+                          Grid.Column="0"
+                          SelectedIndex="0"
+                          VerticalAlignment="Center"
+                          IsEnabled="{Binding ViewModel.AreModifierUiElementsEnabled, Mode=OneWay}"
+                          mah:ControlsHelper.CornerRadius="3"
+                          SelectionChanged="ModifierModeBox_OnSelectionChanged"
+                          Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
+                    
+                    <ComboBox.Resources>
+                        <Style x:Key="TextBlockStyle" 
+                               TargetType="TextBlock">
+                            <Setter Property="Margin" Value="2.5 0 0 0"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" 
+                                             Value="True">
+                                    <Setter Property="Text" Value="{DynamicResource OnWithBrackets}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" 
+                                             Value="False">
+                                    <Setter Property="Text" Value="{DynamicResource OffWithBrackets}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.Resources>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{DynamicResource Acceleration}"/>
+                        <TextBlock Tag="{Binding ViewModel.IsAccelEnabled, Mode=OneWay}" 
+                                   Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{DynamicResource Gravity}"/>
+                        <TextBlock Tag="{Binding ViewModel.IsGravityEnabled, Mode=OneWay}" 
+                                   Style="{StaticResource TextBlockStyle}"/>
+                    </StackPanel>
+                    
+                    
+                </ComboBox>
+                
+                <mah:NumericUpDown x:Name="ModifierValueBox" 
+                                   Grid.Column="1"
                                    VerticalAlignment="Center"
+                                   Margin="5 0 0 0"
+                                   IsEnabled="{Binding ViewModel.AreModifierUiElementsEnabled, Mode=OneWay}"
                                    TextAlignment="Left"
+                                   Value="0"
+                                   ValueChanged="ModifierValueBox_OnValueChanged"
                                    mah:ControlsHelper.CornerRadius="3"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
-                <Button Grid.Column="1"
+                <Button Grid.Column="2"
                         VerticalAlignment="Center"
                         Margin="5 0"
+                        IsEnabled="{Binding ViewModel.AreModifierUiElementsEnabled, Mode=OneWay}"
                         mah:ControlsHelper.FocusBorderThickness="0"
                         Content="{DynamicResource Pull}"
+                        Click="PullButton_OnClick"
                         Background="{DynamicResource MahApps.Brushes.AccentBase}"
                         BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
-                <mah:ToggleSwitch Grid.Column="2"
+                <mah:ToggleSwitch x:Name="ModifierToggleSwitch" 
+                                  Grid.Column="3"
                                   VerticalAlignment="Center"
+                                  IsEnabled="{Binding ViewModel.AreModifierUiElementsEnabled, Mode=OneWay}"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource Acceleration}"/>
-            </Grid>
-        </Border>
-        
-        <Border Style="{StaticResource CommonBorderStyle}">
-            <Grid Margin="5 0">
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <mah:NumericUpDown Grid.Column="0"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-                
-                <Button Grid.Column="1"
-                        VerticalAlignment="Center"
-                        Margin="5 0"
-                        mah:ControlsHelper.FocusBorderThickness="0"
-                        Content="{DynamicResource Pull}"
-                        Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                        BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-                
-                <mah:ToggleSwitch Grid.Column="2"
-                                  VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource Gravity}"/>
+                                  Toggled="ModifierToggleSwitch_OnToggled"/>
             </Grid>
         </Border>
         

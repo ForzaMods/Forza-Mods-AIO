@@ -9,8 +9,6 @@ public partial class AutoshowViewModel : ObservableObject
     [ObservableProperty]
     private bool _wasScanSuccessful = true;
     
-    
-    
     public AutoshowViewModel()
     {
         if (_isInitialized) return;

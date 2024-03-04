@@ -4,12 +4,9 @@ public abstract class Pages
 {
     private static readonly Dictionary<Type, object> CachedInstances = new();
 
-    public static void Clear()
+    public static void RemovePage(Type pageType)
     {
-        foreach (var element in CachedInstances)
-        {
-            CachedInstances.Remove(element.Key);
-        }
+        CachedInstances.Remove(pageType);
     }
 
     public static object GetPage(Type pageType)

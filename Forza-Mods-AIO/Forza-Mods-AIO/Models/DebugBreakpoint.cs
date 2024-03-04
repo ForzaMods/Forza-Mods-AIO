@@ -18,7 +18,7 @@ public class DebugBreakpoint(string name) : INotifyPropertyChanged
         private set => SetField(ref _isHit, value);
     }
 
-    public async void MarkAsHit()
+    public async Task MarkAsHit()
     {
         if (!IsEnabled)
         {
