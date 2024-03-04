@@ -4,6 +4,8 @@ namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
 
 public class CarCheats : CheatsUtilities, ICheatsBase
 {
+    private const int LocalPlayerOffset = 0x11;
+    
     public async Task<UIntPtr> GetLocalPlayer()
     {
         if (LocalPlayerHookDetourAddress == 0)
@@ -13,12 +15,13 @@ public class CarCheats : CheatsUtilities, ICheatsBase
 
         return LocalPlayerHookDetourAddress == 0
             ? 0
-            : GetInstance().ReadMemory<UIntPtr>(LocalPlayerHookDetourAddress + 0x11);
+            : GetInstance().ReadMemory<UIntPtr>(LocalPlayerHookDetourAddress + LocalPlayerOffset);
     }
     
     public UIntPtr LocalPlayerHookAddress, LocalPlayerHookDetourAddress;
     public UIntPtr AccelAddress, AccelDetourAddress;
     public UIntPtr GravityAddress, GravityDetourAddress;
+    public UIntPtr WaypointAddress, WaypointDetourAddress;
 
     public async Task CheatLocalPlayer()
     {
@@ -43,7 +46,7 @@ public class CarCheats : CheatsUtilities, ICheatsBase
         
         ShowError("Local Player Hook", sig);
     }
-    
+
     public async Task CheatAccel()
     {
         AccelAddress = 0;
@@ -63,7 +66,7 @@ public class CarCheats : CheatsUtilities, ICheatsBase
                 return;
             }
             
-            var localPlayerAddr = BitConverter.GetBytes(LocalPlayerHookDetourAddress + 0x11);
+            var localPlayerAddr = BitConverter.GetBytes(LocalPlayerHookDetourAddress + LocalPlayerOffset);
             var asm = new byte[]
             {
                 0xF3, 0x0F, 0x10, 0x5D, 0x0C, 0x80, 0x3D, 0x20, 0x00, 0x00, 0x00, 0x01, 0x75, 0x19, 0x50, 0x48, 0xB8,
@@ -97,7 +100,7 @@ public class CarCheats : CheatsUtilities, ICheatsBase
                 return;
             }
             
-            var localPlayerAddr = BitConverter.GetBytes(LocalPlayerHookDetourAddress + 0x11);
+            var localPlayerAddr = BitConverter.GetBytes(LocalPlayerHookDetourAddress + LocalPlayerOffset);
             var asm = new byte[]
             {
                 0x80, 0x3D, 0x27, 0x00, 0x00, 0x00, 0x01, 0x75, 0x1B, 0x50, 0x48, 0xB8, localPlayerAddr[0],
@@ -110,6 +113,41 @@ public class CarCheats : CheatsUtilities, ICheatsBase
         }
         
         ShowError("Gravity", sig);
+    }
+
+    public async Task CheatWaypoint()
+    {
+        WaypointAddress = 0;
+        WaypointDetourAddress = 0;
+
+        const string sig = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50";
+        WaypointAddress = await SmartAobScan(sig);
+        if (WaypointAddress > 0)
+        {
+            if (LocalPlayerHookDetourAddress == 0)
+            {
+                await CheatLocalPlayer();
+            }
+
+            if (LocalPlayerHookDetourAddress == 0)
+            {
+                return;
+            }
+
+            var localPlayerAddr = BitConverter.GetBytes(LocalPlayerHookDetourAddress + LocalPlayerOffset);
+            var asm = new byte[]
+            {
+                0x0F, 0x10, 0x97, 0x30, 0x02, 0x00, 0x00, 0x80, 0x3D, 0x24, 0x00, 0x00, 0x00, 0x01, 0x75, 0x1D, 0x50,
+                0x48, 0xB8, localPlayerAddr[0], localPlayerAddr[1], localPlayerAddr[2], localPlayerAddr[3],
+                localPlayerAddr[4], localPlayerAddr[5], localPlayerAddr[6], localPlayerAddr[7], 0x48, 0x8B, 0x00, 0x48,
+                0x85, 0xC0, 0x74, 0x09, 0x0F, 0x11, 0x50, 0x50, 0x44, 0x0F, 0x11, 0x78, 0x20, 0x58
+            };
+            
+            WaypointDetourAddress = GetInstance().CreateDetour(WaypointAddress, asm, 7);
+            return;
+        }
+        
+        ShowError("Waypoint", sig);
     }
     
     public void Cleanup()
@@ -126,6 +164,12 @@ public class CarCheats : CheatsUtilities, ICheatsBase
         {
             memInstance.WriteArrayMemory(GravityAddress, new byte[] { 0xF3, 0x0F, 0x59, 0x4B, 0x08 });
             Free(GravityDetourAddress);
+        }
+
+        if (WaypointAddress > 0)
+        {
+            memInstance.WriteArrayMemory(WaypointAddress, new byte[] { 0x0F, 0x10, 0x97, 0x30, 0x02, 0x00, 0x00 });
+            Free(WaypointDetourAddress);
         }
         
         if (LocalPlayerHookDetourAddress <= 0) return;

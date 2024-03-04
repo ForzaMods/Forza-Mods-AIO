@@ -1,5 +1,6 @@
 ﻿using Memory.Types;
 using System.Windows;
+using Forza_Mods_AIO.Models;
 using MahApps.Metro.Controls;
 using static Forza_Mods_AIO.Resources.Memory;
 
@@ -61,12 +62,13 @@ public class CheatsUtilities
     protected static void ShowError(string feature, string sig)
     {
         MessageBox.Show(
-            $"Address for this feature wasn't found!\nPlease try to activate the cheat again or try to restart the game and the trainer.\n\nIf this error still occurs, please (Press Ctrl+C) to copy, and make an issue on the github repository.\n\nFeature: {feature}\nSignature: {sig}\n\nTrainer Version: {System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}",
+            $"Address for this feature wasn't found!\nPlease try to activate the cheat again or try to restart the game and the tool.\n\nIf this error still occurs, please (Press Ctrl+C) to copy, and make an issue on the github repository or post.\n\nFeature: {feature}\nSignature: {sig}\n\nTool Version: {System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}\nGame: {GameVerPlat.GetInstance().Name}\nGame Version: {GameVerPlat.GetInstance().Update}\nPlatform: {GameVerPlat.GetInstance().Platform}",
             $"{App.GetRequiredService<MetroWindow>().Title} - Error", 0, MessageBoxImage.Error);
     }
 
     protected static void Free(UIntPtr address)
     {
+        if (address == 0) return;
         var handle = GetInstance().MProc.Handle;
         Imps.VirtualFreeEx(handle, address,0, Imps.MemRelease);
     }

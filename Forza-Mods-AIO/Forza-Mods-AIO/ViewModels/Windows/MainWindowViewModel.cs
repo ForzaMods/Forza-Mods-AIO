@@ -148,7 +148,7 @@ public partial class MainWindowViewModel : ObservableObject
                     Attached = false;
                     AttachedText = NotAttachedText;
                     CurrentView = Resources.Pages.GetPage(typeof(AioInfo));
-                    RemovePages();
+                    Resources.Pages.Clear();
                     CleanClasses();
                     break;
                 }
@@ -170,13 +170,6 @@ public partial class MainWindowViewModel : ObservableObject
             Task.Run(() => GvpMaker(element.Key));
             Attached = true;
         }
-    }
-    
-    private static void RemovePages()
-    {                    
-        Resources.Pages.RemovePage(typeof(Autoshow));
-        Resources.Pages.RemovePage(typeof(SelfVehicle));
-        Resources.Pages.RemovePage(typeof(Tuning));
     }
 
     private static void CleanClasses()
@@ -218,10 +211,10 @@ public partial class MainWindowViewModel : ObservableObject
 
         var type = GetTypeFromName(name);
         GameVerPlat.GetInstance().Name = name;
-        GameVerPlat.GetInstance().Plat = platform;
+        GameVerPlat.GetInstance().Platform = platform;
         GameVerPlat.GetInstance().Update = update;
         GameVerPlat.GetInstance().Type = type;
-        AttachedText = $"{GameVerPlat.GetInstance().Name}, {GameVerPlat.GetInstance().Plat}, {GameVerPlat.GetInstance().Update}";
+        AttachedText = $"{GameVerPlat.GetInstance().Name}, {GameVerPlat.GetInstance().Platform}, {GameVerPlat.GetInstance().Update}";
     }
 
     private static GameVerPlat.GameType GetTypeFromName(string name)

@@ -1,6 +1,6 @@
 ﻿namespace Forza_Mods_AIO.Models;
 
-public class GameVerPlat(string name, string plat, string update,GameVerPlat.GameType type)
+public class GameVerPlat(string name, string platform, string update,GameVerPlat.GameType type)
 {
     private static GameVerPlat _instance = null!;
     public static GameVerPlat GetInstance()
@@ -11,7 +11,7 @@ public class GameVerPlat(string name, string plat, string update,GameVerPlat.Gam
     }
     
     public string Name { get; set; } = name;
-    public string Plat { get; set; } = plat;
+    public string Platform { get; set; } = platform;
     public string Update { get; set; } = update;
     public GameType Type { get; set; } = type;
 

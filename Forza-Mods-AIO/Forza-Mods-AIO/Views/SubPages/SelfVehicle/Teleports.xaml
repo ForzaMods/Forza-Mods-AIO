@@ -4,7 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.SelfVehicle"
       mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance local:Teleports, IsDesignTimeCreatable=True}"
       Title="Teleports"
       d:DesignHeight="Auto" 
       d:DesignWidth="800">
@@ -34,6 +36,7 @@
                           Margin="5 0 0 0"
                           SelectedIndex="0"
                           mah:ControlsHelper.CornerRadius="3"
+                          IsEnabled="{Binding ViewModel.AreUiElementsEnabled}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
                 </ComboBox>                
@@ -47,7 +50,9 @@
                               Margin="5 0"
                               MinWidth="0"
                               FontSize="12"
-                              Content="{DynamicResource AutoTpToWaypoint}"/>
+                              Content="{DynamicResource AutoTpToWaypoint}"
+                              IsEnabled="{Binding ViewModel.AreUiElementsEnabled}"
+                              Toggled="ToggleSwitch_OnToggled"/>
         </Border>
     </Grid>
 </Page>

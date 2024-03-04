@@ -1,12 +1,18 @@
-﻿namespace Forza_Mods_AIO.Resources;
+﻿using Forza_Mods_AIO.Views.Pages;
+
+namespace Forza_Mods_AIO.Resources;
 
 public abstract class Pages
 {
     private static readonly Dictionary<Type, object> CachedInstances = new();
 
-    public static void RemovePage(Type pageType)
+    public static void Clear()
     {
-        CachedInstances.Remove(pageType);
+        foreach (var cachedInstance in CachedInstances.Where(c =>
+                     c.Key != typeof(AioInfo) && c.Key != typeof(Keybindings)))
+        {
+            CachedInstances.Remove(cachedInstance.Key);
+        }
     }
 
     public static object GetPage(Type pageType)
