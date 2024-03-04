@@ -26,6 +26,7 @@
                           VerticalAlignment="Center"
                           SelectedIndex="0"
                           SelectionChanged="UnlockBox_OnSelectionChanged"
+                          Loaded="UnlockBox_OnLoaded"
                           IsEnabled="{Binding ViewModel.AreUiElementsEnabled}"
                           mah:ControlsHelper.CornerRadius="3"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}"
@@ -49,7 +50,8 @@
                     <ComboBoxItem Visibility="{Binding ViewModel.IsHorizon, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{DynamicResource Credits}" />
-                            <TextBlock Tag="{Binding ViewModel.IsCreditsEnabled, Mode=OneWay}" Style="{StaticResource TextBlockStyle}" />
+                            <TextBlock Tag="{Binding ViewModel.IsCreditsEnabled, Mode=OneWay}" 
+                                       Style="{StaticResource TextBlockStyle}" />
                         </StackPanel>
                     </ComboBoxItem>
                     

@@ -11,6 +11,9 @@ public partial class UnlocksViewModel : ObservableObject
     private bool _areUiElementsEnabled = true;
 
     [ObservableProperty]
+    private bool _wasComboBoxLoaded;
+
+    [ObservableProperty]
     private bool _isXpEnabled;
     
     [ObservableProperty]
