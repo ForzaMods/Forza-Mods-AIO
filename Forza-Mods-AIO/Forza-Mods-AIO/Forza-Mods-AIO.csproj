@@ -9,6 +9,7 @@
         <UseWPF>true</UseWPF>
         <Company>WPF-Mockup</Company>
         <Product>WPF-Mockup</Product>
+        <AssemblyTitle>WPF-Mockup</AssemblyTitle>
         <IsPackable>false</IsPackable>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <FileVersion>2.0.0.0</FileVersion>
