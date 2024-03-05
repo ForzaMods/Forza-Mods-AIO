@@ -107,7 +107,7 @@
                                    Value="10"
                                    Minimum="1"
                                    Maximum="100"
-                                   ValueChanged="NumericUpDown_OnValueChanged"
+                                   ValueChanged="WheelspeedNum_OnValueChanged"
                                    mah:ControlsHelper.CornerRadius="3"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
