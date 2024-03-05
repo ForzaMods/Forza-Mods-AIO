@@ -140,6 +140,7 @@ public partial class Handling
         {
             await CarCheatsFh5.GetLocalPlayer();
         }
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
         
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x205, toggleSwitch.IsOn ? (byte)1 : (byte)0);
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x206, 1f + Convert.ToSingle(VelocityStrength.Value / 1000));  
@@ -172,6 +173,7 @@ public partial class Handling
         {
             await CarCheatsFh5.GetLocalPlayer();
         }
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
         
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x21C, toggleSwitch.IsOn ? (byte)1 : (byte)0);
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x21D, (byte)WheelspeedModeBox.SelectedIndex);  
@@ -221,6 +223,7 @@ public partial class Handling
         {
             await CarCheatsFh5.GetLocalPlayer();
         }
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
         
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x20E, toggleSwitch.IsOn ? (byte)1 : (byte)0);
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x20F, Convert.ToSingle(StopSlider.Value));  
@@ -240,6 +243,7 @@ public partial class Handling
         {
             await CarCheatsFh5.GetLocalPlayer();
         }
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
         
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x222, toggleSwitch.IsOn ? (byte)1 : (byte)0);
         ViewModel.AreUiElementsEnabled = true;
