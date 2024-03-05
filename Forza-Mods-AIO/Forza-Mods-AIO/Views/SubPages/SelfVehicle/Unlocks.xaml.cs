@@ -181,4 +181,47 @@ public partial class Unlocks
 
         ViewModel.WasComboBoxLoaded = true;
     }
+
+    private void ValueBox_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        switch (UnlockBox.SelectedIndex)
+        {
+            case 0:
+            {
+                ViewModel.CreditsValue = Convert.ToInt32(ValueBox.Value);
+                GetInstance().WriteMemory(UnlocksCheatsFh5.CreditsDetourAddress + 0x46, Convert.ToInt32(ValueBox.Value));  
+                break;
+            }
+            case 1:
+            {
+                ViewModel.XpValue = Convert.ToInt32(ValueBox.Value);
+                GetInstance().WriteMemory(UnlocksCheatsFh5.XpDetourAddress + 0x1C, Convert.ToInt32(ValueBox.Value));  
+                break;
+            }
+            case 2:
+            {
+                ViewModel.XpValue = Convert.ToInt32(ViewModel.WheelspinsValue);
+                GetInstance().WriteMemory(UnlocksCheatsFh5.SpinsDetourAddress + 0x1D, Convert.ToInt32(ValueBox.Value));  
+                break;
+            }
+            case 3:
+            {
+                ViewModel.SkillPointsValue = Convert.ToInt32(ViewModel.WheelspinsValue);
+                GetInstance().WriteMemory(UnlocksCheatsFh5.SkillPointsDetourAddress + 0x1A, Convert.ToInt32(ValueBox.Value));  
+                break;
+            }
+            case 4:
+            {
+                ValueBox.Value = ViewModel.SeriesValue;
+                UnlockSwitch.IsOn = ViewModel.IsSeriesEnabled;
+                break;
+            }
+            case 5:
+            {
+                ValueBox.Value = ViewModel.SeasonalValue;
+                UnlockSwitch.IsOn = ViewModel.IsSeasonalEnabled;
+                break;
+            }
+        }
+    }
 }

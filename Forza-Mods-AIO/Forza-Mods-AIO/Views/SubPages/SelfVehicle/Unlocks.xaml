@@ -123,6 +123,7 @@
                                    ParsingNumberStyle="Integer"
                                    Minimum="0"
                                    Maximum="2147483647"
+                                   ValueChanged="ValueBox_OnValueChanged"
                                    HideUpDownButtons="True"
                                    mah:ControlsHelper.CornerRadius="3"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"

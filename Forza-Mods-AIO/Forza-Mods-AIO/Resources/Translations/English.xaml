@@ -7,7 +7,7 @@
     <system:String x:Key="Mode">Mode</system:String>
     <system:String x:Key="Value">Value</system:String>
     <system:String x:Key="Strength">Strength</system:String>
-    <system:String x:Key="Interval">Interval</system:String>
+    <system:String x:Key="Limit">Limit</system:String>
     <system:String x:Key="X">X</system:String>
     <system:String x:Key="Y">Y</system:String>
     <system:String x:Key="Z">Z</system:String>
@@ -15,6 +15,7 @@
     <system:String x:Key="OnWithBrackets">(On)</system:String>
     <system:String x:Key="Off">Off</system:String>
     <system:String x:Key="OffWithBrackets">(Off)</system:String>
+    <system:String x:Key="NoClip">No Clip</system:String>
     
     <!-- MainWindow.xaml - Main controls -->
     <system:String x:Key="AioInfo">Aio Info</system:String>
@@ -110,24 +111,10 @@
     <system:String x:Key="SuperBrake">Super Brake</system:String>
     <system:String x:Key="SuperCar">Super Car</system:String>
     <system:String x:Key="NoWaterDrag">No Water Drag</system:String>
-    <system:String x:Key="WallNoClip">Wall No Clip</system:String>
-    <system:String x:Key="CarNoClip">Car No Clip</system:String>
     
     <system:String x:Key="Pull">Pull</system:String>
-    <system:String x:Key="Dynamic">Dynamic</system:String>
-    <system:String x:Key="Direct">Direct</system:String>
     <system:String x:Key="Static">Static</system:String>
     <system:String x:Key="Linear">Linear</system:String>
-    <system:String x:Key="Power">Power</system:String>
-    <system:String x:Key="Random">Random</system:String>
-    <system:String x:Key="Jitter">Jitter</system:String>
-    <system:String x:Key="Pulse">Pulse</system:String>
-    <system:String x:Key="Sway">Sway</system:String>
-    <system:String x:Key="Surge">Surge</system:String>
-    <system:String x:Key="Mixed">Mixed</system:String>
-    <system:String x:Key="Accel">Accel</system:String>
-    <system:String x:Key="Instant">Instant</system:String>
-    <system:String x:Key="Gradual">Gradual</system:String>
 
     <!-- Unlocks.xaml -->
     <system:String x:Key="Xp">XP</system:String>
@@ -182,7 +169,6 @@
     <system:String x:Key="TurnSpeed">Turn Speed</system:String>
     <system:String x:Key="MoveSpeed">Movement Speed</system:String>
     <system:String x:Key="SamplesMultiplier">Samples Multiplier</system:String>
-    <system:String x:Key="NoClip">No Clip</system:String>
     <system:String x:Key="NoHeightLimits">No Height Limits</system:String>
     <system:String x:Key="IncreasedZoom">Increased Zoom</system:String>
     

@@ -7,7 +7,7 @@ public partial class HandlingViewModel : ObservableObject
     private bool _isInitialized;
 
     [ObservableProperty]
-    private bool _areModifierUiElementsEnabled = true;
+    private bool _areUiElementsEnabled = true;
 
     [ObservableProperty]
     private double _accelValue;
