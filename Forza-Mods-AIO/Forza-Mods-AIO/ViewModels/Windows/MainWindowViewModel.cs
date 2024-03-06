@@ -258,6 +258,11 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand]
     private void ToggleSearch(UIElement? textBox)
     {
+        if (HotkeysVisibility != Visibility.Collapsed)
+        {
+            return;
+        }
+        
         switch (SearchVisibility)
         {
             case Visibility.Collapsed:
