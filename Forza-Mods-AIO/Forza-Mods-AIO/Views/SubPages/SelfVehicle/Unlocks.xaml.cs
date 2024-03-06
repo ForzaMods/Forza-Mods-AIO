@@ -51,6 +51,16 @@ public partial class Unlocks
                 await SkillPoints(toggleSwitch.IsOn);
                 break;
             }
+            case 4:
+            {
+                await Series(toggleSwitch.IsOn);
+                break;
+            }
+            case 5:
+            {
+                await Seasonal(toggleSwitch.IsOn);
+                break;
+            }
         }
 
         ViewModel.AreUiElementsEnabled = true;
@@ -107,6 +117,32 @@ public partial class Unlocks
         GetInstance().WriteMemory(UnlocksCheatsFh5.SkillPointsDetourAddress + 0x19, toggled ? (byte)1 : (byte)0);
         GetInstance().WriteMemory(UnlocksCheatsFh5.SkillPointsDetourAddress + 0x1A, Convert.ToInt32(ValueBox.Value));  
         ViewModel.IsSkillPointsEnabled = toggled;
+    }
+    
+    private async Task Seasonal(bool toggled)
+    {
+        if (UnlocksCheatsFh5.SeasonalAddress == 0)
+        {
+            await UnlocksCheatsFh5.CheatSeasonal();
+        }
+
+        if (UnlocksCheatsFh5.SeasonalAddress <= 0) return;
+        GetInstance().WriteMemory(UnlocksCheatsFh5.SeasonalDetourAddress + 0x23, toggled ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(UnlocksCheatsFh5.SeasonalDetourAddress + 0x24, Convert.ToInt32(ValueBox.Value));  
+        ViewModel.IsSeasonalEnabled = toggled;
+    }
+    
+    private async Task Series(bool toggled)
+    {
+        if (UnlocksCheatsFh5.SeriesAddress == 0)
+        {
+            await UnlocksCheatsFh5.CheatSeries();
+        }
+
+        if (UnlocksCheatsFh5.SeriesAddress <= 0) return;
+        GetInstance().WriteMemory(UnlocksCheatsFh5.SeriesDetourAddress + 0x1B, toggled ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(UnlocksCheatsFh5.SeriesDetourAddress + 0x1C, Convert.ToInt32(ValueBox.Value));  
+        ViewModel.IsSeriesEnabled = toggled;
     }
 
     private void UnlockBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -189,37 +225,43 @@ public partial class Unlocks
             case 0:
             {
                 ViewModel.CreditsValue = Convert.ToInt32(ValueBox.Value);
+                if (UnlocksCheatsFh5.CreditsDetourAddress <= 0) return;
                 GetInstance().WriteMemory(UnlocksCheatsFh5.CreditsDetourAddress + 0x46, Convert.ToInt32(ValueBox.Value));  
                 break;
             }
             case 1:
             {
                 ViewModel.XpValue = Convert.ToInt32(ValueBox.Value);
+                if (UnlocksCheatsFh5.XpDetourAddress <= 0) return;
                 GetInstance().WriteMemory(UnlocksCheatsFh5.XpDetourAddress + 0x1C, Convert.ToInt32(ValueBox.Value));  
                 break;
             }
             case 2:
             {
-                ViewModel.XpValue = Convert.ToInt32(ViewModel.WheelspinsValue);
+                ViewModel.XpValue = Convert.ToInt32(ValueBox.Value);
+                if (UnlocksCheatsFh5.SpinsDetourAddress <= 0) return;
                 GetInstance().WriteMemory(UnlocksCheatsFh5.SpinsDetourAddress + 0x1D, Convert.ToInt32(ValueBox.Value));  
                 break;
             }
             case 3:
             {
-                ViewModel.SkillPointsValue = Convert.ToInt32(ViewModel.WheelspinsValue);
+                ViewModel.SkillPointsValue = Convert.ToInt32(ValueBox.Value);
+                if (UnlocksCheatsFh5.SkillPointsDetourAddress <= 0) return;
                 GetInstance().WriteMemory(UnlocksCheatsFh5.SkillPointsDetourAddress + 0x1A, Convert.ToInt32(ValueBox.Value));  
                 break;
             }
             case 4:
             {
-                ValueBox.Value = ViewModel.SeriesValue;
-                UnlockSwitch.IsOn = ViewModel.IsSeriesEnabled;
+                ViewModel.SeriesValue = Convert.ToInt32(ValueBox.Value);
+                if (UnlocksCheatsFh5.SeriesDetourAddress <= 0) return;
+                GetInstance().WriteMemory(UnlocksCheatsFh5.SeriesDetourAddress + 0x1C, Convert.ToInt32(ValueBox.Value));  
                 break;
             }
             case 5:
             {
-                ValueBox.Value = ViewModel.SeasonalValue;
-                UnlockSwitch.IsOn = ViewModel.IsSeasonalEnabled;
+                ViewModel.SeasonalValue = Convert.ToInt32(ValueBox.Value);
+                if (UnlocksCheatsFh5.SeasonalDetourAddress <= 0) return;
+                GetInstance().WriteMemory(UnlocksCheatsFh5.SeasonalDetourAddress + 0x24, Convert.ToInt32(ValueBox.Value));  
                 break;
             }
         }

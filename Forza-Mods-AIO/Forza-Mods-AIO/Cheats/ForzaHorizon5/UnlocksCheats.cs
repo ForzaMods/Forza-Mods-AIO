@@ -140,6 +140,66 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
         
         ShowError("Skill points", sig);
     }
+
+    public async Task CheatSeasonal()
+    {
+        SeasonalAddress = 0;
+        SeasonalDetourAddress = 0;
+
+        const string sig = "49 63 ? 8B 44 ? ? C3";
+        SeasonalAddress = await SmartAobScan(sig);
+
+        if (SeasonalAddress > 0)
+        {
+            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            {
+                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
+            }
+            
+            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
+
+            var asm = new byte[]
+            {
+                0x49, 0x63, 0xC0, 0x80, 0x3D, 0x19, 0x00, 0x00, 0x00, 0x01, 0x75, 0x0E, 0x52, 0x48, 0x8B, 0x15, 0x10,
+                0x00, 0x00, 0x00, 0x48, 0x89, 0x54, 0x81, 0x60, 0x5A, 0x8B, 0x44, 0x81, 0x60
+            };
+
+            SeasonalDetourAddress = Resources.Memory.GetInstance().CreateDetour(SeasonalAddress, asm, 7);
+            return;
+        }
+        
+        ShowError("Seasonal points", sig);
+    }
+
+    public async Task CheatSeries()
+    {
+        SeriesAddress = 0;
+        SeriesDetourAddress = 0;
+
+        const string sig = "89 59 ? 48 83 C4 ? 5B C3 CC CC CC CC CC 44 89";
+        SeriesAddress = await SmartAobScan(sig);
+
+        if (SeriesAddress > 0)
+        {
+            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            {
+                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
+            }
+            
+            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
+
+            var asm = new byte[]
+            {
+                0x80, 0x3D, 0x14, 0x00, 0x00, 0x00, 0x01, 0x75, 0x06, 0x8B, 0x1D, 0x0D, 0x00, 0x00, 0x00, 0x89, 0x59,
+                0x14, 0x48, 0x83, 0xC4, 0x30
+            };
+
+            SeriesDetourAddress = Resources.Memory.GetInstance().CreateDetour(SeriesAddress, asm, 7);
+            return;
+        }
+        
+        ShowError("Series points", sig);
+    }
     
     public void Cleanup()
     {
@@ -173,6 +233,18 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
         {
             mem.WriteArrayMemory(SkillPointsAddress, new byte[] { 0x33, 0xD2, 0x89, 0x5F, 0x40 });
             Free(SkillPointsDetourAddress);
+        }
+
+        if (SeasonalAddress > 0)
+        {
+            mem.WriteArrayMemory(SkillPointsAddress, new byte[] { 0x49, 0x63, 0xC0, 0x8B, 0x44, 0x81, 0x60 });
+            Free(SeasonalDetourAddress);
+        }
+
+        if (SeriesAddress > 0)
+        {
+            mem.WriteArrayMemory(SeriesAddress, new byte[] { 0x89, 0x59, 0x14, 0x48, 0x83, 0xC4, 0x30 });
+            Free(SeriesDetourAddress);
         }
     }
 
