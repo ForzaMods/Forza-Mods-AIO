@@ -5,19 +5,7 @@ namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
 public class CarCheats : CheatsUtilities, ICheatsBase
 {
     private const int LocalPlayerOffset = 0x223;
-    
-    public async Task<UIntPtr> GetLocalPlayer()
-    {
-        if (LocalPlayerHookDetourAddress == 0)
-        {
-            await CheatLocalPlayer();
-        }
 
-        return LocalPlayerHookDetourAddress == 0
-            ? 0
-            : GetInstance().ReadMemory<UIntPtr>(LocalPlayerHookDetourAddress + LocalPlayerOffset);
-    }
-    
     public UIntPtr LocalPlayerHookAddress, LocalPlayerHookDetourAddress;
     public UIntPtr AccelAddress, AccelDetourAddress;
     public UIntPtr GravityAddress, GravityDetourAddress;
@@ -102,10 +90,10 @@ public class CarCheats : CheatsUtilities, ICheatsBase
             var localPlayerAddr = BitConverter.GetBytes(LocalPlayerHookDetourAddress + LocalPlayerOffset);
             var asm = new byte[]
             {
-                0xF3, 0x0F, 0x10, 0x5D, 0x0C, 0x80, 0x3D, 0x20, 0x00, 0x00, 0x00, 0x01, 0x75, 0x19, 0x50, 0x48, 0xB8,
+                0xF3, 0x0F, 0x10, 0x5D, 0x0C, 0x80, 0x3D, 0x28, 0x00, 0x00, 0x00, 0x01, 0x75, 0x21, 0x50, 0x48, 0xB8,
                 localPlayerAddr[0], localPlayerAddr[1], localPlayerAddr[2], localPlayerAddr[3], localPlayerAddr[4],
-                localPlayerAddr[5], localPlayerAddr[6], localPlayerAddr[7], 0x48, 0x39, 0x28, 0x75, 0x08, 0xF3, 0x0F,
-                0x10, 0x1D, 0x07, 0x00, 0x00, 0x00, 0x58
+                localPlayerAddr[5], localPlayerAddr[6], localPlayerAddr[7], 0x48, 0x39, 0x28, 0x75, 0x10, 0xF3, 0x0F,
+                0x11, 0x1D, 0x13, 0x00, 0x00, 0x00, 0xF3, 0x0F, 0x10, 0x1D, 0x07, 0x00, 0x00, 0x00, 0x58
             };
             AccelDetourAddress = GetInstance().CreateDetour(AccelAddress, asm, 5);
             return;
@@ -136,10 +124,11 @@ public class CarCheats : CheatsUtilities, ICheatsBase
             var localPlayerAddr = BitConverter.GetBytes(LocalPlayerHookDetourAddress + LocalPlayerOffset);
             var asm = new byte[]
             {
-                0x80, 0x3D, 0x27, 0x00, 0x00, 0x00, 0x01, 0x75, 0x1B, 0x50, 0x48, 0xB8, localPlayerAddr[0],
+                0x50, 0x80, 0x3D, 0x33, 0x00, 0x00, 0x00, 0x01, 0x75, 0x26, 0x48, 0xB8, localPlayerAddr[0],
                 localPlayerAddr[1], localPlayerAddr[2], localPlayerAddr[3], localPlayerAddr[4], localPlayerAddr[5],
-                localPlayerAddr[6], localPlayerAddr[7], 0x48, 0x39, 0x18, 0x58, 0x75, 0x0A, 0xF3, 0x0F, 0x59, 0x0D,
-                0x0D, 0x00, 0x00, 0x00, 0xEB, 0x05, 0xF3, 0x0F, 0x59, 0x4B, 0x08
+                localPlayerAddr[6], localPlayerAddr[7], 0x48, 0x39, 0x18, 0x75, 0x17, 0x51, 0x48, 0x8B, 0x4B, 0x08,
+                0x48, 0x89, 0x0D, 0x1B, 0x00, 0x00, 0x00, 0x59, 0xF3, 0x0F, 0x59, 0x0D, 0x0E, 0x00, 0x00, 0x00, 0xEB,
+                0x05, 0xF3, 0x0F, 0x59, 0x4B, 0x08, 0x58
             };
             GravityDetourAddress = GetInstance().CreateDetour(GravityAddress, asm, 5);
             return;
