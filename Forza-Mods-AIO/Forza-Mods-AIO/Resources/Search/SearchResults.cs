@@ -11,6 +11,5 @@ public static class SearchResults
         new SearchResult("Autoshow/Garage", string.Empty, string.Empty, string.Empty, typeof(Autoshow)),
         new SearchResult("Self/Vehicle", string.Empty, string.Empty, string.Empty, typeof(SelfVehicle)),
         new SearchResult("Tuning", string.Empty, string.Empty, string.Empty, typeof(Tuning)),
-        new SearchResult("Keybindings", string.Empty, string.Empty, string.Empty, typeof(Keybindings)),
     ];
 }

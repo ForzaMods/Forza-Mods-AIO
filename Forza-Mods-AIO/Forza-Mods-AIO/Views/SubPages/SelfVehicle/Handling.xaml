@@ -221,10 +221,11 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <Slider Grid.Column="0"
+                <Slider x:Name="JumpSlider" 
+                        Grid.Column="0"
                         VerticalAlignment="Center"
-                        Minimum="0"
-                        Maximum="1"
+                        Minimum="1"
+                        Maximum="15"
                         mah:SliderHelper.EnableMouseWheel="MouseHover"
                         AutoToolTipPlacement="BottomRight"
                         AutoToolTipPrecision="2"
@@ -238,7 +239,14 @@
                                   FontSize="12"
                                   Content="{DynamicResource JumpHack}"
                                   IsEnabled="{Binding ViewModel.AreUiElementsEnabled, Mode=OneWay}"
-                                  Toggled="JumpSwitch_OnToggled"/>
+                                  Toggled="JumpSwitch_OnToggled">
+                  <mah:ToggleSwitch.ContextMenu>
+                      <ContextMenu>
+                          <MenuItem Header="Set Hotkey"
+                                    Click="MenuItem_OnClick"/>
+                      </ContextMenu>
+                  </mah:ToggleSwitch.ContextMenu>  
+                </mah:ToggleSwitch>
                 
             </Grid>
         </Border>
@@ -330,13 +338,15 @@
                 <mah:ToggleSwitch VerticalAlignment="Center"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource SuperCar}"/>
+                                  Content="{DynamicResource SuperCar}"
+                                  IsEnabled="{Binding ViewModel.IsFh4}"/>
                 
                 <mah:ToggleSwitch VerticalAlignment="Center"
                                   Margin="10 0 5 0"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource NoWaterDrag}"/>
+                                  Content="{DynamicResource NoWaterDrag}"
+                                  IsEnabled="{Binding ViewModel.IsHorizon}"/>
                 
                 <mah:ToggleSwitch VerticalAlignment="Center"
                                   Margin="5 0 10 0"

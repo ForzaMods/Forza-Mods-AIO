@@ -27,6 +27,9 @@
     <!-- MainWindow.xaml - Search feature -->
     <system:String x:Key="SearchWatermark">Search...</system:String>
     
+    <!-- MainWindow.xaml - Hotkeys -->
+    <system:String x:Key="HotkeyWatermark">Set a hotkey...</system:String>
+
     <!-- DebugWindow.xaml -->
     <system:String x:Key="HookFeaturesDebugList">Hook/Features Debug List</system:String>
     <system:String x:Key="BreakpointList">Breakpoint List</system:String>

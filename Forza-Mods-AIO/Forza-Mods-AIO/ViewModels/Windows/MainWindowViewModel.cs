@@ -2,11 +2,13 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Xml.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Forza_Mods_AIO.Cheats;
 using Forza_Mods_AIO.Models;
+using Forza_Mods_AIO.Resources.Keybinds;
 using Forza_Mods_AIO.Views.Pages;
 using MahApps.Metro.Controls;
 using Memory;
@@ -69,6 +71,31 @@ public partial class MainWindowViewModel : ObservableObject
     
     [ObservableProperty]
     private ObservableCollection<SearchResult> _searchResults = [];
+    
+    #endregion
+
+    #region Hotkeys
+
+    private HotKey _hotKey = new(Key.None);
+
+    public HotKey HotKey
+    {
+        get => _hotKey;
+        set
+        {
+            if (EqualityComparer<HotKey>.Default.Equals(_hotKey, value)) return;
+            _hotKey = value;
+            _wasHotkeyChanged = true;
+        }
+    }
+
+    private bool _wasHotkeyChanged;
+
+    [ObservableProperty]
+    private Visibility _hotkeysVisibility = Visibility.Collapsed;
+
+    [ObservableProperty]
+    private double _hotkeysOpacity;
     
     #endregion
     
@@ -306,12 +333,40 @@ public partial class MainWindowViewModel : ObservableObject
         var searchResults = search as SearchResult[] ?? search.ToArray();
         foreach (var element in searchResults)
         {
-            if (!Attached && element.PageType != typeof(AioInfo) && element.PageType != typeof(Keybindings))
+            if (!Attached && element.PageType != typeof(AioInfo))
             {
                 continue;
             }
             
             SearchResults.Add(element);
         }
+    }
+
+    public async Task<HotKey> GetHotkey()
+    {
+        _wasHotkeyChanged = false;
+        HotkeysVisibility = Visibility.Visible;
+        
+        while (HotkeysOpacity < 0.5)
+        {
+            HotkeysOpacity += 0.05;
+            await Task.Delay(15);
+        }
+        
+        while (!_wasHotkeyChanged)
+        {
+            await Task.Delay(5);
+        }
+
+        while (HotkeysOpacity > 0)
+        {
+            HotkeysOpacity -= 0.05;
+            await Task.Delay(15);
+        }
+        
+        HotkeysVisibility = Visibility.Collapsed;
+        var result = new HotKey(HotKey.Key, HotKey.ModifierKeys); 
+        HotKey = new HotKey(Key.None);
+        return result;
     }
 }

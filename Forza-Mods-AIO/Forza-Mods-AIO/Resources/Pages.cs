@@ -8,8 +8,7 @@ public abstract class Pages
 
     public static void Clear()
     {
-        foreach (var cachedInstance in CachedInstances.Where(c =>
-                     c.Key != typeof(AioInfo) && c.Key != typeof(Keybindings)))
+        foreach (var cachedInstance in CachedInstances.Where(c => c.Key != typeof(AioInfo)))
         {
             CachedInstances.Remove(cachedInstance.Key);
         }

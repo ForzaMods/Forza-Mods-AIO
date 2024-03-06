@@ -1,15 +1,26 @@
 ﻿using System.Windows;
 using MahApps.Metro.Controls;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Forza_Mods_AIO.Cheats.ForzaHorizon5;
+using Forza_Mods_AIO.Resources.Keybinds;
 using static Forza_Mods_AIO.Resources.Cheats;
 using static Forza_Mods_AIO.Resources.Memory;
 using Forza_Mods_AIO.ViewModels.SubPages.SelfVehicle;
+using Forza_Mods_AIO.ViewModels.Windows;
 
 namespace Forza_Mods_AIO.Views.SubPages.SelfVehicle;
 
 public partial class Handling
 {
+    private readonly GlobalHotkey _jumpHackHotkey = new(Key.None, JumpHackCallback);
+
+    private static void JumpHackCallback()
+    {
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
+        GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x217, (byte)1);
+    }
+
     public Handling()
     {
         ViewModel = new HandlingViewModel();
@@ -199,9 +210,18 @@ public partial class Handling
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x218, Convert.ToSingle(e.NewValue));   
     }
 
-    private void JumpSwitch_OnToggled(object sender, RoutedEventArgs e)
+    private async void JumpSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
-        // TODO: Implement a keyboard hook and let the user pick a keybinding for this feature
+        ViewModel.AreUiElementsEnabled = false;
+
+        if (CarCheatsFh5.LocalPlayerHookAddress == 0)
+        {
+            await CarCheatsFh5.GetLocalPlayer();
+        }
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
+        GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x218, Convert.ToSingle(JumpSlider.Value));   
+        ViewModel.AreUiElementsEnabled = true;
+
     }
 
     private void StopSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -247,5 +267,13 @@ public partial class Handling
         
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x222, toggleSwitch.IsOn ? (byte)1 : (byte)0);
         ViewModel.AreUiElementsEnabled = true;
+    }
+
+    private async void MenuItem_OnClick(object sender, RoutedEventArgs e)
+    {
+        var mainWindowViewModel = App.GetRequiredService<MainWindowViewModel>();
+        var hotkey = await mainWindowViewModel.GetHotkey();
+        _jumpHackHotkey.Key = hotkey.Key;
+        _jumpHackHotkey.Modifier = hotkey.ModifierKeys;
     }
 }

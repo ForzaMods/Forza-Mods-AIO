@@ -226,14 +226,7 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Bottom"
                             Margin="{Binding ViewModel.BottomButtonsMargin}">
-
-                    <RadioButton Content="{DynamicResource Keybindings}"
-                                 Tag="M262.5 206.25A18.75 18.75 0 0 0 281.25 187.5V93.75A18.75 18.75 0 0 0 262.5 75H37.5A18.75 18.75 0 0 0 18.75 93.75V187.5A18.75 18.75 0 0 0 37.5 206.25H262.5zM37.5 225A37.5 37.5 0 0 1 0 187.5V93.75A37.5 37.5 0 0 1 37.5 56.25H262.5A37.5 37.5 0 0 1 300 93.75V187.5A37.5 37.5 0 0 1 262.5 225H37.5zM243.75 107.8125A4.6875 4.6875 0 0 0 248.4375 112.5H257.8125A4.6875 4.6875 0 0 0 262.5 107.8125V98.4375A4.6875 4.6875 0 0 0 257.8125 93.75H248.4375A4.6875 4.6875 0 0 0 243.75 98.4375V107.8125zM243.75 145.3125A4.6875 4.6875 0 0 0 248.4375 150H257.8125A4.6875 4.6875 0 0 0 262.5 145.3125V135.9375A4.6875 4.6875 0 0 0 257.8125 131.25H248.4375A4.6875 4.6875 0 0 0 243.75 135.9375V145.3125zM150 145.3125A4.6875 4.6875 0 0 0 154.6875 150H164.0625A4.6875 4.6875 0 0 0 168.75 145.3125V135.9375A4.6875 4.6875 0 0 0 164.0625 131.25H154.6875A4.6875 4.6875 0 0 0 150 135.9375V145.3125zM187.5 145.3125A4.6875 4.6875 0 0 0 192.1875 150H220.3125A4.6875 4.6875 0 0 0 225 145.3125V135.9375A4.6875 4.6875 0 0 0 220.3125 131.25H192.1875A4.6875 4.6875 0 0 0 187.5 135.9375V145.3125zM206.25 107.8125A4.6875 4.6875 0 0 0 210.9375 112.5H220.3125A4.6875 4.6875 0 0 0 225 107.8125V98.4375A4.6875 4.6875 0 0 0 220.3125 93.75H210.9375A4.6875 4.6875 0 0 0 206.25 98.4375V107.8125zM112.5 145.3125A4.6875 4.6875 0 0 0 117.1875 150H126.5625A4.6875 4.6875 0 0 0 131.25 145.3125V135.9375A4.6875 4.6875 0 0 0 126.5625 131.25H117.1875A4.6875 4.6875 0 0 0 112.5 135.9375V145.3125zM75 145.3125A4.6875 4.6875 0 0 0 79.6875 150H89.0625A4.6875 4.6875 0 0 0 93.75 145.3125V135.9375A4.6875 4.6875 0 0 0 89.0625 131.25H79.6875A4.6875 4.6875 0 0 0 75 135.9375V145.3125zM37.5 145.3125A4.6875 4.6875 0 0 0 42.1875 150H51.5625A4.6875 4.6875 0 0 0 56.25 145.3125V135.9375A4.6875 4.6875 0 0 0 51.5625 131.25H42.1875A4.6875 4.6875 0 0 0 37.5 135.9375V145.3125zM243.75 182.8125A4.6875 4.6875 0 0 0 248.4375 187.5H257.8125A4.6875 4.6875 0 0 0 262.5 182.8125V173.4375A4.6875 4.6875 0 0 0 257.8125 168.75H248.4375A4.6875 4.6875 0 0 0 243.75 173.4375V182.8125zM206.25 182.8125A4.6875 4.6875 0 0 0 210.9375 187.5H220.3125A4.6875 4.6875 0 0 0 225 182.8125V173.4375A4.6875 4.6875 0 0 0 220.3125 168.75H210.9375A4.6875 4.6875 0 0 0 206.25 173.4375V182.8125zM168.75 182.8125A4.6875 4.6875 0 0 0 173.4375 187.5H182.8125A4.6875 4.6875 0 0 0 187.5 182.8125V173.4375A4.6875 4.6875 0 0 0 182.8125 168.75H173.4375A4.6875 4.6875 0 0 0 168.75 173.4375V182.8125zM131.25 182.8125A4.6875 4.6875 0 0 0 135.9375 187.5H145.3125A4.6875 4.6875 0 0 0 150 182.8125V173.4375A4.6875 4.6875 0 0 0 145.3125 168.75H135.9375A4.6875 4.6875 0 0 0 131.25 173.4375V182.8125zM93.75 182.8125A4.6875 4.6875 0 0 0 98.4375 187.5H107.8125A4.6875 4.6875 0 0 0 112.5 182.8125V173.4375A4.6875 4.6875 0 0 0 107.8125 168.75H98.4375A4.6875 4.6875 0 0 0 93.75 173.4375V182.8125zM37.5 182.8125A4.6875 4.6875 0 0 0 42.1875 187.5H70.3125A4.6875 4.6875 0 0 0 75 182.8125V173.4375A4.6875 4.6875 0 0 0 70.3125 168.75H42.1875A4.6875 4.6875 0 0 0 37.5 173.4375V182.8125zM37.5 107.8125A4.6875 4.6875 0 0 0 42.1875 112.5H51.5625A4.6875 4.6875 0 0 0 56.25 107.8125V98.4375A4.6875 4.6875 0 0 0 51.5625 93.75H42.1875A4.6875 4.6875 0 0 0 37.5 98.4375V107.8125zM75 107.8125A4.6875 4.6875 0 0 0 79.6875 112.5H182.8125A4.6875 4.6875 0 0 0 187.5 107.8125V98.4375A4.6875 4.6875 0 0 0 182.8125 93.75H79.6875A4.6875 4.6875 0 0 0 75 98.4375V107.8125z"
-                                 Style="{StaticResource RadioButtonStyle}"
-                                 IsChecked="{Binding Path=ViewModel.CurrentView, 
-                                 Converter={StaticResource InstanceEqualsConverter}, 
-                                 ConverterParameter={x:Type views:Keybindings}}" />
-
+                    
                 </StackPanel>
 
                 <Frame Grid.Column="1"
@@ -289,7 +282,7 @@
                         <Border Grid.Row="0"
                                 Padding="5"
                                 CornerRadius="5"
-                                Background="{Binding Background, ElementName=SearchBox}">
+                                Background="{Binding Background, ElementName=HotkeyBox}">
 
                             <TextBox x:Name="SearchBox"
                                      mah:TextBoxHelper.ClearTextButton="True"
@@ -438,6 +431,37 @@
                             </ListView>
                         </ScrollViewer>
                     </Grid>
+                </Border>
+            </Grid>
+            
+            <Grid Visibility="{Binding ViewModel.HotkeysVisibility}">
+                <Border Background="Black"
+                        Opacity="{Binding ViewModel.HotkeysOpacity}"
+                        CornerRadius="{Binding ViewModel.WindowCornerRadius}" />
+
+                <Border HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        MaxWidth="570"
+                        MaxHeight="285"
+                        Focusable="True"
+                        Background="{Binding Theming.DarkerColour, Mode=OneWay}"
+                        Opacity="{Binding ViewModel.HotkeysOpacity, 
+                        Converter={StaticResource MultiplyConverter}, ConverterParameter=2}"
+                        CornerRadius="10"
+                        Padding="10">
+                    
+                    <Border Padding="5"
+                            CornerRadius="5"
+                            Background="{Binding Background, ElementName=HotkeyBox}">
+
+                        <mah:HotKeyBox x:Name="HotkeyBox"
+                                       mah:TextBoxHelper.ClearTextButton="True"
+                                       mah:TextBoxHelper.Watermark="{DynamicResource HotkeyWatermark}"
+                                       BorderThickness="0"
+                                       Background="{Binding Theming.DarkColour}"
+                                       HotKey="{Binding ViewModel.HotKey, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}"/>
+                        
+                    </Border>
                 </Border>
             </Grid>
         </Grid>

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Forza_Mods_AIO.Cheats;
 using Forza_Mods_AIO.Resources;
+using Forza_Mods_AIO.Resources.Keybinds;
 using Forza_Mods_AIO.Services;
 using Forza_Mods_AIO.ViewModels.Windows;
 using Forza_Mods_AIO.Views.Windows;
@@ -38,10 +39,12 @@ public partial class App
     private async void App_OnStartup(object sender, StartupEventArgs e)
     {
         await Host.StartAsync();
+        HotkeysManager.SetupSystemHook();
     }
 
     private async void App_OnExit(object sender, ExitEventArgs e)
     {
+        HotkeysManager.ShutdownSystemHook();
         DisconnectFromGame();
         await Host.StopAsync();
         Host.Dispose();

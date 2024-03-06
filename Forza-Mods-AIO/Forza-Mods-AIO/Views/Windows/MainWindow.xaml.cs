@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Forza_Mods_AIO.Converters;
 using Forza_Mods_AIO.Models;
 using Forza_Mods_AIO.Resources.Theme;
 using Forza_Mods_AIO.ViewModels.Windows;
