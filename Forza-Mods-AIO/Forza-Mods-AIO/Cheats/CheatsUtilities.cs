@@ -62,7 +62,7 @@ public class CheatsUtilities
     protected static void ShowError(string feature, string sig)
     {
         MessageBox.Show(
-            $"Address for this feature wasn't found!\nPlease try to activate the cheat again or try to restart the game and the tool.\n\nIf this error still occurs, please (Press Ctrl+C) to copy, and make an issue on the github repository or post.\n\nFeature: {feature}\nSignature: {sig}\n\nTool Version: {System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}\nGame: {GameVerPlat.GetInstance().Name}\nGame Version: {GameVerPlat.GetInstance().Update}\nPlatform: {GameVerPlat.GetInstance().Platform}",
+            $"Address for this feature wasn't found!\nPlease try to activate the cheat again or try to restart the game and the tool.\n\nIf this error still occurs, please (Press Ctrl+C) to copy, and make an issue on the github repository or post the copied text on the aio mega-thread in our discord server (discord.gg/forzamods).\n\nFeature: {feature}\nSignature: {sig}\n\nTool Version: {System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}\nGame: {GameVerPlat.GetInstance().Name}\nGame Version: {GameVerPlat.GetInstance().Update}\nPlatform: {GameVerPlat.GetInstance().Platform}",
             $"{App.GetRequiredService<MetroWindow>().Title} - Error", 0, MessageBoxImage.Error);
     }
 

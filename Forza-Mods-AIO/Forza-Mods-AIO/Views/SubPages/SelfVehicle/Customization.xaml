@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:custom="clr-namespace:Forza_Mods_AIO.Controls.StatusIndicatorComboBoxItem"
       xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.SelfVehicle"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance local:Customization, IsDesignTimeCreatable=true}"
@@ -23,14 +24,20 @@
                 <Slider Grid.Column="0"
                         VerticalAlignment="Center"
                         mah:SliderHelper.EnableMouseWheel="MouseHover"
-                        AutoToolTipPlacement="BottomRight" />
+                        AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
+                        AutoToolTipPrecision="{StaticResource SliderTooltipPrecision}"
+                        Value="{Binding ViewModel.GlowingPaintValue}"
+                        IsEnabled="{Binding ViewModel.ArePaintUiElementsEnabled}"
+                        ValueChanged="PaintSlider_OnValueChanged"/>
                 
                 <mah:ToggleSwitch Grid.Column="1" 
                                   VerticalAlignment="Center"
                                   Margin="5 0 0 0"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource GlowingPaint}"/>
+                                  Content="{DynamicResource GlowingPaint}"
+                                  IsEnabled="{Binding ViewModel.ArePaintUiElementsEnabled}"
+                                  Toggled="PaintSwitch_OnToggled"/>
                 
             </Grid>
         </Border>
@@ -51,15 +58,17 @@
                                  SelectedColor="Red"
                                  IsAvailableColorPaletteVisible="True"
                                  SelectedColorChanged="ColorPickerBase_OnSelectedColorChanged"
-                                 mah:ControlsHelper.CornerRadius="3"
-                                 mah:ControlsHelper.DisabledVisualElementVisibility="Collapsed"/>
+                                 IsEnabled="{Binding ViewModel.AreHeadlightUiElementsEnabled}"
+                                 mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"/>
                 
                 <mah:ToggleSwitch Grid.Column="1" 
                                   VerticalAlignment="Center"
                                   Margin="5 0 0 0"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource HeadlightColour}"/>
+                                  Content="{DynamicResource HeadlightColour}"
+                                  IsEnabled="{Binding ViewModel.AreHeadlightUiElementsEnabled}"
+                                  Toggled="HeadlightSwitch_OnToggled"/>
                 
             </Grid>
         </Border>
@@ -76,7 +85,7 @@
                 <ComboBox Grid.Column="0"
                           VerticalAlignment="Center"
                           SelectedIndex="0"
-                          mah:ControlsHelper.CornerRadius="3"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
 
@@ -91,8 +100,8 @@
                         Minimum="0"
                         Maximum="1"
                         mah:SliderHelper.EnableMouseWheel="MouseHover"
-                        AutoToolTipPlacement="BottomRight" 
-                        AutoToolTipPrecision="3"/>                
+                        AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
+                        AutoToolTipPrecision="{StaticResource SliderTooltipPrecision}"/>                
                 
                 <mah:ToggleSwitch Grid.Column="2"
                                   VerticalAlignment="Center"
@@ -114,7 +123,7 @@
                         VerticalAlignment="Center"
                         Margin="5 0"
                         mah:SliderHelper.EnableMouseWheel="MouseHover"
-                        AutoToolTipPlacement="BottomRight" 
+                        AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
                         IsSnapToTickEnabled="True"
                         TickPlacement="BottomRight"
                         Minimum="0"
@@ -143,7 +152,7 @@
                 <mah:NumericUpDown Grid.Column="0"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
@@ -155,7 +164,7 @@
                 <mah:NumericUpDown Grid.Column="2"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 

@@ -8,24 +8,39 @@ namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
 public class Bypass : CheatsUtilities, ICheatsBase
 {
     public readonly DebugSession BypassDebug = new("Bypass", [], []);
-    
-    public UIntPtr CrcFuncAddress, CrcFuncDetourAddress, MemCopyAddress;
+
+    private UIntPtr _crcFuncAddress, _memCopyAddress;
+    public UIntPtr CrcFuncDetourAddress;
+    private bool _scanning;
     
     public async Task DisableCrcChecks()
     {
-        CrcFuncAddress = 0;
+        var wasScanning = false;
+        while (_scanning)
+        {
+            wasScanning = true;
+            await Task.Delay(1);
+        }
+
+        if (wasScanning)
+        {
+            return;
+        }
+
+        _scanning = true;
+        _crcFuncAddress = 0;
         CrcFuncDetourAddress = 0;
 
         const string sig = "E8 ? ? ? ? 48 83 C4 ? 5F 5B C3 CC CC CC 48 89";
-        CrcFuncAddress = await SmartAobScan(sig);
+        _crcFuncAddress = await SmartAobScan(sig);
         
-        BypassDebug.DebugInfoReports.Add(new DebugInfoReport($"Address: {CrcFuncAddress:X}"));
+        BypassDebug.DebugInfoReports.Add(new DebugInfoReport($"Address: {_crcFuncAddress:X}"));
         
-        if (CrcFuncAddress > 0)
+        if (_crcFuncAddress > 0)
         {
             var mem = Resources.Memory.GetInstance();
-            var scanResult = (IntPtr)CrcFuncAddress + mem.ReadMemory<int>(CrcFuncAddress + 1) + 5;
-            CrcFuncAddress = (UIntPtr)(scanResult + 311);
+            var scanResult = (IntPtr)_crcFuncAddress + mem.ReadMemory<int>(_crcFuncAddress + 1) + 5;
+            _crcFuncAddress = (UIntPtr)(scanResult + 311);
             
             var procHandle = mem.MProc.Process.Handle;
             var memSize = mem.MProc.Process.MainModule!.ModuleMemorySize;
@@ -34,14 +49,14 @@ public class Bypass : CheatsUtilities, ICheatsBase
             var memCopy = new byte[memSize];
             ReadProcessMemory(procHandle, baseAddress, memCopy, memSize);
             
-            MemCopyAddress = VirtualAllocEx(procHandle, UIntPtr.Zero, (uint)memSize, MemCommit | MemReserve, ReadWrite);
-            WriteProcessMemory(procHandle, MemCopyAddress, memCopy, (uint)memSize, nint.Zero);
+            _memCopyAddress = VirtualAllocEx(procHandle, UIntPtr.Zero, (uint)memSize, MemCommit | MemReserve, ReadWrite);
+            WriteProcessMemory(procHandle, _memCopyAddress, memCopy, (uint)memSize, nint.Zero);
 
              var currentProcess = Process.GetCurrentProcess();
             currentProcess.MinWorkingSet = 300000;
             
             var endAddress = baseAddress + (uint)memSize;
-            var varBytes = GetBytes(baseAddress).Concat(GetBytes(endAddress)).Concat(GetBytes(MemCopyAddress)).ToArray();
+            var varBytes = GetBytes(baseAddress).Concat(GetBytes(endAddress)).Concat(GetBytes(_memCopyAddress)).ToArray();
             
             var asm = new byte[]
             {
@@ -50,21 +65,23 @@ public class Bypass : CheatsUtilities, ICheatsBase
                 0x6F, 0x40, 0xF0
             };
             
-            CrcFuncDetourAddress = mem.CreateDetour(CrcFuncAddress, asm, 5, varBytes: varBytes);
+            CrcFuncDetourAddress = mem.CreateDetour(_crcFuncAddress, asm, 5, varBytes: varBytes);
             BypassDebug.DebugInfoReports.Add(new DebugInfoReport($"Hook Addr: {CrcFuncDetourAddress:X}"));
+            _scanning = false;
             return;
         }
         
+        _scanning = false;
         ShowError("Bypass", sig);
     }
 
     public void Cleanup()
     {
-        if (CrcFuncAddress <= 0) return;
+        if (_crcFuncAddress <= 0) return;
         var memInstance = Resources.Memory.GetInstance();
-        memInstance.WriteArrayMemory(CrcFuncAddress, new byte[] { 0xF3, 0x0F, 0x6F, 0x40, 0xF0 });
+        memInstance.WriteArrayMemory(_crcFuncAddress, new byte[] { 0xF3, 0x0F, 0x6F, 0x40, 0xF0 });
         Free(CrcFuncDetourAddress);
-        Free(MemCopyAddress);
+        Free(_memCopyAddress);
     }
 
     public void Reset()

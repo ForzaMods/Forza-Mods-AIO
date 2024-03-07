@@ -1,34 +1,88 @@
 ﻿using System.Numerics;
 using System.Windows;
 using System.Windows.Media;
-using Forza_Mods_AIO.Models;
-using Forza_Mods_AIO.Resources;
+using Forza_Mods_AIO.Cheats.ForzaHorizon5;
+using Forza_Mods_AIO.ViewModels.SubPages.SelfVehicle;
+using MahApps.Metro.Controls;
+using static Forza_Mods_AIO.Resources.Cheats;
+using static Forza_Mods_AIO.Resources.Memory;
 
 namespace Forza_Mods_AIO.Views.SubPages.SelfVehicle;
 
 public partial class Customization
 {
-    private static readonly DebugBreakpoint HeadlightColorDebugBreakpoint = new("Test");
-    private readonly DebugSession _headlightColorDebug = new("Headlight Color", [], [HeadlightColorDebugBreakpoint]);
-    
     public Customization()
     {
+        ViewModel = new CustomizationViewModel();
         DataContext = this;
         
         InitializeComponent();
-        DebugSessions.GetInstance().EveryDebugSession.Add(_headlightColorDebug);
+    }
+    
+    public CustomizationViewModel ViewModel { get; }
+    private static CustomizationCheats CustomizationCheatsFh5 => GetClass<CustomizationCheats>();
+    
+    private async void PaintSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+
+        ViewModel.ArePaintUiElementsEnabled = false;
+        
+        if (CustomizationCheatsFh5.PaintAddress == 0)
+        {
+            await CustomizationCheatsFh5.CheatGlowingPaint();
+        }
+
+        ViewModel.ArePaintUiElementsEnabled = true;
+        
+        if (CustomizationCheatsFh5.PaintAddress == 0) return;
+        var write = toggleSwitch.IsOn ? (byte)1 : (byte)0;
+        GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x36, write);
+        GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x37, ViewModel.GlowingPaintValue);
     }
 
-    private async void ColorPickerBase_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+    private void PaintSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (CustomizationCheatsFh5.PaintAddress == 0) return;
+        GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x37, ViewModel.GlowingPaintValue);
+    }
+
+    private async void HeadlightSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+
+        ViewModel.AreHeadlightUiElementsEnabled = false;
+        
+        if (CustomizationCheatsFh5.HeadlightColourAddress == 0)
+        {
+            await CustomizationCheatsFh5.CheatHeadlightColour();
+        }
+
+        ViewModel.AreHeadlightUiElementsEnabled = true;
+        
+        if (CustomizationCheatsFh5.HeadlightColourAddress == 0) return;
+        var toggled = toggleSwitch.IsOn ? (byte)1 : (byte)0;
+        var write = ConvertUiColorToGameValues((Color)ColorPicker.SelectedColor!);
+        GetInstance().WriteMemory(CustomizationCheatsFh5.HeadlightColourDetourAddress + 0x22, toggled);
+        GetInstance().WriteMemory(CustomizationCheatsFh5.HeadlightColourDetourAddress + 0x23, write);
+    }
+    
+    private void ColorPickerBase_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
     {
         if (ColorPicker == null)
         {
             return;
         }
 
-        var a = ConvertUiColorToGameValues(e.NewValue.GetValueOrDefault());
-        await HeadlightColorDebugBreakpoint.MarkAsHit();
-        _headlightColorDebug.DebugInfoReports.Add(new DebugInfoReport($"Value: {a.ToString()}"));
+        if (CustomizationCheatsFh5.HeadlightColourAddress == 0) return;
+        var write = ConvertUiColorToGameValues(e.NewValue.GetValueOrDefault());
+        GetInstance().WriteMemory(CustomizationCheatsFh5.HeadlightColourDetourAddress + 0x23, write);
     }
 
     private static Vector3 ConvertUiColorToGameValues(Color uiColor)
