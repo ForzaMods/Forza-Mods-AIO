@@ -46,7 +46,7 @@ public class CheatsUtilities
             }
 
             scanStartAddr = scanEndAddr;
-            address = memInfo.BaseAddress + (UIntPtr)memInfo.RegionSize;
+            address = memInfo.BaseAddress + checked((UIntPtr)memInfo.RegionSize);
         }
 
         return 0;

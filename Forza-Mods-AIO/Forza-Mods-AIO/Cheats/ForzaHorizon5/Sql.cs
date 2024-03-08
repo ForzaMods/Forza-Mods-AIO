@@ -3,7 +3,7 @@ using Memory.Types;
 
 namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
 
-public class Sql : CheatsUtilities
+public class Sql : CheatsUtilities, ICheatsBase
 {
     private UIntPtr _cDatabaseAddress;
     private UIntPtr _ptr;
@@ -15,7 +15,7 @@ public class Sql : CheatsUtilities
         const string sig = "0F 84 ? ? ? ? 48 8B 35 ? ? ? ? 48 85 F6 74";
         _cDatabaseAddress = await SmartAobScan(sig);
 
-        if (_cDatabaseAddress > 9)
+        if (_cDatabaseAddress > 0)
         {
             var relativeAddress = _cDatabaseAddress + 0x6 + 0x3;
             var relative = Resources.Memory.GetInstance().ReadMemory<int>(relativeAddress);
@@ -42,23 +42,22 @@ public class Sql : CheatsUtilities
     
     public async Task Query(string command)
     {
-        if (_cDatabaseAddress <= 9)
+        if (_cDatabaseAddress <= 0)
         {
             await SqlExecAobScan();
         }
 
-        if (_cDatabaseAddress <= 9) return;
+        if (_cDatabaseAddress <= 0) return;
         var procHandle = Resources.Memory.GetInstance().MProc.Handle;
-        var allocShellCodeAddress = Imps.VirtualAllocEx(procHandle, nuint.Zero, 0x1000, 0x3000, 0x40);
 
         var rcx = _ptr;
-        var rdx = Imps.VirtualAllocEx(procHandle, nuint.Zero, 0x1000, 0x3000, 0x40);
-        var r8 = Imps.VirtualAllocEx(procHandle, nuint.Zero, 0x1000, 0x3000, 0x40);
-        var rdxBytes = BitConverter.GetBytes(rdx.ToUInt64());
-        var r8Bytes = BitConverter.GetBytes(rdx.ToUInt64());
-        
         const int virtualFunctionIndex = 9;
         var callFunction = GetVirtualFunctionPtr(_ptr, virtualFunctionIndex);
+        var shellCodeAddress = Imps.VirtualAllocEx(procHandle, 0, 0x1000, 0x3000, 0x40);
+        var rdx = Imps.VirtualAllocEx(procHandle, 0, 0x1000, 0x3000, 0x40);
+        var r8 = Imps.VirtualAllocEx(procHandle, 0, 0x1000, 0x3000, 0x40);
+        var rdxBytes = BitConverter.GetBytes(rdx.ToUInt64());
+        var r8Bytes = BitConverter.GetBytes(r8.ToUInt64());
         var callBytes = BitConverter.GetBytes(callFunction.ToUInt64());
         
         byte[] shellCode =
@@ -70,12 +69,22 @@ public class Sql : CheatsUtilities
         ];
       
         Resources.Memory.GetInstance().WriteStringMemory(r8, command + "\0");
+        Resources.Memory.GetInstance().WriteArrayMemory(shellCodeAddress, shellCode);
+        var thread = Imports.CreateRemoteThread(procHandle, 0, 0, shellCodeAddress, rcx, 0, out _);
+        _ = Imports.WaitForSingleObject(thread, int.MaxValue);
+        Free(shellCodeAddress);
+        Free(r8);
+        Free(rdx);
+    }
 
-        Imps.WriteProcessMemory(procHandle, allocShellCodeAddress, shellCode, (nuint)shellCode.Length, nint.Zero);
-        var handle = Imports.CreateRemoteThread(procHandle, (nint)null, 0, allocShellCodeAddress, rcx, 0, out _);
+    public void Cleanup() {}
 
-        _ = Imports.WaitForSingleObject(handle, int.MaxValue);
-        Imps.VirtualFreeEx(procHandle, allocShellCodeAddress, 0, Imps.MemRelease);
-        Imps.VirtualFreeEx(procHandle, r8, 0, Imps.MemRelease);
+    public void Reset()
+    {
+        var fields = typeof(Sql).GetFields().Where(f => f.FieldType == typeof(nuint));
+        foreach (var field in fields)
+        {
+            field.SetValue(this, UIntPtr.Zero);
+        }
     }
 }
