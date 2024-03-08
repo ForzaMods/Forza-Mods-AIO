@@ -282,7 +282,7 @@ internal class TuningAddresses
         RearRideHeightMin = isFh4 ? Base3 + 0x440 : fh5Base2 + 0x688;
         RearRideHeightMax = isFh4 ? Base3 + 0x444 : fh5Base2 + 0x68C;
 
-        FrontRestriction = isFh4 ? Base3 + 0x39C : fh5Base2 + 0x53C;
+        FrontRestriction = isFh4 ? Base3 + 0x39C : fh5Base2 + 0x540;
         RearRestriction = isFh4 ? Base3 + 0x448 : fh5Base2 + 0x690;
 
         FrontAeroMin = isFh4 ? Base3 + 0x234 : fh5Base2 + 0x3A4;
