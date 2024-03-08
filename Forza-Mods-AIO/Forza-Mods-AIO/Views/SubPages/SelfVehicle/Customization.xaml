@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-      xmlns:custom="clr-namespace:Forza_Mods_AIO.Controls.StatusIndicatorComboBoxItem"
       xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.SelfVehicle"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance local:Customization, IsDesignTimeCreatable=true}"
