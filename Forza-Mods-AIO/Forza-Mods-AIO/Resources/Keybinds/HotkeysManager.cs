@@ -61,7 +61,9 @@ public static class HotkeysManager
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 foreach (var hotkey in Hotkeys
-                             .Where(hotkey => Keyboard.Modifiers == hotkey.Modifier && Keyboard.IsKeyDown(hotkey.Key))
+                             .Where(hotkey =>
+                                 Keyboard.Modifiers == hotkey.Modifier && hotkey.Key != Key.None &&
+                                 Keyboard.IsKeyDown(hotkey.Key))
                              .Where(hotkey => hotkey.CanExecute))
                 {
                     hotkey.Callback();
