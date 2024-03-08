@@ -35,7 +35,10 @@
                     <mah:ToggleSwitch x:Name="AllCars"
                                       MinWidth="0"
                                       HorizontalAlignment="Center"
-                                      IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}" />
+                                      Command="{Binding ViewModel.ExecuteSqlCommand, Mode=OneWay}"
+                                      CommandParameter="{Binding ViewModel.AllCarsParameter}"
+                                      IsOn="{Binding ViewModel.AllCarsEnabled}"
+                                      IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}"/>
 
                 </StackPanel>
 
@@ -46,7 +49,7 @@
                     <mah:ToggleSwitch x:Name="RareCars"
                                       MinWidth="0"
                                       HorizontalAlignment="Center"
-                                      IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}" />
+                                      IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}" />
 
                 </StackPanel>
 
@@ -57,7 +60,7 @@
                     <mah:ToggleSwitch x:Name="FreeCars"
                                       MinWidth="0"
                                       HorizontalAlignment="Center"
-                                      IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}" />
+                                      IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}" />
 
                 </StackPanel>
 
@@ -89,7 +92,7 @@
                         <mah:ToggleSwitch x:Name="UnlockPresets"
                                           MinWidth="0"
                                           HorizontalAlignment="Center"
-                                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}" />
+                                          IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}" />
 
                     </StackPanel>
 
@@ -101,7 +104,7 @@
                         <mah:ToggleSwitch x:Name="RemoveCars"
                                           MinWidth="0"
                                           HorizontalAlignment="Center"
-                                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}" />
+                                          IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}" />
 
                     </StackPanel>
 
@@ -113,7 +116,7 @@
                         <mah:ToggleSwitch x:Name="DateBypass"
                                           MinWidth="0"
                                           HorizontalAlignment="Center"
-                                          IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}" />
+                                          IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}" />
 
                     </StackPanel>
 
@@ -134,7 +137,7 @@
                         <Button x:Name="ClearTag"
                                 HorizontalAlignment="Center"
                                 Content="{DynamicResource Run}"
-                                IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                                IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}"
                                 BorderThickness="0"
                                 mah:ControlsHelper.FocusBorderThickness="0"
                                 Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
@@ -150,7 +153,7 @@
 
                             <ComboBox x:Name="ClearGarageMode"
                                       SelectedIndex="0"
-                                      IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                                      IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}"
                                       BorderThickness="0"
                                       Background="{Binding Theming.DarkerColour, Mode=OneWay}"
                                       mah:ControlsHelper.CornerRadius="3">
@@ -167,7 +170,7 @@
                                     HorizontalAlignment="Center"
                                     Margin="5 0 0 0"
                                     Content="{DynamicResource Run}"
-                                    IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                                    IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}"
                                     BorderThickness="0"
                                     mah:ControlsHelper.FocusBorderThickness="0"
                                     Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
@@ -184,7 +187,7 @@
                         <Button x:Name="FixThumbnails"
                                 HorizontalAlignment="Center"
                                 Content="{DynamicResource Run}"
-                                IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                                IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}"
                                 BorderThickness="0"
                                 mah:ControlsHelper.FocusBorderThickness="0"
                                 Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
@@ -220,7 +223,7 @@
                     <Button x:Name="FreePerf"
                             HorizontalAlignment="Center"
                             Content="{DynamicResource Run}"
-                            IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                            IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}"
                             BorderThickness="0"
                             mah:ControlsHelper.FocusBorderThickness="0"
                             Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
@@ -235,7 +238,7 @@
                     <Button x:Name="FreeVisual"
                             HorizontalAlignment="Center"
                             Content="{DynamicResource Run}"
-                            IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                            IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}"
                             BorderThickness="0"
                             mah:ControlsHelper.FocusBorderThickness="0"
                             Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
@@ -250,7 +253,7 @@
                     <Button x:Name="AddAll"
                             HorizontalAlignment="Center"
                             Content="{DynamicResource Run}"
-                            IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                            IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}"
                             BorderThickness="0"
                             mah:ControlsHelper.FocusBorderThickness="0"
                             Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
@@ -265,7 +268,7 @@
                     <Button x:Name="AddRare"
                             HorizontalAlignment="Center"
                             Content="{DynamicResource Run}"
-                            IsEnabled="{Binding ViewModel.WasScanSuccessful, Mode=OneWay}"
+                            IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}"
                             BorderThickness="0"
                             mah:ControlsHelper.FocusBorderThickness="0"
                             Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
