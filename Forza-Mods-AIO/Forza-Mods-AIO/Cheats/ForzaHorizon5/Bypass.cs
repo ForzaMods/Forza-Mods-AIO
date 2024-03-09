@@ -85,6 +85,7 @@ public class Bypass : CheatsUtilities, ICheatsBase
 
     public void Reset()
     {
+        _scanning = false;
         var fields = typeof(Bypass).GetFields().Where(f => f.FieldType == typeof(UIntPtr));
         foreach (var field in fields)
         {
