@@ -250,7 +250,7 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
 
     public void Reset()
     {
-        var fields = typeof(UnlocksCheats).GetFields().Where(f => f.FieldType == typeof(nuint));
+        var fields = typeof(UnlocksCheats).GetFields().Where(f => f.FieldType == typeof(UIntPtr));
         foreach (var field in fields)
         {
             field.SetValue(this, UIntPtr.Zero);

@@ -110,7 +110,7 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
 
     public void Reset()
     {
-        var fields = typeof(CustomizationCheats).GetFields().Where(f => f.FieldType == typeof(nuint));
+        var fields = typeof(CustomizationCheats).GetFields().Where(f => f.FieldType == typeof(UIntPtr));
         foreach (var field in fields)
         {
             field.SetValue(this, UIntPtr.Zero);

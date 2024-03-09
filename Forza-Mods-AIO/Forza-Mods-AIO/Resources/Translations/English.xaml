@@ -67,20 +67,18 @@
     <system:String x:Key="RemoveAll">All</system:String>
     <system:String x:Key="RemoveDupes">Dupes</system:String>
     <system:String x:Key="RemoveNonFavorites">Non favorites</system:String>
-    <system:String x:Key="RemoveRareCars">Rare cars</system:String>
-    <system:String x:Key="RemoveAutoshowCars">Auto-show cars</system:String>
     <system:String x:Key="RemoveUnTuned">Only un-tuned</system:String>
     <system:String x:Key="RemoveNonLivery">Non livery</system:String>
     
     <system:String x:Key="AutoshowFilters">Autoshow Filters</system:String>
-    <system:String x:Key="AutoshowFiltersAllCars">All Cars</system:String>
-    <system:String x:Key="AutoshowFiltersRareCars">Rare Cars</system:String>
-    <system:String x:Key="AutoshowFiltersFreeCars">Free Cars</system:String>
+    <system:String x:Key="AutoshowFiltersAllCars">Display All Cars</system:String>
+    <system:String x:Key="AutoshowFiltersRareCars">Display Only Rare Cars</system:String>
+    <system:String x:Key="AutoshowFiltersFreeCars">Make Cars Free</system:String>
 
     <system:String x:Key="GarageModifications">Garage Modifications</system:String>
     <system:String x:Key="GarageModificationsUnlockHiddenPresets">Unlock Hidden Presets</system:String>
-    <system:String x:Key="GarageModificationsRemoveAnyCar">Remove Any Car</system:String>
-    <system:String x:Key="GarageModificationsCarPassDateBypass">Car Pass Date Bypass</system:String>
+    <system:String x:Key="GarageModificationsRemoveBarnFindCars">Remove Barn Find Cars</system:String>
+    <system:String x:Key="GarageModificationsDlcCarsReleaseDateBypass">DLC Cars Release Date Bypass</system:String>
     <system:String x:Key="GarageModificationsClearNewTagOnCars">Clear New Tag On Cars</system:String>
     <system:String x:Key="GarageModificationsClearGarage">Clear Garage</system:String>
     <system:String x:Key="GarageModificationsFixCarThumbnails">Fix Car Thumbnails</system:String>

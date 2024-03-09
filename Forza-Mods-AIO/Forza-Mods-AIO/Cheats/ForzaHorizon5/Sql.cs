@@ -1,25 +1,27 @@
 ﻿using Forza_Mods_AIO.Resources;
+using Forza_Mods_AIO.Views.Pages;
 using Memory.Types;
 
 namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
 
 public class Sql : CheatsUtilities, ICheatsBase
 {
-    private UIntPtr _cDatabaseAddress;
+    public UIntPtr CDatabaseAddress;
     private UIntPtr _ptr;
-    
-    private async Task SqlExecAobScan()
+
+    public async Task SqlExecAobScan()
     {
-        _cDatabaseAddress = 0;
+        CDatabaseAddress = 0;
+        _ptr = 0;
 
         const string sig = "0F 84 ? ? ? ? 48 8B 35 ? ? ? ? 48 85 F6 74";
-        _cDatabaseAddress = await SmartAobScan(sig);
+        CDatabaseAddress = await SmartAobScan(sig);
 
-        if (_cDatabaseAddress > 0)
+        if (CDatabaseAddress > 0)
         {
-            var relativeAddress = _cDatabaseAddress + 0x6 + 0x3;
+            var relativeAddress = CDatabaseAddress + 0x6 + 0x3;
             var relative = Resources.Memory.GetInstance().ReadMemory<int>(relativeAddress);
-            var pCDataBaseAddress = _cDatabaseAddress + (nuint)relative + 0x6 + 0x7;
+            var pCDataBaseAddress = CDatabaseAddress + (nuint)relative + 0x6 + 0x7;
             _ptr = Resources.Memory.GetInstance().ReadMemory<nuint>(pCDataBaseAddress);
             return;
         }
@@ -40,14 +42,8 @@ public class Sql : CheatsUtilities, ICheatsBase
         return (nuint)BitConverter.ToInt64(vTableBytes, 0);
     }
     
-    public async Task Query(string command)
+    public Task Query(string command)
     {
-        if (_cDatabaseAddress <= 0)
-        {
-            await SqlExecAobScan();
-        }
-
-        if (_cDatabaseAddress <= 0) return;
         var procHandle = Resources.Memory.GetInstance().MProc.Handle;
 
         var rcx = _ptr;
@@ -75,13 +71,16 @@ public class Sql : CheatsUtilities, ICheatsBase
         Free(shellCodeAddress);
         Free(r8);
         Free(rdx);
+        return Task.CompletedTask;
     }
 
-    public void Cleanup() {}
+    public void Cleanup()
+    {
+    }
 
     public void Reset()
     {
-        var fields = typeof(Sql).GetFields().Where(f => f.FieldType == typeof(nuint));
+        var fields = typeof(Sql).GetFields().Where(f => f.FieldType == typeof(UIntPtr));
         foreach (var field in fields)
         {
             field.SetValue(this, UIntPtr.Zero);

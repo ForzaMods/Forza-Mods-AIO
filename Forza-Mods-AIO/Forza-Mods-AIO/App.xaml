@@ -18,6 +18,8 @@
             <converters:InstanceEqualsConverter x:Key="InstanceEqualsConverter"/>
             <converters:PageToInstanceConverter x:Key="PageToInstanceConverter"/>
             <converters:MultiplyConverter x:Key="MultiplyConverter"/>
+            <converters:IntParamConverter x:Key="IntParamConverter"/>
+            <converters:BoolParamConverter x:Key="BoolParamConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

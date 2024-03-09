@@ -15,10 +15,9 @@ public class Bypass : CheatsUtilities, ICheatsBase
     
     public async Task DisableCrcChecks()
     {
-        var wasScanning = false;
+        var wasScanning = _scanning;
         while (_scanning)
         {
-            wasScanning = true;
             await Task.Delay(1);
         }
 
@@ -86,7 +85,7 @@ public class Bypass : CheatsUtilities, ICheatsBase
 
     public void Reset()
     {
-        var fields = typeof(Bypass).GetFields().Where(f => f.FieldType == typeof(nuint));
+        var fields = typeof(Bypass).GetFields().Where(f => f.FieldType == typeof(UIntPtr));
         foreach (var field in fields)
         {
             field.SetValue(this, UIntPtr.Zero);

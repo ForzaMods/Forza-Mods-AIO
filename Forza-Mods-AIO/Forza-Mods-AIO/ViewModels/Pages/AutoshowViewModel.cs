@@ -10,14 +10,6 @@ public partial class AutoshowViewModel : ObservableObject
 
     [ObservableProperty]
     private bool _uiElementsEnabled = true;
-
-    [ObservableProperty]
-    private bool _allCarsEnabled;
-
-    public string AllCarsParameter =>
-        AllCarsEnabled
-            ? "CREATE TABLE AutoshowTable(Id INT, NotAvailableInAutoshow INT); INSERT INTO AutoshowTable SELECT Id, NotAvailableInAutoshow FROM Data_Car; UPDATE Data_Car SET NotAvailableInAutoshow = 0;"
-            : "UPDATE Data_Car SET NotAvailableInAutoshow = (SELECT NotAvailableInAutoshow FROM AutoshowTable WHERE Data_Car.Id == AutoshowTable.Id); DROP TABLE AutoshowTable;";
     
     private static Sql SqlFh5 => Resources.Cheats.GetClass<Sql>();
     
@@ -41,7 +33,19 @@ public partial class AutoshowViewModel : ObservableObject
         }
         
         UiElementsEnabled = false;
+        if (SqlFh5.CDatabaseAddress == 0)
+        {
+            await SqlFh5.SqlExecAobScan();
+        }
+
+        if (SqlFh5.CDatabaseAddress == 0)
+        {
+            goto SkipQuerying;
+        }
+        
         await SqlFh5.Query(sParam);
+        
+        SkipQuerying:
         UiElementsEnabled = true;
     }
 }
