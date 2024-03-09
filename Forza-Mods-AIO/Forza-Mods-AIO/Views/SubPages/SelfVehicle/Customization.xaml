@@ -81,32 +81,68 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <ComboBox Grid.Column="0"
+                <ComboBox x:Name="CleanlinessMode" 
+                          Grid.Column="0"
                           VerticalAlignment="Center"
                           SelectedIndex="0"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
+                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                          IsEnabled="{Binding ViewModel.AreCleanlinessUiElementsEnabled}"
+                          SelectionChanged="CleanlinessMode_OnSelectionChanged">
 
-                    <ComboBoxItem Content="{DynamicResource Dirt}"/>
-                    <ComboBoxItem Content="{DynamicResource Mud}"/>
+                    <ComboBox.Resources>
+                        <Style x:Key="TextBlockStyle" 
+                               TargetType="TextBlock">
+                            <Setter Property="Margin" Value="2.5 0 0 0"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
+                                    <Setter Property="Text" Value="{DynamicResource OnWithBrackets}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="False">
+                                    <Setter Property="Text" Value="{DynamicResource OffWithBrackets}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.Resources>
                     
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource Dirt}" />
+                            <TextBlock Tag="{Binding ViewModel.DirtEnabled, Mode=OneWay}" 
+                                       Style="{StaticResource TextBlockStyle}" />
+                        </StackPanel>
+                    </ComboBoxItem>
+                    
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource Mud}" />
+                            <TextBlock Tag="{Binding ViewModel.MudEnabled, Mode=OneWay}" 
+                                       Style="{StaticResource TextBlockStyle}" />
+                        </StackPanel>
+                    </ComboBoxItem>
                 </ComboBox>
                     
-                <Slider Grid.Column="1"
+                <Slider x:Name="CleanlinessSlider" 
+                        Grid.Column="1"
                         VerticalAlignment="Center"
                         Margin="5 0"
                         Minimum="0"
                         Maximum="1"
+                        ValueChanged="CleanlinessSlider_OnValueChanged"
                         mah:SliderHelper.EnableMouseWheel="MouseHover"
                         AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
-                        AutoToolTipPrecision="{StaticResource SliderTooltipPrecision}"/>                
+                        AutoToolTipPrecision="{StaticResource SliderTooltipPrecision}"
+                        IsEnabled="{Binding ViewModel.AreCleanlinessUiElementsEnabled}"/>                
                 
-                <mah:ToggleSwitch Grid.Column="2"
+                <mah:ToggleSwitch x:Name="CleanlinessSwitch" 
+                                  Grid.Column="2"
                                   VerticalAlignment="Center"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource Cleanliness}"/>
+                                  Content="{DynamicResource Cleanliness}"
+                                  IsEnabled="{Binding ViewModel.AreCleanlinessUiElementsEnabled}"
+                                  Toggled="CleanlinessSwitch_OnToggled"/>
                 
             </Grid>
         </Border>
@@ -118,21 +154,26 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <Slider Grid.Column="0"
+                <Slider x:Name="LodSlider" 
+                        Grid.Column="0"
                         VerticalAlignment="Center"
-                        Margin="5 0"
                         mah:SliderHelper.EnableMouseWheel="MouseHover"
                         AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
                         IsSnapToTickEnabled="True"
                         TickPlacement="BottomRight"
                         Minimum="0"
-                        Maximum="4"/>                
+                        Maximum="4"
+                        IsEnabled="{Binding ViewModel.AreForceLodUiElementsEnabled}"
+                        ValueChanged="LodSlider_OnValueChanged"/>                
                 
                 <mah:ToggleSwitch Grid.Column="1"
                                   VerticalAlignment="Center"
+                                  Margin="5 0 0 0"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource ForceLod}"/>
+                                  Content="{DynamicResource ForceLod}"
+                                  IsEnabled="{Binding ViewModel.AreForceLodUiElementsEnabled}"
+                                  Toggled="LodSwitch_OnToggled"/>
                 
             </Grid>
         </Border>
@@ -148,24 +189,34 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <mah:NumericUpDown Grid.Column="0"
+                <mah:NumericUpDown x:Name="MinBackfire" 
+                                   Grid.Column="0"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
                                    mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   IsEnabled="{Binding ViewModel.AreBackfireUiElementsEnabled}"
+                                   Minimum="0"
+                                   Value="2500"
+                                   ValueChanged="MinBackfire_OnValueChanged"/>
                 
                 <Label Grid.Column="1"
                        VerticalAlignment="Center"
                        Margin="5 0"
                        Content="{DynamicResource MinTime}"/>
                 
-                <mah:NumericUpDown Grid.Column="2"
+                <mah:NumericUpDown x:Name="MaxBackfire" 
+                                   Grid.Column="2"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
                                    mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   IsEnabled="{Binding ViewModel.AreBackfireUiElementsEnabled}"
+                                   Minimum="0"
+                                   Value="5000"
+                                   ValueChanged="MaxBackfire_OnValueChanged"/>
                 
                 <Label Grid.Column="3"
                        VerticalAlignment="Center"
@@ -176,27 +227,11 @@
                                   VerticalAlignment="Center"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource BackfireTime}"/>
+                                  Content="{DynamicResource BackfireTime}"
+                                  IsEnabled="{Binding ViewModel.AreBackfireUiElementsEnabled}"
+                                  Toggled="BackfireSwitch_OnToggled"/>
                 
             </Grid>
-        </Border>
-        
-        <Border Style="{StaticResource CommonBorderStyle}">
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                
-                <mah:ToggleSwitch VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource ForceAntiLag}"/>
-                
-                <mah:ToggleSwitch VerticalAlignment="Center"
-                                  Margin="10 0 0 0"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource ForceNormal}"/>
-                
-            </StackPanel>
         </Border>
     </StackPanel>
 </Page>

@@ -5,6 +5,8 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
     public UIntPtr PaintAddress, PaintDetourAddress;
     public UIntPtr HeadlightColourAddress, HeadlightColourDetourAddress;
     public UIntPtr CleanlinessAddress, CleanlinessDetourAddress;
+    public UIntPtr ForceLodAddress, ForceLodDetourAddress;
+    public UIntPtr BackfireTimeAddress, BackfireTimeDetourAddress;
 
     public async Task CheatGlowingPaint()
     {
@@ -77,6 +79,13 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
 
         if (CleanlinessAddress > 0)
         {
+            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            {
+                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
+            }
+            
+            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
+            
             var asm = new byte[]
             {
                 0x80, 0x3D, 0x30, 0x00, 0x00, 0x00, 0x01, 0x75, 0x0C, 0x8B, 0x0D, 0x29, 0x00, 0x00, 0x00, 0x89, 0x88,
@@ -89,6 +98,90 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
         }
         
         ShowError("Cleanliness", sig);
+    }
+
+    public async Task CheatForceLod()
+    {
+        ForceLodAddress = 0;
+        ForceLodDetourAddress = 0;
+
+        const string sig = "40 88 ? ? ? ? ? 40 84 ? 0F 85";
+        ForceLodAddress = await SmartAobScan(sig);
+
+        if (ForceLodAddress > 0)
+        {
+            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            {
+                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
+            }
+            
+            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
+            
+            var cameraPtr = await CheatForceLodCameraPtr();
+            if (cameraPtr == 0) return;
+
+            var cameraBytes = BitConverter.GetBytes(cameraPtr);
+            var asm = new byte[]
+            {
+                0x80, 0x3D, 0x4B, 0x00, 0x00, 0x00, 0x01, 0x75, 0x3D, 0x50, 0x48, 0xB8, cameraBytes[0], cameraBytes[1],
+                cameraBytes[2], cameraBytes[3], cameraBytes[4], cameraBytes[5], cameraBytes[6], cameraBytes[7], 0x48,
+                0x8B, 0x00, 0x48, 0x85, 0xC0, 0x74, 0x29, 0x80, 0x78, 0x30, 0x00, 0x74, 0x0E, 0x80, 0x78, 0x30, 0x01,
+                0x74, 0x08, 0x80, 0x78, 0x30, 0x11, 0x74, 0x02, 0xEB, 0x15, 0x80, 0x3D, 0x1C, 0x00, 0x00, 0x00, 0x00,
+                0x74, 0x09, 0x40, 0x8A, 0x35, 0x13, 0x00, 0x00, 0x00, 0xEB, 0x03, 0x40, 0xB6, 0xFF, 0x58, 0x40, 0x88,
+                0xB7, 0x06, 0x01, 0x00, 0x00
+            };
+
+            ForceLodDetourAddress = Resources.Memory.GetInstance().CreateDetour(ForceLodAddress, asm, 7);
+            return;
+        }
+        
+        ShowError("Force Lod", sig);
+    }
+
+    private static async Task<UIntPtr> CheatForceLodCameraPtr()
+    {
+        const string sig = "48 8D ? ? ? ? ? E8 ? ? ? ? 48 8B ? ? ? ? ? 48 81 C2 ? ? ? ? 48 8D ? ? ? ? ? 41 B8";
+        var scanResult = await SmartAobScan(sig);
+
+        if (scanResult > 0)
+        {
+            var relativeAddress = scanResult + 0x3;
+            var relative = Resources.Memory.GetInstance().ReadMemory<int>(relativeAddress);
+            return scanResult + (nuint)relative + 0x7 + 0x6A0;
+        }
+
+        ShowError("Force Lod Camera Ptr", sig);
+        return 0;
+    }
+
+    public async Task CheatBackfireTime()
+    {
+        BackfireTimeAddress = 0;
+        BackfireTimeDetourAddress = 0;
+
+        const string sig = "F3 0F ? ? ? ? ? ? E8 ? ? ? ? 0F 28 ? F3 0F ? ? ? ? ? ? 48 8B";
+        BackfireTimeAddress = await SmartAobScan(sig);
+
+        if (BackfireTimeAddress > 0)
+        {
+            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            {
+                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
+            }
+            
+            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
+            
+            var asm = new byte[]
+            {
+                0xF3, 0x0F, 0x10, 0x81, 0x7C, 0x3A, 0x00, 0x00, 0x80, 0x3D, 0x17, 0x00, 0x00, 0x00, 0x01, 0x75, 0x10,
+                0xF3, 0x0F, 0x10, 0x05, 0x0E, 0x00, 0x00, 0x00, 0xF3, 0x0F, 0x10, 0x0D, 0x0A, 0x00, 0x00, 0x00
+            };
+
+            BackfireTimeDetourAddress = Resources.Memory.GetInstance().CreateDetour(BackfireTimeAddress, asm, 8); 
+            return;
+        }
+        
+        ShowError("Backfire Time", sig);
     }
     
     public void Cleanup()
@@ -106,6 +199,22 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
             mem.WriteArrayMemory(HeadlightColourAddress, new byte[] { 0x0F, 0x10, 0x7B, 0x50, 0xF3, 0x44, 0x0F, 0x10, 0x83, 0x84, 0x00, 0x00, 0x00 });
             Free(HeadlightColourDetourAddress);
         }
+
+        if (CleanlinessAddress > 0)
+        {
+            mem.WriteArrayMemory(CleanlinessAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x88, 0x0C, 0x8A, 0x00, 0x00 });
+            Free(CleanlinessDetourAddress);
+        }
+
+        if (ForceLodAddress > 0)
+        {
+            mem.WriteArrayMemory(ForceLodAddress, new byte[] { 0x40, 0x88, 0xB7, 0x06, 0x01, 0x00, 0x00 });
+            Free(ForceLodDetourAddress);
+        }
+
+        if (BackfireTimeAddress <= 0) return;
+        mem.WriteArrayMemory(BackfireTimeAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x81, 0x7C, 0x3A, 0x00, 0x00 });
+        Free(BackfireTimeDetourAddress);
     }
 
     public void Reset()
