@@ -65,49 +65,4 @@ public partial class MainWindow
 
         ViewModel.ToggleSearchCommand.Execute(null);
     }
-
-    private void SearchBox_OnTextChanged(object sender, TextChangedEventArgs e)
-    {
-        ViewModel.Search(((TextBox)sender).Text);
-    }
-
-    private void ListViewItem_OnDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        if (sender is not ListViewItem { Content: SearchResult searchResult }) return;
-
-        GoToAndFocusElement(searchResult);
-    }
-
-    private void ListViewItem_OnKeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.Key is not Key.Enter) return;
-
-        if (sender is not ListViewItem { Content: SearchResult searchResult }) return;
-
-        GoToAndFocusElement(searchResult);
-    }
-
-    private void GoToAndFocusElement(SearchResult searchResult)
-    {
-        NavigateTo(searchResult.PageType);
-        if (searchResult.DropDownExpander != null!)
-        {
-            searchResult.DropDownExpander.IsExpanded = true;
-            searchResult.DropDownExpander.Focus();
-        }
-
-        if (searchResult.FrameworkElement != null! && !searchResult.FrameworkElement.Focus())
-        {
-            searchResult.FrameworkElement.Focus();
-        }
-
-        ViewModel.CloseSearchCommand.Execute(null);
-        return;
-
-        void NavigateTo(Type pageType)
-        {
-            var page = Forza_Mods_AIO.Resources.Pages.GetPage(pageType);
-            ViewModel.CurrentView = page;
-        }
-    }
 }

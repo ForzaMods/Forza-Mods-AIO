@@ -256,7 +256,7 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ToggleSearch(UIElement? textBox)
+    private void ToggleSearch()
     {
         if (HotkeysVisibility != Visibility.Collapsed)
         {
@@ -268,11 +268,6 @@ public partial class MainWindowViewModel : ObservableObject
             case Visibility.Collapsed:
             {
                 HandleCollapsed();
-                if (textBox != null)
-                {
-                    textBox.ClearValue(TextBox.TextProperty);
-                    textBox.Focus();
-                }
                 break;
             }
             case Visibility.Visible:
@@ -320,33 +315,7 @@ public partial class MainWindowViewModel : ObservableObject
         
         SearchVisibility = Visibility.Collapsed;
     }
-
-    public void Search(string text)
-    {
-        SearchResults.Clear();
-        if (text == string.Empty)
-        {
-            return;
-        }
-
-        var search = Resources.Search.SearchResults.EverySearchResult.Where(i =>
-            i.Name.Contains(text, StringComparison.InvariantCultureIgnoreCase) ||
-            i.Feature.Contains(text, StringComparison.InvariantCultureIgnoreCase) ||
-            i.Category.Contains(text, StringComparison.InvariantCultureIgnoreCase) ||
-            i.Page.Contains(text, StringComparison.InvariantCultureIgnoreCase));
-        
-        var searchResults = search as SearchResult[] ?? search.ToArray();
-        foreach (var element in searchResults)
-        {
-            if (!Attached && element.PageType != typeof(AioInfo))
-            {
-                continue;
-            }
-            
-            SearchResults.Add(element);
-        }
-    }
-
+    
     public async Task<HotKey> GetHotkey()
     {
         _wasHotkeyChanged = false;

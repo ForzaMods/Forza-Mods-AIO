@@ -4,7 +4,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:local="clr-namespace:Forza_Mods_AIO.Views.Windows"
-                 xmlns:views="clr-namespace:Forza_Mods_AIO.Views.Pages"
+                 xmlns:pages="clr-namespace:Forza_Mods_AIO.Views.Pages"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  mc:Ignorable="d"
                  d:DataContext="{d:DesignInstance local:MainWindow,IsDesignTimeCreatable=True}"
@@ -25,10 +25,17 @@
                  MouseDown="MainWindow_OnMouseDown">
 
     <mah:MetroWindow.InputBindings>
-        <KeyBinding Modifiers="Control" Key="T" Command="{Binding ViewModel.ToggleSearchCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=SearchBox}" />
-        <KeyBinding Modifiers="Control" Key="F" Command="{Binding ViewModel.ToggleSearchCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=SearchBox}" />
-        <KeyBinding Key="Escape" Command="{Binding ViewModel.CloseSearchCommand, Mode=OneWay}" />
-        <KeyBinding Key="F11" Command="{Binding ViewModel.HandleMaximizeMinimizeCommand, Mode=OneWay}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" />
+        <KeyBinding Modifiers="Control" 
+                    Key="F" 
+                    Command="{Binding ViewModel.ToggleSearchCommand, Mode=OneWay}" />
+        
+        <KeyBinding Key="Escape" 
+                    Command="{Binding ViewModel.CloseSearchCommand, Mode=OneWay}" />
+        
+        <KeyBinding Key="F11" 
+                    Command="{Binding ViewModel.HandleMaximizeMinimizeCommand, Mode=OneWay}" 
+                    CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" />
+        
     </mah:MetroWindow.InputBindings>
 
     <mah:MetroWindow.Resources>
@@ -193,7 +200,7 @@
                                  Style="{StaticResource RadioButtonStyle}"
                                  IsChecked="{Binding Path=ViewModel.CurrentView, 
                                  Converter={StaticResource InstanceEqualsConverter}, 
-                                 ConverterParameter={x:Type views:AioInfo}}" />
+                                 ConverterParameter={x:Type pages:AioInfo}}" />
 
                     <RadioButton Content="{DynamicResource Autoshow}"
                                  Tag="M12,8.5H7L4,11H3C1.89,11 1,11.89 1,13V16H3.17C3.6,17.2 4.73,18 6,18C7.27,18 8.4,17.2 8.82,16H15.17C15.6,17.2 16.73,18 18,18C19.27,18 20.4,17.2 20.82,16H23V15C23,13.89 21.97,13.53 21,13L12,8.5M5.25,12L7.5,10H11.5L15.5,12H5.25M6,13.5A1.5,1.5 0 0,1 7.5,15A1.5,1.5 0 0,1 6,16.5A1.5,1.5 0 0,1 4.5,15A1.5,1.5 0 0,1 6,13.5M18,13.5A1.5,1.5 0 0,1 19.5,15A1.5,1.5 0 0,1 18,16.5A1.5,1.5 0 0,1 16.5,15A1.5,1.5 0 0,1 18,13.5Z"
@@ -201,7 +208,7 @@
                                  Style="{StaticResource RadioButtonStyle}"
                                  IsChecked="{Binding Path=ViewModel.CurrentView, 
                                  Converter={StaticResource InstanceEqualsConverter}, 
-                                 ConverterParameter={x:Type views:Autoshow}}" />
+                                 ConverterParameter={x:Type pages:Autoshow}}" />
 
                     <RadioButton Content="{DynamicResource SelfVehicle}"
                                  Tag="M11.628 16.186l-2.047-2.14 6.791-5.953 1.21 1.302zm8.837 6.047c2.14-2.14 3.535-5.117 3.535-8.466 0-6.604-5.395-12-12-12s-12 5.396-12 12c0 3.35 1.302 6.326 3.535 8.466l1.674-1.675c-1.767-1.767-2.79-4.093-2.79-6.79A9.568 9.568 0 0 1 12 4.185a9.568 9.568 0 0 1 9.581 9.581c0 2.605-1.116 5.024-2.79 6.791Z"
@@ -209,7 +216,7 @@
                                  Style="{StaticResource RadioButtonStyle}"
                                  IsChecked="{Binding Path=ViewModel.CurrentView, 
                                  Converter={StaticResource InstanceEqualsConverter}, 
-                                 ConverterParameter={x:Type views:SelfVehicle}}" />
+                                 ConverterParameter={x:Type pages:SelfVehicle}}" />
 
                     <RadioButton Content="{DynamicResource Tuning}"
                                  Tag="M21.71 20.29L20.29 21.71A1 1 0 0 1 18.88 21.71L7 9.85A3.81 3.81 0 0 1 6 10A4 4 0 0 1 2.22 4.7L4.76 7.24L5.29 6.71L6.71 5.29L7.24 4.76L4.7 2.22A4 4 0 0 1 10 6A3.81 3.81 0 0 1 9.85 7L21.71 18.88A1 1 0 0 1 21.71 20.29M2.29 18.88A1 1 0 0 0 2.29 20.29L3.71 21.71A1 1 0 0 0 5.12 21.71L10.59 16.25L7.76 13.42M20 2L16 4V6L13.83 8.17L15.83 10.17L18 8H20L22 4Z"
@@ -217,7 +224,7 @@
                                  Style="{StaticResource RadioButtonStyle}"
                                  IsChecked="{Binding Path=ViewModel.CurrentView, 
                                  Converter={StaticResource InstanceEqualsConverter}, 
-                                 ConverterParameter={x:Type views:Tuning}}" />
+                                 ConverterParameter={x:Type pages:Tuning}}" />
 
                 </StackPanel>
 
@@ -239,29 +246,11 @@
             <Grid Visibility="{Binding ViewModel.SearchVisibility}"
                   MouseDown="SearchGrid_OnMouseDown">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="45" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <Border Grid.Column="0"
-                        Grid.Row="0"
-                        Grid.RowSpan="2"
-                        Grid.ColumnSpan="2"
-                        Opacity="{Binding ViewModel.SearchOpacity}"
+                <Border Opacity="{Binding ViewModel.SearchOpacity}"
                         Background="Black"
                         CornerRadius="{Binding ViewModel.WindowCornerRadius}" />
 
-                <Border Grid.Column="0"
-                        Grid.Row="0"
-                        Grid.ColumnSpan="2"
-                        Grid.RowSpan="2"
-                        HorizontalAlignment="Stretch"
+                <Border HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         MaxWidth="570"
                         MaxHeight="285"
@@ -271,166 +260,10 @@
                         Background="{Binding Theming.DarkerColour, Mode=OneWay}"
                         CornerRadius="10"
                         Padding="10">
-
-                    <Grid>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0"
-                                Padding="5"
-                                CornerRadius="5"
-                                Background="{Binding Background, ElementName=HotkeyBox}">
-
-                            <TextBox x:Name="SearchBox"
-                                     mah:TextBoxHelper.ClearTextButton="True"
-                                     mah:TextBoxHelper.Watermark="{DynamicResource SearchWatermark}"
-                                     BorderThickness="0"
-                                     Background="{Binding Theming.DarkColour}"
-                                     TextChanged="SearchBox_OnTextChanged" />
-                        </Border>
-
-                        <ScrollViewer Grid.Row="1"
-                                      VerticalScrollBarVisibility="Auto">
-                            <ScrollViewer.Style>
-                                <Style TargetType="Control">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=SearchView, Path=HasItems}"
-                                                     Value="True">
-                                            <Setter Property="Control.Margin" Value="0 10 0 0" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding ElementName=SearchView, Path=HasItems}"
-                                                     Value="False">
-                                            <Setter Property="Control.Margin" Value="0" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ScrollViewer.Style>
-
-                            <ScrollViewer.Resources>
-                                <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
-                                    <Setter Property="OverridesDefaultStyle" Value="true" />
-                                    <Setter Property="IsTabStop" Value="false" />
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type Thumb}">
-                                                <Border x:Name="ScrollBorder"
-                                                        SnapsToDevicePixels="True"
-                                                        Background="{Binding Theming.DarkishColour}"
-                                                        CornerRadius="5"
-                                                        Width="10" />
-                                                <ControlTemplate.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="true">
-                                                        <Setter TargetName="ScrollBorder"
-                                                                Property="Background"
-                                                                Value="{Binding Theming.MainColour}" />
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-
-                                <Style TargetType="ScrollBar">
-                                    <Setter Property="Background" Value="{Binding Theming.DarkColour}" />
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="ScrollBar">
-                                                <Grid>
-                                                    <Border x:Name="PART_Backing"
-                                                            Background="{Binding Theming.DarkColour}"
-                                                            Width="10"
-                                                            BorderThickness="0"
-                                                            CornerRadius="5" />
-
-                                                    <Track x:Name="PART_Track"
-                                                           IsDirectionReversed="True">
-                                                        <Track.Thumb>
-                                                            <Thumb Style="{StaticResource ScrollBarThumb}" />
-                                                        </Track.Thumb>
-                                                    </Track>
-                                                </Grid>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ScrollViewer.Resources>
-
-                            <ListView x:Name="SearchView"
-                                      ItemsSource="{Binding ViewModel.SearchResults, Mode=OneWay}"
-                                      Background="Transparent"
-                                      Margin="0 0 10 0">
-
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="ListViewItem">
-                                                    <Border x:Name="Border"
-                                                            CornerRadius="5"
-                                                            Padding="7.5"
-                                                            Background="{Binding Background, ElementName=SearchBox}">
-                                                        <Grid>
-                                                            <StackPanel Orientation="Horizontal"
-                                                                        HorizontalAlignment="Left"
-                                                                        VerticalAlignment="Center">
-
-                                                                <TextBlock Text="{Binding Name}"
-                                                                           VerticalAlignment="Center"
-                                                                           FontSize="14" />
-
-                                                                <TextBlock Text="{Binding Feature}"
-                                                                           VerticalAlignment="Center"
-                                                                           FontSize="13"
-                                                                           Foreground="DarkGray"
-                                                                           Margin="5 0 0 0" />
-
-                                                            </StackPanel>
-
-                                                            <StackPanel Orientation="Horizontal"
-                                                                        HorizontalAlignment="Right"
-                                                                        VerticalAlignment="Center">
-
-                                                                <TextBlock Text="{Binding Category}"
-                                                                           VerticalAlignment="Center"
-                                                                           Foreground="Gray"
-                                                                           FontSize="12" />
-
-                                                                <TextBlock Text="{Binding Page}"
-                                                                           VerticalAlignment="Center"
-                                                                           FontSize="11"
-                                                                           Foreground="DimGray"
-                                                                           Margin="5 0 0 0" />
-
-                                                            </StackPanel>
-
-                                                        </Grid>
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsFocused" Value="True">
-                                                            <Setter TargetName="Border" Property="Background"
-                                                                    Value="{Binding Theming.DarkishColour, 
-                                                                    RelativeSource={RelativeSource FindAncestor, 
-                                                                    AncestorType={x:Type local:MainWindow}}}" />
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Margin" Value="0 0 0 5" />
-                                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                                        <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_OnDoubleClick" />
-                                        <EventSetter Event="KeyDown" Handler="ListViewItem_OnKeyDown" />
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-                        </ScrollViewer>
-                    </Grid>
+                    
+                    <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
+                           ConverterParameter={x:Type pages:Search}, Mode=OneWay}"/>
+                    
                 </Border>
             </Grid>
             
@@ -451,7 +284,7 @@
                         Padding="10">
                     
                     <Border Padding="5"
-                            CornerRadius="5"
+                            CornerRadius="{DynamicResource ControlCornerRadius}"
                             Background="{Binding Background, ElementName=HotkeyBox}">
 
                         <mah:HotKeyBox x:Name="HotkeyBox"
