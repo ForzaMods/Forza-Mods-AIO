@@ -4,12 +4,43 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.SelfVehicle"
       mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance local:Misc, IsDesignTimeCreatable=true}"
       Title="Misc" 
       d:DesignHeight="Auto" 
       d:DesignWidth="800">
     
     <StackPanel>
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid Margin="5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/> 
+                    <ColumnDefinition Width="Auto"/> 
+                </Grid.ColumnDefinitions>
+                
+                <TextBox x:Name="NameBox" 
+                         Grid.Column="0" 
+                         MaxLength="32"
+                         VerticalAlignment="Center"
+                         TextAlignment="Left"
+                         mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                         Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                         BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                         IsEnabled="{Binding ViewModel.SpooferUiElementsEnabled}"
+                         TextChanged="NameBox_OnTextChanged"/>
+                
+                <mah:ToggleSwitch Grid.Column="1"
+                                  VerticalAlignment="Center"
+                                  Margin="5 0 0 0"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  IsEnabled="{Binding ViewModel.SpooferUiElementsEnabled}"
+                                  Content="{DynamicResource NameSpoofer}"
+                                  Toggled="NameSpooferSwitch_OnToggled"/>
+            </Grid>
+        </Border>
+        
         <Border Style="{StaticResource CommonBorderStyle}">
             <Grid Margin="5 0">
                 
