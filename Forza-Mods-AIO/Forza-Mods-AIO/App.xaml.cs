@@ -56,6 +56,6 @@ public partial class App
         {
             ((ICheatsBase)cheatInstance.Value).Cleanup();
         }
-        Imports.CloseHandle(Forza_Mods_AIO.Resources.Memory.GetInstance().MProc.Handle);
+        _ = Imports.CloseHandle(Forza_Mods_AIO.Resources.Memory.GetInstance().MProc.Handle);
     }
 }

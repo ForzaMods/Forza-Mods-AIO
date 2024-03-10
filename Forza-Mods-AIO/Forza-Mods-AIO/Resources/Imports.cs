@@ -2,14 +2,15 @@
 
 namespace Forza_Mods_AIO.Resources;
 
-public static class Imports
+public static partial class Imports
 {
-    [DllImport("kernel32", CharSet = CharSet.Auto,SetLastError = true)]
-    public static extern bool CloseHandle(IntPtr handle);
+    [LibraryImport("kernel32", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static partial bool CloseHandle(IntPtr handle);
     
-    [DllImport("kernel32", SetLastError = true)]
-    public static extern int WaitForSingleObject(IntPtr handle, int milliseconds);
+    [LibraryImport("kernel32", SetLastError = true)]
+    public static partial int WaitForSingleObject(IntPtr handle, int milliseconds);
     
-    [DllImport("kernel32")]
-    public static extern nint CreateRemoteThread(nint hProcess, nint lpThreadAttributes, uint dwStackSize, nuint lpStartAddress, nuint lpParameter, uint dwCreationFlags, out nint lpThreadId);
+    [LibraryImport("kernel32")]
+    public static partial nint CreateRemoteThread(nint hProcess, nint lpThreadAttributes, uint dwStackSize, nuint lpStartAddress, nuint lpParameter, uint dwCreationFlags, out nint lpThreadId);
 }

@@ -16,6 +16,7 @@
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>AIO.snk</AssemblyOriginatorKeyFile>
         <PublicSign>true</PublicSign>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
