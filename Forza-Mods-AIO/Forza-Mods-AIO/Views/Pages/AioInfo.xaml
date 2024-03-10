@@ -232,6 +232,7 @@
                           BorderThickness="0"
                           Background="{Binding Theming.DarkerColour, Mode=OneWay}"
                           SelectedIndex="0"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           SelectionChanged="Selector_OnSelectionChanged">
                     
                     <ComboBoxItem Content="{DynamicResource English}" />

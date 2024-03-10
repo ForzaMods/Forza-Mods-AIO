@@ -26,7 +26,7 @@
                           VerticalAlignment="Center"
                           Margin="5 0"
                           SelectedIndex="0"
-                          mah:ControlsHelper.CornerRadius="3"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}">
                     
@@ -38,7 +38,7 @@
                 <mah:NumericUpDown Grid.Column="2"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
@@ -61,7 +61,7 @@
                           VerticalAlignment="Center"
                           Margin="5 0"
                           SelectedIndex="0"
-                          mah:ControlsHelper.CornerRadius="3"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}">
                     
@@ -73,7 +73,7 @@
                 <mah:NumericUpDown Grid.Column="2"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
@@ -96,7 +96,7 @@
                           VerticalAlignment="Center"
                           Margin="5 0"
                           SelectedIndex="0"
-                          mah:ControlsHelper.CornerRadius="3"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}">
                     
@@ -108,7 +108,7 @@
                 <mah:NumericUpDown Grid.Column="2"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
@@ -131,7 +131,7 @@
                           VerticalAlignment="Center"
                           Margin="5 0"
                           SelectedIndex="0"
-                          mah:ControlsHelper.CornerRadius="3"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}">
                     
@@ -143,7 +143,7 @@
                 <mah:NumericUpDown Grid.Column="2"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 

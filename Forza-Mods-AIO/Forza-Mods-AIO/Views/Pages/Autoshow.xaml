@@ -241,7 +241,7 @@
                                       IsEnabled="{Binding ViewModel.UiElementsEnabled, Mode=OneWay}"
                                       BorderThickness="0"
                                       Background="{Binding Theming.DarkerColour, Mode=OneWay}"
-                                      mah:ControlsHelper.CornerRadius="3">
+                                      mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}">
 
                                 <ComboBoxItem Content="{DynamicResource RemoveAll}" />
                                 <ComboBoxItem Content="{DynamicResource RemoveDupes}" />

@@ -25,7 +25,7 @@
                                  VerticalAlignment="Center"
                                  SelectedColor="Red"
                                  IsAvailableColorPaletteVisible="True"
-                                 mah:ControlsHelper.CornerRadius="3"
+                                 mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                  mah:ControlsHelper.DisabledVisualElementVisibility="Collapsed"/>
                 
                 <mah:ToggleSwitch Grid.Column="1" 

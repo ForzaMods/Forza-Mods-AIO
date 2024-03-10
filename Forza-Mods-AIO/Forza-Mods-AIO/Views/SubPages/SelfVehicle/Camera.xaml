@@ -22,8 +22,8 @@
                         Minimum="0"
                         Maximum="10"
                         mah:SliderHelper.EnableMouseWheel="MouseHover"
-                        AutoToolTipPlacement="BottomRight"
-                        AutoToolTipPrecision="2"/>
+                        AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
+                        AutoToolTipPrecision="{StaticResource SliderTooltipPrecision}"/>
 
                 <mah:ToggleSwitch Grid.Column="1"
                                   VerticalAlignment="Center"
@@ -51,7 +51,7 @@
                 <mah:NumericUpDown Grid.Column="0"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
 
@@ -63,7 +63,7 @@
                 <mah:NumericUpDown Grid.Column="2"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
 
@@ -75,7 +75,7 @@
                 <mah:NumericUpDown Grid.Column="4"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
 

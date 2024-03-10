@@ -54,7 +54,7 @@
                 <mah:NumericUpDown Grid.Column="0"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
@@ -68,7 +68,7 @@
                 <mah:NumericUpDown Grid.Column="2"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
@@ -97,7 +97,7 @@
                                    TextAlignment="Left"
                                    Minimum="0"
                                    Maximum="2147483647"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
@@ -113,7 +113,7 @@
                                    TextAlignment="Left"
                                    Minimum="1"
                                    Maximum="10"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
@@ -142,7 +142,7 @@
                                    TextAlignment="Left"
                                    Minimum="0"
                                    Maximum="2147483647"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
@@ -158,7 +158,7 @@
                                    TextAlignment="Left"
                                    Minimum="1"
                                    Maximum="10"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 

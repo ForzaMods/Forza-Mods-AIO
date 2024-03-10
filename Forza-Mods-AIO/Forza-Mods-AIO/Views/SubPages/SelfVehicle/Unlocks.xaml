@@ -28,7 +28,7 @@
                           SelectionChanged="UnlockBox_OnSelectionChanged"
                           Loaded="UnlockBox_OnLoaded"
                           IsEnabled="{Binding ViewModel.AreUiElementsEnabled}"
-                          mah:ControlsHelper.CornerRadius="3"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
                     
@@ -125,7 +125,7 @@
                                    Maximum="2147483647"
                                    ValueChanged="ValueBox_OnValueChanged"
                                    HideUpDownButtons="True"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
 

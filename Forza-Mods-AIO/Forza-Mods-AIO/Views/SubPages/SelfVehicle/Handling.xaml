@@ -30,7 +30,7 @@
                                    Minimum="1"
                                    Maximum="5"
                                    ValueChanged="VelocityStrength_OnValueChanged"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    IsEnabled="{Binding ViewModel.AreUiElementsEnabled, Mode=OneWay}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
@@ -47,7 +47,7 @@
                                    Value="300"
                                    Minimum="0"
                                    ValueChanged="VelocityLimit_OnValueChanged"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    IsEnabled="{Binding ViewModel.AreUiElementsEnabled, Mode=OneWay}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
@@ -85,7 +85,7 @@
                           SelectedIndex="0"
                           VerticalAlignment="Center"
                           SelectionChanged="WheelspeedModeBox_OnSelectionChanged"
-                          mah:ControlsHelper.CornerRadius="3"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                           IsEnabled="{Binding ViewModel.AreUiElementsEnabled, Mode=OneWay}">
@@ -108,7 +108,7 @@
                                    Minimum="1"
                                    Maximum="100"
                                    ValueChanged="WheelspeedNum_OnValueChanged"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                                    IsEnabled="{Binding ViewModel.AreUiElementsEnabled, Mode=OneWay}"/>
@@ -144,7 +144,7 @@
                           SelectedIndex="0"
                           VerticalAlignment="Center"
                           IsEnabled="{Binding ViewModel.AreUiElementsEnabled, Mode=OneWay}"
-                          mah:ControlsHelper.CornerRadius="3"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           SelectionChanged="ModifierModeBox_OnSelectionChanged"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
@@ -189,7 +189,7 @@
                                    TextAlignment="Left"
                                    Value="0"
                                    ValueChanged="ModifierValueBox_OnValueChanged"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
@@ -227,8 +227,8 @@
                         Minimum="1"
                         Maximum="15"
                         mah:SliderHelper.EnableMouseWheel="MouseHover"
-                        AutoToolTipPlacement="BottomRight"
-                        AutoToolTipPrecision="2"
+                        AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
+                        AutoToolTipPrecision="{StaticResource SliderTooltipPrecision}"
                         ValueChanged="JumpSlider_OnValueChanged"
                         IsEnabled="{Binding ViewModel.AreUiElementsEnabled, Mode=OneWay}"/>
                 
@@ -265,7 +265,7 @@
                 <mah:NumericUpDown Grid.Column="0"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                                    IsEnabled="{Binding ViewModel.AreUiElementsEnabled, Mode=OneWay}"/>
@@ -278,7 +278,7 @@
                 <mah:NumericUpDown Grid.Column="2"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                                    IsEnabled="{Binding ViewModel.AreUiElementsEnabled, Mode=OneWay}"/>
@@ -310,8 +310,8 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         mah:SliderHelper.EnableMouseWheel="MouseHover"
-                        AutoToolTipPlacement="BottomRight"
-                        AutoToolTipPrecision="2"
+                        AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
+                        AutoToolTipPrecision="{StaticResource SliderTooltipPrecision}"
                         Minimum="0"
                         Maximum="1"
                         Value="0.95"

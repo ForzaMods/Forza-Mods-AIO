@@ -19,7 +19,7 @@
                 <ComboBox Grid.Column="0"
                           SelectedIndex="0"
                           VerticalAlignment="Center"
-                          mah:ControlsHelper.CornerRadius="3"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
                   
@@ -38,7 +38,7 @@
                                    VerticalAlignment="Center"
                                    Margin="5 0 0 0"
                                    TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="3"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
 
