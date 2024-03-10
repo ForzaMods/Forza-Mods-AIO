@@ -62,7 +62,7 @@
                                     <Trigger Property="IsMouseOver" Value="true">
                                         <Setter TargetName="ScrollBorder"
                                                 Property="Background"
-                                                Value="{Binding Theming.MainColour}" />
+                                                Value="{Binding Theming.MainColourAsColour}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>

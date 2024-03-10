@@ -45,8 +45,15 @@ public sealed class Monet : INotifyPropertyChanged
         private set => SetField(ref _darkerColour, value);
     }
 
-    public void ChangeColor()
+    public Color MainColourAsColour { get; private set; } = (Color)ConvertFromString("#2E3440");
+
+    public void ChangeColor(Color color = default)
     {
+        if (color != default)
+        {
+            // TODO: Implement
+        }
+        
         MainColour = new SolidColorBrush((Color)ConvertFromString("#FFFFFF"));
         DarkishColour = new SolidColorBrush((Color)ConvertFromString("#EEEEEE"));
         DarkColour = new SolidColorBrush((Color)ConvertFromString("#DDDDDD"));

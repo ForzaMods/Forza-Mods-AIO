@@ -15,32 +15,8 @@ public partial class AioInfo
         DataContext = this;
 
         InitializeComponent();
-        SearchResults.EverySearchResult.Add(new SearchResult("Monet theme", "", "", "Aio Info", typeof(AioInfo), MonetThemeButton));
     }
 
     public AioInfoViewModel ViewModel { get; }
     public Monet Theming => Monet.GetInstance();
-
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (sender is not ComboBox comboBox)
-        {
-            return;
-        }
-        
-        var typeItem = (ComboBoxItem)comboBox.SelectedItem;
-        var value = typeItem.Content.ToString();
-
-        if (value == null)
-        {
-            return;
-        }
-
-        var dict = new ResourceDictionary
-        {
-            Source = new Uri($"/Resources/Translations/{value}.xaml", UriKind.RelativeOrAbsolute)
-        };
-        
-        Application.Current.Resources.MergedDictionaries.Add(dict);
-    }
 }
