@@ -15,7 +15,7 @@
                 <ResourceDictionary Source="/Resources/Translations/English.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:InstanceEqualsConverter x:Key="InstanceEqualsConverter"/>
-            <converters:PageToInstanceConverter x:Key="PageToInstanceConverter"/>
+            <converters:TypeToInstanceConverter x:Key="TypeToInstanceConverter"/>
             <converters:MultiplyConverter x:Key="MultiplyConverter"/>
             <converters:IntParamConverter x:Key="IntParamConverter"/>
             <converters:BoolParamConverter x:Key="BoolParamConverter"/>

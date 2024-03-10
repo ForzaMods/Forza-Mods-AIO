@@ -76,7 +76,7 @@
                       Margin="10 0 10 10">
 
                 <Frame
-                    Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                    Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Handling}, Mode=OneWay}" />
             </Expander>
 
@@ -92,7 +92,7 @@
                       Margin="10 0 10 10">
 
                 <Frame
-                    Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                    Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Unlocks}, Mode=OneWay}" />
             </Expander>
 
@@ -108,7 +108,7 @@
                       Margin="10 0 10 10">
 
                 <Frame
-                    Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                    Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:PhotoMode}, Mode=OneWay}" />
             </Expander>
 
@@ -124,7 +124,7 @@
                       Margin="10 0 10 10">
 
                 <Frame
-                    Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                    Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Teleports}, Mode=OneWay}" />
             </Expander>
 
@@ -140,7 +140,7 @@
                       Margin="10 0 10 10">
 
                 <Frame
-                    Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                    Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Environment}, Mode=OneWay}" />
             </Expander>
 
@@ -157,7 +157,7 @@
 
 
                 <Frame
-                    Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                    Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Customization}, Mode=OneWay}" />
             </Expander>
 
@@ -174,7 +174,7 @@
                       Margin="10 0 10 10">
 
                 <Frame
-                    Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                    Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Misc}, Mode=OneWay}" />
             </Expander>
 
@@ -191,7 +191,7 @@
                       Margin="10 0 10 0">
 
                 <Frame
-                    Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                    Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Camera}, Mode=OneWay}" />
             </Expander>
 

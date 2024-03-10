@@ -97,7 +97,7 @@
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
                           Margin="10 0 10 10">
                     
-                    <Frame Content="{Binding Converter={StaticResource PageToInstanceConverter}, 
+                    <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Tires}, Mode=OneWay}"/>
                 </Expander>
 
