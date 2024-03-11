@@ -140,7 +140,7 @@
     <system:String x:Key="ManualTime">Manual Time</system:String>
     
     <!-- Misc.xaml -->
-    <system:String x:Key="NameSpoofer">Name Spoofer (Experimental, may crash)</system:String>
+    <system:String x:Key="NameSpoofer">Name Spoofer</system:String>
     <system:String x:Key="SpinPrizeScale">Spin Prize Scale</system:String>
     <system:String x:Key="SpinSellFactor">Spin Sell Factor</system:String>
     <system:String x:Key="SkillScoreMultiplier">Skill Score Multiplier</system:String>
