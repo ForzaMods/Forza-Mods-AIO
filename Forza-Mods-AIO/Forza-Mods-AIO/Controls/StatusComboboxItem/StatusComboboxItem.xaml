@@ -1,0 +1,49 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Forza_Mods_AIO.Controls.StatusComboboxItem">
+    
+    <Style x:Key="TextBlockStyle" 
+           TargetType="TextBlock">
+        <Setter Property="Margin" Value="5 0 0 0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
+                <Setter Property="Text" Value="{DynamicResource OnWithBrackets}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="False">
+                <Setter Property="Text" Value="{DynamicResource OffWithBrackets}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+              
+    <Style TargetType="{x:Type local:StatusComboboxItem}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:StatusComboboxItem}">
+                    <Border x:Name="BackBorder" 
+                            Padding="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" 
+                                       Text="{TemplateBinding Content}" />
+                            
+                            <TextBlock Grid.Column="1" 
+                                       Tag="{TemplateBinding IsOn}" 
+                                       Style="{StaticResource TextBlockStyle}" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" 
+                                    TargetName="BackBorder"
+                                    Value="{DynamicResource MahApps.Brushes.Highlight}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.SelfVehicle"
+      xmlns:controls="clr-namespace:Forza_Mods_AIO.Controls.StatusComboboxItem"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance local:Handling, IsDesignTimeCreatable= true}"
       Title="Handling" 
@@ -149,35 +150,11 @@
                           Background="{DynamicResource MahApps.Brushes.AccentBase}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
                     
-                    <ComboBox.Resources>
-                        <Style x:Key="TextBlockStyle" 
-                               TargetType="TextBlock">
-                            <Setter Property="Margin" Value="2.5 0 0 0"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" 
-                                             Value="True">
-                                    <Setter Property="Text" Value="{DynamicResource OnWithBrackets}" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" 
-                                             Value="False">
-                                    <Setter Property="Text" Value="{DynamicResource OffWithBrackets}" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ComboBox.Resources>
+                    <controls:StatusComboboxItem Content="{DynamicResource Acceleration}"
+                                                           IsOn="{Binding ViewModel.IsAccelEnabled}"/>
                     
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{DynamicResource Acceleration}"/>
-                        <TextBlock Tag="{Binding ViewModel.IsAccelEnabled, Mode=OneWay}" 
-                                   Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{DynamicResource Gravity}"/>
-                        <TextBlock Tag="{Binding ViewModel.IsGravityEnabled, Mode=OneWay}" 
-                                   Style="{StaticResource TextBlockStyle}"/>
-                    </StackPanel>
-                    
+                    <controls:StatusComboboxItem Content="{DynamicResource Gravity}"
+                                                           IsOn="{Binding ViewModel.IsGravityEnabled}"/>
                     
                 </ComboBox>
                 

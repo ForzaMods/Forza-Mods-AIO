@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="/Resources/Theme/CommonBorderStyle.xaml" />
                 <ResourceDictionary Source="/Resources/Theme/ThemeConstants.xaml" />
                 <ResourceDictionary Source="/Resources/Translations/English.xaml" />
+                <ResourceDictionary Source="/Controls/StatusComboboxItem/StatusComboboxItem.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:InstanceEqualsConverter x:Key="InstanceEqualsConverter"/>
             <converters:TypeToInstanceConverter x:Key="TypeToInstanceConverter"/>

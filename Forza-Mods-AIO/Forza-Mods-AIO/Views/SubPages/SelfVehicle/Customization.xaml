@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.SelfVehicle"
+      xmlns:controls="clr-namespace:Forza_Mods_AIO.Controls.StatusComboboxItem"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance local:Customization, IsDesignTimeCreatable=true}"
       Title="Customization" 
@@ -91,36 +92,12 @@
                           IsEnabled="{Binding ViewModel.AreCleanlinessUiElementsEnabled}"
                           SelectionChanged="CleanlinessMode_OnSelectionChanged">
 
-                    <ComboBox.Resources>
-                        <Style x:Key="TextBlockStyle" 
-                               TargetType="TextBlock">
-                            <Setter Property="Margin" Value="2.5 0 0 0"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
-                                    <Setter Property="Text" Value="{DynamicResource OnWithBrackets}" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="False">
-                                    <Setter Property="Text" Value="{DynamicResource OffWithBrackets}" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ComboBox.Resources>
+                    <controls:StatusComboboxItem Content="{DynamicResource Dirt}"
+                                                 IsOn="{Binding ViewModel.DirtEnabled}"/>
                     
-                    <ComboBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{DynamicResource Dirt}" />
-                            <TextBlock Tag="{Binding ViewModel.DirtEnabled, Mode=OneWay}" 
-                                       Style="{StaticResource TextBlockStyle}" />
-                        </StackPanel>
-                    </ComboBoxItem>
+                    <controls:StatusComboboxItem Content="{DynamicResource Mud}"
+                                                 IsOn="{Binding ViewModel.MudEnabled}"/>
                     
-                    <ComboBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{DynamicResource Mud}" />
-                            <TextBlock Tag="{Binding ViewModel.MudEnabled, Mode=OneWay}" 
-                                       Style="{StaticResource TextBlockStyle}" />
-                        </StackPanel>
-                    </ComboBoxItem>
                 </ComboBox>
                     
                 <Slider x:Name="CleanlinessSlider" 
