@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.SelfVehicle"
+      xmlns:controls="clr-namespace:Forza_Mods_AIO.Controls.StatusComboboxItem"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance local:Misc, IsDesignTimeCreatable=true}"
       Title="Misc" 
@@ -43,57 +44,46 @@
         
         <Border Style="{StaticResource CommonBorderStyle}">
             <Grid Margin="5 0">
-                
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <mah:NumericUpDown Grid.Column="0"
+                
+                <ComboBox Grid.Column="0"
+                          VerticalAlignment="Center"
+                          SelectedIndex="0"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                          Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
+
+                    <controls:StatusComboboxItem Content="{DynamicResource SpinPrizeScale}"
+                                                 IsOn="{Binding ViewModel.DirtEnabled}"/>
+                    
+                    <controls:StatusComboboxItem Content="{DynamicResource SpinSellFactor}"
+                                                 IsOn="{Binding ViewModel.MudEnabled}"/>
+
+                    <controls:StatusComboboxItem Content="{DynamicResource SkillScoreMultiplier}"
+                                                 IsOn="{Binding ViewModel.DirtEnabled}"/>
+                    
+                    <controls:StatusComboboxItem Content="{DynamicResource DriftScoreMultiplier}"
+                                                 IsOn="{Binding ViewModel.MudEnabled}"/>
+                    
+                    <controls:StatusComboboxItem Content="{DynamicResource SkillTreeWideEdit}"
+                                                 IsOn="{Binding ViewModel.MudEnabled}"/>
+
+                    <controls:StatusComboboxItem Content="{DynamicResource SkillTreeCost}"
+                                                 IsOn="{Binding ViewModel.DirtEnabled}"/>
+                    
+                    <controls:StatusComboboxItem Content="{DynamicResource MissionTimeScale}"
+                                                 IsOn="{Binding}"/>
+                    
+                </ComboBox>
+                
+                <mah:NumericUpDown Grid.Column="1"
                                    VerticalAlignment="Center"
-                                   TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-                
-                <mah:ToggleSwitch Grid.Column="1"
-                                  VerticalAlignment="Center"
-                                  Margin="5 0"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource SpinPrizeScale}"/>
-                
-                <mah:NumericUpDown Grid.Column="2"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-                
-                <mah:ToggleSwitch Grid.Column="3"
-                                  VerticalAlignment="Center"
-                                  Margin="5 0 0 0"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource SpinSellFactor}"/>
-                
-            </Grid>            
-        </Border>        
-        
-        <Border Style="{StaticResource CommonBorderStyle}">
-            <Grid Margin="5 0">
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <mah:NumericUpDown Grid.Column="0"
-                                   VerticalAlignment="Center"
+                                   Margin="5 0"
                                    TextAlignment="Left"
                                    Minimum="0"
                                    Maximum="2147483647"
@@ -101,98 +91,12 @@
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
-                <mah:ToggleSwitch Grid.Column="1"
+                <mah:ToggleSwitch Grid.Column="2" 
                                   VerticalAlignment="Center"
-                                  Margin="5 0"
                                   MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource SkillScoreMultiplier}"/>
-                
-                <mah:NumericUpDown Grid.Column="2"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Left"
-                                   Minimum="1"
-                                   Maximum="10"
-                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-                
-                <mah:ToggleSwitch Grid.Column="3"
-                                  VerticalAlignment="Center"
-                                  Margin="5 0 0 0"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource DriftScoreMultiplier}"/>
-                
+                                  FontSize="12"/>
             </Grid>
-        </Border>        
-        
-        <Border Style="{StaticResource CommonBorderStyle}">
-            <Grid Margin="5 0">
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <mah:NumericUpDown Grid.Column="0"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Left"
-                                   Minimum="0"
-                                   Maximum="2147483647"
-                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-                
-                <mah:ToggleSwitch Grid.Column="1"
-                                  VerticalAlignment="Center"
-                                  Margin="5 0"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource SkillTreeWideEdit}"/>
-                
-                <mah:NumericUpDown Grid.Column="2"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Left"
-                                   Minimum="1"
-                                   Maximum="10"
-                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
-                
-                <mah:ToggleSwitch Grid.Column="3"
-                                  VerticalAlignment="Center"
-                                  Margin="5 0 0 0"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource SkillTreeCost}"/>
-                
-            </Grid>
-        </Border>        
-        
-        <Border Style="{StaticResource CommonBorderStyle}">
-            <Grid Margin="5 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <Slider Grid.Column="0"
-                        VerticalAlignment="Center"
-                        mah:SliderHelper.EnableMouseWheel="MouseHover"
-                        AutoToolTipPlacement="BottomRight"
-                        AutoToolTipPrecision="3"/>                
-                
-                <mah:ToggleSwitch Grid.Column="1"
-                                  VerticalAlignment="Center"
-                                  Margin="5 0 0 0"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource MissionTimeScale}"/>
-            </Grid>
-        </Border>        
+        </Border>
         
         <Border Style="{StaticResource CommonBorderStyle}">
             <StackPanel Orientation="Horizontal"
