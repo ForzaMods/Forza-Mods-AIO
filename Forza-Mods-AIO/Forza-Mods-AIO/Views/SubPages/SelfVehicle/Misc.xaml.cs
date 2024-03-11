@@ -36,12 +36,12 @@ public partial class Misc
         ViewModel.SpooferUiElementsEnabled = true;
 
         if (MiscCheatsFh5.NameDetourAddress == 0) return;
-        GetInstance().WriteMemory(MiscCheatsFh5.NameDetourAddress + 0x5E, toggleSwitch.IsOn ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(MiscCheatsFh5.NameDetourAddress + 0x72, toggleSwitch.IsOn ? (byte)1 : (byte)0);
         if (string.IsNullOrEmpty(NameBox.Text)) return;
         var name = Encoding.Unicode.GetBytes(NameBox.Text);
         var newName = new byte[64];
         Array.Copy(name, newName, Math.Min(name.Length, newName.Length));
-        GetInstance().WriteArrayMemory(MiscCheatsFh5.NameDetourAddress + 0x5F, newName);
+        GetInstance().WriteArrayMemory(MiscCheatsFh5.NameDetourAddress + 0x73, newName);
     }
 
     private void NameBox_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -51,6 +51,6 @@ public partial class Misc
         var name = Encoding.Unicode.GetBytes(NameBox.Text);
         var newName = new byte[64];
         Array.Copy(name, newName, Math.Min(name.Length, newName.Length));
-        GetInstance().WriteArrayMemory(MiscCheatsFh5.NameDetourAddress + 0x5F, newName);
+        GetInstance().WriteArrayMemory(MiscCheatsFh5.NameDetourAddress + 0x73, newName);
     }
 }

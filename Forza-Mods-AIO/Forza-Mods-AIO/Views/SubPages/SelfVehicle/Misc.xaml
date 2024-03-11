@@ -21,7 +21,7 @@
                 
                 <TextBox x:Name="NameBox" 
                          Grid.Column="0" 
-                         MaxLength="32"
+                         MaxLength="16"
                          VerticalAlignment="Center"
                          TextAlignment="Left"
                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"

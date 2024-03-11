@@ -1,4 +1,6 @@
-﻿namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
+﻿using Forza_Mods_AIO.Resources;
+
+namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
 
 public class MiscCheats : CheatsUtilities, ICheatsBase
 {
@@ -9,33 +11,50 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
         NameAddress = 0;
         NameDetourAddress = 0;
 
-        const string sig = "4C 8B ? 48 8B ? 41 FF ? ? 48 8B ? 48 85 ? 74 ? 48 8B ? 48 8B ? FF 90";
-        NameAddress = await SmartAobScan(sig);
-
+        var urtcbaseHandle = Imports.GetModuleHandle("ucrtbase.dll");
+        NameAddress = Imports.GetProcAddress(urtcbaseHandle, "wcsncpy_s") + 0x98;
+        
         if (NameAddress > 0)
         {
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
-            {
-                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
-            }
+            var namePtr = await CheatNamePtr();
+            if (namePtr == 0) return;
 
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0) return;
-            
+            var ptrBytes = BitConverter.GetBytes(namePtr);
             var asm = new byte[]
             {
-                0x4C, 0x8B, 0x10, 0x80, 0x3D, 0x54, 0x00, 0x00, 0x00, 0x01, 0x75, 0x4A, 0x48, 0x8B, 0x88, 0xF0, 0x00,
-                0x00, 0x00, 0x48, 0x85, 0xC9, 0x74, 0x3E, 0x48, 0x8B, 0x49, 0x30, 0x48, 0x85, 0xC9, 0x74, 0x35, 0x48,
-                0x8B, 0x49, 0x28, 0x48, 0x85, 0xC9, 0x74, 0x2C, 0x48, 0x8B, 0x49, 0x08, 0x48, 0x85, 0xC9, 0x74, 0x23,
-                0x56, 0x52, 0x41, 0x55, 0x48, 0x31, 0xF6, 0x48, 0x8D, 0x15, 0x1E, 0x00, 0x00, 0x00, 0x44, 0x8A, 0x2C,
-                0x32, 0x44, 0x88, 0x2C, 0x31, 0x48, 0xFF, 0xC6, 0x48, 0x83, 0xFE, 0x40, 0x76, 0xEF, 0x41, 0x5D, 0x5A,
-                0x5E, 0x48, 0x8B, 0xC8
+                0x0F, 0xB7, 0x04, 0x1A, 0x80, 0x3D, 0x67, 0x00, 0x00, 0x00, 0x01, 0x75, 0x5D, 0x48, 0x8B, 0xF3, 0x48,
+                0x01, 0xD6, 0x51, 0x48, 0xB9, ptrBytes[0], ptrBytes[1], ptrBytes[2], ptrBytes[3], ptrBytes[4],
+                ptrBytes[5], ptrBytes[6], ptrBytes[7], 0x48, 0x8B, 0x09, 0x48, 0x8B, 0x89, 0xF0, 0x00, 0x00, 0x00, 0x48,
+                0x85, 0xC9, 0x74, 0x3C, 0x48, 0x8B, 0x49, 0x30, 0x48, 0x85, 0xC9, 0x74, 0x33, 0x48, 0x8B, 0x49, 0x30,
+                0x48, 0x85, 0xC9, 0x74, 0x2A, 0x48, 0x8B, 0x49, 0x08, 0x48, 0x85, 0xC9, 0x74, 0x21, 0x48, 0x39, 0xCE,
+                0x72, 0x1C, 0x48, 0x83, 0xC1, 0x40, 0x48, 0x39, 0xCE, 0x77, 0x13, 0x48, 0x83, 0xE9, 0x40, 0x48, 0x29,
+                0xCE, 0x48, 0x8D, 0x0D, 0x0F, 0x00, 0x00, 0x00, 0x48, 0x01, 0xF1, 0x8B, 0x01, 0x59, 0x48, 0x8B, 0xF7
             };
 
-            NameDetourAddress = Resources.Memory.GetInstance().CreateDetour(NameAddress, asm, 6);
+            NameDetourAddress = Resources.Memory.GetInstance().CreateDetour(NameAddress, asm, 7);
             return;
         }
         
-        ShowError("Name spoofer", sig);
+        ShowError("Name Spoofer", string.Empty);
+    }
+
+    private static async Task<UIntPtr> CheatNamePtr()
+    {
+        const string sig = "E8 ? ? ? ? 4C 8B ? 48 8B ? 41 FF ? ? 48 8B ? 48 85 ? 74 ? 48 8B ? 48 8B ? FF 90";
+        var scanResult = (IntPtr)await SmartAobScan(sig);
+
+        if (scanResult > 0)
+        {
+            var relativeAddress = scanResult + 1;
+            var relative = Resources.Memory.GetInstance().ReadMemory<int>((nuint)relativeAddress);
+            scanResult = scanResult + relative + 0x5;
+            var relativeAddress2 = scanResult + 3;
+            var relative2 = Resources.Memory.GetInstance().ReadMemory<int>((nuint)relativeAddress2);
+            return (nuint)(scanResult + relative2 + 0x7);
+        }
+
+        ShowError("Name Ptr", sig);
+        return 0;
     }
     
     public void Cleanup()
@@ -44,7 +63,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
         
         if (NameAddress > 0)
         {
-            mem.WriteArrayMemory(NameAddress, new byte[] { 0x4C, 0x8B, 0x10, 0x48, 0x8B, 0xC8 });
+            mem.WriteArrayMemory(NameAddress, new byte[] { 0x0F, 0xB7, 0x04, 0x13, 0x48, 0x8B, 0xF7 });
             Free(NameDetourAddress);
         }
     }
