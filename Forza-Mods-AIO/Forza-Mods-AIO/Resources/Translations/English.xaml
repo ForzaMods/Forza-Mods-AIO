@@ -197,7 +197,5 @@
     <system:String x:Key="French">French</system:String>
     <system:String x:Key="Serbian">Serbian</system:String>
     <system:String x:Key="Spanish">Spanish</system:String>
-    <system:String x:Key="AdvancedSettings">Advanced Settings</system:String>
-    <system:String x:Key="DebugMode">Debug Mode</system:String>
     
 </ResourceDictionary>

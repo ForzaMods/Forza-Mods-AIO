@@ -84,23 +84,5 @@
                     
             </ComboBox>
         </GroupBox>
-        
-        <GroupBox Header="{DynamicResource AdvancedSettings}"
-                  BorderBrush="{Binding Theming.DarkerColour}"
-                  BorderThickness="2"
-                  Margin="0 10 0 0"
-                  mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
-                  mah:HeaderedControlHelper.HeaderFontWeight="Bold"
-                  mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
-                  mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}">
-            
-            <Grid Margin="5 ">
-                <mah:ToggleSwitch HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource DebugMode}"/>
-            </Grid>
-        </GroupBox>
     </StackPanel>
 </Page>
