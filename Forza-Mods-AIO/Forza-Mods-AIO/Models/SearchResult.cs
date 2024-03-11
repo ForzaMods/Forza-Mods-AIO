@@ -19,4 +19,13 @@ public readonly struct SearchResult(
     public Type PageType { get; } = pageType;
     public FrameworkElement FrameworkElement { get; } = frameworkElement;
     public Expander DropDownExpander { get; } = dropDownExpander;
+
+    public bool Contains(string text)
+    {
+        var nameContains = Name.Contains(text, StringComparison.InvariantCultureIgnoreCase);
+        var categoryContains = Category.Contains(text, StringComparison.InvariantCultureIgnoreCase);
+        var featureContains = Feature.Contains(text, StringComparison.InvariantCultureIgnoreCase);
+        var pageContains = Page.Contains(text, StringComparison.InvariantCultureIgnoreCase);
+        return nameContains || categoryContains || featureContains || pageContains;
+    }
 }

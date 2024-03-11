@@ -18,13 +18,9 @@ public partial class SearchViewModel : ObservableObject
             return;
         }
 
-        var search = Resources.Search.SearchResults.EverySearchResult.Where(i =>
-            i.Name.Contains(text, StringComparison.InvariantCultureIgnoreCase) ||
-            i.Feature.Contains(text, StringComparison.InvariantCultureIgnoreCase) ||
-            i.Category.Contains(text, StringComparison.InvariantCultureIgnoreCase) ||
-            i.Page.Contains(text, StringComparison.InvariantCultureIgnoreCase));
-        
+        var search = Resources.Search.SearchResults.EverySearchResult.Where(i => i.Contains(text));
         var searchResults = search as SearchResult[] ?? search.ToArray();
+        
         foreach (var element in searchResults)
         {
             if (GameVerPlat.GetInstance().Type == GameVerPlat.GameType.None && element.PageType != typeof(AioInfo))
