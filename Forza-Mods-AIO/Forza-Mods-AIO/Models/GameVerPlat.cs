@@ -15,7 +15,7 @@ public class GameVerPlat(string name, string platform, string update,GameVerPlat
     public string Update { get; set; } = update;
     public GameType Type { get; set; } = type;
 
-    public GameVerPlat() : this(string.Empty, string.Empty, string.Empty, GameType.None)
+    private GameVerPlat() : this(string.Empty, string.Empty, string.Empty, GameType.None)
     {
     }
         

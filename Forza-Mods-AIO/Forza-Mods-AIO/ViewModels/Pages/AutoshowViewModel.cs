@@ -6,23 +6,11 @@ namespace Forza_Mods_AIO.ViewModels.Pages;
 
 public partial class AutoshowViewModel : ObservableObject
 {
-    private bool _isInitialized;
-
     [ObservableProperty]
     private bool _uiElementsEnabled = true;
     
     private static Sql SqlFh5 => Resources.Cheats.GetClass<Sql>();
     
-    public AutoshowViewModel()
-    {
-        if (_isInitialized) return;
-        InitializeViewModel();
-    }
-
-    private void InitializeViewModel()
-    {
-        _isInitialized = true;
-    }
 
     [RelayCommand]
     private async Task ExecuteSql(object parameter)

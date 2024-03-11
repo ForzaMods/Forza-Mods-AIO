@@ -5,11 +5,10 @@ using Forza_Mods_AIO.ViewModels.Pages;
 
 namespace Forza_Mods_AIO.Views.Pages;
 
-public partial class SelfVehicle
+public sealed partial class SelfVehicle
 {
     public SelfVehicle()
     {
-        ViewModel = new SelfVehicleViewModel();
         DataContext = this;
 
         Loaded += (_, _) => AddSearchResults();
@@ -17,9 +16,7 @@ public partial class SelfVehicle
         InitializeComponent();
     }
 
-    public SelfVehicleViewModel ViewModel { get; }
-
-    public virtual Monet Theming => Monet.GetInstance();
+    public Monet Theming => Monet.GetInstance();
 
     private void AddSearchResults()
     {

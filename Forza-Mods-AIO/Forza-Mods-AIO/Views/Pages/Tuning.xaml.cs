@@ -11,12 +11,10 @@ public partial class Tuning
 {
     public Tuning()
     {
-        ViewModel = new TuningViewModel();
         DataContext = this;
         
         InitializeComponent();
     }
     
     public Monet Theming => Monet.GetInstance();
-    public TuningViewModel ViewModel { get; }
 }

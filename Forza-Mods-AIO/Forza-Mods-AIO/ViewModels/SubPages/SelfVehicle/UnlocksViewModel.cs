@@ -5,8 +5,6 @@ namespace Forza_Mods_AIO.ViewModels.SubPages.SelfVehicle;
 
 public partial class UnlocksViewModel : ObservableObject
 {
-    private bool _isInitialized;
-
     [ObservableProperty]
     private bool _areUiElementsEnabled = true;
 
@@ -66,15 +64,4 @@ public partial class UnlocksViewModel : ObservableObject
     public bool IsFm8 => GameVerPlat.GetInstance().Type == GameVerPlat.GameType.Fm8;
     
     public bool IsHorizon => GameVerPlat.GetInstance().Type is GameVerPlat.GameType.Fh4 or GameVerPlat.GameType.Fh5;
-
-    public UnlocksViewModel()
-    {
-        if (_isInitialized) return;
-        InitializeViewModel();
-    }
-
-    private void InitializeViewModel()
-    {
-        _isInitialized = true;
-    }
 }
