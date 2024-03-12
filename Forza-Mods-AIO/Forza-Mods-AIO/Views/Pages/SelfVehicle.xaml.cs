@@ -26,8 +26,6 @@ public sealed partial class SelfVehicle
             typeof(SelfVehicle), null!, UnlocksExpander));
         SearchResults.EverySearchResult.Add(new SearchResult("Photo Mode", string.Empty, string.Empty, "Self/Vehicle",
             typeof(SelfVehicle), null!, PhotoModeExpander));
-        SearchResults.EverySearchResult.Add(new SearchResult("Teleports", string.Empty, string.Empty, "Self/Vehicle",
-            typeof(SelfVehicle), null!, TeleportsExpander));
         SearchResults.EverySearchResult.Add(new SearchResult("Environment", string.Empty, string.Empty, "Self/Vehicle",
             typeof(SelfVehicle), null!, EnvironmentExpander));
         SearchResults.EverySearchResult.Add(new SearchResult("Customization", string.Empty, string.Empty,

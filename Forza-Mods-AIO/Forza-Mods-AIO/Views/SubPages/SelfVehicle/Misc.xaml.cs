@@ -20,6 +20,7 @@ public partial class Misc
 
     public MiscViewModel ViewModel { get; }
     private static MiscCheats MiscCheatsFh5 => Forza_Mods_AIO.Resources.Cheats.GetClass<MiscCheats>();
+    private static CarCheats CarCheatsFh5 => Forza_Mods_AIO.Resources.Cheats.GetClass<CarCheats>();
     
     private async void NameSpooferSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
@@ -52,5 +53,23 @@ public partial class Misc
         var newName = new byte[64];
         Array.Copy(name, newName, Math.Min(name.Length, newName.Length));
         GetInstance().WriteArrayMemory(MiscCheatsFh5.NameDetourAddress + 0x73, newName);
+    }
+
+    private async void TpSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+
+        toggleSwitch.IsEnabled = false;
+        if (CarCheatsFh5.WaypointDetourAddress == 0)
+        {
+            await CarCheatsFh5.CheatWaypoint();
+        }
+        toggleSwitch.IsEnabled = true;
+
+        if (CarCheatsFh5.WaypointDetourAddress == 0) return;
+        GetInstance().WriteMemory(CarCheatsFh5.WaypointDetourAddress + 0x32, toggleSwitch.IsOn ? (byte)1 : (byte)0);
     }
 }

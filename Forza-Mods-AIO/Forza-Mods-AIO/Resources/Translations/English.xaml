@@ -82,7 +82,6 @@
     <system:String x:Key="Handling">Handling</system:String>
     <system:String x:Key="Unlocks">Unlocks</system:String>
     <system:String x:Key="PhotoMode">Photo Mode</system:String>
-    <system:String x:Key="Teleports">Teleports</system:String>
     <system:String x:Key="Environment">Environment</system:String>
     <system:String x:Key="Customization">Customization</system:String>
     <system:String x:Key="Miscellaneous">Miscellaneous</system:String>
@@ -116,10 +115,6 @@
     <system:String x:Key="CarXp">Car Xp</system:String>
     <system:String x:Key="CarPoints">Car Points</system:String>
     
-    <!-- Teleports.xaml -->
-    <system:String x:Key="TeleportLocations">Teleport Locations: </system:String>
-    <system:String x:Key="AutoTpToWaypoint">Auto TP To Waypoint</system:String>
-    
     <!-- Customization.xaml -->
     <system:String x:Key="GlowingPaint">Glowing Paint</system:String>
     <system:String x:Key="HeadlightColour">Headlight Colour</system:String>
@@ -149,8 +144,9 @@
     <system:String x:Key="SkillTreeWideEdit">Skill Tree Wide Editing</system:String>
     <system:String x:Key="MissionTimeScale">Mission Time Scale</system:String>
     <system:String x:Key="RemoveBuildCap">Remove Build Cap</system:String>
-    <system:String x:Key="UnbreakableSkillCombo">Unbreakable Skill Combo</system:String>
-    
+    <system:String x:Key="UnbreakableSkillScore">Unbreakable Skill Score</system:String>
+    <system:String x:Key="AutoTpToWaypoint">Auto TP To Waypoint</system:String>
+
     <!-- PhotoMode.xaml -->
     <system:String x:Key="Samples">Samples</system:String>
     <system:String x:Key="ShutterSpeed">Shutter Speed</system:String>

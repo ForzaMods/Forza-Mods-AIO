@@ -112,8 +112,13 @@
                                   Margin="10 0"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource UnbreakableSkillCombo}"/>
+                                  Content="{DynamicResource UnbreakableSkillScore}"/>
                 
+                <mah:ToggleSwitch VerticalAlignment="Center"
+                                  MinWidth="0"
+                                  FontSize="12"
+                                  Content="{DynamicResource AutoTpToWaypoint}"
+                                  Toggled="TpSwitch_OnToggled"/>
             </StackPanel>
         </Border>
     </StackPanel>

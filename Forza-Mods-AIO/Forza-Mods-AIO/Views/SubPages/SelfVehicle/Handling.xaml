@@ -151,10 +151,10 @@
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
                     
                     <controls:StatusComboboxItem Content="{DynamicResource Acceleration}"
-                                                           IsOn="{Binding ViewModel.IsAccelEnabled}"/>
+                                                 IsOn="{Binding ViewModel.IsAccelEnabled}"/>
                     
                     <controls:StatusComboboxItem Content="{DynamicResource Gravity}"
-                                                           IsOn="{Binding ViewModel.IsGravityEnabled}"/>
+                                                 IsOn="{Binding ViewModel.IsGravityEnabled}"/>
                     
                 </ComboBox>
                 
