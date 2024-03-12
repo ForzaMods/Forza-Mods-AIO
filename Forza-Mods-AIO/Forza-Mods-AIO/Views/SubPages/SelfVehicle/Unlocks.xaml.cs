@@ -102,7 +102,7 @@ public partial class Unlocks
 
         if (UnlocksCheatsFh5.SpinsDetourAddress <= 0) return;
         GetInstance().WriteMemory(UnlocksCheatsFh5.SpinsDetourAddress + 0x1C, toggled ? (byte)1 : (byte)0);
-        GetInstance().WriteMemory(UnlocksCheatsFh5.SpinsDetourAddress + 0x1D, Convert.ToInt32(ValueBox.Value));  
+        GetInstance().WriteMemory(UnlocksCheatsFh5.SpinsDetourAddress + 0x1D, Convert.ToInt32(ValueBox.Value) + 1);  
         ViewModel.IsWheelspinsEnabled = toggled;
     }
 
