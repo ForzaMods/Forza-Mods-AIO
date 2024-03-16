@@ -4,7 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.SelfVehicle"
       mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance local:Camera, IsDesignTimeCreatable=True}"
       Title="Camera" 
       d:DesignHeight="Auto" 
       d:DesignWidth="800">
@@ -17,10 +19,13 @@
                     <ColumnDefinition Width="Auto"/>    
                 </Grid.ColumnDefinitions>
                 
-                <Slider Grid.Column="0"
+                <Slider x:Name="FovLockSlider" 
+                        Grid.Column="0"
                         VerticalAlignment="Center"
                         Minimum="0"
                         Maximum="10"
+                        IsEnabled="{Binding ViewModel.AreCameraHookUiElementsEnabled}"
+                        ValueChanged="FovLockSlider_OnValueChanged"
                         mah:SliderHelper.EnableMouseWheel="MouseHover"
                         AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
                         AutoToolTipPrecision="{StaticResource SliderTooltipPrecision}"/>
@@ -30,7 +35,9 @@
                                   Margin="5 0 0 0"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource FovLock}"/>
+                                  Content="{DynamicResource FovLock}"
+                                  IsEnabled="{Binding ViewModel.AreCameraHookUiElementsEnabled}"
+                                  Toggled="FovLockSwitch_OnToggled"/>
                 
             </Grid>            
         </Border>
@@ -48,36 +55,54 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <mah:NumericUpDown Grid.Column="0"
+                <mah:NumericUpDown x:Name="XValueBox" 
+                                   Grid.Column="0"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
+                                   Minimum="-10"
+                                   Maximum="10"
+                                   Value="0"
                                    mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   IsEnabled="{Binding ViewModel.AreCameraHookUiElementsEnabled}"
+                                   ValueChanged="OffsetBoxes_OnValueChanged"/>
 
                 <Label Grid.Column="1"
                        VerticalAlignment="Center"
                        Margin="5 0"
                        Content="{DynamicResource X}"/>
                 
-                <mah:NumericUpDown Grid.Column="2"
+                <mah:NumericUpDown x:Name="YValueBox" 
+                                   Grid.Column="2"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
+                                   Minimum="-10"
+                                   Maximum="10"
+                                   Value="0"
                                    mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   IsEnabled="{Binding ViewModel.AreCameraHookUiElementsEnabled}"
+                                   ValueChanged="OffsetBoxes_OnValueChanged"/>
 
                 <Label Grid.Column="3"
                        VerticalAlignment="Center"
                        Margin="5 0"
                        Content="{DynamicResource Y}"/>
                 
-                <mah:NumericUpDown Grid.Column="4"
+                <mah:NumericUpDown x:Name="ZValueBox" 
+                                   Grid.Column="4"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
+                                   Minimum="-10"
+                                   Maximum="10"
+                                   Value="0"
                                    mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   IsEnabled="{Binding ViewModel.AreCameraHookUiElementsEnabled}"
+                                   ValueChanged="OffsetBoxes_OnValueChanged"/>
 
                 <Label Grid.Column="5"
                        VerticalAlignment="Center"
@@ -88,8 +113,106 @@
                                   VerticalAlignment="Center"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource CameraOffset}"/> 
+                                  Content="{DynamicResource CameraOffset}"
+                                  IsEnabled="{Binding ViewModel.AreCameraHookUiElementsEnabled}"
+                                  Toggled="OffsetSwitch_OnToggled"/> 
                 
+            </Grid>
+        </Border>
+        
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid Margin="5 0">
+                
+                <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal"
+                            Visibility="{Binding ViewModel.AreScanPromptLimiterUiElementsVisible, 
+                            Converter={StaticResource BooleanToVisibilityConverter}}">
+                    
+                    <Label VerticalAlignment="Center"
+                           Margin="5 0 0 0"
+                           Content="{DynamicResource FovLimitersRequireScanning}"/>
+                    
+                    <Button HorizontalAlignment="Center"
+                            Content="{DynamicResource Scan}"
+                            BorderThickness="0"
+                            mah:ControlsHelper.FocusBorderThickness="0"
+                            Background="{DynamicResource MahApps.Brushes.AccentBase}" 
+                            Click="LimitersScanButton_OnClick"/>
+                    
+                </StackPanel>
+                
+                <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal"
+                            Visibility="{Binding ViewModel.AreScanningLimiterUiElementsVisible, 
+                            Converter={StaticResource BooleanToVisibilityConverter}}">
+                    
+                    <mah:ProgressRing VerticalAlignment="Center"
+                                      IsLarge="True"
+                                      Width="25"
+                                      Height="25"/>
+                    
+                    <Label VerticalAlignment="Center"
+                           Margin="5 0 0 0"
+                           Content="{DynamicResource Scanning}"/>
+                </StackPanel>
+                
+                <Grid Visibility="{Binding ViewModel.AreLimiterUiElementsVisible, 
+                            Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <ComboBox x:Name="LimiterComboBox" 
+                              Grid.Column="0"
+                              VerticalAlignment="Center"
+                              SelectedIndex="0"
+                              BorderThickness="0"
+                              Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                              mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                              SelectionChanged="LimiterComboBox_OnSelectionChanged">
+
+                        <ComboBoxItem Content="{DynamicResource Chase}" />
+                        <ComboBoxItem Content="{DynamicResource ChaseFar}" />
+                        <ComboBoxItem Content="{DynamicResource Driver}" />
+                        <ComboBoxItem Content="{DynamicResource Hood}" />
+                        <ComboBoxItem Content="{DynamicResource Bumper}" />
+                                
+                    </ComboBox>
+                    
+                    <mah:NumericUpDown x:Name="LimiterMinBox" 
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       Margin="5 0"
+                                       TextAlignment="Left"
+                                       mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                                       Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                       BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                       ValueChanged="LimiterMinBox_OnValueChanged"/>
+                    
+                    <Label Grid.Column="2"
+                           VerticalAlignment="Center"
+                           Content="{DynamicResource Min}"/>
+                    
+                    <mah:NumericUpDown x:Name="LimiterMaxBox" 
+                                       Grid.Column="3"
+                                       VerticalAlignment="Center"
+                                       Margin="5 0"
+                                       TextAlignment="Left"
+                                       mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                                       Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                       BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                       ValueChanged="LimiterMaxBox_OnValueChanged"/>
+                    
+                    <Label Grid.Column="4"
+                           VerticalAlignment="Center"
+                           Content="{DynamicResource Max}"/>
+                </Grid>
             </Grid>
         </Border>
     </StackPanel>

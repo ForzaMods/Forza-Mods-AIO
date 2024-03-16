@@ -162,6 +162,16 @@
     <!-- Camera.xaml -->
     <system:String x:Key="FovLock">Fov Lock</system:String>
     <system:String x:Key="CameraOffset">Camera Offset</system:String>
+    <system:String x:Key="FovLimitersRequireScanning">Fov limiters require scanning</system:String>
+    <system:String x:Key="Scanning">Scanning...</system:String>
+    <system:String x:Key="Chase">Chase</system:String>
+    <system:String x:Key="ChaseFar">Chase Far</system:String>
+    <system:String x:Key="Driver">Driver</system:String>
+    <system:String x:Key="Dashboard">Dashboard</system:String>
+    <system:String x:Key="Hood">Hood</system:String>
+    <system:String x:Key="Bumper">Bumper</system:String>
+    <system:String x:Key="Min">Min</system:String>
+    <system:String x:Key="Max">Max</system:String>
     
     <!-- Tuning.xaml -->
     <system:String x:Key="Tires">Tires</system:String>
