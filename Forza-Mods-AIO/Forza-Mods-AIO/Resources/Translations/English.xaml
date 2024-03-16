@@ -143,6 +143,7 @@
     <system:String x:Key="SkillTreeCost">Skill Tree Perks Cost</system:String>
     <system:String x:Key="SkillTreeWideEdit">Skill Tree Wide Editing</system:String>
     <system:String x:Key="MissionTimeScale">Mission Time Scale</system:String>
+    <system:String x:Key="TrailblazerTimeScale">Trailblazer Time Scale</system:String>
     <system:String x:Key="RemoveBuildCap">Remove Build Cap</system:String>
     <system:String x:Key="UnbreakableSkillScore">Unbreakable Skill Score</system:String>
     <system:String x:Key="AutoTpToWaypoint">Auto TP To Waypoint</system:String>

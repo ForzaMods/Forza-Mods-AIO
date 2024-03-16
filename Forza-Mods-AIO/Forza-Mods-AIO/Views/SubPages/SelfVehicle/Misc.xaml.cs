@@ -72,4 +72,162 @@ public partial class Misc
         if (CarCheatsFh5.WaypointDetourAddress == 0) return;
         GetInstance().WriteMemory(CarCheatsFh5.WaypointDetourAddress + 0x32, toggleSwitch.IsOn ? (byte)1 : (byte)0);
     }
+
+    private async void MainToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+
+        ViewModel.MainUiElementsEnabled = false;
+        switch (MainComboBox.SelectedIndex)
+        {
+            case 0:
+            {
+                await PrizeScale(toggleSwitch.IsOn);
+                break;
+            }
+            case 1:
+            {
+                await SellFactor(toggleSwitch.IsOn);
+                break;
+            }
+            case 2:
+            {
+                await SkillScoreMultiplier(toggleSwitch.IsOn);
+                break;
+            }
+            case 3:
+            {
+                await DriftScoreMultiplier(toggleSwitch.IsOn);
+                break;
+            }
+            case 4:
+            {
+                await SkillTreeWideEdit(toggleSwitch.IsOn);
+                break;
+            }
+            case 5:
+            {
+                await SkillTreePerksCost(toggleSwitch.IsOn);
+                break;
+            }
+            case 6:
+            {
+                await MissionTimeScale(toggleSwitch.IsOn);
+                break;
+            }
+            case 7:
+            {
+                await TrailblazerTimeScale(toggleSwitch.IsOn);
+                break;
+            }
+        }
+        ViewModel.MainUiElementsEnabled = true;
+    }
+
+    private async Task PrizeScale(bool toggled)
+    {
+        if (MiscCheatsFh5.PrizeScaleDetourAddress == 0)
+        {
+            await MiscCheatsFh5.CheatPrizeScale();
+        }
+
+        if (MiscCheatsFh5.PrizeScaleDetourAddress == 0) return;
+        GetInstance().WriteMemory(MiscCheatsFh5.PrizeScaleDetourAddress + 0x1B, toggled ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(MiscCheatsFh5.PrizeScaleDetourAddress + 0x1C, Convert.ToSingle(MainValueBox.Value));
+        ViewModel.SpinPrizeScaleEnabled = toggled;
+    }
+
+    private async Task SellFactor(bool toggled)
+    {
+        if (MiscCheatsFh5.SellFactorDetourAddress == 0)
+        {
+            await MiscCheatsFh5.CheatSellFactor();
+        }
+        
+        if (MiscCheatsFh5.SellFactorDetourAddress == 0) return;
+        GetInstance().WriteMemory(MiscCheatsFh5.SellFactorDetourAddress + 0x1C, toggled ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(MiscCheatsFh5.SellFactorDetourAddress + 0x1D, Convert.ToInt32(MainValueBox.Value));
+        ViewModel.SpinSellFactorEnabled = toggled;
+    }
+
+    private async Task SkillScoreMultiplier(bool toggled)
+    {
+        if (MiscCheatsFh5.SkillScoreMultiplierDetourAddress == 0)
+        {
+            await MiscCheatsFh5.CheatSkillScoreMultiplier();
+        }
+        
+        if (MiscCheatsFh5.SkillScoreMultiplierDetourAddress == 0) return;
+        GetInstance().WriteMemory(MiscCheatsFh5.SkillScoreMultiplierDetourAddress + 0x1C, toggled ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(MiscCheatsFh5.SkillScoreMultiplierDetourAddress + 0x1D, Convert.ToInt32(MainValueBox.Value));
+        ViewModel.SkillScoreMultiplierEnabled = toggled;
+    }
+    
+    private async Task DriftScoreMultiplier(bool toggled)
+    {
+        if (MiscCheatsFh5.DriftScoreMultiplierDetourAddress == 0)
+        {
+            await MiscCheatsFh5.CheatDriftScoreMultiplier();
+        }
+        
+        if (MiscCheatsFh5.DriftScoreMultiplierDetourAddress == 0) return;
+        GetInstance().WriteMemory(MiscCheatsFh5.DriftScoreMultiplierDetourAddress + 0x1F, toggled ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(MiscCheatsFh5.DriftScoreMultiplierDetourAddress + 0x20, Convert.ToSingle(MainValueBox.Value));
+        ViewModel.SkillScoreMultiplierEnabled = toggled;
+    }
+    
+    private async Task SkillTreeWideEdit(bool toggled)
+    {
+        if (MiscCheatsFh5.SkillTreeWideEditDetourAddress == 0)
+        {
+            await MiscCheatsFh5.CheatSkillTreeWideEdit();
+        }
+        
+        if (MiscCheatsFh5.SkillTreeWideEditDetourAddress == 0) return;
+        GetInstance().WriteMemory(MiscCheatsFh5.SkillTreeWideEditDetourAddress + 0x1B, toggled ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(MiscCheatsFh5.SkillTreeWideEditDetourAddress + 0x1C, Convert.ToSingle(MainValueBox.Value));
+        ViewModel.SkillTreeWideEditEnabled = toggled;
+    }
+    
+    private async Task SkillTreePerksCost(bool toggled)
+    {
+        if (MiscCheatsFh5.SkillTreePerksCostDetourAddress == 0)
+        {
+            await MiscCheatsFh5.CheatSkillTreePerksCost();
+        }
+        
+        if (MiscCheatsFh5.SkillTreePerksCostDetourAddress == 0) return;
+        GetInstance().WriteMemory(MiscCheatsFh5.SkillTreePerksCostDetourAddress + 0x1A, toggled ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(MiscCheatsFh5.SkillTreePerksCostDetourAddress + 0x1B, Convert.ToInt32(MainValueBox.Value));
+        ViewModel.SkillTreeCostEnabled = toggled;
+    }
+    
+    private async Task MissionTimeScale(bool toggled)
+    {
+        if (MiscCheatsFh5.MissionTimeScaleDetourAddress == 0)
+        {
+            await MiscCheatsFh5.CheatMissionTimeScale();
+        }
+        
+        if (MiscCheatsFh5.MissionTimeScaleDetourAddress == 0) return;
+        GetInstance().WriteMemory(MiscCheatsFh5.MissionTimeScaleDetourAddress + 0x22, toggled ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(MiscCheatsFh5.MissionTimeScaleDetourAddress + 0x23, Convert.ToSingle(MainValueBox.Value));
+        ViewModel.MissionTimeScaleEnabled = toggled;
+    }
+    
+    private async Task TrailblazerTimeScale(bool toggled)
+    {
+        if (MiscCheatsFh5.TrailblazerTimeScaleDetourAddress == 0)
+        {
+            await MiscCheatsFh5.CheatTrailblazerTimeScale();
+        }
+        
+        if (MiscCheatsFh5.TrailblazerTimeScaleDetourAddress == 0) return;
+        GetInstance().WriteMemory(MiscCheatsFh5.TrailblazerTimeScaleDetourAddress + 0x22, toggled ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(MiscCheatsFh5.TrailblazerTimeScaleDetourAddress + 0x23, Convert.ToSingle(MainValueBox.Value));
+        ViewModel.TrailblazerTimeScaleEnabled = toggled;
+    }
 }

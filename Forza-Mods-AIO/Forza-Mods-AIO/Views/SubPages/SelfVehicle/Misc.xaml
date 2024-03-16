@@ -51,50 +51,60 @@
                 </Grid.ColumnDefinitions>
                 
                 
-                <ComboBox Grid.Column="0"
+                <ComboBox x:Name="MainComboBox" 
+                          Grid.Column="0"
                           VerticalAlignment="Center"
                           SelectedIndex="0"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
+                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                          IsEnabled="{Binding ViewModel.MainUiElementsEnabled}">
 
                     <controls:StatusComboboxItem Content="{DynamicResource SpinPrizeScale}"
-                                                 IsOn="{Binding ViewModel.DirtEnabled}"/>
+                                                 IsOn="{Binding ViewModel.SpinPrizeScaleEnabled}"/>
                     
                     <controls:StatusComboboxItem Content="{DynamicResource SpinSellFactor}"
-                                                 IsOn="{Binding ViewModel.MudEnabled}"/>
+                                                 IsOn="{Binding ViewModel.SpinSellFactorEnabled}"/>
 
                     <controls:StatusComboboxItem Content="{DynamicResource SkillScoreMultiplier}"
-                                                 IsOn="{Binding ViewModel.DirtEnabled}"/>
+                                                 IsOn="{Binding ViewModel.SkillScoreMultiplierEnabled}"/>
                     
                     <controls:StatusComboboxItem Content="{DynamicResource DriftScoreMultiplier}"
-                                                 IsOn="{Binding ViewModel.MudEnabled}"/>
+                                                 IsOn="{Binding ViewModel.DriftScoreMultiplierEnabled}"/>
                     
                     <controls:StatusComboboxItem Content="{DynamicResource SkillTreeWideEdit}"
-                                                 IsOn="{Binding ViewModel.MudEnabled}"/>
+                                                 IsOn="{Binding ViewModel.SkillTreeWideEditEnabled}"/>
 
                     <controls:StatusComboboxItem Content="{DynamicResource SkillTreeCost}"
-                                                 IsOn="{Binding ViewModel.DirtEnabled}"/>
+                                                 IsOn="{Binding ViewModel.SkillTreeCostEnabled}"/>
                     
                     <controls:StatusComboboxItem Content="{DynamicResource MissionTimeScale}"
-                                                 IsOn="{Binding}"/>
+                                                 IsOn="{Binding ViewModel.MissionTimeScaleEnabled}"/>
+                    
+                    <controls:StatusComboboxItem Content="{DynamicResource TrailblazerTimeScale}"
+                                                 IsOn="{Binding ViewModel.TrailblazerTimeScaleEnabled}"/>
                     
                 </ComboBox>
                 
-                <mah:NumericUpDown Grid.Column="1"
+                <mah:NumericUpDown x:Name="MainValueBox" 
+                                   Grid.Column="1"
                                    VerticalAlignment="Center"
                                    Margin="5 0"
                                    TextAlignment="Left"
                                    Minimum="0"
                                    Maximum="2147483647"
+                                   Value="0"
                                    mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   IsEnabled="{Binding ViewModel.MainUiElementsEnabled}"/>
                 
                 <mah:ToggleSwitch Grid.Column="2" 
                                   VerticalAlignment="Center"
                                   MinWidth="0"
-                                  FontSize="12"/>
+                                  FontSize="12"
+                                  IsEnabled="{Binding ViewModel.MainUiElementsEnabled}"
+                                  Toggled="MainToggleSwitch_OnToggled"/>
             </Grid>
         </Border>
         
