@@ -17,6 +17,9 @@
         <AssemblyOriginatorKeyFile>AIO.snk</AssemblyOriginatorKeyFile>
         <PublicSign>true</PublicSign>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <DebugType>portable</DebugType>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -24,9 +27,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
       <PlatformTarget>x64</PlatformTarget>
-      <DebugType>portable</DebugType>
     </PropertyGroup>
 
     <ItemGroup>
