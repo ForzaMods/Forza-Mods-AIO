@@ -222,6 +222,11 @@ public partial class Handling
 
     private async void JumpSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+        
         ViewModel.AreUiElementsEnabled = false;
 
         if (CarCheatsFh5.LocalPlayerHookDetourAddress == 0)
@@ -229,7 +234,9 @@ public partial class Handling
             await CarCheatsFh5.CheatLocalPlayer();
         }
         if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
-        GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x218, Convert.ToSingle(JumpSlider.Value));   
+        GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x218, Convert.ToSingle(JumpSlider.Value));
+        
+        _jumpHackHotkey.CanExecute = toggleSwitch.IsOn;
         ViewModel.AreUiElementsEnabled = true;
 
     }
