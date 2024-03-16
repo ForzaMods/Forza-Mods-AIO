@@ -14,7 +14,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
         var urtcbaseHandle = Imports.GetModuleHandle("ucrtbase.dll");
         NameAddress = Imports.GetProcAddress(urtcbaseHandle, "wcsncpy_s") + 0x98;
         
-        if (NameAddress > 0)
+        if (NameAddress > 0x98)
         {
             var namePtr = await CheatNamePtr();
             if (namePtr == 0) return;
@@ -35,7 +35,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
             return;
         }
         
-        ShowError("Name Spoofer", string.Empty);
+        ShowError("Name Spoofer", "No signature, GetProcAddress is used.");
     }
 
     private static async Task<UIntPtr> CheatNamePtr()
