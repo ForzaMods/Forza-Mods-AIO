@@ -157,7 +157,7 @@ public partial class Handling
 
         ViewModel.AreUiElementsEnabled = false;
 
-        if (CarCheatsFh5.LocalPlayerHookAddress == 0)
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress == 0)
         {
             await CarCheatsFh5.CheatLocalPlayer();
         }
@@ -190,7 +190,7 @@ public partial class Handling
 
         ViewModel.AreUiElementsEnabled = false;
 
-        if (CarCheatsFh5.LocalPlayerHookAddress == 0)
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress == 0)
         {
             await CarCheatsFh5.CheatLocalPlayer();
         }
@@ -224,7 +224,7 @@ public partial class Handling
     {
         ViewModel.AreUiElementsEnabled = false;
 
-        if (CarCheatsFh5.LocalPlayerHookAddress == 0)
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress == 0)
         {
             await CarCheatsFh5.CheatLocalPlayer();
         }
@@ -249,7 +249,7 @@ public partial class Handling
 
         ViewModel.AreUiElementsEnabled = false;
 
-        if (CarCheatsFh5.LocalPlayerHookAddress == 0)
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress == 0)
         {
             await CarCheatsFh5.CheatLocalPlayer();
         }
@@ -269,7 +269,7 @@ public partial class Handling
 
         ViewModel.AreUiElementsEnabled = false;
 
-        if (CarCheatsFh5.LocalPlayerHookAddress == 0)
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress == 0)
         {
             await CarCheatsFh5.CheatLocalPlayer();
         }
