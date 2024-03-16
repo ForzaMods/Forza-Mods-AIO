@@ -8,8 +8,8 @@ public class GlobalHotkey
     private Key _key;
     public Key Key { get => _key; set => SetField(ref _key, value); }
     
-    private Action _callback = null!;
-    public Action Callback { get => _callback; set => SetField(ref _callback, value); }
+    private readonly Action _callback = null!;
+    public Action Callback { get => _callback; private init => SetField(ref _callback, value); }
 
     private ModifierKeys _modifier;
     public ModifierKeys Modifier { get => _modifier; set => SetField(ref _modifier, value); }
