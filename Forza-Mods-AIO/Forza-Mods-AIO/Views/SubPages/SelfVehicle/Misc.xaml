@@ -58,7 +58,8 @@
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
-                          IsEnabled="{Binding ViewModel.MainUiElementsEnabled}">
+                          IsEnabled="{Binding ViewModel.MainUiElementsEnabled}"
+                          SelectionChanged="MainComboBox_OnSelectionChanged">
 
                     <controls:StatusComboboxItem Content="{DynamicResource SpinPrizeScale}"
                                                  IsOn="{Binding ViewModel.SpinPrizeScaleEnabled}"/>
@@ -93,13 +94,15 @@
                                    TextAlignment="Left"
                                    Minimum="0"
                                    Maximum="2147483647"
-                                   Value="0"
+                                   Value="100"
                                    mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   IsEnabled="{Binding ViewModel.MainUiElementsEnabled}"/>
+                                   IsEnabled="{Binding ViewModel.MainUiElementsEnabled}"
+                                   ValueChanged="MainValueBox_OnValueChanged"/>
                 
-                <mah:ToggleSwitch Grid.Column="2" 
+                <mah:ToggleSwitch x:Name="MainToggleSwitch" 
+                                  Grid.Column="2" 
                                   VerticalAlignment="Center"
                                   MinWidth="0"
                                   FontSize="12"
@@ -116,7 +119,8 @@
                 <mah:ToggleSwitch VerticalAlignment="Center"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource RemoveBuildCap}"/>
+                                  Content="{DynamicResource RemoveBuildCap}"
+                                  Toggled="RemoveBuildCapSwitch_OnToggled"/>
                 
                 <mah:ToggleSwitch VerticalAlignment="Center"
                                   Margin="10 0"

@@ -16,6 +16,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
     public UIntPtr MissionTimeScaleAddress, MissionTimeScaleDetourAddress;
     public UIntPtr TrailblazerTimeScaleAddress, TrailblazerTimeScaleDetourAddress;
     public UIntPtr UnbreakableSkillScoreAddress, UnbreakableSkillScoreDetourAddress;
+    public UIntPtr RemoveBuildCapAddress, RemoveBuildCapDetourAddress;
 
     public async Task CheatName()
     {
@@ -338,6 +339,36 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
         ShowError("Unbreakable skill score", sig);
     }
     
+    
+    public async Task CheatRemoveBuildCap()
+    {
+        RemoveBuildCapAddress = 0;
+        RemoveBuildCapDetourAddress = 0;
+        
+        const string sig = "E8 ? ? ? ? F3 0F ? ? ? 48 8B ? ? ? 48 8B";
+        RemoveBuildCapAddress = await SmartAobScan(sig) + 5;
+
+        if (RemoveBuildCapAddress > 5)
+        {
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            {
+                await GetClass<Bypass>().DisableCrcChecks();
+            }
+            
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0) return;
+
+            var asm = new byte[]
+            {
+                0x80, 0x3D, 0x0F, 0x00, 0x00, 0x00, 0x01, 0x75, 0x03, 0x0F, 0x57, 0xC0, 0xF3, 0x0F, 0x11, 0x43, 0x44
+            };
+
+            RemoveBuildCapDetourAddress = GetInstance().CreateDetour(RemoveBuildCapAddress, asm, 5);
+            return;
+        }
+        
+        ShowError("Unbreakable skill score", sig);
+    }
+    
     public void Cleanup()
     {
         var mem = GetInstance();
@@ -401,6 +432,10 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
             mem.WriteArrayMemory(UnbreakableSkillScoreAddress, new byte[] { 0x0F, 0xB6, 0xF0, 0x40, 0x38, 0xAF, 0x74, 0x02, 0x00, 0x00 });
             Free(UnbreakableSkillScoreDetourAddress);
         }
+
+        if (RemoveBuildCapAddress <= 5) return;
+        mem.WriteArrayMemory(RemoveBuildCapAddress, new byte[] { 0xF3, 0x0F, 0x11, 0x43, 0x44 });
+        Free(RemoveBuildCapDetourAddress);
     }
 
     public void Reset()

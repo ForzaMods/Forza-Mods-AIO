@@ -33,4 +33,28 @@ public partial class MiscViewModel : ObservableObject
     
     [ObservableProperty]
     private bool _trailblazerTimeScaleEnabled;
+    
+    [ObservableProperty]
+    private float _spinPrizeScaleValue;
+    
+    [ObservableProperty]
+    private int _spinSellFactorValue = 999;
+    
+    [ObservableProperty]
+    private int _skillScoreMultiplierValue = 10;
+    
+    [ObservableProperty]
+    private float _driftScoreMultiplierValue = 5;
+    
+    [ObservableProperty]
+    private float _skillTreeWideEditValue = 10000;
+    
+    [ObservableProperty]
+    private int _skillTreeCostValue;
+    
+    [ObservableProperty]
+    private float _missionTimeScaleValue = 0.5f;
+    
+    [ObservableProperty]
+    private float _trailblazerTimeScaleValue = 0.5f;
 }

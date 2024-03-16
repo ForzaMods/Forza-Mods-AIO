@@ -73,6 +73,157 @@ public partial class Misc
         GetInstance().WriteMemory(CarCheatsFh5.WaypointDetourAddress + 0x32, toggleSwitch.IsOn ? (byte)1 : (byte)0);
     }
 
+    private void MainComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is not ComboBox comboBox || MainToggleSwitch == null || MainValueBox == null)
+        {
+            return;
+        }
+
+        MainToggleSwitch.Toggled -= MainToggleSwitch_OnToggled;
+        MainValueBox.ValueChanged -= MainToggleSwitch_OnToggled;
+        
+        switch (comboBox.SelectedIndex)
+        {
+            case 0:
+            {        
+                MainValueBox.Value = ViewModel.SpinPrizeScaleValue;
+                MainToggleSwitch.IsOn = ViewModel.SpinPrizeScaleEnabled;
+                break;
+            }
+            case 1:
+            {            
+                MainValueBox.Value = ViewModel.SpinSellFactorValue;
+                MainToggleSwitch.IsOn = ViewModel.SpinSellFactorEnabled;
+                break;
+            }
+            case 2:
+            {              
+                MainValueBox.Value = ViewModel.SkillScoreMultiplierValue;
+                MainToggleSwitch.IsOn = ViewModel.SkillScoreMultiplierEnabled;
+                break;
+            }
+            case 3:
+            {           
+                MainValueBox.Value = ViewModel.DriftScoreMultiplierValue;
+                MainToggleSwitch.IsOn = ViewModel.DriftScoreMultiplierEnabled;
+                break;
+            }
+            case 4:
+            {              
+                MainValueBox.Value = ViewModel.SkillTreeWideEditValue;
+                MainToggleSwitch.IsOn = ViewModel.SkillTreeWideEditEnabled;
+                break;
+            }
+            case 5:
+            {             
+                MainValueBox.Value = ViewModel.SkillTreeCostValue;
+                MainToggleSwitch.IsOn = ViewModel.SkillTreeCostEnabled;
+                break;
+            }
+            case 6:
+            {            
+                MainValueBox.Value = ViewModel.MissionTimeScaleValue;
+                MainToggleSwitch.IsOn = ViewModel.MissionTimeScaleEnabled;
+                break;
+            }
+            case 7:
+            {           
+                MainValueBox.Value = ViewModel.TrailblazerTimeScaleValue;
+                MainToggleSwitch.IsOn = ViewModel.TrailblazerTimeScaleEnabled;
+                break;
+            }
+        }
+
+        MainValueBox.Minimum = comboBox.SelectedIndex switch
+        { 
+            0 or 1 or 2 or 3 or 4 or 6 or 7 => 0,
+            5 => int.MinValue,
+            _ => throw new IndexOutOfRangeException()
+        };
+
+        MainValueBox.Maximum = comboBox.SelectedIndex switch
+        { 
+            0 or 1 or 2 or 4 or 5 => int.MaxValue,
+            3 => 10,
+            6 or 7 => 1,
+            _ => throw new IndexOutOfRangeException()
+        };
+
+        MainValueBox.Interval = comboBox.SelectedIndex switch
+        { 
+            0 or 1 or 2 or 3 or 4 or 5 => 1,
+            6 or 7 => 0.1,
+            _ => throw new IndexOutOfRangeException()
+        };
+        
+        MainValueBox.ValueChanged -= MainToggleSwitch_OnToggled;
+        MainToggleSwitch.Toggled += MainToggleSwitch_OnToggled;
+    }
+
+    private void MainValueBox_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        switch (MainComboBox.SelectedIndex)
+        {
+            case 0:
+            {        
+                ViewModel.SpinPrizeScaleValue = Convert.ToSingle(e.NewValue);
+                if (MiscCheatsFh5.PrizeScaleDetourAddress == 0) return;
+                GetInstance().WriteMemory(MiscCheatsFh5.PrizeScaleDetourAddress + 0x1C, ViewModel.SpinPrizeScaleValue);
+                break;
+            }
+            case 1:
+            {            
+                ViewModel.SpinSellFactorValue = Convert.ToInt32(e.NewValue);
+                if (MiscCheatsFh5.SellFactorDetourAddress == 0) return;
+                GetInstance().WriteMemory(MiscCheatsFh5.SellFactorDetourAddress + 0x1D, ViewModel.SpinSellFactorValue);
+                break;
+            }
+            case 2:
+            {              
+                ViewModel.SkillScoreMultiplierValue = Convert.ToInt32(e.NewValue);
+                if (MiscCheatsFh5.SkillScoreMultiplierDetourAddress == 0) return;
+                GetInstance().WriteMemory(MiscCheatsFh5.SkillScoreMultiplierDetourAddress + 0x1D, ViewModel.SkillScoreMultiplierValue);
+                break;
+            }
+            case 3:
+            {           
+                ViewModel.DriftScoreMultiplierValue = Convert.ToSingle(e.NewValue);
+                if (MiscCheatsFh5.DriftScoreMultiplierDetourAddress == 0) return;
+                GetInstance().WriteMemory(MiscCheatsFh5.DriftScoreMultiplierDetourAddress + 0x20, ViewModel.DriftScoreMultiplierValue);
+                break;
+            }
+            case 4:
+            {              
+                ViewModel.SkillTreeWideEditValue = Convert.ToSingle(e.NewValue);
+                if (MiscCheatsFh5.SkillTreeWideEditDetourAddress == 0) return;
+                GetInstance().WriteMemory(MiscCheatsFh5.SkillTreeWideEditDetourAddress + 0x1C, ViewModel.SkillTreeWideEditValue);
+                break;
+            }
+            case 5:
+            {             
+                ViewModel.SkillTreeCostValue = Convert.ToInt32(e.NewValue);
+                if (MiscCheatsFh5.SkillTreePerksCostDetourAddress == 0) return;
+                GetInstance().WriteMemory(MiscCheatsFh5.SkillTreePerksCostDetourAddress + 0x1B, ViewModel.SkillTreeCostValue);
+                break;
+            }
+            case 6:
+            {            
+                ViewModel.MissionTimeScaleValue = Convert.ToSingle(e.NewValue);
+                if (MiscCheatsFh5.MissionTimeScaleDetourAddress == 0) return;
+                GetInstance().WriteMemory(MiscCheatsFh5.MissionTimeScaleDetourAddress + 0x23, ViewModel.MissionTimeScaleValue);
+                break;
+            }
+            case 7:
+            {           
+                ViewModel.TrailblazerTimeScaleValue = Convert.ToSingle(e.NewValue);
+                if (MiscCheatsFh5.TrailblazerTimeScaleDetourAddress == 0) return;
+                GetInstance().WriteMemory(MiscCheatsFh5.TrailblazerTimeScaleDetourAddress + 0x23, ViewModel.TrailblazerTimeScaleValue);
+                break;
+            }
+        }
+    }
+    
     private async void MainToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
         if (sender is not ToggleSwitch toggleSwitch)
@@ -176,7 +327,7 @@ public partial class Misc
         if (MiscCheatsFh5.DriftScoreMultiplierDetourAddress == 0) return;
         GetInstance().WriteMemory(MiscCheatsFh5.DriftScoreMultiplierDetourAddress + 0x1F, toggled ? (byte)1 : (byte)0);
         GetInstance().WriteMemory(MiscCheatsFh5.DriftScoreMultiplierDetourAddress + 0x20, Convert.ToSingle(MainValueBox.Value));
-        ViewModel.SkillScoreMultiplierEnabled = toggled;
+        ViewModel.DriftScoreMultiplierEnabled = toggled;
     }
     
     private async Task SkillTreeWideEdit(bool toggled)
@@ -247,5 +398,23 @@ public partial class Misc
         
         if (MiscCheatsFh5.UnbreakableSkillScoreDetourAddress == 0) return;
         GetInstance().WriteMemory(MiscCheatsFh5.UnbreakableSkillScoreDetourAddress + 0x1A, toggleSwitch.IsOn ? (byte)1 : (byte)0);
+    }
+
+    private async void RemoveBuildCapSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+
+        toggleSwitch.IsEnabled = false;
+        if (MiscCheatsFh5.RemoveBuildCapDetourAddress == 0)
+        {
+            await MiscCheatsFh5.CheatRemoveBuildCap();
+        }
+        toggleSwitch.IsEnabled = true;
+        
+        if (MiscCheatsFh5.RemoveBuildCapDetourAddress == 0) return;
+        GetInstance().WriteMemory(MiscCheatsFh5.RemoveBuildCapDetourAddress + 0x16, toggleSwitch.IsOn ? (byte)1 : (byte)0);
     }
 }
