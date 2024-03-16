@@ -230,4 +230,22 @@ public partial class Misc
         GetInstance().WriteMemory(MiscCheatsFh5.TrailblazerTimeScaleDetourAddress + 0x23, Convert.ToSingle(MainValueBox.Value));
         ViewModel.TrailblazerTimeScaleEnabled = toggled;
     }
+
+    private async void UnbreakableSkillScoreSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+
+        toggleSwitch.IsEnabled = false;
+        if (MiscCheatsFh5.UnbreakableSkillScoreDetourAddress == 0)
+        {
+            await MiscCheatsFh5.CheatUnbreakableSkillScore();
+        }
+        toggleSwitch.IsEnabled = true;
+        
+        if (MiscCheatsFh5.UnbreakableSkillScoreDetourAddress == 0) return;
+        GetInstance().WriteMemory(MiscCheatsFh5.UnbreakableSkillScoreDetourAddress + 0x1A, toggleSwitch.IsOn ? (byte)1 : (byte)0);
+    }
 }

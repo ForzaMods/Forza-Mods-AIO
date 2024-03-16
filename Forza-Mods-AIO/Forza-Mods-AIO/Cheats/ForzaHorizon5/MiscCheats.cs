@@ -15,6 +15,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
     public UIntPtr SkillTreePerksCostAddress, SkillTreePerksCostDetourAddress;
     public UIntPtr MissionTimeScaleAddress, MissionTimeScaleDetourAddress;
     public UIntPtr TrailblazerTimeScaleAddress, TrailblazerTimeScaleDetourAddress;
+    public UIntPtr UnbreakableSkillScoreAddress, UnbreakableSkillScoreDetourAddress;
 
     public async Task CheatName()
     {
@@ -307,6 +308,36 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
         ShowError("Trailblazer time scale", sig);
     }
     
+    public async Task CheatUnbreakableSkillScore()
+    {
+        UnbreakableSkillScoreAddress = 0;
+        UnbreakableSkillScoreDetourAddress = 0;
+        
+        const string sig = "0F B6 ? 40 38 ? ? ? ? ? 74 ? 84 C0";
+        UnbreakableSkillScoreAddress = await SmartAobScan(sig);
+
+        if (UnbreakableSkillScoreAddress > 0)
+        {
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            {
+                await GetClass<Bypass>().DisableCrcChecks();
+            }
+            
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0) return;
+
+            var asm = new byte[]
+            {
+                0x80, 0x3D, 0x13, 0x00, 0x00, 0x00, 0x01, 0x75, 0x02, 0x30, 0xC0, 0x0F, 0xB6, 0xF0, 0x40, 0x38, 0xAF,
+                0x74, 0x02, 0x00, 0x00
+            };
+
+            UnbreakableSkillScoreDetourAddress = GetInstance().CreateDetour(UnbreakableSkillScoreAddress, asm, 10);
+            return;
+        }
+        
+        ShowError("Unbreakable skill score", sig);
+    }
+    
     public void Cleanup()
     {
         var mem = GetInstance();
@@ -363,6 +394,12 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
         {
             mem.WriteArrayMemory(TrailblazerTimeScaleAddress, new byte[] { 0xF3, 0x0F, 0x58, 0xF8, 0xF3, 0x0F, 0x11, 0xBF, 0xAC, 0x03, 0x00, 0x00 });
             Free(TrailblazerTimeScaleDetourAddress);
+        }
+
+        if (UnbreakableSkillScoreAddress > 0)
+        {
+            mem.WriteArrayMemory(UnbreakableSkillScoreAddress, new byte[] { 0x0F, 0xB6, 0xF0, 0x40, 0x38, 0xAF, 0x74, 0x02, 0x00, 0x00 });
+            Free(UnbreakableSkillScoreDetourAddress);
         }
     }
 

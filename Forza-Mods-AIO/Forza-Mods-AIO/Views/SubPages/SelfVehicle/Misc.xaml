@@ -122,7 +122,8 @@
                                   Margin="10 0"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource UnbreakableSkillScore}"/>
+                                  Content="{DynamicResource UnbreakableSkillScore}"
+                                  Toggled="UnbreakableSkillScoreSwitch_OnToggled"/>
                 
                 <mah:ToggleSwitch VerticalAlignment="Center"
                                   MinWidth="0"
