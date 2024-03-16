@@ -15,6 +15,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
     public UIntPtr SkillTreePerksCostAddress, SkillTreePerksCostDetourAddress;
     public UIntPtr MissionTimeScaleAddress, MissionTimeScaleDetourAddress;
     public UIntPtr TrailblazerTimeScaleAddress, TrailblazerTimeScaleDetourAddress;
+    public UIntPtr SpeedZoneMultiplierAddress, SpeedZoneMultiplierDetourAddress;
     public UIntPtr UnbreakableSkillScoreAddress, UnbreakableSkillScoreDetourAddress;
     public UIntPtr RemoveBuildCapAddress, RemoveBuildCapDetourAddress;
 
@@ -279,6 +280,36 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
         ShowError("Mission time scale", sig);
     }
     
+    public async Task CheatSpeedZoneMultiplier()
+    {
+        SpeedZoneMultiplierAddress = 0;
+        SpeedZoneMultiplierDetourAddress = 0;
+        
+        const string sig = "F3 41 ? ? ? ? ? ? ? 0F 28 ? 0F 28 ? ? ? 48 83 C4";
+        SpeedZoneMultiplierAddress = await SmartAobScan(sig);
+
+        if (SpeedZoneMultiplierAddress > 0)
+        {
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            {
+                await GetClass<Bypass>().DisableCrcChecks();
+            }
+            
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0) return;
+
+            var asm = new byte[]
+            {
+                0x80, 0x3D, 0x18, 0x00, 0x00, 0x00, 0x01, 0x75, 0x08, 0xF3, 0x0F, 0x59, 0x35, 0x0F, 0x00, 0x00, 0x00,
+                0xF3, 0x41, 0x0F, 0x5E, 0xB7, 0xE8, 0x00, 0x00, 0x00
+            };
+
+            SpeedZoneMultiplierDetourAddress = GetInstance().CreateDetour(SpeedZoneMultiplierAddress, asm, 9);
+            return;
+        }
+        
+        ShowError("Trailblazer time scale", sig);
+    }
+    
     public async Task CheatTrailblazerTimeScale()
     {
         TrailblazerTimeScaleAddress = 0;
@@ -425,6 +456,12 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
         {
             mem.WriteArrayMemory(TrailblazerTimeScaleAddress, new byte[] { 0xF3, 0x0F, 0x58, 0xF8, 0xF3, 0x0F, 0x11, 0xBF, 0xAC, 0x03, 0x00, 0x00 });
             Free(TrailblazerTimeScaleDetourAddress);
+        }
+
+        if (SpeedZoneMultiplierAddress > 0)
+        {
+            mem.WriteArrayMemory(SpeedZoneMultiplierAddress, new byte[] { 0xF3, 0x41, 0x0F, 0x5E, 0xB7, 0xE8, 0x00, 0x00, 0x00 });
+            Free(SpeedZoneMultiplierDetourAddress);
         }
 
         if (UnbreakableSkillScoreAddress > 0)

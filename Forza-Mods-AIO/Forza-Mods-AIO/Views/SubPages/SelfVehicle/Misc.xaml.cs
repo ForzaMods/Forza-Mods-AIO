@@ -133,11 +133,17 @@ public partial class Misc
                 MainToggleSwitch.IsOn = ViewModel.TrailblazerTimeScaleEnabled;
                 break;
             }
+            case 8:
+            {           
+                MainValueBox.Value = ViewModel.SpeedZoneMultiplierValue;
+                MainToggleSwitch.IsOn = ViewModel.SpeedZoneMultiplierEnabled;
+                break;
+            }
         }
 
         MainValueBox.Minimum = comboBox.SelectedIndex switch
         { 
-            0 or 1 or 2 or 3 or 4 or 6 or 7 => 0,
+            0 or 1 or 2 or 3 or 4 or 6 or 7 or 8 => 0,
             5 => int.MinValue,
             _ => throw new IndexOutOfRangeException()
         };
@@ -145,14 +151,14 @@ public partial class Misc
         MainValueBox.Maximum = comboBox.SelectedIndex switch
         { 
             0 or 1 or 2 or 4 or 5 => int.MaxValue,
-            3 => 10,
+            3 or 8 => 10,
             6 or 7 => 1,
             _ => throw new IndexOutOfRangeException()
         };
 
         MainValueBox.Interval = comboBox.SelectedIndex switch
         { 
-            0 or 1 or 2 or 3 or 4 or 5 => 1,
+            0 or 1 or 2 or 3 or 4 or 5 or 8 => 1,
             6 or 7 => 0.1,
             _ => throw new IndexOutOfRangeException()
         };
@@ -221,6 +227,13 @@ public partial class Misc
                 GetInstance().WriteMemory(MiscCheatsFh5.TrailblazerTimeScaleDetourAddress + 0x23, ViewModel.TrailblazerTimeScaleValue);
                 break;
             }
+            case 8:
+            {           
+                ViewModel.SpeedZoneMultiplierValue = Convert.ToSingle(e.NewValue);
+                if (MiscCheatsFh5.SpeedZoneMultiplierDetourAddress == 0) return;
+                GetInstance().WriteMemory(MiscCheatsFh5.SpeedZoneMultiplierDetourAddress + 0x20, ViewModel.SpeedZoneMultiplierValue);
+                break;
+            }
         }
     }
     
@@ -272,6 +285,11 @@ public partial class Misc
             case 7:
             {
                 await TrailblazerTimeScale(toggleSwitch.IsOn);
+                break;
+            }
+            case 8:
+            {
+                await SpeedZoneMultiplier(toggleSwitch.IsOn);
                 break;
             }
         }
@@ -380,6 +398,19 @@ public partial class Misc
         GetInstance().WriteMemory(MiscCheatsFh5.TrailblazerTimeScaleDetourAddress + 0x22, toggled ? (byte)1 : (byte)0);
         GetInstance().WriteMemory(MiscCheatsFh5.TrailblazerTimeScaleDetourAddress + 0x23, Convert.ToSingle(MainValueBox.Value));
         ViewModel.TrailblazerTimeScaleEnabled = toggled;
+    }
+
+    private async Task SpeedZoneMultiplier(bool toggled)
+    {
+        if (MiscCheatsFh5.SpeedZoneMultiplierDetourAddress == 0)
+        {
+            await MiscCheatsFh5.CheatSpeedZoneMultiplier();
+        }
+        
+        if (MiscCheatsFh5.SpeedZoneMultiplierDetourAddress == 0) return;
+        GetInstance().WriteMemory(MiscCheatsFh5.SpeedZoneMultiplierDetourAddress + 0x1F, toggled ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(MiscCheatsFh5.SpeedZoneMultiplierDetourAddress + 0x20, Convert.ToSingle(MainValueBox.Value));
+        ViewModel.SpeedZoneMultiplierEnabled = toggled;
     }
 
     private async void UnbreakableSkillScoreSwitch_OnToggled(object sender, RoutedEventArgs e)

@@ -85,6 +85,9 @@
                     <controls:StatusComboboxItem Content="{DynamicResource TrailblazerTimeScale}"
                                                  IsOn="{Binding ViewModel.TrailblazerTimeScaleEnabled}"/>
                     
+                    <controls:StatusComboboxItem Content="{DynamicResource SpeedZoneMultiplier}"
+                                                 IsOn="{Binding ViewModel.SpeedZoneMultiplierEnabled}"/>
+                    
                 </ComboBox>
                 
                 <mah:NumericUpDown x:Name="MainValueBox" 

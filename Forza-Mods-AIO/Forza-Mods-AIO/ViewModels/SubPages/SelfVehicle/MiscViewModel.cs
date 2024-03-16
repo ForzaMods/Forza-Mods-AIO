@@ -35,6 +35,9 @@ public partial class MiscViewModel : ObservableObject
     private bool _trailblazerTimeScaleEnabled;
     
     [ObservableProperty]
+    private bool _speedZoneMultiplierEnabled;
+    
+    [ObservableProperty]
     private float _spinPrizeScaleValue;
     
     [ObservableProperty]
@@ -57,4 +60,7 @@ public partial class MiscViewModel : ObservableObject
     
     [ObservableProperty]
     private float _trailblazerTimeScaleValue = 0.5f;
+    
+    [ObservableProperty]
+    private float _speedZoneMultiplierValue = 5;
 }
