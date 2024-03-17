@@ -58,8 +58,7 @@
                        Margin="5"
                        Content="{DynamicResource Limit}"/>
                 
-                <mah:ToggleSwitch x:Name="VelocitySwitch" 
-                                  Grid.Column="4"
+                <mah:ToggleSwitch Grid.Column="4"
                                   VerticalAlignment="Center"
                                   MinWidth="0"
                                   FontSize="12"

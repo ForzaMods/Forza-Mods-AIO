@@ -6,19 +6,23 @@ public class CarCheats : CheatsUtilities, ICheatsBase
 {
     private const int LocalPlayerOffset = 0x223;
 
-    public UIntPtr LocalPlayerHookAddress, LocalPlayerHookDetourAddress;
-    public UIntPtr AccelAddress, AccelDetourAddress;
-    public UIntPtr GravityAddress, GravityDetourAddress;
-    public UIntPtr WaypointAddress, WaypointDetourAddress;
+    private UIntPtr _localPlayerHookAddress;
+    public UIntPtr LocalPlayerHookDetourAddress;
+    private UIntPtr _accelAddress;
+    public UIntPtr AccelDetourAddress;
+    private UIntPtr _gravityAddress;
+    public UIntPtr GravityDetourAddress;
+    private UIntPtr _waypointAddress;
+    public UIntPtr WaypointDetourAddress;
 
     public async Task CheatLocalPlayer()
     {
-        LocalPlayerHookAddress = 0;
+        _localPlayerHookAddress = 0;
         LocalPlayerHookDetourAddress = 0;
 
         const string sig = "F3 0F ? ? ? 49 8B ? 49 8B ? 0F 28";
-        LocalPlayerHookAddress = await SmartAobScan(sig);
-        if (LocalPlayerHookAddress > 0)
+        _localPlayerHookAddress = await SmartAobScan(sig);
+        if (_localPlayerHookAddress > 0)
         {
             if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -61,7 +65,7 @@ public class CarCheats : CheatsUtilities, ICheatsBase
                 0x20, 0x48, 0x83, 0xC4, 0x30, 0x5E, 0x58, 0xF3, 0x0F, 0x10, 0x4F, 0x24, 0x48, 0x89, 0x3D, 0x23, 0x00,
                 0x00, 0x00
             };
-            LocalPlayerHookDetourAddress = GetInstance().CreateDetour(LocalPlayerHookAddress, asm, 5);
+            LocalPlayerHookDetourAddress = GetInstance().CreateDetour(_localPlayerHookAddress, asm, 5);
             return;
         }
         
@@ -70,12 +74,12 @@ public class CarCheats : CheatsUtilities, ICheatsBase
 
     public async Task CheatAccel()
     {
-        AccelAddress = 0;
+        _accelAddress = 0;
         AccelDetourAddress = 0;
 
         const string sig = "F3 0F ? ? ? 41 0F ? ? 0F C6 DB ? 41 0F";
-        AccelAddress = await SmartAobScan(sig);
-        if (AccelAddress > 0)
+        _accelAddress = await SmartAobScan(sig);
+        if (_accelAddress > 0)
         {
             if (LocalPlayerHookDetourAddress == 0)
             {
@@ -95,7 +99,7 @@ public class CarCheats : CheatsUtilities, ICheatsBase
                 localPlayerAddr[5], localPlayerAddr[6], localPlayerAddr[7], 0x48, 0x39, 0x28, 0x75, 0x10, 0xF3, 0x0F,
                 0x11, 0x1D, 0x13, 0x00, 0x00, 0x00, 0xF3, 0x0F, 0x10, 0x1D, 0x07, 0x00, 0x00, 0x00, 0x58
             };
-            AccelDetourAddress = GetInstance().CreateDetour(AccelAddress, asm, 5);
+            AccelDetourAddress = GetInstance().CreateDetour(_accelAddress, asm, 5);
             return;
         }
         
@@ -104,12 +108,12 @@ public class CarCheats : CheatsUtilities, ICheatsBase
     
     public async Task CheatGravity()
     {
-        GravityAddress = 0;
+        _gravityAddress = 0;
         GravityDetourAddress = 0;
 
         const string sig = "F3 0F ? ? ? F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? 45 84 ? 74";
-        GravityAddress = await SmartAobScan(sig);
-        if (GravityAddress > 0)
+        _gravityAddress = await SmartAobScan(sig);
+        if (_gravityAddress > 0)
         {
             if (LocalPlayerHookDetourAddress == 0)
             {
@@ -130,7 +134,7 @@ public class CarCheats : CheatsUtilities, ICheatsBase
                 0x48, 0x89, 0x0D, 0x1B, 0x00, 0x00, 0x00, 0x59, 0xF3, 0x0F, 0x59, 0x0D, 0x0E, 0x00, 0x00, 0x00, 0xEB,
                 0x05, 0xF3, 0x0F, 0x59, 0x4B, 0x08, 0x58
             };
-            GravityDetourAddress = GetInstance().CreateDetour(GravityAddress, asm, 5);
+            GravityDetourAddress = GetInstance().CreateDetour(_gravityAddress, asm, 5);
             return;
         }
         
@@ -139,12 +143,12 @@ public class CarCheats : CheatsUtilities, ICheatsBase
 
     public async Task CheatWaypoint()
     {
-        WaypointAddress = 0;
+        _waypointAddress = 0;
         WaypointDetourAddress = 0;
 
         const string sig = "0F 10 ? ? ? ? ? 0F 28 ? 0F C2 ? 00 0F 50";
-        WaypointAddress = await SmartAobScan(sig);
-        if (WaypointAddress > 0)
+        _waypointAddress = await SmartAobScan(sig);
+        if (_waypointAddress > 0)
         {
             if (LocalPlayerHookDetourAddress == 0)
             {
@@ -165,7 +169,7 @@ public class CarCheats : CheatsUtilities, ICheatsBase
                 0x85, 0xC0, 0x74, 0x09, 0x0F, 0x11, 0x50, 0x50, 0x44, 0x0F, 0x11, 0x78, 0x20, 0x58
             };
             
-            WaypointDetourAddress = GetInstance().CreateDetour(WaypointAddress, asm, 7);
+            WaypointDetourAddress = GetInstance().CreateDetour(_waypointAddress, asm, 7);
             return;
         }
         
@@ -178,24 +182,24 @@ public class CarCheats : CheatsUtilities, ICheatsBase
         
         if (AccelDetourAddress > 0)
         {
-            memInstance.WriteArrayMemory(AccelAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x5D, 0x0C });
+            memInstance.WriteArrayMemory(_accelAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x5D, 0x0C });
             Free(AccelDetourAddress);
         }
 
         if (GravityDetourAddress > 0)
         {
-            memInstance.WriteArrayMemory(GravityAddress, new byte[] { 0xF3, 0x0F, 0x59, 0x4B, 0x08 });
+            memInstance.WriteArrayMemory(_gravityAddress, new byte[] { 0xF3, 0x0F, 0x59, 0x4B, 0x08 });
             Free(GravityDetourAddress);
         }
 
-        if (WaypointAddress > 0)
+        if (_waypointAddress > 0)
         {
-            memInstance.WriteArrayMemory(WaypointAddress, new byte[] { 0x0F, 0x10, 0x97, 0x30, 0x02, 0x00, 0x00 });
+            memInstance.WriteArrayMemory(_waypointAddress, new byte[] { 0x0F, 0x10, 0x97, 0x30, 0x02, 0x00, 0x00 });
             Free(WaypointDetourAddress);
         }
         
         if (LocalPlayerHookDetourAddress <= 0) return;
-        memInstance.WriteArrayMemory(LocalPlayerHookAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x4F, 0x24 });
+        memInstance.WriteArrayMemory(_localPlayerHookAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x4F, 0x24 });
         Free(LocalPlayerHookDetourAddress);
     }
 

@@ -4,8 +4,9 @@ namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
 
 public class CameraCheats : CheatsUtilities, ICheatsBase
 {
-    public UIntPtr CameraAddress, CameraDetourAddress;
-    
+    private UIntPtr _cameraAddress;
+    public UIntPtr CameraDetourAddress;
+
     public UIntPtr ChaseAddress;
     public UIntPtr ChaseFarAddress;
     public UIntPtr DriverAddress;
@@ -76,13 +77,13 @@ public class CameraCheats : CheatsUtilities, ICheatsBase
 
     public async Task CheatCamera()
     {
-        CameraAddress = 0;
+        _cameraAddress = 0;
         CameraDetourAddress = 0;
 
         const string sig = "0F 10 ? B0 ? 0F 28 ? ? ? F3 0F";
-        CameraAddress = await SmartAobScan(sig);
+        _cameraAddress = await SmartAobScan(sig);
 
-        if (CameraAddress > 0)
+        if (_cameraAddress > 0)
         {
             if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -100,7 +101,7 @@ public class CameraCheats : CheatsUtilities, ICheatsBase
                 0x0F, 0x10, 0x05, 0x0F, 0x00, 0x00, 0x00, 0xEB, 0x07, 0x0F, 0x10, 0x05, 0x0B, 0x00, 0x00, 0x00
             };
 
-            CameraDetourAddress = GetInstance().CreateDetour(CameraAddress, asm, 5);
+            CameraDetourAddress = GetInstance().CreateDetour(_cameraAddress, asm, 5);
             return;
         }
         
@@ -111,9 +112,9 @@ public class CameraCheats : CheatsUtilities, ICheatsBase
     {
         var mem = GetInstance();
 
-        if (CameraAddress > 0)
+        if (_cameraAddress > 0)
         {
-            mem.WriteArrayMemory(CameraAddress, new byte[] { 0x0F, 0x10, 0x01, 0xB0, 0x01 });
+            mem.WriteArrayMemory(_cameraAddress, new byte[] { 0x0F, 0x10, 0x01, 0xB0, 0x01 });
             Free(CameraDetourAddress);
         }
     }

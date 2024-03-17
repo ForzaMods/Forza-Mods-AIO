@@ -164,8 +164,7 @@
                     VerticalAlignment="Bottom"
                     Margin="10">
 
-            <mah:ToggleSwitch x:Name="OverlaySwitch" 
-                              Height="55"
+            <mah:ToggleSwitch Height="55"
                               Header="{DynamicResource Overlay}"
                               mah:HeaderedControlHelper.HeaderHorizontalContentAlignment="Right"
                               MinWidth="0"

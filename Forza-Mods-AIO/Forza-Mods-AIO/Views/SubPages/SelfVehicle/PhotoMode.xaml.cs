@@ -2,7 +2,7 @@
 
 namespace Forza_Mods_AIO.Views.SubPages.SelfVehicle;
 
-public partial class PhotoMode : Page
+public partial class PhotoMode
 {
     public PhotoMode()
     {

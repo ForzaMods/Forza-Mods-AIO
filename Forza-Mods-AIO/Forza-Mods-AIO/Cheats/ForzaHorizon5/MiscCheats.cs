@@ -6,28 +6,40 @@ namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
 
 public class MiscCheats : CheatsUtilities, ICheatsBase
 {
-    public UIntPtr NameAddress, NameDetourAddress;
-    public UIntPtr SellFactorAddress, SellFactorDetourAddress;
-    public UIntPtr PrizeScaleAddress, PrizeScaleDetourAddress;
-    public UIntPtr SkillScoreMultiplierAddress, SkillScoreMultiplierDetourAddress;
-    public UIntPtr DriftScoreMultiplierAddress, DriftScoreMultiplierDetourAddress;
-    public UIntPtr SkillTreeWideEditAddress, SkillTreeWideEditDetourAddress;
-    public UIntPtr SkillTreePerksCostAddress, SkillTreePerksCostDetourAddress;
-    public UIntPtr MissionTimeScaleAddress, MissionTimeScaleDetourAddress;
-    public UIntPtr TrailblazerTimeScaleAddress, TrailblazerTimeScaleDetourAddress;
-    public UIntPtr SpeedZoneMultiplierAddress, SpeedZoneMultiplierDetourAddress;
-    public UIntPtr UnbreakableSkillScoreAddress, UnbreakableSkillScoreDetourAddress;
-    public UIntPtr RemoveBuildCapAddress, RemoveBuildCapDetourAddress;
+    private UIntPtr _nameAddress;
+    public UIntPtr NameDetourAddress;
+    private UIntPtr _sellFactorAddress;
+    public UIntPtr SellFactorDetourAddress;
+    private UIntPtr _prizeScaleAddress;
+    public UIntPtr PrizeScaleDetourAddress;
+    private UIntPtr _skillScoreMultiplierAddress;
+    public UIntPtr SkillScoreMultiplierDetourAddress;
+    private UIntPtr _driftScoreMultiplierAddress;
+    public UIntPtr DriftScoreMultiplierDetourAddress;
+    private UIntPtr _skillTreeWideEditAddress;
+    public UIntPtr SkillTreeWideEditDetourAddress;
+    private UIntPtr _skillTreePerksCostAddress;
+    public UIntPtr SkillTreePerksCostDetourAddress;
+    private UIntPtr _missionTimeScaleAddress;
+    public UIntPtr MissionTimeScaleDetourAddress;
+    private UIntPtr _trailblazerTimeScaleAddress;
+    public UIntPtr TrailblazerTimeScaleDetourAddress;
+    private UIntPtr _speedZoneMultiplierAddress;
+    public UIntPtr SpeedZoneMultiplierDetourAddress;
+    private UIntPtr _unbreakableSkillScoreAddress;
+    public UIntPtr UnbreakableSkillScoreDetourAddress;
+    private UIntPtr _removeBuildCapAddress;
+    public UIntPtr RemoveBuildCapDetourAddress;
 
     public async Task CheatName()
     {
-        NameAddress = 0;
+        _nameAddress = 0;
         NameDetourAddress = 0;
 
         var urtcbaseHandle = Imports.GetModuleHandle("ucrtbase.dll");
-        NameAddress = Imports.GetProcAddress(urtcbaseHandle, "wcsncpy_s") + 0x98;
+        _nameAddress = Imports.GetProcAddress(urtcbaseHandle, "wcsncpy_s") + 0x98;
         
-        if (NameAddress > 0x98)
+        if (_nameAddress > 0x98)
         {
             var namePtr = await CheatNamePtr();
             if (namePtr == 0) return;
@@ -44,7 +56,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
                 0xCE, 0x48, 0x8D, 0x0D, 0x0F, 0x00, 0x00, 0x00, 0x48, 0x01, 0xF1, 0x8B, 0x01, 0x59, 0x48, 0x8B, 0xF7
             };
 
-            NameDetourAddress = GetInstance().CreateDetour(NameAddress, asm, 7);
+            NameDetourAddress = GetInstance().CreateDetour(_nameAddress, asm, 7);
             return;
         }
         
@@ -72,13 +84,13 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
 
     public async Task CheatPrizeScale()
     {
-        PrizeScaleAddress = 0;
+        _prizeScaleAddress = 0;
         PrizeScaleDetourAddress = 0;
 
         const string sig = "F3 0F ? ? ? 33 D2 48 8B ? ? E8 ? ? ? ? 90 48 85 ? 74 ? 8B C5";
-        PrizeScaleAddress = await SmartAobScan(sig);
+        _prizeScaleAddress = await SmartAobScan(sig);
 
-        if (PrizeScaleAddress > 0)
+        if (_prizeScaleAddress > 0)
         {
             if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -93,7 +105,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
                 0x35, 0x06, 0x00, 0x00, 0x00
             };
 
-            PrizeScaleDetourAddress = GetInstance().CreateDetour(PrizeScaleAddress, asm, 5);
+            PrizeScaleDetourAddress = GetInstance().CreateDetour(_prizeScaleAddress, asm, 5);
             return;
         }
         
@@ -102,13 +114,13 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
 
     public async Task CheatSellFactor()
     {
-        SellFactorAddress = 0;
+        _sellFactorAddress = 0;
         SellFactorDetourAddress = 0;
 
         const string sig = "44 8B ? ? ? ? ? 33 D2 48 8B ? ? ? ? ? E8 ? ? ? ? 90";
-        SellFactorAddress = await SmartAobScan(sig);
+        _sellFactorAddress = await SmartAobScan(sig);
 
-        if (SellFactorAddress > 0)
+        if (_sellFactorAddress > 0)
         {
             if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -123,7 +135,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
                 0x8B, 0x35, 0x06, 0x00, 0x00, 0x00
             };
 
-            SellFactorDetourAddress = GetInstance().CreateDetour(SellFactorAddress, asm, 7);
+            SellFactorDetourAddress = GetInstance().CreateDetour(_sellFactorAddress, asm, 7);
             return;
         }
         
@@ -132,13 +144,13 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
 
     public async Task CheatSkillScoreMultiplier()
     {
-        SkillScoreMultiplierAddress = 0;
+        _skillScoreMultiplierAddress = 0;
         SkillScoreMultiplierDetourAddress = 0;
         
         const string sig = "8B 78 ? 48 8B ? ? 48 85 ? 74 ? 41 8B";
-        SkillScoreMultiplierAddress = await SmartAobScan(sig);
+        _skillScoreMultiplierAddress = await SmartAobScan(sig);
 
-        if (SkillScoreMultiplierAddress > 0)
+        if (_skillScoreMultiplierAddress > 0)
         {
             if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -153,7 +165,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
                 0xAF, 0x3D, 0x06, 0x00, 0x00, 0x00
             };
 
-            SkillScoreMultiplierDetourAddress = GetInstance().CreateDetour(SkillScoreMultiplierAddress, asm, 7);
+            SkillScoreMultiplierDetourAddress = GetInstance().CreateDetour(_skillScoreMultiplierAddress, asm, 7);
             return;
         }
         
@@ -162,13 +174,13 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
     
     public async Task CheatDriftScoreMultiplier()
     {
-        DriftScoreMultiplierAddress = 0;
+        _driftScoreMultiplierAddress = 0;
         DriftScoreMultiplierDetourAddress = 0;
         
         const string sig = "E8 ? ? ? ? F3 0F ? ? 0F 28 ? ? ? 0F 28";
-        DriftScoreMultiplierAddress = await SmartAobScan(sig) + 5;
+        _driftScoreMultiplierAddress = await SmartAobScan(sig) + 5;
 
-        if (DriftScoreMultiplierAddress > 5)
+        if (_driftScoreMultiplierAddress > 5)
         {
             if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -183,7 +195,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
                 0xF3, 0x0F, 0x58, 0xF7, 0x0F, 0x28, 0x7C, 0x24, 0x20
             };
 
-            DriftScoreMultiplierDetourAddress = GetInstance().CreateDetour(DriftScoreMultiplierAddress, asm, 9);
+            DriftScoreMultiplierDetourAddress = GetInstance().CreateDetour(_driftScoreMultiplierAddress, asm, 9);
             return;
         }
         
@@ -192,13 +204,13 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
     
     public async Task CheatSkillTreeWideEdit()
     {
-        SkillTreeWideEditAddress = 0;
+        _skillTreeWideEditAddress = 0;
         SkillTreeWideEditDetourAddress = 0;
         
         const string sig = "40 ? 48 83 EC ? 48 8B ? ? 33 D2 0F 29";
-        SkillTreeWideEditAddress = await SmartAobScan(sig) + 32;
+        _skillTreeWideEditAddress = await SmartAobScan(sig) + 32;
 
-        if (SkillTreeWideEditAddress > 32)
+        if (_skillTreeWideEditAddress > 32)
         {
             if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -213,7 +225,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
                 0x35, 0x06, 0x00, 0x00, 0x00
             };
 
-            SkillTreeWideEditDetourAddress = GetInstance().CreateDetour(SkillTreeWideEditAddress, asm, 5);
+            SkillTreeWideEditDetourAddress = GetInstance().CreateDetour(_skillTreeWideEditAddress, asm, 5);
             return;
         }
         
@@ -222,13 +234,13 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
     
     public async Task CheatSkillTreePerksCost()
     {
-        SkillTreePerksCostAddress = 0;
+        _skillTreePerksCostAddress = 0;
         SkillTreePerksCostDetourAddress = 0;
         
         const string sig = "48 89 5C 24 08 57 48 83 EC 20 48 8B 79 18 33 D2 48 8B 4F 30";
-        SkillTreePerksCostAddress = await SmartAobScan(sig) + 29;
+        _skillTreePerksCostAddress = await SmartAobScan(sig) + 29;
 
-        if (SkillTreePerksCostAddress > 29)
+        if (_skillTreePerksCostAddress > 29)
         {
             if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -243,7 +255,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
                 0x06, 0x00, 0x00, 0x00
             };
 
-            SkillTreePerksCostDetourAddress = GetInstance().CreateDetour(SkillTreePerksCostAddress, asm, 5);
+            SkillTreePerksCostDetourAddress = GetInstance().CreateDetour(_skillTreePerksCostAddress, asm, 5);
             return;
         }
         
@@ -252,13 +264,13 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
     
     public async Task CheatMissionTimeScale()
     {
-        MissionTimeScaleAddress = 0;
+        _missionTimeScaleAddress = 0;
         MissionTimeScaleDetourAddress = 0;
         
         const string sig = "F3 0F ? ? F3 0F ? ? ? ? ? ? 0F 2F ? 0F 87 ? ? ? ? C7 ? ? ? ? ? 00 00 00 00";
-        MissionTimeScaleAddress = await SmartAobScan(sig);
+        _missionTimeScaleAddress = await SmartAobScan(sig);
 
-        if (MissionTimeScaleAddress > 0)
+        if (_missionTimeScaleAddress > 0)
         {
             if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -273,7 +285,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
                 0xF3, 0x0F, 0x5C, 0xC7, 0xF3, 0x0F, 0x11, 0x87, 0x0C, 0x04, 0x00, 0x00
             };
 
-            MissionTimeScaleDetourAddress = GetInstance().CreateDetour(MissionTimeScaleAddress, asm, 12);
+            MissionTimeScaleDetourAddress = GetInstance().CreateDetour(_missionTimeScaleAddress, asm, 12);
             return;
         }
         
@@ -282,13 +294,13 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
     
     public async Task CheatSpeedZoneMultiplier()
     {
-        SpeedZoneMultiplierAddress = 0;
+        _speedZoneMultiplierAddress = 0;
         SpeedZoneMultiplierDetourAddress = 0;
         
         const string sig = "F3 41 ? ? ? ? ? ? ? 0F 28 ? 0F 28 ? ? ? 48 83 C4";
-        SpeedZoneMultiplierAddress = await SmartAobScan(sig);
+        _speedZoneMultiplierAddress = await SmartAobScan(sig);
 
-        if (SpeedZoneMultiplierAddress > 0)
+        if (_speedZoneMultiplierAddress > 0)
         {
             if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -303,7 +315,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
                 0xF3, 0x41, 0x0F, 0x5E, 0xB7, 0xE8, 0x00, 0x00, 0x00
             };
 
-            SpeedZoneMultiplierDetourAddress = GetInstance().CreateDetour(SpeedZoneMultiplierAddress, asm, 9);
+            SpeedZoneMultiplierDetourAddress = GetInstance().CreateDetour(_speedZoneMultiplierAddress, asm, 9);
             return;
         }
         
@@ -312,13 +324,13 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
     
     public async Task CheatTrailblazerTimeScale()
     {
-        TrailblazerTimeScaleAddress = 0;
+        _trailblazerTimeScaleAddress = 0;
         TrailblazerTimeScaleDetourAddress = 0;
         
         const string sig = "F3 0F ? ? F3 0F ? ? ? ? ? ? 4C 8D ? ? ? ? ? F3 0F ? ? 33 D2";
-        TrailblazerTimeScaleAddress = await SmartAobScan(sig);
+        _trailblazerTimeScaleAddress = await SmartAobScan(sig);
 
-        if (TrailblazerTimeScaleAddress > 0)
+        if (_trailblazerTimeScaleAddress > 0)
         {
             if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -333,7 +345,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
                 0xF3, 0x0F, 0x58, 0xF8, 0xF3, 0x0F, 0x11, 0xBF, 0xAC, 0x03, 0x00, 0x00
             };
 
-            TrailblazerTimeScaleDetourAddress = GetInstance().CreateDetour(TrailblazerTimeScaleAddress, asm, 12);
+            TrailblazerTimeScaleDetourAddress = GetInstance().CreateDetour(_trailblazerTimeScaleAddress, asm, 12);
             return;
         }
         
@@ -342,13 +354,13 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
     
     public async Task CheatUnbreakableSkillScore()
     {
-        UnbreakableSkillScoreAddress = 0;
+        _unbreakableSkillScoreAddress = 0;
         UnbreakableSkillScoreDetourAddress = 0;
         
         const string sig = "0F B6 ? 40 38 ? ? ? ? ? 74 ? 84 C0";
-        UnbreakableSkillScoreAddress = await SmartAobScan(sig);
+        _unbreakableSkillScoreAddress = await SmartAobScan(sig);
 
-        if (UnbreakableSkillScoreAddress > 0)
+        if (_unbreakableSkillScoreAddress > 0)
         {
             if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -363,7 +375,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
                 0x74, 0x02, 0x00, 0x00
             };
 
-            UnbreakableSkillScoreDetourAddress = GetInstance().CreateDetour(UnbreakableSkillScoreAddress, asm, 10);
+            UnbreakableSkillScoreDetourAddress = GetInstance().CreateDetour(_unbreakableSkillScoreAddress, asm, 10);
             return;
         }
         
@@ -373,13 +385,13 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
     
     public async Task CheatRemoveBuildCap()
     {
-        RemoveBuildCapAddress = 0;
+        _removeBuildCapAddress = 0;
         RemoveBuildCapDetourAddress = 0;
         
         const string sig = "E8 ? ? ? ? F3 0F ? ? ? 48 8B ? ? ? 48 8B";
-        RemoveBuildCapAddress = await SmartAobScan(sig) + 5;
+        _removeBuildCapAddress = await SmartAobScan(sig) + 5;
 
-        if (RemoveBuildCapAddress > 5)
+        if (_removeBuildCapAddress > 5)
         {
             if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -393,7 +405,7 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
                 0x80, 0x3D, 0x0F, 0x00, 0x00, 0x00, 0x01, 0x75, 0x03, 0x0F, 0x57, 0xC0, 0xF3, 0x0F, 0x11, 0x43, 0x44
             };
 
-            RemoveBuildCapDetourAddress = GetInstance().CreateDetour(RemoveBuildCapAddress, asm, 5);
+            RemoveBuildCapDetourAddress = GetInstance().CreateDetour(_removeBuildCapAddress, asm, 5);
             return;
         }
         
@@ -404,74 +416,75 @@ public class MiscCheats : CheatsUtilities, ICheatsBase
     {
         var mem = GetInstance();
         
-        if (NameAddress > 0)
+        if (_nameAddress > 0)
         {
-            mem.WriteArrayMemory(NameAddress, new byte[] { 0x0F, 0xB7, 0x04, 0x13, 0x48, 0x8B, 0xF7 });
+            mem.WriteArrayMemory(_nameAddress, new byte[] { 0x0F, 0xB7, 0x04, 0x13, 0x48, 0x8B, 0xF7 });
             Free(NameDetourAddress);
         }
 
-        if (PrizeScaleAddress > 0)
+        if (_prizeScaleAddress > 0)
         {
-            mem.WriteArrayMemory(PrizeScaleAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x73, 0x10 });
+            mem.WriteArrayMemory(_prizeScaleAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x73, 0x10 });
             Free(PrizeScaleDetourAddress);
         }
 
-        if (SellFactorAddress > 0)
+        if (_sellFactorAddress > 0)
         {
-            mem.WriteArrayMemory(SellFactorAddress, new byte[] { 0x44, 0x8B, 0xB3, 0x80, 0x00, 0x00, 0x00 });
+            mem.WriteArrayMemory(_sellFactorAddress, new byte[] { 0x44, 0x8B, 0xB3, 0x80, 0x00, 0x00, 0x00 });
             Free(SellFactorDetourAddress);
         }
 
-        if (SkillScoreMultiplierAddress > 0)
+        if (_skillScoreMultiplierAddress > 0)
         {
-            mem.WriteArrayMemory(SkillScoreMultiplierAddress, new byte[] { 0x8B, 0x78, 0x08, 0x48, 0x8B, 0x4D, 0x60 });
+            mem.WriteArrayMemory(_skillScoreMultiplierAddress, new byte[] { 0x8B, 0x78, 0x08, 0x48, 0x8B, 0x4D, 0x60 });
             Free(SkillScoreMultiplierDetourAddress);
         }
 
-        if (DriftScoreMultiplierAddress > 5)
+        if (_driftScoreMultiplierAddress > 5)
         {
-            mem.WriteArrayMemory(DriftScoreMultiplierAddress, new byte[] { 0xF3, 0x0F, 0x58, 0xF7, 0x0F, 0x28, 0x7C, 0x24, 0x20 });
+            mem.WriteArrayMemory(_driftScoreMultiplierAddress, new byte[] { 0xF3, 0x0F, 0x58, 0xF7, 0x0F, 0x28, 0x7C, 0x24, 0x20 });
             Free(DriftScoreMultiplierDetourAddress);
         }
 
-        if (SkillTreeWideEditAddress > 32)
+        if (_skillTreeWideEditAddress > 32)
         {
-            mem.WriteArrayMemory(SkillTreeWideEditAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x73, 0x48 });
+            mem.WriteArrayMemory(_skillTreeWideEditAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x73, 0x48 });
             Free(SkillTreeWideEditDetourAddress);
         }
 
-        if (SkillTreePerksCostAddress > 32)
+        if (_skillTreePerksCostAddress > 32)
         {
-            mem.WriteArrayMemory(SkillTreePerksCostAddress, new byte[] { 0x33, 0xD2, 0x8B, 0x5F, 0x28 });
+            // ReSharper disable once UseUtf8StringLiteral
+            mem.WriteArrayMemory(_skillTreePerksCostAddress, new byte[] { 0x33, 0xD2, 0x8B, 0x5F, 0x28 });
             Free(SkillTreePerksCostDetourAddress);
         }
 
-        if (MissionTimeScaleAddress > 0)
+        if (_missionTimeScaleAddress > 0)
         {
-            mem.WriteArrayMemory(MissionTimeScaleAddress, new byte[] { 0xF3, 0x0F, 0x5C, 0xC7, 0xF3, 0x0F, 0x11, 0x87, 0x0C, 0x04, 0x00, 0x00 });
+            mem.WriteArrayMemory(_missionTimeScaleAddress, new byte[] { 0xF3, 0x0F, 0x5C, 0xC7, 0xF3, 0x0F, 0x11, 0x87, 0x0C, 0x04, 0x00, 0x00 });
             Free(MissionTimeScaleDetourAddress);
         }
 
-        if (TrailblazerTimeScaleAddress > 0)
+        if (_trailblazerTimeScaleAddress > 0)
         {
-            mem.WriteArrayMemory(TrailblazerTimeScaleAddress, new byte[] { 0xF3, 0x0F, 0x58, 0xF8, 0xF3, 0x0F, 0x11, 0xBF, 0xAC, 0x03, 0x00, 0x00 });
+            mem.WriteArrayMemory(_trailblazerTimeScaleAddress, new byte[] { 0xF3, 0x0F, 0x58, 0xF8, 0xF3, 0x0F, 0x11, 0xBF, 0xAC, 0x03, 0x00, 0x00 });
             Free(TrailblazerTimeScaleDetourAddress);
         }
 
-        if (SpeedZoneMultiplierAddress > 0)
+        if (_speedZoneMultiplierAddress > 0)
         {
-            mem.WriteArrayMemory(SpeedZoneMultiplierAddress, new byte[] { 0xF3, 0x41, 0x0F, 0x5E, 0xB7, 0xE8, 0x00, 0x00, 0x00 });
+            mem.WriteArrayMemory(_speedZoneMultiplierAddress, new byte[] { 0xF3, 0x41, 0x0F, 0x5E, 0xB7, 0xE8, 0x00, 0x00, 0x00 });
             Free(SpeedZoneMultiplierDetourAddress);
         }
 
-        if (UnbreakableSkillScoreAddress > 0)
+        if (_unbreakableSkillScoreAddress > 0)
         {
-            mem.WriteArrayMemory(UnbreakableSkillScoreAddress, new byte[] { 0x0F, 0xB6, 0xF0, 0x40, 0x38, 0xAF, 0x74, 0x02, 0x00, 0x00 });
+            mem.WriteArrayMemory(_unbreakableSkillScoreAddress, new byte[] { 0x0F, 0xB6, 0xF0, 0x40, 0x38, 0xAF, 0x74, 0x02, 0x00, 0x00 });
             Free(UnbreakableSkillScoreDetourAddress);
         }
 
-        if (RemoveBuildCapAddress <= 5) return;
-        mem.WriteArrayMemory(RemoveBuildCapAddress, new byte[] { 0xF3, 0x0F, 0x11, 0x43, 0x44 });
+        if (_removeBuildCapAddress <= 5) return;
+        mem.WriteArrayMemory(_removeBuildCapAddress, new byte[] { 0xF3, 0x0F, 0x11, 0x43, 0x44 });
         Free(RemoveBuildCapDetourAddress);
     }
 

@@ -2,21 +2,26 @@
 
 public class CustomizationCheats : CheatsUtilities, ICheatsBase
 {
-    public UIntPtr PaintAddress, PaintDetourAddress;
-    public UIntPtr HeadlightColourAddress, HeadlightColourDetourAddress;
-    public UIntPtr CleanlinessAddress, CleanlinessDetourAddress;
-    public UIntPtr ForceLodAddress, ForceLodDetourAddress;
-    public UIntPtr BackfireTimeAddress, BackfireTimeDetourAddress;
+    private UIntPtr _paintAddress;
+    public UIntPtr PaintDetourAddress;
+    private UIntPtr _headlightColourAddress;
+    public UIntPtr HeadlightColourDetourAddress;
+    private UIntPtr _cleanlinessAddress;
+    public UIntPtr CleanlinessDetourAddress;
+    private UIntPtr _forceLodAddress;
+    public UIntPtr ForceLodDetourAddress;
+    private UIntPtr _backfireTimeAddress;
+    public UIntPtr BackfireTimeDetourAddress;
 
     public async Task CheatGlowingPaint()
     {
-        PaintAddress = 0;
+        _paintAddress = 0;
         PaintDetourAddress = 0;
 
         const string sig = "0F 11 0A C6 42 F0 01";
-        PaintAddress = await SmartAobScan(sig);
+        _paintAddress = await SmartAobScan(sig);
         
-        if (PaintAddress > 0)
+        if (_paintAddress > 0)
         {
             if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -32,7 +37,7 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
                 0x0F, 0x6F, 0x04, 0x24, 0x48, 0x83, 0xC4, 0x10, 0x0F, 0x11, 0x0A, 0xC6, 0x42, 0xF0, 0x01
             };
 
-            PaintDetourAddress = Resources.Memory.GetInstance().CreateDetour(PaintAddress, asm, 7);
+            PaintDetourAddress = Resources.Memory.GetInstance().CreateDetour(_paintAddress, asm, 7);
             return;
         }
         
@@ -41,13 +46,13 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
 
     public async Task CheatHeadlightColour()
     {
-        HeadlightColourAddress = 0;
+        _headlightColourAddress = 0;
         HeadlightColourDetourAddress = 0;
 
         const string sig = "0F 10 ? ? F3 44 ? ? ? ? ? ? ? 83 7B 48";
-        HeadlightColourAddress = await SmartAobScan(sig);
+        _headlightColourAddress = await SmartAobScan(sig);
         
-        if (HeadlightColourAddress > 0)
+        if (_headlightColourAddress > 0)
         {
             if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -62,7 +67,7 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
                 0x00, 0x00, 0x00, 0xF3, 0x44, 0x0F, 0x10, 0x83, 0x84, 0x00, 0x00, 0x00
             };
 
-            HeadlightColourDetourAddress = Resources.Memory.GetInstance().CreateDetour(HeadlightColourAddress, asm, 13);
+            HeadlightColourDetourAddress = Resources.Memory.GetInstance().CreateDetour(_headlightColourAddress, asm, 13);
             return;
         }
         
@@ -71,13 +76,13 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
 
     public async Task CheatCleanliness()
     {
-        CleanlinessAddress = 0;
+        _cleanlinessAddress = 0;
         CleanlinessDetourAddress = 0;
 
         const string sig = "F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? B9 ? ? ? ? E8";
-        CleanlinessAddress = await SmartAobScan(sig);
+        _cleanlinessAddress = await SmartAobScan(sig);
 
-        if (CleanlinessAddress > 0)
+        if (_cleanlinessAddress > 0)
         {
             if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -93,7 +98,7 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
                 0x00, 0x00, 0x89, 0x88, 0x08, 0x8A, 0x00, 0x00, 0xF3, 0x0F, 0x10, 0x88, 0x0C, 0x8A, 0x00, 0x00
             };
 
-            CleanlinessDetourAddress = Resources.Memory.GetInstance().CreateDetour(CleanlinessAddress, asm, 8);
+            CleanlinessDetourAddress = Resources.Memory.GetInstance().CreateDetour(_cleanlinessAddress, asm, 8);
             return;
         }
         
@@ -102,13 +107,13 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
 
     public async Task CheatForceLod()
     {
-        ForceLodAddress = 0;
+        _forceLodAddress = 0;
         ForceLodDetourAddress = 0;
 
         const string sig = "40 88 ? ? ? ? ? 40 84 ? 0F 85";
-        ForceLodAddress = await SmartAobScan(sig);
+        _forceLodAddress = await SmartAobScan(sig);
 
-        if (ForceLodAddress > 0)
+        if (_forceLodAddress > 0)
         {
             if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -131,7 +136,7 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
                 0xB7, 0x06, 0x01, 0x00, 0x00
             };
 
-            ForceLodDetourAddress = Resources.Memory.GetInstance().CreateDetour(ForceLodAddress, asm, 7);
+            ForceLodDetourAddress = Resources.Memory.GetInstance().CreateDetour(_forceLodAddress, asm, 7);
             return;
         }
         
@@ -156,13 +161,13 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
 
     public async Task CheatBackfireTime()
     {
-        BackfireTimeAddress = 0;
+        _backfireTimeAddress = 0;
         BackfireTimeDetourAddress = 0;
 
         const string sig = "F3 0F ? ? ? ? ? ? E8 ? ? ? ? 0F 28 ? F3 0F ? ? ? ? ? ? 48 8B";
-        BackfireTimeAddress = await SmartAobScan(sig);
+        _backfireTimeAddress = await SmartAobScan(sig);
 
-        if (BackfireTimeAddress > 0)
+        if (_backfireTimeAddress > 0)
         {
             if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
@@ -177,7 +182,7 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
                 0xF3, 0x0F, 0x10, 0x05, 0x0E, 0x00, 0x00, 0x00, 0xF3, 0x0F, 0x10, 0x0D, 0x0A, 0x00, 0x00, 0x00
             };
 
-            BackfireTimeDetourAddress = Resources.Memory.GetInstance().CreateDetour(BackfireTimeAddress, asm, 8); 
+            BackfireTimeDetourAddress = Resources.Memory.GetInstance().CreateDetour(_backfireTimeAddress, asm, 8); 
             return;
         }
         
@@ -188,32 +193,32 @@ public class CustomizationCheats : CheatsUtilities, ICheatsBase
     {
         var mem = Resources.Memory.GetInstance();
         
-        if (PaintAddress > 0)
+        if (_paintAddress > 0)
         {
-            mem.WriteArrayMemory(PaintAddress, new byte[] { 0x0F, 0x11, 0x0A, 0xC6, 0x42, 0xF0, 0x01 });
+            mem.WriteArrayMemory(_paintAddress, new byte[] { 0x0F, 0x11, 0x0A, 0xC6, 0x42, 0xF0, 0x01 });
             Free(PaintDetourAddress);
         }
 
-        if (HeadlightColourAddress > 0)
+        if (_headlightColourAddress > 0)
         {
-            mem.WriteArrayMemory(HeadlightColourAddress, new byte[] { 0x0F, 0x10, 0x7B, 0x50, 0xF3, 0x44, 0x0F, 0x10, 0x83, 0x84, 0x00, 0x00, 0x00 });
+            mem.WriteArrayMemory(_headlightColourAddress, new byte[] { 0x0F, 0x10, 0x7B, 0x50, 0xF3, 0x44, 0x0F, 0x10, 0x83, 0x84, 0x00, 0x00, 0x00 });
             Free(HeadlightColourDetourAddress);
         }
 
-        if (CleanlinessAddress > 0)
+        if (_cleanlinessAddress > 0)
         {
-            mem.WriteArrayMemory(CleanlinessAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x88, 0x0C, 0x8A, 0x00, 0x00 });
+            mem.WriteArrayMemory(_cleanlinessAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x88, 0x0C, 0x8A, 0x00, 0x00 });
             Free(CleanlinessDetourAddress);
         }
 
-        if (ForceLodAddress > 0)
+        if (_forceLodAddress > 0)
         {
-            mem.WriteArrayMemory(ForceLodAddress, new byte[] { 0x40, 0x88, 0xB7, 0x06, 0x01, 0x00, 0x00 });
+            mem.WriteArrayMemory(_forceLodAddress, new byte[] { 0x40, 0x88, 0xB7, 0x06, 0x01, 0x00, 0x00 });
             Free(ForceLodDetourAddress);
         }
 
-        if (BackfireTimeAddress <= 0) return;
-        mem.WriteArrayMemory(BackfireTimeAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x81, 0x7C, 0x3A, 0x00, 0x00 });
+        if (_backfireTimeAddress <= 0) return;
+        mem.WriteArrayMemory(_backfireTimeAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x81, 0x7C, 0x3A, 0x00, 0x00 });
         Free(BackfireTimeDetourAddress);
     }
 

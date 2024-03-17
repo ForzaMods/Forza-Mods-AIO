@@ -18,8 +18,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <mah:ColorPicker x:Name="ColorPicker" 
-                                 Grid.Column="0"
+                <mah:ColorPicker Grid.Column="0"
                                  Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                  BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                                  VerticalAlignment="Center"

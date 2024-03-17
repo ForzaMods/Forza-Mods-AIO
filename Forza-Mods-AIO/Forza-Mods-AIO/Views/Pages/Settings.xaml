@@ -66,8 +66,7 @@
                   mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
                   mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}">
             
-            <ComboBox x:Name="LanguageBox" 
-                      BorderThickness="0"
+            <ComboBox BorderThickness="0"
                       Background="{Binding Theming.DarkerColour, Mode=OneWay}"
                       SelectedIndex="0"
                       Margin="5"

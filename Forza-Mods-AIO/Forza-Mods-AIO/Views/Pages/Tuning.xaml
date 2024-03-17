@@ -86,8 +86,7 @@
 
             <StackPanel Grid.Row="1">
                 
-                <Expander x:Name="TiresExpander" 
-                          Header="{DynamicResource Tires}"
+                <Expander Header="{DynamicResource Tires}"
                           BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
@@ -100,8 +99,7 @@
                            ConverterParameter={x:Type subPages:Tires}, Mode=OneWay}"/>
                 </Expander>
 
-                <Expander x:Name="GearingExpander" 
-                          BorderBrush="{Binding Theming.DarkerColour}"
+                <Expander BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
                           Header="{DynamicResource Gearing}"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
@@ -112,8 +110,7 @@
                     
                 </Expander>
                 
-                <Expander x:Name="AlignmentExpander" 
-                          BorderBrush="{Binding Theming.DarkerColour}"
+                <Expander BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
                           Header="{DynamicResource Alignment}"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
@@ -124,8 +121,7 @@
                     
                 </Expander>
 
-                <Expander x:Name="SpringsExpander" 
-                          BorderBrush="{Binding Theming.DarkerColour}"
+                <Expander BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
                           Header="{DynamicResource Springs}"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
@@ -136,8 +132,7 @@
                     
                 </Expander>
 
-                <Expander x:Name="DampingExpander" 
-                          BorderBrush="{Binding Theming.DarkerColour}"
+                <Expander BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
                           Header="{DynamicResource Damping}"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
@@ -148,8 +143,7 @@
                     
                 </Expander>
 
-                <Expander x:Name="AeroExpander" 
-                          BorderBrush="{Binding Theming.DarkerColour}"
+                <Expander BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
                           Header="{DynamicResource Aero}"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
@@ -161,8 +155,7 @@
                     
                 </Expander>
 
-                <Expander x:Name="SteeringExpander" 
-                          BorderBrush="{Binding Theming.DarkerColour}"
+                <Expander BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
                           Header="{DynamicResource Steering}"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
@@ -173,8 +166,7 @@
                     
                 </Expander>
 
-                <Expander x:Name="OtherExpander" 
-                          BorderBrush="{Binding Theming.DarkerColour}"
+                <Expander BorderBrush="{Binding Theming.DarkerColour}"
                           BorderThickness="2"
                           Header="{DynamicResource Other}"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"

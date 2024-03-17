@@ -1,7 +1,6 @@
 ﻿using Forza_Mods_AIO.Models;
 using Forza_Mods_AIO.Resources.Search;
 using Forza_Mods_AIO.Resources.Theme;
-using Forza_Mods_AIO.ViewModels.Pages;
 
 namespace Forza_Mods_AIO.Views.Pages;
 

@@ -1,14 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Forza_Mods_AIO.Cheats;
 using Forza_Mods_AIO.Models;
-using Forza_Mods_AIO.Resources.Keybinds;
 using Forza_Mods_AIO.Views.Pages;
 using MahApps.Metro.Controls;
 using Memory;
@@ -197,6 +195,7 @@ public partial class MainWindowViewModel : ObservableObject
             Task.Run(() => GvpMaker(element.Key));
             Attached = true;
         }
+        // ReSharper disable once FunctionNeverReturns
     }
 
     private static void CleanClasses()
