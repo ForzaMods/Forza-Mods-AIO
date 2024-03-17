@@ -4,7 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.SelfVehicle"
       mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance local:Environment, IsDesignTimeCreatable=True}"
       Title="Environment" 
       d:DesignHeight="auto" 
       d:DesignWidth="800">
@@ -18,27 +20,26 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <mah:ColorPicker Grid.Column="0"
+                <mah:ColorPicker x:Name="Picker" 
+                                 Grid.Column="0"
                                  Background="{DynamicResource MahApps.Brushes.AccentBase}"
                                  BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                                  VerticalAlignment="Center"
                                  SelectedColor="Red"
                                  IsAvailableColorPaletteVisible="True"
                                  mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
-                                 mah:ControlsHelper.DisabledVisualElementVisibility="Collapsed"/>
+                                 mah:ControlsHelper.DisabledVisualElementVisibility="Collapsed"
+                                 SelectedColorChanged="Picker_OnSelectedColorChanged"
+                                 IsEnabled="{Binding ViewModel.AreSunRgbUiElementsEnabled}"/>
                 
                 <mah:ToggleSwitch Grid.Column="1" 
                                   Margin="5 0 10 0"
                                   VerticalAlignment="Center"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource SunRgb}"/>
-                
-                <mah:ToggleSwitch Grid.Column="2" 
-                                  VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource AidsMode}"/>
+                                  Content="{DynamicResource SunRgb}"
+                                  Toggled="RgbSwitch_OnToggled"
+                                  IsEnabled="{Binding ViewModel.AreSunRgbUiElementsEnabled}"/>
                 
             </Grid>
         </Border>
