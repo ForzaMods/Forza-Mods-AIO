@@ -288,7 +288,7 @@
                         mah:SliderHelper.EnableMouseWheel="MouseHover"
                         AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
                         AutoToolTipPrecision="{StaticResource SliderTooltipPrecision}"
-                        Minimum="0"
+                        Minimum="0.9"
                         Maximum="1"
                         Value="0.95"
                         ValueChanged="StopSlider_OnValueChanged"
