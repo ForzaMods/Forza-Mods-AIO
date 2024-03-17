@@ -68,14 +68,14 @@ public partial class Unlocks
 
     private async Task Credits(bool toggled)
     {
-        if (UnlocksCheatsFh5.CreditsAddress == 0)
+        if (UnlocksCheatsFh5.CreditsDetourAddress == 0)
         {
             await UnlocksCheatsFh5.CheatCredits();
         }
 
-        if (UnlocksCheatsFh5.CreditsAddress <= 0) return;
-        GetInstance().WriteMemory(UnlocksCheatsFh5.CreditsDetourAddress + 0x45, toggled ? (byte)1 : (byte)0);
-        GetInstance().WriteMemory(UnlocksCheatsFh5.CreditsDetourAddress + 0x46, Convert.ToInt32(ValueBox.Value));  
+        if (UnlocksCheatsFh5.CreditsDetourAddress <= 0) return;
+        GetInstance().WriteMemory(UnlocksCheatsFh5.CreditsDetourAddress + 0x31, toggled ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(UnlocksCheatsFh5.CreditsDetourAddress + 0x32, Convert.ToInt32(ValueBox.Value));  
         ViewModel.IsCreditsEnabled = toggled;
     }
 
@@ -121,12 +121,12 @@ public partial class Unlocks
     
     private async Task Seasonal(bool toggled)
     {
-        if (UnlocksCheatsFh5.SeasonalAddress == 0)
+        if (UnlocksCheatsFh5.SeasonalDetourAddress == 0)
         {
             await UnlocksCheatsFh5.CheatSeasonal();
         }
 
-        if (UnlocksCheatsFh5.SeasonalAddress <= 0) return;
+        if (UnlocksCheatsFh5.SeasonalDetourAddress <= 0) return;
         GetInstance().WriteMemory(UnlocksCheatsFh5.SeasonalDetourAddress + 0x23, toggled ? (byte)1 : (byte)0);
         GetInstance().WriteMemory(UnlocksCheatsFh5.SeasonalDetourAddress + 0x24, Convert.ToInt32(ValueBox.Value));  
         ViewModel.IsSeasonalEnabled = toggled;
@@ -134,12 +134,12 @@ public partial class Unlocks
     
     private async Task Series(bool toggled)
     {
-        if (UnlocksCheatsFh5.SeriesAddress == 0)
+        if (UnlocksCheatsFh5.SeriesDetourAddress == 0)
         {
             await UnlocksCheatsFh5.CheatSeries();
         }
 
-        if (UnlocksCheatsFh5.SeriesAddress <= 0) return;
+        if (UnlocksCheatsFh5.SeriesDetourAddress <= 0) return;
         GetInstance().WriteMemory(UnlocksCheatsFh5.SeriesDetourAddress + 0x1B, toggled ? (byte)1 : (byte)0);
         GetInstance().WriteMemory(UnlocksCheatsFh5.SeriesDetourAddress + 0x1C, Convert.ToInt32(ValueBox.Value));  
         ViewModel.IsSeriesEnabled = toggled;
@@ -226,7 +226,7 @@ public partial class Unlocks
             {
                 ViewModel.CreditsValue = Convert.ToInt32(ValueBox.Value);
                 if (UnlocksCheatsFh5.CreditsDetourAddress <= 0) return;
-                GetInstance().WriteMemory(UnlocksCheatsFh5.CreditsDetourAddress + 0x46, Convert.ToInt32(ValueBox.Value));  
+                GetInstance().WriteMemory(UnlocksCheatsFh5.CreditsDetourAddress + 0x32, Convert.ToInt32(ValueBox.Value));  
                 break;
             }
             case 1:

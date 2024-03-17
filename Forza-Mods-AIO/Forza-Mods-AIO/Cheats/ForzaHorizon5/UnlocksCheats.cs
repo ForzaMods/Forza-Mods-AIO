@@ -1,4 +1,7 @@
-﻿namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
+﻿using static Forza_Mods_AIO.Resources.Cheats;
+using static Forza_Mods_AIO.Resources.Memory;
+
+namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
 
 public class UnlocksCheats : CheatsUtilities, ICheatsBase
 {
@@ -15,27 +18,30 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
         CreditsAddress = 0;
         CreditsDetourAddress = 0;
         
-        const string sig = "89 84 ? ? ? ? ? 4C 8D ? ? ? ? ? 48 8B ? 48 8D ? ? ? ? ? ? 48 8B";
+        const string sig = "E8 ? ? ? ? 89 84 ? ? ? ? ? 4C 8D ? ? ? ? ? 48 8B";
         CreditsAddress = await SmartAobScan(sig);
 
         if (CreditsAddress > 0)
         {
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
-                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
+                await GetClass<Bypass>().DisableCrcChecks();
             }
             
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
-
+            if (GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
+            
+            var relativeAddress = CreditsAddress + 1;
+            var relativeOffset = GetInstance().ReadMemory<int>(relativeAddress);
+            CreditsAddress = (UIntPtr)((IntPtr)CreditsAddress + relativeOffset + 0x5 + 24);
+            
             var asm = new byte[]
             {
-                0x80, 0x3D, 0x3E, 0x00, 0x00, 0x00, 0x01, 0x75, 0x30, 0x80, 0x7F, 0xB4, 0x43, 0x75, 0x2A, 0x80, 0x7F,
-                0xB5, 0x72, 0x75, 0x24, 0x80, 0x7F, 0xB6, 0x65, 0x75, 0x1E, 0x80, 0x7F, 0xB7, 0x64, 0x75, 0x18, 0x80,
-                0x7F, 0xB8, 0x69, 0x75, 0x12, 0x80, 0x7F, 0xB9, 0x74, 0x75, 0x0C, 0x80, 0x7F, 0xBA, 0x73, 0x75, 0x06,
-                0x8B, 0x05, 0x0D, 0x00, 0x00, 0x00, 0x89, 0x84, 0x24, 0x80, 0x00, 0x00, 0x00
+                0x48, 0x8B, 0x4F, 0x08, 0x80, 0x3D, 0x26, 0x00, 0x00, 0x00, 0x01, 0x75, 0x1D, 0x48, 0x8B, 0x54, 0x24,
+                0x20, 0x48, 0xB8, 0x43, 0x72, 0x65, 0x64, 0x69, 0x74, 0x73, 0x00, 0x48, 0x39, 0x42, 0xB4, 0x75, 0x08,
+                0x8B, 0x15, 0x0A, 0x00, 0x00, 0x00, 0x89, 0x17, 0x31, 0xD2
             };
 
-            CreditsDetourAddress = Resources.Memory.GetInstance().CreateDetour(CreditsAddress, asm, 7);
+            CreditsDetourAddress = GetInstance().CreateDetour(CreditsAddress, asm, 6);
             return;
         }
         
@@ -53,12 +59,12 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
         XpPointsAddress = await SmartAobScan(sig) + 4;
         if (XpPointsAddress > 4)
         {
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
-                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
+                await GetClass<Bypass>().DisableCrcChecks();
             }
             
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
+            if (GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
             
             XpAddress = XpPointsAddress + 14;
             var pointsAsm = new byte[]
@@ -73,8 +79,8 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
                 0x05, 0x06, 0x00, 0x00, 0x00
             };
 
-            XpPointsDetourAddress = Resources.Memory.GetInstance().CreateDetour(XpPointsAddress, pointsAsm, 6);
-            XpDetourAddress = Resources.Memory.GetInstance().CreateDetour(XpAddress, asm, 7);
+            XpPointsDetourAddress = GetInstance().CreateDetour(XpPointsAddress, pointsAsm, 6);
+            XpDetourAddress = GetInstance().CreateDetour(XpAddress, asm, 7);
             return;
         }
         
@@ -91,12 +97,12 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
 
         if (SpinsAddress > 28)
         {
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
-                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
+                await GetClass<Bypass>().DisableCrcChecks();
             }
             
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
+            if (GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
             
             var asm = new byte[]
             {
@@ -104,7 +110,7 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
                 0x08, 0x33, 0xD2, 0x8B, 0x5F, 0x08
             };
 
-            SpinsDetourAddress = Resources.Memory.GetInstance().CreateDetour(SpinsAddress, asm, 5);
+            SpinsDetourAddress = GetInstance().CreateDetour(SpinsAddress, asm, 5);
             return;
         }
         
@@ -121,12 +127,12 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
 
         if (SkillPointsAddress > 34)
         {
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
-                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
+                await GetClass<Bypass>().DisableCrcChecks();
             }
             
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
+            if (GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
 
             var asm = new byte[]
             {
@@ -134,7 +140,7 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
                 0x89, 0x5F, 0x40
             };
 
-            SkillPointsDetourAddress = Resources.Memory.GetInstance().CreateDetour(SkillPointsAddress, asm, 5);
+            SkillPointsDetourAddress = GetInstance().CreateDetour(SkillPointsAddress, asm, 5);
             return;
         }
         
@@ -151,12 +157,12 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
 
         if (SeasonalAddress > 0)
         {
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
-                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
+                await GetClass<Bypass>().DisableCrcChecks();
             }
             
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
+            if (GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
 
             var asm = new byte[]
             {
@@ -164,7 +170,7 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
                 0x00, 0x00, 0x00, 0x48, 0x89, 0x54, 0x81, 0x60, 0x5A, 0x8B, 0x44, 0x81, 0x60
             };
 
-            SeasonalDetourAddress = Resources.Memory.GetInstance().CreateDetour(SeasonalAddress, asm, 7);
+            SeasonalDetourAddress = GetInstance().CreateDetour(SeasonalAddress, asm, 7);
             return;
         }
         
@@ -181,12 +187,12 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
 
         if (SeriesAddress > 0)
         {
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
-                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
+                await GetClass<Bypass>().DisableCrcChecks();
             }
             
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
+            if (GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
 
             var asm = new byte[]
             {
@@ -194,7 +200,7 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
                 0x14, 0x48, 0x83, 0xC4, 0x30
             };
 
-            SeriesDetourAddress = Resources.Memory.GetInstance().CreateDetour(SeriesAddress, asm, 7);
+            SeriesDetourAddress = GetInstance().CreateDetour(SeriesAddress, asm, 7);
             return;
         }
         
@@ -203,7 +209,7 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
     
     public void Cleanup()
     {
-        var mem = Resources.Memory.GetInstance();
+        var mem = GetInstance();
         
         if (CreditsAddress > 0)
         {
