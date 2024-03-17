@@ -14,7 +14,7 @@
     <StackPanel Margin="10">
         <GroupBox Header="{DynamicResource Appearance}"
                   BorderBrush="{Binding Theming.DarkerColour}"
-                  BorderThickness="2"
+                  BorderThickness="{StaticResource ControlBorderThickness}"
                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                   mah:HeaderedControlHelper.HeaderFontWeight="Bold"
                   mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
@@ -59,7 +59,7 @@
         
         <GroupBox Header="{DynamicResource Language}"
                   BorderBrush="{Binding Theming.DarkerColour}"
-                  BorderThickness="2"
+                  BorderThickness="{StaticResource ControlBorderThickness}"
                   Margin="0 10 0 0"
                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                   mah:HeaderedControlHelper.HeaderFontWeight="Bold"

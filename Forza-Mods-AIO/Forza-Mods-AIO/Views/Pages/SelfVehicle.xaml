@@ -67,7 +67,7 @@
             <Expander x:Name="HandlingExpander"
                       Header="{DynamicResource Handling}"
                       BorderBrush="{Binding Theming.DarkerColour}"
-                      BorderThickness="2"
+                      BorderThickness="{StaticResource ControlBorderThickness}"
                       mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                       mah:HeaderedControlHelper.HeaderFontWeight="Bold"
                       mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
@@ -81,7 +81,7 @@
 
             <Expander x:Name="UnlocksExpander"
                       BorderBrush="{Binding Theming.DarkerColour}"
-                      BorderThickness="2"
+                      BorderThickness="{StaticResource ControlBorderThickness}"
                       Header="{DynamicResource Unlocks}"
                       mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                       mah:HeaderedControlHelper.HeaderFontWeight="Bold"
@@ -96,7 +96,7 @@
 
             <Expander x:Name="PhotoModeExpander"
                       BorderBrush="{Binding Theming.DarkerColour}"
-                      BorderThickness="2"
+                      BorderThickness="{StaticResource ControlBorderThickness}"
                       Header="{DynamicResource PhotoMode}"
                       mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                       mah:HeaderedControlHelper.HeaderFontWeight="Bold"
@@ -111,7 +111,7 @@
             
             <Expander x:Name="EnvironmentExpander"
                       BorderBrush="{Binding Theming.DarkerColour}"
-                      BorderThickness="2"
+                      BorderThickness="{StaticResource ControlBorderThickness}"
                       Header="{DynamicResource Environment}"
                       mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                       mah:HeaderedControlHelper.HeaderFontWeight="Bold"
@@ -126,7 +126,7 @@
 
             <Expander x:Name="CustomizationExpander"
                       BorderBrush="{Binding Theming.DarkerColour}"
-                      BorderThickness="2"
+                      BorderThickness="{StaticResource ControlBorderThickness}"
                       Header="{DynamicResource Customization}"
                       mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                       mah:HeaderedControlHelper.HeaderFontWeight="Bold"
@@ -143,7 +143,7 @@
 
             <Expander x:Name="MiscExpander"
                       BorderBrush="{Binding Theming.DarkerColour}"
-                      BorderThickness="2"
+                      BorderThickness="{StaticResource ControlBorderThickness}"
                       Header="{DynamicResource Miscellaneous}"
                       mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                       mah:HeaderedControlHelper.HeaderFontWeight="Bold"
@@ -159,7 +159,7 @@
 
             <Expander x:Name="CameraExpander"
                       BorderBrush="{Binding Theming.DarkerColour}"
-                      BorderThickness="2"
+                      BorderThickness="{StaticResource ControlBorderThickness}"
                       Header="{DynamicResource Camera}"
                       mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                       mah:HeaderedControlHelper.HeaderFontWeight="Bold"

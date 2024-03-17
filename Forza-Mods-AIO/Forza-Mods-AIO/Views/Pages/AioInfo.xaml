@@ -180,6 +180,7 @@
                             Background="{Binding Theming.DarkerColour, Mode=OneWay}"
                             BorderThickness="0"
                             HorizontalAlignment="Right"
+                            mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                             mah:ControlsHelper.FocusBorderThickness="0"
                             Command="{Binding ViewModel.ShowDebugWindowCommand, Mode=OneWay}" />
                 </mc:Choice>

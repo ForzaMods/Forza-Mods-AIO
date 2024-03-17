@@ -4,4 +4,5 @@
     <system:Int32 x:Key="SliderTooltipPrecision">2</system:Int32>
     <AutoToolTipPlacement x:Key="SliderAutoToolTipPlacement">BottomRight</AutoToolTipPlacement>
     <CornerRadius x:Key="ControlCornerRadius">3</CornerRadius>
+    <Thickness x:Key="ControlBorderThickness">2</Thickness>
 </ResourceDictionary>
