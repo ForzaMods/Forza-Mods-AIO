@@ -25,15 +25,12 @@ public partial class MainWindowViewModel : ObservableObject
     #region Constants
 
     private const string NotAttachedText = "Launch FH4, FH5 or FM8";
-    private const double WindowCornerRadiusSize = 10;
+    private const double WindowCornerRadiusSize = 7.5;
 
     #endregion
     
     #region Misc Vars
 
-    private static double BottomButtonsMarginExpression =>
-        WindowCornerRadiusSize * 1.25 + WindowCornerRadiusSize * 1.25 / (WindowCornerRadiusSize / 2);
-    
     [ObservableProperty]
     private string _applicationTitle = string.Empty;
     
@@ -54,9 +51,6 @@ public partial class MainWindowViewModel : ObservableObject
 
     [ObservableProperty]
     private CornerRadius _sideBarCornerRadius = new(0, 0, 0, WindowCornerRadiusSize);
-
-    [ObservableProperty]
-    private Thickness _bottomButtonsMargin = new(0, 0, 0, BottomButtonsMarginExpression);
     
     #endregion
 
@@ -132,7 +126,6 @@ public partial class MainWindowViewModel : ObservableObject
                 WindowCornerRadius = new CornerRadius(WindowCornerRadiusSize);
                 SideBarCornerRadius = new CornerRadius(0, 0, 0, WindowCornerRadiusSize);
                 TopBarCornerRadius = new CornerRadius(WindowCornerRadiusSize, WindowCornerRadiusSize, 0, 0);
-                BottomButtonsMargin = new Thickness(0, 0, 0, BottomButtonsMarginExpression);
                 break;
             }
             case WindowState.Normal:
@@ -141,7 +134,6 @@ public partial class MainWindowViewModel : ObservableObject
                 WindowCornerRadius = new CornerRadius(0);
                 SideBarCornerRadius = new CornerRadius(0);
                 TopBarCornerRadius = new CornerRadius(0);
-                BottomButtonsMargin = new Thickness(0);
                 break;
             }
             case WindowState.Minimized:
