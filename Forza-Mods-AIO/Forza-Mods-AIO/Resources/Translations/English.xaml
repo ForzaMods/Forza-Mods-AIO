@@ -151,7 +151,6 @@
 
     <!-- PhotoMode.xaml -->
     <system:String x:Key="Samples">Samples</system:String>
-    <system:String x:Key="ShutterSpeed">Shutter Speed</system:String>
     <system:String x:Key="ApertureScale">Aperture Scale</system:String>
     <system:String x:Key="CarInFocus">Car In Focus</system:String>
     <system:String x:Key="TimeSlice">Time Slice</system:String>

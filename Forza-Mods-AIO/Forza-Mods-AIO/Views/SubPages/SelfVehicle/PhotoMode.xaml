@@ -24,7 +24,6 @@
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
                   
                     <ComboBoxItem Content="{DynamicResource Samples}"/>
-                    <ComboBoxItem Content="{DynamicResource ShutterSpeed}"/>
                     <ComboBoxItem Content="{DynamicResource ApertureScale}"/>
                     <ComboBoxItem Content="{DynamicResource CarInFocus}"/>
                     <ComboBoxItem Content="{DynamicResource TimeSlice}"/>
@@ -53,7 +52,8 @@
                 <mah:ToggleSwitch VerticalAlignment="Center"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource NoClip}"/>
+                                  Content="{DynamicResource NoClip}"
+                                  Toggled="NoClipSwitch_OnToggled"/>
                 
                 <mah:ToggleSwitch VerticalAlignment="Center"
                                   Margin="10 0"
