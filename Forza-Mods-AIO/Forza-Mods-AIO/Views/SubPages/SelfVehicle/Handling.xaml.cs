@@ -313,4 +313,22 @@ public partial class Handling
         if (CarCheatsFh5.NoWaterDragDetourAddress == 0) return;
         GetInstance().WriteMemory(CarCheatsFh5.NoWaterDragDetourAddress + 0x17, toggleSwitch.IsOn ? (byte)1 : (byte)0);
     }
+
+    private async void NoClipSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+
+        ViewModel.AreUiElementsEnabled = false;
+        if (CarCheatsFh5.NoClipDetourAddress == 0)
+        {
+            await CarCheatsFh5.CheatNoClip();
+        }
+        ViewModel.AreUiElementsEnabled = true;
+        
+        if (CarCheatsFh5.NoClipDetourAddress == 0) return;
+        GetInstance().WriteMemory(CarCheatsFh5.NoClipDetourAddress + 0x31, toggleSwitch.IsOn ? (byte)1 : (byte)0);
+    }
 }

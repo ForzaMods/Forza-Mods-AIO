@@ -19,6 +19,8 @@ public class CarCheats : CheatsUtilities, ICheatsBase
     public UIntPtr FreezeAiDetourAddress;
     private UIntPtr _noWaterDragAddress;
     public UIntPtr NoWaterDragDetourAddress;
+    private UIntPtr _noClipAddress;
+    public UIntPtr NoClipDetourAddress;
 
     public async Task CheatLocalPlayer()
     {
@@ -246,6 +248,39 @@ public class CarCheats : CheatsUtilities, ICheatsBase
         ShowError("No water drag", sig);
     }
     
+    public async Task CheatNoClip()
+    {
+        _noClipAddress = 0;
+        NoClipDetourAddress = 0;
+
+        const string sig = "48 8B ? 4C 89 ? ? 56 41 ? 41";
+        _noClipAddress = await SmartAobScan(sig);
+
+        if (_noClipAddress > 0)
+        {
+            if (LocalPlayerHookDetourAddress == 0)
+            {
+                await CheatLocalPlayer();
+            }
+            
+            if (LocalPlayerHookDetourAddress == 0) return;
+            
+            var localPlayer = BitConverter.GetBytes(LocalPlayerHookDetourAddress + LocalPlayerOffset);
+            var asm = new byte[]
+            {
+                0x80, 0x3D, 0x2A, 0x00, 0x00, 0x00, 0x01, 0x75, 0x1C, 0x48, 0xB8, localPlayer[0], localPlayer[1],
+                localPlayer[2], localPlayer[3], localPlayer[4], localPlayer[5], localPlayer[6], localPlayer[7], 0x48,
+                0x8B, 0x00, 0x48, 0x85, 0xC0, 0x74, 0x0A, 0x83, 0xB8, 0x14, 0x3C, 0x00, 0x00, 0x00, 0x75, 0x01, 0xC3,
+                0x48, 0x8B, 0xC4, 0x4C, 0x89, 0x48, 0x20
+            };
+
+            NoClipDetourAddress = GetInstance().CreateDetour(_noClipAddress, asm, 7);
+            return;
+        }
+        
+        ShowError("No clip", sig);
+    }
+    
     public void Cleanup()
     {
         var mem = GetInstance();
@@ -278,6 +313,12 @@ public class CarCheats : CheatsUtilities, ICheatsBase
         {
             mem.WriteArrayMemory(_noWaterDragAddress, new byte[] { 0x48, 0x8B, 0xC4, 0xF3, 0x0F, 0x11, 0x48, 0x10 });
             Free(NoWaterDragDetourAddress);
+        }
+
+        if (_noClipAddress > 0)
+        {
+            mem.WriteArrayMemory(_noClipAddress, new byte[] { 0x48, 0x8B, 0xC4, 0x4C, 0x89, 0x48, 0x20 });
+            Free(NoClipDetourAddress);
         }
         
         if (LocalPlayerHookDetourAddress <= 0) return;

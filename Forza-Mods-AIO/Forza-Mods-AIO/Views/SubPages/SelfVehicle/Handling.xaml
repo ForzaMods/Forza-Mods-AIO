@@ -329,7 +329,9 @@
                                   Margin="5 0 10 0"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource NoClip}"/>
+                                  Content="{DynamicResource NoClip}"
+                                  IsEnabled="{Binding ViewModel.AreUiElementsEnabled}"
+                                  Toggled="NoClipSwitch_OnToggled"/>
                 
                 <mah:ToggleSwitch VerticalAlignment="Center"
                                   MinWidth="0"
