@@ -105,7 +105,7 @@ public partial class Environment
         toggleSwitch.IsEnabled = false;
         if (CarCheatsFh5.FreezeAiDetourAddress == 0)
         {
-            await CarCheatsFh5.FreezeAi();
+            await CarCheatsFh5.CheatFreezeAi();
         }
         toggleSwitch.IsEnabled = true;
 

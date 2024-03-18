@@ -1,4 +1,5 @@
-﻿using static Forza_Mods_AIO.Resources.Memory;
+﻿using static Forza_Mods_AIO.Resources.Cheats;
+using static Forza_Mods_AIO.Resources.Memory;
 
 namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
 
@@ -16,6 +17,8 @@ public class CarCheats : CheatsUtilities, ICheatsBase
     public UIntPtr WaypointDetourAddress;
     private UIntPtr _freezeAiAddress;
     public UIntPtr FreezeAiDetourAddress;
+    private UIntPtr _noWaterDragAddress;
+    public UIntPtr NoWaterDragDetourAddress;
 
     public async Task CheatLocalPlayer()
     {
@@ -26,12 +29,12 @@ public class CarCheats : CheatsUtilities, ICheatsBase
         _localPlayerHookAddress = await SmartAobScan(sig);
         if (_localPlayerHookAddress > 0)
         {
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
             {
-                await Resources.Cheats.GetClass<Bypass>().DisableCrcChecks();
+                await GetClass<Bypass>().DisableCrcChecks();
             }
 
-            if (Resources.Cheats.GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
+            if (GetClass<Bypass>().CrcFuncDetourAddress <= 0) return;
 
             var asm = new byte[]
             {
@@ -178,7 +181,7 @@ public class CarCheats : CheatsUtilities, ICheatsBase
         ShowError("Waypoint", sig);
     }
 
-    public async Task FreezeAi()
+    public async Task CheatFreezeAi()
     {
         _freezeAiAddress = 0;
         FreezeAiDetourAddress = 0;
@@ -212,6 +215,36 @@ public class CarCheats : CheatsUtilities, ICheatsBase
         
         ShowError("Freeze Ai", sig);
     }
+
+    public async Task CheatNoWaterDrag()
+    {
+        _noWaterDragAddress = 0;
+        NoWaterDragDetourAddress = 0;
+
+        const string sig = "48 8B ? F3 0F ? ? ? 53 55";
+        _noWaterDragAddress = await SmartAobScan(sig);
+
+        if (_noWaterDragAddress > 0)
+        {
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            {
+                await GetClass<Bypass>().DisableCrcChecks();
+            }
+
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0) return;
+
+            var asm = new byte[]
+            {
+                0x80, 0x3D, 0x10, 0x00, 0x00, 0x00, 0x01, 0x75, 0x01, 0xC3, 0x48, 0x8B, 0xC4, 0xF3, 0x0F, 0x11, 0x48,
+                0x10
+            };
+
+            NoWaterDragDetourAddress = GetInstance().CreateDetour(_noWaterDragAddress, asm, 8);
+            return;
+        }    
+        
+        ShowError("No water drag", sig);
+    }
     
     public void Cleanup()
     {
@@ -239,6 +272,12 @@ public class CarCheats : CheatsUtilities, ICheatsBase
         {
             mem.WriteArrayMemory(_freezeAiAddress, new byte[] { 0xF3, 0x0F, 0x58, 0x81, 0xB0, 0x01, 0x00, 0x00 });
             Free(FreezeAiDetourAddress);            
+        }
+
+        if (_noWaterDragAddress > 0)
+        {
+            mem.WriteArrayMemory(_noWaterDragAddress, new byte[] { 0x48, 0x8B, 0xC4, 0xF3, 0x0F, 0x11, 0x48, 0x10 });
+            Free(NoWaterDragDetourAddress);
         }
         
         if (LocalPlayerHookDetourAddress <= 0) return;

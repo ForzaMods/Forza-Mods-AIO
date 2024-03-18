@@ -322,7 +322,8 @@
                                   MinWidth="0"
                                   FontSize="12"
                                   Content="{DynamicResource NoWaterDrag}"
-                                  IsEnabled="{Binding ViewModel.IsHorizon}"/>
+                                  IsEnabled="{Binding ViewModel.IsHorizon}"
+                                  Toggled="NoWaterDragSwitch_OnToggled"/>
                 
                 <mah:ToggleSwitch VerticalAlignment="Center"
                                   Margin="5 0 10 0"

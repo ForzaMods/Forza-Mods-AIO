@@ -120,32 +120,34 @@ public partial class Handling
 
     private async void PullButton_OnClick(object sender, RoutedEventArgs e)
     {
-        ViewModel.AreUiElementsEnabled = false;
         
         if (ModifierModeBox.SelectedIndex == 0)
         {
+            ViewModel.AreUiElementsEnabled = false;
             if (CarCheatsFh5.AccelDetourAddress == 0)
             {
                 await CarCheatsFh5.CheatAccel();
             }
-
+            ViewModel.AreUiElementsEnabled = true;
+            
             if (CarCheatsFh5.AccelDetourAddress == 0) return;
             ViewModel.AccelValue = Convert.ToDouble(GetInstance().ReadMemory<float>(CarCheatsFh5.AccelDetourAddress + 0x39));
             ModifierValueBox.Value = ViewModel.AccelValue;
         }
         else
         {
+            ViewModel.AreUiElementsEnabled = false;
             if (CarCheatsFh5.GravityDetourAddress == 0)
             {
                 await CarCheatsFh5.CheatGravity();
             }
+            ViewModel.AreUiElementsEnabled = true;
 
             if (CarCheatsFh5.GravityDetourAddress == 0) return;
             ViewModel.GravityValue = Convert.ToDouble(GetInstance().ReadMemory<float>(CarCheatsFh5.GravityDetourAddress + 0x40));
             ModifierValueBox.Value = ViewModel.GravityValue;
         }
         
-        ViewModel.AreUiElementsEnabled = true;
     }
 
     private async void VelocitySwitch_OnToggled(object sender, RoutedEventArgs e)
@@ -161,12 +163,12 @@ public partial class Handling
         {
             await CarCheatsFh5.CheatLocalPlayer();
         }
-        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
+        ViewModel.AreUiElementsEnabled = true;
         
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x213, toggleSwitch.IsOn ? (byte)1 : (byte)0);
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x214, 1f + Convert.ToSingle(VelocityStrength.Value / 1000));  
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x218, Convert.ToSingle(VelocityLimit.Value));  
-        ViewModel.AreUiElementsEnabled = true;
     }
 
     private void VelocityStrength_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -194,12 +196,12 @@ public partial class Handling
         {
             await CarCheatsFh5.CheatLocalPlayer();
         }
-        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
+        ViewModel.AreUiElementsEnabled = true;
         
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x22A, toggleSwitch.IsOn ? (byte)1 : (byte)0);
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x22B, (byte)WheelspeedModeBox.SelectedIndex);  
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x22C, Convert.ToSingle(WheelspeedValueBox.Value));  
-        ViewModel.AreUiElementsEnabled = true;
     }
 
     private void WheelspeedNum_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -233,12 +235,11 @@ public partial class Handling
         {
             await CarCheatsFh5.CheatLocalPlayer();
         }
-        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
-        GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x226, Convert.ToSingle(JumpSlider.Value));
-        
-        _jumpHackHotkey.CanExecute = toggleSwitch.IsOn;
         ViewModel.AreUiElementsEnabled = true;
-
+        
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return; 
+        GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x226, Convert.ToSingle(JumpSlider.Value));
+        _jumpHackHotkey.CanExecute = toggleSwitch.IsOn;
     }
 
     private void StopSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -260,11 +261,12 @@ public partial class Handling
         {
             await CarCheatsFh5.CheatLocalPlayer();
         }
+        ViewModel.AreUiElementsEnabled = true;
+        
         if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
         
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x21C, toggleSwitch.IsOn ? (byte)1 : (byte)0);
         GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x21D, Convert.ToSingle(StopSlider.Value));  
-        ViewModel.AreUiElementsEnabled = true;
     }
 
     private async void StopAllSwitch_OnToggled(object sender, RoutedEventArgs e)
@@ -280,10 +282,10 @@ public partial class Handling
         {
             await CarCheatsFh5.CheatLocalPlayer();
         }
-        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
         
-        GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x230, toggleSwitch.IsOn ? (byte)1 : (byte)0);
         ViewModel.AreUiElementsEnabled = true;
+        if (CarCheatsFh5.LocalPlayerHookDetourAddress <= UIntPtr.Zero) return;
+        GetInstance().WriteMemory(CarCheatsFh5.LocalPlayerHookDetourAddress + 0x230, toggleSwitch.IsOn ? (byte)1 : (byte)0);
     }
 
     private async void MenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -292,5 +294,23 @@ public partial class Handling
         var hotkey = await mainWindowViewModel.GetHotkey(_jumpHackHotkey);
         _jumpHackHotkey.Key = hotkey.Key;
         _jumpHackHotkey.Modifier = hotkey.ModifierKeys;
+    }
+
+    private async void NoWaterDragSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {        
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+
+        toggleSwitch.IsEnabled = false;
+        if (CarCheatsFh5.NoWaterDragDetourAddress == 0)
+        {
+            await CarCheatsFh5.CheatNoWaterDrag();
+        }
+        toggleSwitch.IsEnabled = true;
+        
+        if (CarCheatsFh5.NoWaterDragDetourAddress == 0) return;
+        GetInstance().WriteMemory(CarCheatsFh5.NoWaterDragDetourAddress + 0x17, toggleSwitch.IsOn ? (byte)1 : (byte)0);
     }
 }
