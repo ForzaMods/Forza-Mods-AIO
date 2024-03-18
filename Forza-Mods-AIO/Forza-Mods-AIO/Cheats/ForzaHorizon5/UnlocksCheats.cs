@@ -255,11 +255,9 @@ public class UnlocksCheats : CheatsUtilities, ICheatsBase
             Free(SeasonalDetourAddress);
         }
 
-        if (_seriesAddress > 0)
-        {
-            mem.WriteArrayMemory(_seriesAddress, new byte[] { 0x89, 0x59, 0x14, 0x48, 0x83, 0xC4, 0x30 });
-            Free(SeriesDetourAddress);
-        }
+        if (_seriesAddress <= 0) return;
+        mem.WriteArrayMemory(_seriesAddress, new byte[] { 0x89, 0x59, 0x14, 0x48, 0x83, 0xC4, 0x30 });
+        Free(SeriesDetourAddress);
     }
 
     public void Reset()

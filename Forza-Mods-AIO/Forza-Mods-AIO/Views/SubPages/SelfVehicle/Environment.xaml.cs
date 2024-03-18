@@ -21,6 +21,7 @@ public partial class Environment
 
     public EnvironmentViewModel ViewModel { get; }
     private static EnvironmentCheats EnvironmentCheatsFh5 => GetClass<EnvironmentCheats>();
+    private static CarCheats CarCheatsFh5 => GetClass<CarCheats>();
     
     private static Vector4 ConvertUiColorToGameValues(Color uiColor)
     {
@@ -54,5 +55,61 @@ public partial class Environment
     {        
         if (EnvironmentCheatsFh5.SunRgbDetourAddress == 0) return;
         GetInstance().WriteMemory(EnvironmentCheatsFh5.SunRgbDetourAddress + 0x33, ConvertUiColorToGameValues(Picker.SelectedColor.GetValueOrDefault()));
+    }
+
+    private async void PullButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        ViewModel.AreManualTimeUiElementsEnabled = false;
+        if (EnvironmentCheatsFh5.TimeDetourAddress == 0)
+        {
+            await EnvironmentCheatsFh5.CheatTime();
+        }
+        ViewModel.AreManualTimeUiElementsEnabled = true;
+        
+        if (EnvironmentCheatsFh5.TimeDetourAddress == 0) return;
+        TimeBox.Value = GetInstance().ReadMemory<double>(EnvironmentCheatsFh5.TimeDetourAddress + 0x2C);
+    }
+
+    private void TimeBox_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+    {
+        if (EnvironmentCheatsFh5.TimeDetourAddress == 0) return;
+        GetInstance().WriteMemory(EnvironmentCheatsFh5.TimeDetourAddress + 0x24, e.NewValue.GetValueOrDefault());
+    }
+
+    private async void TimeSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+        
+        ViewModel.AreManualTimeUiElementsEnabled = false;
+        if (EnvironmentCheatsFh5.TimeDetourAddress == 0)
+        {
+            await EnvironmentCheatsFh5.CheatTime();
+        }
+        ViewModel.AreManualTimeUiElementsEnabled = true;
+        
+        if (EnvironmentCheatsFh5.TimeDetourAddress == 0) return;
+        GetInstance().WriteMemory(EnvironmentCheatsFh5.TimeDetourAddress + 0x23, toggleSwitch.IsOn ? (byte)1 : (byte)0);
+        GetInstance().WriteMemory(EnvironmentCheatsFh5.TimeDetourAddress + 0x24, TimeBox.Value.GetValueOrDefault());
+    }
+
+    private async void FreezeAiSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+
+        toggleSwitch.IsEnabled = false;
+        if (CarCheatsFh5.FreezeAiDetourAddress == 0)
+        {
+            await CarCheatsFh5.FreezeAi();
+        }
+        toggleSwitch.IsEnabled = true;
+
+        if (CarCheatsFh5.FreezeAiDetourAddress == 0) return;
+        GetInstance().WriteMemory(CarCheatsFh5.FreezeAiDetourAddress + 0x4F, toggleSwitch.IsOn ? (byte)1 : (byte)0);
     }
 }

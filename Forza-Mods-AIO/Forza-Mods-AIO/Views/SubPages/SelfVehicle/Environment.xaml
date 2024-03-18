@@ -33,7 +33,7 @@
                                  IsEnabled="{Binding ViewModel.AreSunRgbUiElementsEnabled}"/>
                 
                 <mah:ToggleSwitch Grid.Column="1" 
-                                  Margin="5 0 10 0"
+                                  Margin="5 0 0 0"
                                   VerticalAlignment="Center"
                                   MinWidth="0"
                                   FontSize="12"
@@ -44,23 +44,72 @@
             </Grid>
         </Border>
         
-        <Border Style="{StaticResource CommonBorderStyle}">
-            <StackPanel HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <Border Grid.Column="0" 
+                    Style="{StaticResource CommonBorderStyle}">
                 
-                <mah:ToggleSwitch VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource ManualTime}"/>
+                <Grid Margin="5 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                                    
+                    <mah:NumericUpDown x:Name="TimeBox" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Left"
+                                       Value="0"
+                                       Minimum="0"
+                                       Maximum="3.402823466E+38"
+                                       Interval="25"
+                                       ValueChanged="TimeBox_OnValueChanged"
+                                       mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                                       Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                       BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                       IsEnabled="{Binding ViewModel.AreManualTimeUiElementsEnabled, Mode=OneWay}"/>
+                    
+                    <Button Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Margin="5 0"
+                            IsEnabled="{Binding ViewModel.AreManualTimeUiElementsEnabled, Mode=OneWay}"
+                            mah:ControlsHelper.FocusBorderThickness="0"
+                            Content="{DynamicResource Pull}"
+                            Click="PullButton_OnClick"
+                            Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                            BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
-                <mah:ToggleSwitch VerticalAlignment="Center"
-                                  Margin="10 0 0 0"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource FreezeAi}"/>
+                    <mah:ToggleSwitch Grid.Column="2"
+                                      VerticalAlignment="Center"
+                                      MinWidth="0"
+                                      FontSize="12"
+                                      Content="{DynamicResource ManualTime}"
+                                      IsEnabled="{Binding ViewModel.AreManualTimeUiElementsEnabled, Mode=OneWay}"
+                                      Toggled="TimeSwitch_OnToggled"/>
+                </Grid>
+            </Border>        
+            
+            <Border Grid.Column="1" 
+                    Style="{StaticResource CommonBorderStyle}">
                 
-            </StackPanel>
-        </Border>
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+
+                    <mah:ToggleSwitch VerticalAlignment="Center"
+                                      Margin="5 0"
+                                      MinWidth="0"
+                                      FontSize="12"
+                                      Content="{DynamicResource FreezeAi}"
+                                      Toggled="FreezeAiSwitch_OnToggled"/>
+                
+                </StackPanel>
+            </Border>
+        </Grid>
     </StackPanel>
 </Page>

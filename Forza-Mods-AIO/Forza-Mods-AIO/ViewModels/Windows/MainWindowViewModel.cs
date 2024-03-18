@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Forza_Mods_AIO.Cheats;
 using Forza_Mods_AIO.Models;
+using Forza_Mods_AIO.Resources.Keybinds;
 using Forza_Mods_AIO.Views.Pages;
 using MahApps.Metro.Controls;
 using Memory;
@@ -315,8 +316,10 @@ public partial class MainWindowViewModel : ObservableObject
         SearchVisibility = Visibility.Collapsed;
     }
     
-    public async Task<HotKey> GetHotkey()
+    public async Task<HotKey> GetHotkey(GlobalHotkey hotkey)
     {
+        HotKey = new HotKey(hotkey.Key, hotkey.Modifier);   
+        
         _wasHotkeyChanged = false;
         HotkeysVisibility = Visibility.Visible;
         

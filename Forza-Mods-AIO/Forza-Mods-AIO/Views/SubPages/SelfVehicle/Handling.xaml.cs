@@ -289,7 +289,7 @@ public partial class Handling
     private async void MenuItem_OnClick(object sender, RoutedEventArgs e)
     {
         var mainWindowViewModel = App.GetRequiredService<MainWindowViewModel>();
-        var hotkey = await mainWindowViewModel.GetHotkey();
+        var hotkey = await mainWindowViewModel.GetHotkey(_jumpHackHotkey);
         _jumpHackHotkey.Key = hotkey.Key;
         _jumpHackHotkey.Modifier = hotkey.ModifierKeys;
     }

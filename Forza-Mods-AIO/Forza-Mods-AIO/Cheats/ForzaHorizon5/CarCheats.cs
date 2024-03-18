@@ -14,6 +14,8 @@ public class CarCheats : CheatsUtilities, ICheatsBase
     public UIntPtr GravityDetourAddress;
     private UIntPtr _waypointAddress;
     public UIntPtr WaypointDetourAddress;
+    private UIntPtr _freezeAiAddress;
+    public UIntPtr FreezeAiDetourAddress;
 
     public async Task CheatLocalPlayer()
     {
@@ -175,31 +177,72 @@ public class CarCheats : CheatsUtilities, ICheatsBase
         
         ShowError("Waypoint", sig);
     }
+
+    public async Task FreezeAi()
+    {
+        _freezeAiAddress = 0;
+        FreezeAiDetourAddress = 0;
+
+        const string sig = "F3 0F ? ? ? ? ? ? F3 0F ? ? F3 0F ? ? 0F 57 ? F3 0F ? ? ? ? ? ? F3 0F ? ? C3";
+        _freezeAiAddress = await SmartAobScan(sig);
+
+        if (_freezeAiAddress > 0)
+        {
+            if (LocalPlayerHookDetourAddress == 0)
+            {
+                await CheatLocalPlayer();
+            }
+            
+            if (LocalPlayerHookDetourAddress == 0) return;
+
+            var localPlayer = BitConverter.GetBytes(LocalPlayerHookDetourAddress + LocalPlayerOffset);
+            var asm = new byte[]
+            {
+                0x80, 0x3D, 0x48, 0x00, 0x00, 0x00, 0x01, 0x75, 0x39, 0x56, 0x48, 0xBE, localPlayer[0], localPlayer[1],
+                localPlayer[2], localPlayer[3], localPlayer[4], localPlayer[5], localPlayer[6], localPlayer[7], 0x48,
+                0x8B, 0x36, 0x48, 0x8D, 0xB6, 0x70, 0x05, 0x00, 0x00, 0x48, 0x39, 0xCE, 0x74, 0x1E, 0xC7, 0x81, 0xB0,
+                0xFA, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xC7, 0x81, 0xB4, 0xFA, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00,
+                0xC7, 0x81, 0xB8, 0xFA, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x5E, 0xF3, 0x0F, 0x58, 0x81, 0xB0, 0x01,
+                0x00, 0x00
+            };
+
+            FreezeAiDetourAddress = GetInstance().CreateDetour(_freezeAiAddress, asm, 8);
+            return;
+        }
+        
+        ShowError("Freeze Ai", sig);
+    }
     
     public void Cleanup()
     {
-        var memInstance = GetInstance();
+        var mem = GetInstance();
         
         if (AccelDetourAddress > 0)
         {
-            memInstance.WriteArrayMemory(_accelAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x5D, 0x0C });
+            mem.WriteArrayMemory(_accelAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x5D, 0x0C });
             Free(AccelDetourAddress);
         }
 
         if (GravityDetourAddress > 0)
         {
-            memInstance.WriteArrayMemory(_gravityAddress, new byte[] { 0xF3, 0x0F, 0x59, 0x4B, 0x08 });
+            mem.WriteArrayMemory(_gravityAddress, new byte[] { 0xF3, 0x0F, 0x59, 0x4B, 0x08 });
             Free(GravityDetourAddress);
         }
 
         if (_waypointAddress > 0)
         {
-            memInstance.WriteArrayMemory(_waypointAddress, new byte[] { 0x0F, 0x10, 0x97, 0x30, 0x02, 0x00, 0x00 });
+            mem.WriteArrayMemory(_waypointAddress, new byte[] { 0x0F, 0x10, 0x97, 0x30, 0x02, 0x00, 0x00 });
             Free(WaypointDetourAddress);
+        }
+
+        if (_freezeAiAddress > 0)
+        {
+            mem.WriteArrayMemory(_freezeAiAddress, new byte[] { 0xF3, 0x0F, 0x58, 0x81, 0xB0, 0x01, 0x00, 0x00 });
+            Free(FreezeAiDetourAddress);            
         }
         
         if (LocalPlayerHookDetourAddress <= 0) return;
-        memInstance.WriteArrayMemory(_localPlayerHookAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x4F, 0x24 });
+        mem.WriteArrayMemory(_localPlayerHookAddress, new byte[] { 0xF3, 0x0F, 0x10, 0x4F, 0x24 });
         Free(LocalPlayerHookDetourAddress);
     }
 

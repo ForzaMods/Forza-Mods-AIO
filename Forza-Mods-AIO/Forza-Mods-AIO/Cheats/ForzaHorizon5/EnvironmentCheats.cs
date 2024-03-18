@@ -7,6 +7,8 @@ public class EnvironmentCheats : CheatsUtilities, ICheatsBase
 {
     private UIntPtr _sunRgbAddress;
     public UIntPtr SunRgbDetourAddress;
+    private UIntPtr _timeAddress;
+    public UIntPtr TimeDetourAddress;
 
     public async Task CheatSunRgb()
     {
@@ -38,6 +40,36 @@ public class EnvironmentCheats : CheatsUtilities, ICheatsBase
         
         ShowError("Sun rgb", sig);
     }
+
+    public async Task CheatTime()
+    {
+        _timeAddress = 0;
+        TimeDetourAddress = 0;
+
+        const string sig = "44 0F ? ? ? ? F2 0F ? ? ? 48 83 C4";
+        _timeAddress = await SmartAobScan(sig) + 6;
+
+        if (_timeAddress > 6)
+        {
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            {
+                await GetClass<Bypass>().DisableCrcChecks();
+            }
+
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0) return;
+
+            var asm = new byte[]
+            {
+                0xF2, 0x0F, 0x11, 0x05, 0x24, 0x00, 0x00, 0x00, 0x80, 0x3D, 0x14, 0x00, 0x00, 0x00, 0x01, 0x75, 0x08,
+                0xF2, 0x0F, 0x10, 0x05, 0x0B, 0x00, 0x00, 0x00, 0xF2, 0x0F, 0x11, 0x43, 0x08
+            };
+
+            TimeDetourAddress = GetInstance().CreateDetour(_timeAddress, asm, 5);
+            return;
+        }
+        
+        ShowError("Manual time", sig);
+    }
     
     public void Cleanup()
     {
@@ -48,6 +80,10 @@ public class EnvironmentCheats : CheatsUtilities, ICheatsBase
             mem.WriteArrayMemory(_sunRgbAddress, new byte[] { 0x41, 0x0F, 0x11, 0x1E, 0x48, 0x83, 0xC4, 0x20 });
             Free(SunRgbDetourAddress);
         }
+
+        if (_timeAddress <= 6) return;
+        mem.WriteArrayMemory(_timeAddress, new byte[] { 0xF2, 0x0F, 0x11, 0x43, 0x08 });
+        Free(TimeDetourAddress);
     }
 
     public void Reset()
