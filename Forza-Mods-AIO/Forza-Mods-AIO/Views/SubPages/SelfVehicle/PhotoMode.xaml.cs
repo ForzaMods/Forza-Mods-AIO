@@ -31,8 +31,25 @@ public partial class PhotoMode
         }
         toggleSwitch.IsEnabled = true;
 
-        
         if (PhotomodeCheatsFh5.NoClipDetourAddress == 0) return;
         GetInstance().WriteMemory(PhotomodeCheatsFh5.NoClipDetourAddress + 0x19, toggleSwitch.IsOn ? (byte)1 : (byte)0);
+    }
+
+    private async void NoHeightLimitsSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+
+        toggleSwitch.IsEnabled = false;
+        if (PhotomodeCheatsFh5.NoHeightLimitDetourAddress == 0)
+        {
+            await PhotomodeCheatsFh5.CheatNoHeightLimits();
+        }
+        toggleSwitch.IsEnabled = true;
+        
+        if (PhotomodeCheatsFh5.NoHeightLimitDetourAddress == 0) return;
+        GetInstance().WriteMemory(PhotomodeCheatsFh5.NoHeightLimitDetourAddress + 0x24, toggleSwitch.IsOn ? (byte)1 : (byte)0);
     }
 }

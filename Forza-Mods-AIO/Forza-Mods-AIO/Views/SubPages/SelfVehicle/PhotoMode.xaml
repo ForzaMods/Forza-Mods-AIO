@@ -59,7 +59,8 @@
                                   Margin="10 0"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource NoHeightLimits}"/>
+                                  Content="{DynamicResource NoHeightLimits}"
+                                  Toggled="NoHeightLimitsSwitch_OnToggled"/>
                 
                 <mah:ToggleSwitch VerticalAlignment="Center"
                                   MinWidth="0"
