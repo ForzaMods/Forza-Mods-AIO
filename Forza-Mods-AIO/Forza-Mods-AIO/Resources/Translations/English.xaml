@@ -16,6 +16,7 @@
     <system:String x:Key="Off">Off</system:String>
     <system:String x:Key="OffWithBrackets">(Off)</system:String>
     <system:String x:Key="NoClip">No Clip</system:String>
+    <system:String x:Key="Pull">Pull</system:String>
     
     <!-- MainWindow.xaml - Main controls -->
     <system:String x:Key="AioInfo">Aio Info</system:String>
@@ -101,7 +102,6 @@
     <system:String x:Key="SuperCar">Super Car</system:String>
     <system:String x:Key="NoWaterDrag">No Water Drag</system:String>
     
-    <system:String x:Key="Pull">Pull</system:String>
     <system:String x:Key="Static">Static</system:String>
     <system:String x:Key="Linear">Linear</system:String>
 

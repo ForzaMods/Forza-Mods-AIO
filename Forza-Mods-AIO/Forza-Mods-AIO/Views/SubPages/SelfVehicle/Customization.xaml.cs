@@ -42,6 +42,7 @@ public partial class Customization
                     await CustomizationCheatsFh5.CheatGlowingPaint();
                 }
                 if (CustomizationCheatsFh5.PaintDetourAddress == 0) break;
+                ViewModel.GlowingPaintEnabled = toggleSwitch.IsOn;
                 var write = toggleSwitch.IsOn ? (byte)1 : (byte)0;
                 GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x36, write);
                 GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x37, ViewModel.GlowingPaintValue);
