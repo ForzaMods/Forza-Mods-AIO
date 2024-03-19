@@ -150,6 +150,7 @@
     <system:String x:Key="AutoTpToWaypoint">Auto TP To Waypoint</system:String>
 
     <!-- PhotoMode.xaml -->
+    <system:String x:Key="ModifiersRequireScanning">Photomode modifiers require scanning</system:String>
     <system:String x:Key="Samples">Samples</system:String>
     <system:String x:Key="ApertureScale">Aperture Scale</system:String>
     <system:String x:Key="CarInFocus">Car In Focus</system:String>

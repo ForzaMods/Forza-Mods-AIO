@@ -11,6 +11,9 @@ public class PhotomodeCheats : CheatsUtilities, ICheatsBase
     public UIntPtr NoHeightLimitDetourAddress;
     private UIntPtr _increasedZoomAddress;
     public UIntPtr IncreasedZoomDetourAddress;
+    public UIntPtr MainModifiersAddress;
+    public UIntPtr SpeedAddress;
+    public bool WasModifiersScanSuccessful;
 
     public async Task CheatNoClip()
     {
@@ -100,6 +103,41 @@ public class PhotomodeCheats : CheatsUtilities, ICheatsBase
         ShowError("Photo mode increased zoom", sig);
     }
     
+    public async Task CheatModifiers()
+    {
+        MainModifiersAddress = 0;
+        SpeedAddress = 0;
+
+        var successCount = 0;
+        
+        const string mainModifiersSig = "3B 1D ? ? ? ? 0F 4E";
+        MainModifiersAddress = await SmartAobScan(mainModifiersSig);
+        if (MainModifiersAddress <= 0)
+        {
+            ShowError("Photo mode main modifiers", mainModifiersSig);
+            goto skipScans;
+        }
+
+        var mainRelative = GetInstance().ReadMemory<int>(MainModifiersAddress + 2);
+        MainModifiersAddress = (nuint)((nint)MainModifiersAddress + mainRelative + 6);
+        ++successCount;
+
+        const string speedSig = "F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? 48 8B ? ? ? ? ? ? 0F 10 ? ? ? ? ? 0F 28";
+        SpeedAddress = await SmartAobScan(speedSig);
+        if (SpeedAddress <= 0)
+        {
+            ShowError("Photo mode speed modifiers", speedSig);
+            goto skipScans;
+        }
+
+        var speedRelative = GetInstance().ReadMemory<int>(SpeedAddress + 4);
+        SpeedAddress = (nuint)((nint)SpeedAddress + speedRelative + 8);
+        ++successCount;
+        
+        skipScans:
+        WasModifiersScanSuccessful = successCount == 2;
+    }
+    
     public void Cleanup()
     {
         var mem = GetInstance();
@@ -123,6 +161,7 @@ public class PhotomodeCheats : CheatsUtilities, ICheatsBase
 
     public void Reset()
     {
+        WasModifiersScanSuccessful = false;
         var fields = typeof(PhotomodeCheats).GetFields().Where(f => f.FieldType == typeof(UIntPtr));
         foreach (var field in fields)
         {

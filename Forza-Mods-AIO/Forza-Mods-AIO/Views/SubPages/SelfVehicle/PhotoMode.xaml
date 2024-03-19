@@ -4,44 +4,94 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.SelfVehicle"
       mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance local:PhotoMode, IsDesignTimeCreatable=True}"
       Title="PhotoMode" 
       d:DesignHeight="Auto" 
       d:DesignWidth="800">
     <StackPanel>
         <Border Style="{StaticResource CommonBorderStyle}">
-            <Grid Margin="5 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid Margin="5 0">
                 
-                <ComboBox Grid.Column="0"
-                          SelectedIndex="0"
-                          VerticalAlignment="Center"
-                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
-                          Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}">
-                  
-                    <ComboBoxItem Content="{DynamicResource Samples}"/>
-                    <ComboBoxItem Content="{DynamicResource ApertureScale}"/>
-                    <ComboBoxItem Content="{DynamicResource CarInFocus}"/>
-                    <ComboBoxItem Content="{DynamicResource TimeSlice}"/>
-                    <ComboBoxItem Content="{DynamicResource TurnSpeed}"/>
-                    <ComboBoxItem Content="{DynamicResource MoveSpeed}"/>
-                    <ComboBoxItem Content="{DynamicResource SamplesMultiplier}"/>
+                    <StackPanel VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal"
+                                Visibility="{Binding ViewModel.AreScanPromptLimiterUiElementsVisible, 
+                            Converter={StaticResource BooleanToVisibilityConverter}}">
                     
-                </ComboBox>
+                        <Label VerticalAlignment="Center"
+                               Margin="5 0 0 0"
+                               Content="{DynamicResource ModifiersRequireScanning}"/>
+                    
+                        <Button HorizontalAlignment="Center"
+                                Content="{DynamicResource Scan}"
+                                BorderThickness="0"
+                                mah:ControlsHelper.FocusBorderThickness="0"
+                                Background="{DynamicResource MahApps.Brushes.AccentBase}" 
+                                Click="ModifiersScanButton_OnClick"/>
+                    
+                    </StackPanel>
                 
-                <mah:NumericUpDown Grid.Column="1"
-                                   VerticalAlignment="Center"
-                                   Margin="5 0 0 0"
-                                   TextAlignment="Left"
-                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                    <StackPanel VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal"
+                                Visibility="{Binding ViewModel.AreScanningLimiterUiElementsVisible, 
+                            Converter={StaticResource BooleanToVisibilityConverter}}">
+                    
+                        <mah:ProgressRing VerticalAlignment="Center"
+                                          IsLarge="True"
+                                          Width="25"
+                                          Height="25"/>
+                    
+                        <Label VerticalAlignment="Center"
+                               Margin="5 0 0 0"
+                               Content="{DynamicResource Scanning}"/>
+                    </StackPanel>
+                </Grid>
+                
+                <Grid Margin="5 0"
+                      Visibility="{Binding ViewModel.AreModifierUiElementsVisible, 
+                      Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <ComboBox x:Name="MainComboBox" 
+                              Grid.Column="0"
+                              SelectedIndex="0"
+                              VerticalAlignment="Center"
+                              mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                              Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                              BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                              SelectionChanged="Selector_OnSelectionChanged">
+                      
+                        <ComboBoxItem Content="{DynamicResource Samples}"/>
+                        <ComboBoxItem Content="{DynamicResource ApertureScale}"/>
+                        <ComboBoxItem Content="{DynamicResource CarInFocus}"/>
+                        <ComboBoxItem Content="{DynamicResource TimeSlice}"/>
+                        <ComboBoxItem Content="{DynamicResource SamplesMultiplier}"/>
+                        <ComboBoxItem Content="{DynamicResource MoveSpeed}"/>
+                        <ComboBoxItem Content="{DynamicResource TurnSpeed}"/>
+                        
+                    </ComboBox>
+                    
+                    <mah:NumericUpDown x:Name="ValueBox" 
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       Margin="5 0 0 0"
+                                       TextAlignment="Left"
+                                       Minimum="0"
+                                       Maximum="2147483647"
+                                       ValueChanged="ValueBox_OnValueChanged"
+                                       mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                                       Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                       BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
 
-            </Grid>            
+                </Grid>  
+            </Grid>
         </Border>
         
         <Border Style="{StaticResource CommonBorderStyle}">
