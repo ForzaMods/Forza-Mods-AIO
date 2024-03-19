@@ -52,4 +52,22 @@ public partial class PhotoMode
         if (PhotomodeCheatsFh5.NoHeightLimitDetourAddress == 0) return;
         GetInstance().WriteMemory(PhotomodeCheatsFh5.NoHeightLimitDetourAddress + 0x24, toggleSwitch.IsOn ? (byte)1 : (byte)0);
     }
+
+    private async void IncreasedZoomSwitch_OnToggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggleSwitch)
+        {
+            return;
+        }
+
+        toggleSwitch.IsEnabled = false;
+        if (PhotomodeCheatsFh5.IncreasedZoomDetourAddress == 0)
+        {
+            await PhotomodeCheatsFh5.CheatIncreasedZoom();
+        }
+        toggleSwitch.IsEnabled = true;
+        
+        if (PhotomodeCheatsFh5.IncreasedZoomDetourAddress == 0) return;
+        GetInstance().WriteMemory(PhotomodeCheatsFh5.IncreasedZoomDetourAddress + 0x21, toggleSwitch.IsOn ? (byte)1 : (byte)0);
+    }
 }

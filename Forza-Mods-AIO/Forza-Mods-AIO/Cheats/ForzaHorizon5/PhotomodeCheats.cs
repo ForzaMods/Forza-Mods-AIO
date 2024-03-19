@@ -9,6 +9,8 @@ public class PhotomodeCheats : CheatsUtilities, ICheatsBase
     public UIntPtr NoClipDetourAddress;
     private UIntPtr _noHeightLimitAddress;
     public UIntPtr NoHeightLimitDetourAddress;
+    private UIntPtr _increasedZoomAddress;
+    public UIntPtr IncreasedZoomDetourAddress;
 
     public async Task CheatNoClip()
     {
@@ -69,6 +71,35 @@ public class PhotomodeCheats : CheatsUtilities, ICheatsBase
         ShowError("Photo mode no height limits", sig);
     }
     
+    public async Task CheatIncreasedZoom()
+    {
+        _increasedZoomAddress = 0;
+        IncreasedZoomDetourAddress = 0;
+
+        const string sig = "FF 90 ? ? ? ? F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? 0F 28 ? F3 0F ? ? F3 0F ? ? F3 0F ? ? ? F3 0F ? ? ? ? F3 0F";
+        _increasedZoomAddress = await SmartAobScan(sig);
+
+        if (_increasedZoomAddress > 0)
+        {
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0)
+            {
+                await GetClass<Bypass>().DisableCrcChecks();
+            }
+            
+            if (GetClass<Bypass>().CrcFuncDetourAddress == 0) return;
+
+            var asm = new byte[]
+            {
+                0x80, 0x3D, 0x1A, 0x00, 0x00, 0x00, 0x01, 0x75, 0x0D, 0x6A, 0x00, 0xF3, 0x0F, 0x10, 0x04, 0x24, 0x48,
+                0x83, 0xC4, 0x08, 0xEB, 0x06, 0xFF, 0x90, 0x78, 0x03, 0x00, 0x00
+            };
+            IncreasedZoomDetourAddress = GetInstance().CreateDetour(_increasedZoomAddress, asm, 6);
+            return;
+        }
+        
+        ShowError("Photo mode increased zoom", sig);
+    }
+    
     public void Cleanup()
     {
         var mem = GetInstance();
@@ -84,6 +115,10 @@ public class PhotomodeCheats : CheatsUtilities, ICheatsBase
             mem.WriteArrayMemory(_noHeightLimitAddress, new byte[] { 0xF2, 0x0F, 0x10, 0x9E, 0xC0, 0x05, 0x00, 0x00 });
             Free(NoHeightLimitDetourAddress);
         }
+        
+        if (_increasedZoomAddress <= 0) return;
+        mem.WriteArrayMemory(_increasedZoomAddress, new byte[] { 0xFF, 0x90, 0x78, 0x03, 0x00, 0x00 });
+        Free(IncreasedZoomDetourAddress);
     }
 
     public void Reset()

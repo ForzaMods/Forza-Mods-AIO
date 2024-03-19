@@ -65,7 +65,8 @@
                 <mah:ToggleSwitch VerticalAlignment="Center"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource IncreasedZoom}"/>
+                                  Content="{DynamicResource IncreasedZoom}"
+                                  Toggled="IncreasedZoomSwitch_OnToggled"/>
                 
             </StackPanel>
         </Border>
