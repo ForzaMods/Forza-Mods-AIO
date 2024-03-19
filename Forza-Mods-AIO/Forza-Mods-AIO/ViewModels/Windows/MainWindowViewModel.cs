@@ -323,9 +323,13 @@ public partial class MainWindowViewModel : ObservableObject
             await Task.Delay(15);
         }
         
+        var returnWithNoChange = false;
         while (!_wasHotkeyChanged)
         {
             await Task.Delay(5);
+            if (!Keyboard.IsKeyDown(Key.Escape)) continue;
+            returnWithNoChange = true;
+            break;
         }
 
         while (HotkeysOpacity > 0)
@@ -335,6 +339,12 @@ public partial class MainWindowViewModel : ObservableObject
         }
         
         HotkeysVisibility = Visibility.Collapsed;
+
+        if (returnWithNoChange)
+        {
+            return new HotKey(hotkey.Key, hotkey.Modifier);  
+        }
+        
         if (HotKey == null) return new HotKey(Key.None);
         var result = new HotKey(HotKey.Key, HotKey.ModifierKeys); 
         return result;
