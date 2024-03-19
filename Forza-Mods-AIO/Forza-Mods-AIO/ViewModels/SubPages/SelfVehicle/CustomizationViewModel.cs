@@ -5,22 +5,13 @@ namespace Forza_Mods_AIO.ViewModels.SubPages.SelfVehicle;
 public partial class CustomizationViewModel : ObservableObject
 {
     [ObservableProperty]
-    private bool _arePaintUiElementsEnabled = true;
+    private bool _areMainUiElementsEnabled = true;
     
     [ObservableProperty]
     private bool _areHeadlightUiElementsEnabled = true;
     
     [ObservableProperty]
-    private bool _areCleanlinessUiElementsEnabled = true;
-    
-    [ObservableProperty]
-    private bool _areForceLodUiElementsEnabled = true;
-    
-    [ObservableProperty]
     private bool _areBackfireUiElementsEnabled = true;
-    
-    [ObservableProperty]
-    private float _glowingPaintValue;
     
     [ObservableProperty]
     private bool _dirtEnabled;
@@ -33,4 +24,16 @@ public partial class CustomizationViewModel : ObservableObject
     
     [ObservableProperty]
     private float _mudValue;
+
+    [ObservableProperty]
+    private bool _glowingPaintEnabled;
+    
+    [ObservableProperty]
+    private float _glowingPaintValue;
+
+    [ObservableProperty]
+    private bool _forceLodEnabled;
+    
+    [ObservableProperty]
+    private Int32 _forceLodValue;
 }

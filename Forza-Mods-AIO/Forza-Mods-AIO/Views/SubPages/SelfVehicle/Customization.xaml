@@ -17,27 +17,54 @@
             <Grid Margin="5 0">
                 
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <Slider Grid.Column="0"
+                
+                <ComboBox x:Name="MainComboBox" 
+                          Grid.Column="0"
+                          VerticalAlignment="Center"
+                          SelectedIndex="0"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                          Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                          IsEnabled="{Binding ViewModel.AreMainUiElementsEnabled}"
+                          SelectionChanged="MainComboBox_OnSelectionChanged">
+
+                    <controls:StatusComboboxItem Content="{DynamicResource GlowingPaint}"
+                                                 IsOn="{Binding ViewModel.GlowingPaintEnabled}"/>
+                    
+                    <controls:StatusComboboxItem Content="{DynamicResource Dirt}"
+                                                 IsOn="{Binding ViewModel.DirtEnabled}"/>
+                    
+                    <controls:StatusComboboxItem Content="{DynamicResource Mud}"
+                                                 IsOn="{Binding ViewModel.MudEnabled}"/>
+                    
+                    <controls:StatusComboboxItem Content="{DynamicResource ForceLod}"
+                                                 IsOn="{Binding ViewModel.MudEnabled}"/>
+                    
+                </ComboBox>
+                
+                <Slider x:Name="MainSlider" 
+                        Grid.Column="1"
                         VerticalAlignment="Center"
+                        Margin="5 0"
+                        Minimum="0"
                         mah:SliderHelper.EnableMouseWheel="MouseHover"
                         AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
                         AutoToolTipPrecision="{StaticResource SliderTooltipPrecision}"
-                        Value="{Binding ViewModel.GlowingPaintValue}"
-                        IsEnabled="{Binding ViewModel.ArePaintUiElementsEnabled}"
-                        ValueChanged="PaintSlider_OnValueChanged"/>
+                        IsEnabled="{Binding ViewModel.AreMainUiElementsEnabled}"
+                        ValueChanged="MainSlider_OnValueChanged"/>
                 
-                <mah:ToggleSwitch Grid.Column="1" 
+                <mah:ToggleSwitch x:Name="MainSwitch" 
+                                  Grid.Column="2" 
                                   VerticalAlignment="Center"
-                                  Margin="5 0 0 0"
                                   MinWidth="0"
                                   FontSize="12"
-                                  Content="{DynamicResource GlowingPaint}"
-                                  IsEnabled="{Binding ViewModel.ArePaintUiElementsEnabled}"
-                                  Toggled="PaintSwitch_OnToggled"/>
+                                  IsEnabled="{Binding ViewModel.AreMainUiElementsEnabled}"
+                                  Toggled="MainSwitch_OnToggled"/>
                 
             </Grid>
         </Border>
@@ -72,89 +99,7 @@
                 
             </Grid>
         </Border>
-        
-        <Border Style="{StaticResource CommonBorderStyle}">
-            <Grid Margin="5 0">
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <ComboBox x:Name="CleanlinessMode" 
-                          Grid.Column="0"
-                          VerticalAlignment="Center"
-                          SelectedIndex="0"
-                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
-                          Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
-                          IsEnabled="{Binding ViewModel.AreCleanlinessUiElementsEnabled}"
-                          SelectionChanged="CleanlinessMode_OnSelectionChanged">
 
-                    <controls:StatusComboboxItem Content="{DynamicResource Dirt}"
-                                                 IsOn="{Binding ViewModel.DirtEnabled}"/>
-                    
-                    <controls:StatusComboboxItem Content="{DynamicResource Mud}"
-                                                 IsOn="{Binding ViewModel.MudEnabled}"/>
-                    
-                </ComboBox>
-                    
-                <Slider x:Name="CleanlinessSlider" 
-                        Grid.Column="1"
-                        VerticalAlignment="Center"
-                        Margin="5 0"
-                        Minimum="0"
-                        Maximum="1"
-                        ValueChanged="CleanlinessSlider_OnValueChanged"
-                        mah:SliderHelper.EnableMouseWheel="MouseHover"
-                        AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
-                        AutoToolTipPrecision="{StaticResource SliderTooltipPrecision}"
-                        IsEnabled="{Binding ViewModel.AreCleanlinessUiElementsEnabled}"/>                
-                
-                <mah:ToggleSwitch x:Name="CleanlinessSwitch" 
-                                  Grid.Column="2"
-                                  VerticalAlignment="Center"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource Cleanliness}"
-                                  IsEnabled="{Binding ViewModel.AreCleanlinessUiElementsEnabled}"
-                                  Toggled="CleanlinessSwitch_OnToggled"/>
-                
-            </Grid>
-        </Border>
-        <Border Style="{StaticResource CommonBorderStyle}">
-            <Grid Margin="5 0">
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <Slider x:Name="LodSlider" 
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        mah:SliderHelper.EnableMouseWheel="MouseHover"
-                        AutoToolTipPlacement="{StaticResource SliderAutoToolTipPlacement}"
-                        IsSnapToTickEnabled="True"
-                        TickPlacement="BottomRight"
-                        Minimum="0"
-                        Maximum="4"
-                        IsEnabled="{Binding ViewModel.AreForceLodUiElementsEnabled}"
-                        ValueChanged="LodSlider_OnValueChanged"/>                
-                
-                <mah:ToggleSwitch Grid.Column="1"
-                                  VerticalAlignment="Center"
-                                  Margin="5 0 0 0"
-                                  MinWidth="0"
-                                  FontSize="12"
-                                  Content="{DynamicResource ForceLod}"
-                                  IsEnabled="{Binding ViewModel.AreForceLodUiElementsEnabled}"
-                                  Toggled="LodSwitch_OnToggled"/>
-                
-            </Grid>
-        </Border>
-        
         <Border Style="{StaticResource CommonBorderStyle}">
             <Grid Margin="5 0">
                 

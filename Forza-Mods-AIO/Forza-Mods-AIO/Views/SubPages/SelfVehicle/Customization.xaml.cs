@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using Forza_Mods_AIO.Cheats.ForzaHorizon5;
 using Forza_Mods_AIO.ViewModels.SubPages.SelfVehicle;
@@ -23,34 +24,73 @@ public partial class Customization
     public CustomizationViewModel ViewModel { get; }
     private static CustomizationCheats CustomizationCheatsFh5 => GetClass<CustomizationCheats>();
     
-    private async void PaintSwitch_OnToggled(object sender, RoutedEventArgs e)
+    private async void MainSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
         if (sender is not ToggleSwitch toggleSwitch)
         {
             return;
         }
 
-        ViewModel.ArePaintUiElementsEnabled = false;
-        
-        if (CustomizationCheatsFh5.PaintDetourAddress == 0)
+        ViewModel.AreMainUiElementsEnabled = false;
+
+        switch (MainComboBox.SelectedIndex)
         {
-            await CustomizationCheatsFh5.CheatGlowingPaint();
+            case 0:
+            {
+                if (CustomizationCheatsFh5.PaintDetourAddress == 0)
+                {
+                    await CustomizationCheatsFh5.CheatGlowingPaint();
+                }
+                if (CustomizationCheatsFh5.PaintDetourAddress == 0) return;
+                var write = toggleSwitch.IsOn ? (byte)1 : (byte)0;
+                GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x36, write);
+                GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x37, ViewModel.GlowingPaintValue);
+                break;
+            }
+            case 1:
+            {
+                if (CustomizationCheatsFh5.CleanlinessDetourAddress == 0)
+                {
+                    await CustomizationCheatsFh5.CheatCleanliness();
+                }
+        
+                if (CustomizationCheatsFh5.CleanlinessDetourAddress == 0) return;
+                ViewModel.DirtEnabled = toggleSwitch.IsOn;
+                GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x37, toggleSwitch.IsOn ? (byte)1 : (byte)0);
+                GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x38, Convert.ToSingle(MainSlider.Value));
+                break;
+            }
+            case 2:
+            {
+                if (CustomizationCheatsFh5.CleanlinessDetourAddress == 0)
+                {
+                    await CustomizationCheatsFh5.CheatCleanliness();
+                }
+        
+                if (CustomizationCheatsFh5.CleanlinessDetourAddress == 0) return;                
+                ViewModel.MudEnabled = toggleSwitch.IsOn;
+                GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x3C, toggleSwitch.IsOn ? (byte)1 : (byte)0);
+                GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x3D, Convert.ToSingle(MainSlider.Value));
+                break;
+            }
+            case 3:
+            {
+                if (CustomizationCheatsFh5.ForceLodDetourAddress == 0)
+                {
+                    await CustomizationCheatsFh5.CheatForceLod();
+                }
+        
+                if (CustomizationCheatsFh5.ForceLodDetourAddress == 0) return;                
+                ViewModel.ForceLodEnabled = toggleSwitch.IsOn;
+                GetInstance().WriteMemory(CustomizationCheatsFh5.ForceLodDetourAddress + 0x52, toggleSwitch.IsOn ? (byte)1 : (byte)0);
+                GetInstance().WriteMemory(CustomizationCheatsFh5.ForceLodDetourAddress + 0x53, Convert.ToSingle(MainSlider.Value));
+                break;
+            }
         }
 
-        ViewModel.ArePaintUiElementsEnabled = true;
-        
-        if (CustomizationCheatsFh5.PaintDetourAddress == 0) return;
-        var write = toggleSwitch.IsOn ? (byte)1 : (byte)0;
-        GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x36, write);
-        GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x37, ViewModel.GlowingPaintValue);
+        ViewModel.AreMainUiElementsEnabled = true;
     }
-
-    private void PaintSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-    {
-        if (CustomizationCheatsFh5.PaintDetourAddress == 0) return;
-        GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x37, ViewModel.GlowingPaintValue);
-    }
-
+    
     private async void HeadlightSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
         if (sender is not ToggleSwitch toggleSwitch)
@@ -95,114 +135,82 @@ public partial class Customization
         return new Vector3(red, green, blue);        
     }
 
-    private async void CleanlinessSwitch_OnToggled(object sender, RoutedEventArgs e)
+    private void MainSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        if (sender is not ToggleSwitch toggleSwitch)
-        {
-            return;
-        }
-
-        ViewModel.AreCleanlinessUiElementsEnabled = false;
-        
-        if (CustomizationCheatsFh5.CleanlinessDetourAddress == 0)
-        {
-            await CustomizationCheatsFh5.CheatCleanliness();
-        }
-        
-        ViewModel.AreCleanlinessUiElementsEnabled = true;
-        if (CustomizationCheatsFh5.CleanlinessDetourAddress == 0) return;
-
-        switch (CleanlinessMode.SelectedIndex)
+        switch (MainComboBox.SelectedIndex)
         {
             case 0:
             {
-                ViewModel.DirtEnabled = toggleSwitch.IsOn;
-                GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x37, toggleSwitch.IsOn ? (byte)1 : (byte)0);
-                GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x38, Convert.ToSingle(CleanlinessSlider.Value));
+                ViewModel.GlowingPaintValue = Convert.ToSingle(e.NewValue);
+                if (CustomizationCheatsFh5.PaintDetourAddress == 0) return;
+                GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x37, ViewModel.GlowingPaintValue);
                 break;
             }
-            default:
-            {
-                ViewModel.MudEnabled = toggleSwitch.IsOn;
-                GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x3C, toggleSwitch.IsOn ? (byte)1 : (byte)0);
-                GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x3D, Convert.ToSingle(CleanlinessSlider.Value));
-                break;
-            }
-        }
-        
-    }
-
-    private void CleanlinessSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-    {
-        switch (CleanlinessMode.SelectedIndex)
-        {
-            case 0:
+            case 1:
             {
                 ViewModel.DirtValue = Convert.ToSingle(e.NewValue);
                 if (CustomizationCheatsFh5.CleanlinessDetourAddress == 0) return;
-                GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x38, Convert.ToSingle(CleanlinessSlider.Value));
+                GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x38, ViewModel.DirtValue);
                 break;
             }
-            default:
+            case 2:
             {
                 ViewModel.MudValue = Convert.ToSingle(e.NewValue);
                 if (CustomizationCheatsFh5.CleanlinessDetourAddress == 0) return;
-                GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x3D, Convert.ToSingle(CleanlinessSlider.Value));
+                GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x3D, ViewModel.MudValue);
+                break;
+            }
+            case 3:
+            {
+                ViewModel.ForceLodValue = Convert.ToInt32(e.NewValue);
+                if (CustomizationCheatsFh5.ForceLodDetourAddress == 0) return;
+                GetInstance().WriteMemory(CustomizationCheatsFh5.ForceLodDetourAddress + 0x53, ViewModel.ForceLodValue);
                 break;
             }
         }
     }
 
-    private void CleanlinessMode_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void MainComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (sender is not ComboBox comboBox || CleanlinessSwitch == null)
+        if (sender is not ComboBox comboBox || MainSwitch == null)
         {
             return;
         }
 
-        CleanlinessSwitch.Toggled -= CleanlinessSwitch_OnToggled;
+        MainSwitch.Toggled -= MainSwitch_OnToggled;
         
-        CleanlinessSwitch.IsOn = comboBox.SelectedIndex switch
+        MainSwitch.IsOn = comboBox.SelectedIndex switch
         {
-            0 => ViewModel.DirtEnabled,
-            _ => ViewModel.MudEnabled
+            0 => ViewModel.GlowingPaintEnabled,
+            1 => ViewModel.DirtEnabled,
+            2 => ViewModel.MudEnabled,
+            3 => ViewModel.ForceLodEnabled,
+            _ => throw new IndexOutOfRangeException()
         };
         
-        CleanlinessSwitch.Toggled += CleanlinessSwitch_OnToggled;
+        MainSwitch.Toggled += MainSwitch_OnToggled;
         
-        CleanlinessSlider.Value = comboBox.SelectedIndex switch
+        MainSlider.Value = comboBox.SelectedIndex switch
         {
-            0 => ViewModel.DirtValue,
-            _ => ViewModel.MudValue
+            0 => ViewModel.GlowingPaintValue,
+            1 => ViewModel.DirtValue,
+            2 => ViewModel.MudValue,
+            3 => ViewModel.ForceLodValue,
+            _ => throw new IndexOutOfRangeException()
         };
-    }
-
-    private void LodSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-    {
-        if (CustomizationCheatsFh5.ForceLodDetourAddress == 0) return;
-        GetInstance().WriteMemory(CustomizationCheatsFh5.ForceLodDetourAddress + 0x53, Convert.ToInt32(e.NewValue));
-    }
-
-    private async void LodSwitch_OnToggled(object sender, RoutedEventArgs e)
-    {
-        if (sender is not ToggleSwitch toggleSwitch)
-        {
-            return;
-        }
         
-        ViewModel.AreForceLodUiElementsEnabled = false;
-        if (CustomizationCheatsFh5.ForceLodDetourAddress == 0)
+        MainSlider.Maximum = comboBox.SelectedIndex switch
         {
-            await CustomizationCheatsFh5.CheatForceLod();
-        }
-        ViewModel.AreForceLodUiElementsEnabled = true;
-        
-        if (CustomizationCheatsFh5.ForceLodDetourAddress == 0) return;
-        GetInstance().WriteMemory(CustomizationCheatsFh5.ForceLodDetourAddress + 0x52, toggleSwitch.IsOn ? (byte)1 : (byte)0);
-        GetInstance().WriteMemory(CustomizationCheatsFh5.ForceLodDetourAddress + 0x53, Convert.ToInt32(LodSlider.Value));
+            0 => 100,
+            1 or 2 => 1,
+            3 => 4,
+            _ => throw new IndexOutOfRangeException()
+        };
+
+        MainSlider.TickPlacement = comboBox.SelectedIndex == 3 ? TickPlacement.BottomRight : TickPlacement.None;
+        MainSlider.IsSnapToTickEnabled = comboBox.SelectedIndex == 3;
     }
-
-
+    
     private async void BackfireSwitch_OnToggled(object sender, RoutedEventArgs e)
     {
         if (sender is not ToggleSwitch toggleSwitch)

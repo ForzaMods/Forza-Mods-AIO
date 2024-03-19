@@ -118,7 +118,7 @@
     <!-- Customization.xaml -->
     <system:String x:Key="GlowingPaint">Glowing Paint</system:String>
     <system:String x:Key="HeadlightColour">Headlight Colour</system:String>
-    <system:String x:Key="ForceLod">Force Lod (Experimental, may crash with certain cars)</system:String>
+    <system:String x:Key="ForceLod">Force Lod (May crash)</system:String>
     <system:String x:Key="Cleanliness">Cleanliness</system:String>
     <system:String x:Key="BackfireTime">Backfire Time</system:String>
     <system:String x:Key="MinTime">Min Time</system:String>
