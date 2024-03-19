@@ -41,7 +41,7 @@ public partial class Customization
                 {
                     await CustomizationCheatsFh5.CheatGlowingPaint();
                 }
-                if (CustomizationCheatsFh5.PaintDetourAddress == 0) return;
+                if (CustomizationCheatsFh5.PaintDetourAddress == 0) break;
                 var write = toggleSwitch.IsOn ? (byte)1 : (byte)0;
                 GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x36, write);
                 GetInstance().WriteMemory(CustomizationCheatsFh5.PaintDetourAddress + 0x37, ViewModel.GlowingPaintValue);
@@ -54,7 +54,7 @@ public partial class Customization
                     await CustomizationCheatsFh5.CheatCleanliness();
                 }
         
-                if (CustomizationCheatsFh5.CleanlinessDetourAddress == 0) return;
+                if (CustomizationCheatsFh5.CleanlinessDetourAddress == 0) break;
                 ViewModel.DirtEnabled = toggleSwitch.IsOn;
                 GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x37, toggleSwitch.IsOn ? (byte)1 : (byte)0);
                 GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x38, Convert.ToSingle(MainSlider.Value));
@@ -67,7 +67,7 @@ public partial class Customization
                     await CustomizationCheatsFh5.CheatCleanliness();
                 }
         
-                if (CustomizationCheatsFh5.CleanlinessDetourAddress == 0) return;                
+                if (CustomizationCheatsFh5.CleanlinessDetourAddress == 0) break;                
                 ViewModel.MudEnabled = toggleSwitch.IsOn;
                 GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x3C, toggleSwitch.IsOn ? (byte)1 : (byte)0);
                 GetInstance().WriteMemory(CustomizationCheatsFh5.CleanlinessDetourAddress + 0x3D, Convert.ToSingle(MainSlider.Value));
@@ -80,7 +80,7 @@ public partial class Customization
                     await CustomizationCheatsFh5.CheatForceLod();
                 }
         
-                if (CustomizationCheatsFh5.ForceLodDetourAddress == 0) return;                
+                if (CustomizationCheatsFh5.ForceLodDetourAddress == 0) break;                
                 ViewModel.ForceLodEnabled = toggleSwitch.IsOn;
                 GetInstance().WriteMemory(CustomizationCheatsFh5.ForceLodDetourAddress + 0x52, toggleSwitch.IsOn ? (byte)1 : (byte)0);
                 GetInstance().WriteMemory(CustomizationCheatsFh5.ForceLodDetourAddress + 0x53, Convert.ToSingle(MainSlider.Value));
