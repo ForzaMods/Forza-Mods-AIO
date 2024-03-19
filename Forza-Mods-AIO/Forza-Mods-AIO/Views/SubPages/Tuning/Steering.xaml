@@ -1,11 +1,12 @@
-﻿<Page x:Class="Forza_Mods_AIO.Views.SubPages.Tuning.Tires"
+﻿<Page x:Class="Forza_Mods_AIO.Views.SubPages.Tuning.Steering"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.Tuning"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d"
-      Title="Tires" 
+      Title="Steering"
       d:DesignHeight="auto" 
       d:DesignWidth="auto">
     <StackPanel>
@@ -13,7 +14,6 @@
             <Grid Margin="5 0">
                 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
@@ -27,28 +27,19 @@
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                           Background="{DynamicResource MahApps.Brushes.AccentBase}">
                     
-                    <ComboBoxItem Content="{DynamicResource FrontLeftTirePressure}"/>
-                    <ComboBoxItem Content="{DynamicResource FrontRightTirePressure}"/>
-                    <ComboBoxItem Content="{DynamicResource RearLeftTirePressure}"/>
-                    <ComboBoxItem Content="{DynamicResource RearRightTirePressure}"/>
+                    <ComboBoxItem Content="{DynamicResource AngleMax}"/>
+                    <ComboBoxItem Content="{DynamicResource AngleMax2}"/>
+                    <ComboBoxItem Content="{DynamicResource VelocityStraight}"/>
+                    <ComboBoxItem Content="{DynamicResource VelocityTurning}"/>
+                    <ComboBoxItem Content="{DynamicResource VelocityCountersteer}"/>
+                    <ComboBoxItem Content="{DynamicResource VelocityDynamicPeek}"/>
+                    <ComboBoxItem Content="{DynamicResource TimeToMaxSteering}"/>
                     
                 </ComboBox>
                 
-                <ComboBox Grid.Column="1"
-                          VerticalAlignment="Center"
-                          Margin="5 0"
-                          SelectedIndex="0"
-                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
-                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
-                          Background="{DynamicResource MahApps.Brushes.AccentBase}">
-                    
-                    <ComboBoxItem Content="{DynamicResource Psi}"/>
-                    <ComboBoxItem Content="{DynamicResource Bar}"/>
-                    
-                </ComboBox>
-                
-                <mah:NumericUpDown Grid.Column="2"
+                <mah:NumericUpDown Grid.Column="1"
                                    VerticalAlignment="Center"
+                                   Margin="5 0"
                                    TextAlignment="Left"
                                    Minimum="0"
                                    Value="0"
@@ -56,9 +47,8 @@
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                                    Background="{DynamicResource MahApps.Brushes.AccentBase}"/>
                 
-                <Button Grid.Column="3"
+                <Button Grid.Column="2"
                         VerticalAlignment="Center"
-                        Margin="5 0 0 0"
                         mah:ControlsHelper.FocusBorderThickness="0"
                         Content="{DynamicResource Pull}"
                         Background="{DynamicResource MahApps.Brushes.AccentBase}"

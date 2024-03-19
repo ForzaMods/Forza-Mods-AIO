@@ -1,0 +1,116 @@
+﻿<Page x:Class="Forza_Mods_AIO.Views.SubPages.Tuning.Springs"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Forza_Mods_AIO.Views.SubPages.Tuning"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d"
+      Title="Springs" 
+      d:DesignHeight="auto" 
+      d:DesignWidth="auto">
+        <StackPanel>
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid Margin="5 0">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                
+                <ComboBox Grid.Column="0"
+                          VerticalAlignment="Center"
+                          SelectedIndex="0"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                          Background="{DynamicResource MahApps.Brushes.AccentBase}">
+                    
+                    <ComboBoxItem Content="{DynamicResource FrontSpringsMin}"/>
+                    <ComboBoxItem Content="{DynamicResource FrontSpringsMax}"/>
+                    <ComboBoxItem Content="{DynamicResource RearSpringsMin}"/>
+                    <ComboBoxItem Content="{DynamicResource RearSpringsMax}"/>
+                    
+                </ComboBox>
+                
+                <mah:NumericUpDown Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   Margin="5 0"
+                                   TextAlignment="Left"
+                                   Minimum="0"
+                                   Value="0"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                
+                <Button Grid.Column="2"
+                        VerticalAlignment="Center"
+                        mah:ControlsHelper.FocusBorderThickness="0"
+                        Content="{DynamicResource Pull}"
+                        Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                
+            </Grid>
+        </Border>
+        <Border Style="{StaticResource CommonBorderStyle}">
+            <Grid Margin="5 0">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                
+                <ComboBox Grid.Column="0"
+                          VerticalAlignment="Center"
+                          SelectedIndex="0"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                          Background="{DynamicResource MahApps.Brushes.AccentBase}">
+                    
+                    <ComboBoxItem Content="{DynamicResource FrontRideHeightMin}"/>
+                    <ComboBoxItem Content="{DynamicResource FrontRideHeightMax}"/>
+                    <ComboBoxItem Content="{DynamicResource FrontRestriction}"/>
+                    <ComboBoxItem Content="{DynamicResource RearRideHeightMin}"/>
+                    <ComboBoxItem Content="{DynamicResource RearRideHeightMax}"/>
+                    <ComboBoxItem Content="{DynamicResource RearRestriction}"/>
+                    
+                </ComboBox>
+                
+                <ComboBox Grid.Column="1"
+                          VerticalAlignment="Center"
+                          Margin="5 0"
+                          SelectedIndex="0"
+                          mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                          Background="{DynamicResource MahApps.Brushes.AccentBase}">
+                    
+                    <ComboBoxItem Content="{DynamicResource Centimeters}"/>
+                    <ComboBoxItem Content="{DynamicResource Inches}"/>
+                    
+                </ComboBox>
+                
+                <mah:NumericUpDown Grid.Column="2"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Left"
+                                   Minimum="0"
+                                   Value="0"
+                                   mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                                   BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                
+                <Button Grid.Column="3"
+                        VerticalAlignment="Center"
+                        Margin="5 0 0 0"
+                        mah:ControlsHelper.FocusBorderThickness="0"
+                        Content="{DynamicResource Pull}"
+                        Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                
+            </Grid>
+        </Border>
+    </StackPanel>
+</Page>

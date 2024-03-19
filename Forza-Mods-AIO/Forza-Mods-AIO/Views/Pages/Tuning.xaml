@@ -108,6 +108,9 @@
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
                           Margin="10 0 10 10">
                     
+                    <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Gearing}, Mode=OneWay}"/>
+                    
                 </Expander>
                 
                 <Expander BorderBrush="{Binding Theming.DarkerColour}"
@@ -119,6 +122,9 @@
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
                           Margin="10 0 10 10">
                     
+                    <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Alignment}, Mode=OneWay}"/>
+
                 </Expander>
 
                 <Expander BorderBrush="{Binding Theming.DarkerColour}"
@@ -129,6 +135,9 @@
                           mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
                           Margin="10 0 10 10">
+                    
+                    <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Springs}, Mode=OneWay}"/>
                     
                 </Expander>
 
@@ -141,6 +150,9 @@
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
                           Margin="10 0 10 10">
                     
+                    <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Damping}, Mode=OneWay}"/>
+                    
                 </Expander>
 
                 <Expander BorderBrush="{Binding Theming.DarkerColour}"
@@ -152,6 +164,8 @@
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
                           Margin="10 0 10 10">
                     
+                    <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Aero}, Mode=OneWay}"/>
                     
                 </Expander>
 
@@ -164,6 +178,9 @@
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
                           Margin="10 0 10 10">
                     
+                    <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Steering}, Mode=OneWay}"/>
+                    
                 </Expander>
 
                 <Expander BorderBrush="{Binding Theming.DarkerColour}"
@@ -174,6 +191,9 @@
                           mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
                           Margin="10 0 10 0">
+                    
+                    <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
+                           ConverterParameter={x:Type subPages:Others}, Mode=OneWay}"/>
                     
                 </Expander>
             </StackPanel>

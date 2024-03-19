@@ -193,6 +193,80 @@
     <system:String x:Key="Psi">PSI</system:String>
     <system:String x:Key="Bar">Bar</system:String>
     
+    <!-- Gearing.xaml -->
+    <system:String x:Key="FinalDriveRatio">Final Drive Ratio</system:String>
+    <system:String x:Key="ReverseGear">Reverse Gear</system:String>
+    <system:String x:Key="FirstGear">First Gear</system:String>
+    <system:String x:Key="SecondGear">Second Gear</system:String>
+    <system:String x:Key="ThirdGear">Third Gear</system:String>
+    <system:String x:Key="FourthGear">Fourth Gear</system:String>
+    <system:String x:Key="FifthGear">Fifth Gear</system:String>
+    <system:String x:Key="SixthGear">Sixth Gear</system:String>
+    <system:String x:Key="SeventhGear">Seventh Gear</system:String>
+    <system:String x:Key="EighthGear">Eighth Gear</system:String>
+    <system:String x:Key="NinthGear">Ninth Gear</system:String>
+    <system:String x:Key="TenthGear">Tenth Gear</system:String>
+    
+    <!-- Alignment.xaml -->
+    <system:String x:Key="NegativeCamber">Negative Camber</system:String>
+    <system:String x:Key="PositiveCamber">Positive Camber</system:String>
+    <system:String x:Key="NegativeToe">Negative Toe</system:String>
+    <system:String x:Key="PositiveToe">Positive Toe</system:String>
+    
+    <!-- Springs.xaml -->
+    <system:String x:Key="FrontSpringsMin">Front Springs Min</system:String>
+    <system:String x:Key="FrontSpringsMax">Front Springs Max</system:String>
+    <system:String x:Key="RearSpringsMin">Rear Springs Min</system:String>
+    <system:String x:Key="RearSpringsMax">Rear Springs Max</system:String>
+    <system:String x:Key="FrontRideHeightMin">Front Ride Height Min</system:String>
+    <system:String x:Key="FrontRideHeightMax">Front Ride Height Max</system:String>
+    <system:String x:Key="FrontRestriction">Front Restriction</system:String>
+    <system:String x:Key="RearRideHeightMin">Rear Ride Height Min</system:String>
+    <system:String x:Key="RearRideHeightMax">Rear Ride Height Max</system:String>
+    <system:String x:Key="RearRestriction">Rear Restriction</system:String>
+    <system:String x:Key="Centimeters">Centimeters</system:String>
+    <system:String x:Key="Inches">Inches</system:String>
+    
+    <!-- Damping.xaml -->
+    <system:String x:Key="FrontAntirollMin">Front Antiroll Min</system:String>
+    <system:String x:Key="FrontAntirollMax">Front Antiroll Max</system:String>
+    <system:String x:Key="RearAntirollMin">Rear Antiroll Min</system:String>
+    <system:String x:Key="RearAntirollMax">Rear Antiroll Max</system:String>
+    <system:String x:Key="FrontReboundStiffnessMin">Front Rebound Stiffness Min</system:String>
+    <system:String x:Key="FrontReboundStiffnessMax">Front Rebound Stiffness Max</system:String>
+    <system:String x:Key="RearReboundStiffnessMin">Rear Rebound Stiffness Min</system:String>
+    <system:String x:Key="RearReboundStiffnessMax">Rear Rebound Stiffness Max</system:String>
+    <system:String x:Key="FrontBumpStiffnessMin">Front Bump Stiffness Min</system:String>
+    <system:String x:Key="FrontBumpStiffnessMax">Front Bump Stiffness Max</system:String>
+    <system:String x:Key="RearBumpStiffnessMin">Rear Bump Stiffness Min</system:String>
+    <system:String x:Key="RearBumpStiffnessMax">Rear Bump Stiffness Max</system:String>
+    
+    <!-- Aero.xaml -->
+    <system:String x:Key="FrontAeroMin">Front Aero Min</system:String>
+    <system:String x:Key="FrontAeroMax">Front Aero Max</system:String>
+    <system:String x:Key="RearAeroMin">Rear Aero Min</system:String>
+    <system:String x:Key="RearAeroMax">Rear Aero Max</system:String>
+    
+    <!-- Steering.xaml -->
+    <system:String x:Key="AngleMax">Steering Angle Max</system:String>
+    <system:String x:Key="AngleMax2">Steering Angle Max 2</system:String>
+    <system:String x:Key="VelocityStraight">Velocity Straight</system:String>
+    <system:String x:Key="VelocityTurning">Velocity Turning</system:String>
+    <system:String x:Key="VelocityCountersteer">Velocity Countersteer</system:String>
+    <system:String x:Key="VelocityDynamicPeek">Velocity Dynamic Peek</system:String>
+    <system:String x:Key="TimeToMaxSteering">Time To Max Steering</system:String>
+    
+    <!-- Other.xaml -->
+    <system:String x:Key="Wheelbase">Wheelbase</system:String>
+    <system:String x:Key="FrontWidth">Front Width</system:String>
+    <system:String x:Key="FrontSpacer">Front Spacer</system:String>
+    <system:String x:Key="RearWidth">Rear Width</system:String>
+    <system:String x:Key="RearSpacer">Rear Spacer</system:String>
+    <system:String x:Key="RimSizeFront">Rim Size - Front</system:String>
+    <system:String x:Key="RimRadiusFront">Rim Radius - Front</system:String>
+    <system:String x:Key="RimSizeRear">Rim Size - Rear</system:String>
+    <system:String x:Key="RimRadiusRear">Rim Radius - Rear</system:String>
+    
     <!-- Settings.xaml -->
     <system:String x:Key="Appearance">Appearance</system:String>
     <system:String x:Key="ChangeTheme">Change Theme</system:String>
