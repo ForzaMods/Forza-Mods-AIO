@@ -159,11 +159,11 @@ public partial class MainWindowViewModel : ObservableObject
         while (true)
         {
             Task.Delay(Attached ? 1000 : 500).Wait();
-            var result = GetInstance().OpenProcess(currentOpen);
+            var result = Mem.GetProcIdFromName(currentOpen);
             
             switch (Attached)
             {
-                case true when result != Mem.OpenProcessResults.Success && result != Mem.OpenProcessResults.NotResponding:
+                case true when result <= 0:
                 {
                     Attached = false;
                     AttachedText = NotAttachedText;
