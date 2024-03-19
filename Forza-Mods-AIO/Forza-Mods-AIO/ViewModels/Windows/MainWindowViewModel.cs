@@ -69,16 +69,18 @@ public partial class MainWindowViewModel : ObservableObject
 
     #region Hotkeys
 
-    private HotKey _hotKey = new(Key.None);
+    private HotKey? _hotKey = new(Key.None);
 
-    public HotKey HotKey
+    public HotKey? HotKey
     {
         get => _hotKey;
         set
         {
             if (EqualityComparer<HotKey>.Default.Equals(_hotKey, value)) return;
+            OnPropertyChanging();
             _hotKey = value;
             _wasHotkeyChanged = true;
+            OnPropertyChanged();
         }
     }
 
@@ -333,8 +335,8 @@ public partial class MainWindowViewModel : ObservableObject
         }
         
         HotkeysVisibility = Visibility.Collapsed;
+        if (HotKey == null) return new HotKey(Key.None);
         var result = new HotKey(HotKey.Key, HotKey.ModifierKeys); 
-        HotKey = new HotKey(Key.None);
         return result;
     }
 }
