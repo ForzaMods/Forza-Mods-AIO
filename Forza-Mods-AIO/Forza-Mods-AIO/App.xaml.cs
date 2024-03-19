@@ -15,6 +15,9 @@ namespace Forza_Mods_AIO;
 
 public partial class App
 {
+    private const string MutexName = "{(4A771E61-6684-449F-8952-B31582A8877E)}";
+    private Mutex _mutex = null!;
+
     private static readonly IHost Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
         .ConfigureAppConfiguration(c =>
         {
@@ -48,6 +51,28 @@ public partial class App
         DisconnectFromGame();
         await Host.StopAsync();
         Host.Dispose();
+    }
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        _mutex = new Mutex(true, MutexName, out var createdNew);
+
+        if (createdNew)
+        {
+            base.OnStartup(e);
+        }
+        else
+        {
+            MessageBox.Show("Another instance of the tool is already running.", "Information", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            Current.Shutdown();
+        }
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        _mutex.ReleaseMutex();
+        _mutex.Dispose();
+        base.OnExit(e);
     }
 
     private static void DisconnectFromGame()
