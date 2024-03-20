@@ -37,9 +37,6 @@
     <system:String x:Key="BreakpointActions">Breakpoint Actions</system:String>
     <system:String x:Key="BreakpointUnpause">Unpause</system:String>
     <system:String x:Key="ReportedInfo">Reported Info</system:String>
-    <system:String x:Key="ExportSessionInfo">Export Session Info</system:String>
-    <system:String x:Key="ExportToJson">Export to Json</system:String>
-    <system:String x:Key="ExportToTxt">Export to Txt</system:String>
     
     <!-- AioInfo.xaml - Main controls -->
     <system:String x:Key="ToolCredits">Tool Credits</system:String>

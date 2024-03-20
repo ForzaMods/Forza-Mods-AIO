@@ -142,24 +142,6 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </GroupBox>
-            
-            <GroupBox Grid.Column="1" 
-                      Header="{DynamicResource ExportSessionInfo}"
-                      Margin="15 0 0 0">
-                <StackPanel>
-                    <Button Content="{DynamicResource ExportToJson}"
-                            Focusable="False"
-                            BorderBrush="{Binding Theming.DarkerColour}"
-                            Background="{Binding Theming.DarkerColour}"/>
-                    
-                    <Button Content="{DynamicResource ExportToTxt}" 
-                            Focusable="False"
-                            Margin="0 5" 
-                            BorderBrush="{Binding Theming.DarkerColour}"
-                            Background="{Binding Theming.DarkerColour}"/>
-
-                </StackPanel>
-            </GroupBox>
         </Grid>
     </Grid>
 </mah:MetroWindow>
