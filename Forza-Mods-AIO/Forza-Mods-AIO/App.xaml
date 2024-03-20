@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="/Resources/Theme/ThemeConstants.xaml" />
                 <ResourceDictionary Source="/Resources/Translations/English.xaml" />
                 <ResourceDictionary Source="/Controls/StatusComboboxItem/StatusComboboxItem.xaml" />
+                <ResourceDictionary Source="/Controls/TranslationComboboxItem/TranslationComboboxItem.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:InstanceEqualsConverter x:Key="InstanceEqualsConverter"/>
             <converters:TypeToInstanceConverter x:Key="TypeToInstanceConverter"/>

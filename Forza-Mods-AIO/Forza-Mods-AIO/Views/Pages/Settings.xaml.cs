@@ -24,20 +24,7 @@ public partial class Settings
         {
             return;
         }
-        
-        var typeItem = (ComboBoxItem)comboBox.SelectedItem;
-        var value = typeItem.Content.ToString();
 
-        if (value == null)
-        {
-            return;
-        }
-
-        var dict = new ResourceDictionary
-        {
-            Source = new Uri($"/Resources/Translations/{value}.xaml", UriKind.RelativeOrAbsolute)
-        };
-        
-        Application.Current.Resources.MergedDictionaries.Add(dict);
+        // TODO: Add language switching based on the selected index and not the content since that shit crashes
     }
 }

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Forza_Mods_AIO.Views.Pages"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:controls="clr-namespace:Forza_Mods_AIO.Controls.TranslationComboboxItem"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance local:Settings, IsDesignTimeCreatable=True}"
       Title="Settings" 
@@ -73,39 +74,104 @@
                       mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                       SelectionChanged="LanguageBox_OnSelectionChanged">
                     
-                <ComboBoxItem Content="{DynamicResource English}" />
-                <ComboBoxItem Content="{DynamicResource English}" />
-                <ComboBoxItem Content="{DynamicResource Afrikaans}" />
-                <ComboBoxItem Content="{DynamicResource Arabic}" />
-                <ComboBoxItem Content="{DynamicResource Catalan}" />
-                <ComboBoxItem Content="{DynamicResource ChineseSimplified}" />
-                <ComboBoxItem Content="{DynamicResource ChineseTraditional}" />
-                <ComboBoxItem Content="{DynamicResource Czech}" />
-                <ComboBoxItem Content="{DynamicResource Danish}" />
-                <ComboBoxItem Content="{DynamicResource Dutch}" />
-                <ComboBoxItem Content="{DynamicResource Finnish}" />
-                <ComboBoxItem Content="{DynamicResource French}" />
-                <ComboBoxItem Content="{DynamicResource German}" />
-                <ComboBoxItem Content="{DynamicResource Greek}" />
-                <ComboBoxItem Content="{DynamicResource Hebrew}" />
-                <ComboBoxItem Content="{DynamicResource Hungarian}" />
-                <ComboBoxItem Content="{DynamicResource Italian}" />
-                <ComboBoxItem Content="{DynamicResource Japanese}" />
-                <ComboBoxItem Content="{DynamicResource Korean}" />
-                <ComboBoxItem Content="{DynamicResource Norwegian}" />
-                <ComboBoxItem Content="{DynamicResource Polish}" />
-                <ComboBoxItem Content="{DynamicResource Portuguese}" />
-                <ComboBoxItem Content="{DynamicResource PortugueseBrazilian}" />
-                <ComboBoxItem Content="{DynamicResource Romanian}" />
-                <ComboBoxItem Content="{DynamicResource Russian}" />
-                <ComboBoxItem Content="{DynamicResource SerbianCyrillic}" />
-                <ComboBoxItem Content="{DynamicResource SerbianLatin}" />
-                <ComboBoxItem Content="{DynamicResource Spanish}" />
-                <ComboBoxItem Content="{DynamicResource Swedish}" />
-                <ComboBoxItem Content="{DynamicResource Thai}" />
-                <ComboBoxItem Content="{DynamicResource Turkish}" />
-                <ComboBoxItem Content="{DynamicResource Ukrainian}" />
-                <ComboBoxItem Content="{DynamicResource Vietnamese}" />
+                <controls:TranslationComboboxItem Content="{DynamicResource English}" 
+                                                  Translators="merika"/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Afrikaans}" 
+                                                  IsEnabled="False"/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Arabic}" 
+                                                  Translators="zx15.a, mustafaalethawie, LUXURY_KIMO, HussienSenpai, xj6m"/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Catalan}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource ChineseSimplified}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource ChineseTraditional}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Czech}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Danish}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Dutch}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Finnish}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource French}" 
+                                                  Translators="elyno, reviloje.dfvc, Walkoud"/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource German}" 
+                                                  Translators="lesstoupan, d4vss, OREOONTOP, reviloje.dfvc"/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Greek}" 
+                                                  Translators="GodsonGamerGr"/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Hebrew}" 
+                                                  Translators="tomer_pac"/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Hungarian}" 
+                                                  Translators="benobmw"/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Italian}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Japanese}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Korean}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Norwegian}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Polish}" 
+                                                  Translators="merika, Skrajdovski, h1ro, k.wawrzyn91"/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Portuguese}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource PortugueseBrazilian}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource PortugueseBrazilian}" 
+                                                  Translators="https.igor02, Henrique-Coder"/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Romanian}" 
+                                                  Translators="CreepyPigeon, apol0"/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Russian}" 
+                                                  Translators="OdnaStreet, aladushek2004, arsutov39"/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource SerbianCyrillic}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource SerbianLatin}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Spanish}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Swedish}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Thai}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Turkish}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Ukrainian}" 
+                                                  Translators=""/>
+                
+                <controls:TranslationComboboxItem Content="{DynamicResource Vietnamese}" 
+                                                  Translators=""/>
                     
             </ComboBox>
         </GroupBox>

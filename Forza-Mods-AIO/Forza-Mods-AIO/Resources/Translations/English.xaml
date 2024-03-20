@@ -20,6 +20,7 @@
     <system:String x:Key="Scanning">Scanning...</system:String>
     <system:String x:Key="Min">Min</system:String>
     <system:String x:Key="Max">Max</system:String>
+    <system:String x:Key="TranslatedBy">Translated by: </system:String>
     
     <!-- MainWindow.xaml - Main controls -->
     <system:String x:Key="AioInfo">Aio Info</system:String>
