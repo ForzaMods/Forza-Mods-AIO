@@ -17,6 +17,9 @@
     <system:String x:Key="OffWithBrackets">(Off)</system:String>
     <system:String x:Key="NoClip">No Clip</system:String>
     <system:String x:Key="Pull">Pull</system:String>
+    <system:String x:Key="Scanning">Scanning...</system:String>
+    <system:String x:Key="Min">Min</system:String>
+    <system:String x:Key="Max">Max</system:String>
     
     <!-- MainWindow.xaml - Main controls -->
     <system:String x:Key="AioInfo">Aio Info</system:String>
@@ -46,7 +49,6 @@
     <system:String x:Key="GitRepository">Github Repository</system:String>
     <system:String x:Key="Overlay">Overlay</system:String>
     <system:String x:Key="DebugWindow">Debug Window</system:String>
-    <system:String x:Key="Lightness">Lightness</system:String>
     
     <!-- Autoshow.xaml -->
     <system:String x:Key="Run">Run</system:String>
@@ -122,8 +124,6 @@
     <system:String x:Key="MaxTime">Max Time</system:String>
     <system:String x:Key="Dirt">Dirt</system:String>
     <system:String x:Key="Mud">Mud</system:String>
-    <system:String x:Key="ForceNormal">Force Normal Backfire</system:String>
-    <system:String x:Key="ForceAntiLag">Force AntiLag Backfire</system:String>
     
     <!-- Environment.xaml -->
     <system:String x:Key="SunRgb">Sun RGB</system:String>
@@ -162,15 +162,12 @@
     <system:String x:Key="FovLock">Fov Lock</system:String>
     <system:String x:Key="CameraOffset">Camera Offset</system:String>
     <system:String x:Key="FovLimitersRequireScanning">Fov limiters require scanning</system:String>
-    <system:String x:Key="Scanning">Scanning...</system:String>
     <system:String x:Key="Chase">Chase</system:String>
     <system:String x:Key="ChaseFar">Chase Far</system:String>
     <system:String x:Key="Driver">Driver</system:String>
     <system:String x:Key="Dashboard">Dashboard</system:String>
     <system:String x:Key="Hood">Hood</system:String>
     <system:String x:Key="Bumper">Bumper</system:String>
-    <system:String x:Key="Min">Min</system:String>
-    <system:String x:Key="Max">Max</system:String>
     
     <!-- Tuning.xaml -->
     <system:String x:Key="Tires">Tires</system:String>
@@ -270,11 +267,36 @@
     <system:String x:Key="MonetTheme">Monet Theme</system:String>
     <system:String x:Key="Language">Language</system:String>
     <system:String x:Key="English">English</system:String>
-    <system:String x:Key="Chinese">Chinese</system:String>
-    <system:String x:Key="Polish">Polish</system:String>
-    <system:String x:Key="German">German</system:String>
+    <system:String x:Key="Afrikaans">Afrikaans</system:String>
+    <system:String x:Key="Arabic">Arabic</system:String>
+    <system:String x:Key="Catalan">Catalan</system:String>
+    <system:String x:Key="ChineseSimplified">Chinese Simplified</system:String>
+    <system:String x:Key="ChineseTraditional">Chinese Traditional</system:String>
+    <system:String x:Key="Czech">Czech</system:String>
+    <system:String x:Key="Danish">Danish</system:String>
+    <system:String x:Key="Dutch">Dutch</system:String>
+    <system:String x:Key="Finnish">Finnish</system:String>
     <system:String x:Key="French">French</system:String>
-    <system:String x:Key="Serbian">Serbian</system:String>
+    <system:String x:Key="German">German</system:String>
+    <system:String x:Key="Greek">Greek</system:String>
+    <system:String x:Key="Hebrew">Hebrew</system:String>
+    <system:String x:Key="Hungarian">Hungarian</system:String>
+    <system:String x:Key="Italian">Italian</system:String>
+    <system:String x:Key="Japanese">Japanese</system:String>
+    <system:String x:Key="Korean">Korean</system:String>
+    <system:String x:Key="Norwegian">Norwegian</system:String>
+    <system:String x:Key="Polish">Polish</system:String>
+    <system:String x:Key="Portuguese">Portuguese</system:String>
+    <system:String x:Key="PortugueseBrazilian">Portuguese, Brazilian</system:String>
+    <system:String x:Key="Romanian">Romanian</system:String>
+    <system:String x:Key="Russian">Russian</system:String>
+    <system:String x:Key="SerbianCyrillic">Serbian (Cyrillic)</system:String>
+    <system:String x:Key="SerbianLatin">Serbian (Latin)</system:String>
     <system:String x:Key="Spanish">Spanish</system:String>
+    <system:String x:Key="Swedish">Swedish</system:String>
+    <system:String x:Key="Thai">Thai</system:String>
+    <system:String x:Key="Turkish">Turkish</system:String>
+    <system:String x:Key="Ukrainian">Ukrainian</system:String>
+    <system:String x:Key="Vietnamese">Vietnamese</system:String>
     
 </ResourceDictionary>

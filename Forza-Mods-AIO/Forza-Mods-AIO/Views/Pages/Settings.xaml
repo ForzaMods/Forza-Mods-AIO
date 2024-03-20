@@ -74,12 +74,38 @@
                       SelectionChanged="LanguageBox_OnSelectionChanged">
                     
                 <ComboBoxItem Content="{DynamicResource English}" />
-                <ComboBoxItem Content="{DynamicResource Chinese}" />
-                <ComboBoxItem Content="{DynamicResource Polish}" />
-                <ComboBoxItem Content="{DynamicResource German}" />
+                <ComboBoxItem Content="{DynamicResource English}" />
+                <ComboBoxItem Content="{DynamicResource Afrikaans}" />
+                <ComboBoxItem Content="{DynamicResource Arabic}" />
+                <ComboBoxItem Content="{DynamicResource Catalan}" />
+                <ComboBoxItem Content="{DynamicResource ChineseSimplified}" />
+                <ComboBoxItem Content="{DynamicResource ChineseTraditional}" />
+                <ComboBoxItem Content="{DynamicResource Czech}" />
+                <ComboBoxItem Content="{DynamicResource Danish}" />
+                <ComboBoxItem Content="{DynamicResource Dutch}" />
+                <ComboBoxItem Content="{DynamicResource Finnish}" />
                 <ComboBoxItem Content="{DynamicResource French}" />
-                <ComboBoxItem Content="{DynamicResource Serbian}" />
+                <ComboBoxItem Content="{DynamicResource German}" />
+                <ComboBoxItem Content="{DynamicResource Greek}" />
+                <ComboBoxItem Content="{DynamicResource Hebrew}" />
+                <ComboBoxItem Content="{DynamicResource Hungarian}" />
+                <ComboBoxItem Content="{DynamicResource Italian}" />
+                <ComboBoxItem Content="{DynamicResource Japanese}" />
+                <ComboBoxItem Content="{DynamicResource Korean}" />
+                <ComboBoxItem Content="{DynamicResource Norwegian}" />
+                <ComboBoxItem Content="{DynamicResource Polish}" />
+                <ComboBoxItem Content="{DynamicResource Portuguese}" />
+                <ComboBoxItem Content="{DynamicResource PortugueseBrazilian}" />
+                <ComboBoxItem Content="{DynamicResource Romanian}" />
+                <ComboBoxItem Content="{DynamicResource Russian}" />
+                <ComboBoxItem Content="{DynamicResource SerbianCyrillic}" />
+                <ComboBoxItem Content="{DynamicResource SerbianLatin}" />
                 <ComboBoxItem Content="{DynamicResource Spanish}" />
+                <ComboBoxItem Content="{DynamicResource Swedish}" />
+                <ComboBoxItem Content="{DynamicResource Thai}" />
+                <ComboBoxItem Content="{DynamicResource Turkish}" />
+                <ComboBoxItem Content="{DynamicResource Ukrainian}" />
+                <ComboBoxItem Content="{DynamicResource Vietnamese}" />
                     
             </ComboBox>
         </GroupBox>
