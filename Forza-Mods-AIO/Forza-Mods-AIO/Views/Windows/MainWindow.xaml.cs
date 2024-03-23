@@ -33,7 +33,7 @@ public partial class MainWindow
         DragMove();
     }
 
-    private void WindowStateAction_OnClick(object sender, RoutedEventArgs e)
+    private async void WindowStateAction_OnClick(object sender, RoutedEventArgs e)
     {
         if (sender is not Button button) return;
 
@@ -51,6 +51,8 @@ public partial class MainWindow
             }
             case "3":
             {
+                WindowState = WindowState.Minimized;
+                await Task.Delay(250);
                 Close();
                 Application.Current.Shutdown();
                 break;
