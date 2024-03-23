@@ -49,6 +49,7 @@ public partial class App
     {
         HotkeysManager.ShutdownSystemHook();
         DisconnectFromGame();
+        
         await Host.StopAsync();
         Host.Dispose();
     }

@@ -20,12 +20,14 @@
                 </Grid.ColumnDefinitions>
 
                 
-                <ComboBox Grid.Column="0"
+                <ComboBox x:Name="ComboBox" 
+                          Grid.Column="0"
                           VerticalAlignment="Center"
                           SelectedIndex="0"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
-                          Background="{DynamicResource MahApps.Brushes.AccentBase}">
+                          Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                          SelectionChanged="ComboBox_OnSelectionChanged">
                     
                     <ComboBoxItem Content="{DynamicResource FinalDriveRatio}"/>
                     <ComboBoxItem Content="{DynamicResource ReverseGear}"/>
@@ -42,22 +44,24 @@
                     
                 </ComboBox>
                 
-                <mah:NumericUpDown Grid.Column="1"
+                <mah:NumericUpDown x:Name="ValueBox" 
+                                   Grid.Column="1"
                                    VerticalAlignment="Center"
                                    Margin="5 0"
                                    TextAlignment="Left"
-                                   Minimum="0"
                                    Value="0"
                                    mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   ValueChanged="ValueBox_OnValueChanged"/>
                 
                 <Button Grid.Column="2"
                         VerticalAlignment="Center"
                         mah:ControlsHelper.FocusBorderThickness="0"
                         Content="{DynamicResource Pull}"
                         Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                        BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                        BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                        Click="ButtonBase_OnClick"/>
                 
             </Grid>
         </Border>

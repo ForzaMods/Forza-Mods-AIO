@@ -71,16 +71,21 @@
                         Orientation="Horizontal"
                         Margin="10">
 
-                <Button Content="{DynamicResource Scan}"
+                <Button HorizontalAlignment="Center"
+                        Content="{DynamicResource Scan}"
+                        IsEnabled="{Binding ViewModel.AreScanPromptUiElementsEnabled}"
                         BorderThickness="0"
-                        Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
-
-                <mah:MetroProgressBar VerticalAlignment="Center"
-                                      Margin="10 0"
-                                      Value="0"
-                                      Width="100"
-                                      Height="10"
-                                      Background="{Binding Theming.DarkerColour, Mode=OneWay}" />
+                        mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
+                        mah:ControlsHelper.FocusBorderThickness="0"
+                        Background="{Binding Theming.DarkerColour, Mode=OneWay}" 
+                        Command="{Binding ViewModel.ScanCommand, Mode=OneWay}"/>
+                
+                <mah:ProgressRing VerticalAlignment="Center"
+                                  Margin="10 0"
+                                  Width="25"
+                                  Height="25"
+                                  Visibility="{Binding ViewModel.AreScanningUiElementsVisible, 
+                                  Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
             </StackPanel>
 
@@ -93,7 +98,8 @@
                           mah:HeaderedControlHelper.HeaderFontWeight="Bold"
                           mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
-                          Margin="10 0 10 10">
+                          Margin="10 0 10 10"
+                          IsEnabled="{Binding ViewModel.AreUiElementsEnabled}">
                     
                     <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Tires}, Mode=OneWay}"/>
@@ -106,7 +112,8 @@
                           mah:HeaderedControlHelper.HeaderFontWeight="Bold"
                           mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
-                          Margin="10 0 10 10">
+                          Margin="10 0 10 10"
+                          IsEnabled="{Binding ViewModel.AreUiElementsEnabled}">
                     
                     <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Gearing}, Mode=OneWay}"/>
@@ -120,7 +127,8 @@
                           mah:HeaderedControlHelper.HeaderFontWeight="Bold"
                           mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
-                          Margin="10 0 10 10">
+                          Margin="10 0 10 10"
+                          IsEnabled="{Binding ViewModel.AreUiElementsEnabled}">
                     
                     <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Alignment}, Mode=OneWay}"/>
@@ -134,7 +142,8 @@
                           mah:HeaderedControlHelper.HeaderFontWeight="Bold"
                           mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
-                          Margin="10 0 10 10">
+                          Margin="10 0 10 10"
+                          IsEnabled="{Binding ViewModel.AreUiElementsEnabled}">
                     
                     <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Springs}, Mode=OneWay}"/>
@@ -148,7 +157,8 @@
                           mah:HeaderedControlHelper.HeaderFontWeight="Bold"
                           mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
-                          Margin="10 0 10 10">
+                          Margin="10 0 10 10"
+                          IsEnabled="{Binding ViewModel.AreUiElementsEnabled}">
                     
                     <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Damping}, Mode=OneWay}"/>
@@ -162,7 +172,8 @@
                           mah:HeaderedControlHelper.HeaderFontWeight="Bold"
                           mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
-                          Margin="10 0 10 10">
+                          Margin="10 0 10 10"
+                          IsEnabled="{Binding ViewModel.AreUiElementsEnabled}">
                     
                     <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Aero}, Mode=OneWay}"/>
@@ -176,7 +187,8 @@
                           mah:HeaderedControlHelper.HeaderFontWeight="Bold"
                           mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
-                          Margin="10 0 10 10">
+                          Margin="10 0 10 10"
+                          IsEnabled="{Binding ViewModel.AreUiElementsEnabled}">
                     
                     <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Steering}, Mode=OneWay}"/>
@@ -190,7 +202,8 @@
                           mah:HeaderedControlHelper.HeaderFontWeight="Bold"
                           mah:HeaderedControlHelper.HeaderFontSize="{DynamicResource MahApps.Font.Size.Button}"
                           mah:HeaderedControlHelper.HeaderBackground="{Binding Theming.DarkerColour}"
-                          Margin="10 0 10 0">
+                          Margin="10 0 10 0"
+                          IsEnabled="{Binding ViewModel.AreUiElementsEnabled}">
                     
                     <Frame Content="{Binding Converter={StaticResource TypeToInstanceConverter}, 
                            ConverterParameter={x:Type subPages:Others}, Mode=OneWay}"/>

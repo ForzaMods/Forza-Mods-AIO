@@ -5,7 +5,7 @@ namespace Forza_Mods_AIO.Cheats.ForzaHorizon5;
 
 public class CarCheats : CheatsUtilities, ICheatsBase
 {
-    private const int LocalPlayerOffset = 0x231;
+    public const int LocalPlayerOffset = 0x231;
 
     private UIntPtr _localPlayerHookAddress;
     public UIntPtr LocalPlayerHookDetourAddress;

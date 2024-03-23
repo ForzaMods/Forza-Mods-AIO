@@ -20,12 +20,14 @@
                 </Grid.ColumnDefinitions>
 
                 
-                <ComboBox Grid.Column="0"
+                <ComboBox x:Name="MainComboBox" 
+                          Grid.Column="0"
                           VerticalAlignment="Center"
                           SelectedIndex="0"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
-                          Background="{DynamicResource MahApps.Brushes.AccentBase}">
+                          Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                          SelectionChanged="MainComboBox_OnSelectionChanged">
                     
                     <ComboBoxItem Content="{DynamicResource FrontSpringsMin}"/>
                     <ComboBoxItem Content="{DynamicResource FrontSpringsMax}"/>
@@ -34,7 +36,8 @@
                     
                 </ComboBox>
                 
-                <mah:NumericUpDown Grid.Column="1"
+                <mah:NumericUpDown x:Name="MainValueBox" 
+                                   Grid.Column="1"
                                    VerticalAlignment="Center"
                                    Margin="5 0"
                                    TextAlignment="Left"
@@ -42,14 +45,16 @@
                                    Value="0"
                                    mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   ValueChanged="MainValueBox_OnValueChanged"/>
                 
                 <Button Grid.Column="2"
                         VerticalAlignment="Center"
                         mah:ControlsHelper.FocusBorderThickness="0"
                         Content="{DynamicResource Pull}"
                         Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                        BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                        BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                        Click="MainButton_OnClick"/>
                 
             </Grid>
         </Border>
@@ -64,12 +69,14 @@
                 </Grid.ColumnDefinitions>
 
                 
-                <ComboBox Grid.Column="0"
+                <ComboBox x:Name="ComboBox"
+                          Grid.Column="0"
                           VerticalAlignment="Center"
                           SelectedIndex="0"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
-                          Background="{DynamicResource MahApps.Brushes.AccentBase}">
+                          Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                          SelectionChanged="ComboBox_OnSelectionChanged">
                     
                     <ComboBoxItem Content="{DynamicResource FrontRideHeightMin}"/>
                     <ComboBoxItem Content="{DynamicResource FrontRideHeightMax}"/>
@@ -80,27 +87,31 @@
                     
                 </ComboBox>
                 
-                <ComboBox Grid.Column="1"
+                <ComboBox x:Name="UnitBox" 
+                          Grid.Column="1"
                           VerticalAlignment="Center"
                           Margin="5 0"
                           SelectedIndex="0"
                           mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
-                          Background="{DynamicResource MahApps.Brushes.AccentBase}">
+                          Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                          SelectionChanged="UnitBox_OnSelectionChanged">
                     
                     <ComboBoxItem Content="{DynamicResource Centimeters}"/>
                     <ComboBoxItem Content="{DynamicResource Inches}"/>
                     
                 </ComboBox>
                 
-                <mah:NumericUpDown Grid.Column="2"
+                <mah:NumericUpDown x:Name="ValueBox" 
+                                   Grid.Column="2"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"
                                    Minimum="0"
                                    Value="0"
                                    mah:ControlsHelper.CornerRadius="{StaticResource ControlCornerRadius}"
                                    BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
-                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                                   Background="{DynamicResource MahApps.Brushes.AccentBase}"
+                                   ValueChanged="ValueBox_OnValueChanged"/>
                 
                 <Button Grid.Column="3"
                         VerticalAlignment="Center"
@@ -108,7 +119,8 @@
                         mah:ControlsHelper.FocusBorderThickness="0"
                         Content="{DynamicResource Pull}"
                         Background="{DynamicResource MahApps.Brushes.AccentBase}"
-                        BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"/>
+                        BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                        Click="ButtonBase_OnClick"/>
                 
             </Grid>
         </Border>

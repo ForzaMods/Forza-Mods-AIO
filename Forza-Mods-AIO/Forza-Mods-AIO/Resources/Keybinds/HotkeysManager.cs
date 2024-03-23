@@ -7,17 +7,15 @@ using Forza_Mods_AIO.Models;
 namespace Forza_Mods_AIO.Resources.Keybinds;
 
 // https://github.com/AngryCarrot789/KeyDownTester/blob/master/KeyDownTester/Keys/HotkeysManager.cs
-public static class HotkeysManager
+public static partial class HotkeysManager
 {
     private const int WhKeyboardLl = 13;
     private static readonly LowLevelKeyboardProc LowLevelProc = HookCallback;
     private static IntPtr _hookId = IntPtr.Zero;
-    private static readonly DebugSession HotkeyDebugSession = new("Hotkey Debug Session", [], []);
     
     static HotkeysManager()
     {
         Hotkeys = new List<GlobalHotkey>();
-        DebugSessions.GetInstance().EveryDebugSession.Add(HotkeyDebugSession);
     }
 
     private static List<GlobalHotkey> Hotkeys { get; }
@@ -35,7 +33,6 @@ public static class HotkeysManager
     public static void AddHotkey(GlobalHotkey hotkey)
     {
         Hotkeys.Add(hotkey);
-        HotkeyDebugSession.DebugInfoReports.Add(new DebugInfoReport("Added hotkey"));
     }
 
     public static void RemoveHotkey(GlobalHotkey hotkey)
@@ -45,7 +42,6 @@ public static class HotkeysManager
             foreach (var globalHotkey in Hotkeys.Where(globalHotkey => hotkey.Modifier == globalHotkey.Modifier && hotkey.Key == globalHotkey.Key))
             {
                 Hotkeys.Remove(globalHotkey);
-                HotkeyDebugSession.DebugInfoReports.Add(new DebugInfoReport("Removed hotkey"));
             }
         }
         catch
@@ -89,15 +85,15 @@ public static class HotkeysManager
 
     #region Native Methods
 
-    [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-    private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
+    [LibraryImport("user32.dll", EntryPoint = "SetWindowsHookExA", SetLastError = true)]
+    private static partial IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
 
-    [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+    [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool UnhookWindowsHookEx(IntPtr hhk);
+    private static partial void UnhookWindowsHookEx(IntPtr hhk);
 
-    [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-    private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+    [LibraryImport("user32.dll", SetLastError = true)]
+    private static partial IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
     #endregion
 }
